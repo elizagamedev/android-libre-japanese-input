@@ -1,0 +1,186 @@
+import com.google.protobuf.gradle.*
+
+plugins {
+  id("com.android.application")
+  id("org.jetbrains.kotlin.android")
+  id("com.google.protobuf") version "0.9.4"
+}
+
+val generatedDir = "$buildDir/neomozc"
+val generatedResDir = "$generatedDir/res"
+val generatedSrcDir = "$generatedDir/src"
+val generatedSvgZipDir = "$generatedDir/svg"
+
+val genEmojiDataScript = "scripts/gen_emoji_data.py"
+val genEmoticonDataScript = "scripts/gen_emoticon_data.py"
+
+val svgImageTemplateDir = "scripts/images/template"
+val svgImageTransformScript = "$svgImageTemplateDir/transform.py"
+val svgImageTemplateOutput = "$generatedSvgZipDir/transformed.zip"
+
+task<Exec>("generateSvgTemplateZip") {
+  inputs.files(svgImageTransformScript, svgImageTemplateDir)
+  outputs.files(svgImageTemplateOutput)
+
+  commandLine(
+    "python",
+    svgImageTransformScript,
+    "--input_dir=$svgImageTemplateDir",
+    "--output_zip=$svgImageTemplateOutput"
+  )
+}
+
+val svgImageAsIsDir = "scripts/images/svg"
+val svgImageAsIsOutput = "$generatedSvgZipDir/asis.zip"
+
+task<Exec>("generateSvgAsIsZip") {
+  inputs.files(svgImageAsIsDir)
+  outputs.files(svgImageAsIsOutput)
+
+  commandLine(
+    "zip",
+    "-q",
+    "-1",
+    "-j",
+    "-r",
+    svgImageAsIsOutput,
+    svgImageAsIsDir,
+  )
+}
+
+val genMozcDrawableScript = "scripts/gen_mozc_drawable.py"
+val genMozcDrawableLog = "$generatedDir/gen_mozc_drawable.log"
+
+task<Exec>("generateMozcDrawable") {
+  dependsOn("generateSvgTemplateZip")
+  dependsOn("generateSvgAsIsZip")
+
+  inputs.files(genMozcDrawableScript, svgImageTemplateOutput, svgImageAsIsOutput)
+  outputs.dirs("$generatedResDir/raw")
+  outputs.files(genMozcDrawableLog)
+
+  commandLine(
+    "python",
+    genMozcDrawableScript,
+    "--svg_paths=$svgImageAsIsOutput,$svgImageTemplateOutput",
+    "--output_dir=$generatedResDir/raw",
+    "--build_log=$genMozcDrawableLog"
+  )
+}
+
+// TODO: replace with upstream
+// val emojiData = "../third_party/mozc/src/data/emoji/emoji_data.tsv"
+val emojiData = "scripts/emoji_data.tsv"
+val generatedEmojiDataFile =
+  "$generatedSrcDir/org/mozc/android/inputmethod/japanese/emoji/EmojiData.java"
+
+task<Exec>("generateEmojiData") {
+  inputs.files(genEmojiDataScript, emojiData)
+  outputs.files(generatedEmojiDataFile)
+
+  commandLine(
+    "python",
+    genEmojiDataScript,
+    "--emoji_data=$emojiData",
+    "--output=$generatedEmojiDataFile"
+  )
+}
+
+// TODO: replace with upstream
+// val emoticonData = "../third_party/mozc/src/data/emoticon/categorized.tsv"
+val emoticonData = "scripts/emoticon_categorized.tsv"
+val generatedEmoticonDataFile =
+  "$generatedSrcDir/org/mozc/android/inputmethod/japanese/EmoticonData.java"
+
+task<Exec>("generateEmoticonData") {
+  inputs.files(genEmoticonDataScript, emoticonData)
+  outputs.files(generatedEmoticonDataFile)
+
+  commandLine(
+    "python",
+    genEmoticonDataScript,
+    "--input=$emoticonData",
+    "--output=$generatedEmoticonDataFile",
+    "--class_name=EmoticonData",
+    "--value_column=0",
+    "--category_column=1",
+  )
+}
+
+// TODO: replace with upstream
+// val symbolData = "../third_party/mozc/src/data/symbol/categorized.tsv"
+val symbolData = "scripts/symbol_categorized.tsv"
+val generatedSymbolDataFile =
+  "$generatedSrcDir/org/mozc/android/inputmethod/japanese/SymbolData.java"
+
+task<Exec>("generateSymbolData") {
+  inputs.files(genEmoticonDataScript, emoticonData)
+  outputs.files(generatedSymbolDataFile)
+
+  commandLine(
+    "python",
+    genEmoticonDataScript,
+    "--input=$symbolData",
+    "--output=$generatedSymbolDataFile",
+    "--class_name=SymbolData",
+    "--value_column=0",
+    "--category_column=1",
+  )
+}
+
+tasks.preBuild {
+  dependsOn("generateMozcDrawable")
+  dependsOn("generateEmojiData")
+  dependsOn("generateEmoticonData")
+  dependsOn("generateSymbolData")
+}
+
+android {
+  namespace = "org.mozc.android.inputmethod.japanese"
+  compileSdk = 33
+  buildToolsVersion = "33.0.2"
+
+  defaultConfig {
+    applicationId = "org.mozc.android.inputmethod.japanese"
+    minSdk = 26
+    targetSdk = 33
+    versionCode = 100
+    versionName = "0.1.0"
+
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  sourceSets {
+    getByName("main").run {
+      java.srcDirs(generatedSrcDir)
+      res.srcDirs(generatedResDir)
+    }
+  }
+
+  buildTypes {
+    release {
+      isMinifyEnabled = false
+      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+    }
+  }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+  }
+  kotlinOptions { jvmTarget = "11" }
+}
+
+dependencies {
+  implementation("androidx.appcompat:appcompat:1.6.1")
+  implementation("com.google.protobuf:protobuf-javalite:3.8.0")
+  implementation("com.google.guava:guava:32.1.3-android")
+
+  testImplementation("junit:junit:4.13.2")
+  androidTestImplementation("androidx.test.ext:junit:1.1.5")
+  androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+  protobuf(files("../third_party/mozc/src"))
+}
+
+// https://github.com/google/protobuf-gradle-plugin#default-outputs
+protobuf { generateProtoTasks { all().forEach { it.builtins { id("java") { option("lite") } } } } }
