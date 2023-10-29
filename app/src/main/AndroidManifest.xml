@@ -45,7 +45,7 @@
                android:allowBackup="false"
                android:theme="@style/AppThemeSelector"
                tools:targetApi="33">
-    <service android:name="org.mozc.android.inputmethod.japanese.MozcService"
+    <service android:name="sh.eliza.japaneseinput.MozcService"
              android:permission="android.permission.BIND_INPUT_METHOD"
              android:label="@string/app_full_name"
              android:exported="true">
@@ -56,7 +56,7 @@
     </service>
 
     <!-- Launcher Icon -->
-    <activity android:name="org.mozc.android.inputmethod.japanese.LauncherActivity"
+    <activity android:name="sh.eliza.japaneseinput.LauncherActivity"
               android:label="@string/app_full_name"
               android:exported="true">
       <intent-filter>
@@ -65,7 +65,7 @@
       </intent-filter>
     </activity>
 
-    <receiver android:name="org.mozc.android.inputmethod.japanese.LauncherIconVisibilityInitializer"
+    <receiver android:name="sh.eliza.japaneseinput.LauncherIconVisibilityInitializer"
               android:exported="false">
       <intent-filter>
         <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -75,20 +75,20 @@
     </receiver>
 
     <!-- Preference -->
-    <activity android:name="org.mozc.android.inputmethod.japanese.preference.MozcProxyPreferenceActivity" />
-    <activity android:name="org.mozc.android.inputmethod.japanese.preference.MozcFragmentPreferenceActivity"
+    <activity android:name="sh.eliza.japaneseinput.preference.MozcProxyPreferenceActivity" />
+    <activity android:name="sh.eliza.japaneseinput.preference.MozcFragmentPreferenceActivity"
               android:launchMode="singleTask"
               android:theme="@style/AppThemeSelectorSettings"/>
-    <activity android:name="org.mozc.android.inputmethod.japanese.preference.MozcFragmentSoftwareKeyboardAdvancedSettingsPreferenceActivity"
+    <activity android:name="sh.eliza.japaneseinput.preference.MozcFragmentSoftwareKeyboardAdvancedSettingsPreferenceActivity"
               android:launchMode="singleTop"
               android:theme="@style/AppThemeSelectorSettings"/>
 
-    <activity android:name="org.mozc.android.inputmethod.japanese.FirstTimeLaunchActivity" />
-    <activity android:name="org.mozc.android.inputmethod.japanese.preference.MiniBrowserActivity"
+    <activity android:name="sh.eliza.japaneseinput.FirstTimeLaunchActivity" />
+    <activity android:name="sh.eliza.japaneseinput.preference.MiniBrowserActivity"
               android:launchMode="singleTop" />
 
     <!-- User dictionary tool -->
-    <activity android:name="org.mozc.android.inputmethod.japanese.userdictionary.UserDictionaryToolActivity"
+    <activity android:name="sh.eliza.japaneseinput.userdictionary.UserDictionaryToolActivity"
               android:label="@string/user_dictionary_tool_app_name"
               android:uiOptions="splitActionBarWhenNarrow"
               android:configChanges="orientation|screenSize"
@@ -110,8 +110,8 @@
 
     <!-- TODO(matsuzakit): Use @string/user_dictionary_tool_export_provider_name for name and authorities.
          Currently resource reference is not used as it is not supported on API Level 7 (Eclair). -->
-    <provider android:name="org.mozc.android.inputmethod.japanese.userdictionary.UserDictionaryExportProvider"
-              android:authorities="org.mozc.android.inputmethod.japanese.userdictionary.UserDictionaryExportProvider"
+    <provider android:name="sh.eliza.japaneseinput.userdictionary.UserDictionaryExportProvider"
+              android:authorities="sh.eliza.japaneseinput.userdictionary.UserDictionaryExportProvider"
               android:exported="false"
               android:grantUriPermissions="true"/>
 
@@ -128,7 +128,7 @@
          - excludeFromRecents: this pseudo dialog shouldn't be shown on history
            list.
     -->
-    <activity android:name="org.mozc.android.inputmethod.japanese.mushroom.MushroomSelectionActivity"
+    <activity android:name="sh.eliza.japaneseinput.mushroom.MushroomSelectionActivity"
               android:launchMode="singleTask"
               android:taskAffinity=".mushroom"
               android:windowSoftInputMode="stateAlwaysHidden"
@@ -136,7 +136,7 @@
 
 
     <!-- Input device manager -->
-    <receiver android:name="org.mozc.android.inputmethod.japanese.InputDeviceReceiver"
+    <receiver android:name="sh.eliza.japaneseinput.InputDeviceReceiver"
               android:exported="false">
       <intent-filter>
         <action android:name="android.hardware.input.action.QUERY_KEYBOARD_LAYOUTS" />

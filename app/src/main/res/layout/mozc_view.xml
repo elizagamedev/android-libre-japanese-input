@@ -79,7 +79,7 @@ MozcView(Frame)
 
     FloatingCandidateView floating_candidate_view
 -->
-<org.mozc.android.inputmethod.japanese.MozcView
+<sh.eliza.japaneseinput.MozcView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mozc="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
@@ -181,7 +181,7 @@ MozcView(Frame)
                                     layout="@layout/candidate_view" />
                             </FrameLayout>
 
-                            <org.mozc.android.inputmethod.japanese.NarrowFrameView
+                            <sh.eliza.japaneseinput.NarrowFrameView
                                 android:id="@+id/narrow_frame"
                                 android:layout_width="fill_parent"
                                 android:layout_height="@dimen/narrow_frame_height"
@@ -200,7 +200,7 @@ MozcView(Frame)
                                     android:layout_height="fill_parent"
                                     android:layout_gravity="bottom" >
 
-                                    <org.mozc.android.inputmethod.japanese.view.MozcImageView
+                                    <sh.eliza.japaneseinput.view.MozcImageView
                                         android:id="@+id/hardware_composition_button"
                                         android:layout_width="64dip"
                                         android:layout_height="fill_parent"
@@ -208,7 +208,7 @@ MozcView(Frame)
                                         android:soundEffectsEnabled="false"
                                         mozc:maxImageHeight="@dimen/default_function_icon_height" />
 
-                                    <org.mozc.android.inputmethod.japanese.view.MozcImageView
+                                    <sh.eliza.japaneseinput.view.MozcImageView
                                         android:id="@+id/widen_button"
                                         android:layout_width="64dip"
                                         android:layout_height="fill_parent"
@@ -217,14 +217,14 @@ MozcView(Frame)
                                         android:contentDescription="@string/cd_narrow_frame_widen_button"
                                         mozc:maxImageHeight="@dimen/default_function_icon_height" />
                                 </FrameLayout>
-                            </org.mozc.android.inputmethod.japanese.NarrowFrameView>
+                            </sh.eliza.japaneseinput.NarrowFrameView>
 
                             <FrameLayout
                                 android:id="@+id/keyboard_frame"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content" >
 
-                                <org.mozc.android.inputmethod.japanese.keyboard.KeyboardView
+                                <sh.eliza.japaneseinput.keyboard.KeyboardView
                                     android:id="@+id/keyboard_view"
                                     android:layout_width="fill_parent"
                                     android:layout_height="@dimen/input_frame_height" />
@@ -243,7 +243,7 @@ MozcView(Frame)
                              "clickable=true" to this view, so that this view consumes click
                              events. -->
 
-                        <org.mozc.android.inputmethod.japanese.SymbolInputView
+                        <sh.eliza.japaneseinput.SymbolInputView
                             android:id="@+id/symbol_input_view"
                             android:layout_width="fill_parent"
                             android:layout_height="@dimen/symbol_view_height"
@@ -267,10 +267,10 @@ MozcView(Frame)
     </LinearLayout>
 
     <!-- TODO(hsumita): Replace this view by ViewStub for performance. -->
-    <org.mozc.android.inputmethod.japanese.FloatingCandidateView
+    <sh.eliza.japaneseinput.FloatingCandidateView
         android:id="@+id/floating_candidate_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:visibility="gone" />
 
-</org.mozc.android.inputmethod.japanese.MozcView>
+</sh.eliza.japaneseinput.MozcView>

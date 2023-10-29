@@ -38,7 +38,7 @@
         android:summary="@string/pref_haptic_feedback_description"
         android:title="@string/pref_haptic_feedback_title" />
 
-    <org.mozc.android.inputmethod.japanese.preference.SeekbarPreference
+    <sh.eliza.japaneseinput.preference.SeekbarPreference
         android:defaultValue="5"
         android:key="pref_haptic_feedback_duration_key"
         android:title="@string/pref_haptic_feedback_duration_title"
@@ -55,7 +55,7 @@
         android:summary="@string/pref_sound_feedback_description"
         android:title="@string/pref_sound_feedback_title" />
 
-    <org.mozc.android.inputmethod.japanese.preference.SeekbarPreference
+    <sh.eliza.japaneseinput.preference.SeekbarPreference
         android:defaultValue="50"
         android:key="pref_sound_feedback_volume_key"
         android:title="@string/pref_sound_feedback_volume_title"
@@ -74,7 +74,7 @@
   </PreferenceCategory>
 
   <PreferenceCategory android:title="@string/pref_other_input_support_preference_category_title">
-    <org.mozc.android.inputmethod.japanese.preference.MozcMultiSelectListPreference
+    <sh.eliza.japaneseinput.preference.MozcMultiSelectListPreference
         android:defaultValue="@array/pref_fullscreen_default_values"
         mozc:entries="@array/pref_fullscreen_entries"
         mozc:entryKeys="@array/pref_fullscreen_keys"

@@ -34,7 +34,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
-  <org.mozc.android.inputmethod.japanese.preference.MozcGallery
+  <sh.eliza.japaneseinput.preference.MozcGallery
       android:id="@+id/pref_inputstyle_gallery"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"

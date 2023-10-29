@@ -79,7 +79,7 @@
         android:id="@+id/user_dictionary_tool_word_register_dialog_pos"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        class="org.mozc.android.inputmethod.japanese.userdictionary.UserDictionaryUtil$PosSpinner"
+        class="sh.eliza.japaneseinput.userdictionary.UserDictionaryUtil$PosSpinner"
         android:spinnerMode="dropdown" />
 
 </LinearLayout>

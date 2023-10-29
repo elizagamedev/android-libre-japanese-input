@@ -37,7 +37,7 @@
     android:gravity="end"
     android:orientation="horizontal" >
 
-    <org.mozc.android.inputmethod.japanese.view.MozcImageView
+    <sh.eliza.japaneseinput.view.MozcImageView
         android:id="@+id/microphone_button"
         android:layout_width="@dimen/button_frame_button_width"
         android:layout_height="@dimen/button_frame_button_height"

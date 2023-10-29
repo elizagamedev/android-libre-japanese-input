@@ -86,7 +86,7 @@
                                 android:layout_height="fill_parent"
                                 android:layout_weight="0" />
 
-                            <org.mozc.android.inputmethod.japanese.view.MozcImageView
+                            <sh.eliza.japaneseinput.view.MozcImageView
                                 android:id="@+id/symbol_view_delete_button"
                                 android:layout_width="0dip"
                                 android:layout_height="fill_parent"
@@ -167,7 +167,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content" >
 
-                        <org.mozc.android.inputmethod.japanese.keyboard.KeyboardView
+                        <sh.eliza.japaneseinput.keyboard.KeyboardView
                             android:id="@+id/number_keyboard"
                             android:layout_width="fill_parent"
                             android:layout_height="@dimen/symbol_view_number_keyboard_height" />
@@ -216,7 +216,7 @@
             android:paddingTop="2dip"
             android:soundEffectsEnabled="false" >
 
-            <org.mozc.android.inputmethod.japanese.view.MozcImageView
+            <sh.eliza.japaneseinput.view.MozcImageView
                 android:id="@+id/symbol_view_close_button"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
@@ -234,7 +234,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="0" />
 
-            <org.mozc.android.inputmethod.japanese.view.MozcImageButton
+            <sh.eliza.japaneseinput.view.MozcImageButton
                 android:id="@+id/category_selector_major_number"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
@@ -245,7 +245,7 @@
                 android:soundEffectsEnabled="false"
                 mozc:maxImageHeight="@dimen/symbol_major_number_height" />
 
-            <org.mozc.android.inputmethod.japanese.view.MozcImageButton
+            <sh.eliza.japaneseinput.view.MozcImageButton
                 android:id="@+id/category_selector_major_symbol"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
@@ -256,7 +256,7 @@
                 android:soundEffectsEnabled="false"
                 mozc:maxImageHeight="@dimen/symbol_major_symbol_height" />
 
-            <org.mozc.android.inputmethod.japanese.view.MozcImageButton
+            <sh.eliza.japaneseinput.view.MozcImageButton
                 android:id="@+id/category_selector_major_emoticon"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
@@ -267,7 +267,7 @@
                 android:soundEffectsEnabled="false"
                 mozc:maxImageHeight="@dimen/symbol_major_emoticon_height" />
 
-            <org.mozc.android.inputmethod.japanese.view.MozcImageButton
+            <sh.eliza.japaneseinput.view.MozcImageButton
                 android:id="@+id/category_selector_major_emoji"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
@@ -284,7 +284,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="0" />
 
-            <org.mozc.android.inputmethod.japanese.view.MozcImageView
+            <sh.eliza.japaneseinput.view.MozcImageView
                 android:id="@+id/symbol_view_enter_button"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"

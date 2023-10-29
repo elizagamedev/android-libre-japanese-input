@@ -71,8 +71,7 @@ task<Exec>("generateMozcDrawable") {
 // TODO: replace with upstream
 // val emojiData = "../third_party/mozc/src/data/emoji/emoji_data.tsv"
 val emojiData = "scripts/emoji_data.tsv"
-val generatedEmojiDataFile =
-  "$generatedSrcDir/org/mozc/android/inputmethod/japanese/emoji/EmojiData.java"
+val generatedEmojiDataFile = "$generatedSrcDir/sh/eliza/japaneseinput/emoji/EmojiData.java"
 
 task<Exec>("generateEmojiData") {
   inputs.files(genEmojiDataScript, emojiData)
@@ -89,8 +88,7 @@ task<Exec>("generateEmojiData") {
 // TODO: replace with upstream
 // val emoticonData = "../third_party/mozc/src/data/emoticon/categorized.tsv"
 val emoticonData = "scripts/emoticon_categorized.tsv"
-val generatedEmoticonDataFile =
-  "$generatedSrcDir/org/mozc/android/inputmethod/japanese/EmoticonData.java"
+val generatedEmoticonDataFile = "$generatedSrcDir/sh/eliza/japaneseinput/EmoticonData.java"
 
 task<Exec>("generateEmoticonData") {
   inputs.files(genEmoticonDataScript, emoticonData)
@@ -110,8 +108,7 @@ task<Exec>("generateEmoticonData") {
 // TODO: replace with upstream
 // val symbolData = "../third_party/mozc/src/data/symbol/categorized.tsv"
 val symbolData = "scripts/symbol_categorized.tsv"
-val generatedSymbolDataFile =
-  "$generatedSrcDir/org/mozc/android/inputmethod/japanese/SymbolData.java"
+val generatedSymbolDataFile = "$generatedSrcDir/sh/eliza/japaneseinput/SymbolData.java"
 
 task<Exec>("generateSymbolData") {
   inputs.files(genEmoticonDataScript, emoticonData)
@@ -136,12 +133,12 @@ tasks.preBuild {
 }
 
 android {
-  namespace = "org.mozc.android.inputmethod.japanese"
+  namespace = "sh.eliza.japaneseinput"
   compileSdk = 33
   buildToolsVersion = "33.0.2"
 
   defaultConfig {
-    applicationId = "org.mozc.android.inputmethod.japanese"
+    applicationId = "sh.eliza.japaneseinput"
     minSdk = 26
     targetSdk = 33
     versionCode = 100

@@ -44,7 +44,7 @@ import sys
 import unicodedata
 
 
-PACKAGE_NAME = 'org.mozc.android.inputmethod.japanese'
+PACKAGE_NAME = 'sh.eliza.japaneseinput'
 
 TEMPLATE_CLASS = """package %s;
 public class %s {

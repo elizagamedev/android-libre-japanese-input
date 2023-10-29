@@ -36,7 +36,7 @@
     <!-- Short cut to the current keyboard layout. The values will be stored to
          the keyboard layout to portrait or landscape appropriately.
     -->
-    <org.mozc.android.inputmethod.japanese.preference.KeyboardLayoutPreference
+    <sh.eliza.japaneseinput.preference.KeyboardLayoutPreference
         android:defaultValue="TWELVE_KEYS"
         android:persistent="false"
         android:key="pref_current_keyboard_layout_key"
@@ -52,8 +52,8 @@
         android:title="@string/pref_software_keyboard_advanced_settings_title">
       <intent
           android:action="android.intent.action.MAIN"
-          android:targetPackage="org.mozc.android.inputmethod.japanese"
-          android:targetClass="org.mozc.android.inputmethod.japanese.preference.MozcFragmentSoftwareKeyboardAdvancedSettingsPreferenceActivity" />
+          android:targetPackage="sh.eliza.japaneseinput"
+          android:targetClass="sh.eliza.japaneseinput.preference.MozcFragmentSoftwareKeyboardAdvancedSettingsPreferenceActivity" />
     </Preference>
   </PreferenceCategory>
 </PreferenceScreen>

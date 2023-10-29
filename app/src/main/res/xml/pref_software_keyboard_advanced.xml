@@ -34,7 +34,7 @@
   <PreferenceCategory android:title="@string/pref_software_keyboard_preferences_portrait_title"
                       android:key="pref_software_keyboard_advanced_portrait_key"
                       android:persistent="false" >
-    <org.mozc.android.inputmethod.japanese.preference.KeyboardLayoutPreference
+    <sh.eliza.japaneseinput.preference.KeyboardLayoutPreference
         android:defaultValue="TWELVE_KEYS"
         android:key="pref_portrait_keyboard_layout_key"
         android:layout="@layout/pref_large_widget"
@@ -56,7 +56,7 @@
         android:summary="@string/pref_qwerty_layout_for_alphabet_description"
         android:title="@string/pref_qwerty_layout_for_alphabet_title" />
 
-    <org.mozc.android.inputmethod.japanese.preference.SeekbarPreference
+    <sh.eliza.japaneseinput.preference.SeekbarPreference
         android:key="pref_portrait_flick_sensitivity_key"
         android:summary="@string/pref_flick_sensitivity_description"
         android:title="@string/pref_flick_sensitivity_title"
@@ -75,7 +75,7 @@
         android:summary="@string/pref_layout_adjustment_description"
         android:title="@string/pref_layout_adjustment_title"/>
 
-    <org.mozc.android.inputmethod.japanese.preference.SeekbarPreference
+    <sh.eliza.japaneseinput.preference.SeekbarPreference
         android:key="pref_portrait_keyboard_height_ratio_key"
         android:summary="@string/pref_keyboard_height_ratio_description"
         android:title="@string/pref_keyboard_height_ratio_title"
@@ -96,7 +96,7 @@
         android:disableDependentsState="true"
         android:title="@string/pref_use_portrait_keyboard_settings_for_landscape_title" />
 
-    <org.mozc.android.inputmethod.japanese.preference.KeyboardLayoutPreference
+    <sh.eliza.japaneseinput.preference.KeyboardLayoutPreference
         android:defaultValue="TWELVE_KEYS"
         android:key="pref_landscape_keyboard_layout_key"
         android:layout="@layout/pref_large_widget"
@@ -121,7 +121,7 @@
         android:title="@string/pref_qwerty_layout_for_alphabet_title"
         android:dependency="pref_use_portrait_keyboard_settings_for_landscape_key" />
 
-    <org.mozc.android.inputmethod.japanese.preference.SeekbarPreference
+    <sh.eliza.japaneseinput.preference.SeekbarPreference
         android:key="pref_landscape_flick_sensitivity_key"
         android:summary="@string/pref_flick_sensitivity_description"
         android:title="@string/pref_flick_sensitivity_title"
@@ -141,7 +141,7 @@
         android:summary="@string/pref_layout_adjustment_description"
         android:title="@string/pref_layout_adjustment_title" />
 
-    <org.mozc.android.inputmethod.japanese.preference.SeekbarPreference
+    <sh.eliza.japaneseinput.preference.SeekbarPreference
         android:key="pref_landscape_keyboard_height_ratio_key"
         android:summary="@string/pref_keyboard_height_ratio_description"
         android:title="@string/pref_keyboard_height_ratio_title"

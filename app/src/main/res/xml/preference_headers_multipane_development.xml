@@ -31,7 +31,7 @@
 -->
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android" >
   <header
-      android:fragment="org.mozc.android.inputmethod.japanese.preference.PreferenceBaseFragment"
+      android:fragment="sh.eliza.japaneseinput.preference.PreferenceBaseFragment"
       android:title="@string/pref_fragment_development_title" >
 
     <!-- "PREFERENCE_PAGE" attribute corresponds to MozcBasePreferenceActivity.PreferencePage

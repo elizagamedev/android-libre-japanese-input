@@ -44,8 +44,8 @@
         android:title="@string/pref_about_oss_credits_title">
       <intent
           android:action="android.intent.action.MAIN"
-          android:targetPackage="org.mozc.android.inputmethod.japanese"
-          android:targetClass="org.mozc.android.inputmethod.japanese.preference.MiniBrowserActivity"
+          android:targetPackage="sh.eliza.japaneseinput"
+          android:targetClass="sh.eliza.japaneseinput.preference.MiniBrowserActivity"
           android:data="@string/pref_oss_credits_url" />
     </Preference>
 

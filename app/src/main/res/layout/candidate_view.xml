@@ -30,7 +30,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <!-- This file is a part of CandidateView so please maintain in parallel. -->
-<org.mozc.android.inputmethod.japanese.CandidateView xmlns:android="http://schemas.android.com/apk/res/android" >
+<sh.eliza.japaneseinput.CandidateView xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <LinearLayout
         android:id="@+id/candidate_word_frame"
@@ -48,7 +48,7 @@
             android:layout_width="0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            class="org.mozc.android.inputmethod.japanese.ConversionCandidateWordContainerView" >
+            class="sh.eliza.japaneseinput.ConversionCandidateWordContainerView" >
 
             <!--
                 layout_width/height attributes, which are mandatory, of the children are ignored.
@@ -60,9 +60,9 @@
                 android:id="@+id/candidate_word_view"
                 android:layout_width="0dip"
                 android:layout_height="0dip"
-                class="org.mozc.android.inputmethod.japanese.CandidateView$ConversionCandidateWordView" />
+                class="sh.eliza.japaneseinput.CandidateView$ConversionCandidateWordView" />
 
-            <org.mozc.android.inputmethod.japanese.ui.InputFrameFoldButtonView
+            <sh.eliza.japaneseinput.ui.InputFrameFoldButtonView
                 android:id="@+id/input_frame_fold_button"
                 android:layout_width="0dip"
                 android:layout_height="0dip"
@@ -75,11 +75,11 @@
                 android:contentDescription="@string/cd_keyboard_fold_button" />
         </view>
 
-        <org.mozc.android.inputmethod.japanese.ui.ScrollGuideView
+        <sh.eliza.japaneseinput.ui.ScrollGuideView
             android:id="@+id/candidate_scroll_guide_view"
             android:layout_width="@dimen/candidate_scrollbar_width"
             android:layout_height="fill_parent"
             android:layout_weight="0" />
     </LinearLayout>
 
-</org.mozc.android.inputmethod.japanese.CandidateView>
+</sh.eliza.japaneseinput.CandidateView>

@@ -180,7 +180,7 @@ def OutputData(category_map, stream):
   for data_list in category_map.values():
     data_list.sort()
 
-  stream.write('package org.mozc.android.inputmethod.japanese.emoji;\n'
+  stream.write('package sh.eliza.japaneseinput.emoji;\n'
                'public class EmojiData {\n')
 
   for category in _CATEGORY_LIST:
