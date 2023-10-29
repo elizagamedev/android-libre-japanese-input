@@ -6,7 +6,7 @@ plugins {
   id("com.google.protobuf") version "0.9.4"
 }
 
-val generatedDir = "$buildDir/neomozc"
+val generatedDir = "$buildDir/libre-japanese-input"
 val generatedResDir = "$generatedDir/res"
 val generatedSrcDir = "$generatedDir/src"
 val generatedSvgZipDir = "$generatedDir/svg"
@@ -154,6 +154,12 @@ android {
     getByName("main").run {
       java.srcDirs(generatedSrcDir)
       res.srcDirs(generatedResDir)
+      proto {
+        // TODO: Figure out a way to more cleanly specify a single include directory.
+        srcDirs("../third_party/mozc/src")
+        exclude("third_party/**/*.proto")
+        include("../protocol/*.proto")
+      }
     }
   }
 
@@ -178,8 +184,6 @@ dependencies {
   testImplementation("junit:junit:4.13.2")
   androidTestImplementation("androidx.test.ext:junit:1.1.5")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
-  protobuf(files("../third_party/mozc/src"))
 }
 
 // https://github.com/google/protobuf-gradle-plugin#default-outputs

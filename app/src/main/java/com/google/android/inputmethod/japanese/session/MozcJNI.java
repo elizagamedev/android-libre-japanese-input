@@ -63,7 +63,7 @@ class MozcJNI {
       }
       MozcLog.d("start MozcJNI#load " + System.nanoTime());
       try {
-        System.loadLibrary("mozc");
+        System.loadLibrary("mozcjni");
         MozcLog.v("loadLibrary succeeded");
       } catch (Throwable e) {
         MozcLog.e("loadLibrary failed", e);

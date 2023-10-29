@@ -18,6 +18,6 @@
     ./gradlew assembleRelease
     rm -rf app/release && mkdir -p app/release
     zipalign -v -p 4 app/build/outputs/apk/release/app-release-unsigned.apk app/release/app-release-unsigned-aligned.apk
-    apksigner sign --ks ~/.AndroidKeyStore/neomozc-fdroid.jks --out app/release/app-release.apk app/release/app-release-unsigned-aligned.apk
+    apksigner sign --ks ~/.AndroidKeyStore/libre-japanese-input-fdroid.jks --out app/release/app-release.apk app/release/app-release-unsigned-aligned.apk
     apksigner verify app/release/app-release.apk
   #+end_src

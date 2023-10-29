@@ -30,8 +30,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <resources>
-    <string name="app_name">neomozc</string>
-    <string name="app_full_name">neomozc</string>
+    <string name="app_name">Libre Japanese Input</string>
+    <string name="app_full_name">Libre Japanese Input</string>
     <string name="developer_organization">@elizagamedev</string>
-    <string name="mozc_preference">Preferences for Mozc</string>
+    <string name="mozc_preference">Preferences for Libre Japanese Input</string>
 </resources>

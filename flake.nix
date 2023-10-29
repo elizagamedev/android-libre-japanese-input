@@ -1,7 +1,7 @@
 # This flake is based on the lovely example here:
 # https://github.com/fcitx5-android/fcitx5-android/blob/master/flake.nix
 {
-  description = "Dev shell flake for neomozc";
+  description = "Dev shell flake for libre-japanese-input";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.flake-compat = {
@@ -19,7 +19,7 @@
       };
     in
     with pkgs;
-    with neomozc-android-sdk;
+    with project-android-sdk;
     {
 
       devShells.x86_64-linux.default =
@@ -47,7 +47,7 @@
         };
     } // {
       overlays.default = final: prev: {
-        neomozc-android-sdk = rec {
+        project-android-sdk = rec {
           buildToolsVersion = "33.0.2";
           androidComposition = prev.androidenv.composeAndroidPackages {
             platformToolsVersion = "34.0.1";

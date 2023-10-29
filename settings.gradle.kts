@@ -14,6 +14,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "neomozc"
+rootProject.name = "LibreJapaneseInput"
 
 include(":app")
