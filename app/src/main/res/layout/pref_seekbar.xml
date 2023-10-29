@@ -169,7 +169,7 @@
           app:layout_constraintLeft_toRightOf="@id/seekbar"
           app:layout_constraintRight_toRightOf="parent"
           android:gravity="center|right"
-          android:minWidth="60dp"
+          android:minWidth="70dp"
           android:paddingLeft="8dp"
           android:paddingStart="8dp"
           android:paddingRight="0dp"

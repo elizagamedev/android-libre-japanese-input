@@ -31,11 +31,11 @@
 -->
 <resources>
   <declare-styleable name="SeekBarPreference">
-    <attr name="seekbar_offset" format="integer" />
-    <attr name="seekbar_unit" format="string" />
-    <attr name="seekbar_low_text" format="string" />
-    <attr name="seekbar_middle_text" format="string" />
-    <attr name="seekbar_high_text" format="string" />
+    <attr name="min" format="integer" />
+    <attr name="unit" format="string" />
+    <attr name="low_text" format="string" />
+    <attr name="middle_text" format="string" />
+    <attr name="high_text" format="string" />
   </declare-styleable>
 
   <declare-styleable name="Keyboard">

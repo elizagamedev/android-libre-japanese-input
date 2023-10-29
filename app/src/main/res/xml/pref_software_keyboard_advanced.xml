@@ -64,10 +64,10 @@
         android:title="@string/pref_flick_sensitivity_title"
         android:max="10"
         android:defaultValue="0"
-        app:seekbar_offset="-10"
-        app:seekbar_low_text="@string/pref_flick_sensitivity_seekbar_low_text"
-        app:seekbar_middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
-        app:seekbar_high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
+        app:min="-10"
+        app:low_text="@string/pref_flick_sensitivity_seekbar_low_text"
+        app:middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
+        app:high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
 
     <androidx.preference.ListPreference
         android:defaultValue="FILL"
@@ -83,10 +83,10 @@
         android:title="@string/pref_keyboard_height_ratio_title"
         android:max="130"
         android:defaultValue="100"
-        app:seekbar_offset="70"
-        app:seekbar_low_text="@string/pref_flick_sensitivity_seekbar_low_text"
-        app:seekbar_middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
-        app:seekbar_high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
+        app:min="70"
+        app:low_text="@string/pref_flick_sensitivity_seekbar_low_text"
+        app:middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
+        app:high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
   </androidx.preference.PreferenceCategory>
 
   <androidx.preference.PreferenceCategory
@@ -131,10 +131,10 @@
         android:dependency="pref_use_portrait_keyboard_settings_for_landscape_key"
         android:max="10"
         android:defaultValue="0"
-        app:seekbar_offset="-10"
-        app:seekbar_low_text="@string/pref_flick_sensitivity_seekbar_low_text"
-        app:seekbar_middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
-        app:seekbar_high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
+        app:min="-10"
+        app:low_text="@string/pref_flick_sensitivity_seekbar_low_text"
+        app:middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
+        app:high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
     <androidx.preference.ListPreference
         android:dependency="pref_use_portrait_keyboard_settings_for_landscape_key"
         android:defaultValue="FILL"
@@ -151,9 +151,9 @@
         android:dependency="pref_use_portrait_keyboard_settings_for_landscape_key"
         android:max="130"
         android:defaultValue="100"
-        app:seekbar_offset="70"
-        app:seekbar_low_text="@string/pref_flick_sensitivity_seekbar_low_text"
-        app:seekbar_middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
-        app:seekbar_high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
+        app:min="70"
+        app:low_text="@string/pref_flick_sensitivity_seekbar_low_text"
+        app:middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
+        app:high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
   </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>

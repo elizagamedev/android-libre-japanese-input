@@ -31,11 +31,15 @@ package sh.eliza.japaneseinput.preference
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
+import android.view.KeyEvent
+import android.view.View
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
+import kotlin.math.max
+import kotlin.math.min
 import sh.eliza.japaneseinput.R
 
 /**
@@ -52,27 +56,57 @@ constructor(
   defStyleAttr: Int = 0,
   defStyleRes: Int = 0,
 ) : Preference(context, attrs, defStyleAttr, defStyleRes) {
-  private inner class SeekBarChangeListener
-  internal constructor(private val sensitivityTextView: TextView?) : OnSeekBarChangeListener {
-    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-      if (sensitivityTextView !== null) {
-        sensitivityTextView.text = getValueText(progress + offset)
-      }
-    }
-
-    override fun onStartTrackingTouch(seekBar: SeekBar) {}
-    override fun onStopTrackingTouch(seekBar: SeekBar) {
-      setValue(seekBar.getProgress() + offset)
-    }
-  }
-
+  private var seekBarValue = 0
+  private var seekBarIncrement = 0
+  private var seekBar: SeekBar? = null
+  private var seekBarValueTextView: TextView? = null
+  private var min = 0
   private var max = 1
-  private var offset = 0
-  private var value = 0
   private var unit: String? = null
   private var lowText: String? = null
   private var middleText: String? = null
   private var highText: String? = null
+
+  /** Listener reacting to the [SeekBar] changing value by the user */
+  private val seekBarChangeListener =
+    object : OnSeekBarChangeListener {
+      override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+        updateLabelValue(progress + min)
+      }
+
+      override fun onStartTrackingTouch(seekBar: SeekBar) {}
+
+      override fun onStopTrackingTouch(seekBar: SeekBar) {
+        if (seekBar.progress + min != seekBarValue) {
+          syncValue(seekBar)
+        }
+      }
+    }
+
+  /**
+   * Listener reacting to the user pressing DPAD left/right keys; it transfers the key presses to
+   * the [SeekBar] to be handled accordingly.
+   */
+  private val seekBarKeyListener =
+    object : View.OnKeyListener {
+      override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
+        if (event.action != KeyEvent.ACTION_DOWN) {
+          return false
+        }
+
+        // We don't want to propagate the click keys down to the SeekBar view since it will
+        // create the ripple effect for the thumb.
+        if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) {
+          return false
+        }
+
+        val seekBar = seekBar
+        if (seekBar === null) {
+          return false
+        }
+        return seekBar.onKeyDown(keyCode, event)
+      }
+    }
 
   init {
     context.theme.obtainStyledAttributes(
@@ -83,12 +117,13 @@ constructor(
       )
       .run {
         try {
-          offset = getInteger(R.styleable.SeekBarPreference_seekbar_offset, 0)
+          min = getInteger(R.styleable.SeekBarPreference_min, 0)
           max = getInteger(R.styleable.SeekBarPreference_android_max, 1)
-          unit = getString(R.styleable.SeekBarPreference_seekbar_unit)
-          lowText = getString(R.styleable.SeekBarPreference_seekbar_low_text)
-          middleText = getString(R.styleable.SeekBarPreference_seekbar_middle_text)
-          highText = getString(R.styleable.SeekBarPreference_seekbar_high_text)
+          seekBarIncrement = getInteger(R.styleable.SeekBarPreference_seekBarIncrement, 0)
+          unit = getString(R.styleable.SeekBarPreference_unit)
+          lowText = getString(R.styleable.SeekBarPreference_low_text)
+          middleText = getString(R.styleable.SeekBarPreference_middle_text)
+          highText = getString(R.styleable.SeekBarPreference_high_text)
         } finally {
           recycle()
         }
@@ -98,13 +133,12 @@ constructor(
     setLayoutResource(R.layout.pref_seekbar)
   }
 
-  override protected fun onGetDefaultValue(a: TypedArray, index: Int): Any {
-    return a.getInt(index, 0)
+  override protected fun onSetInitialValue(defaultValue: Any?) {
+    setValue(getPersistedInt(defaultValue as? Int ?: 0), notifyChanged = false)
   }
 
-  override protected fun onSetInitialValue(defaultValue: Any?) {
-    // TODO(exv): is this logic okay?
-    setValue(getPersistedInt(defaultValue as? Int ?: value))
+  override protected fun onGetDefaultValue(a: TypedArray, index: Int): Any? {
+    return a.getInt(index, 0)
   }
 
   override fun onBindViewHolder(holder: PreferenceViewHolder) {
@@ -113,20 +147,24 @@ constructor(
     holder.setDividerAllowedAbove(false)
     holder.setDividerAllowedBelow(true)
 
-    val valueView =
-      (holder.findViewById(R.id.seekbar_value) as TextView?)?.apply { text = getValueText(value) }
+    holder.itemView.setOnKeyListener(seekBarKeyListener)
 
-    (holder.findViewById(R.id.seekbar) as SeekBar?)?.run {
-      setMax(max - offset)
-      setProgress(value - offset)
-      setOnSeekBarChangeListener(SeekBarChangeListener(valueView))
-    }
+    seekBarValueTextView = holder.findViewById(R.id.seekbar_value) as? TextView?
+
+    seekBar =
+      (holder.findViewById(R.id.seekbar) as? SeekBar?)?.apply {
+        max = this@SeekBarPreference.max - this@SeekBarPreference.min
+        progress = seekBarValue - this@SeekBarPreference.min
+        setOnSeekBarChangeListener(seekBarChangeListener)
+      }
+
+    updateLabelValue(seekBarValue)
 
     fun setTextView(text: String?, resourceId: Int) {
       if (text == null) {
         return
       }
-      val textView = holder.findViewById(resourceId) as TextView ?: return
+      val textView = holder.findViewById(resourceId) as? TextView ?: return
       textView.text = text
     }
 
@@ -135,18 +173,42 @@ constructor(
     setTextView(highText, R.id.pref_seekbar_high_text)
   }
 
-  fun setValue(value: Int) {
-    this.value = value
-    persistInt(value)
-    notifyDependencyChange(shouldDisableDependents())
-    notifyChanged()
+  private fun setValue(value: Int, notifyChanged: Boolean) {
+    val newValue = min(this.max, max(this.min, value))
+    if (newValue != seekBarValue) {
+      seekBarValue = newValue
+      updateLabelValue(newValue)
+      persistInt(newValue)
+      if (notifyChanged) {
+        notifyChanged()
+      }
+    }
   }
 
-  private fun getValueText(value: Int): String {
-    return if (unit !== null) {
-      value.toString() + " " + unit
-    } else {
-      value.toString()
+  /**
+   * Persist the [SeekBar]'s SeekBar value if callChangeListener returns true, otherwise set the
+   * [SeekBar]'s value to the stored value.
+   */
+  private fun syncValue(seekBar: SeekBar) {
+    val newValue = min + seekBar.progress
+    if (newValue != seekBarValue) {
+      if (callChangeListener(newValue)) {
+        setValue(newValue, false)
+      } else {
+        seekBar.progress = seekBarValue - min
+        updateLabelValue(seekBarValue)
+      }
+    }
+  }
+
+  private fun updateLabelValue(value: Int) {
+    seekBarValueTextView?.let {
+      it.text =
+        if (unit !== null) {
+          value.toString() + " " + unit
+        } else {
+          value.toString()
+        }
     }
   }
 }

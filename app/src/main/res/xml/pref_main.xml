@@ -73,10 +73,10 @@
         android:title="@string/pref_haptic_feedback_duration_title"
         android:max="250"
         android:dependency="pref_haptic_feedback_key"
-        app:seekbar_offset="0"
-        app:seekbar_low_text="@string/pref_haptic_feedback_duration_low_text"
-        app:seekbar_high_text="@string/pref_haptic_feedback_duration_high_text"
-        app:seekbar_unit="ms" />
+        app:min="0"
+        app:low_text="@string/pref_haptic_feedback_duration_low_text"
+        app:high_text="@string/pref_haptic_feedback_duration_high_text"
+        app:unit="ms" />
 
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="false"
@@ -90,10 +90,10 @@
         android:title="@string/pref_sound_feedback_volume_title"
         android:dependency="pref_sound_feedback_key"
         android:max="100"
-        app:seekbar_offset="0"
-        app:seekbar_low_text="@string/pref_sound_feedback_volume_low_text"
-        app:seekbar_middle_text="@string/pref_sound_feedback_volume_middle_text"
-        app:seekbar_high_text="@string/pref_sound_feedback_volume_high_text" />
+        app:min="0"
+        app:low_text="@string/pref_sound_feedback_volume_low_text"
+        app:middle_text="@string/pref_sound_feedback_volume_middle_text"
+        app:high_text="@string/pref_sound_feedback_volume_high_text" />
 
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="true"
