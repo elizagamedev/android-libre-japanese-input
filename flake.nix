@@ -40,7 +40,7 @@
             "${androidComposition.androidsdk}/libexec/android-sdk";
           GRADLE_OPTS =
             "-Dorg.gradle.project.android.aapt2FromMavenOverride=${build-tools}/aapt2";
-          JAVA_HOME = "${jdk11}";
+          JAVA_HOME = "${jdk17}";
           shellHook = ''
             echo sdk.dir=$ANDROID_SDK_ROOT > local.properties
             export PATH="$PATH:${build-tools}"
