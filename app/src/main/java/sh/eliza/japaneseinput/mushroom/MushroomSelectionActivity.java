@@ -29,7 +29,6 @@
 
 package sh.eliza.japaneseinput.mushroom;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -45,13 +44,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 import sh.eliza.japaneseinput.R;
 
 /**
  * This is the activity to select a Mushroom application to be launched. Also, this class proxies
  * the {@code replace_key} between MozcService and the mushroom application.
  */
-public class MushroomSelectionActivity extends Activity {
+public class MushroomSelectionActivity extends AppCompatActivity {
 
   /**
    * ListAdapter to use custom view (Application Icon followed by Application Name) for ListView
@@ -72,11 +72,9 @@ public class MushroomSelectionActivity extends Activity {
       // Set appropriate application icon and its name.
       PackageManager packageManager = getContext().getPackageManager();
       ResolveInfo resolveInfo = getItem(position);
-      ImageView icon =
-          ImageView.class.cast(contentView.findViewById(R.id.mushroom_application_icon));
+      ImageView icon = (ImageView) contentView.findViewById(R.id.mushroom_application_icon);
       icon.setImageDrawable(resolveInfo.loadIcon(packageManager));
-      TextView text =
-          TextView.class.cast(contentView.findViewById(R.id.mushroom_application_label));
+      TextView text = (TextView) contentView.findViewById(R.id.mushroom_application_label);
       text.setText(resolveInfo.loadLabel(packageManager));
       return contentView;
     }
@@ -84,16 +82,16 @@ public class MushroomSelectionActivity extends Activity {
 
   /** ClickListener to launch the target activity. */
   static class MushroomApplicationListClickListener implements OnItemClickListener {
-    private Activity activity;
+    private final AppCompatActivity activity;
 
-    MushroomApplicationListClickListener(Activity activity) {
+    MushroomApplicationListClickListener(AppCompatActivity activity) {
       this.activity = activity;
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
       MushroomUtil.clearProxy();
-      ResolveInfo resolveInfo = ResolveInfo.class.cast(adapter.getItemAtPosition(position));
+      ResolveInfo resolveInfo = (ResolveInfo) adapter.getItemAtPosition(position);
       ActivityInfo activityInfo = resolveInfo.activityInfo;
       activity.startActivityForResult(
           MushroomUtil.createMushroomLaunchingIntent(
@@ -111,7 +109,7 @@ public class MushroomSelectionActivity extends Activity {
     super.onCreate(savedInstance);
     setContentView(R.layout.mushroom_selection_dialog);
 
-    ListView view = ListView.class.cast(findViewById(R.id.mushroom_selection_list_view));
+    ListView view = (ListView) findViewById(R.id.mushroom_selection_list_view);
     view.setOnItemClickListener(new MushroomApplicationListClickListener(this));
   }
 
@@ -122,7 +120,7 @@ public class MushroomSelectionActivity extends Activity {
     // Reset application list for every onResume.
     // It is because this activity is launched in singleTask mode, so that the onCreate may be
     // skipped for second (or later) launching.
-    ListView view = ListView.class.cast(findViewById(R.id.mushroom_selection_list_view));
+    ListView view = (ListView) findViewById(R.id.mushroom_selection_list_view);
     view.setAdapter(new MushroomApplicationListAdapter(this));
   }
 

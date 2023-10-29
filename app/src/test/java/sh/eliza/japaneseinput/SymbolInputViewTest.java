@@ -33,11 +33,11 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.isA;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.view.View;
 import android.view.View.OnClickListener;
+import androidx.appcompat.app.AlertDialog;
 import com.google.common.base.Optional;
 import java.util.Collections;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
@@ -222,8 +222,7 @@ public class SymbolInputViewTest extends InstrumentationTestCaseWithMock {
 
     view.new SymbolCandidateSelectListener()
         .onCandidateSelected(
-            CandidateWord.newBuilder().setValue("(^_^)").buildPartial(),
-            Optional.<Integer>absent());
+            CandidateWord.newBuilder().setValue("(^_^)").buildPartial(), Optional.absent());
 
     verifyAll();
   }

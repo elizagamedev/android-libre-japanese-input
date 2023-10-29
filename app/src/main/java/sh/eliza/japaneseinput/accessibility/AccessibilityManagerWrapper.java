@@ -203,8 +203,8 @@ class AccessibilityManagerWrapper {
 
   AccessibilityManagerWrapper(Context context) {
     AccessibilityManager manager =
-        AccessibilityManager.class.cast(
-            Preconditions.checkNotNull(context).getSystemService(Context.ACCESSIBILITY_SERVICE));
+        (AccessibilityManager)
+            Preconditions.checkNotNull(context).getSystemService(Context.ACCESSIBILITY_SERVICE);
     if (Build.VERSION.SDK_INT < 14) {
       managerProxy = new ManagerLessThan14(manager);
     } else if (Build.VERSION.SDK_INT < 19) {

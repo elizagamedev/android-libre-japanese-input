@@ -39,11 +39,11 @@ import sh.eliza.japaneseinput.R;
 /** Views which support MozcDrawable should implement this interface delegate some methods. */
 public interface MozcImageCapableView {
 
-  public void setMaxImageWidth(int maxImageWidth);
+  void setMaxImageWidth(int maxImageWidth);
 
-  public void setMaxImageHeight(int maxImageHeight);
+  void setMaxImageHeight(int maxImageHeight);
 
-  public ImageView asImageView();
+  ImageView asImageView();
 
   /** Delagate object used by the views implementing MozcImageCapableView. */
   class MozcImageCapableViewDelegate {

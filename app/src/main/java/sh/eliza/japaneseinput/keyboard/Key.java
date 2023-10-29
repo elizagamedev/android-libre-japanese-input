@@ -145,7 +145,7 @@ public class Key {
     this.defaultKeyState = defaultKeyState;
     this.keyStateList =
         tmpKeyStateList == null
-            ? Collections.<KeyState>emptyList()
+            ? Collections.emptyList()
             : Collections.unmodifiableList(tmpKeyStateList);
   }
 

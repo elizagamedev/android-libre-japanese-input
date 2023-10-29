@@ -50,8 +50,6 @@ import sh.eliza.japaneseinput.keyboard.Key;
 import sh.eliza.japaneseinput.keyboard.Key.Stick;
 import sh.eliza.japaneseinput.keyboard.KeyEventContext;
 import sh.eliza.japaneseinput.keyboard.KeyEventHandler;
-import sh.eliza.japaneseinput.keyboard.KeyState;
-import sh.eliza.japaneseinput.keyboard.KeyState.MetaState;
 import sh.eliza.japaneseinput.keyboard.KeyboardActionListener;
 import sh.eliza.japaneseinput.testing.InstrumentationTestCaseWithMock;
 
@@ -79,7 +77,7 @@ public class KeyEventButtonTouchListenerTest extends InstrumentationTestCaseWith
             false,
             Stick.EVEN,
             DrawableType.TWELVEKEYS_REGULAR_KEY_BACKGROUND,
-            Collections.<KeyState>emptyList());
+            Collections.emptyList());
     return createMockBuilder(KeyEventContext.class)
         .withConstructor(
             Key.class,
@@ -116,7 +114,7 @@ public class KeyEventButtonTouchListenerTest extends InstrumentationTestCaseWith
     view.layout(0, 0, 50, 50);
     Key key = KeyEventButtonTouchListener.createKey(view, 1, 10);
     KeyEventContext keyEventContext =
-        new KeyEventContext(key, 0, 0, 0, 0, 100, 100, Collections.<MetaState>emptySet());
+        new KeyEventContext(key, 0, 0, 0, 0, 100, 100, Collections.emptySet());
 
     keyEventHandler.cancelDelayedKeyEvent(keyEventContext);
     replayAll();
@@ -143,7 +141,7 @@ public class KeyEventButtonTouchListenerTest extends InstrumentationTestCaseWith
     view.layout(0, 0, 50, 50);
     Key key = KeyEventButtonTouchListener.createKey(view, 1, 10);
     KeyEventContext keyEventContext =
-        new KeyEventContext(key, 0, 0, 0, 0, 100, 100, Collections.<MetaState>emptySet());
+        new KeyEventContext(key, 0, 0, 0, 0, 100, 100, Collections.emptySet());
     keyEventButtonTouchListener.keyEventContext = keyEventContext;
 
     // For onDown, first, cancelDelayedKeyEvent should be invoked to cancel old
@@ -171,7 +169,7 @@ public class KeyEventButtonTouchListenerTest extends InstrumentationTestCaseWith
     view.layout(0, 0, 50, 50);
     Key key = KeyEventButtonTouchListener.createKey(view, 1, 10);
     KeyEventContext keyEventContext =
-        new KeyEventContext(key, 0, 0, 0, 0, 100, 100, Collections.<MetaState>emptySet());
+        new KeyEventContext(key, 0, 0, 0, 0, 100, 100, Collections.emptySet());
     keyEventButtonTouchListener.keyEventContext = keyEventContext;
 
     keyEventHandler.cancelDelayedKeyEvent(keyEventContext);

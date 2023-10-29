@@ -48,7 +48,7 @@ public class VisibilityProxy {
    * @return the field value
    */
   public static <T> T getField(Object target, String fieldName) {
-    return VisibilityProxy.<T>getFieldInternal(target.getClass(), target, fieldName);
+    return VisibilityProxy.getFieldInternal(target.getClass(), target, fieldName);
   }
 
   /**
@@ -59,7 +59,7 @@ public class VisibilityProxy {
    * @return the field value
    */
   public static <T> T getStaticField(Class<?> targetClass, String fieldName) {
-    return VisibilityProxy.<T>getFieldInternal(targetClass, null, fieldName);
+    return VisibilityProxy.getFieldInternal(targetClass, null, fieldName);
   }
 
   private static <T> T getFieldInternal(Class<?> clazz, Object target, String fieldName) {
@@ -134,7 +134,7 @@ public class VisibilityProxy {
    */
   public static <T> T invokeByName(Object target, String methodName, Object... args)
       throws InvocationTargetException {
-    return VisibilityProxy.<T>invokeByNameInternal(target.getClass(), target, methodName, args);
+    return VisibilityProxy.invokeByNameInternal(target.getClass(), target, methodName, args);
   }
 
   /**
@@ -149,7 +149,7 @@ public class VisibilityProxy {
    */
   public static <T> T invokeStaticByName(Class<?> clazz, String methodName, Object... args)
       throws InvocationTargetException {
-    return VisibilityProxy.<T>invokeByNameInternal(clazz, null, methodName, args);
+    return VisibilityProxy.invokeByNameInternal(clazz, null, methodName, args);
   }
 
   private static <T> T invokeByNameInternal(

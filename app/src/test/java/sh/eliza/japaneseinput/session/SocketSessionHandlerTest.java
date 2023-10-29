@@ -35,7 +35,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import junit.framework.TestCase;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input;
@@ -44,7 +43,7 @@ import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Output;
 
 /** */
 public class SocketSessionHandlerTest extends TestCase {
-  public void testSessionHandlerSocket() throws UnknownHostException, IOException {
+  public void testSessionHandlerSocket() throws IOException {
     final InetAddress host = InetAddress.getByName("localhost");
     final ServerSocket serverSocket = new ServerSocket(0);
     final int port = serverSocket.getLocalPort();
@@ -103,7 +102,7 @@ public class SocketSessionHandlerTest extends TestCase {
                 .setOutput(Output.getDefaultInstance())
                 .build();
         Command outCommand = handler.evalCommand(inCommand);
-        assertTrue(outCommand.getOutput().getId() == 1);
+        assertEquals(1, outCommand.getOutput().getId());
       }
       // Send 2nd message.
       {
@@ -113,7 +112,7 @@ public class SocketSessionHandlerTest extends TestCase {
                 .setOutput(Output.getDefaultInstance())
                 .build();
         Command outCommand = handler.evalCommand(inCommand);
-        assertTrue(outCommand.getOutput().getId() == 2);
+        assertEquals(2, outCommand.getOutput().getId());
       }
       // Send 3rd message but socket client (mozc server) is disconnected.
       {

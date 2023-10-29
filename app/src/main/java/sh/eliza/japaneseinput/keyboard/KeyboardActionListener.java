@@ -34,11 +34,11 @@ import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchE
 
 /** A listener of keyboard actions. */
 public interface KeyboardActionListener {
-  public void onCancel();
+  void onCancel();
 
-  public void onPress(int keycode);
+  void onPress(int keycode);
 
-  public void onRelease(int keycode);
+  void onRelease(int keycode);
 
-  public void onKey(int primaryCode, List<TouchEvent> touchEventList);
+  void onKey(int primaryCode, List<TouchEvent> touchEventList);
 }

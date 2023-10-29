@@ -78,7 +78,7 @@ public class KeyboardParser {
       private boolean isRepeatable;
       private boolean isModifier;
       private Stick stick = Stick.EVEN;
-      private List<KeyState> keyStateList = Collections.<KeyState>emptyList();
+      private List<KeyState> keyStateList = Collections.emptyList();
 
       Builder setWidth(int width) {
         this.width = width;
@@ -487,7 +487,7 @@ public class KeyboardParser {
     }
 
     throw new IllegalArgumentException(
-        "The type dimension or fraction is required." + "  value = " + value.toString());
+        "The type dimension or fraction is required." + "  value = " + value);
   }
 
   @VisibleForTesting
@@ -501,8 +501,7 @@ public class KeyboardParser {
       return Math.round(TypedValue.complexToFraction(value.data, base, base));
     }
 
-    throw new IllegalArgumentException(
-        "The type fraction is required.  value = " + value.toString());
+    throw new IllegalArgumentException("The type fraction is required.  value = " + value);
   }
 
   /**

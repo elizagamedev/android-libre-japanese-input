@@ -44,8 +44,7 @@ class AudioManagerWrapper {
 
   AudioManagerWrapper(Context context) {
     this.manager =
-        AudioManager.class.cast(
-            Preconditions.checkNotNull(context).getSystemService(Context.AUDIO_SERVICE));
+        (AudioManager) Preconditions.checkNotNull(context).getSystemService(Context.AUDIO_SERVICE);
   }
 
   public boolean isBluetoothA2dpOn() {

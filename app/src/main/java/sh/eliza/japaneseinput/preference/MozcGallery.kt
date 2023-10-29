@@ -26,37 +26,32 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+package sh.eliza.japaneseinput.preference
 
-package sh.eliza.japaneseinput.preference;
-
-import android.content.Context;
-import android.content.DialogInterface;
-import android.preference.DialogPreference;
-import android.util.AttributeSet;
-import sh.eliza.japaneseinput.session.SessionExecutor;
-import sh.eliza.japaneseinput.session.SessionHandlerFactory;
+import android.content.Context
+import android.util.AttributeSet
+import android.view.MotionEvent
+import android.widget.Gallery
 
 /**
- * A DialogPreference to clear entire history of conversions. This preference command clears all the
- * kind of conversion histories including predictions and suggestions.
+ * Gallery to show the keyboard layout images. The only difference from the [Gallery] is that this
+ * class handles "enabled" state, while Gallery doesn't.
  */
-public class ClearConversionHistoryDialogPreference extends DialogPreference {
-  public ClearConversionHistoryDialogPreference(Context context, AttributeSet attrs, int defStyle) {
-    super(context, attrs, defStyle);
-  }
+@Suppress("deprecation")
+class MozcGallery : Gallery {
+  constructor(context: Context) : super(context)
+  constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+  constructor(
+    context: Context,
+    attrs: AttributeSet?,
+    defStyle: Int
+  ) : super(context, attrs, defStyle)
 
-  public ClearConversionHistoryDialogPreference(Context context, AttributeSet attrs) {
-    super(context, attrs);
-  }
-
-  @Override
-  public void onClick(DialogInterface dialog, int which) {
-    if (which == DialogInterface.BUTTON_POSITIVE) {
-      SessionExecutor sessionExecutor =
-          SessionExecutor.getInstanceInitializedIfNecessary(
-              new SessionHandlerFactory(getContext()), getContext());
-      sessionExecutor.clearUserHistory();
-      sessionExecutor.clearUserPrediction();
-    }
+  override fun onTouchEvent(e: MotionEvent): Boolean {
+    return if (!isEnabled) {
+      // Consumes the key event in order not to propagate the event
+      // to views under this view.
+      true
+    } else super.onTouchEvent(e)
   }
 }

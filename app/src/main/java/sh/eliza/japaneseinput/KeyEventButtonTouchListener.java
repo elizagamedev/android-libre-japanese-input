@@ -45,7 +45,6 @@ import sh.eliza.japaneseinput.keyboard.KeyEntity;
 import sh.eliza.japaneseinput.keyboard.KeyEventContext;
 import sh.eliza.japaneseinput.keyboard.KeyEventHandler;
 import sh.eliza.japaneseinput.keyboard.KeyState;
-import sh.eliza.japaneseinput.keyboard.PopUp;
 
 /**
  * This class is an event listener for a view which sends a key to MozcServer.
@@ -96,9 +95,9 @@ public class KeyEventButtonTouchListener implements OnTouchListener {
             KeyEntity.INVALID_KEY_CODE,
             true,
             0,
-            Optional.<String>absent(),
+            Optional.absent(),
             false,
-            Optional.<PopUp>absent(),
+            Optional.absent(),
             0,
             0,
             0,
@@ -107,9 +106,9 @@ public class KeyEventButtonTouchListener implements OnTouchListener {
     KeyState keyState =
         new KeyState(
             "",
-            Collections.<KeyState.MetaState>emptySet(),
-            Collections.<KeyState.MetaState>emptySet(),
-            Collections.<KeyState.MetaState>emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet(),
             Collections.singletonList(flick));
     // Now, we support repeatable keys only.
     return new Key(
@@ -129,16 +128,9 @@ public class KeyEventButtonTouchListener implements OnTouchListener {
   private static KeyEventContext createKeyEventContext(
       View button, int sourceId, int keyCode, float x, float y) {
     Key key = createKey(button, sourceId, keyCode);
-    View parent = View.class.cast(button.getParent());
+    View parent = (View) button.getParent();
     return new KeyEventContext(
-        key,
-        0,
-        x,
-        y,
-        parent.getWidth(),
-        parent.getHeight(),
-        0,
-        Collections.<KeyState.MetaState>emptySet());
+        key, 0, x, y, parent.getWidth(), parent.getHeight(), 0, Collections.emptySet());
   }
 
   /**

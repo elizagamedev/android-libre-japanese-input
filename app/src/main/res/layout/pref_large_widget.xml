@@ -43,7 +43,7 @@
     android:layout_height="wrap_content"
     android:baselineAligned="false"
     android:gravity="center_vertical"
-    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:minHeight="?attr/listPreferredItemHeight"
     android:orientation="vertical"
     android:paddingRight="?android:attr/scrollbarSize" >
 

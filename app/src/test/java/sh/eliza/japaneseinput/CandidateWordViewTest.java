@@ -82,7 +82,7 @@ public class CandidateWordViewTest extends InstrumentationTestCaseWithMock {
   }
 
   public static Span createNullCandidateWordSpan(int left, int right) {
-    Span span = new Span(Optional.<CandidateWord>absent(), 0, 0, Collections.<String>emptyList());
+    Span span = new Span(Optional.absent(), 0, 0, Collections.emptyList());
     span.setLeft(left);
     span.setRight(right);
     return span;
@@ -237,7 +237,7 @@ public class CandidateWordViewTest extends InstrumentationTestCaseWithMock {
       resetAll();
       expect(mockLayout.getRowList()).andStubReturn(ROW_DATA);
       candidateSelectListener.onCandidateSelected(
-          ROW_DATA.get(0).getSpanList().get(0).getCandidateWord().get(), Optional.<Integer>of(0));
+          ROW_DATA.get(0).getSpanList().get(0).getCandidateWord().get(), Optional.of(0));
       replayAll();
       events.add(MotionEvent.obtain(0, 0, MotionEvent.ACTION_DOWN, 10, 10, 0));
       assertTrue(candidateWordView.onTouchEvent(events.get(events.size() - 1)));
@@ -249,7 +249,7 @@ public class CandidateWordViewTest extends InstrumentationTestCaseWithMock {
       resetAll();
       expect(mockLayout.getRowList()).andStubReturn(ROW_DATA);
       candidateSelectListener.onCandidateSelected(
-          ROW_DATA.get(0).getSpanList().get(0).getCandidateWord().get(), Optional.<Integer>of(0));
+          ROW_DATA.get(0).getSpanList().get(0).getCandidateWord().get(), Optional.of(0));
       replayAll();
       events.add(MotionEvent.obtain(0, 0, MotionEvent.ACTION_DOWN, 10, 10, 0));
       assertTrue(candidateWordView.onTouchEvent(events.get(events.size() - 1)));
@@ -263,7 +263,7 @@ public class CandidateWordViewTest extends InstrumentationTestCaseWithMock {
       resetAll();
       expect(mockLayout.getRowList()).andStubReturn(ROW_DATA);
       candidateSelectListener.onCandidateSelected(
-          ROW_DATA.get(0).getSpanList().get(0).getCandidateWord().get(), Optional.<Integer>of(0));
+          ROW_DATA.get(0).getSpanList().get(0).getCandidateWord().get(), Optional.of(0));
       replayAll();
       events.add(MotionEvent.obtain(0, 0, MotionEvent.ACTION_DOWN, 29, 27, 0));
       assertTrue(candidateWordView.onTouchEvent(events.get(events.size() - 1)));

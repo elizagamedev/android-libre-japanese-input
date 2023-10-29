@@ -35,7 +35,6 @@ import android.test.suitebuilder.annotation.SmallTest;
 import com.google.common.base.Optional;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Map;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateList;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
 import sh.eliza.japaneseinput.emoji.EmojiProviderType;
@@ -53,7 +52,7 @@ public class SymbolCandidateStorageTest extends InstrumentationTestCaseWithMock 
             Arrays.asList(
                 "1", "\uff12", // ２
                 "33"),
-            Optional.<Map<String, String>>absent());
+            Optional.absent());
 
     assertEquals(3, candidateList.getCandidatesCount());
     // "1" has description.
@@ -133,11 +132,7 @@ public class SymbolCandidateStorageTest extends InstrumentationTestCaseWithMock 
       for (boolean unicodeEmojiEnabled : new boolean[] {true, false}) {
         for (boolean carrierEmojiEnabled : new boolean[] {true, false}) {
           String testLabel =
-              testData.toString()
-                  + ", unicode:"
-                  + unicodeEmojiEnabled
-                  + ", carrier:"
-                  + carrierEmojiEnabled;
+              testData + ", unicode:" + unicodeEmojiEnabled + ", carrier:" + carrierEmojiEnabled;
           candidateStorage.setEmojiEnabled(unicodeEmojiEnabled, carrierEmojiEnabled);
           CandidateList candidateList =
               candidateStorage.getCandidateList(SymbolMinorCategory.EMOJI_NATURE);
@@ -146,7 +141,7 @@ public class SymbolCandidateStorageTest extends InstrumentationTestCaseWithMock 
             // The emoji list should contain only the current provider's icon.
             for (TestData targetData : testDataList) {
               assertEquals(
-                  testLabel + ", " + targetData.toString(),
+                  testLabel + ", " + targetData,
                   testData.emojiProviderType == targetData.emojiProviderType,
                   containsCandidate(candidateList, targetData.providerEmojiCodePoint));
             }
@@ -154,7 +149,7 @@ public class SymbolCandidateStorageTest extends InstrumentationTestCaseWithMock 
             // The emoji list should contain only the current provider's icon.
             for (TestData targetData : testDataList) {
               assertFalse(
-                  testLabel + ", " + targetData.toString(),
+                  testLabel + ", " + targetData,
                   containsCandidate(candidateList, targetData.providerEmojiCodePoint));
             }
           }

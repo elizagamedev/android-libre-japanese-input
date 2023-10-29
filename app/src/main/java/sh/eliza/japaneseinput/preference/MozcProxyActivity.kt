@@ -26,43 +26,38 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+package sh.eliza.japaneseinput.preference
 
-package sh.eliza.japaneseinput.preference;
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.preference.PreferenceManager;
-import sh.eliza.japaneseinput.util.LauncherIconManagerFactory;
+/**
+ * A proxy activity forwarding to another activity.
+ *
+ *
+ * This activity is used to switch target activity based on runtime configuration. For example,
+ *
+ *
+ *  * "Modern" preference screen vs "Classic" one, based on API level.
+ *
+ *
+ * This can be done by using string resources (defining destination activity by string resources in
+ * preference XML file) except for launching from home screen, which sees AndroidManifest.xml which
+ * cannot refer string resources. In fact the initial motivation to introduce this class is to
+ * launch appropriate preference activity from home screen.
+ *
+ *
+ * It is found that switching based on string resource is hard to test because precise control is
+ * impossible. Now [sh.eliza.japaneseinput.DependencyFactory.Dependency] has been introduced
+ * so switching feature becomes dependent on it.
+ */
+abstract class MozcProxyActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        startActivity(forwardIntent)
+        finish()
+    }
 
-/** Main Activity class for the fragment based preference UI on Android with API Level &gt;= 11. */
-public class MozcFragmentPreferenceActivity extends MozcFragmentBasePreferenceActivity {
-
-  public MozcFragmentPreferenceActivity() {
-    super(PreferencePage.FLAT);
-  }
-
-  private final OnSharedPreferenceChangeListener sharedPreferenceChangeListener =
-      new OnSharedPreferenceChangeListener() {
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-          if (PreferenceUtil.PREF_LAUNCHER_ICON_VISIBILITY_KEY.equals(key)) {
-            LauncherIconManagerFactory.getDefaultInstance()
-                .updateLauncherIconVisibility(MozcFragmentPreferenceActivity.this);
-          }
-        }
-      };
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    PreferenceManager.getDefaultSharedPreferences(this)
-        .registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
-  }
-
-  @Override
-  protected void onPause() {
-    PreferenceManager.getDefaultSharedPreferences(this)
-        .unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
-    super.onPause();
-  }
+    protected abstract val forwardIntent: Intent
 }

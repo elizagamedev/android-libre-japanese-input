@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">입력</string>
 <string name="pref_layout_adjustment_entry_right">오른쪽</string>
 <string name="pref_layout_adjustment_entry_left">왼쪽</string>
-<string name="firsttime_close_button">다음 &gt;&gt;</string>
-<string name="firsttime_description_thank_you">%s을(를) 사용해 주셔서 감사합니다.</string>
-<string name="firsttime_description_usage_stats">%s 제품과 서비스를 개선할 수 있도록 사용 통계를 사용하도록 설정해 주시면 감사하겠습니다.\n\n환경설정 화면에서 설정을 변경할 수 있습니다.</string>
-<string name="firsttime_send_usage_stats_devchannel">개발 버전을 사용 중이므로 사용 통계가 사용 설정되었습니다.</string>
 <string name="pref_ime_enable_alert_title">텍스트 설정 지정</string>
 <string name="pref_ime_enable_alert_message">%s을(를) 사용 설정해 주세요.</string>
 <string name="pref_ime_switch_alert_title">입력 방법 설정</string>

@@ -29,7 +29,6 @@
 
 package sh.eliza.japaneseinput.stresstest;
 
-import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Context;
 import android.graphics.Rect;
@@ -41,6 +40,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.common.base.Preconditions;
 import java.util.Collections;
 import java.util.List;
@@ -81,13 +81,13 @@ public class MozcStressTest extends InstrumentationTestCase {
       InputConnection inputConnection = mockSupport.createNiceMock(InputConnection.class);
       mockSupport.replayAll();
       service.onCreateInputMethodInterface().restartInput(inputConnection, new EditorInfo());
-      viewManager = ViewManager.class.cast(service.viewManager);
+      viewManager = (ViewManager) service.viewManager;
     }
   }
 
   private MozcMockSupport mockSupport;
 
-  private Activity activity;
+  private AppCompatActivity activity;
   private volatile MozcService service;
   private volatile View inputView;
   private volatile ViewManager viewManager;
@@ -99,7 +99,8 @@ public class MozcStressTest extends InstrumentationTestCase {
     mockSupport = new MozcMockSupport(instrumentation);
 
     activity =
-        Preconditions.checkNotNull(launchActivity("sh.eliza.japaneseinput", Activity.class, null));
+        Preconditions.checkNotNull(
+            launchActivity("sh.eliza.japaneseinput", AppCompatActivity.class, null));
     instrumentation.runOnMainSync(new OnCreateRunner());
     context = instrumentation.getTargetContext();
   }
@@ -125,8 +126,7 @@ public class MozcStressTest extends InstrumentationTestCase {
   @SuppressWarnings("deprecation")
   private Rect getViewRect() {
     Context context = activity.getApplicationContext();
-    WindowManager windowmanager =
-        WindowManager.class.cast(context.getSystemService(Context.WINDOW_SERVICE));
+    WindowManager windowmanager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
     Display disp = windowmanager.getDefaultDisplay();
     return new Rect(
         0,

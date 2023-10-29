@@ -45,30 +45,30 @@ public class KeyTest extends TestCase {
         new KeyState(
             "",
             EnumSet.of(MetaState.SHIFT),
-            Collections.<MetaState>emptySet(),
-            Collections.<MetaState>emptySet(),
-            Collections.<Flick>emptySet());
+            Collections.emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet());
     KeyState state2 =
         new KeyState(
             "",
             EnumSet.of(MetaState.CAPS_LOCK),
-            Collections.<MetaState>emptySet(),
-            Collections.<MetaState>emptySet(),
-            Collections.<Flick>emptySet());
+            Collections.emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet());
     KeyState defaultState =
         new KeyState(
             "",
-            Collections.<MetaState>emptySet(),
-            Collections.<MetaState>emptySet(),
-            Collections.<MetaState>emptySet(),
-            Collections.<Flick>emptySet());
+            Collections.emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet());
     KeyState fallbackState =
         new KeyState(
             "",
             EnumSet.of(MetaState.FALLBACK, MetaState.COMPOSING),
-            Collections.<MetaState>emptySet(),
-            Collections.<MetaState>emptySet(),
-            Collections.<Flick>emptySet());
+            Collections.emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet());
 
     EnumSet<MetaState> givenMetaStates = EnumSet.of(MetaState.SHIFT, MetaState.CAPS_LOCK);
 
@@ -143,17 +143,17 @@ public class KeyTest extends TestCase {
     KeyState defaultState =
         new KeyState(
             "",
-            Collections.<MetaState>emptySet(),
-            Collections.<MetaState>emptySet(),
-            Collections.<MetaState>emptySet(),
-            Collections.<Flick>emptySet());
+            Collections.emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet());
     KeyState fallbackState =
         new KeyState(
             "",
             EnumSet.of(MetaState.FALLBACK, MetaState.SHIFT),
-            Collections.<MetaState>emptySet(),
-            Collections.<MetaState>emptySet(),
-            Collections.<Flick>emptySet());
+            Collections.emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet());
     try {
       new Key(
           0,

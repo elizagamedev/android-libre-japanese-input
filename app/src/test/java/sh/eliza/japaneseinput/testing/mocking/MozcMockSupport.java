@@ -52,7 +52,7 @@ import org.easymock.internal.MocksControl.MockType;
  * throws Exception { super.setUp(); mockSupport = new MozcMockSupport(getInstrumentation());
  * } @Override protected void tearDown() throws Exception { mockSupport = null; super.tearDown(); }
  *
- * <p>public void testSomething() { SomeClass mockInstance =
+ * <p><p>public void testSomething() { SomeClass mockInstance =
  * mockSupport.createMock(SomeClass.class); } } }
  */
 @SuppressWarnings("javadoc")

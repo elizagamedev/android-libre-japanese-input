@@ -26,36 +26,33 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+package sh.eliza.japaneseinput.preference
 
-package sh.eliza.japaneseinput.preference;
+import android.content.Context
+import android.content.DialogInterface
+import android.util.AttributeSet
+import androidx.preference.DialogPreference
+import sh.eliza.japaneseinput.session.SessionExecutor
+import sh.eliza.japaneseinput.session.SessionHandlerFactory
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.preference.DialogPreference;
-import android.util.AttributeSet;
-import sh.eliza.japaneseinput.session.SessionExecutor;
-import sh.eliza.japaneseinput.session.SessionHandlerFactory;
+/**
+ * A DialogPreference to clear entire history of conversions. This preference command clears all the
+ * kind of conversion histories including predictions and suggestions.
+ */
+class ClearConversionHistoryDialogPreference : DialogPreference {
+  constructor(context: Context) : super(context)
+  constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
-/** A DialogPreference to clear symbol histories. */
-public class ClearSymbolHistoryDialogPreference extends DialogPreference {
-  public ClearSymbolHistoryDialogPreference(Context context, AttributeSet attrs, int defStyle) {
-    super(context, attrs, defStyle);
-  }
-
-  public ClearSymbolHistoryDialogPreference(Context context, AttributeSet attrs) {
-    super(context, attrs);
-  }
-
-  @Override
-  public void onClick(DialogInterface dialog, int which) {
+  // TODO(exv): fix this
+  fun fixmeOnClick(which: Int) {
     if (which == DialogInterface.BUTTON_POSITIVE) {
-      SessionExecutor sessionExecutor =
-          SessionExecutor.getInstanceInitializedIfNecessary(
-              new SessionHandlerFactory(getContext()), getContext());
-      // TODO(exv): replace this
-      // sessionExecutor.clearStorage(StorageType.EMOJI_HISTORY);
-      // sessionExecutor.clearStorage(StorageType.EMOTICON_HISTORY);
-      // sessionExecutor.clearStorage(StorageType.SYMBOL_HISTORY);
+      val sessionExecutor =
+        SessionExecutor.getInstanceInitializedIfNecessary(
+          SessionHandlerFactory(getContext()),
+          getContext()
+        )
+      sessionExecutor.clearUserHistory()
+      sessionExecutor.clearUserPrediction()
     }
   }
 }

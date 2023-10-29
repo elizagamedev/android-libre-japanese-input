@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">Fylla</string>
 <string name="pref_layout_adjustment_entry_right">Hægri</string>
 <string name="pref_layout_adjustment_entry_left">Vinstri</string>
-<string name="firsttime_close_button">Áfram &gt;&gt;</string>
-<string name="firsttime_description_thank_you">Takk fyrir að nota %s.</string>
-<string name="firsttime_description_usage_stats">Til að hjálpa okkur að bæta vörur og þjónustu %s biðjum við þig vinsamlegast um að íhuga að gera notkunarupplýsingar virkar.\n\nHægt er að breyta þessari stillingu á kjörstillingaskjánum.</string>
-<string name="firsttime_send_usage_stats_devchannel">Notkunarupplýsingar eru virkar vegna þess að þú ert að nota þróunarútgáfu.</string>
 <string name="pref_ime_enable_alert_title">Uppsetning textastillinga</string>
 <string name="pref_ime_enable_alert_message">Kveiktu á %s.</string>
 <string name="pref_ime_switch_alert_title">Uppsetning innsláttaraðferðar</string>

@@ -83,9 +83,9 @@ public class CandidateLayoutRendererTest extends InstrumentationTestCaseWithMock
           // Insert a null candidate word span
           Optional<CandidateWord> candidateWord =
               (i == 2 && j == 0)
-                  ? Optional.<CandidateWord>absent()
+                  ? Optional.absent()
                   : Optional.of(candidateList.getCandidates(index++));
-          Span span = new Span(candidateWord, 0, 0, Collections.<String>emptyList());
+          Span span = new Span(candidateWord, 0, 0, Collections.emptyList());
           span.setLeft(j * 10);
           span.setRight((j + 1) * 10);
           row.addSpan(span);
@@ -110,7 +110,7 @@ public class CandidateLayoutRendererTest extends InstrumentationTestCaseWithMock
     resetAll();
 
     replayAll();
-    renderer.setCandidateList(Optional.<CandidateList>absent());
+    renderer.setCandidateList(Optional.absent());
 
     verifyAll();
     assertEquals(-1, renderer.focusedIndex);
@@ -466,7 +466,7 @@ public class CandidateLayoutRendererTest extends InstrumentationTestCaseWithMock
             Optional.of(candidateList.getCandidates(0)),
             wordWidth,
             wordWidth,
-            Collections.<String>emptyList());
+            Collections.emptyList());
     span.setLeft(0);
     span.setRight(10);
     row.addSpan(span);

@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">Συμπλήρωση</string>
 <string name="pref_layout_adjustment_entry_right">Δεξιά</string>
 <string name="pref_layout_adjustment_entry_left">Αριστερά</string>
-<string name="firsttime_close_button">Επόμενο &gt;&gt;</string>
-<string name="firsttime_description_thank_you">Ευχαριστούμε που χρησιμοποιείτε το %s.</string>
-<string name="firsttime_description_usage_stats">Για να βελτιώσουμε τα προϊόντα και τις υπηρεσίες %s, σας ζητούμε να εξετάσετε το ενδεχόμενο να ενεργοποιήσετε τα στατιστικά στοιχεία χρήσης.\n\nΜπορείτε να αλλάξετε αυτήν τη ρύθμιση από την οθόνη των προτιμήσεων.</string>
-<string name="firsttime_send_usage_stats_devchannel">Τα στατιστικά στοιχεία χρήσης είναι ενεργοποιημένα, επειδή χρησιμοποιείτε μια έκδοση ανάπτυξης.</string>
 <string name="pref_ime_enable_alert_title">Ρύθμιση για τις ρυθμίσεις κειμένου</string>
 <string name="pref_ime_enable_alert_message">Ενεργοποιήστε το %s.</string>
 <string name="pref_ime_switch_alert_title">Ρύθμιση για τη μέθοδο εισαγωγής</string>

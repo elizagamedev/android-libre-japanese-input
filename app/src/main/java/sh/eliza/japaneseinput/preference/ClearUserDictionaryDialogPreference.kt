@@ -26,36 +26,30 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+package sh.eliza.japaneseinput.preference
 
-package sh.eliza.japaneseinput.preference;
-
-import android.content.Context;
-import android.content.DialogInterface;
-import android.preference.DialogPreference;
-import android.util.AttributeSet;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommand;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommand.CommandType;
-import sh.eliza.japaneseinput.session.SessionExecutor;
-import sh.eliza.japaneseinput.session.SessionHandlerFactory;
+import android.content.Context
+import android.util.AttributeSet
+import androidx.preference.DialogPreference
 
 /** A DialogPreference to clear user dictionary. */
-public class ClearUserDictionaryDialogPreference extends DialogPreference {
-  public ClearUserDictionaryDialogPreference(Context context, AttributeSet attrs, int defStyle) {
-    super(context, attrs, defStyle);
-  }
+class ClearUserDictionaryDialogPreference : DialogPreference {
+  constructor(context: Context) : super(context)
+  constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
-  public ClearUserDictionaryDialogPreference(Context context, AttributeSet attrs) {
-    super(context, attrs);
-  }
-
-  @Override
-  public void onClick(DialogInterface dialog, int which) {
-    if (which == DialogInterface.BUTTON_POSITIVE) {
-      SessionExecutor sessionExecutor =
-          SessionExecutor.getInstanceInitializedIfNecessary(
-              new SessionHandlerFactory(getContext()), getContext());
-      sessionExecutor.sendUserDictionaryCommand(
-          UserDictionaryCommand.newBuilder().setType(CommandType.CLEAR_STORAGE).build());
-    }
-  }
+  // TODO(exv): fix this
+  // fun fixmeOnClick(dialog: DialogInterface?, which: Int) {
+  //   if (which == DialogInterface.BUTTON_POSITIVE) {
+  //     val sessionExecutor =
+  //       SessionExecutor.getInstanceInitializedIfNecessary(
+  //         SessionHandlerFactory(getContext()),
+  //         getContext()
+  //       )
+  //     sessionExecutor.sendUserDictionaryCommand(
+  //       UserDictionaryCommand.newBuilder()
+  //         .setType(UserDictionaryCommand.CommandType.CLEAR_STORAGE)
+  //         .build()
+  //     )
+  //   }
+  // }
 }

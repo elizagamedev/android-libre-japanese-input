@@ -62,8 +62,8 @@ public class MozcUtilTest extends InstrumentationTestCaseWithMock {
   }
 
   private void clearnUpMozcUtil() {
-    MozcUtil.setSystemApplication(Optional.<Boolean>absent());
-    MozcUtil.setUpdatedSystemApplication(Optional.<Boolean>absent());
+    MozcUtil.setSystemApplication(Optional.absent());
+    MozcUtil.setUpdatedSystemApplication(Optional.absent());
   }
 
   @SmallTest
@@ -77,7 +77,7 @@ public class MozcUtilTest extends InstrumentationTestCaseWithMock {
         this.isDevChannel = isDevChanel;
       }
     }
-    TestData testDataList[] = {
+    TestData[] testDataList = {
       new TestData("-neko", false),
       new TestData("1-neko", false),
       new TestData(".-neko", false),
@@ -206,7 +206,7 @@ public class MozcUtilTest extends InstrumentationTestCaseWithMock {
         this.expected = expected;
       }
     }
-    TestData testDataList[] = {
+    TestData[] testDataList = {
       new TestData("\u0000", ""),
       new TestData("1\u0000", "1"),
       new TestData("12\u0000", "12"),
@@ -265,7 +265,7 @@ public class MozcUtilTest extends InstrumentationTestCaseWithMock {
             testData.expectation,
             MozcUtil.getAbiIndependentVersionCode(getInstrumentation().getTargetContext()));
       } finally {
-        MozcUtil.setVersionCode(Optional.<Integer>absent());
+        MozcUtil.setVersionCode(Optional.absent());
       }
     }
   }

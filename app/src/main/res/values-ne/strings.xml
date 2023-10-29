@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">भराइ</string>
 <string name="pref_layout_adjustment_entry_right">दायाँ</string>
 <string name="pref_layout_adjustment_entry_left">बायाँ</string>
-<string name="firsttime_close_button">अर्को &gt;&gt;</string>
-<string name="firsttime_description_thank_you">%s प्रयोग गर्नुभएकोमा धन्यवाद।</string>
-<string name="firsttime_description_usage_stats">हामीलाई %s उत्पादन र सेवाहरू सुधार गर्ने क्रममा, हामी तपाईँलाई विनम्र रूपमा उपयोग तथ्याङ्कहरू सक्षम पार्न सल्लाह दिन्छौँ। \n\nयो सेटिङ प्राथमिकता स्क्रिनबाट परिवर्तन गर्न सकिने छ।</string>
-<string name="firsttime_send_usage_stats_devchannel">उपयोग तथ्याङ्कहरू सक्षम पारिएका छन् किनभने तपाईँ एउटा विकास संस्करण प्रयोग गर्दै हुनुहुन्छ।</string>
 <string name="pref_ime_enable_alert_title">पाठ सेटिङको लागि सेटअप</string>
 <string name="pref_ime_enable_alert_message">कृपया %s सक्षम गर्नुहोस् ।</string>
 <string name="pref_ime_switch_alert_title">इनपुट विधिको लागि सेटअप</string>

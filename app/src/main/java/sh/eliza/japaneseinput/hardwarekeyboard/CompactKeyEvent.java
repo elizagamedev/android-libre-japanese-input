@@ -40,7 +40,7 @@ class CompactKeyEvent {
   private int keyCode;
   private int metaState;
   private int unicodeCharacter;
-  private int combiningAccent;
+  private final int combiningAccent;
   private int scanCode;
 
   public CompactKeyEvent(KeyEvent keyEvent) {

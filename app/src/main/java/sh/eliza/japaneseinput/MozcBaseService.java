@@ -41,7 +41,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
-import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -57,12 +56,14 @@ import android.view.inputmethod.CursorAnchorInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputBinding;
 import android.view.inputmethod.InputConnection;
+import androidx.preference.PreferenceManager;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.Nullable;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands;
@@ -323,7 +324,7 @@ public class MozcBaseService extends InputMethodService {
           null,
           KeyboardSpecification.SYMBOL_NUMBER,
           getConfiguration(),
-          Collections.<TouchEvent>emptyList());
+          Collections.emptyList());
       viewManager.onShowSymbolInputView();
     }
 
@@ -341,7 +342,7 @@ public class MozcBaseService extends InputMethodService {
             null,
             viewManager.getKeyboardSpecification(),
             getConfiguration(),
-            Collections.<TouchEvent>emptyList());
+            Collections.emptyList());
       }
     }
 
@@ -679,7 +680,7 @@ public class MozcBaseService extends InputMethodService {
     prepareEveryTime(sharedPreferences, deviceConfiguration);
 
     if (propagatedClientSidePreference == null
-        || propagatedClientSidePreference.getHardwareKeyMap() == null) {
+        || propagatedClientSidePreference.hardwareKeyMap == null) {
       HardwareKeyboardSpecification.maybeSetDetectedHardwareKeyMap(
           sharedPreferences, deviceConfiguration, false);
     }
@@ -706,11 +707,7 @@ public class MozcBaseService extends InputMethodService {
     // Make sure that the server and the client have the same keyboard specification.
     // User preference's keyboard will be set after this step.
     changeKeyboardSpecificationAndSendKey(
-        null,
-        null,
-        currentKeyboardSpecification,
-        deviceConfiguration,
-        Collections.<TouchEvent>emptyList());
+        null, null, currentKeyboardSpecification, deviceConfiguration, Collections.emptyList());
     if (sharedPreferences != null) {
       propagateClientSidePreference(
           new ClientSidePreference(
@@ -731,9 +728,6 @@ public class MozcBaseService extends InputMethodService {
     Context context = getApplicationContext();
     ApplicationInitializerFactory.createInstance(this)
         .initialize(
-            MozcUtil.isSystemApplication(context),
-            MozcUtil.isDevChannel(context),
-            DependencyFactory.getDependency(getApplicationContext()).isWelcomeActivityPreferrable(),
             MozcUtil.getAbiIndependentVersionCode(context),
             LauncherIconManagerFactory.getDefaultInstance(),
             PreferenceUtil.getDefaultPreferenceManagerStatic());
@@ -742,21 +736,20 @@ public class MozcBaseService extends InputMethodService {
     if (viewManager == null) {
       ImeSwitcher imeSwitcher = ImeSwitcherFactory.getImeSwitcher(this);
       viewManager =
-          DependencyFactory.getDependency(getApplicationContext())
-              .createViewManager(
-                  getApplicationContext(),
-                  eventListener,
-                  symbolHistoryStorage,
-                  imeSwitcher,
-                  new MozcMenuDialogListenerImpl(this, eventListener));
+          new ViewManager(
+              getApplicationContext(),
+              eventListener,
+              symbolHistoryStorage,
+              imeSwitcher,
+              new MozcMenuDialogListenerImpl(this, eventListener));
     }
 
     // Setup FeedbackManager.
     feedbackManager =
         new FeedbackManager(
             new RealFeedbackListener(
-                Vibrator.class.cast(getSystemService(Context.VIBRATOR_SERVICE)),
-                AudioManager.class.cast(getSystemService(Context.AUDIO_SERVICE))));
+                (Vibrator) getSystemService(Context.VIBRATOR_SERVICE),
+                (AudioManager) getSystemService(Context.AUDIO_SERVICE)));
 
     this.viewManager = viewManager;
 
@@ -1037,7 +1030,7 @@ public class MozcBaseService extends InputMethodService {
     // If hardware keyboard is not set in the preference screen,
     // set it based on the configuration.
     if (propagatedClientSidePreference == null
-        || propagatedClientSidePreference.getHardwareKeyMap() == null) {
+        || propagatedClientSidePreference.hardwareKeyMap == null) {
       HardwareKeyboardSpecification.maybeSetDetectedHardwareKeyMap(
           sharedPreferences, configuration, true);
     }
@@ -1162,13 +1155,11 @@ public class MozcBaseService extends InputMethodService {
 
   /** Shows the status icon basing on the current keyboard spec. */
   private void showStatusIcon() {
-    switch (currentKeyboardSpecification.getCompositionMode()) {
-      case HIRAGANA:
-        showStatusIcon(R.drawable.status_icon_hiragana);
-        break;
-      default:
-        showStatusIcon(R.drawable.status_icon_alphabet);
-        break;
+    if (Objects.requireNonNull(currentKeyboardSpecification.getCompositionMode())
+        == ProtoCommands.CompositionMode.HIRAGANA) {
+      showStatusIcon(R.drawable.status_icon_hiragana);
+    } else {
+      showStatusIcon(R.drawable.status_icon_alphabet);
     }
   }
 
@@ -1199,11 +1190,7 @@ public class MozcBaseService extends InputMethodService {
     // Otherwise the session might be unexpectedly deleted and newly re-created one will be used
     // without appropriate request which is sent below.
     changeKeyboardSpecificationAndSendKey(
-        null,
-        null,
-        currentKeyboardSpecification,
-        getConfiguration(),
-        Collections.<TouchEvent>emptyList());
+        null, null, currentKeyboardSpecification, getConfiguration(), Collections.emptyList());
   }
 
   @Override
@@ -1399,7 +1386,7 @@ public class MozcBaseService extends InputMethodService {
     if (leftRange < 0 || rightRange < 0) {
       // If the range does not include the current position, do nothing
       // because Android's API does not expect such situation.
-      MozcLog.w("Deletion range has unsupported parameters: " + range.toString());
+      MozcLog.w("Deletion range has unsupported parameters: " + range);
       return;
     }
 
@@ -1482,7 +1469,7 @@ public class MozcBaseService extends InputMethodService {
         builder.setSpan(
             segment.hasAnnotation() && segment.getAnnotation() == Annotation.HIGHLIGHT
                 ? SPAN_CONVERT_HIGHLIGHT
-                : CharacterStyle.class.cast(new BackgroundColorSpan(CONVERT_NORMAL_COLOR)),
+                : (CharacterStyle) new BackgroundColorSpan(CONVERT_NORMAL_COLOR),
             offsetInString,
             offsetInString + length,
             spanFlags);
@@ -1565,33 +1552,32 @@ public class MozcBaseService extends InputMethodService {
     }
     ClientSidePreference oldPreference = propagatedClientSidePreference;
     if (oldPreference == null
-        || oldPreference.isHapticFeedbackEnabled() != newPreference.isHapticFeedbackEnabled()) {
-      feedbackManager.setHapticFeedbackEnabled(newPreference.isHapticFeedbackEnabled());
+        || oldPreference.isHapticFeedbackEnabled != newPreference.isHapticFeedbackEnabled) {
+      feedbackManager.setHapticFeedbackEnabled(newPreference.isHapticFeedbackEnabled);
     }
     if (oldPreference == null
-        || oldPreference.getHapticFeedbackDuration() != newPreference.getHapticFeedbackDuration()) {
-      feedbackManager.setHapticFeedbackDuration(newPreference.getHapticFeedbackDuration());
+        || oldPreference.hapticFeedbackDuration != newPreference.hapticFeedbackDuration) {
+      feedbackManager.setHapticFeedbackDuration(newPreference.hapticFeedbackDuration);
     }
     if (oldPreference == null
-        || oldPreference.isSoundFeedbackEnabled() != newPreference.isSoundFeedbackEnabled()) {
-      feedbackManager.setSoundFeedbackEnabled(newPreference.isSoundFeedbackEnabled());
+        || oldPreference.isSoundFeedbackEnabled != newPreference.isSoundFeedbackEnabled) {
+      feedbackManager.setSoundFeedbackEnabled(newPreference.isSoundFeedbackEnabled);
     }
     if (oldPreference == null
-        || oldPreference.getSoundFeedbackVolume() != newPreference.getSoundFeedbackVolume()) {
+        || oldPreference.soundFeedbackVolume != newPreference.soundFeedbackVolume) {
       // The default value is 0.4f. In order to set the 50 to the default value, divide the
       // preference value by 125f heuristically.
-      feedbackManager.setSoundFeedbackVolume(newPreference.getSoundFeedbackVolume() / 125f);
+      feedbackManager.setSoundFeedbackVolume(newPreference.soundFeedbackVolume / 125f);
     }
     if (oldPreference == null
-        || oldPreference.isPopupFeedbackEnabled() != newPreference.isPopupFeedbackEnabled()) {
-      viewManager.setPopupEnabled(newPreference.isPopupFeedbackEnabled());
+        || oldPreference.isPopupFeedbackEnabled != newPreference.isPopupFeedbackEnabled) {
+      viewManager.setPopupEnabled(newPreference.isPopupFeedbackEnabled);
     }
-    if (oldPreference == null
-        || oldPreference.getKeyboardLayout() != newPreference.getKeyboardLayout()) {
-      viewManager.setKeyboardLayout(newPreference.getKeyboardLayout());
+    if (oldPreference == null || oldPreference.keyboardLayout != newPreference.keyboardLayout) {
+      viewManager.setKeyboardLayout(newPreference.keyboardLayout);
     }
-    if (oldPreference == null || oldPreference.getInputStyle() != newPreference.getInputStyle()) {
-      viewManager.setInputStyle(newPreference.getInputStyle());
+    if (oldPreference == null || oldPreference.inputStyle != newPreference.inputStyle) {
+      viewManager.setInputStyle(newPreference.inputStyle);
     }
     if (oldPreference == null
         || oldPreference.isQwertyLayoutForAlphabet() != newPreference.isQwertyLayoutForAlphabet()) {
@@ -1602,32 +1588,29 @@ public class MozcBaseService extends InputMethodService {
       viewManager.setFullscreenMode(
           applicationCompatibility.isFullScreenModeSupported() && newPreference.isFullscreenMode());
     }
-    if (oldPreference == null
-        || oldPreference.getFlickSensitivity() != newPreference.getFlickSensitivity()) {
-      viewManager.setFlickSensitivity(newPreference.getFlickSensitivity());
+    if (oldPreference == null || oldPreference.flickSensitivity != newPreference.flickSensitivity) {
+      viewManager.setFlickSensitivity(newPreference.flickSensitivity);
     }
     if (oldPreference == null
-        || oldPreference.getEmojiProviderType() != newPreference.getEmojiProviderType()) {
-      viewManager.setEmojiProviderType(newPreference.getEmojiProviderType());
+        || oldPreference.emojiProviderType != newPreference.emojiProviderType) {
+      viewManager.setEmojiProviderType(newPreference.emojiProviderType);
+    }
+    if (oldPreference == null || oldPreference.hardwareKeyMap != newPreference.hardwareKeyMap) {
+      viewManager.setHardwareKeyMap(newPreference.hardwareKeyMap);
+    }
+    if (oldPreference == null || oldPreference.skinType != newPreference.skinType) {
+      viewManager.setSkin(newPreference.skinType.getSkin(getResources()));
     }
     if (oldPreference == null
-        || oldPreference.getHardwareKeyMap() != newPreference.getHardwareKeyMap()) {
-      viewManager.setHardwareKeyMap(newPreference.getHardwareKeyMap());
+        || oldPreference.isMicrophoneButtonEnabled != newPreference.isMicrophoneButtonEnabled) {
+      viewManager.setMicrophoneButtonEnabledByPreference(newPreference.isMicrophoneButtonEnabled);
     }
-    if (oldPreference == null || oldPreference.getSkinType() != newPreference.getSkinType()) {
-      viewManager.setSkin(newPreference.getSkinType().getSkin(getResources()));
-    }
-    if (oldPreference == null
-        || oldPreference.isMicrophoneButtonEnabled() != newPreference.isMicrophoneButtonEnabled()) {
-      viewManager.setMicrophoneButtonEnabledByPreference(newPreference.isMicrophoneButtonEnabled());
+    if (oldPreference == null || oldPreference.layoutAdjustment != newPreference.layoutAdjustment) {
+      viewManager.setLayoutAdjustment(newPreference.layoutAdjustment);
     }
     if (oldPreference == null
-        || oldPreference.getLayoutAdjustment() != newPreference.getLayoutAdjustment()) {
-      viewManager.setLayoutAdjustment(newPreference.getLayoutAdjustment());
-    }
-    if (oldPreference == null
-        || oldPreference.getKeyboardHeightRatio() != newPreference.getKeyboardHeightRatio()) {
-      viewManager.setKeyboardHeightRatio(newPreference.getKeyboardHeightRatio());
+        || oldPreference.keyboardHeightRatio != newPreference.keyboardHeightRatio) {
+      viewManager.setKeyboardHeightRatio(newPreference.keyboardHeightRatio);
     }
 
     propagatedClientSidePreference = newPreference;
@@ -1705,7 +1688,7 @@ public class MozcBaseService extends InputMethodService {
 
     sessionExecutor.updateRequest(
         MozcUtil.getRequestBuilder(getResources(), currentKeyboardSpecification, newConfig).build(),
-        Collections.<TouchEvent>emptyList());
+        Collections.emptyList());
 
     // NOTE : This method is not called at the time when the service is started.
     // Based on newConfig, client side preferences should be sent

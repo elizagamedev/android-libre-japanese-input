@@ -59,10 +59,8 @@ public class KeyboardParserTest extends InstrumentationTestCase {
     TypedValue value = new TypedValue();
 
     // If the value is null, default value should be returned.
-    assertEquals(
-        10, KeyboardParser.getDimensionOrFraction(Optional.<TypedValue>absent(), 500, 10, metrics));
-    assertEquals(
-        30, KeyboardParser.getDimensionOrFraction(Optional.<TypedValue>absent(), 500, 30, metrics));
+    assertEquals(10, KeyboardParser.getDimensionOrFraction(Optional.absent(), 500, 10, metrics));
+    assertEquals(30, KeyboardParser.getDimensionOrFraction(Optional.absent(), 500, 30, metrics));
 
     // If the type is dimension, the pixel should be calculated based on metrics.
     value.type = TypedValue.TYPE_DIMENSION;
@@ -92,8 +90,8 @@ public class KeyboardParserTest extends InstrumentationTestCase {
     TypedValue value = new TypedValue();
 
     // If the value is Optional.absent(), default value should be returned.
-    assertEquals(10, KeyboardParser.getCode(Optional.<TypedValue>absent(), 10));
-    assertEquals(0x61, KeyboardParser.getCode(Optional.<TypedValue>absent(), 0x61));
+    assertEquals(10, KeyboardParser.getCode(Optional.absent(), 10));
+    assertEquals(0x61, KeyboardParser.getCode(Optional.absent(), 0x61));
 
     // If the value is decimal or hexadecimal integer, the value should be returned.
     value.type = TypedValue.TYPE_INT_DEC;

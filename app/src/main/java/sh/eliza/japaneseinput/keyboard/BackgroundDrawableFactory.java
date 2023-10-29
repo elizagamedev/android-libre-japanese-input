@@ -177,7 +177,7 @@ public class BackgroundDrawableFactory {
                 skin.twelvekeysLayoutPressedKeyLightShadeColor,
                 skin.twelvekeysLayoutPressedKeyDarkShadeColor,
                 skin.twelvekeysLayoutPressedKeyShadowColor),
-            Optional.<Drawable>of(
+            Optional.of(
                 new RectKeyDrawable(
                     (int) (skin.twelvekeysLeftOffsetDimension),
                     (int) (skin.twelvekeysTopOffsetDimension),
@@ -204,7 +204,7 @@ public class BackgroundDrawableFactory {
                     skin.twelvekeysLayoutPressedFunctionKeyLightShadeColor,
                     skin.twelvekeysLayoutPressedFunctionKeyDarkShadeColor,
                     skin.twelvekeysLayoutPressedFunctionKeyShadowColor)),
-            Optional.<Drawable>of(
+            Optional.of(
                 new BufferedDrawable(
                     new RectKeyDrawable(
                         (int) (skin.twelvekeysLeftOffsetDimension),
@@ -234,7 +234,7 @@ public class BackgroundDrawableFactory {
                           skin.twelvekeysLayoutPressedFunctionKeyLightShadeColor,
                           skin.twelvekeysLayoutPressedFunctionKeyDarkShadeColor,
                           skin.twelvekeysLayoutPressedFunctionKeyShadowColor)),
-                  Optional.<Drawable>of(
+                  Optional.of(
                       new BufferedDrawable(
                           new RectKeyDrawable(
                               (int) (skin.twelvekeysLeftOffsetDimension),
@@ -273,7 +273,7 @@ public class BackgroundDrawableFactory {
                     skin.qwertyLayoutPressedKeyBottomColor,
                     skin.qwertyLayoutPressedKeyHighlightColor,
                     skin.qwertyLayoutPressedKeyShadowColor)),
-            Optional.<Drawable>of(
+            Optional.of(
                 new BufferedDrawable(
                     new RoundRectKeyDrawable(
                         (int) (skin.qwertyLeftOffsetDimension),
@@ -299,7 +299,7 @@ public class BackgroundDrawableFactory {
                     skin.qwertyLayoutPressedFunctionKeyBottomColor,
                     skin.qwertyLayoutPressedFunctionKeyHighlightColor,
                     skin.qwertyLayoutPressedFunctionKeyShadowColor)),
-            Optional.<Drawable>of(
+            Optional.of(
                 new BufferedDrawable(
                     new RoundRectKeyDrawable(
                         (int) (skin.qwertyLeftOffsetDimension),
@@ -327,7 +327,7 @@ public class BackgroundDrawableFactory {
                           skin.qwertyLayoutPressedFunctionKeyBottomColor,
                           skin.qwertyLayoutPressedFunctionKeyHighlightColor,
                           skin.qwertyLayoutPressedFunctionKeyShadowColor)),
-                  Optional.<Drawable>of(
+                  Optional.of(
                       new BufferedDrawable(
                           new RoundRectKeyDrawable(
                               (int) (skin.qwertyLeftOffsetDimension),
@@ -368,7 +368,7 @@ public class BackgroundDrawableFactory {
                           skin.qwertyLayoutPressedSpaceKeyBottomColor,
                           skin.qwertyLayoutPressedSpaceKeyHighlightColor,
                           skin.qwertyLayoutPressedSpaceKeyShadowColor)),
-                  Optional.<Drawable>of(
+                  Optional.of(
                       new BufferedDrawable(
                           new QwertySpaceKeyDrawable(
                               (int) (skin.qwertySpaceKeyHeightDimension),
@@ -497,7 +497,7 @@ public class BackgroundDrawableFactory {
                 skin.candidateBackgroundFocusedTopColor,
                 skin.candidateBackgroundFocusedBottomColor,
                 skin.candidateBackgroundFocusedShadowColor),
-            Optional.<Drawable>of(
+            Optional.of(
                 new CandidateBackgroundDrawable(
                     (int) (CANDIDATE_BACKGROUND_PADDING * density),
                     (int) (CANDIDATE_BACKGROUND_PADDING * density),
@@ -520,7 +520,7 @@ public class BackgroundDrawableFactory {
                 skin.candidateBackgroundFocusedTopColor,
                 skin.candidateBackgroundFocusedBottomColor,
                 skin.candidateBackgroundFocusedShadowColor),
-            Optional.<Drawable>of(
+            Optional.of(
                 new CandidateBackgroundDrawable(
                     (int) (SYMBOL_CANDIDATE_BACKGROUND_PADDING * density),
                     (int) (SYMBOL_CANDIDATE_BACKGROUND_PADDING * density),

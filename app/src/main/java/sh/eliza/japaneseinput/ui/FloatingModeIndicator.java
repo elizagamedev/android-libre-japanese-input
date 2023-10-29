@@ -207,7 +207,7 @@ public class FloatingModeIndicator {
           cursorAnchorInfo.getInsertionMarkerBottom()
         };
     cursorAnchorInfo.getMatrix().mapPoints(cursorPosition);
-    int location[] = new int[2];
+    int[] location = new int[2];
     parentView.getLocationOnScreen(location);
     int left = Math.round(cursorPosition[0] - indicatorSize / 2) - location[0];
     int top = Math.round(cursorPosition[1] + verticalMargin) - location[1];

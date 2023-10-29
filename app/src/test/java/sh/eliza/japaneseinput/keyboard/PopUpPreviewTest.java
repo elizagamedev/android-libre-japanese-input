@@ -82,7 +82,7 @@ public class PopUpPreviewTest extends InstrumentationTestCaseWithMock {
             false,
             Stick.EVEN,
             DrawableType.TWELVEKEYS_REGULAR_KEY_BACKGROUND,
-            Collections.<KeyState>emptyList());
+            Collections.emptyList());
 
     final int parentLocationX = 100;
     final int parentLocationY = 200;
@@ -109,7 +109,7 @@ public class PopUpPreviewTest extends InstrumentationTestCaseWithMock {
         new PopUpPreview(mockView, new BackgroundDrawableFactory(resources), cache);
     ImageView popupView = preview.popUp.getContentView();
 
-    preview.showIfNecessary(key, Optional.<PopUp>absent(), false);
+    preview.showIfNecessary(key, Optional.absent(), false);
     assertEquals(View.GONE, popupView.getVisibility());
     assertNull(popupView.getDrawable());
     assertNull(popupView.getBackground());
@@ -200,7 +200,7 @@ public class PopUpPreviewTest extends InstrumentationTestCaseWithMock {
                 false,
                 Stick.EVEN,
                 DrawableType.TWELVEKEYS_REGULAR_KEY_BACKGROUND,
-                Collections.<KeyState>emptyList());
+                Collections.emptyList());
 
         preview.showIfNecessary(
             key, Optional.of(new PopUp(iconId, longTapIconId, 10, 0, 0, 10, 10)), false);

@@ -41,6 +41,7 @@ import android.test.mock.MockContext;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.common.base.Optional;
 import org.easymock.Capture;
 import sh.eliza.japaneseinput.DependencyFactory.Dependency;
@@ -106,14 +107,14 @@ public class MozcMenuDialogListenerImplTest extends InstrumentationTestCaseWithM
   @SmallTest
   public void testLaunchPreferenceActivitySelected() {
     final ViewManagerInterface stubViewManager = createNiceMock(ViewManagerInterface.class);
-    final Activity stubPreferenceActivity = createNiceMock(Activity.class);
+    final AppCompatActivity stubPreferenceActivity = createNiceMock(AppCompatActivity.class);
 
     Context context = createNiceMock(MockContext.class);
     String packageName = "test.package.name";
 
     try {
       DependencyFactory.setDependency(
-          Optional.<Dependency>of(
+          Optional.of(
               new Dependency() {
 
                 @Override
@@ -154,7 +155,7 @@ public class MozcMenuDialogListenerImplTest extends InstrumentationTestCaseWithM
       assertEquals(packageName, intent.getComponent().getPackageName());
       assertTrue((intent.getFlags() & Intent.FLAG_ACTIVITY_NEW_TASK) != 0);
     } finally {
-      DependencyFactory.setDependency(Optional.<Dependency>absent());
+      DependencyFactory.setDependency(Optional.absent());
     }
   }
 

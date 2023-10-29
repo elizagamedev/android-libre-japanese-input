@@ -38,11 +38,6 @@
     <attr name="seekbar_high_text" format="string" />
   </declare-styleable>
 
-  <declare-styleable name="MozcMultiSelectListPreference">
-    <attr name="entryKeys" format="reference" />
-    <attr name="entries" format="reference" />
-  </declare-styleable>
-
   <declare-styleable name="Keyboard">
     <attr name="keyboardContentDescription" format="string" />
 

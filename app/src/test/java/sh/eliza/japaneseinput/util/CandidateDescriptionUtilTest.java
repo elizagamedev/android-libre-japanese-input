@@ -70,13 +70,12 @@ public class CandidateDescriptionUtilTest extends InstrumentationTestCase {
           new TestData("[全] 亜の旧字体\n小書き文字 丸数字 てすと", new String[] {"[全]", "小書き", "てすと"}),
         };
 
-    assertEquals(
-        CandidateDescriptionUtil.extractDescriptions("", Optional.<String>absent()).size(), 0);
+    assertEquals(CandidateDescriptionUtil.extractDescriptions("", Optional.absent()).size(), 0);
     assertEquals(CandidateDescriptionUtil.extractDescriptions("", Optional.of(" \n")).size(), 0);
 
     for (TestData testData : testDataArray) {
       List<String> descriptionsWithoutDelimiter =
-          CandidateDescriptionUtil.extractDescriptions(testData.input, Optional.<String>absent());
+          CandidateDescriptionUtil.extractDescriptions(testData.input, Optional.absent());
       assertEquals(testData.input, 1, descriptionsWithoutDelimiter.size());
       assertEquals(testData.input, testData.input, descriptionsWithoutDelimiter.get(0));
 

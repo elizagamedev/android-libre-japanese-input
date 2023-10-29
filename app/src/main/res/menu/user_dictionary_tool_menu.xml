@@ -29,34 +29,35 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/user_dictionary_tool_menu_add_entry"
           android:icon="@android:drawable/ic_menu_add"
           android:title="@string/user_dictionary_tool_menu_add_entry_title"
-          android:showAsAction="always" />
+          app:showAsAction="always" />
     <item android:id="@+id/user_dictionary_tool_menu_delete_entry"
           android:icon="@android:drawable/ic_menu_delete"
           android:title="@string/user_dictionary_tool_menu_delete_entry_title"
-          android:showAsAction="always" />
+          app:showAsAction="always" />
 
     <!-- Overflow menu -->
     <item android:id="@+id/user_dictionary_tool_menu_create_dictionary"
           android:title="@string/user_dictionary_tool_menu_create_dictionary_title"
-          android:showAsAction="never" />
+          app:showAsAction="never" />
     <item android:id="@+id/user_dictionary_tool_menu_rename_dictionary"
           android:title="@string/user_dictionary_tool_menu_rename_dictionary_title"
-          android:showAsAction="never" />
+          app:showAsAction="never" />
     <item android:id="@+id/user_dictionary_tool_menu_delete_dictionary"
           android:title="@string/user_dictionary_tool_menu_delete_dictionary_title"
-          android:showAsAction="never" />
+          app:showAsAction="never" />
     <item android:id="@+id/user_dictionary_tool_menu_export_dictionary"
           android:title="@string/user_dictionary_tool_menu_export_dictionary_title"
-          android:showAsAction="never"
+          app:showAsAction="never"
           android:enabled="@bool/enable_user_dictionary_export"
           android:visible="@bool/enable_user_dictionary_export" />
 
     <item android:id="@+id/user_dictionary_tool_menu_undo"
           android:icon="@android:drawable/ic_menu_revert"
           android:title="@string/user_dictionary_tool_menu_undo_title"
-          android:showAsAction="never" />
+          app:showAsAction="never" />
 </menu>

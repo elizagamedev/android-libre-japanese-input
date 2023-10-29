@@ -61,15 +61,14 @@ public class MozcLayoutUtil {
             Optional.of(CandidateWord.newBuilder().setId(id).build()),
             0,
             0,
-            Collections.<String>emptyList());
+            Collections.emptyList());
     span.setLeft(left);
     span.setRight(right);
     return span;
   }
 
   public static Span createEmptySpan() {
-    return new Span(
-        Optional.of(CandidateWord.getDefaultInstance()), 0, 0, Collections.<String>emptyList());
+    return new Span(Optional.of(CandidateWord.getDefaultInstance()), 0, 0, Collections.emptyList());
   }
 
   public static CandidateLayout createCandidateLayoutMock(EasyMockSupport easyMockSupport) {

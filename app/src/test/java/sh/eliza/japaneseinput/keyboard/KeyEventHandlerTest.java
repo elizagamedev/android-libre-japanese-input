@@ -40,7 +40,6 @@ import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchE
 import sh.eliza.japaneseinput.keyboard.BackgroundDrawableFactory.DrawableType;
 import sh.eliza.japaneseinput.keyboard.Flick.Direction;
 import sh.eliza.japaneseinput.keyboard.Key.Stick;
-import sh.eliza.japaneseinput.keyboard.KeyState.MetaState;
 import sh.eliza.japaneseinput.testing.InstrumentationTestCaseWithMock;
 
 /** */
@@ -54,9 +53,9 @@ public class KeyEventHandlerTest extends InstrumentationTestCaseWithMock {
             longPressKeyCode,
             true,
             0,
-            Optional.<String>absent(),
+            Optional.absent(),
             false,
-            Optional.<PopUp>absent(),
+            Optional.absent(),
             0,
             0,
             0,
@@ -65,9 +64,9 @@ public class KeyEventHandlerTest extends InstrumentationTestCaseWithMock {
     KeyState keyState =
         new KeyState(
             "",
-            Collections.<MetaState>emptySet(),
-            Collections.<MetaState>emptySet(),
-            Collections.<MetaState>emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet(),
             Collections.singletonList(flick));
     return new Key(
         0,
@@ -84,7 +83,7 @@ public class KeyEventHandlerTest extends InstrumentationTestCaseWithMock {
   }
 
   private static KeyEventContext createDummyKeyEventContext(Key key) {
-    return new KeyEventContext(key, 0, 0, 0, 100, 100, 0, Collections.<MetaState>emptySet());
+    return new KeyEventContext(key, 0, 0, 0, 100, 100, 0, Collections.emptySet());
   }
 
   @SmallTest

@@ -55,7 +55,7 @@ import sh.eliza.japaneseinput.view.Skin;
 public interface ViewManagerInterface extends MemoryManageable {
 
   /** Keyboard layout position. */
-  public enum LayoutAdjustment {
+  enum LayoutAdjustment {
     FILL,
     RIGHT,
     LEFT,
@@ -71,54 +71,54 @@ public interface ViewManagerInterface extends MemoryManageable {
    * @param context
    * @return newly created view.
    */
-  public View createMozcView(Context context);
+  View createMozcView(Context context);
 
   /**
    * Renders views which this instance own based on Command.Output.
    *
    * <p>Note that showing/hiding views is Service's responsibility.
    */
-  public void render(Command outCommand);
+  void render(Command outCommand);
 
   /**
    * @return true if {@code event} should be consumed by Mozc client side and should be processed
    *     asynchronously.
    */
-  public boolean isKeyConsumedOnViewAsynchronously(KeyEvent event);
+  boolean isKeyConsumedOnViewAsynchronously(KeyEvent event);
 
   /**
    * Consumes and handles the given key event.
    *
    * @throws IllegalArgumentException If {@code KeyEvent} is not the key to consume.
    */
-  public void consumeKeyOnViewSynchronously(KeyEvent event);
+  void consumeKeyOnViewSynchronously(KeyEvent event);
 
-  public void onHardwareKeyEvent(KeyEvent keyEvent);
+  void onHardwareKeyEvent(KeyEvent keyEvent);
 
   /**
    * @return whether the view should consume the generic motion event or not.
    */
-  public boolean isGenericMotionToConsume(MotionEvent event);
+  boolean isGenericMotionToConsume(MotionEvent event);
 
   /**
    * Consumes and handles the given generic motion event.
    *
    * @throws IllegalArgumentException If {@code MotionEvent} is not the key to consume.
    */
-  public boolean consumeGenericMotion(MotionEvent event);
+  boolean consumeGenericMotion(MotionEvent event);
 
   /**
    * @return the current keyboard specification.
    */
-  public KeyboardSpecification getKeyboardSpecification();
+  KeyboardSpecification getKeyboardSpecification();
 
   /** Set {@code EditorInfo} instance to the current view. */
-  public void setEditorInfo(EditorInfo attribute);
+  void setEditorInfo(EditorInfo attribute);
 
   /** Set text for IME action button label. */
-  public void setTextForActionButton(CharSequence text);
+  void setTextForActionButton(CharSequence text);
 
-  public boolean hideSubInputView();
+  boolean hideSubInputView();
 
   /**
    * Set this keyboard layout to the specified one.
@@ -126,7 +126,7 @@ public interface ViewManagerInterface extends MemoryManageable {
    * @param keyboardLayout New keyboard layout.
    * @throws NullPointerException If {@code keyboardLayout} is {@code null}.
    */
-  public void setKeyboardLayout(KeyboardLayout keyboardLayout);
+  void setKeyboardLayout(KeyboardLayout keyboardLayout);
 
   /**
    * Set the input style.
@@ -135,88 +135,88 @@ public interface ViewManagerInterface extends MemoryManageable {
    * @throws NullPointerException If {@code inputStyle} is {@code null}. TODO(hidehiko): Refactor
    *     out following keyboard switching logic into another class.
    */
-  public void setInputStyle(InputStyle inputStyle);
+  void setInputStyle(InputStyle inputStyle);
 
-  public void setQwertyLayoutForAlphabet(boolean qwertyLayoutForAlphabet);
+  void setQwertyLayoutForAlphabet(boolean qwertyLayoutForAlphabet);
 
-  public void setFullscreenMode(boolean fullscreenMode);
+  void setFullscreenMode(boolean fullscreenMode);
 
-  public boolean isFullscreenMode();
+  boolean isFullscreenMode();
 
-  public void setFlickSensitivity(int flickSensitivity);
+  void setFlickSensitivity(int flickSensitivity);
 
-  public void setEmojiProviderType(EmojiProviderType emojiProviderType);
+  void setEmojiProviderType(EmojiProviderType emojiProviderType);
 
-  public void maybeTransitToNarrowMode(Command command, KeyEventInterface keyEvent);
+  void maybeTransitToNarrowMode(Command command, KeyEventInterface keyEvent);
 
-  public boolean isNarrowMode();
+  boolean isNarrowMode();
 
-  public boolean isFloatingCandidateMode();
+  boolean isFloatingCandidateMode();
 
-  public void setPopupEnabled(boolean popupEnabled);
+  void setPopupEnabled(boolean popupEnabled);
 
-  public void switchHardwareKeyboardCompositionMode(CompositionSwitchMode mode);
+  void switchHardwareKeyboardCompositionMode(CompositionSwitchMode mode);
 
-  public void setHardwareKeyMap(HardwareKeyMap hardwareKeyMap);
+  void setHardwareKeyMap(HardwareKeyMap hardwareKeyMap);
 
-  public void setSkin(Skin skin);
+  void setSkin(Skin skin);
 
-  public void setMicrophoneButtonEnabledByPreference(boolean microphoneButtonEnabled);
+  void setMicrophoneButtonEnabledByPreference(boolean microphoneButtonEnabled);
 
-  public void setLayoutAdjustment(LayoutAdjustment layoutAdjustment);
+  void setLayoutAdjustment(LayoutAdjustment layoutAdjustment);
 
-  public void setKeyboardHeightRatio(int keyboardHeightRatio);
+  void setKeyboardHeightRatio(int keyboardHeightRatio);
 
-  public void onConfigurationChanged(Configuration newConfig);
+  void onConfigurationChanged(Configuration newConfig);
 
-  public void onStartInputView(EditorInfo editorInfo);
+  void onStartInputView(EditorInfo editorInfo);
 
-  public void setCursorAnchorInfo(CursorAnchorInfoWrapper info);
+  void setCursorAnchorInfo(CursorAnchorInfoWrapper info);
 
-  public void setCursorAnchorInfoEnabled(boolean enabled);
+  void setCursorAnchorInfoEnabled(boolean enabled);
 
   /** Reset the status of the current input view. */
-  public void reset();
+  void reset();
 
-  public void computeInsets(Context context, InputMethodService.Insets outInsets, Window window);
+  void computeInsets(Context context, InputMethodService.Insets outInsets, Window window);
 
-  public void onShowSymbolInputView();
+  void onShowSymbolInputView();
 
-  public void onCloseSymbolInputView();
-
-  @VisibleForTesting
-  public ViewEventListener getEventListener();
+  void onCloseSymbolInputView();
 
   @VisibleForTesting
-  public JapaneseSoftwareKeyboardModel getActiveSoftwareKeyboardModel();
+  ViewEventListener getEventListener();
 
   @VisibleForTesting
-  public boolean isPopupEnabled();
+  JapaneseSoftwareKeyboardModel getActiveSoftwareKeyboardModel();
 
   @VisibleForTesting
-  public int getFlickSensitivity();
+  boolean isPopupEnabled();
 
   @VisibleForTesting
-  public EmojiProviderType getEmojiProviderType();
+  int getFlickSensitivity();
 
   @VisibleForTesting
-  public Skin getSkin();
+  EmojiProviderType getEmojiProviderType();
 
   @VisibleForTesting
-  public boolean isMicrophoneButtonEnabledByPreference();
+  Skin getSkin();
 
   @VisibleForTesting
-  public LayoutAdjustment getLayoutAdjustment();
+  boolean isMicrophoneButtonEnabledByPreference();
 
   @VisibleForTesting
-  public int getKeyboardHeightRatio();
+  LayoutAdjustment getLayoutAdjustment();
 
   @VisibleForTesting
-  public HardwareKeyMap getHardwareKeyMap();
+  int getKeyboardHeightRatio();
+
+  @VisibleForTesting
+  HardwareKeyMap getHardwareKeyMap();
 
   /** Used for testing to inject key events. */
   @VisibleForTesting
-  public KeyboardActionListener getKeyboardActionListener();
+  KeyboardActionListener getKeyboardActionListener();
 
   void updateGlobeButtonEnabled();
 

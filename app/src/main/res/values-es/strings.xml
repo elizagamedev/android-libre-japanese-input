@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">Completo</string>
 <string name="pref_layout_adjustment_entry_right">Derecha</string>
 <string name="pref_layout_adjustment_entry_left">Izquierda</string>
-<string name="firsttime_close_button">Siguiente &gt;&gt;</string>
-<string name="firsttime_description_thank_you">Gracias por utilizar %s.</string>
-<string name="firsttime_description_usage_stats">Para poder mejorar los productos y servicios de %s, nos gustaría que consideraras la posibilidad de habilitar las estadísticas de uso.\n\nPuedes cambiar esta opción en la pantalla de preferencias.</string>
-<string name="firsttime_send_usage_stats_devchannel">Las estadísticas de uso están habilitadas porque estás utilizando una versión de desarrollo.</string>
 <string name="pref_ime_enable_alert_title">Configuración de ajustes de texto</string>
 <string name="pref_ime_enable_alert_message">Habilita %s.</string>
 <string name="pref_ime_switch_alert_title">Configuración de método de entrada</string>

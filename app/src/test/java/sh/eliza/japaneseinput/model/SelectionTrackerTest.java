@@ -764,8 +764,7 @@ public class SelectionTrackerTest extends TestCase {
       } catch (AssertionFailedError e) {
         throw new AssertionFailedError(
             String.format(
-                "step %d (%s): %s",
-                i + 1, scenaroPieces[i].getClass().getSimpleName(), e.toString()));
+                "step %d (%s): %s", i + 1, scenaroPieces[i].getClass().getSimpleName(), e));
       }
     }
   }

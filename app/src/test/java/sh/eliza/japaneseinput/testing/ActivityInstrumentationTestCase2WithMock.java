@@ -29,11 +29,11 @@
 
 package sh.eliza.japaneseinput.testing;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
+import androidx.appcompat.app.AppCompatActivity;
 import org.easymock.EasyMockSupport;
 import org.easymock.IMockBuilder;
 import org.easymock.IMocksControl;
@@ -46,7 +46,7 @@ import sh.eliza.japaneseinput.testing.mocking.MozcMockSupport;
  * test classes. We can reduce boiler plate codes around EasyMock by this class which has
  * EasyMockSupport and exposes its methods as composition pattern.
  */
-public class ActivityInstrumentationTestCase2WithMock<T extends Activity>
+public class ActivityInstrumentationTestCase2WithMock<T extends AppCompatActivity>
     extends ActivityInstrumentationTestCase2<T> {
   private EasyMockSupport mockSupport;
   private InstrumentationMockUtil mockUtil;

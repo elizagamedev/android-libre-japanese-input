@@ -41,5 +41,5 @@ public interface CandidateSelectListener {
    * @param candidateWord selected word
    * @param rowIndex index of row in which the selected word is. If absent no stats are sent.
    */
-  public void onCandidateSelected(CandidateWord candidateWord, Optional<Integer> rowIndex);
+  void onCandidateSelected(CandidateWord candidateWord, Optional<Integer> rowIndex);
 }

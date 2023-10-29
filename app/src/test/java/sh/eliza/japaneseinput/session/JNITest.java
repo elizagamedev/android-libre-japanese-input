@@ -35,6 +35,7 @@ import android.test.suitebuilder.annotation.SmallTest;
 import com.google.common.base.Strings;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import sh.eliza.japaneseinput.MozcUtil;
 import sh.eliza.japaneseinput.stresstest.StressTest;
 import sh.eliza.japaneseinput.testing.HttpTestServer;
@@ -50,7 +51,7 @@ public class JNITest extends InstrumentationTestCase {
 
   private static byte[] toBytes(String string) throws UnsupportedEncodingException {
     if (string != null) {
-      return string.getBytes("UTF-8");
+      return string.getBytes(StandardCharsets.UTF_8);
     } else {
       return null;
     }
@@ -58,7 +59,7 @@ public class JNITest extends InstrumentationTestCase {
 
   private static String toString(byte[] bytes) throws UnsupportedEncodingException {
     if (bytes != null) {
-      return new String(bytes, "UTF-8");
+      return new String(bytes, StandardCharsets.UTF_8);
     } else {
       return null;
     }

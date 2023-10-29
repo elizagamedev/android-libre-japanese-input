@@ -142,7 +142,7 @@ public class KeyEventContext {
   private Optional<KeyEntity> getKeyEntity(Flick.Direction direction) {
     return keyState.isPresent()
         ? getKeyEntityInternal(keyState.get(), Optional.of(direction))
-        : Optional.<KeyEntity>absent();
+        : Optional.absent();
   }
 
   private static Optional<KeyEntity> getKeyEntityInternal(
@@ -155,9 +155,7 @@ public class KeyEventContext {
     }
 
     Optional<Flick> flick = keyState.getFlick(direction.get());
-    return flick.isPresent()
-        ? Optional.of(flick.get().getKeyEntity())
-        : Optional.<KeyEntity>absent();
+    return flick.isPresent() ? Optional.of(flick.get().getKeyEntity()) : Optional.absent();
   }
 
   /**
@@ -231,7 +229,7 @@ public class KeyEventContext {
     }
 
     Optional<KeyEntity> keyEntity = getKeyEntity(flickDirection);
-    return keyEntity.isPresent() ? keyEntity.get().getPopUp() : Optional.<PopUp>absent();
+    return keyEntity.isPresent() ? keyEntity.get().getPopUp() : Optional.absent();
   }
 
   /**

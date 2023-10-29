@@ -126,10 +126,7 @@ public enum HardwareKeyboardSpecification {
       return true;
     }
     // GRAVE with ALT.
-    if (keyCode == KeyEvent.KEYCODE_GRAVE && !shift && alt && !ctrl && !meta) {
-      return true;
-    }
-    return false;
+    return keyCode == KeyEvent.KEYCODE_GRAVE && !shift && alt && !ctrl && !meta;
   }
 
   private final HardwareKeyMap hardwareKeyMap;
@@ -154,7 +151,7 @@ public enum HardwareKeyboardSpecification {
     hardwareKeyMapToSpecificationMap = Collections.unmodifiableMap(tmpMap);
   }
 
-  private HardwareKeyboardSpecification(
+  HardwareKeyboardSpecification(
       HardwareKeyMap hardwareKeyMap,
       KeyEventMapper keyEventMapper,
       KeyboardSpecification kanaKeyboardSpecification,
@@ -170,7 +167,7 @@ public enum HardwareKeyboardSpecification {
       Optional<HardwareKeyMap> hardwareKeyMap) {
     return hardwareKeyMap.isPresent()
         ? Optional.of(hardwareKeyMapToSpecificationMap.get(hardwareKeyMap.get()))
-        : Optional.<HardwareKeyboardSpecification>absent();
+        : Optional.absent();
   }
 
   /**
@@ -475,7 +472,7 @@ public enum HardwareKeyboardSpecification {
     return isKeyForCompositinoModeChange(
             compactKeyEvent.getKeyCode(), compactKeyEvent.getMetaState())
         ? Optional.of(CompositionSwitchMode.TOGGLE)
-        : Optional.<CompositionSwitchMode>absent();
+        : Optional.absent();
   }
 
   public KeyboardSpecification getKanaKeyboardSpecification() {

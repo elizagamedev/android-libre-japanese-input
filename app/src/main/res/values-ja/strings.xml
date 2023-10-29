@@ -156,10 +156,6 @@
     <string name="pref_layout_adjustment_entry_left">左寄せ</string>
 
     <!-- First time launch activity -->
-    <string name="firsttime_close_button">次へ</string>
-    <string name="firsttime_description_thank_you">%sをご利用いただき、ありがとうございます。</string>
-    <string name="firsttime_description_usage_stats"><![CDATA[本ソフトはご利用者の許諾を得た場合に限り、ソフトウェアがどのように利用されているかについての統計情報を%sに送信します。\n利用統計の送信にご同意いただける場合は、チェックボックスをオンにしてください。\nよりよい日本語入力を実現するため、ご協力をよろしくお願いいたします。\n\nこの設定は設定画面にて後から変更することができます。]]></string>
-    <string name="firsttime_send_usage_stats_devchannel">開発版のため、常に利用統計が送信されます。</string>
 
     <!-- Alert messages -->
     <string name="pref_ime_enable_alert_title">インストール後の設定</string>

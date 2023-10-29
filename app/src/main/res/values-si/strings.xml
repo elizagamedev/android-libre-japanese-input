@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">පුරවන්න</string>
 <string name="pref_layout_adjustment_entry_right">දකුණ</string>
 <string name="pref_layout_adjustment_entry_left">වම</string>
-<string name="firsttime_close_button">ඊළඟ &gt;&gt;</string>
-<string name="firsttime_description_thank_you">%s භාවිත කිරීම පිළිබඳව ස්තූතියි.</string>
-<string name="firsttime_description_usage_stats">අපට %s නිපැයුම් සහ සේවා භාවිතය වැඩිදියුණු කිරීමට උපකාර වීම පිණිස, පරිශීලක සංඛ්‍යාෙල්ඛන සබල කරන ලෙස අපි ඔබගේන් කාරුණිකව ඉල්ලමු.\n\nමෙම සැකසුම මනාප තිරය වෙතින් වෙනස් කළ හැකිය.</string>
-<string name="firsttime_send_usage_stats_devchannel">ඔබ සංවර්ධන අනුවාදයක් භාවිත කරන බැවින් පරිශීලක සංඛ්‍යාෙල්ඛන සබල කර ඇත.</string>
 <string name="pref_ime_enable_alert_title">පෙළ සැකසුම් සඳහා පිහිටුම</string>
 <string name="pref_ime_enable_alert_message">කරුනාකර %s සබල කරන්න.</string>
 <string name="pref_ime_switch_alert_title">ආදාන ක්‍රමය සඳහා පිහිටුවීම</string>

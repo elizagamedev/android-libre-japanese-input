@@ -38,7 +38,6 @@ import android.test.suitebuilder.annotation.SmallTest;
 import android.view.KeyEvent;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands;
@@ -60,8 +59,7 @@ public class PrimaryKeyCodeConverterTest extends InstrumentationTestCaseWithMock
 
     // Invalid Keycode.
     Optional<ProtoCommands.KeyEvent> keyEvent =
-        primaryKeyCodeConverter.createMozcKeyEvent(
-            Integer.MIN_VALUE, Collections.<TouchEvent>emptyList());
+        primaryKeyCodeConverter.createMozcKeyEvent(Integer.MIN_VALUE, Collections.emptyList());
 
     assertFalse(keyEvent.isPresent());
   }
@@ -104,37 +102,37 @@ public class PrimaryKeyCodeConverterTest extends InstrumentationTestCaseWithMock
       // White space.
       new TestData(
           ' ',
-          Collections.<TouchEvent>emptyList(),
+          Collections.emptyList(),
           ProtoCommands.KeyEvent.newBuilder().setSpecialKey(SpecialKey.SPACE).build(),
           KeyEvent.KEYCODE_SPACE),
       // Enter.
       new TestData(
           resources.getInteger(R.integer.key_enter),
-          Collections.<TouchEvent>emptyList(),
+          Collections.emptyList(),
           ProtoCommands.KeyEvent.newBuilder().setSpecialKey(SpecialKey.VIRTUAL_ENTER).build(),
           KeyEvent.KEYCODE_ENTER),
       // Delete.
       new TestData(
           resources.getInteger(R.integer.key_backspace),
-          Collections.<TouchEvent>emptyList(),
+          Collections.emptyList(),
           ProtoCommands.KeyEvent.newBuilder().setSpecialKey(SpecialKey.BACKSPACE).build(),
           KeyEvent.KEYCODE_DEL),
       // Left.
       new TestData(
           resources.getInteger(R.integer.key_left),
-          Collections.<TouchEvent>emptyList(),
+          Collections.emptyList(),
           ProtoCommands.KeyEvent.newBuilder().setSpecialKey(SpecialKey.VIRTUAL_LEFT).build(),
           KeyEvent.KEYCODE_DPAD_LEFT),
       // Right.
       new TestData(
           resources.getInteger(R.integer.key_right),
-          Collections.<TouchEvent>emptyList(),
+          Collections.emptyList(),
           ProtoCommands.KeyEvent.newBuilder().setSpecialKey(SpecialKey.VIRTUAL_RIGHT).build(),
           KeyEvent.KEYCODE_DPAD_RIGHT),
       // Normal character with no correction stats.
       new TestData(
           'a',
-          Collections.<TouchEvent>emptyList(),
+          Collections.emptyList(),
           ProtoCommands.KeyEvent.newBuilder().setKeyCode('a').build(),
           KeyEvent.KEYCODE_A),
       // Normal character with correction stats.
@@ -144,7 +142,7 @@ public class PrimaryKeyCodeConverterTest extends InstrumentationTestCaseWithMock
           ProtoCommands.KeyEvent.newBuilder()
               .setKeyCode('a')
               .addAllProbableKeyEvent(
-                  Arrays.asList(
+                  Collections.singletonList(
                       ProbableKeyEvent.newBuilder().setKeyCode('b').setProbability(0.1d).build()))
               .build(),
           KeyEvent.KEYCODE_A)
@@ -152,7 +150,7 @@ public class PrimaryKeyCodeConverterTest extends InstrumentationTestCaseWithMock
 
     expect(guesser.getProbableKeyEvents(stubTouchEventList))
         .andReturn(
-            Arrays.asList(
+            Collections.singletonList(
                 ProbableKeyEvent.newBuilder().setKeyCode('b').setProbability(0.1d).build()));
     replayAll();
 

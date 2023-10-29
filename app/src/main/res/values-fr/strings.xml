@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">Remplir</string>
 <string name="pref_layout_adjustment_entry_right">Droite</string>
 <string name="pref_layout_adjustment_entry_left">Gauche</string>
-<string name="firsttime_close_button">Suivant &gt;&gt;</string>
-<string name="firsttime_description_thank_you">Merci d\'utiliser %s.</string>
-<string name="firsttime_description_usage_stats">Afin de nous permettre d\'améliorer les produits et services %s, nous vous invitons à activer les statistiques d\'utilisation.\n\nVous pouvez modifier ce paramètre dans l\'écran des préférences.</string>
-<string name="firsttime_send_usage_stats_devchannel">Les statistiques d\'utilisation sont activées, car vous utilisez une version de développement.</string>
 <string name="pref_ime_enable_alert_title">Configuration des paramètres de texte</string>
 <string name="pref_ime_enable_alert_message">Veuillez activer %s.</string>
 <string name="pref_ime_switch_alert_title">Configuration du mode de saisie</string>

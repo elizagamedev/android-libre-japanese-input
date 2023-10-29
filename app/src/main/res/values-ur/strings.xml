@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">بھریں</string>
 <string name="pref_layout_adjustment_entry_right">دائیں</string>
 <string name="pref_layout_adjustment_entry_left">بائیں</string>
-<string name="firsttime_close_button">اگلا &gt;&gt;</string>
-<string name="firsttime_description_thank_you">%s استعمال کرنے کیلئے آپ کا شکریہ۔</string>
-<string name="firsttime_description_usage_stats">‏%s پروڈکٹس اور سروسز کو بہتر بنانے کیلئے، ہم انکساری کے ساتھ آپ سے مطالبہ کرتے ہیں کہ استعمال کے اعداد و شمار کو فعال کرنے پر غور کریں۔‎\n\nاس ترتیب کو ترجیحات والی اسکرین سے تبدیل کیا جا سکتا ہے۔</string>
-<string name="firsttime_send_usage_stats_devchannel">استعمال کے اعداد و شمار فعال ہیں کیونکہ آپ ایک ڈیولپمنٹ ورژن استعمال کر رہے ہیں۔</string>
 <string name="pref_ime_enable_alert_title">متنی ترتیبات کیلئے سیٹ اپ</string>
 <string name="pref_ime_enable_alert_message">براہ کرم %s کو فعال کریں۔</string>
 <string name="pref_ime_switch_alert_title">ان پٹ طریقہ کیلئے سیٹ اپ</string>

@@ -50,7 +50,7 @@ public enum SkinType {
   private Optional<Skin> skin = Optional.absent();
   private final int resourceId;
 
-  private SkinType(int resourceId) {
+  SkinType(int resourceId) {
     this.resourceId = resourceId;
   }
 

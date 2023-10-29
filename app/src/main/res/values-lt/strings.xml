@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">Užpildas</string>
 <string name="pref_layout_adjustment_entry_right">Dešinėje</string>
 <string name="pref_layout_adjustment_entry_left">Kairėje</string>
-<string name="firsttime_close_button">Kitas &gt;&gt;</string>
-<string name="firsttime_description_thank_you">Dėkojame, kad naudojate „%s“.</string>
-<string name="firsttime_description_usage_stats">Kad galėtume tobulinti „%s“ produktus ir paslaugas, maloniai prašome jūsų apsvarstyti galimybę įgalinti naudojimo statistiką.\n\nŠį nustatymą galima pakeisti nuostatų ekrane.</string>
-<string name="firsttime_send_usage_stats_devchannel">Naudojimo statistika įjungta, nes naudojate kuriamą versiją.</string>
 <string name="pref_ime_enable_alert_title">Teksto nustatymų sąranka</string>
 <string name="pref_ime_enable_alert_message">Įgalinkite %s.</string>
 <string name="pref_ime_switch_alert_title">Įvesties metodo sąranka</string>

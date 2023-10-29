@@ -50,7 +50,7 @@ public class Keyboard {
    *
    * <p>For example, some keyboards use a special Romanji table.
    */
-  public static enum KeyboardSpecification {
+  public enum KeyboardSpecification {
     // 12 keys.
     TWELVE_KEY_TOGGLE_KANA(
         new KeyboardSpecificationName("TWELVE_KEY_TOGGLE_KANA", 0, 2, 0),
@@ -217,7 +217,7 @@ public class Keyboard {
     private final boolean kanaModifierInsensitiveConversion;
     private final CrossingEdgeBehavior crossingEdgeBehavior;
 
-    private KeyboardSpecification(
+    KeyboardSpecification(
         KeyboardSpecificationName specName,
         int resourceId,
         boolean isHardwareKeyboard,

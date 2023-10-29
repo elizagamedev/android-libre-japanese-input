@@ -32,6 +32,7 @@ package sh.eliza.japaneseinput.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+import androidx.appcompat.widget.AppCompatImageView;
 import com.google.common.base.Preconditions;
 
 /**
@@ -49,7 +50,7 @@ import com.google.common.base.Preconditions;
  * <p>This class is not intended to be changed its padding. There was a warning code for it but on
  * old Android framework setPadding() is always called so the warning code has been removed.
  */
-public class MozcImageView extends ImageView implements MozcImageCapableView {
+public class MozcImageView extends AppCompatImageView implements MozcImageCapableView {
 
   private final MozcImageCapableViewDelegate delegate = new MozcImageCapableViewDelegate(this);
 

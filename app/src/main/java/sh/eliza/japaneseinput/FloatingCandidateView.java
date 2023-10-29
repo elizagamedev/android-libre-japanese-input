@@ -60,25 +60,25 @@ import sh.eliza.japaneseinput.util.CursorAnchorInfoWrapper;
 public class FloatingCandidateView extends View {
 
   private interface FloatingCandidateViewProxy {
-    public void draw(Canvas canvas);
+    void draw(Canvas canvas);
 
-    public void viewSizeChanged(int width, int height);
+    void viewSizeChanged(int width, int height);
 
-    public void onStartInputView(EditorInfo editorInfo);
+    void onStartInputView(EditorInfo editorInfo);
 
-    public void setCursorAnchorInfo(CursorAnchorInfoWrapper info);
+    void setCursorAnchorInfo(CursorAnchorInfoWrapper info);
 
-    public void setCandidates(Command outCommand);
+    void setCandidates(Command outCommand);
 
-    public void setEditorInfo(EditorInfo editorInfo);
+    void setEditorInfo(EditorInfo editorInfo);
 
-    public void setCompositionMode(CompositionMode mode);
+    void setCompositionMode(CompositionMode mode);
 
-    public void setViewEventListener(ViewEventListener listener);
+    void setViewEventListener(ViewEventListener listener);
 
-    public void setVisibility(int visibility);
+    void setVisibility(int visibility);
 
-    public Optional<Rect> getVisibleRect();
+    Optional<Rect> getVisibleRect();
   }
 
   private static class FloatingCandidateViewStub implements FloatingCandidateViewProxy {
@@ -384,7 +384,6 @@ public class FloatingCandidateView extends View {
       basePositionTop = 0;
       basePositionBottom = 0;
       basePositionX = 0;
-      return;
     }
 
     /**
@@ -484,7 +483,7 @@ public class FloatingCandidateView extends View {
         rect.get().offset(offsetX, offsetY);
         return rect;
       } else {
-        return Optional.<Rect>absent();
+        return Optional.absent();
       }
     }
   }

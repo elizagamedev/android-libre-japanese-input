@@ -89,8 +89,6 @@ import sh.eliza.japaneseinput.keyboard.Key;
 import sh.eliza.japaneseinput.keyboard.Key.Stick;
 import sh.eliza.japaneseinput.keyboard.KeyEntity;
 import sh.eliza.japaneseinput.keyboard.KeyEventContext;
-import sh.eliza.japaneseinput.keyboard.KeyState;
-import sh.eliza.japaneseinput.keyboard.KeyState.MetaState;
 import sh.eliza.japaneseinput.keyboard.Keyboard;
 import sh.eliza.japaneseinput.keyboard.Keyboard.KeyboardSpecification;
 import sh.eliza.japaneseinput.keyboard.KeyboardActionListener;
@@ -134,7 +132,7 @@ public class ViewManagerTest extends InstrumentationTestCaseWithMock {
     Context context = getInstrumentation().getTargetContext();
     ViewManager viewManager = createViewManagerWithEventListener(context, viewEventListener);
     ViewManagerEventListener viewManagerEventListener =
-        ViewManagerEventListener.class.cast(viewManager.eventListener);
+        (ViewManagerEventListener) viewManager.eventListener;
 
     MozcView mozcView = viewManager.createMozcView(context);
 
@@ -150,10 +148,10 @@ public class ViewManagerTest extends InstrumentationTestCaseWithMock {
 
     resetAllToDefault();
 
-    viewEventListener.onConversionCandidateSelected(0, Optional.<Integer>absent());
+    viewEventListener.onConversionCandidateSelected(0, Optional.absent());
     replayAll();
 
-    viewManagerEventListener.onConversionCandidateSelected(0, Optional.<Integer>absent());
+    viewManagerEventListener.onConversionCandidateSelected(0, Optional.absent());
 
     verifyAll();
 
@@ -448,17 +446,14 @@ public class ViewManagerTest extends InstrumentationTestCaseWithMock {
 
     // Make sure that whenever keyboard is changed, the callback should be invoked.
     eventListener.onKeyEvent(
-        null, null, KeyboardSpecification.QWERTY_KANA, Collections.<TouchEvent>emptyList());
+        null, null, KeyboardSpecification.QWERTY_KANA, Collections.emptyList());
     replayAll();
     viewManager.setKeyboardLayout(KeyboardLayout.QWERTY);
     verifyAll();
 
     resetAll();
     eventListener.onKeyEvent(
-        null,
-        null,
-        KeyboardSpecification.TWELVE_KEY_TOGGLE_KANA,
-        Collections.<TouchEvent>emptyList());
+        null, null, KeyboardSpecification.TWELVE_KEY_TOGGLE_KANA, Collections.emptyList());
     replayAll();
     viewManager.setKeyboardLayout(KeyboardLayout.TWELVE_KEYS);
     verifyAll();
@@ -732,8 +727,7 @@ public class ViewManagerTest extends InstrumentationTestCaseWithMock {
             new HardwareKeyboard());
     viewManager.createMozcView(context);
     KeyboardSpecification keyboardSpecification =
-        JapaneseSoftwareKeyboardModel.class
-            .cast(viewManager.getActiveSoftwareKeyboardModel())
+        ((JapaneseSoftwareKeyboardModel) viewManager.getActiveSoftwareKeyboardModel())
             .getKeyboardSpecification();
 
     Resources resources = context.getResources();
@@ -754,9 +748,7 @@ public class ViewManagerTest extends InstrumentationTestCaseWithMock {
           int expectKeyCode) {
         this.keyCode = keyCode;
         this.probableKeyEvents =
-            probableKeyEvents == null
-                ? Collections.<ProbableKeyEvent>emptyList()
-                : Arrays.asList(probableKeyEvents);
+            probableKeyEvents == null ? Collections.emptyList() : Arrays.asList(probableKeyEvents);
         this.expectInvokeGuesser = expectInvokeGuesser;
         this.expectKeyEvent = expectKeyEvent;
         this.expectKeyCode = expectKeyCode;
@@ -816,7 +808,7 @@ public class ViewManagerTest extends InstrumentationTestCaseWithMock {
           ProtoCommands.KeyEvent.newBuilder()
               .setKeyCode('a')
               .addAllProbableKeyEvent(
-                  Arrays.asList(
+                  Collections.singletonList(
                       ProbableKeyEvent.newBuilder().setKeyCode('b').setProbability(0.1d).build()))
               .build(),
           KeyEvent.KEYCODE_A)
@@ -847,7 +839,7 @@ public class ViewManagerTest extends InstrumentationTestCaseWithMock {
     // Invalid Keycode.
     resetAll();
     replayAll();
-    viewManager.onKey(Integer.MIN_VALUE, Collections.<TouchEvent>emptyList());
+    viewManager.onKey(Integer.MIN_VALUE, Collections.emptyList());
     verifyAll();
   }
 
@@ -901,8 +893,7 @@ public class ViewManagerTest extends InstrumentationTestCaseWithMock {
 
     replayAll();
     viewManager.onKey(
-        context.getResources().getInteger(R.integer.key_globe),
-        Collections.<TouchEvent>emptyList());
+        context.getResources().getInteger(R.integer.key_globe), Collections.emptyList());
     verifyAll();
   }
 
@@ -953,8 +944,7 @@ public class ViewManagerTest extends InstrumentationTestCaseWithMock {
     ViewManager viewManager = createViewManagerWithEventListener(context, listener);
     viewManager.createMozcView(context);
     KeyboardSpecification keyboardSpecification =
-        JapaneseSoftwareKeyboardModel.class
-            .cast(viewManager.getActiveSoftwareKeyboardModel())
+        ((JapaneseSoftwareKeyboardModel) viewManager.getActiveSoftwareKeyboardModel())
             .getKeyboardSpecification();
 
     // Emulate toggling a key.
@@ -1049,14 +1039,14 @@ public class ViewManagerTest extends InstrumentationTestCaseWithMock {
                   false,
                   Stick.EVEN,
                   DrawableType.TWELVEKEYS_REGULAR_KEY_BACKGROUND,
-                  Collections.<KeyState>emptyList()),
+                  Collections.emptyList()),
               0,
               0,
               0,
               0,
               0,
               0,
-              Collections.<MetaState>emptySet());
+              Collections.emptySet());
       keyEventContextMap.put(0, keyEventContext);
     }
 

@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">[Fîļļ one]</string>
 <string name="pref_layout_adjustment_entry_right">[Ŕîĝĥţ one]</string>
 <string name="pref_layout_adjustment_entry_left">[Ļéƒţ one]</string>
-<string name="firsttime_close_button">[Ñéxţ &gt;&gt; one]</string>
-<string name="firsttime_description_thank_you">[Ţĥåñķ ýöû ƒöŕ ûšîñĝ ᐅ%sᐊ. one two three four five]</string>
-<string name="firsttime_description_usage_stats">[Îñ öŕðéŕ ƒöŕ ûš ţö îmþŕövé ᐅ%sᐊ þŕöðûçţš åñð šéŕvîçéš, ŵé ķîñðļý åšķ ýöû ţö çöñšîðéŕ éñåбļîñĝ ûšåĝé šţåţîšţîçš.\ñ\ñŢĥîš šéţţîñĝ çåñ бé çĥåñĝéð ƒŕöm ţĥé þŕéƒéŕéñçéš šçŕééñ. one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty twentyone twentytwo twentythree twentyfour]</string>
-<string name="firsttime_send_usage_stats_devchannel">[Ûšåĝé šţåţîšţîçš åŕé éñåбļéð бéçåûšé ýöû åŕé ûšîñĝ å ðévéļöþméñţ véŕšîöñ. one two three four five six seven eight nine ten eleven twelve thirteen fourteen]</string>
 <string name="pref_ime_enable_alert_title">[Šéţûþ ƒöŕ ţéxţ šéţţîñĝš one two three four five]</string>
 <string name="pref_ime_enable_alert_message">[Þļéåšé éñåбļé ᐅ%sᐊ. one two three four]</string>
 <string name="pref_ime_switch_alert_title">[Šéţûþ ƒöŕ îñþûţ méţĥöð one two three four five]</string>

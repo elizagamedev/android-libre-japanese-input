@@ -165,7 +165,7 @@ public class SymbolCandidateLayouterTest extends TestCase {
 
     SymbolCandidateLayouter.layoutSpanList(spanList, 240, 6);
     {
-      float expectedXCoord[] = {0, 40, 80, 120, 160, 200, 240};
+      float[] expectedXCoord = {0, 40, 80, 120, 160, 200, 240};
       for (int i = 0; i < spanList.size(); ++i) {
         assertEquals(expectedXCoord[i], spanList.get(i).getLeft());
         assertEquals(expectedXCoord[i + 1], spanList.get(i).getRight());
@@ -174,7 +174,7 @@ public class SymbolCandidateLayouterTest extends TestCase {
 
     SymbolCandidateLayouter.layoutSpanList(spanList, 240, 8);
     {
-      float expectedXCoord[] = {0, 30, 60, 90, 120, 150, 180}; // Not reached to the end.
+      float[] expectedXCoord = {0, 30, 60, 90, 120, 150, 180}; // Not reached to the end.
       for (int i = 0; i < spanList.size(); ++i) {
         assertEquals(expectedXCoord[i], spanList.get(i).getLeft());
         assertEquals(expectedXCoord[i + 1], spanList.get(i).getRight());
@@ -193,7 +193,7 @@ public class SymbolCandidateLayouterTest extends TestCase {
 
     SymbolCandidateLayouter.layoutRowList(rowList, 80);
 
-    float expectedYCoord[] = {0, 80, 160, 240};
+    float[] expectedYCoord = {0, 80, 160, 240};
     for (int i = 0; i < rowList.size(); ++i) {
       assertEquals(expectedYCoord[i], rowList.get(i).getTop());
       assertEquals(240f, rowList.get(i).getWidth());

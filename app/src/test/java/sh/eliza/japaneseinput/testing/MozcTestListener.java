@@ -70,7 +70,7 @@ import sh.eliza.japaneseinput.MozcLog;
  * from the spec of serializer.
  */
 public class MozcTestListener implements TestListener, Closeable {
-  private XmlSerializer serializer;
+  private final XmlSerializer serializer;
   private TestCase currentTestCase;
   private long testCaseStartTime;
   private boolean isTimeAppended;
@@ -162,7 +162,7 @@ public class MozcTestListener implements TestListener, Closeable {
   public void startTest(Test test) {
     try {
       if (test instanceof TestCase) {
-        TestCase testCase = TestCase.class.cast(test);
+        TestCase testCase = (TestCase) test;
         if (currentTestCase == null || testCase.getClass() != currentTestCase.getClass()) {
           // If this is the first test or different test case class is passed,
           // close last <testsuite> and start new <testsuite>.

@@ -31,6 +31,7 @@ package sh.eliza.japaneseinput.nativecallback;
 
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import junit.framework.TestCase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpHead;
@@ -88,24 +89,28 @@ public class HttpClientTest extends TestCase {
       {
         byte[] result =
             HttpClient.request(
-                "GET".getBytes("utf-8"), ("http://localhost:" + port).getBytes("utf-8"), null);
-        String s = new String(result, "utf-8");
+                "GET".getBytes(StandardCharsets.UTF_8),
+                ("http://localhost:" + port).getBytes(StandardCharsets.UTF_8),
+                null);
+        String s = new String(result, StandardCharsets.UTF_8);
         assertEquals("GET\n/", s);
       }
       {
         byte[] result =
             HttpClient.request(
-                "HEAD".getBytes("utf-8"), ("http://localhost:" + port).getBytes("utf-8"), null);
-        String s = new String(result, "utf-8");
+                "HEAD".getBytes(StandardCharsets.UTF_8),
+                ("http://localhost:" + port).getBytes(StandardCharsets.UTF_8),
+                null);
+        String s = new String(result, StandardCharsets.UTF_8);
         assertEquals("HTTP/1.0 200 OK\nContent-Type: text/plain\n\n", s);
       }
       {
         byte[] result =
             HttpClient.request(
-                "POST".getBytes("utf-8"),
-                ("http://localhost:" + port).getBytes("utf-8"),
+                "POST".getBytes(StandardCharsets.UTF_8),
+                ("http://localhost:" + port).getBytes(StandardCharsets.UTF_8),
                 new byte[] {'a', 'b', 'c'});
-        String s = new String(result, "utf-8");
+        String s = new String(result, StandardCharsets.UTF_8);
         assertEquals("abc", s);
       }
     } finally {

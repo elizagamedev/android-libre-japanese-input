@@ -74,9 +74,9 @@ public class KeyboardViewBackgroundSurfaceTest extends InstrumentationTestCaseWi
             KeyEntity.INVALID_KEY_CODE,
             true,
             iconResourceId,
-            Optional.<String>absent(),
+            Optional.absent(),
             false,
-            Optional.<PopUp>absent(),
+            Optional.absent(),
             0,
             0,
             Integer.MAX_VALUE,
@@ -85,9 +85,9 @@ public class KeyboardViewBackgroundSurfaceTest extends InstrumentationTestCaseWi
     KeyState keyState =
         new KeyState(
             "",
-            Collections.<MetaState>emptySet(),
-            Collections.<MetaState>emptySet(),
-            Collections.<MetaState>emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet(),
             Collections.singletonList(centerFlick));
     return new Key(
         x,
@@ -111,9 +111,9 @@ public class KeyboardViewBackgroundSurfaceTest extends InstrumentationTestCaseWi
         KeyEntity.INVALID_KEY_CODE,
         true,
         keyIconResourceId,
-        Optional.<String>absent(),
+        Optional.absent(),
         false,
-        Optional.<PopUp>absent(),
+        Optional.absent(),
         0,
         0,
         Integer.MAX_VALUE,
@@ -146,30 +146,30 @@ public class KeyboardViewBackgroundSurfaceTest extends InstrumentationTestCaseWi
             Collections.singletonList(
                 new KeyState(
                     "",
-                    Collections.<MetaState>emptySet(),
-                    Collections.<MetaState>emptySet(),
-                    Collections.<MetaState>emptySet(),
+                    Collections.emptySet(),
+                    Collections.emptySet(),
+                    Collections.emptySet(),
                     Arrays.asList(centerFlick, leftFlick))));
 
     // If this is the released key, the default key entity (center's one) should be returned.
     assertSame(
         centerEntity,
         KeyboardViewBackgroundSurface.getKeyEntityForRendering(
-                key, Collections.<MetaState>emptySet(), Optional.<Direction>absent())
+                key, Collections.emptySet(), Optional.absent())
             .get());
 
     // If this is the pressed key without flick, the center key entity should be returned.
     assertSame(
         centerEntity,
         KeyboardViewBackgroundSurface.getKeyEntityForRendering(
-                key, Collections.<MetaState>emptySet(), Optional.of(Direction.CENTER))
+                key, Collections.emptySet(), Optional.of(Direction.CENTER))
             .get());
 
     // If the flick state is set to the pressedKey, it should be returned.
     assertSame(
         leftEntity,
         KeyboardViewBackgroundSurface.getKeyEntityForRendering(
-                key, Collections.<MetaState>emptySet(), Optional.of(Direction.LEFT))
+                key, Collections.emptySet(), Optional.of(Direction.LEFT))
             .get());
 
     // If the key doesn't have a KeyEntity for the current state, the default key entity
@@ -182,7 +182,7 @@ public class KeyboardViewBackgroundSurfaceTest extends InstrumentationTestCaseWi
     assertSame(
         centerEntity,
         KeyboardViewBackgroundSurface.getKeyEntityForRendering(
-                key, EnumSet.of(MetaState.CAPS_LOCK), Optional.<Direction>absent())
+                key, EnumSet.of(MetaState.CAPS_LOCK), Optional.absent())
             .get());
     assertSame(
         centerEntity,
@@ -218,10 +218,10 @@ public class KeyboardViewBackgroundSurfaceTest extends InstrumentationTestCaseWi
 
     // Optional.absent() should be returned for Optional.absent() KeyEntity.
     assertFalse(
-        KeyboardViewBackgroundSurface.getKeyIcon(drawableCache, Optional.<KeyEntity>absent(), true)
+        KeyboardViewBackgroundSurface.getKeyIcon(drawableCache, Optional.absent(), true)
             .isPresent());
     assertFalse(
-        KeyboardViewBackgroundSurface.getKeyIcon(drawableCache, Optional.<KeyEntity>absent(), false)
+        KeyboardViewBackgroundSurface.getKeyIcon(drawableCache, Optional.absent(), false)
             .isPresent());
 
     // Optional.absent() should be returned for a KeyEntity without icon.
@@ -316,9 +316,9 @@ public class KeyboardViewBackgroundSurfaceTest extends InstrumentationTestCaseWi
     KeyState keyState =
         new KeyState(
             "",
-            Collections.<MetaState>emptySet(),
-            Collections.<MetaState>emptySet(),
-            Collections.<MetaState>emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet(),
+            Collections.emptySet(),
             Arrays.asList(centerFlick7, leftFlick7));
     Key key7 =
         new Key(
@@ -353,7 +353,7 @@ public class KeyboardViewBackgroundSurfaceTest extends InstrumentationTestCaseWi
 
     Keyboard keyboard =
         new Keyboard(
-            Optional.<String>absent(),
+            Optional.absent(),
             Arrays.asList(
                 new Row(Arrays.asList(key1, key2, key3), HEIGHT, 0),
                 new Row(Arrays.asList(key4, key5, key6), HEIGHT, 0),
@@ -405,7 +405,7 @@ public class KeyboardViewBackgroundSurfaceTest extends InstrumentationTestCaseWi
     KeyboardViewBackgroundSurface surface =
         new KeyboardViewBackgroundSurface(factory, drawableCache);
 
-    surface.reset(Optional.of(keyboard), Collections.<MetaState>emptySet());
+    surface.reset(Optional.of(keyboard), Collections.emptySet());
     surface.draw(canvas);
 
     canvasControl.verify();
@@ -540,7 +540,7 @@ public class KeyboardViewBackgroundSurfaceTest extends InstrumentationTestCaseWi
     surface.addPressedKey(key5, Direction.CENTER);
     surface.addPressedKey(key7, Direction.LEFT);
 
-    surface.reset(Optional.of(keyboard), Collections.<MetaState>emptySet());
+    surface.reset(Optional.of(keyboard), Collections.emptySet());
     surface.draw(canvas);
 
     canvasControl.verify();
@@ -582,7 +582,7 @@ public class KeyboardViewBackgroundSurfaceTest extends InstrumentationTestCaseWi
     surface.addPressedKey(key5, Direction.CENTER);
     surface.addPressedKey(key2, Direction.LEFT);
 
-    surface.reset(Optional.of(keyboard), Collections.<MetaState>emptySet());
+    surface.reset(Optional.of(keyboard), Collections.emptySet());
 
     surface.addPressedKey(key8, Direction.CENTER);
     surface.addPressedKey(key8, Direction.LEFT);

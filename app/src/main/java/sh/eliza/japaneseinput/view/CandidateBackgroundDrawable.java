@@ -119,8 +119,7 @@ public class CandidateBackgroundDrawable extends BaseBackgroundDrawable {
     bottom = canvasRect.bottom;
     if (Color.alpha(topColor | bottomColor) != 0) {
       shader =
-          Optional.<Shader>of(
-              new LinearGradient(0, top, 0, bottom, topColor, bottomColor, TileMode.CLAMP));
+          Optional.of(new LinearGradient(0, top, 0, bottom, topColor, bottomColor, TileMode.CLAMP));
     }
   }
 }

@@ -111,7 +111,7 @@ public enum SymbolMajorCategory {
    * @param minColumnWidthResourceId the resource id (R.dimen.xxxx) which represents the minimum
    *     width of each column.
    */
-  private SymbolMajorCategory(
+  SymbolMajorCategory(
       int buttonResourceId,
       int buttonImageResourceId,
       int buttonSelectedImageResourceId,

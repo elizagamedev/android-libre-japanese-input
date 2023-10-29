@@ -54,8 +54,8 @@ public class TriangularHighlightDrawable extends BaseBackgroundDrawable {
   // to height.
   private static final float SHADE_LENGTH_RATIO = 0.046f;
 
-  private int baseColor;
-  private int shadeColor;
+  private final int baseColor;
+  private final int shadeColor;
 
   private final HighlightDirection direction;
   private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);

@@ -127,14 +127,14 @@ public class RoundRectKeyDrawable extends BaseBackgroundDrawable {
         Math.min(canvasRect.right + 1, rect.right - BLUR_SIZE),
         Math.min(canvasRect.bottom + 2, rect.bottom - BLUR_SIZE));
     if (Color.alpha(topColor | bottomColor) != 0) {
-      basePaint = Optional.<Paint>of(new Paint(Paint.ANTI_ALIAS_FLAG));
+      basePaint = Optional.of(new Paint(Paint.ANTI_ALIAS_FLAG));
       basePaint
           .get()
           .setShader(
               new LinearGradient(
                   0, canvasRect.top, 0, canvasRect.bottom, topColor, bottomColor, TileMode.CLAMP));
     } else {
-      basePaint = Optional.<Paint>absent();
+      basePaint = Optional.absent();
     }
   }
 }

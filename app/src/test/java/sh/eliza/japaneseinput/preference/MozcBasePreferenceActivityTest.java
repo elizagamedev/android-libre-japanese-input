@@ -31,10 +31,10 @@ package sh.eliza.japaneseinput.preference;
 
 import static org.easymock.EasyMock.expect;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.preference.PreferenceManager;
 import android.test.suitebuilder.annotation.SmallTest;
+import androidx.appcompat.app.AlertDialog;
 import com.google.common.base.Optional;
 import sh.eliza.japaneseinput.ApplicationInitializerFactory;
 import sh.eliza.japaneseinput.ApplicationInitializerFactory.ApplicationInitializationStatus;
@@ -53,10 +53,10 @@ public class MozcBasePreferenceActivityTest
 
   @Override
   protected void tearDown() throws Exception {
-    MozcUtil.setDebug(Optional.<Boolean>absent());
-    MozcUtil.setDevChannel(Optional.<Boolean>absent());
-    MozcUtil.setMozcEnabled(Optional.<Boolean>absent());
-    MozcUtil.setMozcDefaultIme(Optional.<Boolean>absent());
+    MozcUtil.setDebug(Optional.absent());
+    MozcUtil.setDevChannel(Optional.absent());
+    MozcUtil.setMozcEnabled(Optional.absent());
+    MozcUtil.setMozcDefaultIme(Optional.absent());
     super.tearDown();
   }
 

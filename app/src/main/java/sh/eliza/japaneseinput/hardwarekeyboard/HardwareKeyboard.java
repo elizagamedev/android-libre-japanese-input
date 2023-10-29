@@ -31,6 +31,7 @@ package sh.eliza.japaneseinput.hardwarekeyboard;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import java.util.Objects;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
 import sh.eliza.japaneseinput.KeycodeConverter.KeyEventInterface;
@@ -45,7 +46,7 @@ import sh.eliza.japaneseinput.preference.ClientSidePreference.HardwareKeyMap;
 public class HardwareKeyboard {
 
   /** Used to switch the composition mode of harwdware keyboard. */
-  public static enum CompositionSwitchMode {
+  public enum CompositionSwitchMode {
     TOGGLE,
     KANA,
     ALPHABET
@@ -98,12 +99,10 @@ public class HardwareKeyboard {
   }
 
   public KeyboardSpecification getKeyboardSpecification() {
-    switch (compositionMode) {
-      case HIRAGANA:
-        return hardwareKeyboardSpecification.getKanaKeyboardSpecification();
-      default:
-        return hardwareKeyboardSpecification.getAlphabetKeyboardSpecification();
+    if (Objects.requireNonNull(compositionMode) == CompositionMode.HIRAGANA) {
+      return hardwareKeyboardSpecification.getKanaKeyboardSpecification();
     }
+    return hardwareKeyboardSpecification.getAlphabetKeyboardSpecification();
   }
 
   public CompositionMode getCompositionMode() {

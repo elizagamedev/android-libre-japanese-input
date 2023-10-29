@@ -42,18 +42,18 @@ public interface CandidateLayouter {
    *     words, if this method returns {@code true}, callers have the responsibility to re-layout
    *     candidates, by invoking {@link #layout} method.
    */
-  public boolean setViewSize(int width, int height);
+  boolean setViewSize(int width, int height);
 
   /**
    * @return the width of the page. It should be smaller or equal to the view's width.
    */
-  public int getPageWidth();
+  int getPageWidth();
 
   /**
    * @return the height of the page. It should be smaller or equal to the view's height.
    */
-  public int getPageHeight();
+  int getPageHeight();
 
   /** Layouts the given {@code candidateList}. */
-  public Optional<CandidateLayout> layout(CandidateList candidateList);
+  Optional<CandidateLayout> layout(CandidateList candidateList);
 }

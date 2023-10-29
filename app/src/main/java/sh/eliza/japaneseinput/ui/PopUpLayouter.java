@@ -64,8 +64,7 @@ public class PopUpLayouter<T extends View> {
 
     View rootView = parent.getRootView();
     if (rootView != null) {
-      FrameLayout screenContent =
-          FrameLayout.class.cast(rootView.findViewById(android.R.id.content));
+      FrameLayout screenContent = (FrameLayout) rootView.findViewById(android.R.id.content);
       if (screenContent != null) {
         screenContent.addView(
             contentView, new FrameLayout.LayoutParams(0, 0, Gravity.LEFT | Gravity.TOP));
@@ -93,7 +92,7 @@ public class PopUpLayouter<T extends View> {
     if (layoutParams != null) {
       layoutParams.width = width;
       layoutParams.height = height;
-      if (MarginLayoutParams.class.isInstance(layoutParams)) {
+      if (layoutParams instanceof MarginLayoutParams) {
         int x = left;
         int y = top;
 
@@ -102,9 +101,9 @@ public class PopUpLayouter<T extends View> {
         x += location[0];
         y += location[1];
 
-        MarginLayoutParams marginLayoutParams = MarginLayoutParams.class.cast(layoutParams);
+        MarginLayoutParams marginLayoutParams = (MarginLayoutParams) layoutParams;
         // Clip XY.
-        View rootView = View.class.cast(contentView.getParent());
+        View rootView = (View) contentView.getParent();
         if (rootView != null) {
           x = MozcUtil.clamp(x, 0, rootView.getWidth() - width);
           y = MozcUtil.clamp(y, 0, rootView.getHeight() - height);

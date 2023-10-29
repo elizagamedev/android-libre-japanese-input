@@ -43,12 +43,10 @@ public class AccessibilityUtil {
 
   private AccessibilityUtil() {}
 
-  private static Optional<AccessibilityManagerWrapper> accessibilityManager =
-      Optional.<AccessibilityManagerWrapper>absent();
-  private static Optional<AudioManagerWrapper> audioManager =
-      Optional.<AudioManagerWrapper>absent();
-  private static Optional<Boolean> isAccessibilitySpeakPasswordEnabled = Optional.<Boolean>absent();
-  private static Optional<Boolean> isAccessibilityEnabled = Optional.<Boolean>absent();
+  private static Optional<AccessibilityManagerWrapper> accessibilityManager = Optional.absent();
+  private static Optional<AudioManagerWrapper> audioManager = Optional.absent();
+  private static Optional<Boolean> isAccessibilitySpeakPasswordEnabled = Optional.absent();
+  private static Optional<Boolean> isAccessibilityEnabled = Optional.absent();
 
   /**
    * Resets internal status.
@@ -57,10 +55,10 @@ public class AccessibilityUtil {
    */
   @VisibleForTesting
   static void reset() {
-    setAccessibilityManagerForTesting(Optional.<AccessibilityManagerWrapper>absent());
-    setAudioManagerForTesting(Optional.<AudioManagerWrapper>absent());
-    setAccessibilitySpeakPasswordEnabled(Optional.<Boolean>absent());
-    setAccessibilityEnabled(Optional.<Boolean>absent());
+    setAccessibilityManagerForTesting(Optional.absent());
+    setAudioManagerForTesting(Optional.absent());
+    setAccessibilitySpeakPasswordEnabled(Optional.absent());
+    setAccessibilityEnabled(Optional.absent());
   }
 
   /**
@@ -151,7 +149,7 @@ public class AccessibilityUtil {
     }
     try {
       Field field = Settings.Secure.class.getField("ACCESSIBILITY_SPEAK_PASSWORD");
-      return String.class.cast(field.get(null)).equals("1");
+      return ((String) field.get(null)).equals("1");
     } catch (NoSuchFieldException e) {
       // Do nothing.
     } catch (IllegalArgumentException e) {

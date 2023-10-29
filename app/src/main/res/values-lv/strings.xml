@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">Aizpildīts</string>
 <string name="pref_layout_adjustment_entry_right">Pa labi</string>
 <string name="pref_layout_adjustment_entry_left">Pa kreisi</string>
-<string name="firsttime_close_button">Tālāk &gt;&gt;</string>
-<string name="firsttime_description_thank_you">Paldies, ka izmantojat %s!</string>
-<string name="firsttime_description_usage_stats">Lai mēs varētu uzlabot %s produktus un pakalpojumus, lūdzu, iespējojiet lietojuma statistiku.\n\nŠo iestatījumu var mainīt preferenču ekrānā.</string>
-<string name="firsttime_send_usage_stats_devchannel">Lietojuma statistika ir iespēja, jo jūs izmantojat izstrādes versiju.</string>
 <string name="pref_ime_enable_alert_title">Teksta iestatījumu atlasīšana</string>
 <string name="pref_ime_enable_alert_message">Lūdzu, iespējojiet %s.</string>
 <string name="pref_ime_switch_alert_title">Ievades metodes iestatīšana</string>

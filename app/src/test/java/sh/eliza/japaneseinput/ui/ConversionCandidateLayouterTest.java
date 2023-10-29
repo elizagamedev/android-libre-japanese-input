@@ -46,8 +46,8 @@ public class ConversionCandidateLayouterTest extends TestCase {
   private static final int VALUE_HEIGHT = 30;
   private static final int VALUE_VERTICAL_PADDING = 10;
 
-  private static SpanFactory DUMMY_SPAN_FACTORY = new SpanFactory();
-  private static ChunkMetrics DUMMY_CHUNK_METRICS =
+  private static final SpanFactory DUMMY_SPAN_FACTORY = new SpanFactory();
+  private static final ChunkMetrics DUMMY_CHUNK_METRICS =
       new ChunkMetrics(0, 0, 0, 0) {
         @Override
         int getNumChunks(Span span) {
@@ -177,7 +177,7 @@ public class ConversionCandidateLayouterTest extends TestCase {
         Optional.of(CandidateWord.newBuilder().setValue(value).build()),
         0,
         0,
-        Collections.<String>emptyList());
+        Collections.emptyList());
   }
 
   public void testLayoutSpanList_simple() {

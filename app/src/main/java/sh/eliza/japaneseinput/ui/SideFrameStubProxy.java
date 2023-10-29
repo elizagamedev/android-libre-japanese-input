@@ -68,8 +68,8 @@ public class SideFrameStubProxy {
   public void initialize(
       View view, int stubId, final int adjustButtonId, int adjustButtonResourceId) {
     this.resources = Preconditions.checkNotNull(view).getResources();
-    ViewStub viewStub = ViewStub.class.cast(view.findViewById(stubId));
-    currentView = Optional.<View>of(viewStub);
+    ViewStub viewStub = (ViewStub) view.findViewById(stubId);
+    currentView = Optional.of(viewStub);
     this.adjustButtonResourceId = adjustButtonResourceId;
 
     viewStub.setOnInflateListener(
@@ -82,7 +82,7 @@ public class SideFrameStubProxy {
 
             currentView = Optional.of(view);
             currentView.get().setVisibility(View.VISIBLE);
-            adjustButton = Optional.of(ImageView.class.cast(view.findViewById(adjustButtonId)));
+            adjustButton = Optional.of((ImageView) view.findViewById(adjustButtonId));
             adjustButton.get().setOnClickListener(buttonOnClickListener.orNull());
             updateAdjustButtonImage();
             resetAdjustButtonBottomMarginInternal(inputFrameHeight);
@@ -111,7 +111,7 @@ public class SideFrameStubProxy {
     if (adjustButton.isPresent()) {
       ImageView imageView = adjustButton.get();
       FrameLayout.LayoutParams layoutParams =
-          FrameLayout.LayoutParams.class.cast(imageView.getLayoutParams());
+          (FrameLayout.LayoutParams) imageView.getLayoutParams();
       layoutParams.bottomMargin = (inputFrameHeight - layoutParams.height) / 2;
       imageView.setLayoutParams(layoutParams);
     }

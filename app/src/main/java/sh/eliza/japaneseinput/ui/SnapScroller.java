@@ -289,7 +289,7 @@ public class SnapScroller {
     int distance = endScrollPosition - startScrollPosition;
     // Note that distance and velocity have the same sign
     // so totalAnimationDuration becomes always positive.
-    long totalAnimationDuration = 1000 * distance / velocity;
+    long totalAnimationDuration = 1000L * distance / velocity;
     long elapsedTime = Math.min(now - startScrollTime, totalAnimationDuration);
     float rateOfChange =
         totalAnimationDuration == 0

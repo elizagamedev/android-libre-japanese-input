@@ -29,9 +29,9 @@
 
 package sh.eliza.japaneseinput.testing;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import androidx.appcompat.app.AppCompatActivity;
 
 /** Testing utilities about {@link SharedPreferences}. */
 public class MozcPreferenceUtil {
@@ -42,7 +42,7 @@ public class MozcPreferenceUtil {
    * @return a private {@link SharedPreferences} instance based on the given {@code name}.
    */
   public static SharedPreferences getSharedPreferences(Context context, String name) {
-    return context.getSharedPreferences(name, Activity.MODE_PRIVATE);
+    return context.getSharedPreferences(name, AppCompatActivity.MODE_PRIVATE);
   }
 
   /**
@@ -64,11 +64,11 @@ public class MozcPreferenceUtil {
       SharedPreferences sharedPreferences, String key, Object value) {
     SharedPreferences.Editor editor = sharedPreferences.edit();
     if (value.getClass() == Boolean.class) {
-      editor.putBoolean(key, Boolean.class.cast(value));
+      editor.putBoolean(key, (Boolean) value);
     } else if (value.getClass() == String.class) {
-      editor.putString(key, String.class.cast(value));
+      editor.putString(key, (String) value);
     } else if (value.getClass() == Integer.class) {
-      editor.putInt(key, Integer.class.cast(value));
+      editor.putInt(key, (Integer) value);
     } else {
       throw new IllegalArgumentException("value's type can be only Boolean or String.");
     }

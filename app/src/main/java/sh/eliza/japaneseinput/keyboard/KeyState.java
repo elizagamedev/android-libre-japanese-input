@@ -103,7 +103,7 @@ public class KeyState {
      */
     final boolean isOneTimeMetaState;
 
-    private MetaState(int bitFlag, boolean isOneTimeMetaState) {
+    MetaState(int bitFlag, boolean isOneTimeMetaState) {
       this.bitFlag = bitFlag;
       this.isOneTimeMetaState = isOneTimeMetaState;
     }
@@ -132,7 +132,7 @@ public class KeyState {
 
     @SuppressWarnings("unchecked")
     private static final Collection<Set<MetaState>> EXCLUSIVE_GROUP =
-        Arrays.<Set<MetaState>>asList(
+        Arrays.asList(
             CHAR_TYPE_EXCLUSIVE_GROUP,
             ACTION_EXCLUSIVE_GROUP,
             VARIATION_EXCLUSIVE_GROUP,

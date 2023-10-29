@@ -70,10 +70,9 @@ public class PopUpLayouterTest extends InstrumentationTestCaseWithMock {
     Capture<FrameLayout.LayoutParams> layoutCapture = new Capture<FrameLayout.LayoutParams>();
 
     resetAll();
-    expect(rootView.findViewById(android.R.id.content))
-        .andStubReturn(View.class.cast(screenContentLayout));
+    expect(rootView.findViewById(android.R.id.content)).andStubReturn((View) screenContentLayout);
     screenContentLayout.addView(eq(popUpContentView), isA(FrameLayout.LayoutParams.class));
-    expect(parentView.getRootView()).andStubReturn(View.class.cast(rootView));
+    expect(parentView.getRootView()).andStubReturn((View) rootView);
     parentView.getLocationInWindow(isA(int[].class));
     expectLastCall().andAnswer(getLocationInWindowAnswer);
     expect(popUpContentView.getLayoutParams())

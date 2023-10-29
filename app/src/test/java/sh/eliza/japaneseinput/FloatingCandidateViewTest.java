@@ -92,7 +92,7 @@ public class FloatingCandidateViewTest extends InstrumentationTestCaseWithMock {
       candidatesBuilder.addCandidate(
           Candidate.newBuilder()
               .setIndex(i)
-              .setValue("cand_" + Integer.toString(i))
+              .setValue("cand_" + i)
               .setId(i)
               .setAnnotation(Annotation.newBuilder().setShortcut(Integer.toString(i + 1))));
     }
@@ -154,7 +154,7 @@ public class FloatingCandidateViewTest extends InstrumentationTestCaseWithMock {
             context, new PopupWindowMock(), layoutRendererMock, modeIndicatorMock);
 
     // A candidate window is invisible.
-    layoutRendererMock.setWindowRect(Optional.<Rect>absent());
+    layoutRendererMock.setWindowRect(Optional.absent());
     view.layout(0, 0, 1000, 2000);
     assertFalse(view.getVisibleRect().isPresent());
 
@@ -270,7 +270,7 @@ public class FloatingCandidateViewTest extends InstrumentationTestCaseWithMock {
       }
     }
 
-    Data testDataArray[] = {
+    Data[] testDataArray = {
       new Data(InputType.TYPE_CLASS_DATETIME, 0, InputType.TYPE_TEXT_VARIATION_NORMAL, true),
       new Data(InputType.TYPE_CLASS_DATETIME, 0, InputType.TYPE_TEXT_VARIATION_PASSWORD, true),
       new Data(

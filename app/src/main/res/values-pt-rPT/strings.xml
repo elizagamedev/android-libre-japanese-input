@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">Preencher</string>
 <string name="pref_layout_adjustment_entry_right">Direita</string>
 <string name="pref_layout_adjustment_entry_left">Esquerda</string>
-<string name="firsttime_close_button">Seguinte &gt;&gt;</string>
-<string name="firsttime_description_thank_you">Obrigado por utilizar %s.</string>
-<string name="firsttime_description_usage_stats">Para que possamos melhorar os produtos e serviços %s, gostaríamos que considerasse a hipótese de ativar as estatísticas de utilização.\n\nPode alterar esta definição no ecrã de preferências.</string>
-<string name="firsttime_send_usage_stats_devchannel">As estatísticas de utilização estão ativadas porque está a utilizar uma versão em programação.</string>
 <string name="pref_ime_enable_alert_title">Configuração de definições de texto</string>
 <string name="pref_ime_enable_alert_message">Ative %s.</string>
 <string name="pref_ime_switch_alert_title">Configuração do método de introdução</string>

@@ -53,9 +53,9 @@ class CandidateViewManager implements MemoryManageable {
 
   /** Listener interface to handle the height change of a keyboard candidate view. */
   public interface KeyboardCandidateViewHeightListener {
-    public void onExpanded();
+    void onExpanded();
 
-    public void onCollapse();
+    void onCollapse();
   }
 
   /** {@link CandidateMode#FLOATING} is only available on Lollipop or later. */

@@ -48,10 +48,10 @@ import sh.eliza.japaneseinput.MozcUtil;
  */
 class SocketSessionHandler implements SessionHandler {
   // Time out duration for connection in milliseconds.
-  private static final int CONNECTING_TIMEOUT = 1 * 1000;
+  private static final int CONNECTING_TIMEOUT = 1000;
 
   // Time out duration for reachability check in milliseconds.
-  private static final int REACHABLITY_TIMEOUT = 1 * 100;
+  private static final int REACHABLITY_TIMEOUT = 100;
 
   private final InetAddress host;
   private final int port;

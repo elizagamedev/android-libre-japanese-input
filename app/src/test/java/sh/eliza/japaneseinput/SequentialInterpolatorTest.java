@@ -100,11 +100,11 @@ public class SequentialInterpolatorTest extends TestCase {
             .add(new AccelerateInterpolator(), 1f, -4f)
             .add(new AccelerateInterpolator(), 1f, 1f)
             .build();
-    assertEquals(0f, sequential.getInterpolation(0f * 1f / 5f));
-    assertEquals(-1f, sequential.getInterpolation(1f * 1f / 5f));
-    assertEquals(-2f, sequential.getInterpolation(2f * 1f / 5f));
-    assertEquals(-3f, sequential.getInterpolation(3f * 1f / 5f));
-    assertEquals(-4f, sequential.getInterpolation(4f * 1f / 5f));
-    assertEquals(1f, sequential.getInterpolation(5f * 1f / 5f));
+    assertEquals(0f, sequential.getInterpolation(0.0f / 5f));
+    assertEquals(-1f, sequential.getInterpolation(1.0f / 5f));
+    assertEquals(-2f, sequential.getInterpolation(2f / 5f));
+    assertEquals(-3f, sequential.getInterpolation(3f / 5f));
+    assertEquals(-4f, sequential.getInterpolation(4f / 5f));
+    assertEquals(1f, sequential.getInterpolation(1.0f));
   }
 }

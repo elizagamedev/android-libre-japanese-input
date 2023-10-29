@@ -42,6 +42,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -89,7 +90,7 @@ public class MozcTestRunner extends InstrumentationTestRunner {
       }
 
       if (test instanceof TestSuite) {
-        TestSuite testSuite = TestSuite.class.cast(test);
+        TestSuite testSuite = (TestSuite) test;
         TestSuite dstSuite = new TestSuite(testSuite.getName());
         for (int i = 0; i < testSuite.testCount(); i++) {
           Test testat = testSuite.testAt(i);
@@ -106,7 +107,7 @@ public class MozcTestRunner extends InstrumentationTestRunner {
       }
 
       if (test instanceof TestCase) {
-        Method method = toMethod(TestCase.class.cast(test));
+        Method method = toMethod((TestCase) test);
         if (method == null || !filterTestMethod(method)) {
           return null;
         }
@@ -205,7 +206,8 @@ public class MozcTestRunner extends InstrumentationTestRunner {
       MozcLog.i("reporting XML is at " + reportingXmlFile.getAbsolutePath());
       BufferedWriter writer =
           new BufferedWriter(
-              new OutputStreamWriter(new FileOutputStream(reportingXmlFile), "UTF-8"));
+              new OutputStreamWriter(
+                  new FileOutputStream(reportingXmlFile), StandardCharsets.UTF_8));
       xmlListener = new MozcTestListener(writer, "gtest-report");
     } catch (IOException e) {
       MozcLog.e(e.getMessage(), e);

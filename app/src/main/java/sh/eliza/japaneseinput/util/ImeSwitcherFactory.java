@@ -100,7 +100,7 @@ public class ImeSwitcherFactory {
      * way to make available an IME is to use system preference screen and when a user returns from
      * it to an application the IME receives onStartInput.
      */
-    public boolean isVoiceImeAvailable();
+    boolean isVoiceImeAvailable();
 
     /**
      * Switches to voice ime if possible
@@ -143,7 +143,7 @@ public class ImeSwitcherFactory {
       this(
           inputMethodService,
           new InputMethodManagerProxy() {
-            InputMethodManager inputMethodManager =
+            final InputMethodManager inputMethodManager =
                 MozcUtil.getInputMethodManager(inputMethodService);
 
             @Override

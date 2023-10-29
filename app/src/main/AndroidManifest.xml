@@ -43,7 +43,7 @@
   <application android:icon="@drawable/application_icon"
                android:label="@string/app_full_name"
                android:allowBackup="false"
-               android:theme="@style/AppThemeSelector"
+               android:theme="@style/Theme.Material3.DayNight"
                tools:targetApi="33">
     <service android:name="sh.eliza.japaneseinput.MozcService"
              android:permission="android.permission.BIND_INPUT_METHOD"
@@ -76,12 +76,10 @@
 
     <!-- Preference -->
     <activity android:name="sh.eliza.japaneseinput.preference.MozcProxyPreferenceActivity" />
-    <activity android:name="sh.eliza.japaneseinput.preference.MozcFragmentPreferenceActivity"
-              android:launchMode="singleTask"
-              android:theme="@style/AppThemeSelectorSettings"/>
+    <activity android:name="sh.eliza.japaneseinput.preference.MozcMainPreferenceActivity"
+              android:launchMode="singleTask"/>
     <activity android:name="sh.eliza.japaneseinput.preference.MozcFragmentSoftwareKeyboardAdvancedSettingsPreferenceActivity"
-              android:launchMode="singleTop"
-              android:theme="@style/AppThemeSelectorSettings"/>
+              android:launchMode="singleTop"/>
 
     <activity android:name="sh.eliza.japaneseinput.FirstTimeLaunchActivity" />
     <activity android:name="sh.eliza.japaneseinput.preference.MiniBrowserActivity"
@@ -92,7 +90,6 @@
               android:label="@string/user_dictionary_tool_app_name"
               android:uiOptions="splitActionBarWhenNarrow"
               android:configChanges="orientation|screenSize"
-              android:theme="@style/AppThemeSelectorSettings"
               android:exported="true">
 
       <!-- Intent filters to receive a file-sending intent for importing user dictionary data.

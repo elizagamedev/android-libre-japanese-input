@@ -148,7 +148,7 @@ public class ViewManager implements ViewManagerInterface {
 
     if (primaryCode == keycodeSymbol) {
       if (mozcView != null) {
-        mozcView.showSymbolInputView(Optional.<SymbolMajorCategory>absent());
+        mozcView.showSymbolInputView(Optional.absent());
       }
       return;
     }
@@ -485,7 +485,7 @@ public class ViewManager implements ViewManagerInterface {
    */
   @Override
   public MozcView createMozcView(Context context) {
-    mozcView = MozcView.class.cast(LayoutInflater.from(context).inflate(R.layout.mozc_view, null));
+    mozcView = (MozcView) LayoutInflater.from(context).inflate(R.layout.mozc_view, null);
     // Suppress update of View's internal state
     // until all the updates done in this method are finished. Just in case.
     mozcView.setVisibility(View.GONE);
@@ -533,7 +533,7 @@ public class ViewManager implements ViewManagerInterface {
 
     mozcView.setKeyEventHandler(keyEventHandler);
 
-    propagateSoftwareKeyboardChange(Collections.<TouchEvent>emptyList());
+    propagateSoftwareKeyboardChange(Collections.emptyList());
     mozcView.setFullscreenMode(fullscreenMode);
     mozcView.setLayoutAdjustmentAndNarrowMode(layoutAdjustment, narrowMode);
     // At the moment, it is necessary to set the storage to the view, *before* setting emoji
@@ -640,7 +640,7 @@ public class ViewManager implements ViewManagerInterface {
     japaneseSoftwareKeyboardModel.setInputType(attribute.inputType);
     // TODO(hsumita): Set input type on Hardware keyboard, too. Otherwise, Hiragana input can be
     //                enabled unexpectedly. (e.g. Number text field.)
-    propagateSoftwareKeyboardChange(Collections.<TouchEvent>emptyList());
+    propagateSoftwareKeyboardChange(Collections.emptyList());
   }
 
   private boolean shouldVoiceImeBeEnabled() {
@@ -663,11 +663,7 @@ public class ViewManager implements ViewManagerInterface {
     }
 
     // Try to hide a sub view from front to back.
-    if (mozcView.hideSymbolInputView()) {
-      return true;
-    }
-
-    return false;
+    return mozcView.hideSymbolInputView();
   }
 
   /**
@@ -719,13 +715,13 @@ public class ViewManager implements ViewManagerInterface {
     KeyboardSpecification specification = hardwareKeyboard.getKeyboardSpecification();
 
     if (event == null) {
-      eventListener.onKeyEvent(null, null, specification, Collections.<TouchEvent>emptyList());
+      eventListener.onKeyEvent(null, null, specification, Collections.emptyList());
     } else {
       eventListener.onKeyEvent(
           hardwareKeyboard.getMozcKeyEvent(event),
           hardwareKeyboard.getKeyEventInterface(event),
           specification,
-          Collections.<TouchEvent>emptyList());
+          Collections.emptyList());
     }
 
     // Update S/W keyboard specification to keep a consistency with H/W keyboard.
@@ -753,7 +749,7 @@ public class ViewManager implements ViewManagerInterface {
     }
 
     japaneseSoftwareKeyboardModel.setKeyboardLayout(keyboardLayout);
-    propagateSoftwareKeyboardChange(Collections.<TouchEvent>emptyList());
+    propagateSoftwareKeyboardChange(Collections.emptyList());
   }
 
   /**
@@ -773,7 +769,7 @@ public class ViewManager implements ViewManagerInterface {
     }
 
     japaneseSoftwareKeyboardModel.setInputStyle(inputStyle);
-    propagateSoftwareKeyboardChange(Collections.<TouchEvent>emptyList());
+    propagateSoftwareKeyboardChange(Collections.emptyList());
   }
 
   @Override
@@ -784,7 +780,7 @@ public class ViewManager implements ViewManagerInterface {
     }
 
     japaneseSoftwareKeyboardModel.setQwertyLayoutForAlphabet(qwertyLayoutForAlphabet);
-    propagateSoftwareKeyboardChange(Collections.<TouchEvent>emptyList());
+    propagateSoftwareKeyboardChange(Collections.emptyList());
   }
 
   @Override
@@ -1071,7 +1067,7 @@ public class ViewManager implements ViewManagerInterface {
     } else {
       eventListener.onKeyEvent(
           hardwareKeyboard.getMozcKeyEvent(event), hardwareKeyboard.getKeyEventInterface(event),
-          hardwareKeyboard.getKeyboardSpecification(), Collections.<TouchEvent>emptyList());
+          hardwareKeyboard.getKeyboardSpecification(), Collections.emptyList());
     }
   }
 

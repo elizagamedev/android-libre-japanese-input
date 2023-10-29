@@ -68,7 +68,7 @@ public class FeedbackManager {
      * @param soundEffectType the effect type of the feedback sound, defined in {@link
      *     AudioManager}. FeedbackListener.NO_SOUND for no sound feedback.
      */
-    private FeedbackEvent(boolean isHapticFeedbackTarget, int soundEffectType) {
+    FeedbackEvent(boolean isHapticFeedbackTarget, int soundEffectType) {
       this.isHapticFeedbackTarget = isHapticFeedbackTarget;
       this.soundEffectType = soundEffectType;
     }
@@ -76,7 +76,7 @@ public class FeedbackManager {
     /**
      * @param isHapticFeedbackTarget true if the device should vibrate at the event.
      */
-    private FeedbackEvent(boolean isHapticFeedbackTarget) {
+    FeedbackEvent(boolean isHapticFeedbackTarget) {
       this(isHapticFeedbackTarget, NO_SOUND);
     }
   }
@@ -87,7 +87,7 @@ public class FeedbackManager {
      *
      * @param duration the duration of vibration in millisecond.
      */
-    public void onVibrate(long duration);
+    void onVibrate(long duration);
 
     /**
      * Called when sound feedback is fired.
@@ -95,7 +95,7 @@ public class FeedbackManager {
      * @param soundEffectType the effect type of the sound to be played. If
      *     FeedbackManager.NO_SOUND, no sound will be played.
      */
-    public void onSound(int soundEffectType, float volume);
+    void onSound(int soundEffectType, float volume);
   }
 
   private boolean isHapticFeedbackEnabled;

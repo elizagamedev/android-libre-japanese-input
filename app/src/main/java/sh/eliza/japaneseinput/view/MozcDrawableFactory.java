@@ -79,7 +79,7 @@ class MozcDrawableFactory {
 
   /** Locale field for {@link Paint#setTextLocale(Locale)}. */
   private static final Optional<Locale> TEXT_LOCALE =
-      (Build.VERSION.SDK_INT >= 17) ? Optional.of(Locale.JAPAN) : Optional.<Locale>absent();
+      (Build.VERSION.SDK_INT >= 17) ? Optional.of(Locale.JAPAN) : Optional.absent();
 
   private static final int DRAWABLE_PICTURE = 1;
   private static final int DRAWABLE_STATE_LIST = 2;
@@ -186,9 +186,9 @@ class MozcDrawableFactory {
     byte tag = stream.readByte();
     switch (tag) {
       case DRAWABLE_PICTURE:
-        return Optional.<Drawable>of(createBufferedPictureDrawable(stream, skin));
+        return Optional.of(createBufferedPictureDrawable(stream, skin));
       case DRAWABLE_STATE_LIST:
-        return Optional.<Drawable>of(createStateListDrawable(stream, skin));
+        return Optional.of(createStateListDrawable(stream, skin));
       default:
         MozcLog.e("Unknown tag: " + tag);
     }
@@ -568,8 +568,7 @@ class MozcDrawableFactory {
           for (int i = 0; i < length; ++i) {
             points[i] = readCompressedFloat(stream);
           }
-          return Optional.<Shader>of(
-              new LinearGradient(x1, y1, x2, y2, colors, points, TileMode.CLAMP));
+          return Optional.of(new LinearGradient(x1, y1, x2, y2, colors, points, TileMode.CLAMP));
         }
       case COMMAND_PICTURE_SHADER_RADIAL_GRADIENT:
         {
@@ -601,7 +600,7 @@ class MozcDrawableFactory {
           if (matrix != null) {
             gradient.setLocalMatrix(matrix);
           }
-          return Optional.<Shader>of(gradient);
+          return Optional.of(gradient);
         }
       default:
         MozcLog.e("Unknown shader type: " + tag);

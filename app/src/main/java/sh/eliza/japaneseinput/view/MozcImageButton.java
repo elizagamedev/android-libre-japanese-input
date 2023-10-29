@@ -31,8 +31,8 @@ package sh.eliza.japaneseinput.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import androidx.appcompat.widget.AppCompatImageButton;
 import com.google.common.base.Preconditions;
 
 /**
@@ -40,7 +40,7 @@ import com.google.common.base.Preconditions;
  *
  * <p>See {@code MozcImageView}.
  */
-public class MozcImageButton extends ImageButton implements MozcImageCapableView {
+public class MozcImageButton extends AppCompatImageButton implements MozcImageCapableView {
 
   private final MozcImageCapableViewDelegate delegate = new MozcImageCapableViewDelegate(this);
 

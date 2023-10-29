@@ -148,7 +148,7 @@ public class PrimaryKeyCodeConverter {
       }
       return Optional.of(builder.build());
     }
-    return Optional.<ProtoCommands.KeyEvent>absent();
+    return Optional.absent();
   }
 
   public KeyEventInterface getPrimaryCodeKeyEvent(int primaryCode) {
@@ -353,7 +353,7 @@ public class PrimaryKeyCodeConverter {
 
     @Override
     public Optional<KeyEvent> getNativeEvent() {
-      return Optional.<KeyEvent>absent();
+      return Optional.absent();
     }
   }
 }

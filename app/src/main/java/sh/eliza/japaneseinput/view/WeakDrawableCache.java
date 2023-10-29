@@ -58,7 +58,7 @@ public class WeakDrawableCache {
 
   private void cleanUp() {
     while (true) {
-      WeakEntry reference = WeakEntry.class.cast(queue.poll());
+      WeakEntry reference = (WeakEntry) queue.poll();
       if (reference == null) {
         return;
       }

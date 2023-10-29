@@ -47,7 +47,7 @@ public class KeyboardLayoutPreferenceTest extends InstrumentationTestCase {
     Context context = getInstrumentation().getTargetContext();
     KeyboardLayoutPreference preference = new KeyboardLayoutPreference(context);
     LayoutInflater inflate =
-        LayoutInflater.class.cast(context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+        (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     View widgetView = inflate.inflate(R.layout.pref_keyboard_layout, null);
     preference.onBindView(widgetView);
     return widgetView;
@@ -59,8 +59,7 @@ public class KeyboardLayoutPreferenceTest extends InstrumentationTestCase {
       @SuppressWarnings("deprecation") android.widget.Gallery gallery) {
     for (int i = 0; i < gallery.getChildCount(); ++i) {
       View child = gallery.getChildAt(i);
-      Item itemAtPosition =
-          Item.class.cast(gallery.getItemAtPosition(gallery.getPositionForView(child)));
+      Item itemAtPosition = (Item) gallery.getItemAtPosition(gallery.getPositionForView(child));
       if (itemAtPosition.keyboardLayout == item.keyboardLayout) {
         assertNull(child.getBackground());
       } else {
@@ -79,13 +78,13 @@ public class KeyboardLayoutPreferenceTest extends InstrumentationTestCase {
       preference.setValue(item.keyboardLayout);
 
       LayoutInflater inflate =
-          LayoutInflater.class.cast(context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+          (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
       View widgetView = inflate.inflate(R.layout.pref_keyboard_layout, null);
       preference.onBindView(widgetView);
 
       @SuppressWarnings("deprecation")
       android.widget.Gallery gallery =
-          android.widget.Gallery.class.cast(widgetView.findViewById(R.id.pref_inputstyle_gallery));
+          (android.widget.Gallery) widgetView.findViewById(R.id.pref_inputstyle_gallery);
       // Check if appropriate item is selected on the gallery.
       assertEquals(item, gallery.getSelectedItem());
       // Check background resources.
@@ -99,7 +98,7 @@ public class KeyboardLayoutPreferenceTest extends InstrumentationTestCase {
     View widgetView = getWidgetView();
     @SuppressWarnings("deprecation")
     android.widget.Gallery gallery =
-        android.widget.Gallery.class.cast(widgetView.findViewById(R.id.pref_inputstyle_gallery));
+        (android.widget.Gallery) widgetView.findViewById(R.id.pref_inputstyle_gallery);
     for (int i = 0; i < KeyboardLayoutPreference.itemList.size(); ++i) {
       KeyboardLayoutPreference.Item item = KeyboardLayoutPreference.itemList.get(i);
       // Don't use Gallery#setSelection, which calls back onItemSelected asynchronously using
@@ -120,12 +119,12 @@ public class KeyboardLayoutPreferenceTest extends InstrumentationTestCase {
     preference.setPersistent(false);
 
     LayoutInflater inflate =
-        LayoutInflater.class.cast(context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+        (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     View widgetView = inflate.inflate(R.layout.pref_keyboard_layout, null);
     preference.onBindView(widgetView);
     @SuppressWarnings("deprecation")
     android.widget.Gallery gallery =
-        android.widget.Gallery.class.cast(widgetView.findViewById(R.id.pref_inputstyle_gallery));
+        (android.widget.Gallery) widgetView.findViewById(R.id.pref_inputstyle_gallery);
     for (int i = 0; i < KeyboardLayoutPreference.itemList.size(); ++i) {
       KeyboardLayoutPreference.Item item = KeyboardLayoutPreference.itemList.get(i);
       gallery.getOnItemClickListener().onItemClick(gallery, null, i, i);
@@ -139,13 +138,13 @@ public class KeyboardLayoutPreferenceTest extends InstrumentationTestCase {
     View widgetView = getWidgetView();
     @SuppressWarnings("deprecation")
     android.widget.Gallery gallery =
-        android.widget.Gallery.class.cast(widgetView.findViewById(R.id.pref_inputstyle_gallery));
+        (android.widget.Gallery) widgetView.findViewById(R.id.pref_inputstyle_gallery);
     Context context = getInstrumentation().getTargetContext();
     for (int i = 0; i < KeyboardLayoutPreference.itemList.size(); ++i) {
       KeyboardLayoutPreference.Item item = KeyboardLayoutPreference.itemList.get(i);
       View view = gallery.getAdapter().getView(i, null, gallery);
       // Checking ImageView's Drawable is omitted because there is no convenient way.
-      TextView titleView = TextView.class.cast(view.findViewById(R.id.pref_inputstyle_item_title));
+      TextView titleView = (TextView) view.findViewById(R.id.pref_inputstyle_item_title);
       assertEquals(context.getResources().getText(item.titleResId), titleView.getText().toString());
     }
   }

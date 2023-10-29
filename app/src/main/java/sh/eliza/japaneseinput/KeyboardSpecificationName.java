@@ -58,16 +58,15 @@ public class KeyboardSpecificationName {
    */
   public String formattedKeyboardName(Configuration configuration) {
     Preconditions.checkNotNull(configuration);
-    return new StringBuilder(baseName)
-        .append('-')
-        .append(major)
-        .append('.')
-        .append(minor)
-        .append('.')
-        .append(revision)
-        .append('-')
-        .append(getDeviceOrientationString(configuration))
-        .toString();
+    return baseName
+        + '-'
+        + major
+        + '.'
+        + minor
+        + '.'
+        + revision
+        + '-'
+        + getDeviceOrientationString(configuration);
   }
 
   /** Returns *Canonical* orientation string, which is used as a part of keyboard name. */

@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">ભરો</string>
 <string name="pref_layout_adjustment_entry_right">જમણે</string>
 <string name="pref_layout_adjustment_entry_left">ડાબું</string>
-<string name="firsttime_close_button">આગલું &gt;&gt;</string>
-<string name="firsttime_description_thank_you">%s નો ઉપયોગ કરવા બદલ આભાર.</string>
-<string name="firsttime_description_usage_stats">અમને %s ઉત્પાદનો અને સેવાઓ સુધારવા માટે, અમે તમને ઉપયોગના આંકડાઓ સક્ષમ કરવાનું ધ્યાનમાં લેવાની વિનંતી કરીએ છીએ.\n\nઆ સેટિંગ્સ પસંદગીઓની સ્ક્રીનમાંથી બદલાવી શકાય છે.</string>
-<string name="firsttime_send_usage_stats_devchannel">વપરાશ આંકડાઓ સક્ષમ કર્યાં છે, કારણ કે તમે વિકાસકર્તા સંસ્કરણનો ઉપયોગ કરી રહ્યાં છો.</string>
 <string name="pref_ime_enable_alert_title">ટેક્સ્ટ સેટિંગ્સ માટે સેટઅપ</string>
 <string name="pref_ime_enable_alert_message">કૃપા કરીને %s ને સક્ષમ કરો.</string>
 <string name="pref_ime_switch_alert_title">ઇનપુટ પદ્ધતિ માટે સેટઅપ</string>

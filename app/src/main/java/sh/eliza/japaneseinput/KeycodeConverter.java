@@ -138,7 +138,7 @@ public class KeycodeConverter {
 
       @Override
       public Optional<android.view.KeyEvent> getNativeEvent() {
-        return Optional.<android.view.KeyEvent>absent();
+        return Optional.absent();
       }
     };
   }

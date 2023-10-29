@@ -134,10 +134,6 @@
 <string name="pref_layout_adjustment_entry_fill">Fill</string>
 <string name="pref_layout_adjustment_entry_right">Right</string>
 <string name="pref_layout_adjustment_entry_left">Left</string>
-<string name="firsttime_close_button">Next &gt;&gt;</string>
-<string name="firsttime_description_thank_you">Thank you for using %s.</string>
-<string name="firsttime_description_usage_stats">In order for us to improve %s products and services, we kindly ask you to consider enabling usage statistics.\n\nThis setting can be changed from the preferences screen.</string>
-<string name="firsttime_send_usage_stats_devchannel">Usage statistics are enabled because you are using a development version.</string>
 <string name="pref_ime_enable_alert_title">Set-up for text settings</string>
 <string name="pref_ime_enable_alert_message">Please enable %s.</string>
 <string name="pref_ime_switch_alert_title">Set-up for input method</string>

@@ -38,7 +38,7 @@ import com.google.common.base.Preconditions;
  */
 public class Flick {
   /** A simple enum representing flicking direction. */
-  public static enum Direction {
+  public enum Direction {
     CENTER(0),
     LEFT(1),
     RIGHT(2),
@@ -48,7 +48,7 @@ public class Flick {
     // An index also defined in res/values/attr.xml.
     final int index;
 
-    private Direction(int index) {
+    Direction(int index) {
       this.index = index;
     }
 

@@ -114,7 +114,7 @@ public class MozcMatcher {
       if (!(arg instanceof KeyEventInterface)) {
         return false;
       }
-      KeyEventInterface keyEvent = KeyEventInterface.class.cast(arg);
+      KeyEventInterface keyEvent = (KeyEventInterface) arg;
       if (expectedNativeKeyEvent.isPresent()) {
         Optional<KeyEvent> nativeEvent = keyEvent.getNativeEvent();
         return nativeEvent.isPresent() && (nativeEvent.get() == expectedNativeKeyEvent.get());
@@ -164,7 +164,7 @@ public class MozcMatcher {
         return false;
       }
 
-      Canvas canvas = Canvas.class.cast(arg);
+      Canvas canvas = (Canvas) arg;
       float[] points = sourcePoints.clone();
       canvas.getMatrix().mapPoints(points);
       return Arrays.equals(targetPoints, points);
@@ -191,7 +191,7 @@ public class MozcMatcher {
       if (!(arg instanceof Optional)) {
         return false;
       }
-      Optional targetValue = Optional.class.cast(arg);
+      Optional targetValue = (Optional) arg;
       return expectedValue == targetValue.orNull();
     }
   }

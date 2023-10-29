@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">പൂരിപ്പിക്കുക</string>
 <string name="pref_layout_adjustment_entry_right">വലത്തേക്ക്</string>
 <string name="pref_layout_adjustment_entry_left">ഇടത്തേയ്‌ക്ക്</string>
-<string name="firsttime_close_button">അടുത്തത് &gt;&gt;</string>
-<string name="firsttime_description_thank_you">%s ഉപയോഗിച്ചതിന് നന്ദി.</string>
-<string name="firsttime_description_usage_stats">%s ഉൽപ്പന്നങ്ങളും സേവനങ്ങളും മെച്ചപ്പെടുത്തുന്നതിന്, ഉപയോഗ സ്ഥിതിവിവരക്കണക്കുകൾ പ്രവർത്തനക്ഷമമാക്കുന്നത് പരിഗണിക്കാൻ നിങ്ങളോട് അഭ്യർത്ഥിക്കുന്നു.\n\nമുൻഗണനകളുടെ സ്‌ക്രീനിൽ നിന്ന് ഈ ക്രമീകരണങ്ങൾ മാറ്റാനാകും.</string>
-<string name="firsttime_send_usage_stats_devchannel">നിങ്ങൾ ഒരു ഡവലപ്പ്മെന്റ് പതിപ്പ് ഉപയോഗിക്കുന്നതിനാൽ ഉപയോഗ സ്ഥിതിവിവരക്കണക്കുകൾ പ്രവർത്തനക്ഷമമാക്കി.</string>
 <string name="pref_ime_enable_alert_title">ടെക്‌സ്റ്റ് ക്രമീകരണങ്ങൾക്കുള്ള സജ്ജീകരണങ്ങൾ</string>
 <string name="pref_ime_enable_alert_message">%s എന്നത് പ്രവർത്തനക്ഷമമാക്കുക.</string>
 <string name="pref_ime_switch_alert_title">ടൈപ്പുചെയ്യൽ രീതിയ്‌ക്കുള്ള സജ്ജീകരണം</string>

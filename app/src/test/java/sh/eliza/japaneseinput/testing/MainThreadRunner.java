@@ -29,10 +29,10 @@
 
 package sh.eliza.japaneseinput.testing;
 
-import android.app.Activity;
 import android.app.Instrumentation;
 import android.view.MotionEvent;
 import android.view.View;
+import androidx.appcompat.app.AppCompatActivity;
 import sh.eliza.japaneseinput.keyboard.Keyboard;
 import sh.eliza.japaneseinput.keyboard.KeyboardView;
 
@@ -83,7 +83,7 @@ public class MainThreadRunner {
     instrumentation.runOnMainSync(runner);
   }
 
-  public void setContentView(final Activity activity, final View view) {
+  public void setContentView(final AppCompatActivity activity, final View view) {
     runOnMainSync(
         new Runnable() {
           @Override

@@ -65,10 +65,9 @@ class MozcJNI {
       }
       String nativeVersion = getVersion();
       if (!nativeVersion.equals(expectedVersion)) {
-        StringBuilder message = new StringBuilder("Version conflicts;");
-        message.append(" Client:").append(expectedVersion);
-        message.append(" Server:").append(nativeVersion);
-        throw new UnsatisfiedLinkError(message.toString());
+        String message =
+            "Version conflicts;" + " Client:" + expectedVersion + " Server:" + nativeVersion;
+        throw new UnsatisfiedLinkError(message);
       }
       if (!onPostLoad(userProfileDirectoryPath, dataFilePath)) {
         MozcLog.e("onPostLoad fails");

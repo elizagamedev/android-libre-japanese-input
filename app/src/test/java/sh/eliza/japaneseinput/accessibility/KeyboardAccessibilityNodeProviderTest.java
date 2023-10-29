@@ -36,12 +36,12 @@ import static org.easymock.EasyMock.expect;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.v4.view.accessibility.AccessibilityEventCompat;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+import androidx.core.view.accessibility.AccessibilityEventCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import com.google.common.base.Optional;
 import java.util.Arrays;
 import java.util.Collections;
@@ -58,7 +58,6 @@ import sh.eliza.japaneseinput.keyboard.KeyState;
 import sh.eliza.japaneseinput.keyboard.KeyState.MetaState;
 import sh.eliza.japaneseinput.keyboard.Keyboard;
 import sh.eliza.japaneseinput.keyboard.Keyboard.KeyboardSpecification;
-import sh.eliza.japaneseinput.keyboard.PopUp;
 import sh.eliza.japaneseinput.keyboard.Row;
 import sh.eliza.japaneseinput.testing.InstrumentationTestCaseWithMock;
 
@@ -103,9 +102,9 @@ public class KeyboardAccessibilityNodeProviderTest extends InstrumentationTestCa
                         Arrays.asList(
                             new KeyState(
                                 "meta:unmodified",
-                                Collections.<MetaState>emptySet(),
-                                Collections.<MetaState>emptySet(),
-                                Collections.<MetaState>emptySet(),
+                                Collections.emptySet(),
+                                Collections.emptySet(),
+                                Collections.emptySet(),
                                 Collections.singletonList(
                                     new Flick(
                                         Direction.CENTER,
@@ -115,9 +114,9 @@ public class KeyboardAccessibilityNodeProviderTest extends InstrumentationTestCa
                                             0,
                                             true,
                                             0,
-                                            Optional.<String>absent(),
+                                            Optional.absent(),
                                             false,
-                                            Optional.<PopUp>absent(),
+                                            Optional.absent(),
                                             0,
                                             0,
                                             0,
@@ -125,8 +124,8 @@ public class KeyboardAccessibilityNodeProviderTest extends InstrumentationTestCa
                             new KeyState(
                                 "meta:shift",
                                 EnumSet.of(MetaState.SHIFT),
-                                Collections.<MetaState>emptySet(),
-                                Collections.<MetaState>emptySet(),
+                                Collections.emptySet(),
+                                Collections.emptySet(),
                                 Collections.singletonList(
                                     new Flick(
                                         Direction.CENTER,
@@ -136,9 +135,9 @@ public class KeyboardAccessibilityNodeProviderTest extends InstrumentationTestCa
                                             0,
                                             true,
                                             0,
-                                            Optional.<String>absent(),
+                                            Optional.absent(),
                                             false,
-                                            Optional.<PopUp>absent(),
+                                            Optional.absent(),
                                             0,
                                             0,
                                             0,
@@ -157,9 +156,9 @@ public class KeyboardAccessibilityNodeProviderTest extends InstrumentationTestCa
                         Collections.singletonList(
                             new KeyState(
                                 "backspace",
-                                Collections.<MetaState>emptySet(),
-                                Collections.<MetaState>emptySet(),
-                                Collections.<MetaState>emptySet(),
+                                Collections.emptySet(),
+                                Collections.emptySet(),
+                                Collections.emptySet(),
                                 Collections.singletonList(
                                     new Flick(
                                         Direction.CENTER,
@@ -169,9 +168,9 @@ public class KeyboardAccessibilityNodeProviderTest extends InstrumentationTestCa
                                             0,
                                             true,
                                             0,
-                                            Optional.<String>absent(),
+                                            Optional.absent(),
                                             false,
-                                            Optional.<PopUp>absent(),
+                                            Optional.absent(),
                                             0,
                                             0,
                                             0,
@@ -192,9 +191,7 @@ public class KeyboardAccessibilityNodeProviderTest extends InstrumentationTestCa
        * but to set is very hard. Use mock implementation instead.
        */
       @Override
-      public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
-        return;
-      }
+      public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {}
     };
   }
 

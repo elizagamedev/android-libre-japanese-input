@@ -36,12 +36,12 @@ import static org.easymock.EasyMock.expect;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.v4.view.accessibility.AccessibilityEventCompat;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+import androidx.core.view.accessibility.AccessibilityEventCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import com.google.common.base.Optional;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -82,10 +82,9 @@ public class CandidateWindowAccessibilityNodeProviderTest extends Instrumentatio
     List<Row> rows = new ArrayList<Row>();
     {
       Row row = new Row();
-      row.addSpan(new Span(createCandidateWord(0), 10, 0, Collections.<String>emptyList()));
-      row.addSpan(new Span(createCandidateWord(1), 10, 0, Collections.<String>emptyList()));
-      row.addSpan(
-          new Span(Optional.<CandidateWord>absent(), 10, 0, Collections.<String>emptyList()));
+      row.addSpan(new Span(createCandidateWord(0), 10, 0, Collections.emptyList()));
+      row.addSpan(new Span(createCandidateWord(1), 10, 0, Collections.emptyList()));
+      row.addSpan(new Span(Optional.absent(), 10, 0, Collections.emptyList()));
       row.setTop(0);
       row.setHeight(100);
       row.setWidth(300);
@@ -100,9 +99,9 @@ public class CandidateWindowAccessibilityNodeProviderTest extends Instrumentatio
     }
     {
       Row row = new Row();
-      row.addSpan(new Span(createCandidateWord(3), 10, 0, Collections.<String>emptyList()));
-      row.addSpan(new Span(createCandidateWord(4), 10, 0, Collections.<String>emptyList()));
-      row.addSpan(new Span(createCandidateWord(5), 10, 0, Collections.<String>emptyList()));
+      row.addSpan(new Span(createCandidateWord(3), 10, 0, Collections.emptyList()));
+      row.addSpan(new Span(createCandidateWord(4), 10, 0, Collections.emptyList()));
+      row.addSpan(new Span(createCandidateWord(5), 10, 0, Collections.emptyList()));
       row.setTop(200);
       row.setHeight(100);
       row.setWidth(300);
@@ -129,9 +128,7 @@ public class CandidateWindowAccessibilityNodeProviderTest extends Instrumentatio
        * but to set is very hard. Use mock implementation instead.
        */
       @Override
-      public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
-        return;
-      }
+      public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {}
     };
   }
 

@@ -37,6 +37,7 @@ import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import sh.eliza.japaneseinput.MozcUtil;
@@ -158,7 +159,7 @@ public class ZipFileUtil {
           throw new IOException("Too long file name length ;" + fileNameLength);
         }
         RandomAccessFileUtility.readBytes(file, offset + CENHDR, temp, fileNameLength);
-        if (new String(temp, 0, fileNameLength, "UTF-8").equals(fileName)) {
+        if (new String(temp, 0, fileNameLength, StandardCharsets.UTF_8).equals(fileName)) {
           int localOffset = RandomAccessFileUtility.readPositiveInt(file, offset + CENOFF);
           int rawLength = RandomAccessFileUtility.readPositiveInt(file, offset + CENSIZ);
           return new LocalDirectory(file, localOffset, rawLength);

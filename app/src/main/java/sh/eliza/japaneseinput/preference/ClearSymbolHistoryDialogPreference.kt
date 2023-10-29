@@ -26,23 +26,28 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+package sh.eliza.japaneseinput.preference
 
-package sh.eliza.japaneseinput.preference;
+import android.content.Context
+import android.util.AttributeSet
+import androidx.preference.DialogPreference
 
-import android.app.Activity;
-import android.content.Intent;
-import sh.eliza.japaneseinput.DependencyFactory;
+/** A DialogPreference to clear symbol histories. */
+class ClearSymbolHistoryDialogPreference : DialogPreference {
+  constructor(context: Context) : super(context)
+  constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
-/**
- * Proxy activity forwarding to preference screen based on {@link
- * sh.eliza.japaneseinput.DependencyFactory.Dependency}.
- */
-public class MozcProxyPreferenceActivity extends MozcProxyActivity {
-
-  @Override
-  protected Intent getForwardIntent() {
-    Class<? extends Activity> destinationActivity =
-        DependencyFactory.getDependency(getApplicationContext()).getPreferenceActivityClass();
-    return new Intent(this, destinationActivity);
-  }
+  // TODO(exv): fix this
+  // fun fixmeOnClick(which: Int) {
+  //   if (which == DialogInterface.BUTTON_POSITIVE) {
+  //     val sessionExecutor =
+  //       SessionExecutor.getInstanceInitializedIfNecessary(
+  //         SessionHandlerFactory(getContext()),
+  //         getContext()
+  //       )
+  //     sessionExecutor.clearStorage(StorageType.EMOJI_HISTORY)
+  //     sessionExecutor.clearStorage(StorageType.EMOTICON_HISTORY)
+  //     sessionExecutor.clearStorage(StorageType.SYMBOL_HISTORY)
+  //   }
+  // }
 }

@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">შევსება</string>
 <string name="pref_layout_adjustment_entry_right">მარჯვენა</string>
 <string name="pref_layout_adjustment_entry_left">მარცხენა</string>
-<string name="firsttime_close_button">შემდეგი &gt;&gt;</string>
-<string name="firsttime_description_thank_you">გმადლობთ, რომ სარგებლობთ %s-ით.</string>
-<string name="firsttime_description_usage_stats">იმისათვის, რომ გავაუმჯობესოთ %s-ის პროდუქცია და სერვისები, გთხოვთ ჩართოთ მოხმარების სტატისტიკა. \n\n ამ პარამეტრის შეცვლა შეიძლება პარამეტრების ეკრანიდან.</string>
-<string name="firsttime_send_usage_stats_devchannel">გამოყენების სტატისტიკა ჩართულია, რადგანაც თქვენ იყენებთ განვითარებად ვერსიას.</string>
 <string name="pref_ime_enable_alert_title">ტექსტის პარამეტრების დაყენება</string>
 <string name="pref_ime_enable_alert_message">გთხოვთ ჩართოთ %s.</string>
 <string name="pref_ime_switch_alert_title">შეყვანის მეთოდის დაყენება</string>

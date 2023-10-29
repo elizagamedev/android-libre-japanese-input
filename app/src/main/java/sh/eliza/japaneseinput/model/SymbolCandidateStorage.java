@@ -54,9 +54,9 @@ public class SymbolCandidateStorage {
 
   /** Interface to handle symbol history data. */
   public interface SymbolHistoryStorage {
-    public List<String> getAllHistory(SymbolMajorCategory majorCategory);
+    List<String> getAllHistory(SymbolMajorCategory majorCategory);
 
-    public void addHistory(SymbolMajorCategory majorCategory, String value);
+    void addHistory(SymbolMajorCategory majorCategory, String value);
   }
 
   /** Set of names of Emoji based on carriers. */
@@ -180,7 +180,7 @@ public class SymbolCandidateStorage {
     this.emojiProviderType = emojiProviderType;
     if (carrierEmojiDescriptionSet == null) {
       this.carrierEmojiDescriptionSet = EmojiDescriptionSet.NULL_INSTANCE;
-      this.emojiDescriptionMap = createEmojiDescriptionMap(Optional.<EmojiDescriptionSet>absent());
+      this.emojiDescriptionMap = createEmojiDescriptionMap(Optional.absent());
     } else {
       this.carrierEmojiDescriptionSet = carrierEmojiDescriptionSet;
       this.emojiDescriptionMap = createEmojiDescriptionMap(Optional.of(carrierEmojiDescriptionSet));
@@ -314,12 +314,12 @@ public class SymbolCandidateStorage {
             isCarrierEmojiEnabled);
     }
 
-    throw new IllegalArgumentException("Unknown minor category: " + minorCategory.toString());
+    throw new IllegalArgumentException("Unknown minor category: " + minorCategory);
   }
 
   /** Just short cut of {@code toCandidateList(values, null)}. */
   private CandidateList toCandidateList(List<String> values) {
-    return toCandidateList(values, Optional.<Map<String, String>>absent());
+    return toCandidateList(values, Optional.absent());
   }
 
   /**

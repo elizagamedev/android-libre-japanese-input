@@ -26,44 +26,30 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+package sh.eliza.japaneseinput.preference
 
-package sh.eliza.japaneseinput.preference;
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import sh.eliza.japaneseinput.R
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
+/** Fragment based "Software keyboard advanced setting" activity for single-pane mode. */
+class MozcFragmentSoftwareKeyboardAdvancedSettingsPreferenceActivity : AppCompatActivity() {
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.preferences_activity)
 
-/**
- * A proxy activity forwarding to another activity.
- *
- * <p>This activity is used to switch target activity based on runtime configuration. For example,
- *
- * <ul>
- *   <li>"Modern" preference screen vs "Classic" one, based on API level.
- * </ul>
- *
- * This can be done by using string resources (defining destination activity by string resources in
- * preference XML file) except for launching from home screen, which sees AndroidManifest.xml which
- * cannot refer string resources. In fact the initial motivation to introduce this class is to
- * launch appropriate preference activity from home screen.
- *
- * <p>It is found that switching based on string resource is hard to test because precise control is
- * impossible. Now {@link sh.eliza.japaneseinput.DependencyFactory.Dependency} has been introduced
- * so switching feature becomes dependent on it.
- */
-public abstract class MozcProxyActivity extends Activity {
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    startActivity(getForwardIntent());
-    finish();
+    if (savedInstanceState == null) {
+      supportFragmentManager
+        .beginTransaction()
+        .replace(R.id.preferences, MozcPreferenceFragment(R.xml.pref_software_keyboard_advanced))
+        .commit()
+    }
   }
 
-  /**
-   * Returns an Intent to move to the destination activity.
-   *
-   * <p>Called from {@link #onCreate(Bundle)}.
-   */
-  protected abstract Intent getForwardIntent();
+  override fun onPause() {
+    super.onPause()
+    // Probably, it'll be slightly confusing if the software keyboard advanced settings preference
+    // is shown when a user restart the task. So, finish the activity here.
+    finish()
+  }
 }

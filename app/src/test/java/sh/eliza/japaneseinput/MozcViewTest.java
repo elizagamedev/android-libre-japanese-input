@@ -87,10 +87,8 @@ import sh.eliza.japaneseinput.keyboard.Keyboard;
 import sh.eliza.japaneseinput.keyboard.Keyboard.KeyboardSpecification;
 import sh.eliza.japaneseinput.keyboard.KeyboardActionListener;
 import sh.eliza.japaneseinput.keyboard.KeyboardView;
-import sh.eliza.japaneseinput.keyboard.Row;
 import sh.eliza.japaneseinput.model.SymbolCandidateStorage;
 import sh.eliza.japaneseinput.model.SymbolCandidateStorage.SymbolHistoryStorage;
-import sh.eliza.japaneseinput.model.SymbolMajorCategory;
 import sh.eliza.japaneseinput.model.SymbolMinorCategory;
 import sh.eliza.japaneseinput.testing.InstrumentationTestCaseWithMock;
 import sh.eliza.japaneseinput.testing.Parameter;
@@ -158,16 +156,14 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
 
     assertEquals(
         leftAdjustButtonClickListener,
-        Optional.class
-            .cast(
+        ((Optional)
                 VisibilityProxy.getField(
                     VisibilityProxy.getField(mozcView, "leftFrameStubProxy"),
                     "buttonOnClickListener"))
             .get());
     assertEquals(
         rightAdjustButtonClickListener,
-        Optional.class
-            .cast(
+        ((Optional)
                 VisibilityProxy.getField(
                     VisibilityProxy.getField(mozcView, "rightFrameStubProxy"),
                     "buttonOnClickListener"))
@@ -206,8 +202,8 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
   public void testGetJapaneseKeyboard() {
     Keyboard keyboard =
         new Keyboard(
-            Optional.<String>absent(),
-            Collections.<Row>emptyList(),
+            Optional.absent(),
+            Collections.emptyList(),
             1,
             KeyboardSpecification.TWELVE_KEY_TOGGLE_KANA);
     KeyboardView keyboardView = createViewMock(KeyboardView.class);
@@ -231,8 +227,8 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
   public void testSetJapaneseKeyboard() {
     Keyboard keyboard =
         new Keyboard(
-            Optional.<String>absent(),
-            Collections.<Row>emptyList(),
+            Optional.absent(),
+            Collections.emptyList(),
             1,
             KeyboardSpecification.TWELVE_KEY_TOGGLE_KANA);
     KeyboardView keyboardView = createViewMock(KeyboardView.class);
@@ -370,7 +366,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
             .addMockedMethods("checkInflated", "getKeyboardView", "getSymbolInputView")
             .createMock();
 
-    boolean parameters[] = {true, false};
+    boolean[] parameters = {true, false};
     for (boolean popupEnabled : parameters) {
       resetAll();
       keyboardView.setPopupEnabled(popupEnabled);
@@ -448,7 +444,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
     {
       // No preedit field -> Remove COMPOSING
       resetAll();
-      keyboard.updateMetaStates(Collections.<MetaState>emptySet(), EnumSet.of(MetaState.COMPOSING));
+      keyboard.updateMetaStates(Collections.emptySet(), EnumSet.of(MetaState.COMPOSING));
       expect(mozcView.getKeyboardView()).andStubReturn(keyboard);
       replayAll();
       mozcView.updateMetaStatesBasedOnOutput(Output.getDefaultInstance());
@@ -457,7 +453,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
     {
       // No segments -> Remove COMPOSING
       resetAll();
-      keyboard.updateMetaStates(Collections.<MetaState>emptySet(), EnumSet.of(MetaState.COMPOSING));
+      keyboard.updateMetaStates(Collections.emptySet(), EnumSet.of(MetaState.COMPOSING));
       expect(mozcView.getKeyboardView()).andStubReturn(keyboard);
       replayAll();
       mozcView.updateMetaStatesBasedOnOutput(
@@ -467,7 +463,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
     {
       // With segments -> Add COMPOSING
       resetAll();
-      keyboard.updateMetaStates(EnumSet.of(MetaState.COMPOSING), Collections.<MetaState>emptySet());
+      keyboard.updateMetaStates(EnumSet.of(MetaState.COMPOSING), Collections.emptySet());
       expect(mozcView.getKeyboardView()).andStubReturn(keyboard);
       replayAll();
       mozcView.updateMetaStatesBasedOnOutput(
@@ -482,7 +478,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
   @SmallTest
   public void testReset() {
     LayoutInflater inflater = LayoutInflater.from(getInstrumentation().getTargetContext());
-    MozcView mozcView = MozcView.class.cast(inflater.inflate(R.layout.mozc_view, null));
+    MozcView mozcView = (MozcView) inflater.inflate(R.layout.mozc_view, null);
 
     {
       View keyboardFrame = mozcView.getKeyboardFrame();
@@ -506,7 +502,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
   @SmallTest
   public void testSetGlobeButtonEnabled() {
     LayoutInflater inflater = LayoutInflater.from(getInstrumentation().getTargetContext());
-    MozcView mozcView = MozcView.class.cast(inflater.inflate(R.layout.mozc_view, null));
+    MozcView mozcView = (MozcView) inflater.inflate(R.layout.mozc_view, null);
 
     assertEquals(EnumSet.of(MetaState.NO_GLOBE), mozcView.getKeyboardView().getMetaStates());
 
@@ -596,7 +592,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
     };
 
     LayoutInflater inflater = LayoutInflater.from(getInstrumentation().getTargetContext());
-    MozcView mozcView = MozcView.class.cast(inflater.inflate(R.layout.mozc_view, null));
+    MozcView mozcView = (MozcView) inflater.inflate(R.layout.mozc_view, null);
     mozcView.allowFloatingCandidateMode = false;
     for (TestData testData : testDataList) {
       mozcView.setLayoutAdjustmentAndNarrowMode(LayoutAdjustment.FILL, testData.narrowMode);
@@ -610,7 +606,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
   @SmallTest
   public void testSymbolInputViewInitializationLazily() {
     LayoutInflater inflater = LayoutInflater.from(getInstrumentation().getTargetContext());
-    MozcView mozcView = MozcView.class.cast(inflater.inflate(R.layout.mozc_view, null));
+    MozcView mozcView = (MozcView) inflater.inflate(R.layout.mozc_view, null);
     SymbolCandidateStorage candidateStorage =
         createMockBuilder(SymbolCandidateStorage.class)
             .withConstructor(SymbolHistoryStorage.class)
@@ -625,7 +621,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
     assertFalse(mozcView.getSymbolInputView().isInflated());
 
     // Once symbol input view is shown, the view (and its children) should be inflated.
-    assertTrue(mozcView.showSymbolInputView(Optional.<SymbolMajorCategory>absent()));
+    assertTrue(mozcView.showSymbolInputView(Optional.absent()));
     assertTrue(mozcView.getSymbolInputView().isInflated());
 
     // Even after closing the view, the inflation state should be kept.
@@ -690,7 +686,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
     };
 
     LayoutInflater inflater = LayoutInflater.from(getInstrumentation().getTargetContext());
-    MozcView mozcView = MozcView.class.cast(inflater.inflate(R.layout.mozc_view, null));
+    MozcView mozcView = (MozcView) inflater.inflate(R.layout.mozc_view, null);
     mozcView.allowFloatingCandidateMode = false;
     for (TestData testData : testDataList) {
       mozcView.setFullscreenMode(testData.fullscreenMode);
@@ -710,11 +706,11 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
   @SmallTest
   public void testSetFullscreenMode() {
     LayoutInflater inflater = LayoutInflater.from(getInstrumentation().getTargetContext());
-    MozcView mozcView = MozcView.class.cast(inflater.inflate(R.layout.mozc_view, null));
+    MozcView mozcView = (MozcView) inflater.inflate(R.layout.mozc_view, null);
 
     assertFalse(mozcView.isFullscreenMode());
 
-    boolean parameters[] = {true, false};
+    boolean[] parameters = {true, false};
     for (boolean fullscreenModeEnabled : parameters) {
       mozcView.setFullscreenMode(fullscreenModeEnabled);
 
@@ -726,7 +722,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
   public void testResetFullscreenMode() {
     Context context = getInstrumentation().getTargetContext();
     LayoutInflater inflater = LayoutInflater.from(context);
-    MozcView mozcView = MozcView.class.cast(inflater.inflate(R.layout.mozc_view, null));
+    MozcView mozcView = (MozcView) inflater.inflate(R.layout.mozc_view, null);
     CandidateViewManager candidateViewManager =
         createCandidateViewManagerMockBuilder().createMock();
     mozcView.allowFloatingCandidateMode = false;
@@ -749,8 +745,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
         onVisibilityChangeListener, mozcView.getSymbolInputView().onVisibilityChangeListener);
 
     resetAll();
-    candidateViewManager.setOnVisibilityChangeListener(
-        Optional.<InOutAnimatedFrameLayout.VisibilityChangeListener>absent());
+    candidateViewManager.setOnVisibilityChangeListener(Optional.absent());
     expect(candidateViewManager.isKeyboardCandidateViewVisible()).andStubReturn(false);
     candidateViewManager.setExtractedMode(false);
     replayAll();
@@ -782,8 +777,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
   @SmallTest
   public void testSwitchNarrowMode() {
     Context context = getInstrumentation().getTargetContext();
-    MozcView mozcView =
-        MozcView.class.cast(LayoutInflater.from(context).inflate(R.layout.mozc_view, null));
+    MozcView mozcView = (MozcView) LayoutInflater.from(context).inflate(R.layout.mozc_view, null);
     View keyboardFrame = mozcView.getKeyboardFrame();
     View inputFrameButton =
         mozcView.candidateViewManager.keyboardCandidateView.getInputFrameFoldButton();
@@ -808,7 +802,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
     Context context = getInstrumentation().getTargetContext();
     Resources resources = context.getResources();
     LayoutInflater inflater = LayoutInflater.from(context);
-    MozcView mozcView = MozcView.class.cast(inflater.inflate(R.layout.mozc_view, null));
+    MozcView mozcView = (MozcView) inflater.inflate(R.layout.mozc_view, null);
 
     {
       mozcView.setLayoutAdjustmentAndNarrowMode(LayoutAdjustment.FILL, false);
@@ -1314,8 +1308,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
   @SmallTest
   public void testSideFrameStubProxy() {
     Context context = getInstrumentation().getTargetContext();
-    MozcView mozcView =
-        MozcView.class.cast(LayoutInflater.from(context).inflate(R.layout.mozc_view, null));
+    MozcView mozcView = (MozcView) LayoutInflater.from(context).inflate(R.layout.mozc_view, null);
     SideFrameStubProxy sideFrameStubProxy =
         VisibilityProxy.getField(mozcView, "leftFrameStubProxy");
     OnClickListener buttonClickListener = createMock(OnClickListener.class);
@@ -1336,11 +1329,10 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
     assertNotNull(mozcView.findViewById(R.id.left_frame));
     assertNotNull(mozcView.findViewById(R.id.left_adjust_button));
     assertTrue(sideFrameStubProxy.inflated);
-    ImageView imageView = ImageView.class.cast(mozcView.findViewById(R.id.left_adjust_button));
+    ImageView imageView = (ImageView) mozcView.findViewById(R.id.left_adjust_button);
     imageView.performClick();
     assertEquals(View.VISIBLE, mozcView.findViewById(R.id.left_frame).getVisibility());
-    FrameLayout.LayoutParams layoutParams =
-        FrameLayout.LayoutParams.class.cast(imageView.getLayoutParams());
+    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) imageView.getLayoutParams();
     assertEquals((100 - layoutParams.height) / 2, layoutParams.bottomMargin);
 
     verifyAll();
@@ -1403,7 +1395,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
       InterpolationListener interpolationListener = interpolationListenerCapture.getValue();
       assertSame(HeightLinearInterpolationListener.class, interpolationListener.getClass());
       HeightLinearInterpolationListener castedListener =
-          HeightLinearInterpolationListener.class.cast(interpolationListener);
+          (HeightLinearInterpolationListener) interpolationListener;
       assertEquals(200, castedListener.fromHeight);
       assertEquals(0, castedListener.toHeight);
     }
@@ -1431,7 +1423,7 @@ public class MozcViewTest extends InstrumentationTestCaseWithMock {
       InterpolationListener interpolationListener = interpolationListenerCapture.getValue();
       assertSame(HeightLinearInterpolationListener.class, interpolationListener.getClass());
       HeightLinearInterpolationListener castedListener =
-          HeightLinearInterpolationListener.class.cast(interpolationListener);
+          (HeightLinearInterpolationListener) interpolationListener;
       assertEquals(100, castedListener.fromHeight);
       assertEquals(200, castedListener.toHeight);
     }

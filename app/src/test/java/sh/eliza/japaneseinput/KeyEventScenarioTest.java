@@ -40,7 +40,6 @@ import com.google.common.base.Preconditions;
 import java.util.Collections;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Output;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Preedit;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Preedit.Segment;
@@ -64,7 +63,7 @@ public class KeyEventScenarioTest extends InstrumentationTestCase {
   @Override
   public void setUp() {
     service = null;
-    DependencyFactory.setDependency(Optional.<Dependency>absent());
+    DependencyFactory.setDependency(Optional.absent());
   }
 
   private void verifyNarrowMode(boolean expectation) {
@@ -154,10 +153,7 @@ public class KeyEventScenarioTest extends InstrumentationTestCase {
   }
 
   private void softwareKeyEvent(int mozcKeyCode) {
-    service
-        .viewManager
-        .getKeyboardActionListener()
-        .onKey(mozcKeyCode, Collections.<TouchEvent>emptyList());
+    service.viewManager.getKeyboardActionListener().onKey(mozcKeyCode, Collections.emptyList());
   }
 
   private void setHardwareKeyMap(HardwareKeyMap keyMap) {

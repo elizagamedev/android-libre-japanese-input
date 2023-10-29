@@ -60,7 +60,7 @@ public class PreferenceUtilTest extends InstrumentationTestCaseWithMock {
 
   @Override
   protected void tearDown() throws Exception {
-    MozcUtil.setDevChannel(Optional.<Boolean>absent());
+    MozcUtil.setDevChannel(Optional.absent());
     super.tearDown();
   }
 

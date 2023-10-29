@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">ሙላ</string>
 <string name="pref_layout_adjustment_entry_right">ቀኝ</string>
 <string name="pref_layout_adjustment_entry_left">ግራ</string>
-<string name="firsttime_close_button">ቀጣይ &gt;&gt;</string>
-<string name="firsttime_description_thank_you">%sን ስለተጠቀሙ እናመሰግናለን።</string>
-<string name="firsttime_description_usage_stats">%s ምርቶችንና አገልግሎቶችን እንድናሻሽል፣ የአጠቃቀም ስታቲስቲክስን እንዲያነቁ መጠየቅ እንፈልጋለን። \n\nይህ ቅንብር ከምርጫዎች ማያ ገጽ ሊለወጥ ይችላል።</string>
-<string name="firsttime_send_usage_stats_devchannel">የአጠቃቀም ስታቲስቲክሶች የነቁት የመስራት ስሪት እየተጠቀሙ ስለሆነ ነው።</string>
 <string name="pref_ime_enable_alert_title">የጽሁፍ ቅንብሮች ዝግጅት</string>
 <string name="pref_ime_enable_alert_message">እባክዎ %sን ያንቁ።</string>
 <string name="pref_ime_switch_alert_title">የግቤት ዘዴ ቅንብር</string>

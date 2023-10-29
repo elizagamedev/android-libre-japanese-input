@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">পূরণ করুন</string>
 <string name="pref_layout_adjustment_entry_right">ডান</string>
 <string name="pref_layout_adjustment_entry_left">বাম</string>
-<string name="firsttime_close_button">পরবর্তী &gt;&gt;</string>
-<string name="firsttime_description_thank_you">%s ব্যবহারের জন্য ধন্যবাদ৷</string>
-<string name="firsttime_description_usage_stats">আমরা যাতে %s পণ্য এবং পরিষেবাগুলির উন্নতি করতে পারি সেজন্য, আমরা আপনাকে ব্যবহারের পরিসংখ্যান সক্ষম করার বিষয়টি বিবেচনার জন্য বিনীত অনুরোধ করছি৷\n\nপছন্দসইগুলির স্ক্রীন থেকে এই সেটিংস পরিবর্তন করতে পারবেন৷</string>
-<string name="firsttime_send_usage_stats_devchannel">আপনি একটি ডেভেলপমেন্ট সংস্করণ ব্যবহার করছেন বলে ব্যবহারের পরিসংখ্যান সক্ষম করা হয়েছে৷</string>
 <string name="pref_ime_enable_alert_title">পাঠ্য সেটিংসের জন্য সেটআপ</string>
 <string name="pref_ime_enable_alert_message">দয়া করে %s সক্ষম করুন৷</string>
 <string name="pref_ime_switch_alert_title">ইনপুট পদ্ধতির জন্য সেটআপ</string>

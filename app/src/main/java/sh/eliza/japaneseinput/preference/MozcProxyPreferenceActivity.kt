@@ -26,22 +26,15 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+package sh.eliza.japaneseinput.preference
 
-package sh.eliza.japaneseinput.preference;
+import android.content.Intent
 
-/** Fragment based "Software keyboard advanced setting" activity for single-pane mode. */
-public class MozcFragmentSoftwareKeyboardAdvancedSettingsPreferenceActivity
-    extends MozcFragmentBasePreferenceActivity {
-  public MozcFragmentSoftwareKeyboardAdvancedSettingsPreferenceActivity() {
-    super(PreferencePage.SOFTWARE_KEYBOARD);
-  }
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-    // Probably, it'll be slightly confusing if the software keyboard advanced settings preference
-    // is shown when a user restart the task.
-    // So, finish the activity here.
-    finish();
-  }
+/**
+ * Proxy activity forwarding to preference screen based on
+ * [sh.eliza.japaneseinput.DependencyFactory.Dependency].
+ */
+class MozcProxyPreferenceActivity : MozcProxyActivity() {
+  override val forwardIntent: Intent
+    get() = Intent(this, MozcMainPreferenceActivity::class.java)
 }

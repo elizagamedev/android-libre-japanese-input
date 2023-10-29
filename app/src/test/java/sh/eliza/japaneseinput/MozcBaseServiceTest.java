@@ -86,7 +86,6 @@ import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Result.Resul
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.SessionCommand;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoConfig.Config;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoConfig.Config.SelectionShortcut;
-import sh.eliza.japaneseinput.DependencyFactory.Dependency;
 import sh.eliza.japaneseinput.FeedbackManager.FeedbackEvent;
 import sh.eliza.japaneseinput.FeedbackManager.FeedbackListener;
 import sh.eliza.japaneseinput.KeycodeConverter.KeyEventInterface;
@@ -140,14 +139,14 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
   @Override
   protected void setUp() throws Exception {
     super.setUp();
-    DependencyFactory.setDependency(Optional.<Dependency>absent());
+    DependencyFactory.setDependency(Optional.absent());
     clearSharedPreferences();
   }
 
   @Override
   protected void tearDown() throws Exception {
     clearSharedPreferences();
-    DependencyFactory.setDependency(Optional.<Dependency>absent());
+    DependencyFactory.setDependency(Optional.absent());
     super.tearDown();
   }
 
@@ -298,7 +297,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
       invokeOnCreateInternal(
           service, viewManager, preferences, getDefaultDeviceConfiguration(), sessionExecutor);
     } finally {
-      MozcUtil.setDevChannel(Optional.<Boolean>absent());
+      MozcUtil.setDevChannel(Optional.absent());
     }
 
     verifyAll();
@@ -319,17 +318,13 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
   @SmallTest
   public void testOnCreate_viewManager() {
     MozcBaseService service = createService();
-    try {
-      invokeOnCreateInternal(
-          service,
-          null,
-          getSharedPreferences(),
-          getDefaultDeviceConfiguration(),
-          createNiceMock(SessionExecutor.class));
-      assertSame(ViewManager.class, service.viewManager.getClass());
-
-    } finally {
-    }
+    invokeOnCreateInternal(
+        service,
+        null,
+        getSharedPreferences(),
+        getDefaultDeviceConfiguration(),
+        createNiceMock(SessionExecutor.class));
+    assertSame(ViewManager.class, service.viewManager.getClass());
   }
 
   @SmallTest
@@ -357,7 +352,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
         MozcUtil.getRequestBuilder(
                 service.getResources(), defaultSpecification, getDefaultDeviceConfiguration())
             .build(),
-        Collections.<TouchEvent>emptyList());
+        Collections.emptyList());
 
     replayAll();
     invokeOnCreateInternal(
@@ -469,10 +464,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
 
     ViewEventListener listener = service.new MozcEventListener();
     listener.onKeyEvent(
-        null,
-        null,
-        KeyboardSpecification.TWELVE_KEY_TOGGLE_KANA,
-        Collections.<TouchEvent>emptyList());
+        null, null, KeyboardSpecification.TWELVE_KEY_TOGGLE_KANA, Collections.emptyList());
 
     verifyAll();
   }
@@ -490,7 +482,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
         null,
         KeycodeConverter.getKeyEventInterface(KeyEvent.KEYCODE_BACK),
         null,
-        Collections.<TouchEvent>emptyList());
+        Collections.emptyList());
 
     verifyAll();
   }
@@ -549,8 +541,8 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
             .addMockedMethods("onHardwareKeyEvent")
             .createNiceMock();
     service.sendKeyWithKeyboardSpecification(
-        same(ProtoCommands.KeyEvent.class.cast(null)),
-        same(KeyEventInterface.class.cast(null)),
+        same((ProtoCommands.KeyEvent) null),
+        same((KeyEventInterface) null),
         anyObject(KeyboardSpecification.class),
         anyObject(Configuration.class),
         eq(Collections.<TouchEvent>emptyList()));
@@ -577,7 +569,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
     expect(service.isInputViewShown()).andStubReturn(true);
     ClientSidePreference clientSidePreference = service.propagatedClientSidePreference;
     assertNotNull(clientSidePreference);
-    assertEquals(HardwareKeyMap.DEFAULT, clientSidePreference.getHardwareKeyMap());
+    assertEquals(HardwareKeyMap.DEFAULT, clientSidePreference.hardwareKeyMap);
     viewManager.onHardwareKeyEvent(event);
 
     replayAll();
@@ -604,8 +596,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
     KeyEventInterface keyEvent = KeycodeConverter.getKeyEventInterface(KeyEvent.KEYCODE_A);
     KeyboardSpecification keyboardSpecification = KeyboardSpecification.TWELVE_KEY_FLICK_KANA;
 
-    sessionExecutor.sendKey(
-        mozcKeyEvent, keyEvent, Collections.<TouchEvent>emptyList(), renderResultCallback);
+    sessionExecutor.sendKey(mozcKeyEvent, keyEvent, Collections.emptyList(), renderResultCallback);
 
     replayAll();
 
@@ -614,7 +605,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
         keyEvent,
         keyboardSpecification,
         getDefaultDeviceConfiguration(),
-        Collections.<TouchEvent>emptyList());
+        Collections.emptyList());
 
     verifyAll();
 
@@ -631,13 +622,13 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
         MozcUtil.getRequestBuilder(
                 service.getResources(), keyboardSpecification, getDefaultDeviceConfiguration())
             .build(),
-        Collections.<TouchEvent>emptyList());
+        Collections.emptyList());
     sessionExecutor.sendKey(
         ProtoCommands.KeyEvent.newBuilder(mozcKeyEvent)
             .setMode(keyboardSpecification.getCompositionMode())
             .build(),
         keyEvent,
-        Collections.<TouchEvent>emptyList(),
+        Collections.emptyList(),
         renderResultCallback);
 
     replayAll();
@@ -647,7 +638,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
         keyEvent,
         keyboardSpecification,
         getDefaultDeviceConfiguration(),
-        Collections.<TouchEvent>emptyList());
+        Collections.emptyList());
 
     verifyAll();
 
@@ -658,8 +649,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
     keyEvent = KeycodeConverter.getKeyEventInterface(KeyEvent.KEYCODE_A);
     keyboardSpecification = KeyboardSpecification.HARDWARE_QWERTY_KANA;
 
-    sessionExecutor.sendKey(
-        mozcKeyEvent, keyEvent, Collections.<TouchEvent>emptyList(), renderResultCallback);
+    sessionExecutor.sendKey(mozcKeyEvent, keyEvent, Collections.emptyList(), renderResultCallback);
 
     replayAll();
 
@@ -668,7 +658,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
         keyEvent,
         keyboardSpecification,
         getDefaultDeviceConfiguration(),
-        Collections.<TouchEvent>emptyList());
+        Collections.emptyList());
 
     verifyAll();
 
@@ -683,7 +673,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
         MozcUtil.getRequestBuilder(
                 service.getResources(), keyboardSpecification, getDefaultDeviceConfiguration())
             .build(),
-        Collections.<TouchEvent>emptyList());
+        Collections.emptyList());
     sessionExecutor.switchInputMode(
         same(Optional.<KeyEventInterface>absent()),
         eq(keyboardSpecification.getCompositionMode()),
@@ -696,7 +686,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
         keyEvent,
         keyboardSpecification,
         getDefaultDeviceConfiguration(),
-        Collections.<TouchEvent>emptyList());
+        Collections.emptyList());
 
     verifyAll();
   }
@@ -722,7 +712,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
         keyEvent,
         keyboardSpecification,
         getDefaultDeviceConfiguration(),
-        Collections.<TouchEvent>emptyList());
+        Collections.emptyList());
 
     verifyAll();
 
@@ -735,7 +725,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
         MozcUtil.getRequestBuilder(
                 service.getResources(), keyboardSpecification, getDefaultDeviceConfiguration())
             .build(),
-        Collections.<TouchEvent>emptyList());
+        Collections.emptyList());
     sessionExecutor.switchInputMode(
         sameOptional(keyEvent), isA(CompositionMode.class), same(service.renderResultCallback));
 
@@ -746,7 +736,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
         keyEvent,
         keyboardSpecification,
         getDefaultDeviceConfiguration(),
-        Collections.<TouchEvent>emptyList());
+        Collections.emptyList());
 
     verifyAll();
 
@@ -1607,10 +1597,7 @@ public class MozcBaseServiceTest extends InstrumentationTestCaseWithMock {
     replayAll();
 
     // Invoke onConversionCandidateSelected.
-    service
-        .viewManager
-        .getEventListener()
-        .onConversionCandidateSelected(0, Optional.<Integer>absent());
+    service.viewManager.getEventListener().onConversionCandidateSelected(0, Optional.absent());
 
     verifyAll();
   }

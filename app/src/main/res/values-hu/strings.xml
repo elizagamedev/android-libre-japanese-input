@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">Kitöltés</string>
 <string name="pref_layout_adjustment_entry_right">Jobbra</string>
 <string name="pref_layout_adjustment_entry_left">Balra</string>
-<string name="firsttime_close_button">Következő &gt;&gt;</string>
-<string name="firsttime_description_thank_you">Köszönjük, hogy a következőt használja: %s.</string>
-<string name="firsttime_description_usage_stats">A(z) %s-termékek és -szolgáltatások fejlesztésére figyelemmel megkérjük, hogy kapcsolja be a használati statisztikák funkciót.\n\nEzt a beállítást a preferenciák képernyőjén módosíthatja.</string>
-<string name="firsttime_send_usage_stats_devchannel">A használati statisztikák engedélyezettek, mivel fejlesztői változatot használ.</string>
 <string name="pref_ime_enable_alert_title">Szövegbeállítások megadása</string>
 <string name="pref_ime_enable_alert_message">Engedélyezze a következőt: %s.</string>
 <string name="pref_ime_switch_alert_title">Beviteli mód beállításai</string>

@@ -29,11 +29,13 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:mozc="http://schemas.android.com/apk/res-auto" >
-  <PreferenceCategory android:title="@string/pref_software_keyboard_preferences_portrait_title"
-                      android:key="pref_software_keyboard_advanced_portrait_key"
-                      android:persistent="false" >
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+  <androidx.preference.PreferenceCategory
+      android:title="@string/pref_software_keyboard_preferences_portrait_title"
+      android:key="pref_software_keyboard_advanced_portrait_key"
+      android:persistent="false" >
     <sh.eliza.japaneseinput.preference.KeyboardLayoutPreference
         android:defaultValue="TWELVE_KEYS"
         android:key="pref_portrait_keyboard_layout_key"
@@ -42,7 +44,7 @@
         android:title="@string/pref_keyboard_layout_title"
         android:widgetLayout="@layout/pref_keyboard_layout" />
 
-    <ListPreference
+    <androidx.preference.ListPreference
         android:defaultValue="TOGGLE_FLICK"
         android:entries="@array/input_style_setting_entries"
         android:entryValues="@array/input_style_setting_entry_values"
@@ -50,24 +52,24 @@
         android:summary="@string/pref_input_style_setting_description"
         android:title="@string/pref_input_style_title" />
 
-    <CheckBoxPreference
+    <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="false"
         android:key="pref_portrait_qwerty_layout_for_alphabet_key"
         android:summary="@string/pref_qwerty_layout_for_alphabet_description"
         android:title="@string/pref_qwerty_layout_for_alphabet_title" />
 
-    <sh.eliza.japaneseinput.preference.SeekbarPreference
+    <sh.eliza.japaneseinput.preference.SeekBarPreference
         android:key="pref_portrait_flick_sensitivity_key"
         android:summary="@string/pref_flick_sensitivity_description"
         android:title="@string/pref_flick_sensitivity_title"
         android:max="10"
         android:defaultValue="0"
-        mozc:seekbar_offset="-10"
-        mozc:seekbar_low_text="@string/pref_flick_sensitivity_seekbar_low_text"
-        mozc:seekbar_middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
-        mozc:seekbar_high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
+        app:seekbar_offset="-10"
+        app:seekbar_low_text="@string/pref_flick_sensitivity_seekbar_low_text"
+        app:seekbar_middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
+        app:seekbar_high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
 
-    <ListPreference
+    <androidx.preference.ListPreference
         android:defaultValue="FILL"
         android:entries="@array/layout_adjustment_entries"
         android:entryValues="@array/layout_adjustment_values"
@@ -75,22 +77,23 @@
         android:summary="@string/pref_layout_adjustment_description"
         android:title="@string/pref_layout_adjustment_title"/>
 
-    <sh.eliza.japaneseinput.preference.SeekbarPreference
+    <sh.eliza.japaneseinput.preference.SeekBarPreference
         android:key="pref_portrait_keyboard_height_ratio_key"
         android:summary="@string/pref_keyboard_height_ratio_description"
         android:title="@string/pref_keyboard_height_ratio_title"
         android:max="130"
         android:defaultValue="100"
-        mozc:seekbar_offset="70"
-        mozc:seekbar_low_text="@string/pref_flick_sensitivity_seekbar_low_text"
-        mozc:seekbar_middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
-        mozc:seekbar_high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
-    </PreferenceCategory>
+        app:seekbar_offset="70"
+        app:seekbar_low_text="@string/pref_flick_sensitivity_seekbar_low_text"
+        app:seekbar_middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
+        app:seekbar_high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
+  </androidx.preference.PreferenceCategory>
 
-  <PreferenceCategory android:title="@string/pref_software_keyboard_preferences_landscape_title"
-                      android:key="pref_software_keyboard_advanced_landscape_key"
-                      android:persistent="false" >
-    <CheckBoxPreference
+  <androidx.preference.PreferenceCategory
+      android:title="@string/pref_software_keyboard_preferences_landscape_title"
+      android:key="pref_software_keyboard_advanced_landscape_key"
+      android:persistent="false" >
+    <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="true"
         android:key="pref_use_portrait_keyboard_settings_for_landscape_key"
         android:disableDependentsState="true"
@@ -105,7 +108,7 @@
         android:widgetLayout="@layout/pref_keyboard_layout"
         android:dependency="pref_use_portrait_keyboard_settings_for_landscape_key" />
 
-    <ListPreference
+    <androidx.preference.ListPreference
         android:defaultValue="TOGGLE_FLICK"
         android:entries="@array/input_style_setting_entries"
         android:entryValues="@array/input_style_setting_entry_values"
@@ -114,25 +117,25 @@
         android:title="@string/pref_input_style_title"
         android:dependency="pref_use_portrait_keyboard_settings_for_landscape_key" />
 
-    <CheckBoxPreference
+    <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="false"
         android:key="pref_landscape_qwerty_layout_for_alphabet_key"
         android:summary="@string/pref_qwerty_layout_for_alphabet_description"
         android:title="@string/pref_qwerty_layout_for_alphabet_title"
         android:dependency="pref_use_portrait_keyboard_settings_for_landscape_key" />
 
-    <sh.eliza.japaneseinput.preference.SeekbarPreference
+    <sh.eliza.japaneseinput.preference.SeekBarPreference
         android:key="pref_landscape_flick_sensitivity_key"
         android:summary="@string/pref_flick_sensitivity_description"
         android:title="@string/pref_flick_sensitivity_title"
         android:dependency="pref_use_portrait_keyboard_settings_for_landscape_key"
         android:max="10"
         android:defaultValue="0"
-        mozc:seekbar_offset="-10"
-        mozc:seekbar_low_text="@string/pref_flick_sensitivity_seekbar_low_text"
-        mozc:seekbar_middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
-        mozc:seekbar_high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
-    <ListPreference
+        app:seekbar_offset="-10"
+        app:seekbar_low_text="@string/pref_flick_sensitivity_seekbar_low_text"
+        app:seekbar_middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
+        app:seekbar_high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
+    <androidx.preference.ListPreference
         android:dependency="pref_use_portrait_keyboard_settings_for_landscape_key"
         android:defaultValue="FILL"
         android:entries="@array/layout_adjustment_entries"
@@ -141,16 +144,16 @@
         android:summary="@string/pref_layout_adjustment_description"
         android:title="@string/pref_layout_adjustment_title" />
 
-    <sh.eliza.japaneseinput.preference.SeekbarPreference
+    <sh.eliza.japaneseinput.preference.SeekBarPreference
         android:key="pref_landscape_keyboard_height_ratio_key"
         android:summary="@string/pref_keyboard_height_ratio_description"
         android:title="@string/pref_keyboard_height_ratio_title"
         android:dependency="pref_use_portrait_keyboard_settings_for_landscape_key"
         android:max="130"
         android:defaultValue="100"
-        mozc:seekbar_offset="70"
-        mozc:seekbar_low_text="@string/pref_flick_sensitivity_seekbar_low_text"
-        mozc:seekbar_middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
-        mozc:seekbar_high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
-  </PreferenceCategory>
-</PreferenceScreen>
+        app:seekbar_offset="70"
+        app:seekbar_low_text="@string/pref_flick_sensitivity_seekbar_low_text"
+        app:seekbar_middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
+        app:seekbar_high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
+  </androidx.preference.PreferenceCategory>
+</androidx.preference.PreferenceScreen>

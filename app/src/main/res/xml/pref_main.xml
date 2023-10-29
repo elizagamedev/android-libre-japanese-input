@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright 2010-2018, Google Inc.
+ All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are
+ met:
+
+     * Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above
+ copyright notice, this list of conditions and the following disclaimer
+ in the documentation and/or other materials provided with the
+ distribution.
+     * Neither the name of Google Inc. nor the names of its
+ contributors may be used to endorse or promote products derived from
+ this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <androidx.preference.PreferenceCategory
+      android:title="@string/pref_software_keyboard_category_title">
+    <!-- Short cut to the current keyboard layout. The values will be stored to
+         the keyboard layout to portrait or landscape appropriately.
+    -->
+    <sh.eliza.japaneseinput.preference.KeyboardLayoutPreference
+        android:defaultValue="TWELVE_KEYS"
+        android:persistent="false"
+        android:key="pref_current_keyboard_layout_key"
+        android:layout="@layout/pref_large_widget"
+        android:summary="@string/pref_keyboard_layout_description"
+        android:title="@string/pref_keyboard_layout_title"
+        android:widgetLayout="@layout/pref_keyboard_layout" />
+
+    <!-- Link to advanced settings. -->
+    <androidx.preference.Preference
+        android:key="pref_software_keyboard_advanced_settings"
+        android:persistent="false"
+        android:title="@string/pref_software_keyboard_advanced_settings_title">
+      <intent
+          android:action="android.intent.action.MAIN"
+          android:targetPackage="sh.eliza.japaneseinput"
+          android:targetClass="sh.eliza.japaneseinput.preference.MozcFragmentSoftwareKeyboardAdvancedSettingsPreferenceActivity" />
+    </androidx.preference.Preference>
+  </androidx.preference.PreferenceCategory>
+
+  <androidx.preference.PreferenceCategory
+      android:title="@string/pref_input_feedback_category_title" >
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="pref_haptic_feedback_key"
+        android:summary="@string/pref_haptic_feedback_description"
+        android:title="@string/pref_haptic_feedback_title" />
+
+    <sh.eliza.japaneseinput.preference.SeekBarPreference
+        android:defaultValue="5"
+        android:key="pref_haptic_feedback_duration_key"
+        android:title="@string/pref_haptic_feedback_duration_title"
+        android:max="250"
+        android:dependency="pref_haptic_feedback_key"
+        app:seekbar_offset="0"
+        app:seekbar_low_text="@string/pref_haptic_feedback_duration_low_text"
+        app:seekbar_high_text="@string/pref_haptic_feedback_duration_high_text"
+        app:seekbar_unit="ms" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="pref_sound_feedback_key"
+        android:summary="@string/pref_sound_feedback_description"
+        android:title="@string/pref_sound_feedback_title" />
+
+    <sh.eliza.japaneseinput.preference.SeekBarPreference
+        android:defaultValue="50"
+        android:key="pref_sound_feedback_volume_key"
+        android:title="@string/pref_sound_feedback_volume_title"
+        android:dependency="pref_sound_feedback_key"
+        android:max="100"
+        app:seekbar_offset="0"
+        app:seekbar_low_text="@string/pref_sound_feedback_volume_low_text"
+        app:seekbar_middle_text="@string/pref_sound_feedback_volume_middle_text"
+        app:seekbar_high_text="@string/pref_sound_feedback_volume_high_text" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="pref_popup_feedback_key"
+        android:summary="@string/pref_popup_feedback_description"
+        android:title="@string/pref_popup_feedback_title" />
+  </androidx.preference.PreferenceCategory>
+
+  <androidx.preference.PreferenceCategory
+      android:title="@string/pref_other_input_support_preference_category_title">
+    <androidx.preference.MultiSelectListPreference
+        android:defaultValue="@array/pref_fullscreen_default_values"
+        android:entries="@array/pref_fullscreen_entries"
+        android:entryValues="@array/pref_fullscreen_keys"
+        android:summary="@string/pref_fullscreen_description"
+        android:title="@string/pref_fullscreen_title" />
+
+    <androidx.preference.ListPreference
+        android:defaultValue="@string/pref_skin_type_default"
+        android:entries="@array/pref_skin_type_entries"
+        android:entryValues="@array/pref_skin_type_values"
+        android:key="@string/pref_skin_type_key"
+        android:summary="@string/pref_skin_type_description"
+        android:title="@string/pref_skin_type_title" />
+
+    <androidx.preference.ListPreference
+        android:defaultValue="DEFAULT"
+        android:entries="@array/pref_hardware_keymap_entries"
+        android:entryValues="@array/pref_hardware_keymap_values"
+        android:key="pref_hardware_keymap"
+        android:summary="@string/pref_hardware_keymap_description"
+        android:title="@string/pref_hardware_title" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="pref_voice_input_key"
+        android:summary="@string/pref_voice_input_description"
+        android:title="@string/pref_voice_input_title" />
+  </androidx.preference.PreferenceCategory>
+
+  <androidx.preference.PreferenceCategory
+      android:title="@string/pref_conversion_category_title">
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="pref_space_character_form_key"
+        android:summary="@string/pref_space_character_form_description"
+        android:title="@string/pref_space_character_form_title" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="pref_kana_modifier_insensitive_conversion"
+        android:summary="@string/pref_kana_modifier_insensitive_conversion_description"
+        android:title="@string/pref_kana_modifier_insensitive_conversion_title" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="pref_typing_correction"
+        android:summary="@string/pref_typing_correction_description"
+        android:title="@string/pref_typing_correction_title" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="pref_other_anonimous_mode_key"
+        android:summary="@string/pref_other_incognito_mode_description"
+        android:title="@string/pref_other_incognito_mode_title" />
+
+    <androidx.preference.ListPreference
+        android:entries="@array/pref_emoji_provider_type_entries"
+        android:entryValues="@array/pref_emoji_provider_type_values"
+        android:key="pref_emoji_provider_type"
+        android:summary="@string/pref_emoji_provider_type_description"
+        android:title="@string/pref_emoji_provider_type_title" />
+  </androidx.preference.PreferenceCategory>
+
+  <androidx.preference.PreferenceCategory
+      android:title="@string/pref_dictionry_category_title" >
+    <androidx.preference.ListPreference
+        android:defaultValue="DEFAULT_HISTORY"
+        android:entries="@array/pref_dictionary_personalization_entries"
+        android:entryValues="@array/pref_dictionary_personalization_values"
+        android:key="pref_dictionary_personalization_key"
+        android:summary="@string/pref_dictionary_personalization_description"
+        android:title="@string/pref_dictionary_personalization_title" />
+
+    <androidx.preference.Preference
+        android:key="pref_dictionary_user_dictionary_tool_key"
+        android:persistent="false"
+        android:summary="@string/pref_dictionary_user_dictionary_tool_description"
+        android:title="@string/pref_dictionary_user_dictionary_tool_title">
+      <intent
+          android:action="android.intent.action.MAIN"
+          android:targetPackage="sh.eliza.japaneseinput"
+          android:targetClass="sh.eliza.japaneseinput.userdictionary.UserDictionaryToolActivity" />
+    </androidx.preference.Preference>
+
+    <androidx.preference.PreferenceScreen
+        android:summary="@string/pref_clear_category_description"
+        android:title="@string/pref_clear_category_title" >
+      <sh.eliza.japaneseinput.preference.ClearConversionHistoryDialogPreference
+          android:dialogMessage="@string/pref_clear_conversion_history_description"
+          android:persistent="false"
+          android:summary="@string/pref_clear_conversion_history_description"
+          android:title="@string/pref_clear_conversion_history_title" />
+
+      <sh.eliza.japaneseinput.preference.ClearSymbolHistoryDialogPreference
+          android:dialogMessage="@string/pref_clear_symbol_history_description"
+          android:persistent="false"
+          android:summary="@string/pref_clear_symbol_history_description"
+          android:title="@string/pref_clear_symbol_history_title" />
+
+      <sh.eliza.japaneseinput.preference.ClearUserDictionaryDialogPreference
+          android:dialogMessage="@string/pref_clear_user_dictionary_description"
+          android:persistent="false"
+          android:summary="@string/pref_clear_user_dictionary_description"
+          android:title="@string/pref_clear_user_dictionary_title" />
+    </androidx.preference.PreferenceScreen>
+  </androidx.preference.PreferenceCategory>
+
+  <androidx.preference.PreferenceCategory
+      android:title="@string/pref_about_about_this_software_title" >
+    <androidx.preference.Preference
+        android:key="pref_about_version"
+        android:persistent="false"
+        android:selectable="false"
+        android:title="@string/pref_about_version_title" />
+
+    <androidx.preference.Preference
+        android:key="pref_about_oss_credits"
+        android:persistent="false"
+        android:summary="@string/pref_about_oss_credits_description"
+        android:title="@string/pref_about_oss_credits_title">
+      <intent
+          android:action="android.intent.action.MAIN"
+          android:targetPackage="sh.eliza.japaneseinput"
+          android:targetClass="sh.eliza.japaneseinput.preference.MiniBrowserActivity"
+          android:data="@string/pref_oss_credits_url" />
+    </androidx.preference.Preference>
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="pref_launcher_icon_visibility"
+        android:summary="@string/pref_launcher_icon_visibility_description"
+        android:title="@string/pref_launcher_icon_visibility_title" />
+  </androidx.preference.PreferenceCategory>
+
+  <androidx.preference.PreferenceCategory
+      android:title="Logging">
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="pref_tweak_logging_protocol_buffers"
+        android:title="Logging protocol buffers" android:defaultValue="false"
+        android:summary="Enable if you want verbose log of protocol buffers. This makes the performance far slower." />
+  </androidx.preference.PreferenceCategory>
+</androidx.preference.PreferenceScreen>

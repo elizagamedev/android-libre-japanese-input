@@ -125,8 +125,7 @@ public class SessionExecutor {
    * initialization, assuming it will be initialized by client in appropriate timing.
    */
   public static SessionExecutor getInstance(Context applicationContext) {
-    return getInstanceInternal(
-        Optional.<SessionHandlerFactory>absent(), Preconditions.checkNotNull(applicationContext));
+    return getInstanceInternal(Optional.absent(), Preconditions.checkNotNull(applicationContext));
   }
 
   /**
@@ -301,24 +300,23 @@ public class SessionExecutor {
       // Dispatch the message.
       switch (message.what) {
         case INITIALIZE_SESSION_HANDLER:
-          sessionHandler.initialize(Context.class.cast(message.obj));
+          sessionHandler.initialize((Context) message.obj);
           break;
         case DELETE_SESSION:
           deleteSession();
           break;
         case EVALUATE_ASYNCHRONOUSLY:
         case EVALUATE_KEYEVENT_ASYNCHRONOUSLY:
-          evaluateAsynchronously(
-              AsynchronousEvaluationContext.class.cast(message.obj), message.getTarget());
+          evaluateAsynchronously((AsynchronousEvaluationContext) message.obj, message.getTarget());
           break;
         case EVALUATE_SYNCHRONOUSLY:
-          evaluateSynchronously(SynchronousEvaluationContext.class.cast(message.obj));
+          evaluateSynchronously((SynchronousEvaluationContext) message.obj);
           break;
         case UPDATE_REQUEST:
-          updateRequest(Input.Builder.class.cast(message.obj));
+          updateRequest((Input.Builder) message.obj);
           break;
         case PASS_TO_CALLBACK:
-          passToCallBack(KeyEventCallbackContext.class.cast(message.obj));
+          passToCallBack((KeyEventCallbackContext) message.obj);
           break;
         default:
           // We don't process unknown messages.
@@ -381,7 +379,7 @@ public class SessionExecutor {
       Input input = Input.newBuilder().setType(CommandType.DELETE_SESSION).setId(sessionId).build();
       evaluate(input);
       sessionId = INVALID_SESSION_ID;
-      request = Optional.<Request.Builder>absent();
+      request = Optional.absent();
     }
 
     /**
@@ -533,12 +531,12 @@ public class SessionExecutor {
     @Override
     public void handleMessage(Message message) {
       if (Preconditions.checkNotNull(message).obj.getClass() == KeyEventCallbackContext.class) {
-        KeyEventCallbackContext keyEventContext = KeyEventCallbackContext.class.cast(message.obj);
+        KeyEventCallbackContext keyEventContext = (KeyEventCallbackContext) message.obj;
         keyEventContext.callback.onCompleted(
-            Optional.<Command>absent(), Optional.of(keyEventContext.triggeringKeyEvent));
+            Optional.absent(), Optional.of(keyEventContext.triggeringKeyEvent));
         return;
       }
-      AsynchronousEvaluationContext context = AsynchronousEvaluationContext.class.cast(message.obj);
+      AsynchronousEvaluationContext context = (AsynchronousEvaluationContext) message.obj;
       // Note that this method should be run on the UI thread, where removePendingEvaluations runs,
       // so we don't need to take a lock here.
       if (context.timeStamp - cancelTimeStamp > 0) {
@@ -648,9 +646,7 @@ public class SessionExecutor {
             Preconditions.checkNotNull(inputBuilder),
             Preconditions.checkNotNull(triggeringKeyEvent),
             Preconditions.checkNotNull(callback),
-            callback.isPresent()
-                ? Optional.<Handler>of(callbackHandler)
-                : Optional.<Handler>absent());
+            callback.isPresent() ? Optional.of(callbackHandler) : Optional.absent());
     int type =
         (triggeringKeyEvent.isPresent())
             ? ExecutorMainCallback.EVALUATE_KEYEVENT_ASYNCHRONOUSLY
@@ -684,8 +680,7 @@ public class SessionExecutor {
         Input.newBuilder()
             .setType(CommandType.SEND_COMMAND)
             .setCommand(SessionCommand.newBuilder().setType(SessionCommand.CommandType.SUBMIT));
-    evaluateAsynchronously(
-        inputBuilder, Optional.<KeyEventInterface>absent(), Optional.of(callback));
+    evaluateAsynchronously(inputBuilder, Optional.absent(), Optional.of(callback));
   }
 
   /** Sends {@code SWITCH_INPUT_MODE} command to the server asynchronously. */
@@ -718,8 +713,7 @@ public class SessionExecutor {
                 SessionCommand.newBuilder()
                     .setType(SessionCommand.CommandType.SUBMIT_CANDIDATE)
                     .setId(candidateId));
-    evaluateAsynchronously(
-        inputBuilder, Optional.<KeyEventInterface>absent(), Optional.of(callback));
+    evaluateAsynchronously(inputBuilder, Optional.absent(), Optional.of(callback));
 
     if (rowIndex.isPresent()) {
       candidateSubmissionStatsEvent(rowIndex.get());
@@ -774,8 +768,7 @@ public class SessionExecutor {
             .setType(CommandType.SEND_COMMAND)
             .setCommand(
                 SessionCommand.newBuilder().setType(SessionCommand.CommandType.RESET_CONTEXT));
-    evaluateAsynchronously(
-        inputBuilder, Optional.<KeyEventInterface>absent(), Optional.<EvaluationCallback>absent());
+    evaluateAsynchronously(inputBuilder, Optional.absent(), Optional.absent());
   }
 
   /** Sends {@code MOVE_CURSOR} command to the server asynchronously. */
@@ -788,8 +781,7 @@ public class SessionExecutor {
                 SessionCommand.newBuilder()
                     .setType(ProtoCommands.SessionCommand.CommandType.MOVE_CURSOR)
                     .setCursorPosition(cursorPosition));
-    evaluateAsynchronously(
-        inputBuilder, Optional.<KeyEventInterface>absent(), Optional.of(callback));
+    evaluateAsynchronously(inputBuilder, Optional.absent(), Optional.of(callback));
   }
 
   /** Sends {@code CONVERT_NEXT_PAGE} command to the server asynchronously. */
@@ -800,8 +792,7 @@ public class SessionExecutor {
             .setType(CommandType.SEND_COMMAND)
             .setCommand(
                 SessionCommand.newBuilder().setType(SessionCommand.CommandType.CONVERT_NEXT_PAGE));
-    evaluateAsynchronously(
-        inputBuilder, Optional.<KeyEventInterface>absent(), Optional.of(callback));
+    evaluateAsynchronously(inputBuilder, Optional.absent(), Optional.of(callback));
   }
 
   /** Sends {@code CONVERT_PREV_PAGE} command to the server asynchronously. */
@@ -812,8 +803,7 @@ public class SessionExecutor {
             .setType(CommandType.SEND_COMMAND)
             .setCommand(
                 SessionCommand.newBuilder().setType(SessionCommand.CommandType.CONVERT_PREV_PAGE));
-    evaluateAsynchronously(
-        inputBuilder, Optional.<KeyEventInterface>absent(), Optional.of(callback));
+    evaluateAsynchronously(inputBuilder, Optional.absent(), Optional.of(callback));
   }
 
   /** Sends {@code SWITCH_INPUT_FIELD_TYPE} command to the server asynchronously. */
@@ -826,8 +816,7 @@ public class SessionExecutor {
                 SessionCommand.newBuilder()
                     .setType(ProtoCommands.SessionCommand.CommandType.SWITCH_INPUT_FIELD_TYPE))
             .setContext(ProtoCommands.Context.newBuilder().setInputFieldType(inputFieldType));
-    evaluateAsynchronously(
-        inputBuilder, Optional.<KeyEventInterface>absent(), Optional.<EvaluationCallback>absent());
+    evaluateAsynchronously(inputBuilder, Optional.absent(), Optional.absent());
   }
 
   /** Sends {@code UNDO_OR_REWIND} command to the server asynchronously. */
@@ -840,8 +829,7 @@ public class SessionExecutor {
             .setCommand(
                 SessionCommand.newBuilder().setType(SessionCommand.CommandType.UNDO_OR_REWIND))
             .addAllTouchEvents(touchEventList);
-    evaluateAsynchronously(
-        inputBuilder, Optional.<KeyEventInterface>absent(), Optional.of(callback));
+    evaluateAsynchronously(inputBuilder, Optional.absent(), Optional.of(callback));
   }
 
   // TODO(exv): replace this function
@@ -896,15 +884,15 @@ public class SessionExecutor {
 
     sendIntegerUsageStatsUsageStatsEvent(
         UsageStatsEvent.SOFTWARE_KEYBOARD_LAYOUT_LANDSCAPE,
-        landscapePreference.getKeyboardLayout().getId());
+            landscapePreference.keyboardLayout.id);
     sendIntegerUsageStatsUsageStatsEvent(
         UsageStatsEvent.SOFTWARE_KEYBOARD_LAYOUT_PORTRAIT,
-        portraitPreference.getKeyboardLayout().getId());
+            portraitPreference.keyboardLayout.id);
 
     boolean layoutAdjustmentEnabledInLandscape =
-        landscapePreference.getLayoutAdjustment() != LayoutAdjustment.FILL;
+        landscapePreference.layoutAdjustment != LayoutAdjustment.FILL;
     boolean layoutAdjustmentEnabledInPortrait =
-        portraitPreference.getLayoutAdjustment() != LayoutAdjustment.FILL;
+        portraitPreference.layoutAdjustment != LayoutAdjustment.FILL;
 
     sendIntegerUsageStatsUsageStatsEvent(
         UsageStatsEvent.SOFTWARE_KEYBOARD_LAYOUT_ADJUSTMENT_ENABLED_LANDSCAPE,
@@ -923,8 +911,8 @@ public class SessionExecutor {
                     .setType(SessionCommand.CommandType.USAGE_STATS_EVENT)
                     .setUsageStatsEvent(event)
                     .setUsageStatsEventIntValue(value)),
-        Optional.<KeyEventInterface>absent(),
-        Optional.<EvaluationCallback>absent());
+        Optional.absent(),
+        Optional.absent());
   }
 
   public void touchEventUsageStatsEvent(List<TouchEvent> touchEventList) {
@@ -938,14 +926,12 @@ public class SessionExecutor {
             .setCommand(
                 SessionCommand.newBuilder().setType(SessionCommand.CommandType.USAGE_STATS_EVENT))
             .addAllTouchEvents(touchEventList);
-    evaluateAsynchronously(
-        inputBuilder, Optional.<KeyEventInterface>absent(), Optional.<EvaluationCallback>absent());
+    evaluateAsynchronously(inputBuilder, Optional.absent(), Optional.absent());
   }
 
   public void syncData() {
     Input.Builder inputBuilder = Input.newBuilder().setType(CommandType.SYNC_DATA);
-    evaluateAsynchronously(
-        inputBuilder, Optional.<KeyEventInterface>absent(), Optional.<EvaluationCallback>absent());
+    evaluateAsynchronously(inputBuilder, Optional.absent(), Optional.absent());
   }
 
   /**
@@ -984,8 +970,8 @@ public class SessionExecutor {
     // Ignore output.
     evaluateAsynchronously(
         Input.newBuilder().setType(Input.CommandType.SET_CONFIG).setConfig(config),
-        Optional.<KeyEventInterface>absent(),
-        Optional.<EvaluationCallback>absent());
+        Optional.absent(),
+        Optional.absent());
   }
 
   // TODO(exv): replace this
@@ -1049,9 +1035,7 @@ public class SessionExecutor {
   public void reload() {
     // Ignore output.
     evaluateAsynchronously(
-        Input.newBuilder().setType(Input.CommandType.RELOAD),
-        Optional.<KeyEventInterface>absent(),
-        Optional.<EvaluationCallback>absent());
+        Input.newBuilder().setType(Input.CommandType.RELOAD), Optional.absent(), Optional.absent());
   }
 
   /** Sends SEND_USER_DICTIONARY_COMMAND to edit user dictionaries. */
@@ -1098,7 +1082,7 @@ public class SessionExecutor {
                 SessionCommand.newBuilder()
                     .setType(SessionCommand.CommandType.USAGE_STATS_EVENT)
                     .setUsageStatsEvent(event)),
-        Optional.<KeyEventInterface>absent(),
-        Optional.<EvaluationCallback>absent());
+        Optional.absent(),
+        Optional.absent());
   }
 }

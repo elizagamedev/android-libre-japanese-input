@@ -108,7 +108,7 @@ public class ImeSwitcherFactoryTest extends InstrumentationTestCaseWithMock {
     Map<InputMethodInfo, List<InputMethodSubtype>> only3rdParty =
         Collections.singletonMap(thirdPatyIme, Collections.singletonList(jaVoiceAux));
     Map<InputMethodInfo, List<InputMethodSubtype>> noSubtype =
-        Collections.singletonMap(googleIme1, Collections.<InputMethodSubtype>emptyList());
+        Collections.singletonMap(googleIme1, Collections.emptyList());
     Map<InputMethodInfo, List<InputMethodSubtype>> noEligibleSubtype =
         Collections.singletonMap(
             googleIme1,

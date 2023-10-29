@@ -61,7 +61,7 @@ public class ApplicationInitializerFactoryTest extends InstrumentationTestCaseWi
 
   @Override
   protected void tearDown() throws Exception {
-    MozcUtil.setDebug(Optional.<Boolean>absent());
+    MozcUtil.setDebug(Optional.absent());
     super.tearDown();
   }
 
@@ -102,7 +102,7 @@ public class ApplicationInitializerFactoryTest extends InstrumentationTestCaseWi
     }
 
     // Expect false if isSystemApplication is true or isFirstLaunch is false.
-    Optional<Integer> absentInt = Optional.<Integer>absent();
+    Optional<Integer> absentInt = Optional.absent();
     TestData[] testDataList = {
       // Non-sys-app
       new TestData(false, false, true, true, Optional.of(100), 100, false, false),
@@ -333,11 +333,11 @@ public class ApplicationInitializerFactoryTest extends InstrumentationTestCaseWi
                         Configuration.ORIENTATION_LANDSCAPE)),
             resources.getDimensionPixelOffset(R.dimen.fullscreen_threshold));
         assertEquals(
-            "portrait check failed: " + testParameter.toString(),
+            "portrait check failed: " + testParameter,
             testParameter.expectPortraitFullscreen,
             sharedPreferences.getBoolean("pref_portrait_fullscreen_key", false));
         assertEquals(
-            "landscape check failed: " + testParameter.toString(),
+            "landscape check failed: " + testParameter,
             testParameter.expectLandscapeFullscreen,
             sharedPreferences.getBoolean("pref_landscape_fullscreen_key", false));
       } finally {

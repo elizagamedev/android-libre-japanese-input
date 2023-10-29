@@ -40,7 +40,6 @@ import com.google.common.io.ByteStreams;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -283,10 +282,10 @@ public class ProbableKeyEventGuesserTest extends InstrumentationTestCaseWithMock
     // JapaneseKeyboard == godanKana
     // Configuration == null
     guesser.setKeyboard(godanKana);
-    guesser.setConfiguration(Optional.<Configuration>absent());
+    guesser.setConfiguration(Optional.absent());
 
     MoreAsserts.assertEmpty(
-        guesser.getProbableKeyEvents(Arrays.asList(TouchEvent.getDefaultInstance())));
+        guesser.getProbableKeyEvents(Collections.singletonList(TouchEvent.getDefaultInstance())));
   }
 
   @SmallTest
@@ -295,8 +294,8 @@ public class ProbableKeyEventGuesserTest extends InstrumentationTestCaseWithMock
     // typing correction stats.
     Keyboard keyboard =
         new Keyboard(
-            Optional.<String>absent(),
-            Collections.<Row>emptyList(),
+            Optional.absent(),
+            Collections.emptyList(),
             0f,
             KeyboardSpecification.HARDWARE_QWERTY_ALPHABET);
     Configuration configuration = new Configuration();
@@ -307,7 +306,7 @@ public class ProbableKeyEventGuesserTest extends InstrumentationTestCaseWithMock
     guesser.setKeyboard(keyboard);
 
     MoreAsserts.assertEmpty(
-        guesser.getProbableKeyEvents(Arrays.asList(TouchEvent.getDefaultInstance())));
+        guesser.getProbableKeyEvents(Collections.singletonList(TouchEvent.getDefaultInstance())));
   }
 
   @SmallTest
@@ -349,10 +348,9 @@ public class ProbableKeyEventGuesserTest extends InstrumentationTestCaseWithMock
     guesser.setConfiguration(Optional.of(configuration));
     guesser.setKeyboard(godanKana);
 
-    MoreAsserts.assertEmpty(guesser.getProbableKeyEvents(Collections.<TouchEvent>emptyList()));
+    MoreAsserts.assertEmpty(guesser.getProbableKeyEvents(Collections.emptyList()));
     MoreAsserts.assertEmpty(
-        guesser.getProbableKeyEvents(
-            Collections.<TouchEvent>singletonList(TouchEvent.getDefaultInstance())));
+        guesser.getProbableKeyEvents(Collections.singletonList(TouchEvent.getDefaultInstance())));
   }
 
   @SmallTest
@@ -363,9 +361,9 @@ public class ProbableKeyEventGuesserTest extends InstrumentationTestCaseWithMock
     configuration.orientation = Configuration.ORIENTATION_LANDSCAPE;
 
     class TestData extends Parameter {
-      int[] sourceIds;
-      float[][] stats;
-      List<ProbableKeyEvent> expectation;
+      final int[] sourceIds;
+      final float[][] stats;
+      final List<ProbableKeyEvent> expectation;
 
       TestData(int[] sourceIds, float[][] stats, List<ProbableKeyEvent> expectation) {
         this.sourceIds = sourceIds;
@@ -399,11 +397,9 @@ public class ProbableKeyEventGuesserTest extends InstrumentationTestCaseWithMock
     int keyCodeForSourceId1 = 97;
     int keyCodeForSourceId2 = 36;
     TestData[] testDataList = {
-      new TestData(new int[] {}, new float[][] {}, Collections.<ProbableKeyEvent>emptyList()),
+      new TestData(new int[] {}, new float[][] {}, Collections.emptyList()),
       new TestData(
-          new int[] {1},
-          new float[][] {{0, 0, 0, 0, 0, 0, 0, 0}},
-          Collections.<ProbableKeyEvent>emptyList()),
+          new int[] {1}, new float[][] {{0, 0, 0, 0, 0, 0, 0, 0}}, Collections.emptyList()),
       new TestData(
           new int[] {1, 2},
           new float[][] {

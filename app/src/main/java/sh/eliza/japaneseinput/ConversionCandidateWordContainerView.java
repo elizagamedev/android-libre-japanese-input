@@ -80,10 +80,9 @@ public class ConversionCandidateWordContainerView extends ViewGroup {
     // Note: Don't use getMeasuredHeight/Width for this and children because #onMeasure
     //       is omitted so they return invalid value.
     ConversionCandidateWordView candidateWordView =
-        ConversionCandidateWordView.class.cast(findViewById(R.id.candidate_word_view));
+        (ConversionCandidateWordView) findViewById(R.id.candidate_word_view);
     candidateWordView.layout(left, top, right, bottom);
-    ToggleButton inputFrameFoldButton =
-        ToggleButton.class.cast(findViewById(R.id.input_frame_fold_button));
+    ToggleButton inputFrameFoldButton = (ToggleButton) findViewById(R.id.input_frame_fold_button);
     if (inputFrameFoldButton.getVisibility() != VISIBLE) {
       return;
     }

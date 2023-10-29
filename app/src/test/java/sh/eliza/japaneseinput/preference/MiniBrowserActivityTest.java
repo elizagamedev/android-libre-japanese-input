@@ -104,7 +104,7 @@ public class MiniBrowserActivityTest extends InstrumentationTestCaseWithMock {
           List<ResolveInfo> resolveInfo =
               isDefaultBrowserExistent
                   ? Collections.singletonList(new ResolveInfo())
-                  : Collections.<ResolveInfo>emptyList();
+                  : Collections.emptyList();
           expect(packageManager.queryIntentActivities(capture(queryIntentCapture), eq(0)))
               .andReturn(resolveInfo);
           if (isDefaultBrowserExistent) {

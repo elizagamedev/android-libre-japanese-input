@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">ໃສ່​ສີ</string>
 <string name="pref_layout_adjustment_entry_right">​ຂວາ</string>
 <string name="pref_layout_adjustment_entry_left">​ຊ້າຍ</string>
-<string name="firsttime_close_button">ຖັດ​ໄປ &gt;&gt;</string>
-<string name="firsttime_description_thank_you">ຂໍ​ຂອບ​ໃຈ​ທີ່​ນຳ​ໃຊ້ %s.</string>
-<string name="firsttime_description_usage_stats">ເພື່ອ​ໃຫ້​ພວກ​ເຮົາ​ປັບ​ປຸງ​ຜະ​ລິດ​ຕະ​ພັນ​ແລະ​ບໍ​ລິ​ການ %s ​ໄດ້, ພວກ​ເຮົາ​ຂໍ​ໃຫ້​ທ່ານ​ເປີດ​ການ​ສົ່ງ​ຂໍ້​ມູນ​ສະ​ຕິ​ຖິການ​ນຳ​ໃຊ້.\n\nການ​ຕ​ັ້ງ​ຄ່າ​ນີ້​ສາ​ມາດ​ປ່ຽນ​ໄດ້​ໃນ​ໜ້າ​ຈໍ​ການ​ຕັ້ງ​ຄ່າ.</string>
-<string name="firsttime_send_usage_stats_devchannel">ສະ​ຖິ​ຕິ​ການ​ນຳ​ໃຊ້​ຖືກ​ເປີດ​ເນື່ອງ​ຈາກ​ທ່ານ​ກຳ​ລັງ​ໃຊ້​ເວີ​ຊັນ​ນັກ​ພັດ​ທະ​ນາ.</string>
 <string name="pref_ime_enable_alert_title">​ຕັ້ງ​ຄ່າ​ຂໍ້​ຄວາມ</string>
 <string name="pref_ime_enable_alert_message">ກະ​ລຸ​ນາ​ເປີດ​ນຳ​ໃຊ້ %s.</string>
 <string name="pref_ime_switch_alert_title">ຕັ້ງ​ຄ່າ​ຮູບ​ແບບ​ການ​ປ້ອນ​ຂໍ້​ມູນ</string>

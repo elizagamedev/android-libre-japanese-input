@@ -45,8 +45,8 @@ import org.easymock.IMockBuilder;
  * inheriting classes as proxy.
  */
 class InstrumentationMockUtil {
-  private Instrumentation instrumentation;
-  private EasyMockSupport mockSupport;
+  private final Instrumentation instrumentation;
+  private final EasyMockSupport mockSupport;
 
   InstrumentationMockUtil(Instrumentation instrumentation, EasyMockSupport mockSupport) {
     this.instrumentation = instrumentation;

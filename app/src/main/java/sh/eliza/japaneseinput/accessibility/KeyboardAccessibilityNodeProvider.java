@@ -267,7 +267,7 @@ class KeyboardAccessibilityNodeProvider extends AccessibilityNodeProviderCompat 
   @Override
   public boolean performAction(int virtualViewId, int action, Bundle arguments) {
     Optional<Key> key = getKeyFromSouceId(virtualViewId);
-    return key.isPresent() ? performActionForKeyInternal(key.get(), virtualViewId, action) : false;
+    return key.isPresent() && performActionForKeyInternal(key.get(), virtualViewId, action);
   }
 
   boolean performActionForKey(Key key, int action) {

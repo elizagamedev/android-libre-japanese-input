@@ -64,7 +64,7 @@ public class DrawableCache {
   public Optional<Drawable> getDrawable(int resourceId) {
     if (resourceId == 0) {
       // 0 is invalid resource id.
-      return Optional.<Drawable>absent();
+      return Optional.absent();
     }
 
     Integer key = Integer.valueOf(resourceId);

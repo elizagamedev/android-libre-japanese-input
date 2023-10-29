@@ -104,7 +104,7 @@ public class CandidateLayoutRenderer {
 
   /** Locale field for {@link Paint#setTextLocale(Locale)}. */
   private static final Optional<Locale> TEXT_LOCALE =
-      (Build.VERSION.SDK_INT >= 17) ? Optional.of(Locale.JAPAN) : Optional.<Locale>absent();
+      (Build.VERSION.SDK_INT >= 17) ? Optional.of(Locale.JAPAN) : Optional.absent();
 
   private final TextPaint valuePaint = createTextPaint(true, Color.BLACK, Align.LEFT);
   private final TextPaint focusedValuePaint = createTextPaint(true, Color.BLACK, Align.LEFT);

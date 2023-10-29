@@ -208,7 +208,7 @@ public class ComposingTextTrackingInputConnection implements InputConnection {
     if (baseConnection instanceof ComposingTextTrackingInputConnection) {
       // The InputConnection is already wrapped by ComposingTextTrackingInputConnection,
       // so we don't need to re-wrap it.
-      return ComposingTextTrackingInputConnection.class.cast(baseConnection);
+      return (ComposingTextTrackingInputConnection) baseConnection;
     }
     return new ComposingTextTrackingInputConnection(baseConnection);
   }

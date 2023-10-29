@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">ತುಂಬುವಿಕೆ</string>
 <string name="pref_layout_adjustment_entry_right">ಬಲಕ್ಕೆ</string>
 <string name="pref_layout_adjustment_entry_left">ಎಡಕ್ಕೆ</string>
-<string name="firsttime_close_button">ಮುಂದಿನ &gt;&gt;</string>
-<string name="firsttime_description_thank_you">%s ಬಳಸಿದಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು.</string>
-<string name="firsttime_description_usage_stats">%s ಉತ್ಪನ್ನಗಳು ಮತ್ತು ಸೇವೆಗಳನ್ನು ಸುಧಾರಿಸುವ ಸಲುವಾಗಿ, ಬಳಕೆಯ ಅಂಕಿಅಂಶಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸುವುದನ್ನು ಪರಿಗಣಿಸಲು ನಾವು ಕೇಳುತ್ತೇವೆ.\n\nಪ್ರಾಶಸ್ತ್ಯಗಳ ಪರದೆಯಿಂದ ಈ ಸೆಟ್ಟಿಂಗ್‌ ಅನ್ನು ಬದಲಾಯಿಸಬಹುದಾಗಿದೆ.</string>
-<string name="firsttime_send_usage_stats_devchannel">ನೀವು ಸುಧಾರಿತ ಆವೃತ್ತಿಯನ್ನು ಬಳಸುತ್ತಿರುವುದರಿಂದ ಬಳಕೆಯ ಅಂಕಿಅಂಶಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ.</string>
 <string name="pref_ime_enable_alert_title">ಪಠ್ಯ ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಗೆ ಹೊಂದಿಸಿ</string>
 <string name="pref_ime_enable_alert_message">ದಯವಿಟ್ಟು %s ಸಕ್ರಿಯಗೊಳಿಸಿ.</string>
 <string name="pref_ime_switch_alert_title">ಇನ್‌ಪುಟ್‌ ವಿಧಾನಕ್ಕಾಗಿ ಹೊಂದಿಸಿ</string>

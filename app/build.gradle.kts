@@ -7,12 +7,18 @@ plugins {
 }
 
 val generatedDir = "$buildDir/libre-japanese-input"
+val generatedAssetsDir = "$generatedDir/assets"
 val generatedResDir = "$generatedDir/res"
 val generatedSrcDir = "$generatedDir/src"
 val generatedSvgZipDir = "$generatedDir/svg"
 
 val genEmojiDataScript = "scripts/gen_emoji_data.py"
 val genEmoticonDataScript = "scripts/gen_emoticon_data.py"
+
+task<Copy>("copyCredits") {
+  from("../third_party/mozc/src/data/installer/credits_en.html")
+  into("$generatedAssetsDir/credits_en.html")
+}
 
 val svgImageTemplateDir = "scripts/images/template"
 val svgImageTransformScript = "$svgImageTemplateDir/transform.py"
@@ -126,6 +132,7 @@ task<Exec>("generateSymbolData") {
 }
 
 tasks.preBuild {
+  dependsOn("copyCredits")
   dependsOn("generateMozcDrawable")
   dependsOn("generateEmojiData")
   dependsOn("generateEmoticonData")
@@ -149,6 +156,7 @@ android {
 
   sourceSets {
     getByName("main").run {
+      assets.srcDirs(generatedAssetsDir)
       java.srcDirs(generatedSrcDir)
       res.srcDirs(generatedResDir)
       proto {
@@ -175,8 +183,10 @@ android {
 
 dependencies {
   implementation("androidx.appcompat:appcompat:1.6.1")
-  implementation("com.google.protobuf:protobuf-javalite:3.8.0")
+  implementation("androidx.preference:preference:1.2.0")
+  implementation("com.google.android.material:material:1.9.0")
   implementation("com.google.guava:guava:32.1.3-android")
+  implementation("com.google.protobuf:protobuf-javalite:3.8.0")
 
   testImplementation("junit:junit:4.13.2")
   androidTestImplementation("androidx.test.ext:junit:1.1.5")

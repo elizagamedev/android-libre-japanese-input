@@ -59,11 +59,11 @@ public class CandidateViewTest extends InstrumentationTestCaseWithMock {
     ConversionCandidateSelectListener conversionCandidateSelectListener =
         new ConversionCandidateSelectListener(viewEventListener);
 
-    viewEventListener.onConversionCandidateSelected(0, Optional.<Integer>of(1));
+    viewEventListener.onConversionCandidateSelected(0, Optional.of(1));
     replayAll();
 
     conversionCandidateSelectListener.onCandidateSelected(
-        CandidateWord.newBuilder().setId(0).buildPartial(), Optional.<Integer>of(1));
+        CandidateWord.newBuilder().setId(0).buildPartial(), Optional.of(1));
 
     verifyAll();
   }

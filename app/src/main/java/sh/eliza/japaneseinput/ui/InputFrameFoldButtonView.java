@@ -35,14 +35,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.ToggleButton;
+import androidx.appcompat.widget.AppCompatToggleButton;
 import com.google.common.base.Preconditions;
 import sh.eliza.japaneseinput.R;
 import sh.eliza.japaneseinput.view.DummyDrawable;
 import sh.eliza.japaneseinput.view.Skin;
 
 /** View class for the button to expand/fold conversion candidate view. */
-public class InputFrameFoldButtonView extends ToggleButton {
+public class InputFrameFoldButtonView extends AppCompatToggleButton {
 
   private static final int[] STATE_EMPTY = {};
   private static final int[] STATE_CHECKED = {android.R.attr.state_checked};

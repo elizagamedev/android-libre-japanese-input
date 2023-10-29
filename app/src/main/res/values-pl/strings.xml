@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">Dopasuj do okna</string>
 <string name="pref_layout_adjustment_entry_right">Do prawej</string>
 <string name="pref_layout_adjustment_entry_left">Do lewej</string>
-<string name="firsttime_close_button">Następny &gt;&gt;</string>
-<string name="firsttime_description_thank_you">Dziękujemy za wybranie %s.</string>
-<string name="firsttime_description_usage_stats">Prosimy o włączenie statystyk użytkowania. Pomoże nam to ulepszać produkty i usługi %s.\n\nTo ustawienie można zmienić na ekranie preferencji.</string>
-<string name="firsttime_send_usage_stats_devchannel">Statystyki użytkowania są włączone, bo korzystasz z wersji deweloperskiej.</string>
 <string name="pref_ime_enable_alert_title">Konfiguracja ustawień tekstu</string>
 <string name="pref_ime_enable_alert_message">Włącz %s.</string>
 <string name="pref_ime_switch_alert_title">Konfiguracja metody wpisywania tekstu</string>

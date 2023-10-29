@@ -33,8 +33,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import androidx.preference.PreferenceManager;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -164,17 +164,10 @@ public class ApplicationInitializerFactory {
      * LAUNCHED_AT_LEAST_ONCE_DEPRECATED_VERSION_CODE. And then pref_launched_at_least_once is
      * removed.
      *
-     * @param isSystemApplication true if the app is a system application (== preinstall)
-     * @param isDevChannel true if the app is built for dev channel
-     * @param isWelcomeActivityPreferred true if the configuration prefers to shown welcome activity
-     *     if it's not been shown yet.
      * @param abiIndependentVersionCode ABI independent version code, typically obtained from {@link
      *     MozcUtil#getAbiIndependentVersionCode(Context)}
      */
     public void initialize(
-        boolean isSystemApplication,
-        boolean isDevChannel,
-        boolean isWelcomeActivityPreferred,
         int abiIndependentVersionCode,
         LauncherIconManager launcherIconManager,
         PreferenceManagerStaticInterface preferenceManager) {
@@ -236,17 +229,7 @@ public class ApplicationInitializerFactory {
         //       If PREF_LAUNCHER_ICON_VISIBILITY_KEY is filled prior to
         //       updateLauncherIconVisibility(), the launcher icon will be unexpectedly shown
         //       when 2.16.1955.3 (preinstall version) is overwritten by PlayStore version.
-        PreferenceUtil.setDefaultValues(
-            preferenceManager,
-            context,
-            MozcUtil.isDebug(context),
-            resources.getBoolean(R.bool.sending_information_features_enabled));
-
-        if (isDevChannel) {
-          // Usage Stats: Make pref_other_usage_stats_key enabled when dev channel.
-          editor.putBoolean(PreferenceUtil.PREF_OTHER_USAGE_STATS_KEY, true);
-          maybeShowNotificationForDevChannel(abiIndependentVersionCode, lastVersionCode);
-        }
+        PreferenceUtil.setDefaultValues(preferenceManager, context);
       } finally {
         editor.remove(PREF_LAUNCHED_AT_LEAST_ONCE);
         editor.putInt(

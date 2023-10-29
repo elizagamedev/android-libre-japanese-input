@@ -35,7 +35,7 @@ import java.util.EnumSet;
 /** Configuration for small behavior changing on Mozc depending on the target application. */
 public class ApplicationCompatibility {
 
-  private static enum CompatibilityMode {
+  private enum CompatibilityMode {
 
     // A flag to check if the full screen mode is supported on the application.
     //

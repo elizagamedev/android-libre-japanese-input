@@ -89,7 +89,7 @@ public class BackgroundDrawableFactoryTest extends InstrumentationTestCaseWithMo
 
   private Drawable maybeGetBaseDrawable(Drawable drawable) {
     return drawable instanceof BufferedDrawable
-        ? BufferedDrawable.class.cast(drawable).getBaseDrawable()
+        ? ((BufferedDrawable) drawable).getBaseDrawable()
         : drawable;
   }
 

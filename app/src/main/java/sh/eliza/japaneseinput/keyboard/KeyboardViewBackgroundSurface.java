@@ -163,7 +163,7 @@ public class KeyboardViewBackgroundSurface {
   private Set<MetaState> metaStates = Collections.emptySet();
 
   /** A set of pressed keys with their direction. */
-  private Map<Key, Direction> pressedKeys = Maps.newHashMap();
+  private final Map<Key, Direction> pressedKeys = Maps.newHashMap();
 
   /** Mapping table from Flick.Direction to appropriate DrawableType. */
   private static final Map<Flick.Direction, DrawableType> FLICK_DRAWABLE_TYPE_MAP;

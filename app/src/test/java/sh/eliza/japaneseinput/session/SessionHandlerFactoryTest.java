@@ -29,10 +29,10 @@
 
 package sh.eliza.japaneseinput.session;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.test.InstrumentationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.common.base.Optional;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -67,7 +67,7 @@ public class SessionHandlerFactoryTest extends InstrumentationTestCase {
     sharedPreferences =
         getInstrumentation()
             .getContext()
-            .getSharedPreferences("TEST_SESSION_HANLDER_FACTORY", Activity.MODE_PRIVATE);
+            .getSharedPreferences("TEST_SESSION_HANLDER_FACTORY", AppCompatActivity.MODE_PRIVATE);
     sharedPreferences.edit().clear().commit();
     serverSocket = new ServerSocket(PORT);
     // Prepare stub socket server.

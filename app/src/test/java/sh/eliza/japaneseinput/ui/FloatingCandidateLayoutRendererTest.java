@@ -53,7 +53,7 @@ public class FloatingCandidateLayoutRendererTest extends InstrumentationTestCase
       candidatesBuilder.addCandidate(
           Candidate.newBuilder()
               .setIndex(i)
-              .setValue("cand_" + Integer.toString(i))
+              .setValue("cand_" + i)
               .setId(i)
               .setAnnotation(Annotation.newBuilder().setShortcut(Integer.toString(i + 1))));
     }
@@ -140,7 +140,7 @@ public class FloatingCandidateLayoutRendererTest extends InstrumentationTestCase
     layoutRenderer.setViewEventListener(listener);
 
     resetAll();
-    listener.onConversionCandidateSelected(0, Optional.<Integer>absent());
+    listener.onConversionCandidateSelected(0, Optional.absent());
     replayAll();
     MotionEvent downEvent = MotionEvent.obtain(0L, 0L, MotionEvent.ACTION_DOWN, 0, 0, 0);
     MotionEvent upEvent = MotionEvent.obtain(0L, 0L, MotionEvent.ACTION_UP, 0, 0, 0);
@@ -154,7 +154,7 @@ public class FloatingCandidateLayoutRendererTest extends InstrumentationTestCase
     verifyAll();
 
     resetAll();
-    listener.onConversionCandidateSelected(0, Optional.<Integer>absent());
+    listener.onConversionCandidateSelected(0, Optional.absent());
     replayAll();
     downEvent = MotionEvent.obtain(0L, 0L, MotionEvent.ACTION_DOWN, 0, 0, 0);
     upEvent = MotionEvent.obtain(0L, 0L, MotionEvent.ACTION_UP, 0, candidateHeight - 1, 0);
@@ -168,7 +168,7 @@ public class FloatingCandidateLayoutRendererTest extends InstrumentationTestCase
     verifyAll();
 
     resetAll();
-    listener.onConversionCandidateSelected(1, Optional.<Integer>absent());
+    listener.onConversionCandidateSelected(1, Optional.absent());
     replayAll();
     downEvent = MotionEvent.obtain(0L, 0L, MotionEvent.ACTION_DOWN, 0, candidateHeight, 0);
     upEvent = MotionEvent.obtain(0L, 0L, MotionEvent.ACTION_UP, 0, candidateHeight, 0);

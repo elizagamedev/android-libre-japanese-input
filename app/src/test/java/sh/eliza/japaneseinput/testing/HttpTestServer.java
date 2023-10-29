@@ -40,6 +40,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -77,7 +78,7 @@ public class HttpTestServer implements Closeable, Runnable {
   private static final Pattern HEADER_PATTERN = Pattern.compile("^(.*?): (.*)$");
   public static final String COMMON_HEADER = "HTTP/1.0 200 OK\nContent-Type: text/plain";
   private static final int BUFFER_SIZE = 1024;
-  private ServerSocket server;
+  private final ServerSocket server;
   private boolean shutdownRequested = false;
 
   public HttpTestServer() throws IOException {
@@ -123,7 +124,8 @@ public class HttpTestServer implements Closeable, Runnable {
       throws IOException {
     if (method.equals("GET")) {
       ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
-      BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(byteOutputStream, "utf-8"));
+      BufferedWriter writer =
+          new BufferedWriter(new OutputStreamWriter(byteOutputStream, StandardCharsets.UTF_8));
       try {
         writer.write(method);
         writer.newLine();
@@ -171,7 +173,8 @@ public class HttpTestServer implements Closeable, Runnable {
       throws IOException {
     if (method.equals("GET")) {
       ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
-      BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(byteOutputStream, "utf-8"));
+      BufferedWriter writer =
+          new BufferedWriter(new OutputStreamWriter(byteOutputStream, StandardCharsets.UTF_8));
       try {
         writer.write(method);
         writer.newLine();

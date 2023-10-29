@@ -208,23 +208,23 @@ public class ClientSidePreferenceTest extends InstrumentationTestCase {
       ClientSidePreference preference =
           new ClientSidePreference(sharedPreferences, resources, configuration.orientation);
       assertEquals(
-          testData.toString(), testData.expectedKeyboardLayout, preference.getKeyboardLayout());
-      assertEquals(testData.toString(), testData.expectedInputStyle, preference.getInputStyle());
+          testData.toString(), testData.expectedKeyboardLayout, preference.keyboardLayout);
+      assertEquals(testData.toString(), testData.expectedInputStyle, preference.inputStyle);
       assertEquals(
           testData.toString(),
           testData.expectedQwertyLayoutForAlphabet,
           preference.isQwertyLayoutForAlphabet());
       assertEquals(
-          testData.toString(), testData.expectedFlickSensitivity, preference.getFlickSensitivity());
+          testData.toString(), testData.expectedFlickSensitivity, preference.flickSensitivity);
       assertEquals(
-          testData.toString(), testData.expectedLayoutAdjustment, preference.getLayoutAdjustment());
+          testData.toString(), testData.expectedLayoutAdjustment, preference.layoutAdjustment);
       assertEquals(
           testData.toString(), testData.expectedFullscreenMode, preference.isFullscreenMode());
-      assertEquals(testData.toString(), testData.expectedSkinType, preference.getSkinType());
+      assertEquals(testData.toString(), testData.expectedSkinType, preference.skinType);
     }
   }
 
-  static enum TestGetEnum {
+  enum TestGetEnum {
     BETA,
     GAMMA,
     DELTA,

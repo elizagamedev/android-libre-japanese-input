@@ -60,22 +60,22 @@ public class PreferencePageTest extends TestCase {
       }
     }
     TestData[] testDataList = {
-      new TestData(PreferencePage.ABOUT, true, true, Arrays.asList(R.xml.pref_about)),
-      new TestData(PreferencePage.ABOUT, true, false, Arrays.asList(R.xml.pref_about)),
-      new TestData(PreferencePage.ABOUT, false, true, Arrays.asList(R.xml.pref_about)),
-      new TestData(PreferencePage.ABOUT, false, false, Arrays.asList(R.xml.pref_about)),
-      new TestData(PreferencePage.CONVERSION, true, true, Arrays.asList(R.xml.pref_conversion)),
-      new TestData(PreferencePage.CONVERSION, true, false, Arrays.asList(R.xml.pref_conversion)),
-      new TestData(PreferencePage.CONVERSION, false, true, Arrays.asList(R.xml.pref_conversion)),
-      new TestData(PreferencePage.CONVERSION, false, false, Arrays.asList(R.xml.pref_conversion)),
-      new TestData(PreferencePage.DEVELOPMENT, true, true, Arrays.asList(R.xml.pref_development)),
-      new TestData(PreferencePage.DEVELOPMENT, true, false, Arrays.asList(R.xml.pref_development)),
-      new TestData(PreferencePage.DEVELOPMENT, false, true, Arrays.asList(R.xml.pref_development)),
-      new TestData(PreferencePage.DEVELOPMENT, false, false, Arrays.asList(R.xml.pref_development)),
-      new TestData(PreferencePage.DICTIONARY, true, true, Arrays.asList(R.xml.pref_dictionary)),
-      new TestData(PreferencePage.DICTIONARY, true, false, Arrays.asList(R.xml.pref_dictionary)),
-      new TestData(PreferencePage.DICTIONARY, false, true, Arrays.asList(R.xml.pref_dictionary)),
-      new TestData(PreferencePage.DICTIONARY, false, false, Arrays.asList(R.xml.pref_dictionary)),
+      new TestData(PreferencePage.ABOUT, true, true, List.of(R.xml.pref_about)),
+      new TestData(PreferencePage.ABOUT, true, false, List.of(R.xml.pref_about)),
+      new TestData(PreferencePage.ABOUT, false, true, List.of(R.xml.pref_about)),
+      new TestData(PreferencePage.ABOUT, false, false, List.of(R.xml.pref_about)),
+      new TestData(PreferencePage.CONVERSION, true, true, List.of(R.xml.pref_conversion)),
+      new TestData(PreferencePage.CONVERSION, true, false, List.of(R.xml.pref_conversion)),
+      new TestData(PreferencePage.CONVERSION, false, true, List.of(R.xml.pref_conversion)),
+      new TestData(PreferencePage.CONVERSION, false, false, List.of(R.xml.pref_conversion)),
+      new TestData(PreferencePage.DEVELOPMENT, true, true, List.of(R.xml.pref_development)),
+      new TestData(PreferencePage.DEVELOPMENT, true, false, List.of(R.xml.pref_development)),
+      new TestData(PreferencePage.DEVELOPMENT, false, true, List.of(R.xml.pref_development)),
+      new TestData(PreferencePage.DEVELOPMENT, false, false, List.of(R.xml.pref_development)),
+      new TestData(PreferencePage.DICTIONARY, true, true, List.of(R.xml.pref_dictionary)),
+      new TestData(PreferencePage.DICTIONARY, true, false, List.of(R.xml.pref_dictionary)),
+      new TestData(PreferencePage.DICTIONARY, false, true, List.of(R.xml.pref_dictionary)),
+      new TestData(PreferencePage.DICTIONARY, false, false, List.of(R.xml.pref_dictionary)),
       new TestData(
           PreferencePage.FLAT,
           true,
@@ -123,42 +123,34 @@ public class PreferencePageTest extends TestCase {
               R.xml.pref_conversion,
               R.xml.pref_dictionary,
               R.xml.pref_about)),
-      new TestData(
-          PreferencePage.INPUT_SUPPORT, true, true, Arrays.asList(R.xml.pref_input_support)),
-      new TestData(
-          PreferencePage.INPUT_SUPPORT, true, false, Arrays.asList(R.xml.pref_input_support)),
-      new TestData(
-          PreferencePage.INPUT_SUPPORT, false, true, Arrays.asList(R.xml.pref_input_support)),
-      new TestData(
-          PreferencePage.INPUT_SUPPORT, false, false, Arrays.asList(R.xml.pref_input_support)),
+      new TestData(PreferencePage.INPUT_SUPPORT, true, true, List.of(R.xml.pref_input_support)),
+      new TestData(PreferencePage.INPUT_SUPPORT, true, false, List.of(R.xml.pref_input_support)),
+      new TestData(PreferencePage.INPUT_SUPPORT, false, true, List.of(R.xml.pref_input_support)),
+      new TestData(PreferencePage.INPUT_SUPPORT, false, false, List.of(R.xml.pref_input_support)),
       new TestData(
           PreferencePage.SOFTWARE_KEYBOARD,
           true,
           true,
-          Arrays.asList(R.xml.pref_software_keyboard_advanced)),
+          List.of(R.xml.pref_software_keyboard_advanced)),
       new TestData(
           PreferencePage.SOFTWARE_KEYBOARD,
           true,
           false,
-          Arrays.asList(R.xml.pref_software_keyboard_advanced)),
+          List.of(R.xml.pref_software_keyboard_advanced)),
       new TestData(
           PreferencePage.SOFTWARE_KEYBOARD,
           false,
           true,
-          Arrays.asList(R.xml.pref_software_keyboard_advanced)),
+          List.of(R.xml.pref_software_keyboard_advanced)),
       new TestData(
           PreferencePage.SOFTWARE_KEYBOARD,
           false,
           false,
-          Arrays.asList(R.xml.pref_software_keyboard_advanced)),
-      new TestData(
-          PreferencePage.USER_FEEDBACK, true, true, Arrays.asList(R.xml.pref_user_feedback)),
-      new TestData(
-          PreferencePage.USER_FEEDBACK, true, false, Arrays.asList(R.xml.pref_user_feedback)),
-      new TestData(
-          PreferencePage.USER_FEEDBACK, false, true, Arrays.asList(R.xml.pref_user_feedback)),
-      new TestData(
-          PreferencePage.USER_FEEDBACK, false, false, Arrays.asList(R.xml.pref_user_feedback)),
+          List.of(R.xml.pref_software_keyboard_advanced)),
+      new TestData(PreferencePage.USER_FEEDBACK, true, true, List.of(R.xml.pref_user_feedback)),
+      new TestData(PreferencePage.USER_FEEDBACK, true, false, List.of(R.xml.pref_user_feedback)),
+      new TestData(PreferencePage.USER_FEEDBACK, false, true, List.of(R.xml.pref_user_feedback)),
+      new TestData(PreferencePage.USER_FEEDBACK, false, false, List.of(R.xml.pref_user_feedback)),
     };
 
     for (TestData testData : testDataList) {

@@ -45,7 +45,7 @@ abstract class BaseBackgroundDrawable extends Drawable {
   private final int rightPadding;
   private final int bottomPadding;
 
-  private Rect canvasRect = new Rect();
+  private final Rect canvasRect = new Rect();
 
   BaseBackgroundDrawable(int leftPadding, int topPadding, int rightPadding, int bottomPadding) {
     this.leftPadding = leftPadding;

@@ -125,7 +125,7 @@ public class BufferedDrawable extends Drawable {
       if (!(o instanceof DecomposedBitmapMetadata)) {
         return false;
       }
-      DecomposedBitmapMetadata rhs = DecomposedBitmapMetadata.class.cast(o);
+      DecomposedBitmapMetadata rhs = (DecomposedBitmapMetadata) o;
       return width == rhs.width
           && height == rhs.height
           && scaleX == rhs.scaleX

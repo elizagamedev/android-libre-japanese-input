@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">Vyplniť</string>
 <string name="pref_layout_adjustment_entry_right">Vpravo</string>
 <string name="pref_layout_adjustment_entry_left">Vľavo</string>
-<string name="firsttime_close_button">Ďalej &gt;&gt;</string>
-<string name="firsttime_description_thank_you">Ďakujeme, že používate službu %s.</string>
-<string name="firsttime_description_usage_stats">Na to, aby sme mohli zlepšiť produkty a služby %s, vás žiadame o zváženie povolenia štatistík používania.\n\nToto nastavenie je možné zmeniť na obrazovke predvolieb.</string>
-<string name="firsttime_send_usage_stats_devchannel">Štatistiky používania sú povolené, pretože používate verziu vo vývoji.</string>
 <string name="pref_ime_enable_alert_title">Nastavenie pre textové nastavenia</string>
 <string name="pref_ime_enable_alert_message">Povoľte %s.</string>
 <string name="pref_ime_switch_alert_title">Nastavenie pre metódu vstupu</string>

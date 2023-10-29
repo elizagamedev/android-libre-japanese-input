@@ -68,7 +68,7 @@ public class CursorAnchorInfoWrapper {
     if (!(obj instanceof CursorAnchorInfoWrapper)) {
       return false;
     }
-    CursorAnchorInfoWrapper other = CursorAnchorInfoWrapper.class.cast(obj);
+    CursorAnchorInfoWrapper other = (CursorAnchorInfoWrapper) obj;
     return this.rawData.equals(other.rawData);
   }
 

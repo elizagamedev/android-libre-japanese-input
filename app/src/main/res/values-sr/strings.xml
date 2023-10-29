@@ -135,10 +135,6 @@
 <string name="pref_layout_adjustment_entry_fill">Попуни</string>
 <string name="pref_layout_adjustment_entry_right">Десно</string>
 <string name="pref_layout_adjustment_entry_left">Лево</string>
-<string name="firsttime_close_button">Даље &gt;&gt;</string>
-<string name="firsttime_description_thank_you">Хвала вам што користите %s.</string>
-<string name="firsttime_description_usage_stats">Да бисмо побољшали %s производе и услуге, љубазно ћемо вас замолити да размислите о томе да омогућите статистику коришћења.\n\nТо подешавање можете да промените на екрану са подешавањима.</string>
-<string name="firsttime_send_usage_stats_devchannel">Статистика коришћења је омогућена јер користите развојну верзију.</string>
 <string name="pref_ime_enable_alert_title">Припрема за подешавања текста</string>
 <string name="pref_ime_enable_alert_message">Омогућите %s.</string>
 <string name="pref_ime_switch_alert_title">Подешавање за метод уноса</string>

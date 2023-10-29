@@ -41,7 +41,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
-import android.widget.TextView;
+import androidx.appcompat.widget.AppCompatTextView;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -69,7 +69,7 @@ public class CarrierEmojiRenderHelper {
    * android.widget.TextView}, in other words, more simpler components, such as {@code Canvas} or
    * {@code Paint} don't, unfortunately. So, we implement this class to support emoji on MechaMozc.
    */
-  static class BackgroundTextView extends TextView {
+  static class BackgroundTextView extends AppCompatTextView {
 
     /**
      * Unfortunately some methods are called by a constructor of the super class, so we CANNOT

@@ -35,11 +35,11 @@ import static org.easymock.EasyMock.eq;
 import static org.easymock.EasyMock.expect;
 
 import android.content.Context;
-import android.support.v4.view.accessibility.AccessibilityEventCompat;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.view.MotionEvent;
 import android.view.View;
+import androidx.core.view.accessibility.AccessibilityEventCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import com.google.common.base.Optional;
 import java.util.Collections;
 import java.util.List;
@@ -51,8 +51,6 @@ import sh.eliza.japaneseinput.keyboard.Key;
 import sh.eliza.japaneseinput.keyboard.Key.Stick;
 import sh.eliza.japaneseinput.keyboard.KeyEntity;
 import sh.eliza.japaneseinput.keyboard.KeyState;
-import sh.eliza.japaneseinput.keyboard.KeyState.MetaState;
-import sh.eliza.japaneseinput.keyboard.PopUp;
 import sh.eliza.japaneseinput.testing.InstrumentationTestCaseWithMock;
 
 /** Test for KeyboardAccessibilityDelegate. */
@@ -87,9 +85,9 @@ public class KeyboardAccessibilityDelegateTest extends InstrumentationTestCaseWi
             LONGPRESS_KEY_CODE,
             true,
             0,
-            Optional.<String>absent(),
+            Optional.absent(),
             false,
-            Optional.<PopUp>absent(),
+            Optional.absent(),
             0,
             0,
             0,
@@ -99,9 +97,9 @@ public class KeyboardAccessibilityDelegateTest extends InstrumentationTestCaseWi
         Collections.singletonList(
             new KeyState(
                 "",
-                Collections.<MetaState>emptySet(),
-                Collections.<MetaState>emptySet(),
-                Collections.<MetaState>emptySet(),
+                Collections.emptySet(),
+                Collections.emptySet(),
+                Collections.emptySet(),
                 Collections.singletonList(flick)));
     return Optional.of(
         new Key(

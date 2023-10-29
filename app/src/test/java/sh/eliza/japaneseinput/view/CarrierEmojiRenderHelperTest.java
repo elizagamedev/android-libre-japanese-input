@@ -215,7 +215,7 @@ public class CarrierEmojiRenderHelperTest extends InstrumentationTestCaseWithMoc
     backgroundTextView.setText("");
     replayAll();
 
-    helper.setCandidateList(Optional.<CandidateList>absent());
+    helper.setCandidateList(Optional.absent());
 
     verifyAll();
 

@@ -40,9 +40,9 @@ import java.util.List;
  */
 class SequentialInterpolator implements Interpolator {
   static class Builder {
-    private List<Interpolator> interpolators;
-    private List<Float> durations;
-    private List<Float> toValues;
+    private final List<Interpolator> interpolators;
+    private final List<Float> durations;
+    private final List<Float> toValues;
     private float totalDuration;
 
     private Builder() {
