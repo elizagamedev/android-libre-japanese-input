@@ -31,8 +31,6 @@ package sh.eliza.japaneseinput.preference
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
-import android.view.View
-import android.view.ViewGroup.MarginLayoutParams
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
@@ -46,12 +44,19 @@ import sh.eliza.japaneseinput.R
  * This preference has a seekbar and its indicators to manipulate flick sensitivity, in addition to
  * other regular preferences.
  */
-class SeekBarPreference : Preference {
+class SeekBarPreference
+@JvmOverloads
+constructor(
+  context: Context,
+  attrs: AttributeSet? = null,
+  defStyleAttr: Int = 0,
+  defStyleRes: Int = 0,
+) : Preference(context, attrs, defStyleAttr, defStyleRes) {
   private inner class SeekBarChangeListener
   internal constructor(private val sensitivityTextView: TextView?) : OnSeekBarChangeListener {
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-      if (sensitivityTextView != null) {
-        sensitivityTextView.text = (progress + offset).toString()
+      if (sensitivityTextView !== null) {
+        sensitivityTextView.text = getValueText(progress + offset)
       }
     }
 
@@ -61,11 +66,7 @@ class SeekBarPreference : Preference {
     }
   }
 
-  init {
-    setLayoutResource(R.layout.pref_seekbar)
-  }
-
-  private var max = 0
+  private var max = 1
   private var offset = 0
   private var value = 0
   private var unit: String? = null
@@ -73,62 +74,28 @@ class SeekBarPreference : Preference {
   private var middleText: String? = null
   private var highText: String? = null
 
-  constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-    val attributeArray =
-      intArrayOf(
-        android.R.attr.max,
-        android.R.attr.progress,
-        R.attr.seekbar_offset,
-        R.attr.seekbar_unit,
-        R.attr.seekbar_low_text,
-        R.attr.seekbar_middle_text,
-        R.attr.seekbar_high_text
+  init {
+    context.theme.obtainStyledAttributes(
+        attrs,
+        R.styleable.SeekBarPreference,
+        defStyleAttr,
+        defStyleRes
       )
-    val typedArray = context.obtainStyledAttributes(attrs, attributeArray)
-    try {
-      offset = typedArray.getInt(2, 0)
-      max = typedArray.getInt(0, 0)
-      value = typedArray.getInt(1, 0) + offset
-      unit = typedArray.getString(3)
-      lowText = typedArray.getString(4)
-      middleText = typedArray.getString(5)
-      highText = typedArray.getString(6)
-    } finally {
-      typedArray.recycle()
-    }
-  }
+      .run {
+        try {
+          offset = getInteger(R.styleable.SeekBarPreference_seekbar_offset, 0)
+          max = getInteger(R.styleable.SeekBarPreference_android_max, 1)
+          unit = getString(R.styleable.SeekBarPreference_seekbar_unit)
+          lowText = getString(R.styleable.SeekBarPreference_seekbar_low_text)
+          middleText = getString(R.styleable.SeekBarPreference_seekbar_middle_text)
+          highText = getString(R.styleable.SeekBarPreference_seekbar_high_text)
+        } finally {
+          recycle()
+        }
+      }
 
-  // protected fun onCreateView(parent: ViewGroup?): View {
-  //   val inflater: LayoutInflater = LayoutInflater.from(getContext())
-  //   val view: View = inflater.inflate(R.layout.pref_seekbar, parent, false)
-  //   val preferenceFrame = view.findViewById<View>(R.id.preference_frame) as ViewGroup
-  //   // Note: Invoking getLayoutResource() is a hack to obtain the default resource id.
-  //   inflater.inflate(getLayoutResource(), preferenceFrame)
-  //   initializeOriginalView(view)
-  //   return view
-  // }
-
-  // /** Initializes the original preferecen's parameters. */
-  // private fun initializeOriginalView(view: View) {
-  //   val summaryView = view.findViewById<View>(android.R.id.summary) ?: return
-  //   shrinkBottomMarginAndPadding(summaryView)
-  //   val parentView = summaryView.parent as? View ?: return
-  //   shrinkBottomMarginAndPadding(parentView)
-  //   val rootView = parentView.parent as? View ?: return
-  //   rootView.minimumHeight = 0
-  //   val widgetFrame = view.findViewById<View>(android.R.id.widget_frame)
-  //   if (widgetFrame != null) {
-  //     widgetFrame.visibility = View.GONE
-  //   }
-  // }
-
-  private fun shrinkBottomMarginAndPadding(view: View) {
-    val params = view.layoutParams
-    if (params is MarginLayoutParams) {
-      (params as MarginLayoutParams).bottomMargin = 0
-      view.layoutParams = params
-    }
-    view.setPadding(view.paddingLeft, view.paddingTop, view.paddingRight, 0)
+    setIconSpaceReserved(true)
+    setLayoutResource(R.layout.pref_seekbar)
   }
 
   override protected fun onGetDefaultValue(a: TypedArray, index: Int): Any {
@@ -143,22 +110,16 @@ class SeekBarPreference : Preference {
   override fun onBindViewHolder(holder: PreferenceViewHolder) {
     super.onBindViewHolder(holder)
 
-    val valueView =
-      (holder.findViewById(R.id.pref_seekbar_value) as TextView?)?.apply { text = value.toString() }
+    holder.setDividerAllowedAbove(false)
+    holder.setDividerAllowedBelow(true)
 
-    (holder.findViewById(R.id.pref_seekbar_seekbar) as SeekBar?)?.run {
+    val valueView =
+      (holder.findViewById(R.id.seekbar_value) as TextView?)?.apply { text = getValueText(value) }
+
+    (holder.findViewById(R.id.seekbar) as SeekBar?)?.run {
       setMax(max - offset)
       setProgress(value - offset)
       setOnSeekBarChangeListener(SeekBarChangeListener(valueView))
-    }
-
-    (holder.findViewById(R.id.pref_seekbar_unit) as TextView?)?.run {
-      if (unit == null) {
-        visibility = View.GONE
-      } else {
-        visibility = View.VISIBLE
-        text = unit
-      }
     }
 
     fun setTextView(text: String?, resourceId: Int) {
@@ -179,5 +140,13 @@ class SeekBarPreference : Preference {
     persistInt(value)
     notifyDependencyChange(shouldDisableDependents())
     notifyChanged()
+  }
+
+  private fun getValueText(value: Int): String {
+    return if (unit !== null) {
+      value.toString() + " " + unit
+    } else {
+      value.toString()
+    }
   }
 }
