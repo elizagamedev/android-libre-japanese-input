@@ -29,19 +29,14 @@
 
 package org.mozc.android.inputmethod.japanese.preference;
 
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import org.mozc.android.inputmethod.japanese.R;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-
 import java.util.List;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
+import org.mozc.android.inputmethod.japanese.R;
 
-/**
- * Fragment based preference UI for API Level &gt;= 11.
- *
- */
+/** Fragment based preference UI for API Level &gt;= 11. */
 public abstract class MozcFragmentBasePreferenceActivity extends MozcBasePreferenceActivity {
   private final PreferencePage preferencePage;
 
@@ -71,8 +66,8 @@ public abstract class MozcFragmentBasePreferenceActivity extends MozcBasePrefere
       return null;
     }
     Intent intent = new Intent(currentIntent);
-    intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT,
-                    PreferenceBaseFragment.class.getCanonicalName());
+    intent.putExtra(
+        PreferenceActivity.EXTRA_SHOW_FRAGMENT, PreferenceBaseFragment.class.getCanonicalName());
     // Send arguments of a fragment as a bundle.
     // This is equivalent to below xml.
     // <preference-headers>...<header ...><extra name="xxxx" value="xxxx"/>

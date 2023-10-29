@@ -29,20 +29,16 @@
 
 package org.mozc.android.inputmethod.japanese.view;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.drawable.Drawable;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 
-
-/**
- * Skin data.
- */
+/** Skin data. */
 public class Skin {
 
   private static final Skin FALLBACK_INSTANCE = new Skin();
@@ -66,8 +62,10 @@ public class Skin {
   @VisibleForTesting static final int STYLE_CATEGORY_SYMBOL_MAJOR_EMOJI_DISABLE_CIRCLE = 16;
   @VisibleForTesting static final int STYLE_CATEGORY_SYMBOL_MINOR = 17;
   @VisibleForTesting static final int STYLE_CATEGORY_SYMBOL_MINOR_SELECTED = 18;
+
   @VisibleForTesting
   static final int STYLE_CATEGORY_KEYBOARD_FOLDING_BUTTON_BACKGROUND_DEFAULT = 19;
+
   @VisibleForTesting
   static final int STYLE_CATEGORY_KEYBOARD_FOLDING_BUTTON_BACKGROUND_SCROLLED = 20;
 

@@ -29,24 +29,11 @@
 
 package org.mozc.android.inputmethod.japanese.userdictionary;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionary.Entry;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionary.PosType;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommand;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommand.Builder;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommand.CommandType;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommandStatus;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommandStatus.Status;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryStorage;
-import org.mozc.android.inputmethod.japanese.session.SessionExecutor;
+import android.content.res.Resources;
+import android.net.Uri;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
-
-import android.content.res.Resources;
-import android.net.Uri;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -58,9 +45,19 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
+import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionary.Entry;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionary.PosType;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommand;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommand.Builder;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommand.CommandType;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommandStatus;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommandStatus.Status;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryStorage;
+import org.mozc.android.inputmethod.japanese.session.SessionExecutor;
 
-/**
- */
+/** */
 public class UserDictionaryToolModel {
   private final SessionExecutor sessionExecutor;
   @VisibleForTesting long sessionId;
@@ -83,37 +80,35 @@ public class UserDictionaryToolModel {
   private ZipFile zipFile;
 
   // List "view" by proxying dictionary names in the storage.
-  private final List<String> dictionaryNameList = new AbstractList<String>() {
-    @Override
-    public String get(int index) {
-      return storage.getDictionaries(index).getName();
-    }
+  private final List<String> dictionaryNameList =
+      new AbstractList<String>() {
+        @Override
+        public String get(int index) {
+          return storage.getDictionaries(index).getName();
+        }
 
-    @Override
-    public int size() {
-      return (storage == null) ? 0 : storage.getDictionariesCount();
-    }
-  };
+        @Override
+        public int size() {
+          return (storage == null) ? 0 : storage.getDictionariesCount();
+        }
+      };
 
   public UserDictionaryToolModel(SessionExecutor sessionExecutor) {
     this.sessionExecutor = sessionExecutor;
   }
 
-  /**
-   * Returns {@code true} if the storage is edited after loading.
-   */
+  /** Returns {@code true} if the storage is edited after loading. */
   public boolean isDirty() {
     return dirty;
   }
 
   /**
-   * Creates a session to communicate with the native server about user dictionary editing.
-   * This method should be called before any other methods.
+   * Creates a session to communicate with the native server about user dictionary editing. This
+   * method should be called before any other methods.
    */
   public void createSession() {
-    UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.CREATE_SESSION)
-        .build();
+    UserDictionaryCommand command =
+        UserDictionaryCommand.newBuilder().setType(CommandType.CREATE_SESSION).build();
     UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(command);
     if (status.getStatus() != Status.USER_DICTIONARY_COMMAND_SUCCESS) {
       throw new IllegalStateException("UserDictionaryCommand session should be created always.");
@@ -121,14 +116,13 @@ public class UserDictionaryToolModel {
     sessionId = status.getSessionId();
   }
 
-  /**
-   * Deletes the current session.
-   */
+  /** Deletes the current session. */
   public void deleteSession() {
-    UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.DELETE_SESSION)
-        .setSessionId(sessionId)
-        .build();
+    UserDictionaryCommand command =
+        UserDictionaryCommand.newBuilder()
+            .setType(CommandType.DELETE_SESSION)
+            .setSessionId(sessionId)
+            .build();
     UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(command);
     if (status.getStatus() != Status.USER_DICTIONARY_COMMAND_SUCCESS) {
       MozcLog.e("Failed to delete user dictionary command session.");
@@ -137,32 +131,35 @@ public class UserDictionaryToolModel {
   }
 
   /**
-   * Resumes the current session by loading the data from storage,
-   * and updates storage and selected id.
-   * @params defautlDictionaryName the name of the default dictionary, which is created when,
-   *   e.g., LOAD operation is failing, or the storage gets empty because of the deletion of
-   *   the last dictionary.
+   * Resumes the current session by loading the data from storage, and updates storage and selected
+   * id.
+   *
+   * @params defautlDictionaryName the name of the default dictionary, which is created when, e.g.,
+   *     LOAD operation is failing, or the storage gets empty because of the deletion of the last
+   *     dictionary.
    */
   public Status resumeSession(String defaultDictionaryName) {
     ensureSession();
 
     // Set default dictionary name.
     {
-      UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-          .setType(CommandType.SET_DEFAULT_DICTIONARY_NAME)
-          .setSessionId(sessionId)
-          .setDictionaryName(defaultDictionaryName)
-          .build();
+      UserDictionaryCommand command =
+          UserDictionaryCommand.newBuilder()
+              .setType(CommandType.SET_DEFAULT_DICTIONARY_NAME)
+              .setSessionId(sessionId)
+              .setDictionaryName(defaultDictionaryName)
+              .build();
       // Ignore any errors.
       sessionExecutor.sendUserDictionaryCommand(command);
     }
 
     // Load the dictionary.
-    UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.LOAD)
-        .setSessionId(sessionId)
-        .setEnsureNonEmptyStorage(true)
-        .build();
+    UserDictionaryCommand command =
+        UserDictionaryCommand.newBuilder()
+            .setType(CommandType.LOAD)
+            .setSessionId(sessionId)
+            .setEnsureNonEmptyStorage(true)
+            .build();
     UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(command);
 
     // Update the dictionary list regardless of the result of the LOAD command.
@@ -186,10 +183,11 @@ public class UserDictionaryToolModel {
   private void ensureSession() {
     // First ping to the mozc server.
     {
-      UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-          .setType(CommandType.NO_OPERATION)
-          .setSessionId(sessionId)
-          .build();
+      UserDictionaryCommand command =
+          UserDictionaryCommand.newBuilder()
+              .setType(CommandType.NO_OPERATION)
+              .setSessionId(sessionId)
+              .build();
       UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(command);
       if (status.getStatus() == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
         return;
@@ -203,18 +201,17 @@ public class UserDictionaryToolModel {
     createSession();
   }
 
-  /**
-   * Treis to save if necessary, and also tries to reload the server.
-   */
+  /** Treis to save if necessary, and also tries to reload the server. */
   public Status pauseSession() {
     checkSession();
 
     // Save the dictionary if necessary.
     if (dirty) {
-      UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-          .setType(CommandType.SAVE)
-          .setSessionId(sessionId)
-          .build();
+      UserDictionaryCommand command =
+          UserDictionaryCommand.newBuilder()
+              .setType(CommandType.SAVE)
+              .setSessionId(sessionId)
+              .build();
       UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(command);
       if (status.getStatus() != Status.USER_DICTIONARY_COMMAND_SUCCESS) {
         return status.getStatus();
@@ -228,17 +225,14 @@ public class UserDictionaryToolModel {
   }
 
   /**
-   * Returns the list "view" of dictionary names in the storage.
-   * The contents of the returned instance should be automatically updated when the storage
-   * is updated.
+   * Returns the list "view" of dictionary names in the storage. The contents of the returned
+   * instance should be automatically updated when the storage is updated.
    */
   public List<String> getDictionaryNameList() {
     return dictionaryNameList;
   }
 
-  /**
-   * Sets the current selected dictionary based on the given index.
-   */
+  /** Sets the current selected dictionary based on the given index. */
   public void setSelectedDictionaryByIndex(int index) {
     if (storage == null || index < 0 || storage.getDictionariesCount() <= index) {
       // Invalid state.
@@ -249,9 +243,7 @@ public class UserDictionaryToolModel {
     selectedDictionaryId = storage.getDictionaries(index).getId();
   }
 
-  /**
-   * Returns the index of the current selected dictionary.
-   */
+  /** Returns the index of the current selected dictionary. */
   public int getSelectedDictionaryIndex() {
     int index = getSelectedDictionaryIndexInternal();
     if (index < 0) {
@@ -260,9 +252,7 @@ public class UserDictionaryToolModel {
     return index;
   }
 
-  /**
-   * Returns the name of the current selected dictionary.
-   */
+  /** Returns the name of the current selected dictionary. */
   public String getSelectedDictionaryName() {
     int index = getSelectedDictionaryIndexInternal();
     if (index < -1) {
@@ -290,32 +280,33 @@ public class UserDictionaryToolModel {
     }
   }
 
-  /**
-   * Checks if we can add another dictionary to the storage.
-   */
+  /** Checks if we can add another dictionary to the storage. */
   public Status checkNewDictionaryAvailability() {
-    UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.CHECK_NEW_DICTIONARY_AVAILABILITY)
-        .setSessionId(sessionId)
-        .build();
+    UserDictionaryCommand command =
+        UserDictionaryCommand.newBuilder()
+            .setType(CommandType.CHECK_NEW_DICTIONARY_AVAILABILITY)
+            .setSessionId(sessionId)
+            .build();
     return sessionExecutor.sendUserDictionaryCommand(command).getStatus();
   }
 
   public Status checkUndoability() {
-    UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.CHECK_UNDOABILITY)
-        .setSessionId(sessionId)
-        .build();
+    UserDictionaryCommand command =
+        UserDictionaryCommand.newBuilder()
+            .setType(CommandType.CHECK_UNDOABILITY)
+            .setSessionId(sessionId)
+            .build();
     UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(command);
     return status.getStatus();
   }
 
   public Status undo() {
     int index = getSelectedDictionaryIndex();
-    UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.UNDO)
-        .setSessionId(sessionId)
-        .build();
+    UserDictionaryCommand command =
+        UserDictionaryCommand.newBuilder()
+            .setType(CommandType.UNDO)
+            .setSessionId(sessionId)
+            .build();
 
     UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(command);
     if (status.getStatus() == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
@@ -343,17 +334,17 @@ public class UserDictionaryToolModel {
   }
 
   /**
-   * Creates a new empty dictionary with the given dictionary name.
-   * Also update the selected dictionary to the created one.
+   * Creates a new empty dictionary with the given dictionary name. Also update the selected
+   * dictionary to the created one.
    */
   public Status createDictionary(String dictionaryName) {
-    UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.CREATE_DICTIONARY)
-        .setSessionId(sessionId)
-        .setDictionaryName(dictionaryName)
-        .build();
-    UserDictionaryCommandStatus status =
-        sessionExecutor.sendUserDictionaryCommand(command);
+    UserDictionaryCommand command =
+        UserDictionaryCommand.newBuilder()
+            .setType(CommandType.CREATE_DICTIONARY)
+            .setSessionId(sessionId)
+            .setDictionaryName(dictionaryName)
+            .build();
+    UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(command);
     if (status.getStatus() == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
       dirty = true;
 
@@ -366,18 +357,16 @@ public class UserDictionaryToolModel {
     return status.getStatus();
   }
 
-  /**
-   * Renames the currently selected dictionary to the given dictionary name.
-   */
+  /** Renames the currently selected dictionary to the given dictionary name. */
   public Status renameSelectedDictionary(String dictionaryName) {
-    UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.RENAME_DICTIONARY)
-        .setSessionId(sessionId)
-        .setDictionaryId(selectedDictionaryId)
-        .setDictionaryName(dictionaryName)
-        .build();
-    UserDictionaryCommandStatus status =
-        sessionExecutor.sendUserDictionaryCommand(command);
+    UserDictionaryCommand command =
+        UserDictionaryCommand.newBuilder()
+            .setType(CommandType.RENAME_DICTIONARY)
+            .setSessionId(sessionId)
+            .setDictionaryId(selectedDictionaryId)
+            .setDictionaryName(dictionaryName)
+            .build();
+    UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(command);
     if (status.getStatus() == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
       dirty = true;
       Status updateStatus = updateStorage();
@@ -389,23 +378,21 @@ public class UserDictionaryToolModel {
   }
 
   /**
-   * Deletes the current selected dictionary.
-   * The new selected dictionary should be the "same" position of the dictionaries in the storage.
-   * If the dictionary gets empty, no dictionary is selected.
-   * If the deleted dictionary is at the end of the storage,
-   * the new selected dictionary will be the one at the end of the storage after
-   * deleting operation.
+   * Deletes the current selected dictionary. The new selected dictionary should be the "same"
+   * position of the dictionaries in the storage. If the dictionary gets empty, no dictionary is
+   * selected. If the deleted dictionary is at the end of the storage, the new selected dictionary
+   * will be the one at the end of the storage after deleting operation.
    */
   public Status deleteSelectedDictionary() {
     int index = getSelectedDictionaryIndex();
-    UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.DELETE_DICTIONARY)
-        .setSessionId(sessionId)
-        .setDictionaryId(selectedDictionaryId)
-        .setEnsureNonEmptyStorage(true)
-        .build();
-    UserDictionaryCommandStatus status =
-        sessionExecutor.sendUserDictionaryCommand(command);
+    UserDictionaryCommand command =
+        UserDictionaryCommand.newBuilder()
+            .setType(CommandType.DELETE_DICTIONARY)
+            .setSessionId(sessionId)
+            .setDictionaryId(selectedDictionaryId)
+            .setEnsureNonEmptyStorage(true)
+            .build();
+    UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(command);
     if (status.getStatus() == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
       dirty = true;
       Status updateStatus = updateStorage();
@@ -438,8 +425,9 @@ public class UserDictionaryToolModel {
       int fetchSize = 1000;
       int queryNum = (int) Math.ceil((double) entrySize / fetchSize);
       for (int i = 0; i < queryNum; ++i) {
-        String exportString = getSelectedDictionaryAsString(
-            resources, i * fetchSize, Math.min((i + 1) * fetchSize, entrySize));
+        String exportString =
+            getSelectedDictionaryAsString(
+                resources, i * fetchSize, Math.min((i + 1) * fetchSize, entrySize));
         // getBytes() always returns UTF-8 encoded byte stream because the default charset on
         // Android is always UTF-8 and is immutable.
         zipStream.write(exportString.getBytes());
@@ -447,7 +435,7 @@ public class UserDictionaryToolModel {
       zipStream.close();
     } catch (IOException e) {
       MozcLog.e("Failed to prepare export data. " + e.getMessage());
-      if (zipStream != null){
+      if (zipStream != null) {
         MozcUtil.closeIgnoringIOException(zipStream);
       }
       if (exportFile != null) {
@@ -458,9 +446,7 @@ public class UserDictionaryToolModel {
     return Optional.of(exportFile);
   }
 
-  /**
-   * Dump dictionary entries of which the index is in [beginIndex, endIndex) as string.
-   */
+  /** Dump dictionary entries of which the index is in [beginIndex, endIndex) as string. */
   private String getSelectedDictionaryAsString(Resources resources, int beginIndex, int endIndex) {
     int entrySize = getEntrySize();
     Preconditions.checkElementIndex(beginIndex, endIndex);
@@ -471,8 +457,9 @@ public class UserDictionaryToolModel {
     for (Entry entry : getEntriesInternal(beginIndex, endIndex)) {
       String posName = posNameCache.get(entry.getPos());
       if (posName == null) {
-        posName = resources.getString(
-            UserDictionaryUtil.getPosStringResourceIdForDictionaryExport(entry.getPos()));
+        posName =
+            resources.getString(
+                UserDictionaryUtil.getPosStringResourceIdForDictionaryExport(entry.getPos()));
         posNameCache.put(entry.getPos(), posName);
       }
 
@@ -489,10 +476,11 @@ public class UserDictionaryToolModel {
   }
 
   private Status updateStorage() {
-    UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.GET_USER_DICTIONARY_NAME_LIST)
-        .setSessionId(sessionId)
-        .build();
+    UserDictionaryCommand command =
+        UserDictionaryCommand.newBuilder()
+            .setType(CommandType.GET_USER_DICTIONARY_NAME_LIST)
+            .setSessionId(sessionId)
+            .build();
     UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(command);
     if (status.getStatus() == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
       storage = status.getStorage();
@@ -502,11 +490,9 @@ public class UserDictionaryToolModel {
     return status.getStatus();
   }
 
-
   /**
-   * Returns the list "view" of entries in the current selected dictionary.
-   * The contents of the returned instance should be automatically updated when the selected
-   * dictionary is updated.
+   * Returns the list "view" of entries in the current selected dictionary. The contents of the
+   * returned instance should be automatically updated when the selected dictionary is updated.
    */
   public List<Entry> getEntryList() {
     return new AbstractList<Entry>() {
@@ -530,9 +516,7 @@ public class UserDictionaryToolModel {
     return this.editTargetIndex;
   }
 
-  /**
-   * Returns the entry at current editTargetIndex in the selected dictionary.
-   */
+  /** Returns the entry at current editTargetIndex in the selected dictionary. */
   public Entry getEditTargetEntry() {
     return getEntryInternal(editTargetIndex);
   }
@@ -541,11 +525,12 @@ public class UserDictionaryToolModel {
     if (selectedDictionaryId == 0) {
       return 0;
     }
-    UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.GET_ENTRY_SIZE)
-        .setSessionId(sessionId)
-        .setDictionaryId(selectedDictionaryId)
-        .build();
+    UserDictionaryCommand command =
+        UserDictionaryCommand.newBuilder()
+            .setType(CommandType.GET_ENTRY_SIZE)
+            .setSessionId(sessionId)
+            .setDictionaryId(selectedDictionaryId)
+            .build();
     UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(command);
     if (status.getStatus() != Status.USER_DICTIONARY_COMMAND_SUCCESS) {
       MozcLog.e("Unknown failure: " + status.getStatus());
@@ -558,16 +543,15 @@ public class UserDictionaryToolModel {
     return getEntriesInternal(index, index + 1).get(0);
   }
 
-  /**
-   * Returns dictionary entries of which the index is in [beginIndex, endIndex).
-   */
+  /** Returns dictionary entries of which the index is in [beginIndex, endIndex). */
   private List<Entry> getEntriesInternal(int beginIndex, int endIndex) {
-    Builder builder = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.GET_ENTRIES)
-        .setSessionId(sessionId)
-        .setDictionaryId(selectedDictionaryId);
+    Builder builder =
+        UserDictionaryCommand.newBuilder()
+            .setType(CommandType.GET_ENTRIES)
+            .setSessionId(sessionId)
+            .setDictionaryId(selectedDictionaryId);
     for (int i = beginIndex; i < endIndex; ++i) {
-        builder.addEntryIndex(i);
+      builder.addEntryIndex(i);
     }
     UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(builder.build());
     if (status.getStatus() != Status.USER_DICTIONARY_COMMAND_SUCCESS) {
@@ -577,31 +561,26 @@ public class UserDictionaryToolModel {
     return status.getEntriesList();
   }
 
-  /**
-   * Checks if we can add another entry to the selected dictionary.
-   */
+  /** Checks if we can add another entry to the selected dictionary. */
   public Status checkNewEntryAvailability() {
-    UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.CHECK_NEW_ENTRY_AVAILABILITY)
-        .setSessionId(sessionId)
-        .setDictionaryId(selectedDictionaryId)
-        .build();
+    UserDictionaryCommand command =
+        UserDictionaryCommand.newBuilder()
+            .setType(CommandType.CHECK_NEW_ENTRY_AVAILABILITY)
+            .setSessionId(sessionId)
+            .setDictionaryId(selectedDictionaryId)
+            .build();
     return sessionExecutor.sendUserDictionaryCommand(command).getStatus();
   }
 
-  /**
-   * Adds an entry to the selected dictionary.
-   */
+  /** Adds an entry to the selected dictionary. */
   public Status addEntry(String word, String reading, PosType pos) {
-    UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.ADD_ENTRY)
-        .setSessionId(sessionId)
-        .setDictionaryId(selectedDictionaryId)
-        .setEntry(Entry.newBuilder()
-            .setKey(reading)
-            .setValue(word)
-            .setPos(pos))
-        .build();
+    UserDictionaryCommand command =
+        UserDictionaryCommand.newBuilder()
+            .setType(CommandType.ADD_ENTRY)
+            .setSessionId(sessionId)
+            .setDictionaryId(selectedDictionaryId)
+            .setEntry(Entry.newBuilder().setKey(reading).setValue(word).setPos(pos))
+            .build();
     UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(command);
     if (status.getStatus() == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
       dirty = true;
@@ -609,20 +588,16 @@ public class UserDictionaryToolModel {
     return status.getStatus();
   }
 
-  /**
-   * Edits the entry, which is specified by editTargetIndex, in the selected dictionary.
-   */
+  /** Edits the entry, which is specified by editTargetIndex, in the selected dictionary. */
   public Status editEntry(String word, String reading, PosType pos) {
-    UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.EDIT_ENTRY)
-        .setSessionId(sessionId)
-        .setDictionaryId(selectedDictionaryId)
-        .addEntryIndex(editTargetIndex)
-        .setEntry(Entry.newBuilder()
-            .setKey(reading)
-            .setValue(word)
-            .setPos(pos))
-        .build();
+    UserDictionaryCommand command =
+        UserDictionaryCommand.newBuilder()
+            .setType(CommandType.EDIT_ENTRY)
+            .setSessionId(sessionId)
+            .setDictionaryId(selectedDictionaryId)
+            .addEntryIndex(editTargetIndex)
+            .setEntry(Entry.newBuilder().setKey(reading).setValue(word).setPos(pos))
+            .build();
     UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(command);
     if (status.getStatus() == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
       dirty = true;
@@ -630,16 +605,15 @@ public class UserDictionaryToolModel {
     return status.getStatus();
   }
 
-  /**
-   * Deletes the entries specified by the given {@code indexList} in the selected dictionary.
-   */
+  /** Deletes the entries specified by the given {@code indexList} in the selected dictionary. */
   public Status deleteEntry(List<Integer> indexList) {
-    UserDictionaryCommand command = UserDictionaryCommand.newBuilder()
-        .setType(CommandType.DELETE_ENTRY)
-        .setSessionId(sessionId)
-        .setDictionaryId(selectedDictionaryId)
-        .addAllEntryIndex(indexList)
-        .build();
+    UserDictionaryCommand command =
+        UserDictionaryCommand.newBuilder()
+            .setType(CommandType.DELETE_ENTRY)
+            .setSessionId(sessionId)
+            .setDictionaryId(selectedDictionaryId)
+            .addAllEntryIndex(indexList)
+            .build();
     UserDictionaryCommandStatus status = sessionExecutor.sendUserDictionaryCommand(command);
     if (status.getStatus() == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
       dirty = true;
@@ -683,9 +657,8 @@ public class UserDictionaryToolModel {
   }
 
   /**
-   * By the method, this instance releases the ownership of resource management of the
-   * current ZipFile. I.e., the caller needs to invoke close method if the returned ZipFile
-   * instance.
+   * By the method, this instance releases the ownership of resource management of the current
+   * ZipFile. I.e., the caller needs to invoke close method if the returned ZipFile instance.
    */
   public ZipFile releaseZipFile() {
     ZipFile zipFile = this.zipFile;
@@ -701,12 +674,11 @@ public class UserDictionaryToolModel {
   }
 
   /**
-   * Invokes to import the data into a dictionary.
-   * After all operations, regardless of whether the operation is successfully done or not,
-   * resets the pending import state.
-   * @param dictionaryIndex is a position of the import destination dictionary in the storage.
-   *   if it is set to -1, this method tries to create a new dictionary with guessing a
-   *   dictionary name.
+   * Invokes to import the data into a dictionary. After all operations, regardless of whether the
+   * operation is successfully done or not, resets the pending import state.
+   *
+   * @param dictionaryIndex is a position of the import destination dictionary in the storage. if it
+   *     is set to -1, this method tries to create a new dictionary with guessing a dictionary name.
    */
   public Status importData(int dictionaryIndex) {
     try {
@@ -715,10 +687,11 @@ public class UserDictionaryToolModel {
         throw new NullPointerException();
       }
 
-      UserDictionaryCommand.Builder builder = UserDictionaryCommand.newBuilder()
-          .setType(CommandType.IMPORT_DATA)
-          .setSessionId(sessionId)
-          .setData(importData);
+      UserDictionaryCommand.Builder builder =
+          UserDictionaryCommand.newBuilder()
+              .setType(CommandType.IMPORT_DATA)
+              .setSessionId(sessionId)
+              .setData(importData);
       if (dictionaryIndex < 0) {
         builder.setDictionaryName(
             UserDictionaryUtil.generateDictionaryNameByUri(importUri, dictionaryNameList));

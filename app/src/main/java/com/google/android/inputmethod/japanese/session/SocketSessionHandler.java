@@ -29,25 +29,22 @@
 
 package org.mozc.android.inputmethod.japanese.session;
 
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Output;
-import com.google.common.base.Preconditions;
-
 import android.content.Context;
-
+import com.google.common.base.Preconditions;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Output;
 
 /**
  * A session handler which connect the Mozc server by using socket.
  *
- * The background of this class is described in server/mozc_rpc_server_main.cc
- *
+ * <p>The background of this class is described in server/mozc_rpc_server_main.cc
  */
 class SocketSessionHandler implements SessionHandler {
   // Time out duration for connection in milliseconds.
@@ -58,6 +55,7 @@ class SocketSessionHandler implements SessionHandler {
 
   private final InetAddress host;
   private final int port;
+
   SocketSessionHandler(InetAddress host, int port) {
     this.host = Preconditions.checkNotNull(host);
     this.port = port;
@@ -81,10 +79,10 @@ class SocketSessionHandler implements SessionHandler {
         socket.connect(new InetSocketAddress(host, port), CONNECTING_TIMEOUT);
         byte[] inBytes = command.getInput().toByteArray();
         DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-        outputStream.writeInt(inBytes.length);  // Network order.
+        outputStream.writeInt(inBytes.length); // Network order.
         outputStream.write(inBytes);
         DataInputStream inputStream = new DataInputStream(socket.getInputStream());
-        byte[] outBytes = new byte[inputStream.readInt()];  // Network order.
+        byte[] outBytes = new byte[inputStream.readInt()]; // Network order.
         inputStream.readFully(outBytes);
         Command result = Command.newBuilder(command).setOutput(Output.parseFrom(outBytes)).build();
         succeeded = true;

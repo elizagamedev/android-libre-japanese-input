@@ -29,25 +29,21 @@
 
 package org.mozc.android.inputmethod.japanese.preference;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.preference.DialogPreference;
+import android.util.AttributeSet;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommand;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommand.CommandType;
 import org.mozc.android.inputmethod.japanese.session.SessionExecutor;
 import org.mozc.android.inputmethod.japanese.session.SessionHandlerFactory;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.preference.DialogPreference;
-import android.util.AttributeSet;
-
-/**
- * A DialogPreference to clear user dictionary.
- *
- */
+/** A DialogPreference to clear user dictionary. */
 public class ClearUserDictionaryDialogPreference extends DialogPreference {
-  public ClearUserDictionaryDialogPreference(
-      Context context, AttributeSet attrs, int defStyle) {
+  public ClearUserDictionaryDialogPreference(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
   }
+
   public ClearUserDictionaryDialogPreference(Context context, AttributeSet attrs) {
     super(context, attrs);
   }
@@ -55,11 +51,11 @@ public class ClearUserDictionaryDialogPreference extends DialogPreference {
   @Override
   public void onClick(DialogInterface dialog, int which) {
     if (which == DialogInterface.BUTTON_POSITIVE) {
-      SessionExecutor sessionExecutor = SessionExecutor.getInstanceInitializedIfNecessary(
-          new SessionHandlerFactory(getContext()), getContext());
-      sessionExecutor.sendUserDictionaryCommand(UserDictionaryCommand.newBuilder()
-          .setType(CommandType.CLEAR_STORAGE)
-          .build());
+      SessionExecutor sessionExecutor =
+          SessionExecutor.getInstanceInitializedIfNecessary(
+              new SessionHandlerFactory(getContext()), getContext());
+      sessionExecutor.sendUserDictionaryCommand(
+          UserDictionaryCommand.newBuilder().setType(CommandType.CLEAR_STORAGE).build());
     }
   }
 }

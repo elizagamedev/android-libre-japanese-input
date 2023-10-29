@@ -29,8 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.accessibility;
 
-import com.google.common.base.Preconditions;
-
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.Context;
 import android.content.pm.ServiceInfo;
@@ -39,33 +37,43 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityManager.AccessibilityStateChangeListener;
 import android.view.accessibility.AccessibilityManager.TouchExplorationStateChangeListener;
-
+import com.google.common.base.Preconditions;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Wrapper for {@link AccessibilityManager}.
  *
- * <p>This class is introduced for testing.
- * Raw {@link AccessibilityManager} cannot be overridden so mock-technique cannot be applied.
- * Overridden instance should be registered into {@link AccessibilityUtil} for testing.
+ * <p>This class is introduced for testing. Raw {@link AccessibilityManager} cannot be overridden so
+ * mock-technique cannot be applied. Overridden instance should be registered into {@link
+ * AccessibilityUtil} for testing.
  */
 class AccessibilityManagerWrapper {
 
   private interface ManagerProxy {
     boolean addAccessibilityStateChangeListener(AccessibilityStateChangeListener listener);
+
     boolean addTouchExplorationStateChangeListener(
         AccessibilityManager.TouchExplorationStateChangeListener listener);
+
     List<ServiceInfo> getAccessibilityServiceList();
+
     List<AccessibilityServiceInfo> getEnabledAccessibilityServiceList(int feedbackTypeFlags);
+
     List<AccessibilityServiceInfo> getInstalledAccessibilityServiceList();
+
     void interrupt();
+
     boolean isEnabled();
+
     boolean isTouchExplorationEnabled();
+
     boolean removeAccessibilityStateChangeListener(
         AccessibilityManager.AccessibilityStateChangeListener listener);
+
     boolean removeTouchExplorationStateChangeListener(
         AccessibilityManager.TouchExplorationStateChangeListener listener);
+
     void sendAccessibilityEvent(AccessibilityEvent event);
   }
 
@@ -194,9 +202,9 @@ class AccessibilityManagerWrapper {
   private final ManagerProxy managerProxy;
 
   AccessibilityManagerWrapper(Context context) {
-    AccessibilityManager manager = AccessibilityManager.class.cast(
-        Preconditions.checkNotNull(context)
-            .getSystemService(Context.ACCESSIBILITY_SERVICE));
+    AccessibilityManager manager =
+        AccessibilityManager.class.cast(
+            Preconditions.checkNotNull(context).getSystemService(Context.ACCESSIBILITY_SERVICE));
     if (Build.VERSION.SDK_INT < 14) {
       managerProxy = new ManagerLessThan14(manager);
     } else if (Build.VERSION.SDK_INT < 19) {
@@ -231,8 +239,7 @@ class AccessibilityManagerWrapper {
     return managerProxy.getInstalledAccessibilityServiceList();
   }
 
-  public List<AccessibilityServiceInfo> getEnabledAccessibilityServiceList(
-      int feedbackTypeFlags) {
+  public List<AccessibilityServiceInfo> getEnabledAccessibilityServiceList(int feedbackTypeFlags) {
     return managerProxy.getEnabledAccessibilityServiceList(feedbackTypeFlags);
   }
 
@@ -240,8 +247,7 @@ class AccessibilityManagerWrapper {
     return managerProxy.addAccessibilityStateChangeListener(listener);
   }
 
-  public boolean removeAccessibilityStateChangeListener(
-      AccessibilityStateChangeListener listener) {
+  public boolean removeAccessibilityStateChangeListener(AccessibilityStateChangeListener listener) {
     return managerProxy.removeAccessibilityStateChangeListener(listener);
   }
 }

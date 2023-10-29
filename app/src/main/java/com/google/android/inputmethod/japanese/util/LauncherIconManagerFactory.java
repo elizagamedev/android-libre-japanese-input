@@ -29,30 +29,25 @@
 
 package org.mozc.android.inputmethod.japanese.util;
 
-import org.mozc.android.inputmethod.japanese.LauncherActivity;
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import org.mozc.android.inputmethod.japanese.preference.PreferenceUtil;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Preconditions;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.LauncherActivity;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
+import org.mozc.android.inputmethod.japanese.preference.PreferenceUtil;
 
-/**
- * Manager of launcher icon's visibility.
- */
+/** Manager of launcher icon's visibility. */
 public class LauncherIconManagerFactory {
 
-  /**
-   * Interface for the manager.
-   */
+  /** Interface for the manager. */
   public interface LauncherIconManager {
     /**
-     * Updates launcher icon's visibility by checking the value in preferences or
-     * by checking whether the app is (updated) system application or not.
+     * Updates launcher icon's visibility by checking the value in preferences or by checking
+     * whether the app is (updated) system application or not.
      *
      * @param context The application's context.
      */
@@ -68,7 +63,8 @@ public class LauncherIconManagerFactory {
       SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
       boolean visible = shouldLauncherIconBeVisible(context, sharedPreferences);
       updateComponentEnableSetting(context, LauncherActivity.class, visible);
-      sharedPreferences.edit()
+      sharedPreferences
+          .edit()
           .putBoolean(PreferenceUtil.PREF_LAUNCHER_ICON_VISIBILITY_KEY, visible)
           .apply();
     }
@@ -86,8 +82,10 @@ public class LauncherIconManagerFactory {
       Preconditions.checkNotNull(component);
       PackageManager packageManager = context.getPackageManager();
       ComponentName componentName = new ComponentName(context.getApplicationContext(), component);
-      int newState = enabled ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-                             : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+      int newState =
+          enabled
+              ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+              : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
       if (newState != packageManager.getComponentEnabledSetting(componentName)) {
         packageManager.setComponentEnabledSetting(
             componentName, newState, PackageManager.DONT_KILL_APP);
@@ -95,14 +93,13 @@ public class LauncherIconManagerFactory {
     }
 
     @VisibleForTesting
-    static boolean shouldLauncherIconBeVisible(Context context,
-                                               SharedPreferences sharedPreferences) {
+    static boolean shouldLauncherIconBeVisible(
+        Context context, SharedPreferences sharedPreferences) {
       // NOTE: Both flags below can be true at the same time.
       boolean isSystemApplication = MozcUtil.isSystemApplication(context);
       boolean isUpdatedSystemApplication = MozcUtil.isUpdatedSystemApplication(context);
       if (sharedPreferences.contains(PreferenceUtil.PREF_LAUNCHER_ICON_VISIBILITY_KEY)) {
-        return sharedPreferences.getBoolean(
-            PreferenceUtil.PREF_LAUNCHER_ICON_VISIBILITY_KEY, true);
+        return sharedPreferences.getBoolean(PreferenceUtil.PREF_LAUNCHER_ICON_VISIBILITY_KEY, true);
       } else {
         // If PREF_LAUNCHER_ICON_VISIBILITY_KEY is not set, we don't show launcher icon in
         // following conditions:
@@ -116,7 +113,7 @@ public class LauncherIconManagerFactory {
           // Workaround for updated system app from preinstalled 2.16.1955.3.
           // Preinstalled 2.16.1955.3 doesn't put PREF_LAUNCHER_ICON_VISIBILITY_KEY
           // unless preference screen is shown so checking PREF_LAUNCHER_ICON_VISIBILITY_KEY
-          // doesn't work for the version. 
+          // doesn't work for the version.
           // However PREF_LAST_LAUNCH_ABI_INDEPENDENT_VERSION_CODE is always written,
           // use the preference instaed.
           // If the preference  exists, this means the IME has been launched as a preinstall

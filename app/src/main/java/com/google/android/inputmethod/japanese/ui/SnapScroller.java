@@ -29,32 +29,30 @@
 
 package org.mozc.android.inputmethod.japanese.ui;
 
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
 
 /**
  * Similar class to {@code android.widget.Scroller}, but this class has "snapping" feature.
  *
- * This class treats such content which have "page"s.
- * Every page is supposed to have the same width.
+ * <p>This class treats such content which have "page"s. Every page is supposed to have the same
+ * width.
  *
- * During the scroll animation, the velocity is reduced on every page edge position and
- * finally the animation stops on page edge.
- *
+ * <p>During the scroll animation, the velocity is reduced on every page edge position and finally
+ * the animation stops on page edge.
  */
 public class SnapScroller {
 
   /**
    * Interface for getting current time stamp.
    *
-   * By default {@code #DEFAULT_TIMESTAMP_CALCULATOR} is used.
-   * You can use your own instance for testing via constructor.
+   * <p>By default {@code #DEFAULT_TIMESTAMP_CALCULATOR} is used. You can use your own instance for
+   * testing via constructor.
    */
   interface TimestampCalculator {
     long getTimestamp();
@@ -63,12 +61,13 @@ public class SnapScroller {
   /** The interpolator of scroll animation. */
   private static final Interpolator SCROLL_INTERPOLATOR = new DecelerateInterpolator();
 
-  static final TimestampCalculator DEFAULT_TIMESTAMP_CALCULATOR = new TimestampCalculator() {
-    @Override
-    public long getTimestamp() {
-      return AnimationUtils.currentAnimationTimeMillis();
-    }
-  };
+  static final TimestampCalculator DEFAULT_TIMESTAMP_CALCULATOR =
+      new TimestampCalculator() {
+        @Override
+        public long getTimestamp() {
+          return AnimationUtils.currentAnimationTimeMillis();
+        }
+      };
 
   private static final Optional<Float> OPTIONAL_ZERO = Optional.of(Float.valueOf(0));
 
@@ -86,7 +85,7 @@ public class SnapScroller {
   /**
    * Minimum velocity (in pixel per sec).
    *
-   * If velocity is lower than this value, scroll animation stops.
+   * <p>If velocity is lower than this value, scroll animation stops.
    */
   private int minimumVelocity;
 
@@ -96,23 +95,20 @@ public class SnapScroller {
   /**
    * Current scroll position (in pixel).
    *
-   * Updated by {@link #computeScrollOffset()}, {@link #scrollTo(int)} and {@link #scrollBy(int)}.
+   * <p>Updated by {@link #computeScrollOffset()}, {@link #scrollTo(int)} and {@link
+   * #scrollBy(int)}.
    */
   @VisibleForTesting int scrollPosition;
 
-  /**
-   * The scroll position at which scroll animation starts (in pixel).
-   */
+  /** The scroll position at which scroll animation starts (in pixel). */
   private int startScrollPosition;
 
   /**
    * The scroll position to which scroll animation goes (in pixel).
    *
-   * This value is always a multiple of {@code pageWidth}.
-   * {@code Math.abs(scrollStartPosition - scrollEndPosition) <= pageWidth}
-   * is guaranteed.
-   * If given velocity is enough large, scroll animation is done repeatedly (scroll to
-   * next page edge, and next page edge, and next....).
+   * <p>This value is always a multiple of {@code pageWidth}. {@code Math.abs(scrollStartPosition -
+   * scrollEndPosition) <= pageWidth} is guaranteed. If given velocity is enough large, scroll
+   * animation is done repeatedly (scroll to next page edge, and next page edge, and next....).
    */
   private int endScrollPosition;
 
@@ -126,7 +122,8 @@ public class SnapScroller {
     this(DEFAULT_TIMESTAMP_CALCULATOR);
   }
 
-  @VisibleForTesting SnapScroller(TimestampCalculator timestampCalculator) {
+  @VisibleForTesting
+  SnapScroller(TimestampCalculator timestampCalculator) {
     this.timestampCalculator = Preconditions.checkNotNull(timestampCalculator);
   }
 
@@ -202,7 +199,8 @@ public class SnapScroller {
   /**
    * Scrolls to {@code toPosition}.
    *
-   * This method stops the scroll animation.
+   * <p>This method stops the scroll animation.
+   *
    * @param toPosition the position to be scrolled to.
    */
   public void scrollTo(int toPosition) {
@@ -213,7 +211,8 @@ public class SnapScroller {
   /**
    * Scrolls by {@code delta}.
    *
-   * Completely equivalent to {@code scrollTo(getScrollPosition() + delta)}.
+   * <p>Completely equivalent to {@code scrollTo(getScrollPosition() + delta)}.
+   *
    * @param delta the delta to be scrolled by.
    */
   public void scrollBy(int delta) {
@@ -223,16 +222,19 @@ public class SnapScroller {
   /**
    * Starts scroll animation.
    *
-   * The scroll position is updated by calling {@link #computeScrollOffset()}.
-   * While scrolling, following conditions are always guaranteed.
+   * <p>The scroll position is updated by calling {@link #computeScrollOffset()}. While scrolling,
+   * following conditions are always guaranteed.
+   *
    * <ul>
-   * <li>0 &lt;= {@link #getScrollPosition()}
-   * <li>{@link #getScrollPosition()} &lt;= this.maxPosition
-   * <li>this.scrollStatus is FINISHED or ABOUT_TO_FINISH.
+   *   <li>0 &lt;= {@link #getScrollPosition()}
+   *   <li>{@link #getScrollPosition()} &lt;= this.maxPosition
+   *   <li>this.scrollStatus is FINISHED or ABOUT_TO_FINISH.
    * </ul>
-   * Now, the scroll will snap to page boundaries due to historical reason.
-   * We may want to split snapping boundary and page size,
-   * for example, to support snapping to each row/column instead of page boundaries.
+   *
+   * Now, the scroll will snap to page boundaries due to historical reason. We may want to split
+   * snapping boundary and page size, for example, to support snapping to each row/column instead of
+   * page boundaries.
+   *
    * @param velocity the velocity of scroll animation (pixel per sec).
    */
   public void fling(int velocity) {
@@ -256,11 +258,13 @@ public class SnapScroller {
     //    scroll one more page.
     // The end scroll position should be clipped between 0 and (contentSize - pageSize) to avoid
     // exceeding the contents.
-    int endScrollPosition = MozcUtil.clamp(
-        (velocity > 0)
-            ? ((scrollPosition + pageSize) / pageSize * pageSize)
-            : ((scrollPosition - 1) / pageSize * pageSize),
-        0, getMaxScrollPosition());
+    int endScrollPosition =
+        MozcUtil.clamp(
+            (velocity > 0)
+                ? ((scrollPosition + pageSize) / pageSize * pageSize)
+                : ((scrollPosition - 1) / pageSize * pageSize),
+            0,
+            getMaxScrollPosition());
     if (scrollPosition == endScrollPosition) {
       // No needs to scroll.
       // Reaches here typically when scrollPosition is at the head or the tail.
@@ -287,8 +291,10 @@ public class SnapScroller {
     // so totalAnimationDuration becomes always positive.
     long totalAnimationDuration = 1000 * distance / velocity;
     long elapsedTime = Math.min(now - startScrollTime, totalAnimationDuration);
-    float rateOfChange = totalAnimationDuration == 0
-        ? 1f : SCROLL_INTERPOLATOR.getInterpolation(elapsedTime / (float) totalAnimationDuration);
+    float rateOfChange =
+        totalAnimationDuration == 0
+            ? 1f
+            : SCROLL_INTERPOLATOR.getInterpolation(elapsedTime / (float) totalAnimationDuration);
     scrollPosition = (int) (startScrollPosition + distance * rateOfChange);
     if (elapsedTime == totalAnimationDuration) {
       // This scroll animation is finished.

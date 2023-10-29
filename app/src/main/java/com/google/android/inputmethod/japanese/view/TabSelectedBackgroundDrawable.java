@@ -33,10 +33,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-/**
- * Selected tab highlight implementation.
- *
- */
+/** Selected tab highlight implementation. */
 public class TabSelectedBackgroundDrawable extends BaseBackgroundDrawable {
   private final int highlightHeight;
   private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);

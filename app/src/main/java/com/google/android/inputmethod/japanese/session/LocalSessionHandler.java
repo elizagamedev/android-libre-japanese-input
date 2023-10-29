@@ -29,23 +29,14 @@
 
 package org.mozc.android.inputmethod.japanese.session;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
-import com.google.common.base.Preconditions;
-import com.google.protobuf.InvalidProtocolBufferException;
-
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
-
+import com.google.common.base.Preconditions;
 import java.io.File;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
 
-/**
- * Concrete SessionHandler. Calls JNI.
- *
- */
+/** Concrete SessionHandler. Calls JNI. */
 class LocalSessionHandler implements SessionHandler {
 
   private static final String USER_PROFILE_DIRECTORY_NAME = ".mozc";
@@ -64,7 +55,7 @@ class LocalSessionHandler implements SessionHandler {
         // even in this case, but no persistent data (e.g. user history, user dictionary)
         // will be stored, so some fuctions using them won't work well.
         MozcLog.e(
-          "Failed to create user profile directory: " + userProfileDirectory.getAbsolutePath());
+            "Failed to create user profile directory: " + userProfileDirectory.getAbsolutePath());
       }
     }
 

@@ -29,9 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese;
 
-import org.mozc.android.inputmethod.japanese.preference.PreferenceUtil;
-import org.mozc.android.inputmethod.japanese.R;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -49,15 +46,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+import org.mozc.android.inputmethod.japanese.preference.PreferenceUtil;
 
-/**
- * This activity should be launched only when a user launched the IME as the first time.
- *
- */
+/** This activity should be launched only when a user launched the IME as the first time. */
 public class FirstTimeLaunchActivity extends Activity {
-  /**
-   * A listener to catch the change of the check box.
-   */
+  /** A listener to catch the change of the check box. */
   static class SendUsageStatsChangeListener implements OnCheckedChangeListener {
     private final SharedPreferences sharedPreferences;
 
@@ -67,15 +60,14 @@ public class FirstTimeLaunchActivity extends Activity {
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-      sharedPreferences.edit()
+      sharedPreferences
+          .edit()
           .putBoolean(PreferenceUtil.PREF_OTHER_USAGE_STATS_KEY, isChecked)
           .commit();
     }
   }
 
-  /**
-   * A listener to catch the change of the SharedPreferences.
-   */
+  /** A listener to catch the change of the SharedPreferences. */
   class UpdateViewListener implements OnSharedPreferenceChangeListener {
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -93,25 +85,27 @@ public class FirstTimeLaunchActivity extends Activity {
     super.onCreate(savedInstanceState);
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-    initializeContentView(getResources().getBoolean(R.bool.sending_information_features_enabled),
-                          sharedPreferences);
+    initializeContentView(
+        getResources().getBoolean(R.bool.sending_information_features_enabled), sharedPreferences);
   }
 
-  void initializeContentView(boolean sendingInformationFeaturesEnabled,
-                             SharedPreferences sharedPreferences) {
+  void initializeContentView(
+      boolean sendingInformationFeaturesEnabled, SharedPreferences sharedPreferences) {
     setContentView(R.layout.first_time_launch);
 
     // Fill strings, which needs replacement.
     Resources resources = getResources();
     TextView thankYouTextView = TextView.class.cast(findViewById(R.id.description_thank_you));
-    thankYouTextView.setText(resources.getString(R.string.firsttime_description_thank_you,
-                                                 resources.getString(R.string.app_full_name)));
+    thankYouTextView.setText(
+        resources.getString(
+            R.string.firsttime_description_thank_you, resources.getString(R.string.app_full_name)));
     if (sendingInformationFeaturesEnabled) {
       findViewById(R.id.usage_stats_views).setVisibility(View.VISIBLE);
       TextView usageStatsTextView = TextView.class.cast(findViewById(R.id.description_usage_stats));
-      usageStatsTextView.setText(resources.getString(R.string.firsttime_description_usage_stats,
-                                                     resources.getString(
-                                                         R.string.developer_organization)));
+      usageStatsTextView.setText(
+          resources.getString(
+              R.string.firsttime_description_usage_stats,
+              resources.getString(R.string.developer_organization)));
 
       CheckBox usageStatsCheckBox = CheckBox.class.cast(findViewById(R.id.send_usage_stats));
       usageStatsCheckBox.setOnCheckedChangeListener(
@@ -123,12 +117,14 @@ public class FirstTimeLaunchActivity extends Activity {
     } else {
       findViewById(R.id.usage_stats_views).setVisibility(View.GONE);
     }
-    findViewById(R.id.close_button).setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        finish();  // Close this activity.
-      }
-    });
+    findViewById(R.id.close_button)
+        .setOnClickListener(
+            new OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                finish(); // Close this activity.
+              }
+            });
     initializeAnchorTextView(
         R.id.link_terms_of_service,
         R.string.pref_about_terms_of_service_url,
@@ -145,7 +141,8 @@ public class FirstTimeLaunchActivity extends Activity {
     SpannableString spannable = new SpannableString(resources.getString(descriptionId));
     spannable.setSpan(
         new URLSpan(resources.getString(urlId)),
-        0, spannable.length(),
+        0,
+        spannable.length(),
         Spanned.SPAN_INCLUSIVE_INCLUSIVE);
     textView.setText(spannable);
     // Make the URLSpan clickable.
@@ -166,7 +163,8 @@ public class FirstTimeLaunchActivity extends Activity {
   }
 
   private void updateView(SharedPreferences sharedPreferences) {
-    CheckBox.class.cast(findViewById(R.id.send_usage_stats)).setChecked(
-        sharedPreferences.getBoolean(PreferenceUtil.PREF_OTHER_USAGE_STATS_KEY, false));
+    CheckBox.class
+        .cast(findViewById(R.id.send_usage_stats))
+        .setChecked(sharedPreferences.getBoolean(PreferenceUtil.PREF_OTHER_USAGE_STATS_KEY, false));
   }
 }

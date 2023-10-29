@@ -29,13 +29,10 @@
 
 package org.mozc.android.inputmethod.japanese;
 
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
 import com.google.common.base.Optional;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
 
-/**
- * Callback interface to handle candidate selection.
- *
- */
+/** Callback interface to handle candidate selection. */
 public interface CandidateSelectListener {
 
   /**

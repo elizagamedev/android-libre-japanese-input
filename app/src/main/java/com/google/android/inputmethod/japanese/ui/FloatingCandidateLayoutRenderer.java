@@ -29,16 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.ui;
 
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import org.mozc.android.inputmethod.japanese.ViewEventListener;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.Candidates;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.Candidates.Candidate;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.Category;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
-import org.mozc.android.inputmethod.japanese.R;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -48,16 +38,24 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
 import android.view.MotionEvent;
-
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import java.util.Locale;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.ViewEventListener;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.Candidates;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.Candidates.Candidate;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.Category;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
 
 /**
  * Layouts floating candidate window and draw it's contents on canvas.
  *
- * The point of origin of layout is NOT a left-top corner of candidate list BUT the left-top corner
- * of the candidate column and the right-top corner of the shortcut column.
+ * <p>The point of origin of layout is NOT a left-top corner of candidate list BUT the left-top
+ * corner of the candidate column and the right-top corner of the shortcut column.
  *
- * TODO(hsumita): Rewrite using LinearLayout or something.
+ * <p>TODO(hsumita): Rewrite using LinearLayout or something.
  */
 public class FloatingCandidateLayoutRenderer {
 
@@ -68,8 +66,11 @@ public class FloatingCandidateLayoutRenderer {
     public final Optional<Rect> pageIndicator;
     public final Optional<RectF> scrollIndicator;
 
-    WindowRects(Rect window, Optional<Rect> focus, Optional<Rect> pageIndicator,
-                Optional<RectF> scrollIndicator) {
+    WindowRects(
+        Rect window,
+        Optional<Rect> focus,
+        Optional<Rect> pageIndicator,
+        Optional<RectF> scrollIndicator) {
       this.window = Preconditions.checkNotNull(window);
       this.focus = Preconditions.checkNotNull(focus);
       this.pageIndicator = Preconditions.checkNotNull(pageIndicator);
@@ -78,8 +79,8 @@ public class FloatingCandidateLayoutRenderer {
   }
 
   /** Locale field for {@link Paint#setTextLocale(Locale)}. */
-  private static final Optional<Locale> TEXT_LOCALE = (Build.VERSION.SDK_INT >= 17)
-      ? Optional.of(Locale.JAPAN) : Optional.<Locale>absent();
+  private static final Optional<Locale> TEXT_LOCALE =
+      (Build.VERSION.SDK_INT >= 17) ? Optional.of(Locale.JAPAN) : Optional.<Locale>absent();
 
   private static final String FOOTER_TEXT_FORMAT = "%d / %d";
 
@@ -111,10 +112,13 @@ public class FloatingCandidateLayoutRenderer {
   private Optional<ViewEventListener> viewEventListener = Optional.absent();
   private Optional<Candidates> candidates = Optional.absent();
   private Optional<Integer> maxWidth = Optional.absent();
+
   /** Focused candidate index, or tapped candidate index if exists. */
   private Optional<Integer> focusedOrTappedCandidateIndexOnPage = Optional.absent();
+
   /** TappedInfo for the current touch operation. Set on TOUCH_DOWN, reset on TOUCH_UP. */
   private Optional<Integer> tappingCandidateIndex = Optional.absent();
+
   private int totalCandidatesCount;
   private int maxCandidateWidth;
   private int maxDescriptionWidth;
@@ -150,15 +154,15 @@ public class FloatingCandidateLayoutRenderer {
     footerPaint.setColor(res.getColor(R.color.floating_candidate_footer_text));
 
     separatorPaint = new Paint();
-    separatorPaint.setStrokeWidth(
-        res.getDimension(R.dimen.floating_candidate_separator_width));
+    separatorPaint.setStrokeWidth(res.getDimension(R.dimen.floating_candidate_separator_width));
     separatorPaint.setColor(res.getColor(R.color.floating_candidate_footer_separator));
 
     windowBackgroundPaint = new Paint();
     windowBackgroundPaint.setColor(res.getColor(R.color.floating_candidate_window_background));
     windowBackgroundPaint.setShadowLayer(
         res.getDimension(R.dimen.floating_candidate_window_shadow_radius),
-        0, res.getDimension(R.dimen.floating_candidate_window_shadow_offset_y),
+        0,
+        res.getDimension(R.dimen.floating_candidate_window_shadow_offset_y),
         res.getColor(R.color.floating_candidate_shadow));
 
     focuseBackgroundPaint = new Paint();
@@ -167,8 +171,10 @@ public class FloatingCandidateLayoutRenderer {
     float candidateVerticalPadding =
         res.getDimension(R.dimen.floating_candidate_candidate_vertical_padding);
     FontMetrics candidateMetrics = candidatePaint.getFontMetrics();
-    candidateHeight = (int) Math.ceil(
-        candidateMetrics.descent - candidateMetrics.ascent + candidateVerticalPadding * 2);
+    candidateHeight =
+        (int)
+            Math.ceil(
+                candidateMetrics.descent - candidateMetrics.ascent + candidateVerticalPadding * 2);
     candidateOffsetY = (int) Math.ceil(-candidateMetrics.ascent + candidateVerticalPadding);
 
     windowMinimumWidth = res.getDimensionPixelSize(R.dimen.floating_candidate_window_minimum_width);
@@ -217,7 +223,8 @@ public class FloatingCandidateLayoutRenderer {
       return;
     }
 
-    if (!optionalCandidateIndex.isPresent() || !tappingCandidateIndex.isPresent()
+    if (!optionalCandidateIndex.isPresent()
+        || !tappingCandidateIndex.isPresent()
         || !optionalCandidateIndex.equals(tappingCandidateIndex)) {
       tappingCandidateIndex = Optional.absent();
       updateLayout();
@@ -227,8 +234,7 @@ public class FloatingCandidateLayoutRenderer {
     tappingCandidateIndex = Optional.absent();
 
     listener.onConversionCandidateSelected(
-        candidates.get().getCandidate(candidateIndex).getId(),
-        Optional.<Integer>absent());
+        candidates.get().getCandidate(candidateIndex).getId(), Optional.<Integer>absent());
   }
 
   /** Sets the max width of this window. */
@@ -260,8 +266,8 @@ public class FloatingCandidateLayoutRenderer {
   }
 
   /**
-   * Gets the rectangle of this window.
-   * Defensive-copied value is returned so caller-side can modify it.
+   * Gets the rectangle of this window. Defensive-copied value is returned so caller-side can modify
+   * it.
    */
   public Optional<Rect> getWindowRect() {
     if (windowRects.isPresent()) {
@@ -281,7 +287,9 @@ public class FloatingCandidateLayoutRenderer {
     WindowRects rects = windowRects.get();
 
     canvas.drawRoundRect(
-        new RectF(rects.window), windowRoundRectRadius, windowRoundRectRadius,
+        new RectF(rects.window),
+        windowRoundRectRadius,
+        windowRoundRectRadius,
         windowBackgroundPaint);
 
     if (rects.focus.isPresent()) {
@@ -297,14 +305,22 @@ public class FloatingCandidateLayoutRenderer {
       drawTextWithLimit(canvas, candidate.getValue(), paint, 0, offsetY, maxCandidateWidth);
       if (candidate.getAnnotation().hasDescription()) {
         drawTextWithAlignAndLimit(
-            canvas, candidate.getAnnotation().getDescription(), descriptionPaint,
-            rects.window.right - windowHorizontalPadding, offsetY,
-            Align.RIGHT, maxDescriptionWidth);
+            canvas,
+            candidate.getAnnotation().getDescription(),
+            descriptionPaint,
+            rects.window.right - windowHorizontalPadding,
+            offsetY,
+            Align.RIGHT,
+            maxDescriptionWidth);
       }
       if (candidate.getAnnotation().hasShortcut()) {
         drawTextWithAlign(
-            canvas, candidate.getAnnotation().getShortcut(), shortcutPaint,
-            shortcutCenterX, offsetY, Align.CENTER);
+            canvas,
+            candidate.getAnnotation().getShortcut(),
+            shortcutPaint,
+            shortcutCenterX,
+            offsetY,
+            Align.CENTER);
       }
     }
 
@@ -319,29 +335,37 @@ public class FloatingCandidateLayoutRenderer {
     // Scroll indicator
     if (rects.scrollIndicator.isPresent()) {
       canvas.drawRoundRect(
-          rects.scrollIndicator.get(), scrollIndicatorRadius, scrollIndicatorRadius,
+          rects.scrollIndicator.get(),
+          scrollIndicatorRadius,
+          scrollIndicatorRadius,
           scrollIndicatorPaint);
     }
   }
 
   private void drawPageIndicator(Canvas canvas, Paint paint, Rect rect) {
     drawTextWithAlign(
-        canvas, String.format(FOOTER_TEXT_FORMAT,
-            candidates.get().getFocusedIndex() + 1, totalCandidatesCount),
-        paint, rect.exactCenterX(), rect.exactCenterY() + footerTextCenterToBaseLineOffset,
+        canvas,
+        String.format(
+            FOOTER_TEXT_FORMAT, candidates.get().getFocusedIndex() + 1, totalCandidatesCount),
+        paint,
+        rect.exactCenterX(),
+        rect.exactCenterY() + footerTextCenterToBaseLineOffset,
         Align.CENTER);
   }
 
   private void drawHorizontalSeparator(Canvas canvas, Paint paint, int startX, int endX, int y) {
     canvas.drawLine(
-        Math.min(startX, endX) + horizontalSeparatorPadding, y,
-        Math.max(startX, endX) - horizontalSeparatorPadding, y, paint);
+        Math.min(startX, endX) + horizontalSeparatorPadding,
+        y,
+        Math.max(startX, endX) - horizontalSeparatorPadding,
+        y,
+        paint);
   }
 
   /**
    * Draws {@code text} into {@code canvas} with the text align and the limitation of text width.
-   * <p>
-   * If measured width of {@code text} is wider than maxWidth, the {@code text} is drawn with
+   *
+   * <p>If measured width of {@code text} is wider than maxWidth, the {@code text} is drawn with
    * horizontal compression in order to fit {@code maxWidth}.
    */
   private void drawTextWithAlignAndLimit(
@@ -405,21 +429,23 @@ public class FloatingCandidateLayoutRenderer {
 
     Candidates candidatesData = candidates.get();
     int candidateNumberOnPage = candidatesData.getCandidateCount();
-    boolean hasShortcut = candidatesData.getCandidateCount() > 0
-        && !candidatesData.getCandidate(0).getAnnotation().getShortcut().isEmpty();
-    int leftEdgePosition = hasShortcut
-        ? -windowHorizontalPadding - shortcutWidth : -windowHorizontalPadding;
+    boolean hasShortcut =
+        candidatesData.getCandidateCount() > 0
+            && !candidatesData.getCandidate(0).getAnnotation().getShortcut().isEmpty();
+    int leftEdgePosition =
+        hasShortcut ? -windowHorizontalPadding - shortcutWidth : -windowHorizontalPadding;
 
     // Candidates and descriptions
     maxCandidateWidth = 0;
     maxDescriptionWidth = 0;
     for (int i = 0; i < candidateNumberOnPage; ++i) {
       Candidate candidate = candidatesData.getCandidate(i);
-      maxCandidateWidth = Math.max(
-          maxCandidateWidth, Math.round(candidatePaint.measureText(candidate.getValue())));
-      maxDescriptionWidth = Math.max(
-          maxDescriptionWidth,
-          Math.round(descriptionPaint.measureText(candidate.getAnnotation().getDescription())));
+      maxCandidateWidth =
+          Math.max(maxCandidateWidth, Math.round(candidatePaint.measureText(candidate.getValue())));
+      maxDescriptionWidth =
+          Math.max(
+              maxDescriptionWidth,
+              Math.round(descriptionPaint.measureText(candidate.getAnnotation().getDescription())));
     }
     int fixedWidth =
         -leftEdgePosition + candidateDescriptionMinimumPadding + windowHorizontalPadding;
@@ -430,10 +456,13 @@ public class FloatingCandidateLayoutRenderer {
       maxDescriptionWidth = Math.round(maxDescriptionWidth * shrinkRate);
       maxCandidateWidth = availableWidth - maxDescriptionWidth;
     }
-    int rightEdgePosition = Math.max(
-        Math.min(windowMinimumWidth, maxWidth.get()) + leftEdgePosition,
-        maxCandidateWidth + candidateDescriptionMinimumPadding + maxDescriptionWidth
-            + windowHorizontalPadding);
+    int rightEdgePosition =
+        Math.max(
+            Math.min(windowMinimumWidth, maxWidth.get()) + leftEdgePosition,
+            maxCandidateWidth
+                + candidateDescriptionMinimumPadding
+                + maxDescriptionWidth
+                + windowHorizontalPadding);
 
     // Footer
     int horizontalSeparatorY = candidateHeight * candidateNumberOnPage;
@@ -441,8 +470,10 @@ public class FloatingCandidateLayoutRenderer {
     Optional<Rect> pageIndicatorRect;
     if (candidatesData.getCategory() != Category.SUGGESTION) {
       bottomEdgePosition = horizontalSeparatorY + footerHeight;
-      pageIndicatorRect = Optional.of(
-          new Rect(leftEdgePosition, horizontalSeparatorY, rightEdgePosition, bottomEdgePosition));
+      pageIndicatorRect =
+          Optional.of(
+              new Rect(
+                  leftEdgePosition, horizontalSeparatorY, rightEdgePosition, bottomEdgePosition));
     } else {
       bottomEdgePosition = horizontalSeparatorY;
       pageIndicatorRect = Optional.absent();
@@ -453,8 +484,9 @@ public class FloatingCandidateLayoutRenderer {
     focusedOrTappedCandidateIndexOnPage = getTappedOrFocusedIndexOnPage();
     if (focusedOrTappedCandidateIndexOnPage.isPresent()) {
       int offsetY = candidateHeight * focusedOrTappedCandidateIndexOnPage.get();
-      focusRect = Optional.of(new Rect(
-          leftEdgePosition, offsetY, rightEdgePosition, offsetY + candidateHeight));
+      focusRect =
+          Optional.of(
+              new Rect(leftEdgePosition, offsetY, rightEdgePosition, offsetY + candidateHeight));
     } else {
       focusRect = Optional.absent();
     }
@@ -466,9 +498,13 @@ public class FloatingCandidateLayoutRenderer {
       float scrollIndicatorHeight =
           (float) bottomEdgePosition * candidatesData.getPageSize() / totalCandidatesCount;
       float scrollIndicatorOffset = scrollIndicatorHeight * currentPageIndex;
-      scrollIndicatorRect = Optional.of(new RectF(
-          rightEdgePosition - scrollIndicatorWidth, scrollIndicatorOffset, rightEdgePosition,
-          Math.min(bottomEdgePosition, scrollIndicatorOffset + scrollIndicatorHeight)));
+      scrollIndicatorRect =
+          Optional.of(
+              new RectF(
+                  rightEdgePosition - scrollIndicatorWidth,
+                  scrollIndicatorOffset,
+                  rightEdgePosition,
+                  Math.min(bottomEdgePosition, scrollIndicatorOffset + scrollIndicatorHeight)));
     } else {
       scrollIndicatorRect = Optional.absent();
     }
@@ -476,8 +512,8 @@ public class FloatingCandidateLayoutRenderer {
     // Window
     Rect windowRect = new Rect(leftEdgePosition, 0, rightEdgePosition, bottomEdgePosition);
 
-    windowRects = Optional.of(
-        new WindowRects(windowRect, focusRect, pageIndicatorRect, scrollIndicatorRect));
+    windowRects =
+        Optional.of(new WindowRects(windowRect, focusRect, pageIndicatorRect, scrollIndicatorRect));
   }
 
   private Optional<Integer> getTappedOrFocusedIndexOnPage() {
@@ -494,7 +530,8 @@ public class FloatingCandidateLayoutRenderer {
   }
 
   private int getCurrentPageNumber() {
-    return (int) Math.ceil(
-        (float) (candidates.get().getFocusedIndex() + 1) / candidates.get().getPageSize());
+    return (int)
+        Math.ceil(
+            (float) (candidates.get().getFocusedIndex() + 1) / candidates.get().getPageSize());
   }
 }

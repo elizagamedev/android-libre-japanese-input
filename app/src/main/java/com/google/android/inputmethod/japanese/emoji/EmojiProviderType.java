@@ -29,42 +29,39 @@
 
 package org.mozc.android.inputmethod.japanese.emoji;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
-import org.mozc.android.inputmethod.japanese.MozcUtil.TelephonyManagerInterface;
-import org.mozc.android.inputmethod.japanese.preference.PreferenceUtil;
+import android.content.SharedPreferences;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
-
-import android.content.SharedPreferences;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import javax.annotation.Nullable;
+import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.MozcUtil.TelephonyManagerInterface;
+import org.mozc.android.inputmethod.japanese.preference.PreferenceUtil;
 
-/**
- * Providers whose emoji set MechaMozc supports.
- *
- */
+/** Providers whose emoji set MechaMozc supports. */
 public enum EmojiProviderType {
 
   /**
    * Place holder for following situations.
-   * <ul>
-   * <li>Provider detection is failed.
-   * <li>A user select this item explicitly on the preference screen.
-   * <li>Emoji is disabled by spec.
-   * </ul>
-   * If a user invokes Emoji screen on symbol input view, provider chooser dialog will be shown.
-   * If Emoji is disabled by spec, Emoji screen itself should be suppressed.
    *
-   * Note:
    * <ul>
-   * <li>NONE is just a default value. User should update it to use Emoji.
-   * <li>Unicode 6.0 Emoji is available even if DOCOMO, KDDI and SOFTBANK.
+   *   <li>Provider detection is failed.
+   *   <li>A user select this item explicitly on the preference screen.
+   *   <li>Emoji is disabled by spec.
+   * </ul>
+   *
+   * If a user invokes Emoji screen on symbol input view, provider chooser dialog will be shown. If
+   * Emoji is disabled by spec, Emoji screen itself should be suppressed.
+   *
+   * <p>Note:
+   *
+   * <ul>
+   *   <li>NONE is just a default value. User should update it to use Emoji.
+   *   <li>Unicode 6.0 Emoji is available even if DOCOMO, KDDI and SOFTBANK.
    * </ul>
    */
   NONE((byte) 0),
@@ -105,13 +102,13 @@ public enum EmojiProviderType {
   }
 
   /**
-   * Detects emoji provider type and sets it to the given {@code sharedPreferences},
-   * if necessary based on the Mobile Network Code provided by {@code telephonyManager}.
-   * If the {@code sharedPreferences} is {@code null}, or already has valid emoji provider type,
-   * just does nothing.
+   * Detects emoji provider type and sets it to the given {@code sharedPreferences}, if necessary
+   * based on the Mobile Network Code provided by {@code telephonyManager}. If the {@code
+   * sharedPreferences} is {@code null}, or already has valid emoji provider type, just does
+   * nothing.
    *
-   * Note: if the new detected emoji provider type is set to the {@code sharedPreferences}
-   * and if it has registered callbacks, of course, they will be invoked as usual.
+   * <p>Note: if the new detected emoji provider type is set to the {@code sharedPreferences} and if
+   * it has registered callbacks, of course, they will be invoked as usual.
    */
   public static void maybeSetDetectedEmojiProviderType(
       @Nullable SharedPreferences sharedPreferences, TelephonyManagerInterface telephonyManager) {
@@ -132,7 +129,8 @@ public enum EmojiProviderType {
     // Here, the EmojiProviderType hasn't set yet, so detect emoji provider.
     EmojiProviderType detectedType =
         detectEmojiProviderTypeByMobileNetworkOperator(telephonyManager);
-    sharedPreferences.edit()
+    sharedPreferences
+        .edit()
         .putString(PreferenceUtil.PREF_EMOJI_PROVIDER_TYPE, detectedType.name())
         .commit();
     MozcLog.i("RUN EMOJI PROVIDER DETECTION: " + detectedType);
@@ -146,7 +144,7 @@ public enum EmojiProviderType {
     Preconditions.checkNotNull(telephonyManager);
 
     // TODO(hsumita): Consider to make the default value UNICODE.
-    return MoreObjects.firstNonNull(NETWORK_OPERATOR_MAP.get(telephonyManager.getNetworkOperator()),
-                                NONE);
+    return MoreObjects.firstNonNull(
+        NETWORK_OPERATOR_MAP.get(telephonyManager.getNetworkOperator()), NONE);
   }
 }

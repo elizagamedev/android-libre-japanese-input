@@ -29,58 +29,65 @@
 
 package org.mozc.android.inputmethod.japanese.userdictionary;
 
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommandStatus.Status;
-import org.mozc.android.inputmethod.japanese.R;
-
 import android.content.Context;
 import android.widget.Toast;
-
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommandStatus.Status;
 
 /**
  * Manages toast message, especially, resolves when we want to try to show a new toast message
  * during another toast message is showing.
- *
  */
 public class ToastManager {
 
-  /**
-   * Mapping from Status to the resource id.
-   */
+  /** Mapping from Status to the resource id. */
   private static Map<Status, Integer> ERROR_MESSAGE_MAP;
+
   static {
     EnumMap<Status, Integer> map = new EnumMap<Status, Integer>(Status.class);
     map.put(Status.FILE_NOT_FOUND, R.string.user_dictionary_tool_status_error_file_not_found);
-    map.put(Status.INVALID_FILE_FORMAT,
-            R.string.user_dictionary_tool_status_error_invalid_file_format);
-    map.put(Status.FILE_SIZE_LIMIT_EXCEEDED,
-            R.string.user_dictionary_tool_status_error_file_size_limit_exceeded);
-    map.put(Status.DICTIONARY_SIZE_LIMIT_EXCEEDED,
-            R.string.user_dictionary_tool_status_error_dictionary_size_limit_exceeded);
-    map.put(Status.ENTRY_SIZE_LIMIT_EXCEEDED,
-            R.string.user_dictionary_tool_status_error_entry_size_limit_exceeded);
-    map.put(Status.DICTIONARY_NAME_EMPTY,
-            R.string.user_dictionary_tool_status_error_dictionary_name_empty);
-    map.put(Status.DICTIONARY_NAME_TOO_LONG,
-            R.string.user_dictionary_tool_status_error_dictionary_name_too_long);
-    map.put(Status.DICTIONARY_NAME_CONTAINS_INVALID_CHARACTER,
-            R.string.user_dictionary_tool_status_error_dictionary_name_contains_invalid_character);
-    map.put(Status.DICTIONARY_NAME_DUPLICATED,
-            R.string.user_dictionary_tool_status_error_dictionary_name_duplicated);
+    map.put(
+        Status.INVALID_FILE_FORMAT, R.string.user_dictionary_tool_status_error_invalid_file_format);
+    map.put(
+        Status.FILE_SIZE_LIMIT_EXCEEDED,
+        R.string.user_dictionary_tool_status_error_file_size_limit_exceeded);
+    map.put(
+        Status.DICTIONARY_SIZE_LIMIT_EXCEEDED,
+        R.string.user_dictionary_tool_status_error_dictionary_size_limit_exceeded);
+    map.put(
+        Status.ENTRY_SIZE_LIMIT_EXCEEDED,
+        R.string.user_dictionary_tool_status_error_entry_size_limit_exceeded);
+    map.put(
+        Status.DICTIONARY_NAME_EMPTY,
+        R.string.user_dictionary_tool_status_error_dictionary_name_empty);
+    map.put(
+        Status.DICTIONARY_NAME_TOO_LONG,
+        R.string.user_dictionary_tool_status_error_dictionary_name_too_long);
+    map.put(
+        Status.DICTIONARY_NAME_CONTAINS_INVALID_CHARACTER,
+        R.string.user_dictionary_tool_status_error_dictionary_name_contains_invalid_character);
+    map.put(
+        Status.DICTIONARY_NAME_DUPLICATED,
+        R.string.user_dictionary_tool_status_error_dictionary_name_duplicated);
     map.put(Status.READING_EMPTY, R.string.user_dictionary_tool_status_error_reading_empty);
     map.put(Status.READING_TOO_LONG, R.string.user_dictionary_tool_status_error_reading_too_long);
-    map.put(Status.READING_CONTAINS_INVALID_CHARACTER,
-            R.string.user_dictionary_tool_status_error_reading_contains_invalid_character);
+    map.put(
+        Status.READING_CONTAINS_INVALID_CHARACTER,
+        R.string.user_dictionary_tool_status_error_reading_contains_invalid_character);
     map.put(Status.WORD_EMPTY, R.string.user_dictionary_tool_status_error_word_empty);
     map.put(Status.WORD_TOO_LONG, R.string.user_dictionary_tool_status_error_word_too_long);
-    map.put(Status.WORD_CONTAINS_INVALID_CHARACTER,
-            R.string.user_dictionary_tool_status_error_word_contains_invalid_character);
-    map.put(Status.IMPORT_TOO_MANY_WORDS,
-            R.string.user_dictionary_tool_status_error_import_too_many_words);
-    map.put(Status.IMPORT_INVALID_ENTRIES,
-            R.string.user_dictionary_tool_status_error_import_invalid_entries);
+    map.put(
+        Status.WORD_CONTAINS_INVALID_CHARACTER,
+        R.string.user_dictionary_tool_status_error_word_contains_invalid_character);
+    map.put(
+        Status.IMPORT_TOO_MANY_WORDS,
+        R.string.user_dictionary_tool_status_error_import_too_many_words);
+    map.put(
+        Status.IMPORT_INVALID_ENTRIES,
+        R.string.user_dictionary_tool_status_error_import_invalid_entries);
     map.put(Status.NO_UNDO_HISTORY, R.string.user_dictionary_tool_status_error_no_undo_history);
     ERROR_MESSAGE_MAP = Collections.unmodifiableMap(map);
   }
@@ -93,16 +100,12 @@ public class ToastManager {
     this.toast = new Toast(context);
   }
 
-  /**
-   * Displays the message of the {@code resourceId} with short duration.
-   */
+  /** Displays the message of the {@code resourceId} with short duration. */
   public void showMessageShortly(int resourceId) {
     showMessageShortlyInternal(resourceId);
   }
 
-  /**
-   * Displays the message for the {@code status} with short duration.
-   */
+  /** Displays the message for the {@code status} with short duration. */
   public void maybeShowMessageShortly(Status status) {
     if (status == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
       return;

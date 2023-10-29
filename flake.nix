@@ -30,6 +30,7 @@
           buildInputs = [
             androidComposition.androidsdk
             androidStudioPackages.beta
+            google-java-format
             kotlin-language-server
             protobuf
             python3

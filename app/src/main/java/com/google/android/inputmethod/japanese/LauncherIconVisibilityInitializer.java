@@ -29,15 +29,12 @@
 
 package org.mozc.android.inputmethod.japanese;
 
-import org.mozc.android.inputmethod.japanese.util.LauncherIconManagerFactory;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import org.mozc.android.inputmethod.japanese.util.LauncherIconManagerFactory;
 
-/**
- * A broadcast receiver to initialize launcher icon's visibility.
- */
+/** A broadcast receiver to initialize launcher icon's visibility. */
 public class LauncherIconVisibilityInitializer extends BroadcastReceiver {
 
   @Override
@@ -50,7 +47,7 @@ public class LauncherIconVisibilityInitializer extends BroadcastReceiver {
   private boolean shouldHandle(Intent intent) {
     String action = intent.getAction();
     return "android.intent.action.BOOT_COMPLETED".equals(action)
-           || "android.intent.action.MY_PACKAGE_REPLACED".equals(action)
-           || "android.intent.action.USER_INITIALIZE".equals(action);
+        || "android.intent.action.MY_PACKAGE_REPLACED".equals(action)
+        || "android.intent.action.USER_INITIALIZE".equals(action);
   }
 }

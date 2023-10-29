@@ -29,8 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.mushroom;
 
-import org.mozc.android.inputmethod.japanese.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -47,18 +45,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import org.mozc.android.inputmethod.japanese.R;
 
 /**
- * This is the activity to select a Mushroom application to be launched.
- * Also, this class proxies the {@code replace_key} between MozcService and
- * the mushroom application.
- *
+ * This is the activity to select a Mushroom application to be launched. Also, this class proxies
+ * the {@code replace_key} between MozcService and the mushroom application.
  */
 public class MushroomSelectionActivity extends Activity {
 
   /**
-   * ListAdapter to use custom view (Application Icon followed by Application Name)
-   * for ListView entry.
+   * ListAdapter to use custom view (Application Icon followed by Application Name) for ListView
+   * entry.
    */
   static class MushroomApplicationListAdapter extends ArrayAdapter<ResolveInfo> {
     MushroomApplicationListAdapter(Context context) {
@@ -67,7 +64,7 @@ public class MushroomSelectionActivity extends Activity {
 
     @Override
     public View getView(int position, View contentView, ViewGroup parent) {
-      if(contentView == null) {
+      if (contentView == null) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         contentView = inflater.inflate(R.layout.mushroom_selection_dialog_entry, parent, false);
       }
@@ -85,9 +82,7 @@ public class MushroomSelectionActivity extends Activity {
     }
   }
 
-  /**
-   * ClickListener to launch the target activity.
-   */
+  /** ClickListener to launch the target activity. */
   static class MushroomApplicationListClickListener implements OnItemClickListener {
     private Activity activity;
 
@@ -102,7 +97,8 @@ public class MushroomSelectionActivity extends Activity {
       ActivityInfo activityInfo = resolveInfo.activityInfo;
       activity.startActivityForResult(
           MushroomUtil.createMushroomLaunchingIntent(
-              activityInfo.packageName, activityInfo.name,
+              activityInfo.packageName,
+              activityInfo.name,
               MushroomUtil.getReplaceKey(activity.getIntent())),
           REQUEST_CODE);
     }

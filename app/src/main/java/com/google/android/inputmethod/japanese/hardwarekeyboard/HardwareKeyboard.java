@@ -29,25 +29,22 @@
 
 package org.mozc.android.inputmethod.japanese.hardwarekeyboard;
 
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import org.mozc.android.inputmethod.japanese.KeycodeConverter.KeyEventInterface;
 import org.mozc.android.inputmethod.japanese.MozcLog;
 import org.mozc.android.inputmethod.japanese.keyboard.Keyboard.KeyboardSpecification;
 import org.mozc.android.inputmethod.japanese.preference.ClientSidePreference.HardwareKeyMap;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 
 /**
- * Converter from android key events to mozc key events.
- * It has a composition mode for hardware keyboards.
- *
+ * Converter from android key events to mozc key events. It has a composition mode for hardware
+ * keyboards.
  */
 public class HardwareKeyboard {
 
-  /**
-   * Used to switch the composition mode of harwdware keyboard.
-   **/
+  /** Used to switch the composition mode of harwdware keyboard. */
   public static enum CompositionSwitchMode {
     TOGGLE,
     KANA,
@@ -64,8 +61,7 @@ public class HardwareKeyboard {
   }
 
   public KeyEventInterface getKeyEventInterface(android.view.KeyEvent keyEvent) {
-    return hardwareKeyboardSpecification.getKeyEventInterface(
-        Preconditions.checkNotNull(keyEvent));
+    return hardwareKeyboardSpecification.getKeyEventInterface(Preconditions.checkNotNull(keyEvent));
   }
 
   public boolean setCompositionModeByKey(android.view.KeyEvent keyEvent) {
@@ -102,7 +98,7 @@ public class HardwareKeyboard {
   }
 
   public KeyboardSpecification getKeyboardSpecification() {
-    switch(compositionMode) {
+    switch (compositionMode) {
       case HIRAGANA:
         return hardwareKeyboardSpecification.getKanaKeyboardSpecification();
       default:

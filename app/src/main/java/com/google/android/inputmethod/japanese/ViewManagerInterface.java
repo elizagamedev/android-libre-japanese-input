@@ -29,6 +29,15 @@
 
 package org.mozc.android.inputmethod.japanese;
 
+import android.content.Context;
+import android.content.res.Configuration;
+import android.inputmethodservice.InputMethodService;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.Window;
+import android.view.inputmethod.EditorInfo;
+import com.google.common.annotations.VisibleForTesting;
 import org.mozc.android.inputmethod.japanese.KeycodeConverter.KeyEventInterface;
 import org.mozc.android.inputmethod.japanese.emoji.EmojiProviderType;
 import org.mozc.android.inputmethod.japanese.hardwarekeyboard.HardwareKeyboard.CompositionSwitchMode;
@@ -41,26 +50,11 @@ import org.mozc.android.inputmethod.japanese.preference.ClientSidePreference.Key
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
 import org.mozc.android.inputmethod.japanese.util.CursorAnchorInfoWrapper;
 import org.mozc.android.inputmethod.japanese.view.Skin;
-import com.google.common.annotations.VisibleForTesting;
 
-import android.content.Context;
-import android.content.res.Configuration;
-import android.inputmethodservice.InputMethodService;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.Window;
-import android.view.inputmethod.EditorInfo;
-
-/**
- * Interface for ViewManager which manages Input, Candidate and Extracted views.
- *
- */
+/** Interface for ViewManager which manages Input, Candidate and Extracted views. */
 public interface ViewManagerInterface extends MemoryManageable {
 
-  /**
-   * Keyboard layout position.
-   */
+  /** Keyboard layout position. */
   public enum LayoutAdjustment {
     FILL,
     RIGHT,
@@ -70,9 +64,9 @@ public interface ViewManagerInterface extends MemoryManageable {
   /**
    * Creates new input view.
    *
-   * "Input view" is a software keyboard in almost all cases.
+   * <p>"Input view" is a software keyboard in almost all cases.
    *
-   * Previously created input view is not accessed any more after calling this method.
+   * <p>Previously created input view is not accessed any more after calling this method.
    *
    * @param context
    * @return newly created view.
@@ -82,13 +76,13 @@ public interface ViewManagerInterface extends MemoryManageable {
   /**
    * Renders views which this instance own based on Command.Output.
    *
-   * Note that showing/hiding views is Service's responsibility.
+   * <p>Note that showing/hiding views is Service's responsibility.
    */
   public void render(Command outCommand);
 
   /**
    * @return true if {@code event} should be consumed by Mozc client side and should be processed
-   *         asynchronously.
+   *     asynchronously.
    */
   public boolean isKeyConsumedOnViewAsynchronously(KeyEvent event);
 
@@ -118,14 +112,10 @@ public interface ViewManagerInterface extends MemoryManageable {
    */
   public KeyboardSpecification getKeyboardSpecification();
 
-  /**
-   * Set {@code EditorInfo} instance to the current view.
-   */
+  /** Set {@code EditorInfo} instance to the current view. */
   public void setEditorInfo(EditorInfo attribute);
 
-  /**
-   * Set text for IME action button label.
-   */
+  /** Set text for IME action button label. */
   public void setTextForActionButton(CharSequence text);
 
   public boolean hideSubInputView();
@@ -142,8 +132,8 @@ public interface ViewManagerInterface extends MemoryManageable {
    * Set the input style.
    *
    * @param inputStyle new input style.
-   * @throws NullPointerException If {@code inputStyle} is {@code null}.
-   * TODO(hidehiko): Refactor out following keyboard switching logic into another class.
+   * @throws NullPointerException If {@code inputStyle} is {@code null}. TODO(hidehiko): Refactor
+   *     out following keyboard switching logic into another class.
    */
   public void setInputStyle(InputStyle inputStyle);
 
@@ -185,15 +175,13 @@ public interface ViewManagerInterface extends MemoryManageable {
 
   public void setCursorAnchorInfoEnabled(boolean enabled);
 
-  /**
-   * Reset the status of the current input view.
-   */
+  /** Reset the status of the current input view. */
   public void reset();
 
-  public void computeInsets(
-      Context context, InputMethodService.Insets outInsets, Window window);
+  public void computeInsets(Context context, InputMethodService.Insets outInsets, Window window);
 
   public void onShowSymbolInputView();
+
   public void onCloseSymbolInputView();
 
   @VisibleForTesting
@@ -226,9 +214,7 @@ public interface ViewManagerInterface extends MemoryManageable {
   @VisibleForTesting
   public HardwareKeyMap getHardwareKeyMap();
 
-  /**
-   * Used for testing to inject key events.
-   */
+  /** Used for testing to inject key events. */
   @VisibleForTesting
   public KeyboardActionListener getKeyboardActionListener();
 

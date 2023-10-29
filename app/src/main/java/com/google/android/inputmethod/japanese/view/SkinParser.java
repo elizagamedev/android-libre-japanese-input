@@ -29,30 +29,25 @@
 
 package org.mozc.android.inputmethod.japanese.view;
 
-import org.mozc.android.inputmethod.japanese.R;
-import org.mozc.android.inputmethod.japanese.util.ParserUtil;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Maps;
-
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Xml;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Maps;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.util.ParserUtil;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
-/**
- * Parses .xml file for skin and generates {@code Skin} instance.
- */
+/** Parses .xml file for skin and generates {@code Skin} instance. */
 public class SkinParser {
 
   static class SkinParserException extends Exception {
@@ -67,7 +62,9 @@ public class SkinParser {
 
     private static String composeMessage(XmlPullParser parser, String message) {
       return new StringBuffer(parser.getPositionDescription())
-          .append(':').append(message).toString();
+          .append(':')
+          .append(message)
+          .toString();
     }
   }
 
@@ -75,12 +72,13 @@ public class SkinParser {
   private final Resources resources;
 
   private static final int[] COLOR_ATTRIBUTES = {
-    android.R.attr.name,
-    android.R.attr.color,
+    android.R.attr.name, android.R.attr.color,
   };
+
   static {
     Arrays.sort(COLOR_ATTRIBUTES);
   }
+
   private static final int COLOR_KEY_NAME_INDEX =
       Arrays.binarySearch(COLOR_ATTRIBUTES, android.R.attr.name);
   private static final int COLOR_KEY_COLOR_INDEX =
@@ -93,12 +91,13 @@ public class SkinParser {
       Arrays.binarySearch(DRAWABLE_ATTRIBUTES, android.R.attr.name);
 
   private static final int[] DIMENSION_ATTRIBUTES = {
-    android.R.attr.name,
-    R.attr.dimension,
+    android.R.attr.name, R.attr.dimension,
   };
+
   static {
     Arrays.sort(DIMENSION_ATTRIBUTES);
   }
+
   private static final int DIMENSION_KEY_NAME_INDEX =
       Arrays.binarySearch(DIMENSION_ATTRIBUTES, android.R.attr.name);
   private static final int DIMENSION_KEY_DIMENSION_INDEX =
@@ -110,6 +109,7 @@ public class SkinParser {
   }
 
   private static final Map<String, Field> fieldMap;
+
   static {
     Map<String, Field> tempMap = Maps.newHashMapWithExpectedSize(Skin.class.getFields().length);
     for (Field field : Skin.class.getFields()) {
@@ -129,8 +129,8 @@ public class SkinParser {
       ParserUtil.assertStartDocument(parser);
       parser.nextTag();
       if (!"Skin".equals(parser.getName())) {
-        throw new SkinParserException(parser,
-            "<Skin> element is expected but met <" + parser.getName() + ">");
+        throw new SkinParserException(
+            parser, "<Skin> element is expected but met <" + parser.getName() + ">");
       }
 
       while (parser.nextTag() == XmlResourceParser.START_TAG) {
@@ -140,8 +140,8 @@ public class SkinParser {
           try {
             String name = attributes.getString(COLOR_KEY_NAME_INDEX);
             if (name == null) {
-              throw new SkinParserException(parser,
-                                            "<Color> element's \"name\" attribute is mandatory.");
+              throw new SkinParserException(
+                  parser, "<Color> element's \"name\" attribute is mandatory.");
             }
             int color = attributes.getColor(COLOR_KEY_COLOR_INDEX, 0);
             Field field = fieldMap.get(name);
@@ -163,8 +163,8 @@ public class SkinParser {
             int originalDepth = parser.getDepth();
             String name = attributes.getString(DRAWABLE_KEY_NAME_INDEX);
             if (name == null) {
-              throw new SkinParserException(parser,
-                  "<Drawable> element's \"name\" attribute is mandatory.");
+              throw new SkinParserException(
+                  parser, "<Drawable> element's \"name\" attribute is mandatory.");
             }
             // Go forward to inner drawable tag.
             if (parser.nextTag() != XmlResourceParser.START_TAG) {
@@ -198,8 +198,8 @@ public class SkinParser {
           try {
             String name = attributes.getString(DIMENSION_KEY_NAME_INDEX);
             if (name == null) {
-              throw new SkinParserException(parser,
-                  "<Dimension> element's \"name\" attribute is mandatory.");
+              throw new SkinParserException(
+                  parser, "<Dimension> element's \"name\" attribute is mandatory.");
             }
             float dimension = attributes.getDimension(DIMENSION_KEY_DIMENSION_INDEX, 0);
             Field field = fieldMap.get(name);

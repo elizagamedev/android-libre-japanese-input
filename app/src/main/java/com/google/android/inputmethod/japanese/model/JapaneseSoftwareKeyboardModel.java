@@ -29,69 +29,65 @@
 
 package org.mozc.android.inputmethod.japanese.model;
 
+import android.inputmethodservice.InputMethodService;
+import android.text.InputType;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Set;
 import org.mozc.android.inputmethod.japanese.MozcLog;
 import org.mozc.android.inputmethod.japanese.MozcUtil;
 import org.mozc.android.inputmethod.japanese.keyboard.Keyboard.KeyboardSpecification;
 import org.mozc.android.inputmethod.japanese.preference.ClientSidePreference.InputStyle;
 import org.mozc.android.inputmethod.japanese.preference.ClientSidePreference.KeyboardLayout;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
-import android.inputmethodservice.InputMethodService;
-import android.text.InputType;
-
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.Set;
 
 /**
  * Model class to represent Mozc's software keyboard.
  *
- * Currently, this class manages four states:
+ * <p>Currently, this class manages four states:
+ *
  * <ul>
- * <li>{@code KeyboardLayout}
- * <li>{@code KeyboardMode}
- * <li>{@code InputStyle}
- * <li>{@code qwertyLayoutForAlphabet}
+ *   <li>{@code KeyboardLayout}
+ *   <li>{@code KeyboardMode}
+ *   <li>{@code InputStyle}
+ *   <li>{@code qwertyLayoutForAlphabet}
  * </ul>
  *
- * For {@code TWLEVE_KEY} layout, we have three {@code InputStyle}, which are {@code TOGGLE},
- * {@code FLICK} and {@code TOGGLE_FLICK}.
- * Also, users can use {@code QWERTY} style layout for alphabet mode by setting
- * {@code qwertyLayoutForAlphabet} {@code true}.
+ * For {@code TWLEVE_KEY} layout, we have three {@code InputStyle}, which are {@code TOGGLE}, {@code
+ * FLICK} and {@code TOGGLE_FLICK}. Also, users can use {@code QWERTY} style layout for alphabet
+ * mode by setting {@code qwertyLayoutForAlphabet} {@code true}.
  *
- * {@code TWLEVE_KEY} layout has two {@code KeyboardMode}, which are {@code KANA}, {@code ALPHABET}.
+ * <p>{@code TWLEVE_KEY} layout has two {@code KeyboardMode}, which are {@code KANA}, {@code
+ * ALPHABET}.
  *
- * On {@code SymbolInputView}, we have a special {@code KeyboardMode}, which is
- * {@code SYMBOL_NUMBER}. It is NOT used on normal view.
+ * <p>On {@code SymbolInputView}, we have a special {@code KeyboardMode}, which is {@code
+ * SYMBOL_NUMBER}. It is NOT used on normal view.
  *
- * For {@code QWERTY} layout, we have two {@code KeyboardMode}, which are {@code KANA},
- * {@code ALPHABET}. The parameters, {@code InputStyle} and {@code qwertyLayoutForAlphabet}, are
- * simply ignored.
+ * <p>For {@code QWERTY} layout, we have two {@code KeyboardMode}, which are {@code KANA}, {@code
+ * ALPHABET}. The parameters, {@code InputStyle} and {@code qwertyLayoutForAlphabet}, are simply
+ * ignored.
  *
- * This class manages the "default mode" of software keyboard depending on {@code inputType}.
- * It is expected that the {@code inputType} is given by system via
- * {@link InputMethodService#onStartInputView}.
- *
+ * <p>This class manages the "default mode" of software keyboard depending on {@code inputType}. It
+ * is expected that the {@code inputType} is given by system via {@link
+ * InputMethodService#onStartInputView}.
  */
 @SuppressWarnings("javadoc")
 public class JapaneseSoftwareKeyboardModel {
 
-  /**
-   * Keyboard mode that indicates supported character types.
-   */
+  /** Keyboard mode that indicates supported character types. */
   public enum KeyboardMode {
-    KANA, ALPHABET, ALPHABET_NUMBER, NUMBER, SYMBOL_NUMBER,
+    KANA,
+    ALPHABET,
+    ALPHABET_NUMBER,
+    NUMBER,
+    SYMBOL_NUMBER,
   }
 
-  /**
-   * Keyboard modes which can be kept even if a focused text field is changed.
-   */
+  /** Keyboard modes which can be kept even if a focused text field is changed. */
   private static final Set<KeyboardMode> REMEMBERABLE_KEYBOARD_MODE_SET =
-      Collections.unmodifiableSet(EnumSet.of(
-          KeyboardMode.KANA,
-          KeyboardMode.ALPHABET,
-          KeyboardMode.ALPHABET_NUMBER));
+      Collections.unmodifiableSet(
+          EnumSet.of(KeyboardMode.KANA, KeyboardMode.ALPHABET, KeyboardMode.ALPHABET_NUMBER));
 
   private static final KeyboardMode DEFAULT_KEYBOARD_MODE = KeyboardMode.KANA;
 
@@ -108,8 +104,7 @@ public class JapaneseSoftwareKeyboardModel {
   // strategy in future.
   private Optional<KeyboardMode> savedMode = Optional.absent();
 
-  public JapaneseSoftwareKeyboardModel() {
-  }
+  public JapaneseSoftwareKeyboardModel() {}
 
   public KeyboardLayout getKeyboardLayout() {
     return keyboardLayout;
@@ -151,8 +146,8 @@ public class JapaneseSoftwareKeyboardModel {
   }
 
   /**
-   * Sets {@code inputType} and update the {@code keyboardMode} if necessary.
-   * See the class comment for details.
+   * Sets {@code inputType} and update the {@code keyboardMode} if necessary. See the class comment
+   * for details.
    */
   public void setInputType(int inputType) {
     Optional<KeyboardMode> mode = getPreferredKeyboardMode(inputType, this.keyboardLayout);
@@ -200,17 +195,13 @@ public class JapaneseSoftwareKeyboardModel {
     return Optional.<KeyboardMode>absent();
   }
 
-  /**
-   * Returns {@link KeyboardSpecification} instance based on the current state.
-   */
+  /** Returns {@link KeyboardSpecification} instance based on the current state. */
   public KeyboardSpecification getKeyboardSpecification() {
     return getKeyboardSpecificationInternal(
         keyboardLayout, keyboardMode, inputStyle, qwertyLayoutForAlphabet);
   }
 
-  /**
-   * Returns {@link KeyboardSpecification} instance based on the given parameters.
-   */
+  /** Returns {@link KeyboardSpecification} instance based on the given parameters. */
   private static KeyboardSpecification getKeyboardSpecificationInternal(
       KeyboardLayout keyboardLayout,
       KeyboardMode keyboardMode,
@@ -237,36 +228,48 @@ public class JapaneseSoftwareKeyboardModel {
   private static KeyboardSpecification getTwelveKeysKeyboardSpecification(
       KeyboardMode keyboardMode, InputStyle inputStyle, boolean qwertyLayoutForAlphabet) {
     switch (keyboardMode) {
-      case KANA: {
-        switch (inputStyle) {
-          case TOGGLE: return KeyboardSpecification.TWELVE_KEY_TOGGLE_KANA;
-          case FLICK: return KeyboardSpecification.TWELVE_KEY_FLICK_KANA;
-          case TOGGLE_FLICK: return KeyboardSpecification.TWELVE_KEY_TOGGLE_FLICK_KANA;
+      case KANA:
+        {
+          switch (inputStyle) {
+            case TOGGLE:
+              return KeyboardSpecification.TWELVE_KEY_TOGGLE_KANA;
+            case FLICK:
+              return KeyboardSpecification.TWELVE_KEY_FLICK_KANA;
+            case TOGGLE_FLICK:
+              return KeyboardSpecification.TWELVE_KEY_TOGGLE_FLICK_KANA;
+          }
+          break;
         }
-        break;
-      }
-      case ALPHABET: {
-        if (qwertyLayoutForAlphabet) {
-          return KeyboardSpecification.TWELVE_KEY_TOGGLE_QWERTY_ALPHABET;
+      case ALPHABET:
+        {
+          if (qwertyLayoutForAlphabet) {
+            return KeyboardSpecification.TWELVE_KEY_TOGGLE_QWERTY_ALPHABET;
+          }
+          switch (inputStyle) {
+            case TOGGLE:
+              return KeyboardSpecification.TWELVE_KEY_TOGGLE_ALPHABET;
+            case FLICK:
+              return KeyboardSpecification.TWELVE_KEY_FLICK_ALPHABET;
+            case TOGGLE_FLICK:
+              return KeyboardSpecification.TWELVE_KEY_TOGGLE_FLICK_ALPHABET;
+          }
+          break;
         }
-        switch (inputStyle) {
-          case TOGGLE: return KeyboardSpecification.TWELVE_KEY_TOGGLE_ALPHABET;
-          case FLICK: return KeyboardSpecification.TWELVE_KEY_FLICK_ALPHABET;
-          case TOGGLE_FLICK: return KeyboardSpecification.TWELVE_KEY_TOGGLE_FLICK_ALPHABET;
+      case ALPHABET_NUMBER:
+        {
+          if (qwertyLayoutForAlphabet) {
+            return KeyboardSpecification.QWERTY_ALPHABET_NUMBER;
+          }
+          switch (inputStyle) {
+            case TOGGLE:
+              return KeyboardSpecification.TWELVE_KEY_TOGGLE_ALPHABET;
+            case FLICK:
+              return KeyboardSpecification.TWELVE_KEY_FLICK_ALPHABET;
+            case TOGGLE_FLICK:
+              return KeyboardSpecification.TWELVE_KEY_TOGGLE_FLICK_ALPHABET;
+          }
+          break;
         }
-        break;
-      }
-      case ALPHABET_NUMBER: {
-        if (qwertyLayoutForAlphabet) {
-          return KeyboardSpecification.QWERTY_ALPHABET_NUMBER;
-        }
-        switch (inputStyle) {
-          case TOGGLE: return KeyboardSpecification.TWELVE_KEY_TOGGLE_ALPHABET;
-          case FLICK: return KeyboardSpecification.TWELVE_KEY_FLICK_ALPHABET;
-          case TOGGLE_FLICK: return KeyboardSpecification.TWELVE_KEY_TOGGLE_FLICK_ALPHABET;
-        }
-        break;
-      }
       case NUMBER:
         return KeyboardSpecification.NUMBER;
       case SYMBOL_NUMBER:
@@ -274,29 +277,42 @@ public class JapaneseSoftwareKeyboardModel {
     }
     throw new IllegalArgumentException(
         "Unknown keyboard state: "
-            + keyboardMode + ", " + inputStyle + ", " + qwertyLayoutForAlphabet);
+            + keyboardMode
+            + ", "
+            + inputStyle
+            + ", "
+            + qwertyLayoutForAlphabet);
   }
 
   private static KeyboardSpecification getQwertyKeyboardSpecification(KeyboardMode keyboardMode) {
     switch (keyboardMode) {
-      case KANA: return KeyboardSpecification.QWERTY_KANA;
-      case ALPHABET: return KeyboardSpecification.QWERTY_ALPHABET;
-      case ALPHABET_NUMBER: return KeyboardSpecification.QWERTY_ALPHABET_NUMBER;
-      case NUMBER: return KeyboardSpecification.NUMBER;
-      case SYMBOL_NUMBER: return KeyboardSpecification.SYMBOL_NUMBER;
+      case KANA:
+        return KeyboardSpecification.QWERTY_KANA;
+      case ALPHABET:
+        return KeyboardSpecification.QWERTY_ALPHABET;
+      case ALPHABET_NUMBER:
+        return KeyboardSpecification.QWERTY_ALPHABET_NUMBER;
+      case NUMBER:
+        return KeyboardSpecification.NUMBER;
+      case SYMBOL_NUMBER:
+        return KeyboardSpecification.SYMBOL_NUMBER;
     }
     throw new IllegalArgumentException("Unknown keyboard mode: " + keyboardMode);
   }
 
   private static KeyboardSpecification getGodanKeyboardSpecification(KeyboardMode keyboardMode) {
     switch (keyboardMode) {
-      case KANA: return KeyboardSpecification.GODAN_KANA;
-      case ALPHABET: return KeyboardSpecification.QWERTY_ALPHABET;
-      case ALPHABET_NUMBER: return KeyboardSpecification.QWERTY_ALPHABET_NUMBER;
-      case NUMBER: return KeyboardSpecification.NUMBER;
-      case SYMBOL_NUMBER: return KeyboardSpecification.SYMBOL_NUMBER;
+      case KANA:
+        return KeyboardSpecification.GODAN_KANA;
+      case ALPHABET:
+        return KeyboardSpecification.QWERTY_ALPHABET;
+      case ALPHABET_NUMBER:
+        return KeyboardSpecification.QWERTY_ALPHABET_NUMBER;
+      case NUMBER:
+        return KeyboardSpecification.NUMBER;
+      case SYMBOL_NUMBER:
+        return KeyboardSpecification.SYMBOL_NUMBER;
     }
     throw new IllegalArgumentException("Unknown keyboard mode: " + keyboardMode);
   }
-
 }

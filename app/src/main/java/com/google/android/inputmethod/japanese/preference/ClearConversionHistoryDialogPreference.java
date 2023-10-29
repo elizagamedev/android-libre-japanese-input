@@ -29,19 +29,16 @@
 
 package org.mozc.android.inputmethod.japanese.preference;
 
-import org.mozc.android.inputmethod.japanese.session.SessionExecutor;
-import org.mozc.android.inputmethod.japanese.session.SessionHandlerFactory;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
+import org.mozc.android.inputmethod.japanese.session.SessionExecutor;
+import org.mozc.android.inputmethod.japanese.session.SessionHandlerFactory;
 
 /**
- * A DialogPreference to clear entire history of conversions.
- * This preference command clears all the kind of conversion histories including
- * predictions and suggestions.
- *
+ * A DialogPreference to clear entire history of conversions. This preference command clears all the
+ * kind of conversion histories including predictions and suggestions.
  */
 public class ClearConversionHistoryDialogPreference extends DialogPreference {
   public ClearConversionHistoryDialogPreference(Context context, AttributeSet attrs, int defStyle) {
@@ -55,8 +52,9 @@ public class ClearConversionHistoryDialogPreference extends DialogPreference {
   @Override
   public void onClick(DialogInterface dialog, int which) {
     if (which == DialogInterface.BUTTON_POSITIVE) {
-      SessionExecutor sessionExecutor = SessionExecutor.getInstanceInitializedIfNecessary(
-          new SessionHandlerFactory(getContext()), getContext());
+      SessionExecutor sessionExecutor =
+          SessionExecutor.getInstanceInitializedIfNecessary(
+              new SessionHandlerFactory(getContext()), getContext());
       sessionExecutor.clearUserHistory();
       sessionExecutor.clearUserPrediction();
     }

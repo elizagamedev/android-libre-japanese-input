@@ -29,15 +29,13 @@
 
 package org.mozc.android.inputmethod.japanese;
 
-import com.google.common.base.Preconditions;
-
 import android.content.res.Configuration;
+import com.google.common.base.Preconditions;
 
 /**
  * Name of keyboard (or keyboard-like-view).
  *
- * The formatted name is sent to the usage stats server.
- *
+ * <p>The formatted name is sent to the usage stats server.
  */
 public class KeyboardSpecificationName {
 
@@ -45,6 +43,7 @@ public class KeyboardSpecificationName {
   public final int major;
   public final int minor;
   public final int revision;
+
   public KeyboardSpecificationName(String baseName, int major, int minor, int revision) {
     this.baseName = Preconditions.checkNotNull(baseName);
     this.major = major;
@@ -55,24 +54,23 @@ public class KeyboardSpecificationName {
   /**
    * Get formatted keyboard name based on given parameters.
    *
-   * The main purpose of the formatted name is collecting usage stats.
+   * <p>The main purpose of the formatted name is collecting usage stats.
    */
   public String formattedKeyboardName(Configuration configuration) {
     Preconditions.checkNotNull(configuration);
-    return new StringBuilder(baseName).append('-')
-                                      .append(major)
-                                      .append('.')
-                                      .append(minor)
-                                      .append('.')
-                                      .append(revision)
-                                      .append('-')
-                                      .append(getDeviceOrientationString(configuration))
-                                      .toString();
+    return new StringBuilder(baseName)
+        .append('-')
+        .append(major)
+        .append('.')
+        .append(minor)
+        .append('.')
+        .append(revision)
+        .append('-')
+        .append(getDeviceOrientationString(configuration))
+        .toString();
   }
 
-  /**
-   * Returns *Canonical* orientation string, which is used as a part of keyboard name.
-   */
+  /** Returns *Canonical* orientation string, which is used as a part of keyboard name. */
   @SuppressWarnings("deprecation")
   public static String getDeviceOrientationString(Configuration configuration) {
     Preconditions.checkNotNull(configuration);

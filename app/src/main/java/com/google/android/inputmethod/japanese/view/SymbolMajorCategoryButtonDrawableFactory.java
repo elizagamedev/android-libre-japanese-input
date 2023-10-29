@@ -29,11 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.view;
 
-import org.mozc.android.inputmethod.japanese.keyboard.BackgroundDrawableFactory;
-import org.mozc.android.inputmethod.japanese.R;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.content.res.Resources;
 import android.graphics.BlurMaskFilter;
 import android.graphics.BlurMaskFilter.Blur;
@@ -49,11 +44,12 @@ import android.graphics.RectF;
 import android.graphics.Shader.TileMode;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.keyboard.BackgroundDrawableFactory;
 
-/**
- * Factory to produce the buttons for SymbolMajorCategories.
- *
- */
+/** Factory to produce the buttons for SymbolMajorCategories. */
 public class SymbolMajorCategoryButtonDrawableFactory {
 
   private interface PathFactory {
@@ -155,7 +151,7 @@ public class SymbolMajorCategoryButtonDrawableFactory {
     private Optional<Path> path = Optional.absent();
 
     ButtonDrawable(PathFactory pathFactory, int topColor, int bottomColor, int shadowColor) {
-      super(0, 0, 0, 0);  // No padding.
+      super(0, 0, 0, 0); // No padding.
       this.pathFactory = Preconditions.checkNotNull(pathFactory);
       this.topColor = topColor;
       this.bottomColor = bottomColor;
@@ -202,8 +198,9 @@ public class SymbolMajorCategoryButtonDrawableFactory {
       }
 
       path = Optional.of(pathFactory.newInstance(bounds));
-      backgroundPaint.setShader(new LinearGradient(
-          0, bounds.top, 0, bounds.bottom - 1, topColor, bottomColor, TileMode.CLAMP));
+      backgroundPaint.setShader(
+          new LinearGradient(
+              0, bounds.top, 0, bounds.bottom - 1, topColor, bottomColor, TileMode.CLAMP));
     }
   }
 
@@ -214,8 +211,9 @@ public class SymbolMajorCategoryButtonDrawableFactory {
 
     EmojiDisableIconDrawable(Resources resources, Drawable sourceDrawable) {
       super(0, 0, 0, 0);
-      size = Preconditions.checkNotNull(resources).getDimensionPixelSize(
-          R.dimen.symbol_major_emoji_disable_icon_height);
+      size =
+          Preconditions.checkNotNull(resources)
+              .getDimensionPixelSize(R.dimen.symbol_major_emoji_disable_icon_height);
       sourceDrawable.setBounds(0, 0, size, size);
       this.sourceDrawable = Preconditions.checkNotNull(sourceDrawable);
     }
@@ -223,7 +221,6 @@ public class SymbolMajorCategoryButtonDrawableFactory {
     @Override
     public void draw(Canvas canvas) {
       Rect bounds = getBounds();
-
 
       int saveCount = canvas.save();
       try {
@@ -246,8 +243,8 @@ public class SymbolMajorCategoryButtonDrawableFactory {
 
   public Drawable createLeftButtonDrawable() {
     return createSelectableDrawableWithPathFactory(
-        new LeftButtonPathFactory(skin.symbolMajorButtonPaddingDimension,
-                                  skin.symbolMajorButtonRoundDimension));
+        new LeftButtonPathFactory(
+            skin.symbolMajorButtonPaddingDimension, skin.symbolMajorButtonRoundDimension));
   }
 
   public Drawable createCenterButtonDrawable() {
@@ -256,32 +253,41 @@ public class SymbolMajorCategoryButtonDrawableFactory {
   }
 
   public Drawable createRightButtonDrawable(boolean emojiEnabled) {
-    Drawable drawable = createSelectableDrawableWithPathFactory(
-        new RightButtonPathFactory(skin.symbolMajorButtonPaddingDimension,
-                                   skin.symbolMajorButtonRoundDimension));
+    Drawable drawable =
+        createSelectableDrawableWithPathFactory(
+            new RightButtonPathFactory(
+                skin.symbolMajorButtonPaddingDimension, skin.symbolMajorButtonRoundDimension));
     if (emojiEnabled) {
       return drawable;
     }
-    return new LayerDrawable(new Drawable[] {
-        drawable,
-        new EmojiDisableIconDrawable(
-            resources, skin.getDrawable(resources, R.raw.emoji_disable_icon)),
-    });
+    return new LayerDrawable(
+        new Drawable[] {
+          drawable,
+          new EmojiDisableIconDrawable(
+              resources, skin.getDrawable(resources, R.raw.emoji_disable_icon)),
+        });
   }
 
   private Drawable createSelectableDrawableWithPathFactory(PathFactory pathFactory) {
     return BackgroundDrawableFactory.createSelectableDrawable(
-        new ButtonDrawable(pathFactory,
-                           skin.symbolMajorButtonSelectedTopColor,
-                           skin.symbolMajorButtonSelectedBottomColor, 0),
-        Optional.<Drawable>of(BackgroundDrawableFactory.createPressableDrawable(
-            new ButtonDrawable(pathFactory,
-                               skin.symbolMajorButtonPressedTopColor,
-                               skin.symbolMajorButtonPressedBottomColor, 0),
-            Optional.<Drawable>of(new ButtonDrawable(pathFactory,
-                                                     skin.symbolMajorButtonTopColor,
-                                                     skin.symbolMajorButtonBottomColor,
-                                                     skin.symbolMajorButtonShadowColor)))));
+        new ButtonDrawable(
+            pathFactory,
+            skin.symbolMajorButtonSelectedTopColor,
+            skin.symbolMajorButtonSelectedBottomColor,
+            0),
+        Optional.<Drawable>of(
+            BackgroundDrawableFactory.createPressableDrawable(
+                new ButtonDrawable(
+                    pathFactory,
+                    skin.symbolMajorButtonPressedTopColor,
+                    skin.symbolMajorButtonPressedBottomColor,
+                    0),
+                Optional.<Drawable>of(
+                    new ButtonDrawable(
+                        pathFactory,
+                        skin.symbolMajorButtonTopColor,
+                        skin.symbolMajorButtonBottomColor,
+                        skin.symbolMajorButtonShadowColor)))));
   }
 
   public void setSkin(Skin skin) {

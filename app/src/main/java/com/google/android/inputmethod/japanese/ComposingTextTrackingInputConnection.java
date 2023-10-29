@@ -43,12 +43,11 @@ import android.view.inputmethod.InputContentInfo;
 /**
  * The proxy of the {@code InputConnection} with tracking the composing text.
  *
- * There is no interface to extract the current composing text from {@code InputConnection}.
- * So, instead, we track all the message to {@code InputConnection} and keep the current composing
- * text as fall back. Note that the kept composing text might be different from the composing text
- * in the application because it can overwrite any events from IME freely in theory.
- * However, we can do nothing in such cases unfortunately, so just give them up.
- *
+ * <p>There is no interface to extract the current composing text from {@code InputConnection}. So,
+ * instead, we track all the message to {@code InputConnection} and keep the current composing text
+ * as fall back. Note that the kept composing text might be different from the composing text in the
+ * application because it can overwrite any events from IME freely in theory. However, we can do
+ * nothing in such cases unfortunately, so just give them up.
  */
 public class ComposingTextTrackingInputConnection implements InputConnection {
 
@@ -198,11 +197,9 @@ public class ComposingTextTrackingInputConnection implements InputConnection {
 
   /**
    * Returns the instance of ComposingTextTrackingInputConnection based on the given baseConnection.
-   * This method will return:
-   * - {@code null}, if the given connection is {@code null}.
-   * - the given connection instance as is, if it is the instance of
-   *   ComposingTextTrackingInputConnection.
-   * - the new instance of ComposingTextTrackingInputConnection wrapping baseConnection, otherwise.
+   * This method will return: - {@code null}, if the given connection is {@code null}. - the given
+   * connection instance as is, if it is the instance of ComposingTextTrackingInputConnection. - the
+   * new instance of ComposingTextTrackingInputConnection wrapping baseConnection, otherwise.
    */
   public static ComposingTextTrackingInputConnection newInstance(InputConnection baseConnection) {
     if (baseConnection == null) {

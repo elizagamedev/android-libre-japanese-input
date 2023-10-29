@@ -29,6 +29,14 @@
 
 package org.mozc.android.inputmethod.japanese;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.LinearLayout;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import org.mozc.android.inputmethod.japanese.FeedbackManager.FeedbackEvent;
 import org.mozc.android.inputmethod.japanese.hardwarekeyboard.HardwareKeyboard.CompositionSwitchMode;
 import org.mozc.android.inputmethod.japanese.keyboard.BackgroundDrawableFactory;
@@ -36,23 +44,12 @@ import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionM
 import org.mozc.android.inputmethod.japanese.view.MozcImageView;
 import org.mozc.android.inputmethod.japanese.view.RoundRectKeyDrawable;
 import org.mozc.android.inputmethod.japanese.view.Skin;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.util.AttributeSet;
-import android.view.View;
-import android.widget.LinearLayout;
-
-/**
- * Narrow frame view.
- */
+/** Narrow frame view. */
 public class NarrowFrameView extends LinearLayout {
 
   // TODO(hsumita): Move hard coded parameters to dimens.xml or skin.
-  private static final float BUTTON_CORNOR_RADIUS = 3.5f;  // in dip.
+  private static final float BUTTON_CORNOR_RADIUS = 3.5f; // in dip.
   private static final float BUTTON_LEFT_OFFSET = 2.0f;
   private static final float BUTTON_TOP_OFFSET = 2.0f;
   private static final float BUTTON_RIGHT_OFFSET = 2.0f;
@@ -86,16 +83,17 @@ public class NarrowFrameView extends LinearLayout {
             skin.twelvekeysLayoutPressedFunctionKeyBottomColor,
             skin.twelvekeysLayoutPressedFunctionKeyHighlightColor,
             skin.twelvekeysLayoutPressedFunctionKeyShadowColor),
-        Optional.<Drawable>of(new RoundRectKeyDrawable(
-            (int) (BUTTON_LEFT_OFFSET * density),
-            (int) (BUTTON_TOP_OFFSET * density),
-            (int) (BUTTON_RIGHT_OFFSET * density),
-            (int) (BUTTON_BOTTOM_OFFSET * density),
-            (int) (BUTTON_CORNOR_RADIUS * density),
-            skin.twelvekeysLayoutReleasedFunctionKeyTopColor,
-            skin.twelvekeysLayoutReleasedFunctionKeyBottomColor,
-            skin.twelvekeysLayoutReleasedFunctionKeyHighlightColor,
-            skin.twelvekeysLayoutReleasedFunctionKeyShadowColor)));
+        Optional.<Drawable>of(
+            new RoundRectKeyDrawable(
+                (int) (BUTTON_LEFT_OFFSET * density),
+                (int) (BUTTON_TOP_OFFSET * density),
+                (int) (BUTTON_RIGHT_OFFSET * density),
+                (int) (BUTTON_BOTTOM_OFFSET * density),
+                (int) (BUTTON_CORNOR_RADIUS * density),
+                skin.twelvekeysLayoutReleasedFunctionKeyTopColor,
+                skin.twelvekeysLayoutReleasedFunctionKeyBottomColor,
+                skin.twelvekeysLayoutReleasedFunctionKeyHighlightColor,
+                skin.twelvekeysLayoutReleasedFunctionKeyShadowColor)));
   }
 
   @SuppressWarnings("deprecation")
@@ -123,8 +121,9 @@ public class NarrowFrameView extends LinearLayout {
   public void setSkin(Skin skin) {
     this.skin = Preconditions.checkNotNull(skin);
     setBackgroundDrawable(skin.narrowFrameBackgroundDrawable);
-    getNarrowFrameSeparator().setBackgroundDrawable(
-        skin.keyboardFrameSeparatorBackgroundDrawable.getConstantState().newDrawable());
+    getNarrowFrameSeparator()
+        .setBackgroundDrawable(
+            skin.keyboardFrameSeparatorBackgroundDrawable.getConstantState().newDrawable());
     updateImageButton();
   }
 
@@ -133,14 +132,17 @@ public class NarrowFrameView extends LinearLayout {
     Preconditions.checkNotNull(viewEventListener);
     Preconditions.checkNotNull(widenButtonClickListener);
 
-    getHardwareCompositionButton().setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        viewEventListener.onFireFeedbackEvent(
-            FeedbackEvent.NARROW_FRAME_HARDWARE_COMPOSITION_BUTTON_DOWN);
-        viewEventListener.onHardwareKeyboardCompositionModeChange(CompositionSwitchMode.TOGGLE);
-      }
-    });
+    getHardwareCompositionButton()
+        .setOnClickListener(
+            new OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                viewEventListener.onFireFeedbackEvent(
+                    FeedbackEvent.NARROW_FRAME_HARDWARE_COMPOSITION_BUTTON_DOWN);
+                viewEventListener.onHardwareKeyboardCompositionModeChange(
+                    CompositionSwitchMode.TOGGLE);
+              }
+            });
     getWidenButton().setOnClickListener(widenButtonClickListener);
   }
 

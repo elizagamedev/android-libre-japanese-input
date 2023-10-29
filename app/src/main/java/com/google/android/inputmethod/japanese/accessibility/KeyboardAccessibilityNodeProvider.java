@@ -29,47 +29,45 @@
 
 package org.mozc.android.inputmethod.japanese.accessibility;
 
+import android.content.Context;
+import android.graphics.Rect;
+import android.os.Bundle;
+import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityEventCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
+import androidx.core.view.accessibility.AccessibilityRecordCompat;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
+import javax.annotation.Nullable;
 import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.R;
 import org.mozc.android.inputmethod.japanese.keyboard.Flick.Direction;
 import org.mozc.android.inputmethod.japanese.keyboard.Key;
 import org.mozc.android.inputmethod.japanese.keyboard.KeyState;
 import org.mozc.android.inputmethod.japanese.keyboard.KeyState.MetaState;
 import org.mozc.android.inputmethod.japanese.keyboard.Keyboard;
 import org.mozc.android.inputmethod.japanese.keyboard.Row;
-import org.mozc.android.inputmethod.japanese.R;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
-import android.content.Context;
-import android.graphics.Rect;
-import android.os.Bundle;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.accessibility.AccessibilityEventCompat;
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
-import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
-import androidx.core.view.accessibility.AccessibilityRecordCompat;
-import android.view.View;
-import android.view.accessibility.AccessibilityEvent;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
-
-import javax.annotation.Nullable;
 
 /**
  * Represents keyboard's virtual structure.
  *
- * <p>Note about virtual view ID: This class uses {@code Key}'s {@code sourceId}
- * as virtual view ID. It is changed by metastate of the keyboard.
+ * <p>Note about virtual view ID: This class uses {@code Key}'s {@code sourceId} as virtual view ID.
+ * It is changed by metastate of the keyboard.
  */
 class KeyboardAccessibilityNodeProvider extends AccessibilityNodeProviderCompat {
 
   @VisibleForTesting static final int UNDEFINED = Integer.MIN_VALUE;
-  @VisibleForTesting static final int PASSWORD_RESOURCE_ID =
-      R.string.cd_key_uchar_katakana_middle_dot;
+
+  @VisibleForTesting
+  static final int PASSWORD_RESOURCE_ID = R.string.cd_key_uchar_katakana_middle_dot;
 
   // View for keyboard.
   private final View view;
@@ -97,6 +95,7 @@ class KeyboardAccessibilityNodeProvider extends AccessibilityNodeProviderCompat 
    * Returns all the keys in the {@code keyboard}.
    *
    * <p>Lazy creation is done inside.
+   *
    * <p>If {@code keyboard} is not set, empty collection is returned.
    */
   private Collection<Key> getKeys() {
@@ -148,7 +147,6 @@ class KeyboardAccessibilityNodeProvider extends AccessibilityNodeProviderCompat 
     return Optional.absent();
   }
 
-
   @Override
   @Nullable
   public AccessibilityNodeInfoCompat createAccessibilityNodeInfo(int virtualViewId) {
@@ -157,8 +155,7 @@ class KeyboardAccessibilityNodeProvider extends AccessibilityNodeProviderCompat 
     }
     if (virtualViewId == View.NO_ID) {
       // Required to return the information about keyboardView.
-      AccessibilityNodeInfoCompat info =
-          AccessibilityNodeInfoCompat.obtain(view);
+      AccessibilityNodeInfoCompat info = AccessibilityNodeInfoCompat.obtain(view);
       if (info == null) {
         // In old Android OS AccessibilityNodeInfoCompat.obtain() returns null.
         return null;
@@ -182,8 +179,7 @@ class KeyboardAccessibilityNodeProvider extends AccessibilityNodeProviderCompat 
     }
     Key key = optionalKey.get();
     Rect boundsInParent =
-        new Rect(key.getX(), key.getY(),
-                 key.getX() + key.getWidth(), key.getY() + key.getHeight());
+        new Rect(key.getX(), key.getY(), key.getX() + key.getWidth(), key.getY() + key.getHeight());
     int[] parentLocationOnScreen = new int[2];
     view.getLocationOnScreen(parentLocationOnScreen);
     Rect boundsInScreen = new Rect(boundsInParent);
@@ -217,16 +213,17 @@ class KeyboardAccessibilityNodeProvider extends AccessibilityNodeProviderCompat 
     return key.getKeyState(metaState).get();
   }
 
-  /**
-   * Returns source id of the given {@code key} unmodified-center
-   */
+  /** Returns source id of the given {@code key} unmodified-center */
   private int getSourceId(Key key) {
     Preconditions.checkNotNull(key);
     if (key.isSpacer()) {
       return UNDEFINED;
     }
-    return getKeyState(key, metaState).getFlick(
-        Direction.CENTER).get().getKeyEntity().getSourceId();
+    return getKeyState(key, metaState)
+        .getFlick(Direction.CENTER)
+        .get()
+        .getKeyEntity()
+        .getSourceId();
   }
 
   private Optional<Integer> getKeyCode(Key key) {
@@ -234,13 +231,11 @@ class KeyboardAccessibilityNodeProvider extends AccessibilityNodeProviderCompat 
     if (key.isSpacer()) {
       return Optional.absent();
     }
-    return Optional.of(getKeyState(key, metaState).getFlick(
-        Direction.CENTER).get().getKeyEntity().getKeyCode());
+    return Optional.of(
+        getKeyState(key, metaState).getFlick(Direction.CENTER).get().getKeyEntity().getKeyCode());
   }
 
-  /**
-   * Returns {@code Key} from source Id.
-   */
+  /** Returns {@code Key} from source Id. */
   private Optional<Key> getKeyFromSouceId(int sourceId) {
     if (!keyboard.isPresent()) {
       return Optional.absent();
@@ -255,9 +250,7 @@ class KeyboardAccessibilityNodeProvider extends AccessibilityNodeProviderCompat 
     return Optional.absent();
   }
 
-  /**
-   * Creates a {@code AccessibilityEvent} from {@code Key} and {@code eventType}.
-   */
+  /** Creates a {@code AccessibilityEvent} from {@code Key} and {@code eventType}. */
   private AccessibilityEvent createAccessibilityEvent(Key key, int eventType) {
     Preconditions.checkNotNull(key);
 
@@ -274,18 +267,14 @@ class KeyboardAccessibilityNodeProvider extends AccessibilityNodeProviderCompat 
   @Override
   public boolean performAction(int virtualViewId, int action, Bundle arguments) {
     Optional<Key> key = getKeyFromSouceId(virtualViewId);
-    return key.isPresent()
-        ? performActionForKeyInternal(key.get(), virtualViewId, action)
-        : false;
+    return key.isPresent() ? performActionForKeyInternal(key.get(), virtualViewId, action) : false;
   }
 
   boolean performActionForKey(Key key, int action) {
     return performActionForKeyInternal(key, getSourceId(Preconditions.checkNotNull(key)), action);
   }
 
-  /**
-   * Processes accessibility action for key on virtual view structure.
-   */
+  /** Processes accessibility action for key on virtual view structure. */
   boolean performActionForKeyInternal(Key key, int virtualViewId, int action) {
     switch (action) {
       case AccessibilityNodeInfoCompat.ACTION_ACCESSIBILITY_FOCUS:
@@ -300,8 +289,7 @@ class KeyboardAccessibilityNodeProvider extends AccessibilityNodeProviderCompat 
           AccessibilityUtil.sendAccessibilityEvent(
               getContext(),
               createAccessibilityEvent(
-                  key,
-                  AccessibilityEventCompat.TYPE_VIEW_ACCESSIBILITY_FOCUSED));
+                  key, AccessibilityEventCompat.TYPE_VIEW_ACCESSIBILITY_FOCUSED));
         }
         return true;
       case AccessibilityNodeInfoCompat.ACTION_CLEAR_ACCESSIBILITY_FOCUS:
@@ -315,8 +303,7 @@ class KeyboardAccessibilityNodeProvider extends AccessibilityNodeProviderCompat 
           AccessibilityUtil.sendAccessibilityEvent(
               getContext(),
               createAccessibilityEvent(
-                  key,
-                  AccessibilityEventCompat.TYPE_VIEW_ACCESSIBILITY_FOCUS_CLEARED));
+                  key, AccessibilityEventCompat.TYPE_VIEW_ACCESSIBILITY_FOCUS_CLEARED));
         }
         return true;
       default:

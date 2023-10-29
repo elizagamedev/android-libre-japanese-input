@@ -29,8 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese;
 
-import com.google.common.annotations.VisibleForTesting;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -38,11 +36,9 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import com.google.common.annotations.VisibleForTesting;
 
-/**
- * FrameLayout supporting animation when the view is shown or hidden.
- *
- */
+/** FrameLayout supporting animation when the view is shown or hidden. */
 public abstract class InOutAnimatedFrameLayout extends FrameLayout {
   private class OutAnimationAdapter implements AnimationListener {
     @Override
@@ -53,17 +49,13 @@ public abstract class InOutAnimatedFrameLayout extends FrameLayout {
     }
 
     @Override
-    public void onAnimationRepeat(Animation animation) {
-    }
+    public void onAnimationRepeat(Animation animation) {}
 
     @Override
-    public void onAnimationStart(Animation animation) {
-    }
+    public void onAnimationStart(Animation animation) {}
   }
 
-  /**
-   * An event listener for visibility change.
-   */
+  /** An event listener for visibility change. */
   public interface VisibilityChangeListener {
     public void onVisibilityChange();
   }
@@ -75,7 +67,6 @@ public abstract class InOutAnimatedFrameLayout extends FrameLayout {
   @VisibleForTesting Animation outAnimation;
 
   @VisibleForTesting VisibilityChangeListener onVisibilityChangeListener = null;
-
 
   public InOutAnimatedFrameLayout(Context context) {
     super(context);
@@ -116,9 +107,7 @@ public abstract class InOutAnimatedFrameLayout extends FrameLayout {
     return AnimationUtils.loadAnimation(context, resourceId);
   }
 
-  /**
-   * Starts animation to show this view. This method also controls the view's visibility.
-   */
+  /** Starts animation to show this view. This method also controls the view's visibility. */
   public void startInAnimation() {
     if (inAnimation == null) {
       // In case animation is not loaded, just set visibility.
@@ -135,8 +124,8 @@ public abstract class InOutAnimatedFrameLayout extends FrameLayout {
   }
 
   /**
-   * Starts animation to hide this view. This method also controls the view's visibility.
-   * In more precise, the visibility will be set to {@code GONE}, when the animation is finished.
+   * Starts animation to hide this view. This method also controls the view's visibility. In more
+   * precise, the visibility will be set to {@code GONE}, when the animation is finished.
    */
   public void startOutAnimation() {
     if (outAnimation == null) {

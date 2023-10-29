@@ -29,13 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.view;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import org.mozc.android.inputmethod.japanese.vectorgraphic.BufferedDrawable;
-import com.google.common.base.Charsets;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -56,23 +49,26 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
-
+import com.google.common.base.Charsets;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
+import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
+import org.mozc.android.inputmethod.japanese.vectorgraphic.BufferedDrawable;
 
 /**
  * Factory to create Drawables from raw resources which is in mozc original format.
  *
- * Implementation note: We decided to use vector-rendering to support various devices
- * which are different display resolutions.
- * For that purpose, we needed to have some vector format. {@code PictureDrawable}'s
- * serialization/deserialization seemed what we needed, but it turned out that its binary format
- * seems not compatible among various devices, unfortunately.
- * So, we decided to use our original format, and this class parses it.
- * Also, for performance purpose, this class caches the parsed drawable.
- *
+ * <p>Implementation note: We decided to use vector-rendering to support various devices which are
+ * different display resolutions. For that purpose, we needed to have some vector format. {@code
+ * PictureDrawable}'s serialization/deserialization seemed what we needed, but it turned out that
+ * its binary format seems not compatible among various devices, unfortunately. So, we decided to
+ * use our original format, and this class parses it. Also, for performance purpose, this class
+ * caches the parsed drawable.
  */
 class MozcDrawableFactory {
 
@@ -82,8 +78,8 @@ class MozcDrawableFactory {
   }
 
   /** Locale field for {@link Paint#setTextLocale(Locale)}. */
-  private static final Optional<Locale> TEXT_LOCALE = (Build.VERSION.SDK_INT >= 17)
-      ? Optional.of(Locale.JAPAN) : Optional.<Locale>absent();
+  private static final Optional<Locale> TEXT_LOCALE =
+      (Build.VERSION.SDK_INT >= 17) ? Optional.of(Locale.JAPAN) : Optional.<Locale>absent();
 
   private static final int DRAWABLE_PICTURE = 1;
   private static final int DRAWABLE_STATE_LIST = 2;
@@ -127,11 +123,13 @@ class MozcDrawableFactory {
   private static final int COMMAND_PICTURE_PAINT_TEXT_ANCHOR_END = 2;
 
   private static final int COMMAND_PICTURE_PAINT_DOMINANTE_BASELINE_AUTO = 0;
+
   @SuppressWarnings("unused")
   private static final int COMMAND_PICTURE_PAINT_DOMINANTE_BASELINE_CENTRAL = 1;
 
   @SuppressWarnings("unused")
   private static final int COMMAND_PICTURE_PAINT_FONT_WEIGHT_NORMAL = 0;
+
   private static final int COMMAND_PICTURE_PAINT_FONT_WEIGHT_BOLD = 1;
 
   private static final int COMMAND_PICTURE_SHADER_LINEAR_GRADIENT = 1;
@@ -210,206 +208,218 @@ class MozcDrawableFactory {
     MozcStyle style = new MozcStyle();
     resetStyle(style);
 
-    LOOP: while (true) {
+    LOOP:
+    while (true) {
       byte command = stream.readByte();
       switch (command) {
         case COMMAND_PICTURE_EOP:
           // The end of picture.
           break LOOP;
-        case COMMAND_PICTURE_DRAW_PATH: {
-          Path path = createPath(stream);
-          int size = stream.readByte();
-          if (size == 0) {
-            resetStyle(style);
-            canvas.drawPath(path, style.paint);
-          } else {
-            for (int i = 0; i < size; ++i) {
+        case COMMAND_PICTURE_DRAW_PATH:
+          {
+            Path path = createPath(stream);
+            int size = stream.readByte();
+            if (size == 0) {
               resetStyle(style);
-              parseStyle(stream, skin, style);
               canvas.drawPath(path, style.paint);
-            }
-          }
-          break;
-        }
-        case COMMAND_PICTURE_DRAW_POLYLINE: {
-          int length = stream.readUnsignedByte();
-          if (length < 2 || length % 2 != 0) {
-            throw new IllegalArgumentException();
-          }
-          float[] points = new float[length];
-          for (int i = 0; i < length; ++i) {
-            points[i] = readCompressedFloat(stream);
-          }
-
-          int size = stream.readByte();
-          if (size == 0) {
-            resetStyle(style);
-            for (int i = 0; i < length - 2; i += 2) {
-              canvas.drawLine(points[i], points[i + 1], points[i + 2], points[i + 3], style.paint);
-            }
-          } else {
-            for (int i = 0; i < size; ++i) {
-              resetStyle(style);
-              parseStyle(stream, skin, style);
-              for (int j = 0; j < length - 2; j += 2) {
-                canvas.drawLine(points[j], points[j + 1], points[j + 2], points[j + 3],
-                                style.paint);
+            } else {
+              for (int i = 0; i < size; ++i) {
+                resetStyle(style);
+                parseStyle(stream, skin, style);
+                canvas.drawPath(path, style.paint);
               }
             }
+            break;
           }
-          break;
-        }
-        case COMMAND_PICTURE_DRAW_POLYGON: {
-          int length = stream.readUnsignedByte();
-          if (length < 2 || length % 2 != 0) {
-            throw new IllegalArgumentException();
-          }
+        case COMMAND_PICTURE_DRAW_POLYLINE:
+          {
+            int length = stream.readUnsignedByte();
+            if (length < 2 || length % 2 != 0) {
+              throw new IllegalArgumentException();
+            }
+            float[] points = new float[length];
+            for (int i = 0; i < length; ++i) {
+              points[i] = readCompressedFloat(stream);
+            }
 
-          Path path = new Path();
+            int size = stream.readByte();
+            if (size == 0) {
+              resetStyle(style);
+              for (int i = 0; i < length - 2; i += 2) {
+                canvas.drawLine(
+                    points[i], points[i + 1], points[i + 2], points[i + 3], style.paint);
+              }
+            } else {
+              for (int i = 0; i < size; ++i) {
+                resetStyle(style);
+                parseStyle(stream, skin, style);
+                for (int j = 0; j < length - 2; j += 2) {
+                  canvas.drawLine(
+                      points[j], points[j + 1], points[j + 2], points[j + 3], style.paint);
+                }
+              }
+            }
+            break;
+          }
+        case COMMAND_PICTURE_DRAW_POLYGON:
+          {
+            int length = stream.readUnsignedByte();
+            if (length < 2 || length % 2 != 0) {
+              throw new IllegalArgumentException();
+            }
+
+            Path path = new Path();
+            {
+              float x = readCompressedFloat(stream);
+              float y = readCompressedFloat(stream);
+              path.moveTo(x, y);
+            }
+            for (int i = 2; i < length; i += 2) {
+              float x = readCompressedFloat(stream);
+              float y = readCompressedFloat(stream);
+              path.lineTo(x, y);
+            }
+            path.close();
+
+            int size = stream.readUnsignedByte();
+            if (size == 0) {
+              resetStyle(style);
+              canvas.drawPath(path, style.paint);
+            } else {
+              for (int i = 0; i < size; ++i) {
+                resetStyle(style);
+                parseStyle(stream, skin, style);
+                canvas.drawPath(path, style.paint);
+              }
+            }
+            break;
+          }
+        case COMMAND_PICTURE_DRAW_LINE:
+          {
+            float x1 = readCompressedFloat(stream);
+            float y1 = readCompressedFloat(stream);
+            float x2 = readCompressedFloat(stream);
+            float y2 = readCompressedFloat(stream);
+
+            int size = stream.readUnsignedByte();
+            if (size == 0) {
+              resetStyle(style);
+              canvas.drawLine(x1, y1, x2, y2, style.paint);
+            } else {
+              for (int i = 0; i < size; ++i) {
+                resetStyle(style);
+                parseStyle(stream, skin, style);
+                canvas.drawLine(x1, y1, x2, y2, style.paint);
+              }
+            }
+            break;
+          }
+        case COMMAND_PICTURE_DRAW_RECT:
           {
             float x = readCompressedFloat(stream);
             float y = readCompressedFloat(stream);
-            path.moveTo(x, y);
-          }
-          for (int i = 2; i < length; i += 2) {
-            float x = readCompressedFloat(stream);
-            float y = readCompressedFloat(stream);
-            path.lineTo(x, y);
-          }
-          path.close();
+            float w = readCompressedFloat(stream);
+            float h = readCompressedFloat(stream);
 
-          int size = stream.readUnsignedByte();
-          if (size == 0) {
-            resetStyle(style);
-            canvas.drawPath(path, style.paint);
-          } else {
-            for (int i = 0; i < size; ++i) {
+            int size = stream.readUnsignedByte();
+            if (size == 0) {
               resetStyle(style);
-              parseStyle(stream, skin, style);
-              canvas.drawPath(path, style.paint);
-            }
-          }
-          break;
-        }
-        case COMMAND_PICTURE_DRAW_LINE: {
-          float x1 = readCompressedFloat(stream);
-          float y1 = readCompressedFloat(stream);
-          float x2 = readCompressedFloat(stream);
-          float y2 = readCompressedFloat(stream);
-
-          int size = stream.readUnsignedByte();
-          if (size == 0) {
-            resetStyle(style);
-            canvas.drawLine(x1, y1, x2, y2, style.paint);
-          } else {
-            for (int i = 0; i < size; ++i) {
-              resetStyle(style);
-              parseStyle(stream, skin, style);
-              canvas.drawLine(x1, y1, x2, y2, style.paint);
-            }
-          }
-          break;
-        }
-        case COMMAND_PICTURE_DRAW_RECT: {
-          float x = readCompressedFloat(stream);
-          float y = readCompressedFloat(stream);
-          float w = readCompressedFloat(stream);
-          float h = readCompressedFloat(stream);
-
-          int size = stream.readUnsignedByte();
-          if (size == 0) {
-            resetStyle(style);
-            canvas.drawRect(x, y, x + w, y + h, style.paint);
-          } else {
-            for (int i = 0; i < size; ++i) {
-              resetStyle(style);
-              parseStyle(stream, skin, style);
               canvas.drawRect(x, y, x + w, y + h, style.paint);
+            } else {
+              for (int i = 0; i < size; ++i) {
+                resetStyle(style);
+                parseStyle(stream, skin, style);
+                canvas.drawRect(x, y, x + w, y + h, style.paint);
+              }
             }
+            break;
           }
-          break;
-        }
-        case COMMAND_PICTURE_DRAW_CIRCLE: {
-          float cx = readCompressedFloat(stream);
-          float cy = readCompressedFloat(stream);
-          float r = readCompressedFloat(stream);
-          RectF bound = new RectF(cx - r, cy - r, cx + r, cy + r);
+        case COMMAND_PICTURE_DRAW_CIRCLE:
+          {
+            float cx = readCompressedFloat(stream);
+            float cy = readCompressedFloat(stream);
+            float r = readCompressedFloat(stream);
+            RectF bound = new RectF(cx - r, cy - r, cx + r, cy + r);
 
-          int size = stream.readUnsignedByte();
-          if (size == 0) {
-            resetStyle(style);
-            canvas.drawOval(bound, style.paint);
-          } else {
-            for (int i = 0; i < size; ++i) {
+            int size = stream.readUnsignedByte();
+            if (size == 0) {
               resetStyle(style);
-              parseStyle(stream, skin, style);
               canvas.drawOval(bound, style.paint);
+            } else {
+              for (int i = 0; i < size; ++i) {
+                resetStyle(style);
+                parseStyle(stream, skin, style);
+                canvas.drawOval(bound, style.paint);
+              }
             }
+            break;
           }
-          break;
-        }
-        case COMMAND_PICTURE_DRAW_ELLIPSE: {
-          float cx = readCompressedFloat(stream);
-          float cy = readCompressedFloat(stream);
-          float rx = readCompressedFloat(stream);
-          float ry = readCompressedFloat(stream);
-          RectF bound = new RectF(cx - rx, cy - ry, cx + rx, cy + ry);
+        case COMMAND_PICTURE_DRAW_ELLIPSE:
+          {
+            float cx = readCompressedFloat(stream);
+            float cy = readCompressedFloat(stream);
+            float rx = readCompressedFloat(stream);
+            float ry = readCompressedFloat(stream);
+            RectF bound = new RectF(cx - rx, cy - ry, cx + rx, cy + ry);
 
-          int size = stream.readUnsignedByte();
-          if (size == 0) {
-            resetStyle(style);
-            canvas.drawOval(bound, style.paint);
-          } else {
-            for (int i = 0; i < size; ++i) {
+            int size = stream.readUnsignedByte();
+            if (size == 0) {
               resetStyle(style);
-              parseStyle(stream, skin, style);
               canvas.drawOval(bound, style.paint);
+            } else {
+              for (int i = 0; i < size; ++i) {
+                resetStyle(style);
+                parseStyle(stream, skin, style);
+                canvas.drawOval(bound, style.paint);
+              }
             }
+            break;
           }
-          break;
-        }
-        case COMMAND_PICTURE_DRAW_GROUP_START: {
-          float m11 = readCompressedFloat(stream);
-          float m21 = readCompressedFloat(stream);
-          float m31 = readCompressedFloat(stream);
-          float m12 = readCompressedFloat(stream);
-          float m22 = readCompressedFloat(stream);
-          float m32 = readCompressedFloat(stream);
-          float m13 = readCompressedFloat(stream);
-          float m23 = readCompressedFloat(stream);
-          float m33 = readCompressedFloat(stream);
-          Matrix matrix = new Matrix();
-          matrix.setValues(new float[] {m11, m12, m13, m21, m22, m23, m31, m32, m33});
-          canvas.save();
-          canvas.concat(matrix);
-          break;
-        }
+        case COMMAND_PICTURE_DRAW_GROUP_START:
+          {
+            float m11 = readCompressedFloat(stream);
+            float m21 = readCompressedFloat(stream);
+            float m31 = readCompressedFloat(stream);
+            float m12 = readCompressedFloat(stream);
+            float m22 = readCompressedFloat(stream);
+            float m32 = readCompressedFloat(stream);
+            float m13 = readCompressedFloat(stream);
+            float m23 = readCompressedFloat(stream);
+            float m33 = readCompressedFloat(stream);
+            Matrix matrix = new Matrix();
+            matrix.setValues(new float[] {m11, m12, m13, m21, m22, m23, m31, m32, m33});
+            canvas.save();
+            canvas.concat(matrix);
+            break;
+          }
         case COMMAND_PICTURE_DRAW_GROUP_END:
           canvas.restore();
           break;
-        case COMMAND_PICTURE_DRAW_TEXT: {
-          float x = readCompressedFloat(stream);
-          float y = readCompressedFloat(stream);
-          short stringSize = stream.readShort();
-          byte[] stringBuffer = new byte[stringSize];
-          stream.read(stringBuffer);
-          String string = new String(stringBuffer, Charsets.UTF_8);
-          int size = stream.readByte();
-          if (size == 0) {
-            resetStyle(style);
-            canvas.drawText(string, x, y, style.paint);
-          } else {
-            for (int i = 0; i < size; ++i) {
+        case COMMAND_PICTURE_DRAW_TEXT:
+          {
+            float x = readCompressedFloat(stream);
+            float y = readCompressedFloat(stream);
+            short stringSize = stream.readShort();
+            byte[] stringBuffer = new byte[stringSize];
+            stream.read(stringBuffer);
+            String string = new String(stringBuffer, Charsets.UTF_8);
+            int size = stream.readByte();
+            if (size == 0) {
               resetStyle(style);
-              parseStyle(stream, skin, style);
-              float drawY = style.dominantBaseline == COMMAND_PICTURE_PAINT_DOMINANTE_BASELINE_AUTO
-                  ? y
-                  : y - (style.paint.ascent() + style.paint.descent()) / 2;
-              canvas.drawText(string, x, drawY, style.paint);
+              canvas.drawText(string, x, y, style.paint);
+            } else {
+              for (int i = 0; i < size; ++i) {
+                resetStyle(style);
+                parseStyle(stream, skin, style);
+                float drawY =
+                    style.dominantBaseline == COMMAND_PICTURE_PAINT_DOMINANTE_BASELINE_AUTO
+                        ? y
+                        : y - (style.paint.ascent() + style.paint.descent()) / 2;
+                canvas.drawText(string, x, drawY, style.paint);
+              }
             }
+            break;
           }
-          break;
-        }
         default:
           MozcLog.e("unknown command " + command);
       }
@@ -461,67 +471,79 @@ class MozcDrawableFactory {
       switch (tag) {
         case COMMAND_PICTURE_PAINT_EOP:
           return;
-        case COMMAND_PICTURE_PAINT_STYLE: {
-          paint.setStyle(Style.values()[stream.readUnsignedByte()]);
-          break;
-        }
-        case COMMAND_PICTURE_PAINT_COLOR: {
-          paint.setColor(stream.readInt());
-          break;
-        }
-        case COMMAND_PICTURE_PAINT_SHADOW: {
-          float r = readCompressedFloat(stream);
-          float x = readCompressedFloat(stream);
-          float y = readCompressedFloat(stream);
-          int color = stream.readInt();
-          paint.setShadowLayer(r, x, y, color);
-          break;
-        }
-        case COMMAND_PICTURE_PAINT_STROKE_WIDTH: {
-          paint.setStrokeWidth(readCompressedFloat(stream));
-          break;
-        }
-        case COMMAND_PICTURE_PAINT_STROKE_CAP: {
-          paint.setStrokeCap(Cap.values()[stream.readUnsignedByte()]);
-          break;
-        }
-        case COMMAND_PICTURE_PAINT_STROKE_JOIN: {
-          paint.setStrokeJoin(Join.values()[stream.readUnsignedByte()]);
-          break;
-        }
-        case COMMAND_PICTURE_PAINT_SHADER: {
-          paint.setShader(createShader(stream).orNull());
-          break;
-        }
-        case COMMAND_PICTURE_PAINT_FONT_SIZE: {
-          paint.setTextSize(readCompressedFloat(stream));
-          break;
-        }
-        case COMMAND_PICTURE_PAINT_TEXT_ANCHOR: {
-          byte value = stream.readByte();
-          switch (value) {
-            case COMMAND_PICTURE_PAINT_TEXT_ANCHOR_START:
-              paint.setTextAlign(Align.LEFT);
-              break;
-            case COMMAND_PICTURE_PAINT_TEXT_ANCHOR_MIDDLE:
-              paint.setTextAlign(Align.CENTER);
-              break;
-            case COMMAND_PICTURE_PAINT_TEXT_ANCHOR_END:
-              paint.setTextAlign(Align.RIGHT);
-              break;
-            default:
-              MozcLog.e("Unknown text-anchor : " + value, new Exception());
+        case COMMAND_PICTURE_PAINT_STYLE:
+          {
+            paint.setStyle(Style.values()[stream.readUnsignedByte()]);
+            break;
           }
-          break;
-        }
-        case COMMAND_PICTURE_PAINT_DOMINANT_BASELINE: {
-          style.dominantBaseline = stream.readByte();
-          break;
-        }
-        case COMMAND_PICTURE_PAINT_FONT_WEIGHT: {
-          style.paint.setFakeBoldText(stream.readByte() == COMMAND_PICTURE_PAINT_FONT_WEIGHT_BOLD);
-          break;
-        }
+        case COMMAND_PICTURE_PAINT_COLOR:
+          {
+            paint.setColor(stream.readInt());
+            break;
+          }
+        case COMMAND_PICTURE_PAINT_SHADOW:
+          {
+            float r = readCompressedFloat(stream);
+            float x = readCompressedFloat(stream);
+            float y = readCompressedFloat(stream);
+            int color = stream.readInt();
+            paint.setShadowLayer(r, x, y, color);
+            break;
+          }
+        case COMMAND_PICTURE_PAINT_STROKE_WIDTH:
+          {
+            paint.setStrokeWidth(readCompressedFloat(stream));
+            break;
+          }
+        case COMMAND_PICTURE_PAINT_STROKE_CAP:
+          {
+            paint.setStrokeCap(Cap.values()[stream.readUnsignedByte()]);
+            break;
+          }
+        case COMMAND_PICTURE_PAINT_STROKE_JOIN:
+          {
+            paint.setStrokeJoin(Join.values()[stream.readUnsignedByte()]);
+            break;
+          }
+        case COMMAND_PICTURE_PAINT_SHADER:
+          {
+            paint.setShader(createShader(stream).orNull());
+            break;
+          }
+        case COMMAND_PICTURE_PAINT_FONT_SIZE:
+          {
+            paint.setTextSize(readCompressedFloat(stream));
+            break;
+          }
+        case COMMAND_PICTURE_PAINT_TEXT_ANCHOR:
+          {
+            byte value = stream.readByte();
+            switch (value) {
+              case COMMAND_PICTURE_PAINT_TEXT_ANCHOR_START:
+                paint.setTextAlign(Align.LEFT);
+                break;
+              case COMMAND_PICTURE_PAINT_TEXT_ANCHOR_MIDDLE:
+                paint.setTextAlign(Align.CENTER);
+                break;
+              case COMMAND_PICTURE_PAINT_TEXT_ANCHOR_END:
+                paint.setTextAlign(Align.RIGHT);
+                break;
+              default:
+                MozcLog.e("Unknown text-anchor : " + value, new Exception());
+            }
+            break;
+          }
+        case COMMAND_PICTURE_PAINT_DOMINANT_BASELINE:
+          {
+            style.dominantBaseline = stream.readByte();
+            break;
+          }
+        case COMMAND_PICTURE_PAINT_FONT_WEIGHT:
+          {
+            style.paint.setFakeBoldText(
+                stream.readByte() == COMMAND_PICTURE_PAINT_FONT_WEIGHT_BOLD);
+            break;
+          }
         default:
           MozcLog.e("Unknown paint tag: " + tag, new Exception());
       }
@@ -531,54 +553,56 @@ class MozcDrawableFactory {
   private static Optional<Shader> createShader(DataInputStream stream) throws IOException {
     int tag = stream.readByte();
     switch (tag) {
-      case COMMAND_PICTURE_SHADER_LINEAR_GRADIENT: {
-        float x1 = readCompressedFloat(stream);
-        float y1 = readCompressedFloat(stream);
-        float x2 = readCompressedFloat(stream);
-        float y2 = readCompressedFloat(stream);
-        int length = stream.readUnsignedByte();
-        int[] colors = new int[length];
-        float[] points = new float[length];
-        for (int i = 0; i < length; ++i) {
-          colors[i] = stream.readInt();
+      case COMMAND_PICTURE_SHADER_LINEAR_GRADIENT:
+        {
+          float x1 = readCompressedFloat(stream);
+          float y1 = readCompressedFloat(stream);
+          float x2 = readCompressedFloat(stream);
+          float y2 = readCompressedFloat(stream);
+          int length = stream.readUnsignedByte();
+          int[] colors = new int[length];
+          float[] points = new float[length];
+          for (int i = 0; i < length; ++i) {
+            colors[i] = stream.readInt();
+          }
+          for (int i = 0; i < length; ++i) {
+            points[i] = readCompressedFloat(stream);
+          }
+          return Optional.<Shader>of(
+              new LinearGradient(x1, y1, x2, y2, colors, points, TileMode.CLAMP));
         }
-        for (int i = 0; i < length; ++i) {
-          points[i] = readCompressedFloat(stream);
+      case COMMAND_PICTURE_SHADER_RADIAL_GRADIENT:
+        {
+          float x = readCompressedFloat(stream);
+          float y = readCompressedFloat(stream);
+          float r = readCompressedFloat(stream);
+          Matrix matrix = null;
+          if (stream.readByte() != 0) {
+            float m11 = readCompressedFloat(stream);
+            float m21 = readCompressedFloat(stream);
+            @SuppressWarnings("unused")
+            float m12 = readCompressedFloat(stream);
+            float m22 = readCompressedFloat(stream);
+            float m13 = readCompressedFloat(stream);
+            float m23 = readCompressedFloat(stream);
+            matrix = new Matrix();
+            matrix.setValues(new float[] {m11, m21, 0f, m21, m22, 0f, m13, m23, 1f});
+          }
+          int length = stream.readByte();
+          int[] colors = new int[length];
+          float[] points = new float[length];
+          for (int i = 0; i < length; ++i) {
+            colors[i] = stream.readInt();
+          }
+          for (int i = 0; i < length; ++i) {
+            points[i] = readCompressedFloat(stream);
+          }
+          RadialGradient gradient = new RadialGradient(x, y, r, colors, points, TileMode.CLAMP);
+          if (matrix != null) {
+            gradient.setLocalMatrix(matrix);
+          }
+          return Optional.<Shader>of(gradient);
         }
-        return Optional.<Shader>of(
-            new LinearGradient(x1, y1, x2, y2, colors, points, TileMode.CLAMP));
-      }
-      case COMMAND_PICTURE_SHADER_RADIAL_GRADIENT: {
-        float x = readCompressedFloat(stream);
-        float y = readCompressedFloat(stream);
-        float r = readCompressedFloat(stream);
-        Matrix matrix = null;
-        if (stream.readByte() != 0) {
-          float m11 = readCompressedFloat(stream);
-          float m21 = readCompressedFloat(stream);
-          @SuppressWarnings("unused")
-          float m12 = readCompressedFloat(stream);
-          float m22 = readCompressedFloat(stream);
-          float m13 = readCompressedFloat(stream);
-          float m23 = readCompressedFloat(stream);
-          matrix = new Matrix();
-          matrix.setValues(new float[] {m11, m21, 0f, m21, m22, 0f, m13, m23, 1f});
-        }
-        int length = stream.readByte();
-        int[] colors = new int[length];
-        float[] points = new float[length];
-        for (int i = 0; i < length; ++i) {
-          colors[i] = stream.readInt();
-        }
-        for (int i = 0; i < length; ++i) {
-          points[i] = readCompressedFloat(stream);
-        }
-        RadialGradient gradient = new RadialGradient(x, y, r, colors, points, TileMode.CLAMP);
-        if (matrix != null) {
-          gradient.setLocalMatrix(matrix);
-        }
-        return Optional.<Shader>of(gradient);
-      }
       default:
         MozcLog.e("Unknown shader type: " + tag);
     }
@@ -600,92 +624,99 @@ class MozcDrawableFactory {
       switch (command) {
         case COMMAND_PICTURE_PATH_EOP:
           return path;
-        case COMMAND_PICTURE_PATH_MOVE: {
-          float x = readCompressedFloat(stream);
-          float y = readCompressedFloat(stream);
-          path.moveTo(x, y);
-          startX = x;
-          startY = y;
-          prevX = x;
-          prevY = y;
-          hasPrevControl = false;
-          break;
-        }
-        case COMMAND_PICTURE_PATH_LINE: {
-          float x = readCompressedFloat(stream);
-          float y = readCompressedFloat(stream);
-          path.lineTo(x, y);
-          prevX = x;
-          prevY = y;
-          hasPrevControl = false;
-          break;
-        }
-        case COMMAND_PICTURE_PATH_HORIZONTAL_LINE: {
-          float x = readCompressedFloat(stream);
-          path.lineTo(x, prevY);
-          prevX = x;
-          hasPrevControl = false;
-          break;
-        }
-        case COMMAND_PICTURE_PATH_VERTICAL_LINE: {
-          float y = readCompressedFloat(stream);
-          path.lineTo(prevX, y);
-          prevY = y;
-          hasPrevControl = false;
-          break;
-        }
-        case COMMAND_PICTURE_PATH_CURVE: {
-          float x1 = readCompressedFloat(stream);
-          float y1 = readCompressedFloat(stream);
-          float x2 = readCompressedFloat(stream);
-          float y2 = readCompressedFloat(stream);
-          float x = readCompressedFloat(stream);
-          float y = readCompressedFloat(stream);
-          path.cubicTo(x1, y1, x2, y2, x, y);
-          prevX = x;
-          prevY = y;
-          prevControlX = x2;
-          prevControlY = y2;
-          hasPrevControl = true;
-          break;
-        }
-        case COMMAND_PICTURE_PATH_CONTINUED_CURVE: {
-          float x2 = readCompressedFloat(stream);
-          float y2 = readCompressedFloat(stream);
-          float x = readCompressedFloat(stream);
-          float y = readCompressedFloat(stream);
-          float x1, y1;
-          if (hasPrevControl) {
-            x1 = 2 * prevX - prevControlX;
-            y1 = 2 * prevY - prevControlY;
-          } else {
-            x1 = prevX;
-            y1 = prevY;
+        case COMMAND_PICTURE_PATH_MOVE:
+          {
+            float x = readCompressedFloat(stream);
+            float y = readCompressedFloat(stream);
+            path.moveTo(x, y);
+            startX = x;
+            startY = y;
+            prevX = x;
+            prevY = y;
+            hasPrevControl = false;
+            break;
           }
-          path.cubicTo(x1, y1, x2, y2, x, y);
-          prevX = x;
-          prevY = y;
-          prevControlX = x2;
-          prevControlY = y2;
-          hasPrevControl = true;
-          break;
-        }
-        case COMMAND_PICTURE_PATH_CLOSE: {
-          path.close();
-          path.moveTo(startX, startY);
-          prevX = startX;
-          prevY = startY;
-          hasPrevControl = false;
-          break;
-        }
+        case COMMAND_PICTURE_PATH_LINE:
+          {
+            float x = readCompressedFloat(stream);
+            float y = readCompressedFloat(stream);
+            path.lineTo(x, y);
+            prevX = x;
+            prevY = y;
+            hasPrevControl = false;
+            break;
+          }
+        case COMMAND_PICTURE_PATH_HORIZONTAL_LINE:
+          {
+            float x = readCompressedFloat(stream);
+            path.lineTo(x, prevY);
+            prevX = x;
+            hasPrevControl = false;
+            break;
+          }
+        case COMMAND_PICTURE_PATH_VERTICAL_LINE:
+          {
+            float y = readCompressedFloat(stream);
+            path.lineTo(prevX, y);
+            prevY = y;
+            hasPrevControl = false;
+            break;
+          }
+        case COMMAND_PICTURE_PATH_CURVE:
+          {
+            float x1 = readCompressedFloat(stream);
+            float y1 = readCompressedFloat(stream);
+            float x2 = readCompressedFloat(stream);
+            float y2 = readCompressedFloat(stream);
+            float x = readCompressedFloat(stream);
+            float y = readCompressedFloat(stream);
+            path.cubicTo(x1, y1, x2, y2, x, y);
+            prevX = x;
+            prevY = y;
+            prevControlX = x2;
+            prevControlY = y2;
+            hasPrevControl = true;
+            break;
+          }
+        case COMMAND_PICTURE_PATH_CONTINUED_CURVE:
+          {
+            float x2 = readCompressedFloat(stream);
+            float y2 = readCompressedFloat(stream);
+            float x = readCompressedFloat(stream);
+            float y = readCompressedFloat(stream);
+            float x1, y1;
+            if (hasPrevControl) {
+              x1 = 2 * prevX - prevControlX;
+              y1 = 2 * prevY - prevControlY;
+            } else {
+              x1 = prevX;
+              y1 = prevY;
+            }
+            path.cubicTo(x1, y1, x2, y2, x, y);
+            prevX = x;
+            prevY = y;
+            prevControlX = x2;
+            prevControlY = y2;
+            hasPrevControl = true;
+            break;
+          }
+        case COMMAND_PICTURE_PATH_CLOSE:
+          {
+            path.close();
+            path.moveTo(startX, startY);
+            prevX = startX;
+            prevY = startY;
+            hasPrevControl = false;
+            break;
+          }
         default:
           MozcLog.e("Unknown command: " + command);
       }
     }
   }
 
-  private static StateListDrawable createStateListDrawable(
-      DataInputStream stream, Skin skin) throws IOException {
+  private static StateListDrawable createStateListDrawable(DataInputStream stream, Skin skin)
+      throws IOException {
     int length = stream.readUnsignedByte();
     StateListDrawable result = new StateListDrawable();
     for (int i = 0; i < length; ++i) {

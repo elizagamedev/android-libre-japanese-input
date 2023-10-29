@@ -29,20 +29,16 @@
 
 package org.mozc.android.inputmethod.japanese.ui;
 
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
-import org.mozc.android.inputmethod.japanese.ui.CandidateLayout.Span;
-import org.mozc.android.inputmethod.japanese.util.CandidateDescriptionUtil;
+import android.graphics.Paint;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
-
-import android.graphics.Paint;
-
 import java.util.List;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
+import org.mozc.android.inputmethod.japanese.ui.CandidateLayout.Span;
+import org.mozc.android.inputmethod.japanese.util.CandidateDescriptionUtil;
 
-/**
- * Factory to create Span instances based on given CandidateWord instances.
- */
+/** Factory to create Span instances based on given CandidateWord instances. */
 public class SpanFactory {
 
   /** Paint to measure value width in pixels */
@@ -71,8 +67,9 @@ public class SpanFactory {
 
     float valueWidth = valuePaint.measureText(candidateWord.getValue());
     String description = candidateWord.getAnnotation().getDescription();
-    List<String> splitDescriptionList = CandidateDescriptionUtil.extractDescriptions(
-        Strings.nullToEmpty(description), descriptionDelimiter);
+    List<String> splitDescriptionList =
+        CandidateDescriptionUtil.extractDescriptions(
+            Strings.nullToEmpty(description), descriptionDelimiter);
     float descriptionWidth = 0;
     for (String line : splitDescriptionList) {
       float width = descriptionPaint.measureText(line);
@@ -80,7 +77,6 @@ public class SpanFactory {
         descriptionWidth = width;
       }
     }
-    return new Span(Optional.of(candidateWord), valueWidth, descriptionWidth,
-                    splitDescriptionList);
+    return new Span(Optional.of(candidateWord), valueWidth, descriptionWidth, splitDescriptionList);
   }
 }

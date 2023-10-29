@@ -29,6 +29,10 @@
 
 package org.mozc.android.inputmethod.japanese;
 
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import java.util.List;
+import javax.annotation.Nullable;
 import org.mozc.android.inputmethod.japanese.FeedbackManager.FeedbackEvent;
 import org.mozc.android.inputmethod.japanese.KeycodeConverter.KeyEventInterface;
 import org.mozc.android.inputmethod.japanese.hardwarekeyboard.HardwareKeyboard.CompositionSwitchMode;
@@ -36,19 +40,12 @@ import org.mozc.android.inputmethod.japanese.keyboard.Keyboard.KeyboardSpecifica
 import org.mozc.android.inputmethod.japanese.model.SymbolMajorCategory;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 /**
- * This class delegates all method calls to a ViewEventListener, passed to the constructor.
- * Typical usage is to hook/override some of listener's methods to change their behavior.
+ * This class delegates all method calls to a ViewEventListener, passed to the constructor. Typical
+ * usage is to hook/override some of listener's methods to change their behavior.
  *
- * <pre>
- * {@code
+ * <pre>{@code
  * void foo(ViewEventListener listener) {
  *   childView.setListener(new ViewEventDelegator(listener) {
  *     @Override
@@ -57,9 +54,7 @@ import javax.annotation.Nullable;
  *     }
  *   })
  * }
- * }
- * </pre>
- *
+ * }</pre>
  */
 @SuppressWarnings("javadoc")
 public abstract class ViewEventDelegator implements ViewEventListener {
@@ -71,10 +66,11 @@ public abstract class ViewEventDelegator implements ViewEventListener {
   }
 
   @Override
-  public void onKeyEvent(@Nullable ProtoCommands.KeyEvent mozcKeyEvent,
-                         @Nullable KeyEventInterface keyEvent,
-                         @Nullable KeyboardSpecification keyboardSpecification,
-                         List<TouchEvent> touchEventList) {
+  public void onKeyEvent(
+      @Nullable ProtoCommands.KeyEvent mozcKeyEvent,
+      @Nullable KeyEventInterface keyEvent,
+      @Nullable KeyboardSpecification keyboardSpecification,
+      List<TouchEvent> touchEventList) {
     delegated.onKeyEvent(mozcKeyEvent, keyEvent, keyboardSpecification, touchEventList);
   }
 
@@ -99,8 +95,8 @@ public abstract class ViewEventDelegator implements ViewEventListener {
   }
 
   @Override
-  public void onSymbolCandidateSelected(SymbolMajorCategory majorCategory, String candidate,
-                                        boolean updateHistory) {
+  public void onSymbolCandidateSelected(
+      SymbolMajorCategory majorCategory, String candidate, boolean updateHistory) {
     delegated.onSymbolCandidateSelected(majorCategory, candidate, updateHistory);
   }
 

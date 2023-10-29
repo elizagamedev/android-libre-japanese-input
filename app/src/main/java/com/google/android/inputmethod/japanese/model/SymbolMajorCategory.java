@@ -29,18 +29,15 @@
 
 package org.mozc.android.inputmethod.japanese.model;
 
-import org.mozc.android.inputmethod.japanese.R;
-import org.mozc.android.inputmethod.japanese.ui.CandidateLayoutRenderer;
-import org.mozc.android.inputmethod.japanese.ui.CandidateLayoutRenderer.DescriptionLayoutPolicy;
 import com.google.common.base.Preconditions;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.ui.CandidateLayoutRenderer;
+import org.mozc.android.inputmethod.japanese.ui.CandidateLayoutRenderer.DescriptionLayoutPolicy;
 
-/**
- * Symbol's major category to which the minor categories belong.
- */
+/** Symbol's major category to which the minor categories belong. */
 public enum SymbolMajorCategory {
   NUMBER(
       R.id.category_selector_major_number,
@@ -49,7 +46,7 @@ public enum SymbolMajorCategory {
       R.dimen.symbol_major_number_height,
       Collections.singletonList(SymbolMinorCategory.NUMBER),
       R.dimen.symbol_view_symbol_min_column_width,
-      DescriptionLayoutPolicy.GONE),  // DescriptionLayoutPolicy is not effective for NUMBER.
+      DescriptionLayoutPolicy.GONE), // DescriptionLayoutPolicy is not effective for NUMBER.
   SYMBOL(
       R.id.category_selector_major_symbol,
       R.raw.symbol__major__symbol,
@@ -61,8 +58,7 @@ public enum SymbolMajorCategory {
           SymbolMinorCategory.SYMBOL_HALF,
           SymbolMinorCategory.SYMBOL_PARENTHESIS,
           SymbolMinorCategory.SYMBOL_ARROW,
-          SymbolMinorCategory.SYMBOL_MATH
-      ),
+          SymbolMinorCategory.SYMBOL_MATH),
       R.dimen.symbol_view_symbol_min_column_width,
       DescriptionLayoutPolicy.OVERLAY),
   EMOTICON(
@@ -76,8 +72,7 @@ public enum SymbolMajorCategory {
           SymbolMinorCategory.EMOTICON_SWEAT,
           SymbolMinorCategory.EMOTICON_SURPRISE,
           SymbolMinorCategory.EMOTICON_SADNESS,
-          SymbolMinorCategory.EMOTICON_DISPLEASURE
-      ),
+          SymbolMinorCategory.EMOTICON_DISPLEASURE),
       R.dimen.symbol_view_emoticon_min_column_width,
       DescriptionLayoutPolicy.OVERLAY),
   EMOJI(
@@ -91,11 +86,10 @@ public enum SymbolMajorCategory {
           SymbolMinorCategory.EMOJI_FOOD,
           SymbolMinorCategory.EMOJI_ACTIVITY,
           SymbolMinorCategory.EMOJI_CITY,
-          SymbolMinorCategory.EMOJI_NATURE
-      ),
+          SymbolMinorCategory.EMOJI_NATURE),
       R.dimen.symbol_view_emoji_min_column_width,
-      DescriptionLayoutPolicy.GONE)  // Description is not show in the light of UX
-  ;
+      DescriptionLayoutPolicy.GONE) // Description is not show in the light of UX
+;
 
   // All fields are invariant so access directly.
   public final int buttonResourceId;
@@ -108,14 +102,14 @@ public enum SymbolMajorCategory {
 
   /**
    * @param buttonResourceId the resource id (R.id.xxxx) of corresponding selector button.
-   * @param buttonImageResourceId is the resource id (R.raw.xxx) of corresponding major
-   *        category button image.
+   * @param buttonImageResourceId is the resource id (R.raw.xxx) of corresponding major category
+   *     button image.
    * @param buttonSelectedImageResourceId is the resource id (R.raw.xxx) of corresponding major
-   *        category button image for selected state.
-   * @param minorCategories the minor categories which belong to this SymbolMajorCategory.
-   *        {@code minorCategories.get(0)} is treated as default one.
-   * @param minColumnWidthResourceId the resource id (R.dimen.xxxx) which represents
-   *        the minimum width of each column.
+   *     category button image for selected state.
+   * @param minorCategories the minor categories which belong to this SymbolMajorCategory. {@code
+   *     minorCategories.get(0)} is treated as default one.
+   * @param minColumnWidthResourceId the resource id (R.dimen.xxxx) which represents the minimum
+   *     width of each column.
    */
   private SymbolMajorCategory(
       int buttonResourceId,
@@ -139,18 +133,17 @@ public enum SymbolMajorCategory {
   /**
    * Returns default minor category.
    *
-   * When this major category is selected,
-   * the default minor category returned by this method will be activated.
+   * <p>When this major category is selected, the default minor category returned by this method
+   * will be activated.
    */
   public SymbolMinorCategory getDefaultMinorCategory() {
     return minorCategories.get(0);
   }
 
-  public SymbolMinorCategory getMinorCategoryByRelativeIndex(SymbolMinorCategory minorCategory,
-                                                             int relativeIndex) {
+  public SymbolMinorCategory getMinorCategoryByRelativeIndex(
+      SymbolMinorCategory minorCategory, int relativeIndex) {
     int index = minorCategories.indexOf(Preconditions.checkNotNull(minorCategory));
-    int newIndex = (index + relativeIndex + minorCategories.size())
-        % minorCategories.size();
+    int newIndex = (index + relativeIndex + minorCategories.size()) % minorCategories.size();
     return minorCategories.get(newIndex);
   }
 

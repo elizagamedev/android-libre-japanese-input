@@ -29,30 +29,24 @@
 
 package org.mozc.android.inputmethod.japanese.keyboard;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
-import org.mozc.android.inputmethod.japanese.keyboard.Keyboard.KeyboardSpecification;
-import org.mozc.android.inputmethod.japanese.util.LeastRecentlyUsedCacheMap;
-import com.google.common.base.Optional;
-
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
-
-import org.xmlpull.v1.XmlPullParserException;
-
+import com.google.common.base.Optional;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
+import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.keyboard.Keyboard.KeyboardSpecification;
+import org.mozc.android.inputmethod.japanese.util.LeastRecentlyUsedCacheMap;
+import org.xmlpull.v1.XmlPullParserException;
 
-/**
- * Factory of the keyboard data based on xml.
- *
- */
+/** Factory of the keyboard data based on xml. */
 public class KeyboardFactory {
 
   /**
    * Key for the cache map of keyboard.
    *
-   * Currently the keyboard is depending on its specification and display's size.
+   * <p>Currently the keyboard is depending on its specification and display's size.
    */
   private static class CacheKey {
     private final KeyboardSpecification specification;
@@ -69,9 +63,9 @@ public class KeyboardFactory {
     public boolean equals(Object obj) {
       if (obj instanceof CacheKey) {
         CacheKey other = CacheKey.class.cast(obj);
-        return specification == other.specification &&
-               width == other.width &&
-               height == other.height;
+        return specification == other.specification
+            && width == other.width
+            && height == other.height;
       }
       return false;
     }
@@ -83,8 +77,8 @@ public class KeyboardFactory {
   }
 
   /**
-   * The max size of cached keyboards. This is based on the max number of keyboard variation
-   * for a configuration.
+   * The max size of cached keyboards. This is based on the max number of keyboard variation for a
+   * configuration.
    */
   private static final int CACHE_SIZE = 6;
 
@@ -92,15 +86,17 @@ public class KeyboardFactory {
       new LeastRecentlyUsedCacheMap<CacheKey, Keyboard>(CACHE_SIZE);
 
   /**
-   * @return JapaneseKeyboard instance based on given resources and specification.
-   *         If it is already parsed, just returns cached one. Otherwise, tries to parse
-   *         corresponding xml data, then caches and returns it.
-   *         Returns {@code null} if parsing is failed.
-   * @throws NullPointerException if given {@code resources} or {@code specification} is
-   *         {@code null}.
+   * @return JapaneseKeyboard instance based on given resources and specification. If it is already
+   *     parsed, just returns cached one. Otherwise, tries to parse corresponding xml data, then
+   *     caches and returns it. Returns {@code null} if parsing is failed.
+   * @throws NullPointerException if given {@code resources} or {@code specification} is {@code
+   *     null}.
    */
-  public Keyboard get(Resources resources, KeyboardSpecification specification,
-                      int keyboardWidth, int keyboardHeight) {
+  public Keyboard get(
+      Resources resources,
+      KeyboardSpecification specification,
+      int keyboardWidth,
+      int keyboardHeight) {
     if (resources == null) {
       throw new NullPointerException("resources is null.");
     }
@@ -108,8 +104,7 @@ public class KeyboardFactory {
       throw new NullPointerException("specification is null.");
     }
 
-    CacheKey cacheKey =
-        new CacheKey(specification, keyboardWidth, keyboardHeight);
+    CacheKey cacheKey = new CacheKey(specification, keyboardWidth, keyboardHeight);
 
     // First, look up from the cache.
     Keyboard keyboard = cache.get(cacheKey);
@@ -125,10 +120,12 @@ public class KeyboardFactory {
   }
 
   private static Keyboard parseKeyboard(
-      Resources resources, KeyboardSpecification specification,
-      int keyboardWidth, int keyboardHeight) {
-    KeyboardParser parser = new KeyboardParser(
-        resources, keyboardWidth, keyboardHeight, specification);
+      Resources resources,
+      KeyboardSpecification specification,
+      int keyboardWidth,
+      int keyboardHeight) {
+    KeyboardParser parser =
+        new KeyboardParser(resources, keyboardWidth, keyboardHeight, specification);
     try {
       return parser.parseKeyboard();
     } catch (NotFoundException e) {
@@ -139,13 +136,14 @@ public class KeyboardFactory {
       MozcLog.e(e.getMessage());
     }
     // Returns dummy keyboard to avoid crash.
-    return new Keyboard(Optional.<String>absent(), Collections.<Row>emptyList(), 0,
-                        KeyboardSpecification.TWELVE_KEY_TOGGLE_FLICK_KANA);
+    return new Keyboard(
+        Optional.<String>absent(),
+        Collections.<Row>emptyList(),
+        0,
+        KeyboardSpecification.TWELVE_KEY_TOGGLE_FLICK_KANA);
   }
 
-  /**
-   * Clears cached keyboards.
-   */
+  /** Clears cached keyboards. */
   public void clear() {
     cache.clear();
   }

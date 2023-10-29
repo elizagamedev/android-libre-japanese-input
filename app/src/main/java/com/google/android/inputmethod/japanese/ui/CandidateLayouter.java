@@ -29,27 +29,29 @@
 
 package org.mozc.android.inputmethod.japanese.ui;
 
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateList;
 import com.google.common.base.Optional;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateList;
 
-/**
- * Layouts the candidates to the view.
- *
- */
+/** Layouts the candidates to the view. */
 public interface CandidateLayouter {
 
   /**
    * Sets the current view's width and height (i.e. the suggestion size of a page).
-   * @return {@code true} if the size change invalidates already layouted candidates.
-   * In other words, if this method returns {@code true}, callers have the responsibility
-   * to re-layout candidates, by invoking {@link #layout} method.
+   *
+   * @return {@code true} if the size change invalidates already layouted candidates. In other
+   *     words, if this method returns {@code true}, callers have the responsibility to re-layout
+   *     candidates, by invoking {@link #layout} method.
    */
   public boolean setViewSize(int width, int height);
 
-  /** @return the width of the page. It should be smaller or equal to the view's width. */
+  /**
+   * @return the width of the page. It should be smaller or equal to the view's width.
+   */
   public int getPageWidth();
 
-  /** @return the height of the page. It should be smaller or equal to the view's height. */
+  /**
+   * @return the height of the page. It should be smaller or equal to the view's height.
+   */
   public int getPageHeight();
 
   /** Layouts the given {@code candidateList}. */

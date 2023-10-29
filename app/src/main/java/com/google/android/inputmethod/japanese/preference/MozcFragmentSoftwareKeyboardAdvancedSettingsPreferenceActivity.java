@@ -29,10 +29,7 @@
 
 package org.mozc.android.inputmethod.japanese.preference;
 
-/**
- * Fragment based "Software keyboard advanced setting" activity for single-pane mode.
- *
- */
+/** Fragment based "Software keyboard advanced setting" activity for single-pane mode. */
 public class MozcFragmentSoftwareKeyboardAdvancedSettingsPreferenceActivity
     extends MozcFragmentBasePreferenceActivity {
   public MozcFragmentSoftwareKeyboardAdvancedSettingsPreferenceActivity() {

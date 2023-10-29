@@ -29,15 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.keyboard;
 
-import org.mozc.android.inputmethod.japanese.keyboard.BackgroundDrawableFactory.DrawableType;
-import org.mozc.android.inputmethod.japanese.R;
-import org.mozc.android.inputmethod.japanese.ui.PopUpLayouter;
-import org.mozc.android.inputmethod.japanese.view.DrawableCache;
-import org.mozc.android.inputmethod.japanese.view.Skin;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -47,29 +38,35 @@ import android.os.Message;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
-
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.keyboard.BackgroundDrawableFactory.DrawableType;
+import org.mozc.android.inputmethod.japanese.ui.PopUpLayouter;
+import org.mozc.android.inputmethod.japanese.view.DrawableCache;
+import org.mozc.android.inputmethod.japanese.view.Skin;
 
 /**
  * This class represents a popup preview which is shown at key-pressing timing.
  *
- * Note that this should be package private class because it is just an implementation of
- * the preview used in {@link KeyboardView}. However, we annotate {@code public} to this class
- * just for testing purpose. The methods we want to mock also annotated as {@code protected}.
+ * <p>Note that this should be package private class because it is just an implementation of the
+ * preview used in {@link KeyboardView}. However, we annotate {@code public} to this class just for
+ * testing purpose. The methods we want to mock also annotated as {@code protected}.
  *
- * Production clients shouldn't use this class from outside of this package.
- *
+ * <p>Production clients shouldn't use this class from outside of this package.
  */
-@VisibleForTesting public class PopUpPreview {
+@VisibleForTesting
+public class PopUpPreview {
 
   /**
-   * For performance reason, we want to reuse instances of {@link PopUpPreview}.
-   * We start to support multi-touch, so the number of PopUpPreview we need can be two or more
-   * (though, we expect the number of the previews is at most two in most cases).
+   * For performance reason, we want to reuse instances of {@link PopUpPreview}. We start to support
+   * multi-touch, so the number of PopUpPreview we need can be two or more (though, we expect the
+   * number of the previews is at most two in most cases).
    *
-   * This class provides simple functionality of instance pooling of PopUpPreview.
-   *
+   * <p>This class provides simple functionality of instance pooling of PopUpPreview.
    */
   static class Pool {
 
@@ -81,20 +78,27 @@ import java.util.List;
     private final DrawableCache drawableCache;
     private final Handler dismissHandler;
 
-    Pool(View parent, Looper looper,
-         BackgroundDrawableFactory backgroundDrawableFactory, Resources resources) {
+    Pool(
+        View parent,
+        Looper looper,
+        BackgroundDrawableFactory backgroundDrawableFactory,
+        Resources resources) {
       this.parent = Preconditions.checkNotNull(parent);
       this.backgroundDrawableFactory = Preconditions.checkNotNull(backgroundDrawableFactory);
       this.drawableCache = new DrawableCache(Preconditions.checkNotNull(resources));
-      this.dismissHandler = new Handler(Preconditions.checkNotNull(looper), new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message message) {
-          PopUpPreview preview = PopUpPreview.class.cast(Preconditions.checkNotNull(message).obj);
-          preview.dismiss();
-          freeList.add(preview);
-          return true;
-        }
-      });
+      this.dismissHandler =
+          new Handler(
+              Preconditions.checkNotNull(looper),
+              new Handler.Callback() {
+                @Override
+                public boolean handleMessage(Message message) {
+                  PopUpPreview preview =
+                      PopUpPreview.class.cast(Preconditions.checkNotNull(message).obj);
+                  preview.dismiss();
+                  freeList.add(preview);
+                  return true;
+                }
+              });
     }
 
     PopUpPreview getInstance(int pointerId) {
@@ -116,8 +120,7 @@ import java.util.List;
         return;
       }
       pool.remove(pointerId);
-      dismissHandler.sendMessageDelayed(
-          dismissHandler.obtainMessage(0, preview), delay);
+      dismissHandler.sendMessageDelayed(dismissHandler.obtainMessage(0, preview), delay);
     }
 
     void releaseAll() {
@@ -147,7 +150,8 @@ import java.util.List;
   @VisibleForTesting final PopUpLayouter<ImageView> popUp;
 
   protected PopUpPreview(
-      View parent, BackgroundDrawableFactory backgroundDrawableFactory,
+      View parent,
+      BackgroundDrawableFactory backgroundDrawableFactory,
       DrawableCache drawableCache) {
     this.backgroundDrawableFactory = Preconditions.checkNotNull(backgroundDrawableFactory);
     this.drawableCache = Preconditions.checkNotNull(drawableCache);
@@ -156,9 +160,7 @@ import java.util.List;
     this.popUp = new PopUpLayouter<ImageView>(parent, popUpView);
   }
 
-  /**
-   * Shows the pop-up preview of the given {@code key} and {@code optionalPopup} if needed.
-   */
+  /** Shows the pop-up preview of the given {@code key} and {@code optionalPopup} if needed. */
   @SuppressLint("NewApi")
   @SuppressWarnings("deprecation")
   protected void showIfNecessary(Key key, Optional<PopUp> optionalPopup, boolean isDelayedPopup) {
@@ -168,8 +170,11 @@ import java.util.List;
       return;
     }
     PopUp popup = optionalPopup.get();
-    Optional<Drawable> popUpIconDrawable = drawableCache.getDrawable(isDelayedPopup
-        ? popup.getPopUpLongPressIconResourceId() : popup.getPopUpIconResourceId());
+    Optional<Drawable> popUpIconDrawable =
+        drawableCache.getDrawable(
+            isDelayedPopup
+                ? popup.getPopUpLongPressIconResourceId()
+                : popup.getPopUpIconResourceId());
     if (!popUpIconDrawable.isPresent()) {
       hidePopupView();
       return;
@@ -181,7 +186,7 @@ import java.util.List;
     int popUpWindowPadding = (int) (BackgroundDrawableFactory.POPUP_WINDOW_PADDING * density);
     int width =
         Math.min(key.getWidth(), resources.getDimensionPixelSize(R.dimen.popup_width_limitation))
-        + popUpWindowPadding * 2;
+            + popUpWindowPadding * 2;
     int height = popup.getHeight() + popUpWindowPadding * 2;
 
     popupView.setImageDrawable(popUpIconDrawable.get());
@@ -189,10 +194,10 @@ import java.util.List;
         backgroundDrawableFactory.getDrawable(DrawableType.POPUP_BACKGROUND_WINDOW));
 
     Preconditions.checkState(popup.getIconWidth() != 0 || popup.getIconHeight() != 0);
-    int horizontalPadding = (popup.getIconWidth() == 0)
-        ? popUpWindowPadding : (width - popup.getIconWidth()) / 2;
-    int verticalPadding = (popup.getIconHeight() == 0)
-        ? popUpWindowPadding : (height - popup.getIconHeight()) / 2;
+    int horizontalPadding =
+        (popup.getIconWidth() == 0) ? popUpWindowPadding : (width - popup.getIconWidth()) / 2;
+    int verticalPadding =
+        (popup.getIconHeight() == 0) ? popUpWindowPadding : (height - popup.getIconHeight()) / 2;
     popupView.setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding);
 
     // Calculate the location to show the pop-up in window's coordinate system.
@@ -205,9 +210,7 @@ import java.util.List;
     popupView.setVisibility(View.VISIBLE);
   }
 
-  /**
-   * Hides the pop up preview.
-   */
+  /** Hides the pop up preview. */
   void dismiss() {
     hidePopupView();
   }

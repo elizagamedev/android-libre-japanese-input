@@ -29,20 +29,15 @@
 
 package org.mozc.android.inputmethod.japanese.ui;
 
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
+import android.text.Layout;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
-
-import android.text.Layout;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
 
-/**
- * Represents the layout information calculated by a layouter.
- *
- */
+/** Represents the layout information calculated by a layouter. */
 public class CandidateLayout {
 
   /** Horizontal span which is occupied by a CandidateWord. */
@@ -56,17 +51,20 @@ public class CandidateLayout {
     private final List<String> splitDescriptionList;
 
     /**
-     * This is a cache to improve the rendering performance.
-     * In theory, it's better to have another structure to keep the cache,
-     * but put this here for the simpler implementation.
+     * This is a cache to improve the rendering performance. In theory, it's better to have another
+     * structure to keep the cache, but put this here for the simpler implementation.
      */
     private Optional<Layout> cachedLayout = Optional.absent();
 
-    /** @param candidateWord the candidate word of this span. Absent if the span is
-     * reserved empty one, which is for folding button. */
-    public Span(Optional<CandidateWord> candidateWord,
-                float valueWidth, float descriptionWidth,
-                List<String> splitDescriptionList) {
+    /**
+     * @param candidateWord the candidate word of this span. Absent if the span is reserved empty
+     *     one, which is for folding button.
+     */
+    public Span(
+        Optional<CandidateWord> candidateWord,
+        float valueWidth,
+        float descriptionWidth,
+        List<String> splitDescriptionList) {
       this.candidateWord = Preconditions.checkNotNull(candidateWord);
       this.valueWidth = valueWidth;
       this.descriptionWidth = descriptionWidth;
@@ -81,7 +79,9 @@ public class CandidateLayout {
       return left;
     }
 
-    /** @param left the position of the left edge. Must be non negative value. */
+    /**
+     * @param left the position of the left edge. Must be non negative value.
+     */
     public void setLeft(float left) {
       Preconditions.checkArgument(left >= 0);
       this.left = left;
@@ -91,13 +91,17 @@ public class CandidateLayout {
       return right;
     }
 
-    /** @param right the position of the right edge. Must be equal or greater than left. */
+    /**
+     * @param right the position of the right edge. Must be equal or greater than left.
+     */
     public void setRight(float right) {
       Preconditions.checkArgument(left <= right);
       this.right = right;
     }
 
-    /** @return the width (== right - left) */
+    /**
+     * @return the width (== right - left)
+     */
     public float getWidth() {
       return right - left;
     }
@@ -126,6 +130,7 @@ public class CandidateLayout {
   public static class Row {
     /** Heuristic parameter for the number of spans in a row. */
     private static final int TYPICAL_SPANS_PER_ROW = 5;
+
     private final List<Span> spans = new ArrayList<Span>(TYPICAL_SPANS_PER_ROW);
 
     private float top;

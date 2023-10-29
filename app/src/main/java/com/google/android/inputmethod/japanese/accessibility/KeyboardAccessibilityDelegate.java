@@ -29,41 +29,35 @@
 
 package org.mozc.android.inputmethod.japanese.accessibility;
 
+import android.content.Context;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.view.accessibility.AccessibilityEvent;
+import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityEventCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import java.util.Collections;
+import java.util.Set;
+import org.mozc.android.inputmethod.japanese.R;
 import org.mozc.android.inputmethod.japanese.keyboard.Flick.Direction;
 import org.mozc.android.inputmethod.japanese.keyboard.Key;
 import org.mozc.android.inputmethod.japanese.keyboard.KeyEntity;
 import org.mozc.android.inputmethod.japanese.keyboard.KeyState;
 import org.mozc.android.inputmethod.japanese.keyboard.KeyState.MetaState;
 import org.mozc.android.inputmethod.japanese.keyboard.Keyboard;
-import org.mozc.android.inputmethod.japanese.R;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 
-import android.content.Context;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
-import android.os.SystemClock;
-import androidx.core.view.AccessibilityDelegateCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.accessibility.AccessibilityEventCompat;
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
-import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.view.accessibility.AccessibilityEvent;
-
-import java.util.Collections;
-import java.util.Set;
-
-
-
-/**
- * Delegate object for Keyboard view to support accessibility.
- */
+/** Delegate object for Keyboard view to support accessibility. */
 public class KeyboardAccessibilityDelegate extends AccessibilityDelegateCompat {
 
   private final View view;
@@ -82,11 +76,10 @@ public class KeyboardAccessibilityDelegate extends AccessibilityDelegateCompat {
   private boolean consumedByLongpress = false;
   private final TouchEventEmulator emulator;
 
-  /**
-   * Emulator interface for touch events (Key input and long press).
-   */
+  /** Emulator interface for touch events (Key input and long press). */
   public interface TouchEventEmulator {
     public void emulateKeyInput(Key key);
+
     public void emulateLongPress(Key key);
   }
 
@@ -100,19 +93,22 @@ public class KeyboardAccessibilityDelegate extends AccessibilityDelegateCompat {
     }
   }
 
-
   public KeyboardAccessibilityDelegate(View view, TouchEventEmulator emulator) {
-    this(view, new KeyboardAccessibilityNodeProvider(view),
-         view.getContext().getResources().getInteger(
-             R.integer.config_long_press_key_delay_accessibility),
-         emulator);
+    this(
+        view,
+        new KeyboardAccessibilityNodeProvider(view),
+        view.getContext()
+            .getResources()
+            .getInteger(R.integer.config_long_press_key_delay_accessibility),
+        emulator);
   }
 
   @VisibleForTesting
-  KeyboardAccessibilityDelegate(View view,
-                                KeyboardAccessibilityNodeProvider nodeProvider,
-                                int longpressDelay,
-                                TouchEventEmulator emulator) {
+  KeyboardAccessibilityDelegate(
+      View view,
+      KeyboardAccessibilityNodeProvider nodeProvider,
+      int longpressDelay,
+      TouchEventEmulator emulator) {
     this.view = Preconditions.checkNotNull(view);
     this.nodeProvider = Preconditions.checkNotNull(nodeProvider);
     this.handler = new Handler(new LongTapHandler());
@@ -125,8 +121,7 @@ public class KeyboardAccessibilityDelegate extends AccessibilityDelegateCompat {
   }
 
   /**
-   * Intercepts touch events before dispatch when touch exploration is turned on in ICS and
-   * higher.
+   * Intercepts touch events before dispatch when touch exploration is turned on in ICS and higher.
    *
    * @param event The motion event being dispatched.
    * @return {@code true} if the event is handled
@@ -262,13 +257,11 @@ public class KeyboardAccessibilityDelegate extends AccessibilityDelegateCompat {
   public void setKeyboard(Optional<Keyboard> keyboard) {
     nodeProvider.setKeyboard(Preconditions.checkNotNull(keyboard));
     if (AccessibilityUtil.isAccessibilityEnabled(getContext())) {
-      Optional<String> contentDescription = keyboard.isPresent()
-          ? keyboard.get().getContentDescription()
-          : Optional.<String>absent();
+      Optional<String> contentDescription =
+          keyboard.isPresent() ? keyboard.get().getContentDescription() : Optional.<String>absent();
       sendWindowStateChanged(contentDescription);
     }
   }
-
 
   /**
    * Sets whether here is password field or not..
@@ -280,8 +273,8 @@ public class KeyboardAccessibilityDelegate extends AccessibilityDelegateCompat {
     nodeProvider.setObscureInput(shouldObscureInput);
 
     if (shouldObscureInput) {
-      announceForAccessibility(getContext().getResources().getString(
-          R.string.spoken_use_headphone_for_password));
+      announceForAccessibility(
+          getContext().getResources().getString(R.string.spoken_use_headphone_for_password));
     }
   }
 
@@ -307,23 +300,23 @@ public class KeyboardAccessibilityDelegate extends AccessibilityDelegateCompat {
    */
   private void sendWindowStateChanged(Optional<String> newContentDescription) {
     Preconditions.checkNotNull(newContentDescription);
-    AccessibilityEvent stateChange = AccessibilityEvent.obtain(
-        AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
+    AccessibilityEvent stateChange =
+        AccessibilityEvent.obtain(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
     ViewCompat.onInitializeAccessibilityEvent(view, stateChange);
     stateChange.setContentDescription(newContentDescription.orNull());
     requestSendAccessibilityEventIfPossible(stateChange);
   }
 
   /**
-   * Sends an AccessibilityEvent throuth {@code view}'s parent.
-   * If the API Level is <14, does nothing.
+   * Sends an AccessibilityEvent throuth {@code view}'s parent. If the API Level is <14, does
+   * nothing.
    */
   private void requestSendAccessibilityEventIfPossible(AccessibilityEvent event) {
     Preconditions.checkNotNull(event);
 
     ViewParent viewParent = view.getParent();
     if ((viewParent == null) || !(viewParent instanceof ViewGroup)) {
-        return;
+      return;
     }
     // requestSendAccessibilityEvent is since API Level 14 (ICS).
     // No fallback is provided for older framework. Just ignore.
@@ -353,7 +346,7 @@ public class KeyboardAccessibilityDelegate extends AccessibilityDelegateCompat {
     // Always speak if the user is listening through headphones.
     AudioManagerWrapper audioManager = AccessibilityUtil.getAudioManager(getContext());
     if (audioManager.isWiredHeadsetOn() || audioManager.isBluetoothA2dpOn()) {
-        return false;
+      return false;
     }
 
     // Don't speak if the IME is connected to a password field.

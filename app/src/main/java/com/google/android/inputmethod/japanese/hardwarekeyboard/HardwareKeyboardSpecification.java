@@ -29,6 +29,17 @@
 
 package org.mozc.android.inputmethod.japanese.hardwarekeyboard;
 
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.view.KeyEvent;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.Map;
+import javax.annotation.Nullable;
 import org.mozc.android.inputmethod.japanese.KeycodeConverter.KeyEventInterface;
 import org.mozc.android.inputmethod.japanese.MozcLog;
 import org.mozc.android.inputmethod.japanese.hardwarekeyboard.HardwareKeyboard.CompositionSwitchMode;
@@ -39,72 +50,59 @@ import org.mozc.android.inputmethod.japanese.preference.PreferenceUtil;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.KeyEvent.ModifierKey;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.KeyEvent.SpecialKey;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
-import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.view.KeyEvent;
-
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.Map;
-
-import javax.annotation.Nullable;
 
 /**
  * Converts Hardware KeyEvent to Mozc's KeyEvent
  *
- * Android OS's keyboard management is like following;
- * <ol>
- * <li>Android OS receives LKC (Linux Key Code, ≒ scan code) from the keyboard.
- * <li>Android OS converts LKC into AKC (Android Key Code) using key layout file (.kl).
- * A user/developer cannot override this behavior.
- * <li>Android OS converts AKC into a tuple of (AKC, unicode character)
- * using key character mapping file (.kcm).
- * <ul>
- * <li>Given AKC might be converted into another AKC (e.g. KEYCODE_GRAVE might be converted
- * into KEYCODE_ZENKAKU_HANKAKU).
- * <li>Since API Level 16 a user/developer has been able to override the behavior.
- * </ul>
- * </ol>
- * To use Japanese keyboard, the default behavior is not sufficient.
- * <ul>
- * <li>Even the latest OS (API Level 19) Japanese key character mapping is not shipped by default.
- * <li>There are Japanese unique AKC (e.g. KEYCODE_ZENKAKU_HANKAKU) but they are available
- * since API Level 16. (Note since API Level 16 some Japanese unique ones (e.g. KEYCODE_RO)
- * can be sent though Japanese KCM is not supported)
- * </ul>
- * The main responsibility of this class is to convert android's KeyEvent into Mozc's KeyEvent.
- * To do this above behavior must be respected. CompactKeyEvent (and its internal KeyEventMapper)
- * does this.
+ * <p>Android OS's keyboard management is like following;
  *
+ * <ol>
+ *   <li>Android OS receives LKC (Linux Key Code, ≒ scan code) from the keyboard.
+ *   <li>Android OS converts LKC into AKC (Android Key Code) using key layout file (.kl). A
+ *       user/developer cannot override this behavior.
+ *   <li>Android OS converts AKC into a tuple of (AKC, unicode character) using key character
+ *       mapping file (.kcm).
+ *       <ul>
+ *         <li>Given AKC might be converted into another AKC (e.g. KEYCODE_GRAVE might be converted
+ *             into KEYCODE_ZENKAKU_HANKAKU).
+ *         <li>Since API Level 16 a user/developer has been able to override the behavior.
+ *       </ul>
+ * </ol>
+ *
+ * To use Japanese keyboard, the default behavior is not sufficient.
+ *
+ * <ul>
+ *   <li>Even the latest OS (API Level 19) Japanese key character mapping is not shipped by default.
+ *   <li>There are Japanese unique AKC (e.g. KEYCODE_ZENKAKU_HANKAKU) but they are available since
+ *       API Level 16. (Note since API Level 16 some Japanese unique ones (e.g. KEYCODE_RO) can be
+ *       sent though Japanese KCM is not supported)
+ * </ul>
+ *
+ * The main responsibility of this class is to convert android's KeyEvent into Mozc's KeyEvent. To
+ * do this above behavior must be respected. CompactKeyEvent (and its internal KeyEventMapper) does
+ * this.
  */
 public enum HardwareKeyboardSpecification {
 
-  /**
-   * System key map.
-   */
-  DEFAULT(HardwareKeyMap.DEFAULT,
-          KeyEventMapperFactory.DEFAULT_KEYBOARD_MAPPER,
-          KeyboardSpecification.HARDWARE_QWERTY_KANA,
-          KeyboardSpecification.HARDWARE_QWERTY_ALPHABET),
+  /** System key map. */
+  DEFAULT(
+      HardwareKeyMap.DEFAULT,
+      KeyEventMapperFactory.DEFAULT_KEYBOARD_MAPPER,
+      KeyboardSpecification.HARDWARE_QWERTY_KANA,
+      KeyboardSpecification.HARDWARE_QWERTY_ALPHABET),
 
-  /**
-   * Represents Japanese 109 Keyboard
-   */
-  JAPANESE109A(HardwareKeyMap.JAPANESE109A,
-               KeyEventMapperFactory.JAPANESE_KEYBOARD_MAPPER,
-               KeyboardSpecification.HARDWARE_QWERTY_KANA,
-               KeyboardSpecification.HARDWARE_QWERTY_ALPHABET);
+  /** Represents Japanese 109 Keyboard */
+  JAPANESE109A(
+      HardwareKeyMap.JAPANESE109A,
+      KeyEventMapperFactory.JAPANESE_KEYBOARD_MAPPER,
+      KeyboardSpecification.HARDWARE_QWERTY_KANA,
+      KeyboardSpecification.HARDWARE_QWERTY_ALPHABET);
 
   /**
    * Returns true if the given {@code codepoint} is printable.
    *
-   * {@link KeyEvent#isPrintingKey()} cannot be used for this purpose as
-   * the method doesn't take codepoint but keycode.
+   * <p>{@link KeyEvent#isPrintingKey()} cannot be used for this purpose as the method doesn't take
+   * codepoint but keycode.
    */
   @VisibleForTesting
   static boolean isPrintable(int codepoint) {
@@ -113,13 +111,10 @@ public enum HardwareKeyboardSpecification {
       return false;
     }
     Character.UnicodeBlock block = Character.UnicodeBlock.of(codepoint);
-    return block != null &&
-           block != Character.UnicodeBlock.SPECIALS;
+    return block != null && block != Character.UnicodeBlock.SPECIALS;
   }
 
-  /**
-   * Returns true if composition mode should be changed.
-   */
+  /** Returns true if composition mode should be changed. */
   @SuppressLint("InlinedApi")
   private static boolean isKeyForCompositinoModeChange(int keyCode, int metaState) {
     boolean shift = (metaState & KeyEvent.META_SHIFT_MASK) != 0;
@@ -170,26 +165,25 @@ public enum HardwareKeyboardSpecification {
     this.alphabetKeyboardSpecification = alphabetKeyboardSpecification;
   }
 
-  /**
-   * Returns HardwareKeyboadSpecification based on given preference.
-   */
+  /** Returns HardwareKeyboadSpecification based on given preference. */
   static Optional<HardwareKeyboardSpecification> getHardwareKeyboardSpecification(
-     Optional<HardwareKeyMap> hardwareKeyMap) {
+      Optional<HardwareKeyMap> hardwareKeyMap) {
     return hardwareKeyMap.isPresent()
         ? Optional.of(hardwareKeyMapToSpecificationMap.get(hardwareKeyMap.get()))
         : Optional.<HardwareKeyboardSpecification>absent();
   }
 
   /**
-   * Detects hardware keyboard type and sets it to the given {@code sharedPreferences}.
-   * If the {@code sharedPreferences} is {@code null}, or already has valid hardware keyboard type,
-   * just does nothing.
+   * Detects hardware keyboard type and sets it to the given {@code sharedPreferences}. If the
+   * {@code sharedPreferences} is {@code null}, or already has valid hardware keyboard type, just
+   * does nothing.
    *
-   * Note: if the new detected hardware keyboard type is set to the {@code sharedPreferences}
-   * and if it has registered callbacks, of course, they will be invoked as usual.
+   * <p>Note: if the new detected hardware keyboard type is set to the {@code sharedPreferences} and
+   * if it has registered callbacks, of course, they will be invoked as usual.
    */
   public static void maybeSetDetectedHardwareKeyMap(
-      @Nullable SharedPreferences sharedPreferences, Configuration configuration,
+      @Nullable SharedPreferences sharedPreferences,
+      Configuration configuration,
       boolean forceToSet) {
     Preconditions.checkNotNull(configuration);
     if (sharedPreferences == null) {
@@ -204,7 +198,7 @@ public enum HardwareKeyboardSpecification {
 
     // Here, the HardwareKeyMap hasn't set yet, so detect hardware keyboard type.
     HardwareKeyMap detectedKeyMap = null;
-    switch(configuration.keyboard) {
+    switch (configuration.keyboard) {
       case Configuration.KEYBOARD_12KEY:
       case Configuration.KEYBOARD_QWERTY:
         detectedKeyMap = HardwareKeyMap.DEFAULT;
@@ -245,12 +239,13 @@ public enum HardwareKeyboardSpecification {
   }
 
   @VisibleForTesting
-  static void setHardwareKeyMap(
-      SharedPreferences sharedPreference, HardwareKeyMap hardwareKeyMap) {
+  static void setHardwareKeyMap(SharedPreferences sharedPreference, HardwareKeyMap hardwareKeyMap) {
     Preconditions.checkNotNull(sharedPreference);
     Preconditions.checkNotNull(hardwareKeyMap);
-    sharedPreference.edit()
-         .putString(PreferenceUtil.PREF_HARDWARE_KEYMAP, hardwareKeyMap.name()).commit();
+    sharedPreference
+        .edit()
+        .putString(PreferenceUtil.PREF_HARDWARE_KEYMAP, hardwareKeyMap.name())
+        .commit();
   }
 
   public HardwareKeyMap getHardwareKeyMap() {
@@ -263,8 +258,8 @@ public enum HardwareKeyboardSpecification {
 
     // Check if the key is for changing composition mode.
     // The event should be consumed client-side so nothing should be returned.
-    if (isKeyForCompositinoModeChange(compactKeyEvent.getKeyCode(),
-                                      compactKeyEvent.getMetaState())) {
+    if (isKeyForCompositinoModeChange(
+        compactKeyEvent.getKeyCode(), compactKeyEvent.getMetaState())) {
       return null;
     }
 
@@ -273,7 +268,7 @@ public enum HardwareKeyboardSpecification {
     // Check if the event is special key.
     // This check should be done in advance of checking unicode-character (done in default block)
     // because KEYCODE_SPACE/TAB, which are special keys, are sent with unicode-character.
-    switch(keyCode) {
+    switch (keyCode) {
       case android.view.KeyEvent.KEYCODE_SPACE:
         builder.setSpecialKey(SpecialKey.SPACE);
         break;
@@ -415,37 +410,38 @@ public enum HardwareKeyboardSpecification {
       case android.view.KeyEvent.KEYCODE_F12:
         builder.setSpecialKey(SpecialKey.F12);
         break;
-      default: {
-        // Reach here as the key code is not special one.
-        // There are some cases.
-        // 1. The event has unicode-character. Simple key event should be sent to the engine.
-        //    Note that in this case no modifiers should be sent.
-        // 2. No unicode-character.
-        //   2-1. Printable character with modifier (except for shift key).
-        //   2-2. Ignoreable key event.
-        int unicodeChar = compactKeyEvent.getUnicodeCharacter();
-        if (isPrintable(unicodeChar)) {
-          // Case 1.
-          return builder.setKeyCode(unicodeChar).build();
+      default:
+        {
+          // Reach here as the key code is not special one.
+          // There are some cases.
+          // 1. The event has unicode-character. Simple key event should be sent to the engine.
+          //    Note that in this case no modifiers should be sent.
+          // 2. No unicode-character.
+          //   2-1. Printable character with modifier (except for shift key).
+          //   2-2. Ignoreable key event.
+          int unicodeChar = compactKeyEvent.getUnicodeCharacter();
+          if (isPrintable(unicodeChar)) {
+            // Case 1.
+            return builder.setKeyCode(unicodeChar).build();
+          }
+          if (keyCode >= android.view.KeyEvent.KEYCODE_A
+              && keyCode <= android.view.KeyEvent.KEYCODE_Z) {
+            // Case 2-1.
+            builder.setKeyCode(keyCode - android.view.KeyEvent.KEYCODE_A + 'a');
+          } else if (keyCode >= android.view.KeyEvent.KEYCODE_0
+              && keyCode <= android.view.KeyEvent.KEYCODE_9) {
+            // Case 2-1.
+            builder.setKeyCode(keyCode - android.view.KeyEvent.KEYCODE_0 + '0');
+          } else {
+            // Case 2-2.
+            return null;
+          }
         }
-        if (keyCode >= android.view.KeyEvent.KEYCODE_A
-            && keyCode <= android.view.KeyEvent.KEYCODE_Z) {
-          // Case 2-1.
-          builder.setKeyCode(keyCode - android.view.KeyEvent.KEYCODE_A + 'a');
-        } else if (keyCode >= android.view.KeyEvent.KEYCODE_0
-            && keyCode <= android.view.KeyEvent.KEYCODE_9) {
-          // Case 2-1.
-          builder.setKeyCode(keyCode - android.view.KeyEvent.KEYCODE_0 + '0');
-        } else {
-          // Case 2-2.
-          return null;
-        }
-      }
     }
     // Reach here because the key event is special one (including printable + modifier).
     int metaState = compactKeyEvent.getMetaState();
     if ((metaState & android.view.KeyEvent.META_SHIFT_MASK) != 0) {
-        builder.addModifierKeys(ModifierKey.SHIFT);
+      builder.addModifierKeys(ModifierKey.SHIFT);
     }
     if ((metaState & android.view.KeyEvent.META_ALT_MASK) != 0) {
       builder.addModifierKeys(ModifierKey.ALT);
@@ -473,12 +469,11 @@ public enum HardwareKeyboardSpecification {
     };
   }
 
-  public Optional<CompositionSwitchMode> getCompositionSwitchMode(
-      android.view.KeyEvent keyEvent) {
-    CompactKeyEvent compactKeyEvent
-        = new CompactKeyEvent(Preconditions.checkNotNull(keyEvent), keyEventMapper);
-    return isKeyForCompositinoModeChange(compactKeyEvent.getKeyCode(),
-                                         compactKeyEvent.getMetaState())
+  public Optional<CompositionSwitchMode> getCompositionSwitchMode(android.view.KeyEvent keyEvent) {
+    CompactKeyEvent compactKeyEvent =
+        new CompactKeyEvent(Preconditions.checkNotNull(keyEvent), keyEventMapper);
+    return isKeyForCompositinoModeChange(
+            compactKeyEvent.getKeyCode(), compactKeyEvent.getMetaState())
         ? Optional.of(CompositionSwitchMode.TOGGLE)
         : Optional.<CompositionSwitchMode>absent();
   }

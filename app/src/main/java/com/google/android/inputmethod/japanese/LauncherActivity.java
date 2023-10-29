@@ -29,10 +29,9 @@
 
 package org.mozc.android.inputmethod.japanese;
 
+import android.content.Intent;
 import org.mozc.android.inputmethod.japanese.preference.MozcProxyActivity;
 import org.mozc.android.inputmethod.japanese.preference.MozcProxyPreferenceActivity;
-
-import android.content.Intent;
 
 /**
  * Activity to show launcher icon on the home screen.

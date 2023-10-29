@@ -31,12 +31,11 @@ package org.mozc.android.inputmethod.japanese.model;
 
 import org.mozc.android.inputmethod.japanese.R;
 
-/**
- * Symbol's minor category to which the candidates belong.
- */
+/** Symbol's minor category to which the candidates belong. */
 public enum SymbolMinorCategory {
-  NUMBER(SymbolMinorCategory.INVALID_RESOURCE_ID, SymbolMinorCategory.INVALID_RESOURCE_ID,
-         SymbolMinorCategory.INVALID_RESOURCE_ID, SymbolMinorCategory.INVALID_RESOURCE_ID),
+  NUMBER(
+      SymbolMinorCategory.INVALID_RESOURCE_ID, SymbolMinorCategory.INVALID_RESOURCE_ID,
+      SymbolMinorCategory.INVALID_RESOURCE_ID, SymbolMinorCategory.INVALID_RESOURCE_ID),
   SYMBOL_HISTORY(
       R.raw.symbol__minor__history, R.raw.symbol__minor__history_selected,
       R.dimen.symbol_minor_default_height, R.string.cd_symbol_window_minor_history),
@@ -90,8 +89,7 @@ public enum SymbolMinorCategory {
       R.dimen.symbol_minor_default_height, R.string.cd_symbol_window_minor_emoji_city),
   EMOJI_NATURE(
       R.raw.symbol__minor__nature, R.raw.symbol__minor__nature_selected,
-      R.dimen.symbol_minor_default_height, R.string.cd_symbol_window_minor_emoji_nature)
-  ;
+      R.dimen.symbol_minor_default_height, R.string.cd_symbol_window_minor_emoji_nature);
 
   public static final int INVALID_RESOURCE_ID = 0;
   public final int drawableResourceId;
@@ -103,8 +101,11 @@ public enum SymbolMinorCategory {
    * @param drawableResourceId the resource id of the corresponding drawable.
    * @param contentDescriptionResourceId the resource id of the corresponding content description.
    */
-  SymbolMinorCategory(int drawableResourceId, int selectedDrawableResourceId,
-                      int maxImageHeightResourceId, int contentDescriptionResourceId) {
+  SymbolMinorCategory(
+      int drawableResourceId,
+      int selectedDrawableResourceId,
+      int maxImageHeightResourceId,
+      int contentDescriptionResourceId) {
     this.drawableResourceId = drawableResourceId;
     this.selectedDrawableResourceId = selectedDrawableResourceId;
     this.maxImageHeightResourceId = maxImageHeightResourceId;

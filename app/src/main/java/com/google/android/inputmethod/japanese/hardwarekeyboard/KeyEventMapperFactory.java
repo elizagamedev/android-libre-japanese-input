@@ -37,17 +37,16 @@ import android.view.KeyEvent;
 /**
  * Processes overlay key-layout mapping and key-character mapping.
  *
- * <p>Key-layout mapping is done only in the framework so this class overlays additional
- * behavior.
- * <p>Key-character mapping can be done by a user but it is applicable since API Level 16.
- * This class does overlay mapping for all API Level.
+ * <p>Key-layout mapping is done only in the framework so this class overlays additional behavior.
+ *
+ * <p>Key-character mapping can be done by a user but it is applicable since API Level 16. This
+ * class does overlay mapping for all API Level.
+ *
  * <p>Tested by HardwareKeyboardSpecificationTest.
  */
 class KeyEventMapperFactory {
 
-  /**
-   * Applies key-layout and key-character mapping.
-   */
+  /** Applies key-layout and key-character mapping. */
   public interface KeyEventMapper {
     void applyMapping(CompactKeyEvent keyEvent);
   }
@@ -55,21 +54,16 @@ class KeyEventMapperFactory {
   public static final KeyEventMapper DEFAULT_KEYBOARD_MAPPER = new DefaultKeyboardMapper();
   public static final KeyEventMapper JAPANESE_KEYBOARD_MAPPER = new JapaneseKeyboardMapper();
 
-  /**
-   * Basically does nothing.
-   * For older OS missing key-layout mapping is done.
-   */
+  /** Basically does nothing. For older OS missing key-layout mapping is done. */
   private static class DefaultKeyboardMapper implements KeyEventMapper {
     @Override
     public void applyMapping(CompactKeyEvent keyEvent) {
-      keyEvent.setKeyCode(doKeyLayoutMappingForOldAndroids(keyEvent.getKeyCode(),
-                                                           keyEvent.getScanCode()));
+      keyEvent.setKeyCode(
+          doKeyLayoutMappingForOldAndroids(keyEvent.getKeyCode(), keyEvent.getScanCode()));
     }
   }
 
-  /**
-   * Key-layout and key-character mapping for Japanese keyboard.
-   */
+  /** Key-layout and key-character mapping for Japanese keyboard. */
   @SuppressLint("InlinedApi")
   private static class JapaneseKeyboardMapper implements KeyEventMapper {
 
@@ -88,7 +82,7 @@ class KeyEventMapperFactory {
       tempShiftedMap.put(KeyEvent.KEYCODE_7, '\'');
       tempShiftedMap.put(KeyEvent.KEYCODE_8, '(');
       tempShiftedMap.put(KeyEvent.KEYCODE_9, ')');
-      tempShiftedMap.put(KeyEvent.KEYCODE_0, 0);  // No character
+      tempShiftedMap.put(KeyEvent.KEYCODE_0, 0); // No character
       tempShiftedMap.put(KeyEvent.KEYCODE_MINUS, '=');
       tempShiftedMap.put(KeyEvent.KEYCODE_EQUALS, '~');
       tempShiftedMap.put(KeyEvent.KEYCODE_YEN, '|');
@@ -109,7 +103,7 @@ class KeyEventMapperFactory {
       SparseIntArray tempUnshiftedMap = new SparseIntArray();
       // Row #1
       tempUnshiftedMap.put(KeyEvent.KEYCODE_EQUALS, '^');
-      tempUnshiftedMap.put(KeyEvent.KEYCODE_YEN, '\u00a5');  // Yen mark
+      tempUnshiftedMap.put(KeyEvent.KEYCODE_YEN, '\u00a5'); // Yen mark
       // Row #2
       tempUnshiftedMap.put(KeyEvent.KEYCODE_LEFT_BRACKET, '@');
       tempUnshiftedMap.put(KeyEvent.KEYCODE_RIGHT_BRACKET, '[');
@@ -122,9 +116,8 @@ class KeyEventMapperFactory {
     }
 
     /**
-     * Key-character mapping.
-     * Ideally this should be done by preinstalled .kcm file or
-     * application injected .kcm.
+     * Key-character mapping. Ideally this should be done by preinstalled .kcm file or application
+     * injected .kcm.
      */
     private static void doKeyCharacterMapping(CompactKeyEvent keyEvent) {
       boolean isShifted = (keyEvent.getMetaState() & KeyEvent.META_SHIFT_MASK) != 0;
@@ -141,15 +134,16 @@ class KeyEventMapperFactory {
 
     @Override
     public void applyMapping(CompactKeyEvent keyEvent) {
-      keyEvent.setKeyCode(doKeyLayoutMappingForOldAndroids(keyEvent.getKeyCode(),
-                                                           keyEvent.getScanCode()));
+      keyEvent.setKeyCode(
+          doKeyLayoutMappingForOldAndroids(keyEvent.getKeyCode(), keyEvent.getScanCode()));
       doKeyCharacterMapping(keyEvent);
     }
   }
+
   /**
    * Does .kl file's behavior.
    *
-   * Should be applied for all the keyboard type.
+   * <p>Should be applied for all the keyboard type.
    */
   @SuppressLint("InlinedApi")
   private static int doKeyLayoutMappingForOldAndroids(int keyCode, int scanCode) {

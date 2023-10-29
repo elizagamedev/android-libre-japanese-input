@@ -29,18 +29,15 @@
 
 package org.mozc.android.inputmethod.japanese.session;
 
+import android.content.Context;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
 
-import android.content.Context;
-
-/**
- * The interface for Mozc server (native layer).
- *
- */
+/** The interface for Mozc server (native layer). */
 public interface SessionHandler {
   /**
    * Initializes this instance. This method should be invoked before any {@code evalCommand}
    * invocations.
+   *
    * @param context the context. This is used to access .apk file which contains dictionary file.
    */
   void initialize(Context context);
@@ -48,8 +45,7 @@ public interface SessionHandler {
   /**
    * Evaluates Command message.
    *
-   * @param command used as input parameter. command.output can be default
-   * instance.
+   * @param command used as input parameter. command.output can be default instance.
    * @return command instance as output parameter created by native layer.
    */
   Command evalCommand(Command command);

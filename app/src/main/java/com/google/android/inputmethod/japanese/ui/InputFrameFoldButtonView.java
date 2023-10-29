@@ -29,11 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.ui;
 
-import org.mozc.android.inputmethod.japanese.R;
-import org.mozc.android.inputmethod.japanese.view.DummyDrawable;
-import org.mozc.android.inputmethod.japanese.view.Skin;
-import com.google.common.base.Preconditions;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -41,15 +36,16 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ToggleButton;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.view.DummyDrawable;
+import org.mozc.android.inputmethod.japanese.view.Skin;
 
-/**
- * View class for the button to expand/fold conversion candidate view.
- *
- */
+/** View class for the button to expand/fold conversion candidate view. */
 public class InputFrameFoldButtonView extends ToggleButton {
 
   private static final int[] STATE_EMPTY = {};
-  private static final int[] STATE_CHECKED = { android.R.attr.state_checked };
+  private static final int[] STATE_CHECKED = {android.R.attr.state_checked};
 
   private Drawable arrowDownDrawable = DummyDrawable.getInstance();
   private Drawable arrowUpDrawable = DummyDrawable.getInstance();
@@ -81,11 +77,11 @@ public class InputFrameFoldButtonView extends ToggleButton {
     updateDrawableSizes(width, height);
   }
 
- @Override
+  @Override
   protected void drawableStateChanged() {
-   super.drawableStateChanged();
-   invalidate();
- }
+    super.drawableStateChanged();
+    invalidate();
+  }
 
   @Override
   protected void onDraw(Canvas canvas) {
@@ -105,10 +101,12 @@ public class InputFrameFoldButtonView extends ToggleButton {
         skin.getDrawable(resources, R.raw.keyboard_fold_tab_up).getConstantState().newDrawable();
     backgroundDefaultDrawable =
         skin.getDrawable(resources, R.raw.keyboard_fold_tab_background_default)
-            .getConstantState().newDrawable();
+            .getConstantState()
+            .newDrawable();
     backgroundScrolledDrawable =
         skin.getDrawable(resources, R.raw.keyboard_fold_tab_background_scrolled)
-            .getConstantState().newDrawable();
+            .getConstantState()
+            .newDrawable();
     updateDrawableSizes(getWidth(), getHeight());
     invalidate();
   }

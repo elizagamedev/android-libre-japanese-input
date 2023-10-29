@@ -35,10 +35,7 @@ import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.Shader.TileMode;
 
-/**
- * Drawable to render a circular highlight at the center of the key background.
- *
- */
+/** Drawable to render a circular highlight at the center of the key background. */
 public class CenterCircularHighlightDrawable extends BaseBackgroundDrawable {
   // According to the original design mock, the ratio of radius to height is 0.23.
   private static final float RADIUS_RATIO = 0.23f;
@@ -52,8 +49,12 @@ public class CenterCircularHighlightDrawable extends BaseBackgroundDrawable {
   private float radius;
 
   public CenterCircularHighlightDrawable(
-      int leftPadding, int topPadding, int rightPadding, int bottomPadding,
-      int baseColor, int shadeColor) {
+      int leftPadding,
+      int topPadding,
+      int rightPadding,
+      int bottomPadding,
+      int baseColor,
+      int shadeColor) {
     super(leftPadding, topPadding, rightPadding, bottomPadding);
     this.baseColor = baseColor;
     this.shadeColor = shadeColor;
@@ -74,9 +75,13 @@ public class CenterCircularHighlightDrawable extends BaseBackgroundDrawable {
 
     // According to the original design mock, the circle has inner shadow,
     // whose width is about 20% of the radius.
-    paint.setShader(new RadialGradient(centerX, centerY, radius,
-                                       new int[] { baseColor, shadeColor },
-                                       new float[] { 0.8f, 1.0f },
-                                       TileMode.CLAMP));
+    paint.setShader(
+        new RadialGradient(
+            centerX,
+            centerY,
+            radius,
+            new int[] {baseColor, shadeColor},
+            new float[] {0.8f, 1.0f},
+            TileMode.CLAMP));
   }
 }

@@ -29,21 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.userdictionary;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionary.Entry;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionary.PosType;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommandStatus.Status;
-import org.mozc.android.inputmethod.japanese.R;
-import org.mozc.android.inputmethod.japanese.session.SessionExecutor;
-import org.mozc.android.inputmethod.japanese.session.SessionHandlerFactory;
-import org.mozc.android.inputmethod.japanese.userdictionary.UserDictionaryUtil.DictionaryNameDialog;
-import org.mozc.android.inputmethod.japanese.userdictionary.UserDictionaryUtil.DictionaryNameDialogListener;
-import org.mozc.android.inputmethod.japanese.userdictionary.UserDictionaryUtil.WordRegisterDialog;
-import org.mozc.android.inputmethod.japanese.userdictionary.UserDictionaryUtil.WordRegisterDialogListener;
-import org.mozc.android.inputmethod.japanese.util.ZipFileUtil;
-import com.google.common.base.Optional;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -69,7 +54,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
+import com.google.common.base.Optional;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -77,18 +62,25 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-
 import javax.annotation.Nullable;
+import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionary.Entry;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionary.PosType;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommandStatus.Status;
+import org.mozc.android.inputmethod.japanese.session.SessionExecutor;
+import org.mozc.android.inputmethod.japanese.session.SessionHandlerFactory;
+import org.mozc.android.inputmethod.japanese.userdictionary.UserDictionaryUtil.DictionaryNameDialog;
+import org.mozc.android.inputmethod.japanese.userdictionary.UserDictionaryUtil.DictionaryNameDialogListener;
+import org.mozc.android.inputmethod.japanese.userdictionary.UserDictionaryUtil.WordRegisterDialog;
+import org.mozc.android.inputmethod.japanese.userdictionary.UserDictionaryUtil.WordRegisterDialogListener;
+import org.mozc.android.inputmethod.japanese.util.ZipFileUtil;
 
-/**
- * Activity implementation for user dictionary tool.
- *
- */
+/** Activity implementation for user dictionary tool. */
 public class UserDictionaryToolActivity extends Activity {
 
-  /**
-   * A ListAdapter for the main entry list.
-   */
+  /** A ListAdapter for the main entry list. */
   private class EntryListAdapter extends ArrayAdapter<Entry> {
     public EntryListAdapter() {
       super(UserDictionaryToolActivity.this, 0, model.getEntryList());
@@ -103,20 +95,24 @@ public class UserDictionaryToolActivity extends Activity {
       // - Reading
       // - POS name
       if (convertView == null) {
-        convertView = LayoutInflater.from(getContext()).inflate(
-            R.layout.user_dictionary_tool_entry_list_view, null);
+        convertView =
+            LayoutInflater.from(getContext())
+                .inflate(R.layout.user_dictionary_tool_entry_list_view, null);
       }
 
       final ListView entryListView = ListView.class.cast(parent);
       Entry entry = getItem(position);
-      TextView.class.cast(convertView.findViewById(R.id.user_dictionary_tool_entry_list_reading))
+      TextView.class
+          .cast(convertView.findViewById(R.id.user_dictionary_tool_entry_list_reading))
           .setText(entry.getKey());
-      TextView.class.cast(convertView.findViewById(R.id.user_dictionary_tool_entry_list_word))
+      TextView.class
+          .cast(convertView.findViewById(R.id.user_dictionary_tool_entry_list_word))
           .setText(entry.getValue());
-      TextView.class.cast(convertView.findViewById(R.id.user_dictionary_tool_entry_list_pos))
+      TextView.class
+          .cast(convertView.findViewById(R.id.user_dictionary_tool_entry_list_pos))
           .setText(UserDictionaryUtil.getPosStringResourceId(entry.getPos()));
-      CheckBox checkBox = CheckBox.class.cast(
-          convertView.findViewById(R.id.user_dictionary_tool_entry_list_check));
+      CheckBox checkBox =
+          CheckBox.class.cast(convertView.findViewById(R.id.user_dictionary_tool_entry_list_check));
 
       // Before set the "checked" state, we need to remove OnCheckedChangeListener,
       // because convertView *may* be an instance, which is previously used, i.e. which is
@@ -124,21 +120,23 @@ public class UserDictionaryToolActivity extends Activity {
       // updated unexpectedly.
       checkBox.setOnCheckedChangeListener(null);
       checkBox.setChecked(entryListView.isItemChecked(position));
-      checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-          entryListView.setItemChecked(position, isChecked);
-        }
-      });
+      checkBox.setOnCheckedChangeListener(
+          new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+              entryListView.setItemChecked(position, isChecked);
+            }
+          });
 
       // Once the entry is tapped, it is a trigger of editing the entry.
-      convertView.setOnClickListener(new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          model.setEditTargetIndex(position);
-          showDialogInternal(EDIT_ENTRY_DIALOG_ID);
-        }
-      });
+      convertView.setOnClickListener(
+          new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              model.setEditTargetIndex(position);
+              showDialogInternal(EDIT_ENTRY_DIALOG_ID);
+            }
+          });
 
       return convertView;
     }
@@ -162,9 +160,10 @@ public class UserDictionaryToolActivity extends Activity {
 
     // Initialize model.
     Context applicationContext = getApplicationContext();
-    model = new UserDictionaryToolModel(
-        SessionExecutor.getInstanceInitializedIfNecessary(
-            new SessionHandlerFactory(applicationContext), applicationContext));
+    model =
+        new UserDictionaryToolModel(
+            SessionExecutor.getInstanceInitializedIfNecessary(
+                new SessionHandlerFactory(applicationContext), applicationContext));
     model.createSession();
 
     // Initialize views.
@@ -178,24 +177,26 @@ public class UserDictionaryToolActivity extends Activity {
 
   private void initializeDictionaryNameSpinner() {
     Spinner dictionaryNameSpinner = getDictionaryNameSpinner();
-    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-        this, android.R.layout.simple_spinner_item, model.getDictionaryNameList());
+    ArrayAdapter<String> adapter =
+        new ArrayAdapter<String>(
+            this, android.R.layout.simple_spinner_item, model.getDictionaryNameList());
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     dictionaryNameSpinner.setAdapter(adapter);
-    dictionaryNameSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-      @Override
-      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // When the selected dictionary is changed, we should change the main entry list view
-        // as well.
-        model.setSelectedDictionaryByIndex(position);
-        updateEntryList();
-      }
+    dictionaryNameSpinner.setOnItemSelectedListener(
+        new OnItemSelectedListener() {
+          @Override
+          public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            // When the selected dictionary is changed, we should change the main entry list view
+            // as well.
+            model.setSelectedDictionaryByIndex(position);
+            updateEntryList();
+          }
 
-      @Override
-      public void onNothingSelected(AdapterView<?> arg0) {
-        // Do nothing.
-      }
-    });
+          @Override
+          public void onNothingSelected(AdapterView<?> arg0) {
+            // Do nothing.
+          }
+        });
   }
 
   private void initializeEntryListView() {
@@ -311,7 +312,7 @@ public class UserDictionaryToolActivity extends Activity {
     } catch (OutOfMemoryError e) {
       // The zip file being imported is too large. Recovering (if possible).
       toastManager.showMessageShortly(
-              R.string.user_dictionary_tool_error_import_too_large_zip_entry);
+          R.string.user_dictionary_tool_error_import_too_large_zip_entry);
       model.resetImportState();
     } finally {
       if (zipFile != null) {
@@ -349,8 +350,8 @@ public class UserDictionaryToolActivity extends Activity {
 
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
-    menu.findItem(R.id.user_dictionary_tool_menu_undo).setEnabled(
-        model.checkUndoability() == Status.USER_DICTIONARY_COMMAND_SUCCESS);
+    menu.findItem(R.id.user_dictionary_tool_menu_undo)
+        .setEnabled(model.checkUndoability() == Status.USER_DICTIONARY_COMMAND_SUCCESS);
     return super.onPrepareOptionsMenu(menu);
   }
 
@@ -360,8 +361,8 @@ public class UserDictionaryToolActivity extends Activity {
   public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
     if (id == R.id.user_dictionary_tool_menu_add_entry) {
-        maybeShowAddEntryDialog();
-        return true;
+      maybeShowAddEntryDialog();
+      return true;
     }
     if (id == R.id.user_dictionary_tool_menu_delete_entry) {
       maybeDeleteEntry();
@@ -468,8 +469,9 @@ public class UserDictionaryToolActivity extends Activity {
     Intent intent = new Intent(Intent.ACTION_SEND);
     intent.setType("application/zip");
     intent.putExtra(Intent.EXTRA_SUBJECT, dictionaryName + ".zip");
-    if (getPackageManager().queryIntentActivities(
-            intent, PackageManager.MATCH_DEFAULT_ONLY).isEmpty()) {
+    if (getPackageManager()
+        .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        .isEmpty()) {
       toastManager.showMessageShortly(
           R.string.user_dictionary_tool_error_export_no_exportable_applications);
       return;
@@ -480,19 +482,25 @@ public class UserDictionaryToolActivity extends Activity {
     // handle non-ASCII filename correctly.
     // If we become able to switch to org.apache.tools.zip.ZipOutputStream, which accepts non-ASCII,
     // get rid of this workaround.
-    Optional<File> exportFile = model.createExportFile(
-        context.getResources(), "export",
-        MozcUtil.getUserDictionaryExportTempDirectory(context));
+    Optional<File> exportFile =
+        model.createExportFile(
+            context.getResources(),
+            "export",
+            MozcUtil.getUserDictionaryExportTempDirectory(context));
     if (!exportFile.isPresent()) {
       toastManager.showMessageShortly(R.string.user_dictionary_tool_error_export_failed_to_export);
       return;
     }
 
-    intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(
-        "content://"
-            + context.getResources().getString(R.string.user_dictionary_tool_export_provider_name)
-            + "/"
-            + exportFile.get().getAbsolutePath()));
+    intent.putExtra(
+        Intent.EXTRA_STREAM,
+        Uri.parse(
+            "content://"
+                + context
+                    .getResources()
+                    .getString(R.string.user_dictionary_tool_export_provider_name)
+                + "/"
+                + exportFile.get().getAbsolutePath()));
     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
     startActivity(intent);
   }
@@ -514,7 +522,8 @@ public class UserDictionaryToolActivity extends Activity {
                 }
                 return status;
               }
-            }, toastManager);
+            },
+            toastManager);
 
       case EDIT_ENTRY_DIALOG_ID:
         return UserDictionaryUtil.createWordRegisterDialog(
@@ -529,7 +538,8 @@ public class UserDictionaryToolActivity extends Activity {
                 }
                 return status;
               }
-            }, toastManager);
+            },
+            toastManager);
 
       case CREATE_DICTIONARY_DIALOG_ID:
         return UserDictionaryUtil.createDictionaryNameDialog(
@@ -545,7 +555,8 @@ public class UserDictionaryToolActivity extends Activity {
                 }
                 return status;
               }
-            }, toastManager);
+            },
+            toastManager);
 
       case RENAME_DICTIONARY_DIALOG_ID:
         return UserDictionaryUtil.createDictionaryNameDialog(
@@ -560,7 +571,8 @@ public class UserDictionaryToolActivity extends Activity {
                 }
                 return status;
               }
-            }, toastManager);
+            },
+            toastManager);
 
       case ZIP_FILE_SELECTION_DIALOG_ID:
         return UserDictionaryUtil.createZipFileSelectionDialog(
@@ -569,9 +581,11 @@ public class UserDictionaryToolActivity extends Activity {
             new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which) {
-                Spinner spinner = Spinner.class.cast(
-                    Dialog.class.cast(dialog).findViewById(
-                        R.id.user_dictionary_tool_simple_spinner_dialog_spinner));
+                Spinner spinner =
+                    Spinner.class.cast(
+                        Dialog.class
+                            .cast(dialog)
+                            .findViewById(R.id.user_dictionary_tool_simple_spinner_dialog_spinner));
 
                 ZipFile zipFile = model.releaseZipFile();
                 try {
@@ -614,9 +628,11 @@ public class UserDictionaryToolActivity extends Activity {
             new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which) {
-                Spinner spinner = Spinner.class.cast(
-                    Dialog.class.cast(dialog).findViewById(
-                        R.id.user_dictionary_tool_simple_spinner_dialog_spinner));
+                Spinner spinner =
+                    Spinner.class.cast(
+                        Dialog.class
+                            .cast(dialog)
+                            .findViewById(R.id.user_dictionary_tool_simple_spinner_dialog_spinner));
                 // This is the trick to specify dictionary index.
                 // The entry list of the spinner has "new dictionary" followed by
                 // a list of dictionary names.
@@ -653,9 +669,9 @@ public class UserDictionaryToolActivity extends Activity {
     super.onPrepareDialog(id, dialog);
     switch (id) {
       case ADD_ENTRY_DIALOG_ID:
-        WordRegisterDialog.class.cast(dialog).setEntry(Entry.newBuilder()
-            .setPos(PosType.NOUN)
-            .buildPartial());
+        WordRegisterDialog.class
+            .cast(dialog)
+            .setEntry(Entry.newBuilder().setPos(PosType.NOUN).buildPartial());
         UserDictionaryUtil.showInputMethod(dialog);
         break;
       case EDIT_ENTRY_DIALOG_ID:
@@ -669,66 +685,66 @@ public class UserDictionaryToolActivity extends Activity {
         break;
 
       case RENAME_DICTIONARY_DIALOG_ID:
-        DictionaryNameDialog.class.cast(dialog).setDictionaryName(
-            model.getSelectedDictionaryName());
+        DictionaryNameDialog.class
+            .cast(dialog)
+            .setDictionaryName(model.getSelectedDictionaryName());
         UserDictionaryUtil.showInputMethod(dialog);
         break;
 
-      case ZIP_FILE_SELECTION_DIALOG_ID: {
-        ZipFile zipFile = model.getZipFile();
-        if (zipFile == null) {
-          throw new AssertionError();
+      case ZIP_FILE_SELECTION_DIALOG_ID:
+        {
+          ZipFile zipFile = model.getZipFile();
+          if (zipFile == null) {
+            throw new AssertionError();
+          }
+          List<String> pathList = new ArrayList<String>(zipFile.size());
+          for (Enumeration<? extends ZipEntry> enumeration = zipFile.entries();
+              enumeration.hasMoreElements(); ) {
+            pathList.add(enumeration.nextElement().getName());
+          }
+          ArrayAdapter<String> adapter =
+              new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, pathList);
+          adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+          Spinner.class
+              .cast(dialog.findViewById(R.id.user_dictionary_tool_simple_spinner_dialog_spinner))
+              .setAdapter(adapter);
+          break;
         }
-        List<String> pathList = new ArrayList<String>(zipFile.size());
-        for (Enumeration<? extends ZipEntry> enumeration = zipFile.entries();
-             enumeration.hasMoreElements(); ) {
-          pathList.add(enumeration.nextElement().getName());
+
+      case IMPORT_DICTIONARY_SELECTION_DIALOG_ID:
+        {
+          List<String> dictionaryNameList = model.getDictionaryNameList();
+          // One more element for "new dictionary".
+          List<String> dictionarySelectionItemList =
+              new ArrayList<String>(dictionaryNameList.size() + 1);
+          int newDictionaryResourceId =
+              R.string.user_dictionary_tool_import_dictionary_selection_dialog_new_dictionary;
+          dictionarySelectionItemList.add(getText(newDictionaryResourceId).toString());
+          dictionarySelectionItemList.addAll(dictionaryNameList);
+
+          ArrayAdapter<String> adapter =
+              new ArrayAdapter<String>(
+                  this, android.R.layout.simple_spinner_item, dictionarySelectionItemList);
+          adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+          Spinner.class
+              .cast(dialog.findViewById(R.id.user_dictionary_tool_simple_spinner_dialog_spinner))
+              .setAdapter(adapter);
+          break;
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-            this, android.R.layout.simple_spinner_item, pathList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner.class.cast(
-            dialog.findViewById(R.id.user_dictionary_tool_simple_spinner_dialog_spinner))
-            .setAdapter(adapter);
-        break;
-      }
-
-      case IMPORT_DICTIONARY_SELECTION_DIALOG_ID: {
-        List<String> dictionaryNameList = model.getDictionaryNameList();
-        // One more element for "new dictionary".
-        List<String> dictionarySelectionItemList =
-            new ArrayList<String>(dictionaryNameList.size() + 1);
-        int newDictionaryResourceId =
-            R.string.user_dictionary_tool_import_dictionary_selection_dialog_new_dictionary;
-        dictionarySelectionItemList.add(getText(newDictionaryResourceId).toString());
-        dictionarySelectionItemList.addAll(dictionaryNameList);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-            this, android.R.layout.simple_spinner_item, dictionarySelectionItemList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner.class.cast(
-            dialog.findViewById(R.id.user_dictionary_tool_simple_spinner_dialog_spinner))
-            .setAdapter(adapter);
-        break;
-      }
 
       default:
         MozcLog.e("Unknown Dialog ID: " + id);
     }
   }
 
-  /**
-   * Updates the contents and the selected item of dictionary name spinner.
-   */
+  /** Updates the contents and the selected item of dictionary name spinner. */
   private void updateDictionaryNameSpinner() {
     Spinner dictionaryNameSpinner = getDictionaryNameSpinner();
     dictionaryNameSpinner.setSelection(model.getSelectedDictionaryIndex());
     ArrayAdapter.class.cast(dictionaryNameSpinner.getAdapter()).notifyDataSetChanged();
   }
 
-  /**
-   * Updates the contents in the entry list view.
-   */
+  /** Updates the contents in the entry list view. */
   private void updateEntryList() {
     ListView entryList = getEntryList();
     ArrayAdapter.class.cast(entryList.getAdapter()).notifyDataSetChanged();

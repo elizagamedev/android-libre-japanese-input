@@ -29,17 +29,12 @@
 
 package org.mozc.android.inputmethod.japanese.session;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
 import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.MozcLog;
 
-/**
- * The wrapper for JNI Mozc server.
- *
- */
+/** The wrapper for JNI Mozc server. */
 class MozcJNI {
-  /**
-   * Load the mozc native library. This method must be invoked before {@code evalCommand}.
-   */
+  /** Load the mozc native library. This method must be invoked before {@code evalCommand}. */
   private static volatile boolean isLoaded = false;
 
   /**
@@ -49,8 +44,7 @@ class MozcJNI {
    * @param dataFilePath optional path to data file (e.g., mozc.data), or {@code null}
    * @param expectedVersion expected version name of .so
    */
-  static void load(
-      String userProfileDirectoryPath, String dataFilePath, String expectedVersion) {
+  static void load(String userProfileDirectoryPath, String dataFilePath, String expectedVersion) {
     Preconditions.checkNotNull(userProfileDirectoryPath);
     Preconditions.checkNotNull(expectedVersion);
 
@@ -77,8 +71,8 @@ class MozcJNI {
         throw new UnsatisfiedLinkError(message.toString());
       }
       if (!onPostLoad(userProfileDirectoryPath, dataFilePath)) {
-          MozcLog.e("onPostLoad fails");
-          return;
+        MozcLog.e("onPostLoad fails");
+        return;
       }
       isLoaded = true;
       MozcLog.d("end MozcJNI#load " + System.nanoTime());
@@ -88,7 +82,7 @@ class MozcJNI {
   /**
    * Sends Command message to Mozc server and get a result.
    *
-   * A caller has to interpret Command instance to and from blob.
+   * <p>A caller has to interpret Command instance to and from blob.
    *
    * @param command blob of Command message.
    * @return blob of Command message.
@@ -96,10 +90,10 @@ class MozcJNI {
   static synchronized native byte[] evalCommand(byte[] command);
 
   /**
-   * This method initializes the internal state of mozc server, especially dictionary data
-   * and session related stuff. We cannot do this in JNI_OnLoad, which is the callback API
-   * for JNI called when the shared object is loaded, because we need to pass the file path
-   * of data file from Java as only Java knows where the data is in our context.
+   * This method initializes the internal state of mozc server, especially dictionary data and
+   * session related stuff. We cannot do this in JNI_OnLoad, which is the callback API for JNI
+   * called when the shared object is loaded, because we need to pass the file path of data file
+   * from Java as only Java knows where the data is in our context.
    */
   private static synchronized native boolean onPostLoad(
       String userProfileDirectoryPath, String dataFilePath);
@@ -110,8 +104,8 @@ class MozcJNI {
   private static native String getVersion();
 
   /**
-   * @return Data version string currently loaded in native layer. Empty if initialization has
-   *     not been done yet.
+   * @return Data version string currently loaded in native layer. Empty if initialization has not
+   *     been done yet.
    */
   public static native String getDataVersion();
 

@@ -29,8 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.preference;
 
-import org.mozc.android.inputmethod.japanese.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.preference.Preference;
@@ -44,17 +42,18 @@ import android.view.ViewParent;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import org.mozc.android.inputmethod.japanese.R;
 
 /**
  * Preference to configure the flick sensitivity.
  *
- * This preference has a seekbar and its indicators to manipulate flick sensitivity,
- * in addition to other regular preferences.
- *
+ * <p>This preference has a seekbar and its indicators to manipulate flick sensitivity, in addition
+ * to other regular preferences.
  */
 public class SeekbarPreference extends Preference {
   private class SeekBarChangeListener implements OnSeekBarChangeListener {
     private final TextView sensitivityTextView;
+
     SeekBarChangeListener(TextView textView) {
       this.sensitivityTextView = textView;
     }
@@ -67,8 +66,7 @@ public class SeekbarPreference extends Preference {
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-    }
+    public void onStartTrackingTouch(SeekBar seekBar) {}
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
@@ -100,13 +98,13 @@ public class SeekbarPreference extends Preference {
 
   private void init(Context context, AttributeSet attrs) {
     int[] attributeArray = {
-        android.R.attr.max,
-        android.R.attr.progress,
-        R.attr.seekbar_offset,
-        R.attr.seekbar_unit,
-        R.attr.seekbar_low_text,
-        R.attr.seekbar_middle_text,
-        R.attr.seekbar_high_text,
+      android.R.attr.max,
+      android.R.attr.progress,
+      R.attr.seekbar_offset,
+      R.attr.seekbar_unit,
+      R.attr.seekbar_low_text,
+      R.attr.seekbar_middle_text,
+      R.attr.seekbar_high_text,
     };
     TypedArray typedArray = context.obtainStyledAttributes(attrs, attributeArray);
     try {
@@ -133,9 +131,7 @@ public class SeekbarPreference extends Preference {
     return view;
   }
 
-  /**
-   * Initializes the original preferecen's parameters.
-   */
+  /** Initializes the original preferecen's parameters. */
   private void initializeOriginalView(View view) {
     View summaryView = view.findViewById(android.R.id.summary);
     if (summaryView == null) {
@@ -188,8 +184,7 @@ public class SeekbarPreference extends Preference {
   protected void onBindView(View view) {
     super.onBindView(view);
 
-    TextView valueView =
-        TextView.class.cast(view.findViewById(R.id.pref_seekbar_value));
+    TextView valueView = TextView.class.cast(view.findViewById(R.id.pref_seekbar_value));
     SeekBar seekBar = SeekBar.class.cast(view.findViewById(R.id.pref_seekbar_seekbar));
     if (seekBar != null) {
       seekBar.setMax(max - offset);

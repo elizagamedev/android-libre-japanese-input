@@ -29,22 +29,17 @@
 
 package org.mozc.android.inputmethod.japanese.userdictionary;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
-
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import javax.annotation.Nullable;
+import org.mozc.android.inputmethod.japanese.MozcLog;
 
-/**
- * Content provider class to export a user dictionary.
- */
+/** Content provider class to export a user dictionary. */
 public class UserDictionaryExportProvider extends ContentProvider {
 
   @Override
@@ -70,8 +65,8 @@ public class UserDictionaryExportProvider extends ContentProvider {
 
   @Override
   @Nullable
-  public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
-                      String sortOrder) {
+  public Cursor query(
+      Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
     return null;
   }
 

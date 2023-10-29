@@ -29,6 +29,12 @@
 
 package org.mozc.android.inputmethod.japanese;
 
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import java.util.Collections;
 import org.mozc.android.inputmethod.japanese.keyboard.BackgroundDrawableFactory.DrawableType;
 import org.mozc.android.inputmethod.japanese.keyboard.Flick;
 import org.mozc.android.inputmethod.japanese.keyboard.Flick.Direction;
@@ -40,21 +46,12 @@ import org.mozc.android.inputmethod.japanese.keyboard.KeyEventHandler;
 import org.mozc.android.inputmethod.japanese.keyboard.KeyState;
 import org.mozc.android.inputmethod.japanese.keyboard.PopUp;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchAction;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
-
-import java.util.Collections;
 
 /**
  * This class is an event listener for a view which sends a key to MozcServer.
  *
- * Note that currently, we assume all key are repeatable based on our
- * requirements. We can easily support non repeatable key if necessary.
- *
+ * <p>Note that currently, we assume all key are repeatable based on our requirements. We can easily
+ * support non repeatable key if necessary.
  */
 public class KeyEventButtonTouchListener implements OnTouchListener {
 
@@ -63,18 +60,13 @@ public class KeyEventButtonTouchListener implements OnTouchListener {
   private KeyEventHandler keyEventHandler = null;
   @VisibleForTesting KeyEventContext keyEventContext = null;
 
-  /**
-   * This is exported as protected for testing.
-   */
+  /** This is exported as protected for testing. */
   protected KeyEventButtonTouchListener(int sourceId, int keyCode) {
     this.sourceId = sourceId;
     this.keyCode = keyCode;
   }
 
-  /**
-   * Resets the internal state of this listener.
-   * This is exported as protected for testing.
-   */
+  /** Resets the internal state of this listener. This is exported as protected for testing. */
   protected void reset() {
     KeyEventHandler keyEventHandler = this.keyEventHandler;
     KeyEventContext keyEventContext = this.keyEventContext;
@@ -84,10 +76,7 @@ public class KeyEventButtonTouchListener implements OnTouchListener {
     this.keyEventContext = null;
   }
 
-  /**
-   * Sets a new event handler to this instance.
-   * This is exported as protected for testing.
-   */
+  /** Sets a new event handler to this instance. This is exported as protected for testing. */
   protected void setKeyEventHandler(KeyEventHandler keyEventHandler) {
     // We'll detach the current event context from the old key event handler.
     reset();
@@ -95,26 +84,46 @@ public class KeyEventButtonTouchListener implements OnTouchListener {
   }
 
   /**
-   * Creates a (pseudo) {@link Key} instance based on the given {@code button} and its
-   * {@code keyCode}.
-   * This is exported as package private for testing.
+   * Creates a (pseudo) {@link Key} instance based on the given {@code button} and its {@code
+   * keyCode}. This is exported as package private for testing.
    */
-  @VisibleForTesting static Key createKey(View button, int sourceId, int keyCode) {
-    KeyEntity keyEntity = new KeyEntity(
-            sourceId, keyCode, KeyEntity.INVALID_KEY_CODE, true, 0,
-            Optional.<String>absent(), false,
-            Optional.<PopUp>absent(), 0, 0, 0, 0);
+  @VisibleForTesting
+  static Key createKey(View button, int sourceId, int keyCode) {
+    KeyEntity keyEntity =
+        new KeyEntity(
+            sourceId,
+            keyCode,
+            KeyEntity.INVALID_KEY_CODE,
+            true,
+            0,
+            Optional.<String>absent(),
+            false,
+            Optional.<PopUp>absent(),
+            0,
+            0,
+            0,
+            0);
     Flick flick = new Flick(Direction.CENTER, keyEntity);
     KeyState keyState =
-        new KeyState("",
-                     Collections.<KeyState.MetaState>emptySet(),
-                     Collections.<KeyState.MetaState>emptySet(),
-                     Collections.<KeyState.MetaState>emptySet(),
-                     Collections.singletonList(flick));
+        new KeyState(
+            "",
+            Collections.<KeyState.MetaState>emptySet(),
+            Collections.<KeyState.MetaState>emptySet(),
+            Collections.<KeyState.MetaState>emptySet(),
+            Collections.singletonList(flick));
     // Now, we support repeatable keys only.
-    return new Key(0, 0, button.getWidth(), button.getHeight(), 0, 0,
-                   true, false, Stick.EVEN, DrawableType.TWELVEKEYS_REGULAR_KEY_BACKGROUND,
-                   Collections.singletonList(keyState));
+    return new Key(
+        0,
+        0,
+        button.getWidth(),
+        button.getHeight(),
+        0,
+        0,
+        true,
+        false,
+        Stick.EVEN,
+        DrawableType.TWELVEKEYS_REGULAR_KEY_BACKGROUND,
+        Collections.singletonList(keyState));
   }
 
   private static KeyEventContext createKeyEventContext(
@@ -122,13 +131,18 @@ public class KeyEventButtonTouchListener implements OnTouchListener {
     Key key = createKey(button, sourceId, keyCode);
     View parent = View.class.cast(button.getParent());
     return new KeyEventContext(
-        key, 0, x, y, parent.getWidth(), parent.getHeight(), 0,
+        key,
+        0,
+        x,
+        y,
+        parent.getWidth(),
+        parent.getHeight(),
+        0,
         Collections.<KeyState.MetaState>emptySet());
   }
 
   /**
-   * Handles the button view's down event.
-   * This is exported as package private for testing purpose.
+   * Handles the button view's down event. This is exported as package private for testing purpose.
    */
   void onDown(View button, float x, float y) {
     button.setPressed(true);
@@ -153,8 +167,7 @@ public class KeyEventButtonTouchListener implements OnTouchListener {
   }
 
   /**
-   * Handles the button view's up event.
-   * This is exported as package private for testing purpose.
+   * Handles the button view's up event. This is exported as package private for testing purpose.
    */
   void onUp(View button, float x, float y, long timestamp) {
     button.setPressed(false);
@@ -165,21 +178,21 @@ public class KeyEventButtonTouchListener implements OnTouchListener {
       keyEventContext.update(x, y, TouchAction.TOUCH_UP, timestamp);
       keyEventHandler.cancelDelayedKeyEvent(keyEventContext);
       // TODO(hsumita): Confirm that we can put null as a touch event or not.
-      keyEventHandler.sendKey(keyEventContext.getKeyCode(),
-                              Collections.singletonList(keyEventContext.getTouchEvent().orNull()));
+      keyEventHandler.sendKey(
+          keyEventContext.getKeyCode(),
+          Collections.singletonList(keyEventContext.getTouchEvent().orNull()));
       keyEventHandler.sendRelease(keyEventContext.getPressedKeyCode());
     }
     this.keyEventContext = null;
   }
 
   /**
-   * Handles the button view's move event.
-   * This is exported as package private for testing purpose.
+   * Handles the button view's move event. This is exported as package private for testing purpose.
    */
   void onMove(float x, float y, long timestamp) {
     KeyEventContext keyEventContext = this.keyEventContext;
-    if (keyEventContext != null &&
-        keyEventContext.update(x, y, TouchAction.TOUCH_MOVE, timestamp)) {
+    if (keyEventContext != null
+        && keyEventContext.update(x, y, TouchAction.TOUCH_MOVE, timestamp)) {
       // Here, the user's touching point is moved to outside of the button view,
       // so cancel the repeating key event.
       KeyEventHandler keyEventHandler = this.keyEventHandler;

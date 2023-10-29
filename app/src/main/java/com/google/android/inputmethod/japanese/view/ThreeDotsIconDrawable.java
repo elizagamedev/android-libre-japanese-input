@@ -40,9 +40,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 
-/**
- * Three-dots overlay icon for keys which accept long-press. e.g., space.
- */
+/** Three-dots overlay icon for keys which accept long-press. e.g., space. */
 public class ThreeDotsIconDrawable extends Drawable {
 
   private final float bottomOffset;
@@ -58,8 +56,8 @@ public class ThreeDotsIconDrawable extends Drawable {
 
   private final Paint basePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-  public ThreeDotsIconDrawable(float bottomOffset, float rightOffset,
-                               int color, float width, float span) {
+  public ThreeDotsIconDrawable(
+      float bottomOffset, float rightOffset, int color, float width, float span) {
     this.bottomOffset = bottomOffset;
     this.rightOffset = rightOffset;
     this.width = width;
@@ -98,10 +96,8 @@ public class ThreeDotsIconDrawable extends Drawable {
   }
 
   @Override
-  public void setAlpha(int alpha) {
-  }
+  public void setAlpha(int alpha) {}
 
   @Override
-  public void setColorFilter(ColorFilter cf) {
-  }
+  public void setColorFilter(ColorFilter cf) {}
 }

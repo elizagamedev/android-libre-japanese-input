@@ -29,58 +29,32 @@
 
 package org.mozc.android.inputmethod.japanese;
 
+import android.media.AudioManager;
 import com.google.common.annotations.VisibleForTesting;
 
-import android.media.AudioManager;
-
-/**
- * FeedbackManager manages feed back events, like haptic and sound.
- *
- */
+/** FeedbackManager manages feed back events, like haptic and sound. */
 public class FeedbackManager {
-  /**
-   * Evnet types.
-   */
+  /** Evnet types. */
   public enum FeedbackEvent {
-    /**
-     * Fired when a key is down.
-     */
+    /** Fired when a key is down. */
     KEY_DOWN(true, AudioManager.FX_KEYPRESS_STANDARD),
-    /**
-     * Fired when a candidate is selected by using candidate view.
-     */
+    /** Fired when a candidate is selected by using candidate view. */
     CANDIDATE_SELECTED(true, AudioManager.FX_KEY_CLICK),
-    /**
-     * Fired when the input view is expanded (the candidate view is fold).
-     */
+    /** Fired when the input view is expanded (the candidate view is fold). */
     INPUTVIEW_EXPAND(true, AudioManager.FX_KEYPRESS_STANDARD),
-    /**
-     * Fired when the input view is fold (the candidate view is expand).
-     */
+    /** Fired when the input view is fold (the candidate view is expand). */
     INPUTVIEW_FOLD(true, AudioManager.FX_KEYPRESS_STANDARD),
-    /**
-     * Fired when the symbol input view is closed.
-     */
+    /** Fired when the symbol input view is closed. */
     SYMBOL_INPUTVIEW_CLOSED(true, AudioManager.FX_KEYPRESS_STANDARD),
-    /**
-     * Fired when a minor category is selected.
-     */
+    /** Fired when a minor category is selected. */
     SYMBOL_INPUTVIEW_MINOR_CATEGORY_SELECTED(true, AudioManager.FX_KEYPRESS_STANDARD),
-    /**
-     * Fired when a major category is selected.
-     */
+    /** Fired when a major category is selected. */
     SYMBOL_INPUTVIEW_MAJOR_CATEGORY_SELECTED(true, AudioManager.FX_KEYPRESS_STANDARD),
-    /**
-     * Fired when microphone button is touched.
-     */
+    /** Fired when microphone button is touched. */
     MICROPHONE_BUTTON_DOWN(true, AudioManager.FX_KEYPRESS_STANDARD),
-    /**
-     * Fired when the hardware composition button in narrow frame is touched.
-     */
+    /** Fired when the hardware composition button in narrow frame is touched. */
     NARROW_FRAME_HARDWARE_COMPOSITION_BUTTON_DOWN(true, AudioManager.FX_KEYPRESS_STANDARD),
-    /**
-     * Fired when the widen button in narrow frame is touched.
-     */
+    /** Fired when the widen button in narrow frame is touched. */
     NARROW_FRAME_WIDEN_BUTTON_DOWN(true, AudioManager.FX_KEYPRESS_STANDARD),
     ;
     // Constant value to indicate no sound feedback should be played.
@@ -91,9 +65,8 @@ public class FeedbackManager {
 
     /**
      * @param isHapticFeedbackTarget true if the device should vibrate at the event.
-     * @param soundEffectType the effect type of the feedback sound,
-     *        defined in {@link AudioManager}.
-     *        FeedbackListener.NO_SOUND for no sound feedback.
+     * @param soundEffectType the effect type of the feedback sound, defined in {@link
+     *     AudioManager}. FeedbackListener.NO_SOUND for no sound feedback.
      */
     private FeedbackEvent(boolean isHapticFeedbackTarget, int soundEffectType) {
       this.isHapticFeedbackTarget = isHapticFeedbackTarget;
@@ -111,6 +84,7 @@ public class FeedbackManager {
   interface FeedbackListener {
     /**
      * Called when vibrate feedback is fired.
+     *
      * @param duration the duration of vibration in millisecond.
      */
     public void onVibrate(long duration);
@@ -118,16 +92,16 @@ public class FeedbackManager {
     /**
      * Called when sound feedback is fired.
      *
-     * @param soundEffectType the effect type of the sound to be played.
-     *        If FeedbackManager.NO_SOUND, no sound will be played.
+     * @param soundEffectType the effect type of the sound to be played. If
+     *     FeedbackManager.NO_SOUND, no sound will be played.
      */
     public void onSound(int soundEffectType, float volume);
   }
 
   private boolean isHapticFeedbackEnabled;
-  private long hapticFeedbackDuration = 30;  // 30ms by default.
+  private long hapticFeedbackDuration = 30; // 30ms by default.
   private boolean isSoundFeedbackEnabled;
-  private float soundFeedbackVolume = 0.4f;  // System default volume parameter.
+  private float soundFeedbackVolume = 0.4f; // System default volume parameter.
   @VisibleForTesting final FeedbackListener feedbackListener;
 
   /**

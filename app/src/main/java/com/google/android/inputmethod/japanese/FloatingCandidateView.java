@@ -29,18 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese;
 
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.Category;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Output;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Preedit.Segment;
-import org.mozc.android.inputmethod.japanese.ui.FloatingCandidateLayoutRenderer;
-import org.mozc.android.inputmethod.japanese.ui.FloatingModeIndicator;
-import org.mozc.android.inputmethod.japanese.util.CursorAnchorInfoWrapper;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
@@ -55,23 +43,41 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.PopupWindow;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.Category;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Output;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Preedit.Segment;
+import org.mozc.android.inputmethod.japanese.ui.FloatingCandidateLayoutRenderer;
+import org.mozc.android.inputmethod.japanese.ui.FloatingModeIndicator;
+import org.mozc.android.inputmethod.japanese.util.CursorAnchorInfoWrapper;
 
-/**
- * Floating candidate view for hardware keyboard.
- */
+/** Floating candidate view for hardware keyboard. */
 @TargetApi(21)
 public class FloatingCandidateView extends View {
 
   private interface FloatingCandidateViewProxy {
     public void draw(Canvas canvas);
+
     public void viewSizeChanged(int width, int height);
+
     public void onStartInputView(EditorInfo editorInfo);
+
     public void setCursorAnchorInfo(CursorAnchorInfoWrapper info);
+
     public void setCandidates(Command outCommand);
+
     public void setEditorInfo(EditorInfo editorInfo);
+
     public void setCompositionMode(CompositionMode mode);
+
     public void setViewEventListener(ViewEventListener listener);
+
     public void setVisibility(int visibility);
+
     public Optional<Rect> getVisibleRect();
   }
 
@@ -121,14 +127,14 @@ public class FloatingCandidateView extends View {
 
     /**
      * Pop-up window to handle touch events.
-     * <p>
-     * A touch down event on outside a touchable region (set by {@link MozcService#onComputeInsets})
-     * cannot be caught by view, and we cannot expand the touchable region since all touch down
-     * events inside the region are not delegated to a background application.
-     * To handle these touch events, we employ pop-up window.
-     * <p>
-     * This window is always invisible since we cannot control the transition behavior.
-     * (e.g. Pop-up window always move with animation)
+     *
+     * <p>A touch down event on outside a touchable region (set by {@link
+     * MozcService#onComputeInsets}) cannot be caught by view, and we cannot expand the touchable
+     * region since all touch down events inside the region are not delegated to a background
+     * application. To handle these touch events, we employ pop-up window.
+     *
+     * <p>This window is always invisible since we cannot control the transition behavior. (e.g.
+     * Pop-up window always move with animation)
      */
     private final PopupWindow touchEventReceiverWindow;
 
@@ -137,25 +143,30 @@ public class FloatingCandidateView extends View {
 
     /**
      * Base position of the floating candidate window.
-     * <p>
-     * It is same as the cursor rectangle on pre-composition state, and the left-edge of the focused
-     * segment on other states.
+     *
+     * <p>It is same as the cursor rectangle on pre-composition state, and the left-edge of the
+     * focused segment on other states.
      */
     private int basePositionTop;
+
     private int basePositionBottom;
     private int basePositionX;
     private Optional<CursorAnchorInfoWrapper> cursorAnchorInfo = Optional.absent();
     private Category candidatesCategory = Category.CONVERSION;
     private int highlightedCharacterStart;
     private int compositionCharacterEnd;
+
     /** True if EditorInfo says suggestion should be suppressed. */
     private boolean suppressSuggestion;
+
     /**
      * Horizontal offset of the candidate window. See also {@link FloatingCandidateLayoutRenderer}
      */
     private int offsetX;
+
     /** Vertical offset of the candidate window. See also {@link FloatingCandidateLayoutRenderer} */
     private int offsetY;
+
     private boolean isCandidateWindowShowing;
 
     public FloatingCandidateViewImpl(View parentView) {
@@ -171,9 +182,11 @@ public class FloatingCandidateView extends View {
           Math.round(resources.getDimension(R.dimen.floating_candidate_window_horizontal_margin));
     }
 
-    public FloatingCandidateViewImpl(View parentView, PopupWindow popupWindowMock,
-                                     FloatingCandidateLayoutRenderer layoutRenderer,
-                                     FloatingModeIndicator modeIndicator) {
+    public FloatingCandidateViewImpl(
+        View parentView,
+        PopupWindow popupWindowMock,
+        FloatingCandidateLayoutRenderer layoutRenderer,
+        FloatingModeIndicator modeIndicator) {
       this.parentView = Preconditions.checkNotNull(parentView);
       this.layoutRenderer = Preconditions.checkNotNull(layoutRenderer);
       this.modeIndicator = Preconditions.checkNotNull(modeIndicator);
@@ -186,26 +199,27 @@ public class FloatingCandidateView extends View {
     }
 
     private PopupWindow createPopupWindow(Context context) {
-      return new PopupWindow(new View(context) {
-        @Override
-        public boolean onTouchEvent(MotionEvent event) {
-          Optional<Rect> rect = layoutRenderer.getWindowRect();
-          if (!rect.isPresent()) {
-            return false;
-          }
+      return new PopupWindow(
+          new View(context) {
+            @Override
+            public boolean onTouchEvent(MotionEvent event) {
+              Optional<Rect> rect = layoutRenderer.getWindowRect();
+              if (!rect.isPresent()) {
+                return false;
+              }
 
-          MotionEvent copiedEvent = MotionEvent.obtain(event);
-          try {
-            copiedEvent.offsetLocation(rect.get().left, rect.get().top);
-            layoutRenderer.onTouchEvent(copiedEvent);
-            // TODO(hsumita): Don't invalidate the view if not necessary.
-            parentView.invalidate();
-          } finally {
-            copiedEvent.recycle();
-          }
-          return true;
-        }
-      });
+              MotionEvent copiedEvent = MotionEvent.obtain(event);
+              try {
+                copiedEvent.offsetLocation(rect.get().left, rect.get().top);
+                layoutRenderer.onTouchEvent(copiedEvent);
+                // TODO(hsumita): Don't invalidate the view if not necessary.
+                parentView.invalidate();
+              } finally {
+                copiedEvent.recycle();
+              }
+              return true;
+            }
+          });
     }
 
     @Override
@@ -289,8 +303,8 @@ public class FloatingCandidateView extends View {
 
     /**
      * Updates the candidate window.
-     * <p>
-     * All layout related states should be updated before call this method.
+     *
+     * <p>All layout related states should be updated before call this method.
      */
     private void updateCandidateWindow() {
       updateCandidateWindowWithSize(parentView.getWidth(), parentView.getHeight());
@@ -299,13 +313,14 @@ public class FloatingCandidateView extends View {
     private int calculateWindowLeftPosition(Rect rect, int basePositionX, int viewWidth) {
       return MozcUtil.clamp(
           basePositionX + rect.left,
-          windowHorizontalMargin, viewWidth - rect.width() - windowHorizontalMargin);
+          windowHorizontalMargin,
+          viewWidth - rect.width() - windowHorizontalMargin);
     }
 
     /**
      * Updates the candidate window with width and height.
-     * <p>
-     * All layout related states should be updated before call this method.
+     *
+     * <p>All layout related states should be updated before call this method.
      */
     private void updateCandidateWindowWithSize(int viewWidth, int viewHeight) {
       if (suppressSuggestion && candidatesCategory == Category.SUGGESTION) {
@@ -323,10 +338,13 @@ public class FloatingCandidateView extends View {
       updateBasePosition(rect, viewWidth);
       int lowerAreaHeight = viewHeight - basePositionBottom - windowVerticalMargin;
       int upperAreaHeight = basePositionTop - windowVerticalMargin;
-      int top = (lowerAreaHeight < rect.height() && lowerAreaHeight < upperAreaHeight)
-        ? MozcUtil.clamp(basePositionTop - rect.height() - windowVerticalMargin,
-                         0, viewHeight - rect.height())
-        : Math.max(0, basePositionBottom + windowVerticalMargin);
+      int top =
+          (lowerAreaHeight < rect.height() && lowerAreaHeight < upperAreaHeight)
+              ? MozcUtil.clamp(
+                  basePositionTop - rect.height() - windowVerticalMargin,
+                  0,
+                  viewHeight - rect.height())
+              : Math.max(0, basePositionBottom + windowVerticalMargin);
       int left = calculateWindowLeftPosition(rect, basePositionX, viewWidth);
 
       offsetX = left - rect.left;
@@ -343,8 +361,8 @@ public class FloatingCandidateView extends View {
       }
 
       if ((editorInfo.inputType
-           & (InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE))
-           != 0) {
+              & (InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE))
+          != 0) {
         return true;
       }
 
@@ -385,11 +403,17 @@ public class FloatingCandidateView extends View {
       RectF firstCharacterBounds = info.getCharacterBounds(composingStartIndex);
       float[] points;
       if (firstCharacterBounds != null) {
-        points = new float[] {firstCharacterBounds.left, firstCharacterBounds.top,
-                              firstCharacterBounds.left, firstCharacterBounds.bottom};
+        points =
+            new float[] {
+              firstCharacterBounds.left, firstCharacterBounds.top,
+              firstCharacterBounds.left, firstCharacterBounds.bottom
+            };
       } else if (!Float.isNaN(info.getInsertionMarkerHorizontal())) {
-        points = new float[] {info.getInsertionMarkerHorizontal(), info.getInsertionMarkerTop(),
-                              info.getInsertionMarkerHorizontal(), info.getInsertionMarkerBottom()};
+        points =
+            new float[] {
+              info.getInsertionMarkerHorizontal(), info.getInsertionMarkerTop(),
+              info.getInsertionMarkerHorizontal(), info.getInsertionMarkerBottom()
+            };
       } else {
         resetBasePosition();
         return;
@@ -422,11 +446,11 @@ public class FloatingCandidateView extends View {
 
     /**
      * Shows the candidate window.
-     * <p>
-     * First {@code touchEventReceiverWindow} is shown (or is updated its position if it has been
+     *
+     * <p>First {@code touchEventReceiverWindow} is shown (or is updated its position if it has been
      * already shown). Then this view is invalidated. As the result {@code draw} will be called back
      * and visible candidate window will be shown.
-    */
+     */
     private void showCandidateWindow(Rect rect) {
       isCandidateWindowShowing = true;
       if (touchEventReceiverWindow.isShowing()) {
@@ -442,9 +466,9 @@ public class FloatingCandidateView extends View {
 
     /**
      * Dismisses the candidate window.
-     * <p>
-     * Does the very similar things as {@showCandidateWindow}.
-    */
+     *
+     * <p>Does the very similar things as {@showCandidateWindow}.
+     */
     private void dismissCandidateWindow() {
       if (isCandidateWindowShowing) {
         isCandidateWindowShowing = false;
@@ -480,24 +504,27 @@ public class FloatingCandidateView extends View {
   @VisibleForTesting
   FloatingCandidateView(Context context, PopupWindow popupWindowMock) {
     super(context);
-    floatingCandidateViewProxy = new FloatingCandidateViewImpl(
-        this, popupWindowMock, new FloatingCandidateLayoutRenderer(context.getResources()),
-        new FloatingModeIndicator(this));
+    floatingCandidateViewProxy =
+        new FloatingCandidateViewImpl(
+            this,
+            popupWindowMock,
+            new FloatingCandidateLayoutRenderer(context.getResources()),
+            new FloatingModeIndicator(this));
   }
 
   @VisibleForTesting
-  FloatingCandidateView(Context context, PopupWindow popupWindowMock,
-                        FloatingCandidateLayoutRenderer layoutRenderer,
-                        FloatingModeIndicator modeIndicator) {
+  FloatingCandidateView(
+      Context context,
+      PopupWindow popupWindowMock,
+      FloatingCandidateLayoutRenderer layoutRenderer,
+      FloatingModeIndicator modeIndicator) {
     super(context);
     floatingCandidateViewProxy =
         new FloatingCandidateViewImpl(this, popupWindowMock, layoutRenderer, modeIndicator);
   }
 
   private static FloatingCandidateViewProxy createFloatingCandidateViewInstance(View view) {
-    return isAvailable()
-        ? new FloatingCandidateViewImpl(view)
-        : new FloatingCandidateViewStub();
+    return isAvailable() ? new FloatingCandidateViewImpl(view) : new FloatingCandidateViewStub();
   }
 
   public static boolean isAvailable() {
@@ -550,7 +577,8 @@ public class FloatingCandidateView extends View {
     floatingCandidateViewProxy.setViewEventListener(listener);
   }
 
-  @VisibleForTesting Optional<Rect> getVisibleRect() {
+  @VisibleForTesting
+  Optional<Rect> getVisibleRect() {
     return floatingCandidateViewProxy.getVisibleRect();
   }
 }

@@ -29,25 +29,22 @@
 
 package org.mozc.android.inputmethod.japanese.ui;
 
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateList;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
 import org.mozc.android.inputmethod.japanese.ui.CandidateLayout.Row;
 import org.mozc.android.inputmethod.japanese.ui.CandidateLayout.Span;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Layouts the symbol candidate words.
  *
- * This is a table-like layout, which can be scrollable vertically.
- * The client can set the minimum column width and the row height.
- * The number of columns is calculated based on the given minimum column width
- * and the view's width. Each row should horizontally fit the view width.
- *
+ * <p>This is a table-like layout, which can be scrollable vertically. The client can set the
+ * minimum column width and the row height. The number of columns is calculated based on the given
+ * minimum column width and the view's width. Each row should horizontally fit the view width.
  */
 public class SymbolCandidateLayouter implements CandidateLayouter {
 
@@ -94,9 +91,12 @@ public class SymbolCandidateLayouter implements CandidateLayouter {
   @Override
   public Optional<CandidateLayout> layout(CandidateList candidateList) {
     Preconditions.checkNotNull(candidateList);
-    if (viewWidth <= 0 || rowHeight <= 0 || minColumnWidth <= 0 ||
-        candidateList == null || candidateList.getCandidatesCount() == 0 ||
-        !spanFactory.isPresent()) {
+    if (viewWidth <= 0
+        || rowHeight <= 0
+        || minColumnWidth <= 0
+        || candidateList == null
+        || candidateList.getCandidatesCount() == 0
+        || !spanFactory.isPresent()) {
       return Optional.absent();
     }
 
@@ -120,8 +120,8 @@ public class SymbolCandidateLayouter implements CandidateLayouter {
     Preconditions.checkNotNull(candidateList);
     Preconditions.checkNotNull(spanFactory);
 
-    List<Row> rowList = new ArrayList<Row>(
-        (candidateList.getCandidatesCount() + numColumns - 1) / numColumns);
+    List<Row> rowList =
+        new ArrayList<Row>((candidateList.getCandidatesCount() + numColumns - 1) / numColumns);
     int columnIndex = 0;
     Row row = null;
     for (CandidateWord candidateWord : candidateList.getCandidatesList()) {
@@ -168,6 +168,6 @@ public class SymbolCandidateLayouter implements CandidateLayouter {
    * @param spanFactory the spanFactory to set
    */
   public void setSpanFactory(SpanFactory spanFactory) {
-    this.spanFactory =  Optional.of(Preconditions.checkNotNull(spanFactory));
+    this.spanFactory = Optional.of(Preconditions.checkNotNull(spanFactory));
   }
 }

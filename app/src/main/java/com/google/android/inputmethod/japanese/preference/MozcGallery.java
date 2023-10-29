@@ -35,9 +35,8 @@ import android.view.MotionEvent;
 import android.widget.Gallery;
 
 /**
- * Gallery to show the keyboard layout images. The only difference from the {@link Gallery} is
- * that this class handles "enabled" state, while Gallery doesn't.
- *
+ * Gallery to show the keyboard layout images. The only difference from the {@link Gallery} is that
+ * this class handles "enabled" state, while Gallery doesn't.
  */
 @SuppressWarnings({"deprecation", "javadoc"})
 public class MozcGallery extends Gallery {

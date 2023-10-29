@@ -29,11 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.ui;
 
-import org.mozc.android.inputmethod.japanese.view.Skin;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.content.res.Resources;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,12 +36,14 @@ import android.view.ViewStub;
 import android.view.ViewStub.OnInflateListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.view.Skin;
 
 /**
- * Proxy between ViewStub and left/right frame.
- * left/right frame is inflated when mozcview needs.
+ * Proxy between ViewStub and left/right frame. left/right frame is inflated when mozcview needs.
  * SideFrameStubProxy caches and adapts each parameter.
- *
  */
 public class SideFrameStubProxy {
 
@@ -68,28 +65,29 @@ public class SideFrameStubProxy {
     adjustButton.get().setImageDrawable(skin.getDrawable(resources, adjustButtonResourceId));
   }
 
-  public void initialize(View view, int stubId, final int adjustButtonId,
-                         int adjustButtonResourceId) {
+  public void initialize(
+      View view, int stubId, final int adjustButtonId, int adjustButtonResourceId) {
     this.resources = Preconditions.checkNotNull(view).getResources();
     ViewStub viewStub = ViewStub.class.cast(view.findViewById(stubId));
     currentView = Optional.<View>of(viewStub);
     this.adjustButtonResourceId = adjustButtonResourceId;
 
-    viewStub.setOnInflateListener(new OnInflateListener() {
+    viewStub.setOnInflateListener(
+        new OnInflateListener() {
 
-      @SuppressWarnings("deprecation")
-      @Override
-      public void onInflate(ViewStub stub, View view) {
-        inflated = true;
+          @SuppressWarnings("deprecation")
+          @Override
+          public void onInflate(ViewStub stub, View view) {
+            inflated = true;
 
-        currentView = Optional.of(view);
-        currentView.get().setVisibility(View.VISIBLE);
-        adjustButton = Optional.of(ImageView.class.cast(view.findViewById(adjustButtonId)));
-        adjustButton.get().setOnClickListener(buttonOnClickListener.orNull());
-        updateAdjustButtonImage();
-        resetAdjustButtonBottomMarginInternal(inputFrameHeight);
-      }
-    });
+            currentView = Optional.of(view);
+            currentView.get().setVisibility(View.VISIBLE);
+            adjustButton = Optional.of(ImageView.class.cast(view.findViewById(adjustButtonId)));
+            adjustButton.get().setOnClickListener(buttonOnClickListener.orNull());
+            updateAdjustButtonImage();
+            resetAdjustButtonBottomMarginInternal(inputFrameHeight);
+          }
+        });
   }
 
   public void setSkin(Skin skin) {
@@ -112,8 +110,8 @@ public class SideFrameStubProxy {
   private void resetAdjustButtonBottomMarginInternal(int inputFrameHeight) {
     if (adjustButton.isPresent()) {
       ImageView imageView = adjustButton.get();
-      FrameLayout.LayoutParams layoutParams = FrameLayout.LayoutParams.class.cast(
-          imageView.getLayoutParams());
+      FrameLayout.LayoutParams layoutParams =
+          FrameLayout.LayoutParams.class.cast(imageView.getLayoutParams());
       layoutParams.bottomMargin = (inputFrameHeight - layoutParams.height) / 2;
       imageView.setLayoutParams(layoutParams);
     }

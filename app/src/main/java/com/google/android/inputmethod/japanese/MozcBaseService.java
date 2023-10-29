@@ -29,48 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese;
 
-import org.mozc.android.inputmethod.japanese.FeedbackManager.FeedbackEvent;
-import org.mozc.android.inputmethod.japanese.FeedbackManager.FeedbackListener;
-import org.mozc.android.inputmethod.japanese.KeycodeConverter.KeyEventInterface;
-import org.mozc.android.inputmethod.japanese.emoji.EmojiProviderType;
-import org.mozc.android.inputmethod.japanese.emoji.EmojiUtil;
-import org.mozc.android.inputmethod.japanese.hardwarekeyboard.HardwareKeyboard.CompositionSwitchMode;
-import org.mozc.android.inputmethod.japanese.hardwarekeyboard.HardwareKeyboardSpecification;
-import org.mozc.android.inputmethod.japanese.keyboard.Keyboard.KeyboardSpecification;
-import org.mozc.android.inputmethod.japanese.model.SelectionTracker;
-import org.mozc.android.inputmethod.japanese.model.SymbolCandidateStorage.SymbolHistoryStorage;
-import org.mozc.android.inputmethod.japanese.model.SymbolMajorCategory;
-import org.mozc.android.inputmethod.japanese.mushroom.MushroomResultProxy;
-import org.mozc.android.inputmethod.japanese.preference.ClientSidePreference;
-import org.mozc.android.inputmethod.japanese.preference.PreferenceUtil;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Context.InputFieldType;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.DeletionRange;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Output;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Preedit;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Preedit.Segment;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Preedit.Segment.Annotation;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.SessionCommand;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.SessionCommand.UsageStatsEvent;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoConfig.Config;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoConfig.Config.SelectionShortcut;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoConfig.Config.SessionKeymap;
-import org.mozc.android.inputmethod.japanese.R;
-import org.mozc.android.inputmethod.japanese.session.SessionExecutor;
-import org.mozc.android.inputmethod.japanese.session.SessionHandlerFactory;
-import org.mozc.android.inputmethod.japanese.util.CursorAnchorInfoWrapper;
-import org.mozc.android.inputmethod.japanese.util.ImeSwitcherFactory;
-import org.mozc.android.inputmethod.japanese.util.ImeSwitcherFactory.ImeSwitcher;
-import org.mozc.android.inputmethod.japanese.util.LauncherIconManagerFactory;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-import com.google.protobuf.ByteString;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -100,36 +58,67 @@ import android.view.inputmethod.CursorAnchorInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputBinding;
 import android.view.inputmethod.InputConnection;
-
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Nullable;
-
+import org.mozc.android.inputmethod.japanese.FeedbackManager.FeedbackEvent;
+import org.mozc.android.inputmethod.japanese.FeedbackManager.FeedbackListener;
+import org.mozc.android.inputmethod.japanese.KeycodeConverter.KeyEventInterface;
+import org.mozc.android.inputmethod.japanese.hardwarekeyboard.HardwareKeyboard.CompositionSwitchMode;
+import org.mozc.android.inputmethod.japanese.hardwarekeyboard.HardwareKeyboardSpecification;
+import org.mozc.android.inputmethod.japanese.keyboard.Keyboard.KeyboardSpecification;
+import org.mozc.android.inputmethod.japanese.model.SelectionTracker;
+import org.mozc.android.inputmethod.japanese.model.SymbolCandidateStorage.SymbolHistoryStorage;
+import org.mozc.android.inputmethod.japanese.model.SymbolMajorCategory;
+import org.mozc.android.inputmethod.japanese.mushroom.MushroomResultProxy;
+import org.mozc.android.inputmethod.japanese.preference.ClientSidePreference;
+import org.mozc.android.inputmethod.japanese.preference.PreferenceUtil;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Context.InputFieldType;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.DeletionRange;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Output;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Preedit;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Preedit.Segment;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Preedit.Segment.Annotation;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.SessionCommand;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.SessionCommand.UsageStatsEvent;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoConfig.Config.SelectionShortcut;
+import org.mozc.android.inputmethod.japanese.session.SessionExecutor;
+import org.mozc.android.inputmethod.japanese.session.SessionHandlerFactory;
+import org.mozc.android.inputmethod.japanese.util.CursorAnchorInfoWrapper;
+import org.mozc.android.inputmethod.japanese.util.ImeSwitcherFactory;
+import org.mozc.android.inputmethod.japanese.util.ImeSwitcherFactory.ImeSwitcher;
+import org.mozc.android.inputmethod.japanese.util.LauncherIconManagerFactory;
 
 /**
  * Implementation of the input method service.
- * <p>
- * This class should NOT use {@link CursorAnchorInfo} for mocking.
+ *
+ * <p>This class should NOT use {@link CursorAnchorInfo} for mocking.
  */
 // TODO(hsumita): Unify this class and MozcService if we stop supporting API level 20.
 public class MozcBaseService extends InputMethodService {
 
   /**
-   * InputMethod implementation for MozcService.
-   * This injects the composing text tracking feature by wrapping InputConnection.
+   * InputMethod implementation for MozcService. This injects the composing text tracking feature by
+   * wrapping InputConnection.
    */
   public class MozcInputMethod extends InputMethodService.InputMethodImpl {
     @Override
     public void bindInput(InputBinding binding) {
-      binding = new InputBinding(
-          ComposingTextTrackingInputConnection.newInstance(binding.getConnection()),
-          binding.getConnectionToken(),
-          binding.getUid(),
-          binding.getPid());
+      binding =
+          new InputBinding(
+              ComposingTextTrackingInputConnection.newInstance(binding.getConnection()),
+              binding.getConnectionToken(),
+              binding.getUid(),
+              binding.getPid());
       super.bindInput(binding);
     }
 
@@ -224,7 +213,8 @@ public class MozcBaseService extends InputMethodService {
   }
 
   // Called back from ViewManager
-  @VisibleForTesting class MozcEventListener implements ViewEventListener {
+  @VisibleForTesting
+  class MozcEventListener implements ViewEventListener {
     @Override
     public void onConversionCandidateSelected(int candidateId, Optional<Integer> rowIndex) {
       sessionExecutor.submitCandidate(candidateId, rowIndex, renderResultCallback);
@@ -244,8 +234,8 @@ public class MozcBaseService extends InputMethodService {
     }
 
     @Override
-    public void onSymbolCandidateSelected(SymbolMajorCategory majorCategory, String candidate,
-                                          boolean updateHistory) {
+    public void onSymbolCandidateSelected(
+        SymbolMajorCategory majorCategory, String candidate, boolean updateHistory) {
       Preconditions.checkNotNull(majorCategory);
       Preconditions.checkNotNull(candidate);
 
@@ -273,8 +263,10 @@ public class MozcBaseService extends InputMethodService {
 
     @Override
     public void onKeyEvent(
-        @Nullable ProtoCommands.KeyEvent mozcKeyEvent, @Nullable KeyEventInterface keyEvent,
-        @Nullable KeyboardSpecification keyboardSpecification, List<TouchEvent> touchEventList) {
+        @Nullable ProtoCommands.KeyEvent mozcKeyEvent,
+        @Nullable KeyEventInterface keyEvent,
+        @Nullable KeyboardSpecification keyboardSpecification,
+        List<TouchEvent> touchEventList) {
       if (mozcKeyEvent == null && keyboardSpecification == null) {
         // We don't send a key event to Mozc native layer since {@code mozcKeyEvent} is null, and we
         // don't need to update the keyboard specification since {@code keyboardSpecification} is
@@ -290,9 +282,8 @@ public class MozcBaseService extends InputMethodService {
         return;
       }
 
-      sendKeyWithKeyboardSpecification(mozcKeyEvent, keyEvent,
-                                       keyboardSpecification, getConfiguration(),
-                                       touchEventList);
+      sendKeyWithKeyboardSpecification(
+          mozcKeyEvent, keyEvent, keyboardSpecification, getConfiguration(), touchEventList);
     }
 
     @Override
@@ -329,7 +320,10 @@ public class MozcBaseService extends InputMethodService {
     @Override
     public void onShowSymbolInputView(List<TouchEvent> touchEventList) {
       changeKeyboardSpecificationAndSendKey(
-          null, null, KeyboardSpecification.SYMBOL_NUMBER, getConfiguration(),
+          null,
+          null,
+          KeyboardSpecification.SYMBOL_NUMBER,
+          getConfiguration(),
           Collections.<TouchEvent>emptyList());
       viewManager.onShowSymbolInputView();
     }
@@ -344,7 +338,10 @@ public class MozcBaseService extends InputMethodService {
       // keyboard event, keyboard specification has been already updated so we shouldn't update it.
       if (!viewManager.isNarrowMode()) {
         changeKeyboardSpecificationAndSendKey(
-            null, null, viewManager.getKeyboardSpecification(), getConfiguration(),
+            null,
+            null,
+            viewManager.getKeyboardSpecification(),
+            getConfiguration(),
             Collections.<TouchEvent>emptyList());
       }
     }
@@ -386,9 +383,7 @@ public class MozcBaseService extends InputMethodService {
       } else {
         key = PreferenceUtil.PREF_PORTRAIT_LAYOUT_ADJUSTMENT_KEY;
       }
-      sharedPreferences.edit()
-          .putString(key, layoutAdjustment.toString())
-          .apply();
+      sharedPreferences.edit().putString(key, layoutAdjustment.toString()).apply();
     }
 
     @Override
@@ -397,9 +392,7 @@ public class MozcBaseService extends InputMethodService {
     }
   }
 
-  /**
-   * Callback to render the result received from Mozc server.
-   */
+  /** Callback to render the result received from Mozc server. */
   private class RenderResultCallback implements SessionExecutor.EvaluationCallback {
 
     @Override
@@ -410,8 +403,8 @@ public class MozcBaseService extends InputMethodService {
       // TODO(exv): fix this expand suggestion usage
       // if (command.get().getInput().getCommand().getType()
       //     != SessionCommand.CommandType.EXPAND_SUGGESTION) {
-        // For expanding suggestions, we don't need to update our rendering result.
-        renderInputConnection(command.get(), triggeringKeyEvent.orNull());
+      // For expanding suggestions, we don't need to update our rendering result.
+      renderInputConnection(command.get(), triggeringKeyEvent.orNull());
       // }
       // Transit to narrow mode if required (e.g., Typed 'a' key from h/w keyboard).
       viewManager.maybeTransitToNarrowMode(command.get(), triggeringKeyEvent.orNull());
@@ -419,23 +412,19 @@ public class MozcBaseService extends InputMethodService {
     }
   }
 
-  /**
-   * Callback to send key event to a application.
-   */
+  /** Callback to send key event to a application. */
   @VisibleForTesting
   class SendKeyToApplicationCallback implements SessionExecutor.EvaluationCallback {
 
     @Override
-    public void onCompleted(Optional<Command> command,
-                            Optional<KeyEventInterface> triggeringKeyEvent) {
+    public void onCompleted(
+        Optional<Command> command, Optional<KeyEventInterface> triggeringKeyEvent) {
       Preconditions.checkArgument(!Preconditions.checkNotNull(command).isPresent());
       sendKeyEvent(triggeringKeyEvent.orNull());
     }
   }
 
-  /**
-   * Callback to send key event to view layer.
-   */
+  /** Callback to send key event to view layer. */
   private class SendKeyToViewCallback implements SessionExecutor.EvaluationCallback {
 
     @Override
@@ -448,8 +437,8 @@ public class MozcBaseService extends InputMethodService {
   }
 
   /**
-   * Callback to invoke onUpdateSelectionInternal with delay for onConfigurationChanged.
-   * See onConfigurationChanged for the details.
+   * Callback to invoke onUpdateSelectionInternal with delay for onConfigurationChanged. See
+   * onConfigurationChanged for the details.
    */
   private class ConfigurationChangeCallback implements Handler.Callback {
     @Override
@@ -461,20 +450,14 @@ public class MozcBaseService extends InputMethodService {
     }
   }
 
-  /**
-   * We need to send SYNC_DATA command periodically. This class handles it.
-   */
+  /** We need to send SYNC_DATA command periodically. This class handles it. */
   @SuppressLint("HandlerLeak")
   private class SendSyncDataCommandHandler extends Handler {
 
-    /**
-     * "what" value of message. Always use this.
-     */
+    /** "what" value of message. Always use this. */
     static final int WHAT = 0;
 
-    /**
-     * The current period of sending SYNC_DATA is 15 mins (as same as desktop version).
-     */
+    /** The current period of sending SYNC_DATA is 15 mins (as same as desktop version). */
     static final int SYNC_DATA_COMMAND_PERIOD = 15 * 60 * 1000;
 
     @Override
@@ -487,23 +470,19 @@ public class MozcBaseService extends InputMethodService {
   }
 
   /**
-   * To trim memory, a message is handled to invoke trimMemory method
-   * 10 seconds after hiding window.
+   * To trim memory, a message is handled to invoke trimMemory method 10 seconds after hiding
+   * window.
    *
-   * This class handles callback operation.
-   * Posting and removing messages should be done in appropriate point.
+   * <p>This class handles callback operation. Posting and removing messages should be done in
+   * appropriate point.
    */
   @SuppressLint("HandlerLeak")
   private class MemoryTrimmingHandler extends Handler {
 
-    /**
-     * "what" value of message. Always use this.
-     */
+    /** "what" value of message. Always use this. */
     static final int WHAT = 0;
 
-    /**
-     * Duration after hiding window in milliseconds.
-     */
+    /** Duration after hiding window in milliseconds. */
     static final int DURATION_MS = 10 * 1000;
 
     @Override
@@ -515,15 +494,14 @@ public class MozcBaseService extends InputMethodService {
     }
   }
 
-
   // Keys for tweak preferences.
   private static final String PREF_TWEAK_PREFIX = "pref_tweak_";
   private static final String PREF_TWEAK_LOGGING_PROTOCOL_BUFFERS =
       "pref_tweak_logging_protocol_buffers";
 
   // Focused segment's attribute.
-  @VisibleForTesting static final CharacterStyle SPAN_CONVERT_HIGHLIGHT =
-      new BackgroundColorSpan(0x66EF3566);
+  @VisibleForTesting
+  static final CharacterStyle SPAN_CONVERT_HIGHLIGHT = new BackgroundColorSpan(0x66EF3566);
 
   // Background color span for non-focused conversion segment.
   // We don't create a static CharacterStyle instance since there are multiple segments at the same
@@ -532,12 +510,12 @@ public class MozcBaseService extends InputMethodService {
 
   // Cursor position.
   // Note that InputConnection seems not to be able to show cursor. This is a workaround.
-  @VisibleForTesting static final CharacterStyle SPAN_BEFORE_CURSOR =
-      new BackgroundColorSpan(0x664DB6AC);
+  @VisibleForTesting
+  static final CharacterStyle SPAN_BEFORE_CURSOR = new BackgroundColorSpan(0x664DB6AC);
 
   // Background color span for partial conversion.
-  @VisibleForTesting static final CharacterStyle SPAN_PARTIAL_SUGGESTION_COLOR =
-      new BackgroundColorSpan(0x194DB6AC);
+  @VisibleForTesting
+  static final CharacterStyle SPAN_PARTIAL_SUGGESTION_COLOR = new BackgroundColorSpan(0x194DB6AC);
 
   // Underline.
   @VisibleForTesting static final CharacterStyle SPAN_UNDERLINE = new UnderlineSpan();
@@ -545,13 +523,15 @@ public class MozcBaseService extends InputMethodService {
   // Mozc's session. All session related task should be done via this instance.
   @VisibleForTesting SessionExecutor sessionExecutor;
   @VisibleForTesting final RenderResultCallback renderResultCallback = new RenderResultCallback();
-  @VisibleForTesting final SendKeyToApplicationCallback sendKeyToApplicationCallback =
+
+  @VisibleForTesting
+  final SendKeyToApplicationCallback sendKeyToApplicationCallback =
       new SendKeyToApplicationCallback();
+
   private final SendKeyToViewCallback sendKeyToViewCallback = new SendKeyToViewCallback();
 
   // A manager for all views and feedbacks.
-  @VisibleForTesting
-  public ViewManagerInterface viewManager;
+  @VisibleForTesting public ViewManagerInterface viewManager;
   @VisibleForTesting FeedbackManager feedbackManager;
   @VisibleForTesting SymbolHistoryStorage symbolHistoryStorage;
 
@@ -559,7 +539,8 @@ public class MozcBaseService extends InputMethodService {
 
   // A handler for onSharedPreferenceChanged().
   // Note: the handler is needed to be held by the service not to be GC'ed.
-  @VisibleForTesting final OnSharedPreferenceChangeListener sharedPreferenceChangeListener =
+  @VisibleForTesting
+  final OnSharedPreferenceChangeListener sharedPreferenceChangeListener =
       new SharedPreferenceChangeAdapter();
 
   // Preference information which are propagated. Null if not propagated yet.
@@ -569,8 +550,8 @@ public class MozcBaseService extends InputMethodService {
   @VisibleForTesting SelectionTracker selectionTracker = new SelectionTracker();
 
   // A receiver to accept a notification via intents.
-  @VisibleForTesting Handler configurationChangedHandler =
-      new Handler(new ConfigurationChangeCallback());
+  @VisibleForTesting
+  Handler configurationChangedHandler = new Handler(new ConfigurationChangeCallback());
 
   // Handler to process SYNC_DATA command for storing history data.
   @VisibleForTesting Handler sendSyncDataCommandHandler = new SendSyncDataCommandHandler();
@@ -592,8 +573,8 @@ public class MozcBaseService extends InputMethodService {
   // the behavior.
   // TODO(matsuzakit): Clarify the usage of this field (change the behavior to keep the latest
   //   state or change the name to represent current behavior).
-  @VisibleForTesting KeyboardSpecification currentKeyboardSpecification =
-      KeyboardSpecification.TWELVE_KEY_TOGGLE_KANA;
+  @VisibleForTesting
+  KeyboardSpecification currentKeyboardSpecification = KeyboardSpecification.TWELVE_KEY_TOGGLE_KANA;
 
   @VisibleForTesting boolean inputBound = false;
 
@@ -629,8 +610,8 @@ public class MozcBaseService extends InputMethodService {
 
   /**
    * {@link CursorAnchorInfoWrapper} version of {@link InputMethodService#onUpdateCursorAnchorInfo}.
-   * <p>
-   * This is for mocking since API level 20 or prior doesn't have {@link CursorAnchorInfo}.
+   *
+   * <p>This is for mocking since API level 20 or prior doesn't have {@link CursorAnchorInfo}.
    */
   @TargetApi(21)
   public void onUpdateCursorAnchorInfoWrapper(CursorAnchorInfoWrapper cursorAnchorInfo) {
@@ -657,8 +638,7 @@ public class MozcBaseService extends InputMethodService {
     SessionExecutor sessionExecutor =
         SessionExecutor.getInstanceInitializedIfNecessary(
             new SessionHandlerFactory(Optional.of(sharedPreferences)), this);
-    onCreateInternal(eventListener, null, sharedPreferences, getConfiguration(),
-                     sessionExecutor);
+    onCreateInternal(eventListener, null, sharedPreferences, getConfiguration(), sessionExecutor);
 
     MozcLog.d("end MozcService#onCreate " + System.nanoTime());
   }
@@ -680,9 +660,12 @@ public class MozcBaseService extends InputMethodService {
   }
 
   @VisibleForTesting
-  void onCreateInternal(ViewEventListener eventListener, @Nullable ViewManagerInterface viewManager,
-                        @Nullable SharedPreferences sharedPreferences,
-                        Configuration deviceConfiguration, SessionExecutor sessionExecutor) {
+  void onCreateInternal(
+      ViewEventListener eventListener,
+      @Nullable ViewManagerInterface viewManager,
+      @Nullable SharedPreferences sharedPreferences,
+      Configuration deviceConfiguration,
+      SessionExecutor sessionExecutor) {
     super.onCreate();
 
     Context context = getApplicationContext();
@@ -708,13 +691,12 @@ public class MozcBaseService extends InputMethodService {
     this.sharedPreferences = sharedPreferences;
   }
 
-  /**
-   * Prepares something which should be done every time when the session is newly created.
-   */
+  /** Prepares something which should be done every time when the session is newly created. */
   private void prepareEveryTime(
       @Nullable SharedPreferences sharedPreferences, Configuration deviceConfiguration) {
-    boolean isLogging = sharedPreferences != null
-        && sharedPreferences.getBoolean(PREF_TWEAK_LOGGING_PROTOCOL_BUFFERS, false);
+    boolean isLogging =
+        sharedPreferences != null
+            && sharedPreferences.getBoolean(PREF_TWEAK_LOGGING_PROTOCOL_BUFFERS, false);
     // Force to initialize here.
     sessionExecutor.reset(
         new SessionHandlerFactory(Optional.fromNullable(sharedPreferences)), this);
@@ -725,7 +707,10 @@ public class MozcBaseService extends InputMethodService {
     // Make sure that the server and the client have the same keyboard specification.
     // User preference's keyboard will be set after this step.
     changeKeyboardSpecificationAndSendKey(
-        null, null, currentKeyboardSpecification, deviceConfiguration,
+        null,
+        null,
+        currentKeyboardSpecification,
+        deviceConfiguration,
         Collections.<TouchEvent>emptyList());
     if (sharedPreferences != null) {
       propagateClientSidePreference(
@@ -738,22 +723,23 @@ public class MozcBaseService extends InputMethodService {
     }
   }
 
-  /**
-   * Prepares something which should be done only once.
-   */
-  private void prepareOnce(ViewEventListener eventListener,
+  /** Prepares something which should be done only once. */
+  private void prepareOnce(
+      ViewEventListener eventListener,
       SymbolHistoryStorage symbolHistoryStorage,
       @Nullable ViewManagerInterface viewManager,
       @Nullable SharedPreferences sharedPreferences) {
     Context context = getApplicationContext();
     Optional<Intent> forwardIntent =
-        ApplicationInitializerFactory.createInstance(this).initialize(
-            MozcUtil.isSystemApplication(context),
-            MozcUtil.isDevChannel(context),
-            DependencyFactory.getDependency(getApplicationContext()).isWelcomeActivityPreferrable(),
-            MozcUtil.getAbiIndependentVersionCode(context),
-            LauncherIconManagerFactory.getDefaultInstance(),
-            PreferenceUtil.getDefaultPreferenceManagerStatic());
+        ApplicationInitializerFactory.createInstance(this)
+            .initialize(
+                MozcUtil.isSystemApplication(context),
+                MozcUtil.isDevChannel(context),
+                DependencyFactory.getDependency(getApplicationContext())
+                    .isWelcomeActivityPreferrable(),
+                MozcUtil.getAbiIndependentVersionCode(context),
+                LauncherIconManagerFactory.getDefaultInstance(),
+                PreferenceUtil.getDefaultPreferenceManagerStatic());
     if (forwardIntent.isPresent()) {
       startActivity(forwardIntent.get());
     }
@@ -761,19 +747,22 @@ public class MozcBaseService extends InputMethodService {
     // Create a ViewManager.
     if (viewManager == null) {
       ImeSwitcher imeSwitcher = ImeSwitcherFactory.getImeSwitcher(this);
-      viewManager = DependencyFactory.getDependency(
-          getApplicationContext()).createViewManager(
-              getApplicationContext(),
-              eventListener,
-              symbolHistoryStorage,
-              imeSwitcher,
-              new MozcMenuDialogListenerImpl(this, eventListener));
+      viewManager =
+          DependencyFactory.getDependency(getApplicationContext())
+              .createViewManager(
+                  getApplicationContext(),
+                  eventListener,
+                  symbolHistoryStorage,
+                  imeSwitcher,
+                  new MozcMenuDialogListenerImpl(this, eventListener));
     }
 
     // Setup FeedbackManager.
-    feedbackManager = new FeedbackManager(new RealFeedbackListener(
-        Vibrator.class.cast(getSystemService(Context.VIBRATOR_SERVICE)),
-        AudioManager.class.cast(getSystemService(Context.AUDIO_SERVICE))));
+    feedbackManager =
+        new FeedbackManager(
+            new RealFeedbackListener(
+                Vibrator.class.cast(getSystemService(Context.VIBRATOR_SERVICE)),
+                AudioManager.class.cast(getSystemService(Context.AUDIO_SERVICE))));
 
     this.viewManager = viewManager;
 
@@ -834,8 +823,8 @@ public class MozcBaseService extends InputMethodService {
     // Update full screen mode, because the application may be changed.
     viewManager.setFullscreenMode(
         applicationCompatibility.isFullScreenModeSupported()
-        && propagatedClientSidePreference != null
-        && propagatedClientSidePreference.isFullscreenMode());
+            && propagatedClientSidePreference != null
+            && propagatedClientSidePreference.isFullscreenMode());
 
     // Some applications, e.g. gmail or maps, send onStartInput with restarting = true, when a user
     // rotates a device. In such cases, we don't want to update caret positions, nor reset
@@ -860,8 +849,10 @@ public class MozcBaseService extends InputMethodService {
     // sessionExecutor.updateRequest(
     //     EmojiUtil.createEmojiRequest(
     //         Build.VERSION.SDK_INT,
-    //         (propagatedClientSidePreference != null && EmojiUtil.isCarrierEmojiAllowed(attribute))
-    //             ? propagatedClientSidePreference.getEmojiProviderType() : EmojiProviderType.NONE),
+    //         (propagatedClientSidePreference != null &&
+    // EmojiUtil.isCarrierEmojiAllowed(attribute))
+    //             ? propagatedClientSidePreference.getEmojiProviderType() :
+    // EmojiProviderType.NONE),
     //     Collections.<TouchEvent>emptyList());
     selectionTracker.onStartInput(
         attribute.initialSelStart, attribute.initialSelEnd, isWebEditText(attribute));
@@ -869,8 +860,8 @@ public class MozcBaseService extends InputMethodService {
 
   /**
    * Hook to support mushroom protocol. If there is pending Mushroom result for the connecting
-   * field, commit it. Then, (regardless of whether there exists pending result,) clears
-   * all remaining pending result.
+   * field, commit it. Then, (regardless of whether there exists pending result,) clears all
+   * remaining pending result.
    */
   private static void maybeCommitMushroomResult(EditorInfo attribute, InputConnection connection) {
     if (connection == null) {
@@ -985,7 +976,7 @@ public class MozcBaseService extends InputMethodService {
   /**
    * KeyDown event handler.
    *
-   * This method is called only by the android framework e.g HOME,BACK or H/W keyboard input.
+   * <p>This method is called only by the android framework e.g HOME,BACK or H/W keyboard input.
    */
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -995,7 +986,7 @@ public class MozcBaseService extends InputMethodService {
   /**
    * GenericMotionEvent handler.
    *
-   * This method is called only by the android framework e.g H/W mouse, touch pad input, etc.
+   * <p>This method is called only by the android framework e.g H/W mouse, touch pad input, etc.
    */
   @TargetApi(17)
   @Override
@@ -1016,8 +1007,11 @@ public class MozcBaseService extends InputMethodService {
       MozcLog.d(
           String.format(
               "onKeyDown keyCode:0x%x, metaState:0x%x, scanCode:0x%x, uniCode:0x%x, deviceId:%d",
-              event.getKeyCode(), event.getMetaState(), event.getScanCode(),
-              event.getUnicodeChar(), event.getDeviceId()));
+              event.getKeyCode(),
+              event.getMetaState(),
+              event.getScanCode(),
+              event.getUnicodeChar(),
+              event.getDeviceId()));
     }
 
     // Send back the event if the input view is not shown.
@@ -1040,8 +1034,8 @@ public class MozcBaseService extends InputMethodService {
     // Push the event to the asynchronous execution queue if it should be processed
     // directly in the view.
     if (viewManager.isKeyConsumedOnViewAsynchronously(event)) {
-      sessionExecutor.sendKeyEvent(KeycodeConverter.getKeyEventInterface(event),
-                                   sendKeyToViewCallback);
+      sessionExecutor.sendKeyEvent(
+          KeycodeConverter.getKeyEventInterface(event), sendKeyToViewCallback);
       return true;
     }
 
@@ -1073,8 +1067,8 @@ public class MozcBaseService extends InputMethodService {
         }
       } else {
         if (viewManager.isKeyConsumedOnViewAsynchronously(event)) {
-          sessionExecutor.sendKeyEvent(KeycodeConverter.getKeyEventInterface(event),
-                                       sendKeyToViewCallback);
+          sessionExecutor.sendKeyEvent(
+              KeycodeConverter.getKeyEventInterface(event), sendKeyToViewCallback);
           return true;
         }
 
@@ -1083,8 +1077,8 @@ public class MozcBaseService extends InputMethodService {
         // For meta keys, to guarantee that this up event is sent to InputConnection after down key,
         // this is sent to evaluation handler.
         if (KeycodeConverter.isMetaKey(event)) {
-          sessionExecutor.sendKeyEvent(KeycodeConverter.getKeyEventInterface(event),
-                                       sendKeyToApplicationCallback);
+          sessionExecutor.sendKeyEvent(
+              KeycodeConverter.getKeyEventInterface(event), sendKeyToApplicationCallback);
         }
         return true;
       }
@@ -1102,12 +1096,14 @@ public class MozcBaseService extends InputMethodService {
   /**
    * Sends mozcKeyEvent and/or Request to mozc server.
    *
-   * This skips to send request if the given keyboard specification is same as before.
+   * <p>This skips to send request if the given keyboard specification is same as before.
    */
   @VisibleForTesting
   void sendKeyWithKeyboardSpecification(
-      @Nullable ProtoCommands.KeyEvent mozcKeyEvent, @Nullable KeyEventInterface event,
-      @Nullable KeyboardSpecification keyboardSpecification, Configuration configuration,
+      @Nullable ProtoCommands.KeyEvent mozcKeyEvent,
+      @Nullable KeyEventInterface event,
+      @Nullable KeyboardSpecification keyboardSpecification,
+      Configuration configuration,
       List<TouchEvent> touchEventList) {
     if (keyboardSpecification != null && currentKeyboardSpecification != keyboardSpecification) {
       // Submit composition on the transition from software KB to hardware KB by key event.
@@ -1131,12 +1127,12 @@ public class MozcBaseService extends InputMethodService {
     }
   }
 
-  /**
-   * Sends Request for changing keyboard setting to mozc server and sends key.
-   */
+  /** Sends Request for changing keyboard setting to mozc server and sends key. */
   private void changeKeyboardSpecificationAndSendKey(
-      @Nullable ProtoCommands.KeyEvent mozcKeyEvent, @Nullable KeyEventInterface event,
-      KeyboardSpecification keyboardSpecification, Configuration configuration,
+      @Nullable ProtoCommands.KeyEvent mozcKeyEvent,
+      @Nullable KeyEventInterface event,
+      KeyboardSpecification keyboardSpecification,
+      Configuration configuration,
       List<TouchEvent> touchEventList) {
     // Send Request to change composition table.
     sessionExecutor.updateRequest(
@@ -1145,21 +1141,23 @@ public class MozcBaseService extends InputMethodService {
     if (mozcKeyEvent == null) {
       // Change composition mode.
       sessionExecutor.switchInputMode(
-          Optional.fromNullable(event), keyboardSpecification.getCompositionMode(),
+          Optional.fromNullable(event),
+          keyboardSpecification.getCompositionMode(),
           renderResultCallback);
     } else {
       // Send key with composition mode change.
       sessionExecutor.sendKey(
           ProtoCommands.KeyEvent.newBuilder(mozcKeyEvent)
-              .setMode(keyboardSpecification.getCompositionMode()).build(),
-          event, touchEventList, renderResultCallback);
+              .setMode(keyboardSpecification.getCompositionMode())
+              .build(),
+          event,
+          touchEventList,
+          renderResultCallback);
     }
     currentKeyboardSpecification = keyboardSpecification;
   }
 
-  /**
-   * Shows/Hides status icon according to the input view status.
-   */
+  /** Shows/Hides status icon according to the input view status. */
   private void updateStatusIcon() {
     if (isInputViewShown()) {
       showStatusIcon();
@@ -1168,9 +1166,7 @@ public class MozcBaseService extends InputMethodService {
     }
   }
 
-  /**
-   * Shows the status icon basing on the current keyboard spec.
-   */
+  /** Shows the status icon basing on the current keyboard spec. */
   private void showStatusIcon() {
     switch (currentKeyboardSpecification.getCompositionMode()) {
       case HIRAGANA:
@@ -1209,7 +1205,10 @@ public class MozcBaseService extends InputMethodService {
     // Otherwise the session might be unexpectedly deleted and newly re-created one will be used
     // without appropriate request which is sent below.
     changeKeyboardSpecificationAndSendKey(
-        null, null, currentKeyboardSpecification, getConfiguration(),
+        null,
+        null,
+        currentKeyboardSpecification,
+        getConfiguration(),
         Collections.<TouchEvent>emptyList());
   }
 
@@ -1231,8 +1230,8 @@ public class MozcBaseService extends InputMethodService {
     // If the window is shown before MemoryTrimmingHandler.DURATION_MS,
     // the message posted here will be removed.
     memoryTrimmingHandler.removeMessages(MemoryTrimmingHandler.WHAT);
-    memoryTrimmingHandler.sendEmptyMessageDelayed(MemoryTrimmingHandler.WHAT,
-                                                  MemoryTrimmingHandler.DURATION_MS);
+    memoryTrimmingHandler.sendEmptyMessageDelayed(
+        MemoryTrimmingHandler.WHAT, MemoryTrimmingHandler.DURATION_MS);
     super.onWindowHidden();
   }
 
@@ -1240,8 +1239,8 @@ public class MozcBaseService extends InputMethodService {
    * Updates InputConnection.
    *
    * @param command Output message. Rendering is based on this parameter.
-   * @param keyEvent Trigger event for this calling. When direct input is
-   *        needed, this event is sent to InputConnection.
+   * @param keyEvent Trigger event for this calling. When direct input is needed, this event is sent
+   *     to InputConnection.
    */
   @VisibleForTesting
   void renderInputConnection(Command command, @Nullable KeyEventInterface keyEvent) {
@@ -1263,7 +1262,8 @@ public class MozcBaseService extends InputMethodService {
     // case, the command is consumed by Mozc server and the application cannot get the key event.
     // To avoid such situation, we should send the key event back to application. b/13238551
     // The command itself is consumed by Mozc server, so we should NOT put a return statement here.
-    if (keyEvent != null && keyEvent.getNativeEvent().isPresent()
+    if (keyEvent != null
+        && keyEvent.getNativeEvent().isPresent()
         && KeycodeConverter.isMetaKey(keyEvent.getNativeEvent().get())) {
       sendKeyEvent(keyEvent);
     }
@@ -1287,15 +1287,20 @@ public class MozcBaseService extends InputMethodService {
   private static KeyEvent createKeyEvent(
       KeyEvent original, long eventTime, int action, int repeatCount) {
     return new KeyEvent(
-        original.getDownTime(), eventTime, action, original.getKeyCode(),
-        repeatCount, original.getMetaState(), original.getDeviceId(), original.getScanCode(),
+        original.getDownTime(),
+        eventTime,
+        action,
+        original.getKeyCode(),
+        repeatCount,
+        original.getMetaState(),
+        original.getDeviceId(),
+        original.getScanCode(),
         original.getFlags());
   }
 
-  /**
-   * Sends the {@code KeyEvent}, which is not consumed by the mozc server.
-   */
-  @VisibleForTesting void sendKeyEvent(KeyEventInterface keyEvent) {
+  /** Sends the {@code KeyEvent}, which is not consumed by the mozc server. */
+  @VisibleForTesting
+  void sendKeyEvent(KeyEventInterface keyEvent) {
     if (keyEvent == null) {
       return;
     }
@@ -1314,18 +1319,20 @@ public class MozcBaseService extends InputMethodService {
     if (nativeKeyEvent.isPresent() && inputConnection != null) {
       // Meta keys are from this.onKeyDown/Up so fallback each time.
       if (KeycodeConverter.isMetaKey(nativeKeyEvent.get())) {
-        inputConnection.sendKeyEvent(createKeyEvent(
-            nativeKeyEvent.get(), MozcUtil.getUptimeMillis(),
-            nativeKeyEvent.get().getAction(), nativeKeyEvent.get().getRepeatCount()));
+        inputConnection.sendKeyEvent(
+            createKeyEvent(
+                nativeKeyEvent.get(), MozcUtil.getUptimeMillis(),
+                nativeKeyEvent.get().getAction(), nativeKeyEvent.get().getRepeatCount()));
         return;
       }
 
       // Other keys are from this.onKeyDown so create dummy Down/Up events.
-      inputConnection.sendKeyEvent(createKeyEvent(
-          nativeKeyEvent.get(), MozcUtil.getUptimeMillis(), KeyEvent.ACTION_DOWN, 0));
+      inputConnection.sendKeyEvent(
+          createKeyEvent(
+              nativeKeyEvent.get(), MozcUtil.getUptimeMillis(), KeyEvent.ACTION_DOWN, 0));
 
-      inputConnection.sendKeyEvent(createKeyEvent(
-          nativeKeyEvent.get(), MozcUtil.getUptimeMillis(), KeyEvent.ACTION_UP, 0));
+      inputConnection.sendKeyEvent(
+          createKeyEvent(nativeKeyEvent.get(), MozcUtil.getUptimeMillis(), KeyEvent.ACTION_UP, 0));
       return;
     }
 
@@ -1366,9 +1373,9 @@ public class MozcBaseService extends InputMethodService {
 
   /**
    * Sends editor action to {@code InputConnection}.
-   * <p>
-   * The difference from {@link InputMethodService#sendDefaultEditorAction(boolean)} is
-   * that if custom action label is specified {@code EditorInfo#actionId} is sent instead.
+   *
+   * <p>The difference from {@link InputMethodService#sendDefaultEditorAction(boolean)} is that if
+   * custom action label is specified {@code EditorInfo#actionId} is sent instead.
    */
   private boolean sendEditorAction(boolean fromEnterKey) {
     // If custom action label is specified (=non-null), special action id is also specified.
@@ -1482,7 +1489,9 @@ public class MozcBaseService extends InputMethodService {
             segment.hasAnnotation() && segment.getAnnotation() == Annotation.HIGHLIGHT
                 ? SPAN_CONVERT_HIGHLIGHT
                 : CharacterStyle.class.cast(new BackgroundColorSpan(CONVERT_NORMAL_COLOR)),
-            offsetInString, offsetInString + length, spanFlags);
+            offsetInString,
+            offsetInString + length,
+            spanFlags);
         offsetInString += length;
       }
     } else {
@@ -1490,8 +1499,8 @@ public class MozcBaseService extends InputMethodService {
       // Instead we change text style before the preedit's cursor.
       int cursorOffsetInString = builder.toString().offsetByCodePoints(0, cursor);
       if (cursor != builder.length()) {
-        builder.setSpan(SPAN_PARTIAL_SUGGESTION_COLOR, cursorOffsetInString, builder.length(),
-                        spanFlags);
+        builder.setSpan(
+            SPAN_PARTIAL_SUGGESTION_COLOR, cursorOffsetInString, builder.length(), spanFlags);
       }
       if (cursor > 0) {
         builder.setSpan(SPAN_BEFORE_CURSOR, 0, cursorOffsetInString, spanFlags);
@@ -1546,15 +1555,15 @@ public class MozcBaseService extends InputMethodService {
   /**
    * Propagates the preferences which affect client-side.
    *
-   * If the previous parameter (this.clientSidePreference) is null,
-   * all the fields in the latest parameter are propagated.
-   * If not, only differences are propagated.
+   * <p>If the previous parameter (this.clientSidePreference) is null, all the fields in the latest
+   * parameter are propagated. If not, only differences are propagated.
    *
-   * After the execution, {@code this.propagatedClientSidePreference} is updated.
+   * <p>After the execution, {@code this.propagatedClientSidePreference} is updated.
    *
    * @param newPreference the ClientSidePreference to be propagated
    */
-  @VisibleForTesting void propagateClientSidePreference(ClientSidePreference newPreference) {
+  @VisibleForTesting
+  void propagateClientSidePreference(ClientSidePreference newPreference) {
     // TODO(matsuzakit): Receive a Config to reflect the current device configuration.
     if (newPreference == null) {
       MozcLog.e("newPreference must be non-null. No update is performed.");
@@ -1587,8 +1596,7 @@ public class MozcBaseService extends InputMethodService {
         || oldPreference.getKeyboardLayout() != newPreference.getKeyboardLayout()) {
       viewManager.setKeyboardLayout(newPreference.getKeyboardLayout());
     }
-    if (oldPreference == null
-        || oldPreference.getInputStyle() != newPreference.getInputStyle()) {
+    if (oldPreference == null || oldPreference.getInputStyle() != newPreference.getInputStyle()) {
       viewManager.setInputStyle(newPreference.getInputStyle());
     }
     if (oldPreference == null
@@ -1612,8 +1620,7 @@ public class MozcBaseService extends InputMethodService {
         || oldPreference.getHardwareKeyMap() != newPreference.getHardwareKeyMap()) {
       viewManager.setHardwareKeyMap(newPreference.getHardwareKeyMap());
     }
-    if (oldPreference == null
-        || oldPreference.getSkinType() != newPreference.getSkinType()) {
+    if (oldPreference == null || oldPreference.getSkinType() != newPreference.getSkinType()) {
       viewManager.setSkin(newPreference.getSkinType().getSkin(getResources()));
     }
     if (oldPreference == null
@@ -1629,20 +1636,21 @@ public class MozcBaseService extends InputMethodService {
       viewManager.setKeyboardHeightRatio(newPreference.getKeyboardHeightRatio());
     }
 
-    propagatedClientSidePreference  = newPreference;
+    propagatedClientSidePreference = newPreference;
   }
 
   /**
    * Sends imposed config to the Mozc server.
    *
-   * Some config items should be mobile ones.
-   * For example, "selection shortcut" should be disabled on software keyboard
-   * regardless of stored config if there is no hardware keyboard.
+   * <p>Some config items should be mobile ones. For example, "selection shortcut" should be
+   * disabled on software keyboard regardless of stored config if there is no hardware keyboard.
    */
   private void updateImposedConfig() {
     // TODO(hsumita): Respect Config.SelectionShortcut.
-    SelectionShortcut shortcutMode = (viewManager != null && viewManager.isFloatingCandidateMode())
-        ? SelectionShortcut.SHORTCUT_123456789 : SelectionShortcut.NO_SHORTCUT;
+    SelectionShortcut shortcutMode =
+        (viewManager != null && viewManager.isFloatingCandidateMode())
+            ? SelectionShortcut.SHORTCUT_123456789
+            : SelectionShortcut.NO_SHORTCUT;
 
     // TODO(matsuzakit): deviceConfig should be used to set following config items.
     // TODO(exv): replace this
@@ -1653,9 +1661,7 @@ public class MozcBaseService extends InputMethodService {
     //     .build());
   }
 
-  /**
-   * A call-back to catch all the change on any preferences.
-   */
+  /** A call-back to catch all the change on any preferences. */
   private class SharedPreferenceChangeAdapter implements OnSharedPreferenceChangeListener {
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -1676,7 +1682,8 @@ public class MozcBaseService extends InputMethodService {
     }
   }
 
-  @VisibleForTesting void onConfigurationChangedInternal(Configuration newConfig) {
+  @VisibleForTesting
+  void onConfigurationChangedInternal(Configuration newConfig) {
     InputConnection inputConnection = getCurrentInputConnection();
     if (inputConnection != null) {
       if (inputBound) {
@@ -1709,9 +1716,11 @@ public class MozcBaseService extends InputMethodService {
     // NOTE : This method is not called at the time when the service is started.
     // Based on newConfig, client side preferences should be sent
     // because they change based on device config.
-    propagateClientSidePreference(new ClientSidePreference(
-        Preconditions.checkNotNull(PreferenceManager.getDefaultSharedPreferences(this)),
-        getResources(), newConfig.orientation));
+    propagateClientSidePreference(
+        new ClientSidePreference(
+            Preconditions.checkNotNull(PreferenceManager.getDefaultSharedPreferences(this)),
+            getResources(),
+            newConfig.orientation));
     viewManager.onConfigurationChanged(newConfig);
   }
 
@@ -1724,19 +1733,42 @@ public class MozcBaseService extends InputMethodService {
   }
 
   @VisibleForTesting
-  void onUpdateSelectionInternal(int oldSelStart, int oldSelEnd,
-                                 int newSelStart, int newSelEnd,
-                                 int candidatesStart, int candidatesEnd) {
+  void onUpdateSelectionInternal(
+      int oldSelStart,
+      int oldSelEnd,
+      int newSelStart,
+      int newSelEnd,
+      int candidatesStart,
+      int candidatesEnd) {
     MozcLog.d("start MozcService#onUpdateSelectionInternal " + System.nanoTime());
     if (isDebugBuild) {
-      MozcLog.d("selection updated: [" + oldSelStart + ":" + oldSelEnd + "] "
-                    + "to: [" + newSelStart + ":" + newSelEnd + "] "
-                    + "candidates: [" + candidatesStart + ":" + candidatesEnd + "]");
+      MozcLog.d(
+          "selection updated: ["
+              + oldSelStart
+              + ":"
+              + oldSelEnd
+              + "] "
+              + "to: ["
+              + newSelStart
+              + ":"
+              + newSelEnd
+              + "] "
+              + "candidates: ["
+              + candidatesStart
+              + ":"
+              + candidatesEnd
+              + "]");
     }
 
-    int updateStatus = selectionTracker.onUpdateSelection(
-        oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd,
-        applicationCompatibility.isIgnoringMoveToTail());
+    int updateStatus =
+        selectionTracker.onUpdateSelection(
+            oldSelStart,
+            oldSelEnd,
+            newSelStart,
+            newSelEnd,
+            candidatesStart,
+            candidatesEnd,
+            applicationCompatibility.isIgnoringMoveToTail());
     if (isDebugBuild) {
       MozcLog.d(selectionTracker.toString());
     }
@@ -1744,26 +1776,27 @@ public class MozcBaseService extends InputMethodService {
       case SelectionTracker.DO_NOTHING:
         // Do nothing.
         break;
-      case SelectionTracker.RESET_CONTEXT: {
-        sessionExecutor.resetContext();
+      case SelectionTracker.RESET_CONTEXT:
+        {
+          sessionExecutor.resetContext();
 
-        // Commit the current composing text (preedit text), in case we hit an unknown state.
-        // Keeping the composing text sometimes makes it impossible for users to input characters,
-        // because it can cause consecutive mis-understanding of caret positions.
-        // We do this iff the keyboard is shown, because some other application may edit
-        // composition string, such as Google Translate.
-        if (isInputViewShown() && inputBound) {
-          InputConnection inputConnection = getCurrentInputConnection();
-          if (inputConnection != null) {
-            inputConnection.finishComposingText();
+          // Commit the current composing text (preedit text), in case we hit an unknown state.
+          // Keeping the composing text sometimes makes it impossible for users to input characters,
+          // because it can cause consecutive mis-understanding of caret positions.
+          // We do this iff the keyboard is shown, because some other application may edit
+          // composition string, such as Google Translate.
+          if (isInputViewShown() && inputBound) {
+            InputConnection inputConnection = getCurrentInputConnection();
+            if (inputConnection != null) {
+              inputConnection.finishComposingText();
+            }
           }
-        }
 
-        // Rendering default Command causes hiding candidate window,
-        // and re-showing the keyboard view.
-        viewManager.render(Command.getDefaultInstance());
-        break;
-      }
+          // Rendering default Command causes hiding candidate window,
+          // and re-showing the keyboard view.
+          viewManager.render(Command.getDefaultInstance());
+          break;
+        }
       default:
         // Otherwise, the updateStatus is the position of the cursor to be moved.
         if (updateStatus < 0) {
@@ -1777,9 +1810,13 @@ public class MozcBaseService extends InputMethodService {
   }
 
   @Override
-  public void onUpdateSelection(int oldSelStart, int oldSelEnd,
-                                int newSelStart, int newSelEnd,
-                                int candidatesStart, int candidatesEnd) {
+  public void onUpdateSelection(
+      int oldSelStart,
+      int oldSelEnd,
+      int newSelStart,
+      int newSelEnd,
+      int candidatesStart,
+      int candidatesEnd) {
     onUpdateSelectionInternal(
         oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
     super.onUpdateSelection(

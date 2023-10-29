@@ -29,20 +29,16 @@
 
 package org.mozc.android.inputmethod.japanese.accessibility;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.content.Context;
 import android.os.Build;
 import android.provider.Settings;
 import android.view.accessibility.AccessibilityEvent;
-
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import java.lang.reflect.Field;
 
-/**
- * Utility class for accessibility.
- */
+/** Utility class for accessibility. */
 public class AccessibilityUtil {
 
   private AccessibilityUtil() {}
@@ -51,10 +47,8 @@ public class AccessibilityUtil {
       Optional.<AccessibilityManagerWrapper>absent();
   private static Optional<AudioManagerWrapper> audioManager =
       Optional.<AudioManagerWrapper>absent();
-  private static Optional<Boolean> isAccessibilitySpeakPasswordEnabled =
-      Optional.<Boolean>absent();
-  private static Optional<Boolean> isAccessibilityEnabled =
-      Optional.<Boolean>absent();
+  private static Optional<Boolean> isAccessibilitySpeakPasswordEnabled = Optional.<Boolean>absent();
+  private static Optional<Boolean> isAccessibilityEnabled = Optional.<Boolean>absent();
 
   /**
    * Resets internal status.
@@ -72,7 +66,7 @@ public class AccessibilityUtil {
   /**
    * Sets manager instance for testing.
    *
-   * If absent, real service is used.
+   * <p>If absent, real service is used.
    */
   @VisibleForTesting
   static void setAccessibilityManagerForTesting(Optional<AccessibilityManagerWrapper> manager) {
@@ -83,10 +77,8 @@ public class AccessibilityUtil {
    * Gets manager instance.
    *
    * <p>If {@code #setAccessibilityManagerForTesting(Optional)} nor this method have not been
-   * invoked yet, cache instance is created inside.
-   * If not, cached instance (or set one by setAccessibilityManagerForTesting)
-   * is returned.
-   * Therefore this is lightweight method.
+   * invoked yet, cache instance is created inside. If not, cached instance (or set one by
+   * setAccessibilityManagerForTesting) is returned. Therefore this is lightweight method.
    */
   static AccessibilityManagerWrapper getAccessibilityManager(Context context) {
     if (!accessibilityManager.isPresent()) {
@@ -109,8 +101,7 @@ public class AccessibilityUtil {
    */
   static AudioManagerWrapper getAudioManager(Context context) {
     if (!audioManager.isPresent()) {
-      audioManager =
-          Optional.of(new AudioManagerWrapper(Preconditions.checkNotNull(context)));
+      audioManager = Optional.of(new AudioManagerWrapper(Preconditions.checkNotNull(context)));
     }
     return audioManager.get();
   }
@@ -131,9 +122,10 @@ public class AccessibilityUtil {
   public static boolean isTouchExplorationEnabled(Context context) {
     return getAccessibilityManager(context).isTouchExplorationEnabled();
   }
+
   /**
-   * Sends {@code AccessibilityEvent} to {@code AccessibilityManager}.
-   * Accessibility must be enabled.
+   * Sends {@code AccessibilityEvent} to {@code AccessibilityManager}. Accessibility must be
+   * enabled.
    */
   static void sendAccessibilityEvent(Context context, AccessibilityEvent event) {
     AccessibilityManagerWrapper manager = getAccessibilityManager(context);
@@ -147,8 +139,8 @@ public class AccessibilityUtil {
   }
 
   /**
-   * Gets Settings.Secure.ACCESSIBILITY_SPEAK_PASSWORD using reflection.
-   * The field is since API Level 15.
+   * Gets Settings.Secure.ACCESSIBILITY_SPEAK_PASSWORD using reflection. The field is since API
+   * Level 15.
    */
   static boolean isAccessibilitySpeakPasswordEnabled() {
     if (isAccessibilitySpeakPasswordEnabled.isPresent()) {

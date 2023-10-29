@@ -32,7 +32,6 @@ package org.mozc.android.inputmethod.japanese.util;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -43,40 +42,27 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-/**
- * Utility to handle candidate description.
- */
+/** Utility to handle candidate description. */
 public class CandidateDescriptionUtil {
 
   private static final Set<String> DESCRIPTION_BLACKLIST_SET;
+
   static {
-    String[] blacklist = new String[] {
-        "ひらがな",
-        "数字",
-        "丸数字",
-        "大字",
-        "絵文字",
-        "顔文字",
-        "<機種依存>",
-        "捨て仮名",
-    };
-    DESCRIPTION_BLACKLIST_SET = Collections.unmodifiableSet(
-        new HashSet<String>(Arrays.asList(blacklist)));
+    String[] blacklist =
+        new String[] {
+          "ひらがな", "数字", "丸数字", "大字", "絵文字", "顔文字", "<機種依存>", "捨て仮名",
+        };
+    DESCRIPTION_BLACKLIST_SET =
+        Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(blacklist)));
   }
 
-  private static final String[] DESCRIPTION_SUFFIX_BLACKLIST = new String[] {
-    "の旧字体",
-    "の簡易慣用字体",
-    "の印刷標準字体",
-    "の俗字",
-    "の正字",
-    "の本字",
-    "の異体字",
-    "の略字",
-    "の別字",
-  };
+  private static final String[] DESCRIPTION_SUFFIX_BLACKLIST =
+      new String[] {
+        "の旧字体", "の簡易慣用字体", "の印刷標準字体", "の俗字", "の正字", "の本字", "の異体字", "の略字", "の別字",
+      };
 
   private static final Map<String, String> DESCRIPTION_SHORTEN_MAP;
+
   static {
     Map<String, String> map = new HashMap<String, String>();
     map.put("小書き文字", "小書き");
@@ -133,7 +119,7 @@ public class CandidateDescriptionUtil {
 
   private static String shortenDescriptionFragment(String descriptionFragment) {
     Preconditions.checkNotNull(descriptionFragment);
-    return MoreObjects.firstNonNull(DESCRIPTION_SHORTEN_MAP.get(descriptionFragment),
-                                descriptionFragment);
+    return MoreObjects.firstNonNull(
+        DESCRIPTION_SHORTEN_MAP.get(descriptionFragment), descriptionFragment);
   }
 }

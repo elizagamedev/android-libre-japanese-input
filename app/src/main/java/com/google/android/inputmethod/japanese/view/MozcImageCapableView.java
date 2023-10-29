@@ -29,35 +29,30 @@
 
 package org.mozc.android.inputmethod.japanese.view;
 
-import org.mozc.android.inputmethod.japanese.R;
-import com.google.common.base.Preconditions;
-
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.R;
 
-/**
- * Views which support MozcDrawable should implement this interface
- * delegate some methods.
- */
+/** Views which support MozcDrawable should implement this interface delegate some methods. */
 public interface MozcImageCapableView {
 
   public void setMaxImageWidth(int maxImageWidth);
+
   public void setMaxImageHeight(int maxImageHeight);
+
   public ImageView asImageView();
 
-  /**
-   * Delagate object used by the views implementing MozcImageCapableView.
-   */
+  /** Delagate object used by the views implementing MozcImageCapableView. */
   class MozcImageCapableViewDelegate {
 
     private static final int INVALID_RESOURCE_ID = 0;
     private static final int UNSPECIFIED_SIZE = -1;
     private static final String XML_NAMESPACE_ANDROID =
         "http://schemas.android.com/apk/res/android";
-    private static final String XML_NAMESPACE_MOZC =
-        "http://schemas.android.com/apk/res-auto";
+    private static final String XML_NAMESPACE_MOZC = "http://schemas.android.com/apk/res-auto";
     private Skin skin = Skin.getFallbackInstance();
     private int rawId = INVALID_RESOURCE_ID;
     private int maxImageWidth = UNSPECIFIED_SIZE;
@@ -69,8 +64,8 @@ public interface MozcImageCapableView {
     }
 
     static boolean assertSrcAttribute(Resources resources, AttributeSet attrs) {
-      int srcId = attrs.getAttributeResourceValue(
-          XML_NAMESPACE_ANDROID, "src", INVALID_RESOURCE_ID);
+      int srcId =
+          attrs.getAttributeResourceValue(XML_NAMESPACE_ANDROID, "src", INVALID_RESOURCE_ID);
       if (srcId == INVALID_RESOURCE_ID) {
         return true;
       }
@@ -78,18 +73,19 @@ public interface MozcImageCapableView {
     }
 
     void loadMozcImageSource(AttributeSet attrs) {
-      rawId = attrs.getAttributeResourceValue(
-          XML_NAMESPACE_MOZC, "rawSrc", INVALID_RESOURCE_ID);
+      rawId = attrs.getAttributeResourceValue(XML_NAMESPACE_MOZC, "rawSrc", INVALID_RESOURCE_ID);
       TypedArray typedArray =
-          baseView.asImageView().getContext().obtainStyledAttributes(attrs,
-                                                                     R.styleable.MozcImageView);
+          baseView
+              .asImageView()
+              .getContext()
+              .obtainStyledAttributes(attrs, R.styleable.MozcImageView);
       try {
         maxImageWidth =
-            typedArray.getDimensionPixelOffset(R.styleable.MozcImageView_maxImageWidth,
-                                               UNSPECIFIED_SIZE);
+            typedArray.getDimensionPixelOffset(
+                R.styleable.MozcImageView_maxImageWidth, UNSPECIFIED_SIZE);
         maxImageHeight =
-            typedArray.getDimensionPixelOffset(R.styleable.MozcImageView_maxImageHeight,
-                                               UNSPECIFIED_SIZE);
+            typedArray.getDimensionPixelOffset(
+                R.styleable.MozcImageView_maxImageHeight, UNSPECIFIED_SIZE);
       } finally {
         typedArray.recycle();
       }
@@ -100,7 +96,8 @@ public interface MozcImageCapableView {
         ImageView view = baseView.asImageView();
         view.setImageDrawable(
             skin.getDrawable(baseView.asImageView().getContext().getResources(), rawId)
-                .getConstantState().newDrawable());
+                .getConstantState()
+                .newDrawable());
         view.invalidate();
       }
     }
@@ -135,18 +132,24 @@ public interface MozcImageCapableView {
       ImageView imageView = baseView.asImageView();
       int paddingLeft = baseView.asImageView().getPaddingLeft();
       int paddingRight = baseView.asImageView().getPaddingRight();
-      int additionalHorizontalPadding = maxImageWidth < 0 ? 0 : Math.max(
-          0, baseView.asImageView().getWidth() - paddingLeft - paddingRight - maxImageWidth);
+      int additionalHorizontalPadding =
+          maxImageWidth < 0
+              ? 0
+              : Math.max(
+                  0,
+                  baseView.asImageView().getWidth() - paddingLeft - paddingRight - maxImageWidth);
       if (additionalHorizontalPadding == 0) {
         return;
       }
       int additionalLeftPadding = additionalHorizontalPadding / 2;
       int additionalRightPadding = additionalHorizontalPadding - additionalLeftPadding;
-      baseView.asImageView().setPadding(
-          paddingLeft + additionalLeftPadding,
-          imageView.getPaddingTop(),
-          paddingRight + additionalRightPadding,
-          imageView.getPaddingBottom());
+      baseView
+          .asImageView()
+          .setPadding(
+              paddingLeft + additionalLeftPadding,
+              imageView.getPaddingTop(),
+              paddingRight + additionalRightPadding,
+              imageView.getPaddingBottom());
       imageView.invalidate();
     }
 
@@ -154,18 +157,22 @@ public interface MozcImageCapableView {
       ImageView imageView = baseView.asImageView();
       int paddingTop = imageView.getPaddingTop();
       int paddingBottom = imageView.getPaddingBottom();
-      int additionalVerticalPadding = maxImageHeight < 0
-          ? 0 : imageView.getHeight() - paddingTop - paddingBottom - maxImageHeight;
+      int additionalVerticalPadding =
+          maxImageHeight < 0
+              ? 0
+              : imageView.getHeight() - paddingTop - paddingBottom - maxImageHeight;
       if (additionalVerticalPadding == 0) {
         return;
       }
       int additionalTopPadding = additionalVerticalPadding / 2;
       int additionalBottomPadding = additionalVerticalPadding - additionalTopPadding;
-      baseView.asImageView().setPadding(
-          imageView.getPaddingLeft(),
-          paddingTop + additionalTopPadding,
-          imageView.getPaddingRight(),
-          paddingBottom + additionalBottomPadding);
+      baseView
+          .asImageView()
+          .setPadding(
+              imageView.getPaddingLeft(),
+              paddingTop + additionalTopPadding,
+              imageView.getPaddingRight(),
+              paddingBottom + additionalBottomPadding);
       imageView.invalidate();
     }
   }

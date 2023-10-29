@@ -29,19 +29,16 @@
 
 package org.mozc.android.inputmethod.japanese.session;
 
+import com.google.common.base.Preconditions;
 import org.mozc.android.inputmethod.japanese.MozcLog;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
-import com.google.common.base.Preconditions;
 
 /**
- * This class logs only input/output protocol buffer Command for MozcJNI.
- * In debug, You can edit this class as you like.
- * (Of course, you should remove the changes on this class from your CL :) )
- *
-  */
+ * This class logs only input/output protocol buffer Command for MozcJNI. In debug, You can edit
+ * this class as you like. (Of course, you should remove the changes on this class from your CL :) )
+ */
 class MozcCommandDebugger {
-  private MozcCommandDebugger() {
-  }
+  private MozcCommandDebugger() {}
 
   static void inLog(Command inCommand) {
     MozcLog.v("<evaluate>");

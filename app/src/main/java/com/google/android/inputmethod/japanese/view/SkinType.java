@@ -29,19 +29,15 @@
 
 package org.mozc.android.inputmethod.japanese.view;
 
+import android.content.res.Resources;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import org.mozc.android.inputmethod.japanese.MozcLog;
 import org.mozc.android.inputmethod.japanese.R;
 import org.mozc.android.inputmethod.japanese.view.SkinParser.SkinParserException;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 
-import android.content.res.Resources;
-
-/**
- * Type of skins.
- */
+/** Type of skins. */
 public enum SkinType {
-
   ORANGE_LIGHTGRAY(R.xml.skin_orange_lightgray),
   BLUE_LIGHTGRAY(R.xml.skin_blue_lightgray),
   BLUE_DARKGRAY(R.xml.skin_blue_darkgray),
@@ -49,8 +45,7 @@ public enum SkinType {
   MATERIAL_DESIGN_DARK(R.xml.skin_material_design_dark),
   // This is an instance for testing of skin support in some classes.
   // TODO(matsuzakit): No more required. Remove.
-  TEST(R.xml.skin_orange_lightgray)
-  ;
+  TEST(R.xml.skin_orange_lightgray);
 
   private Optional<Skin> skin = Optional.absent();
   private final int resourceId;
@@ -69,7 +64,7 @@ public enum SkinType {
       skin = Optional.of(parser.parseSkin());
     } catch (SkinParserException e) {
       MozcLog.e(e.getLocalizedMessage());
-      skin = Optional.of(new Skin());  // Fall-back skin.
+      skin = Optional.of(new Skin()); // Fall-back skin.
     }
     return skin.get();
   }

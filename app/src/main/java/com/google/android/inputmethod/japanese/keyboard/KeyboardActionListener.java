@@ -29,17 +29,16 @@
 
 package org.mozc.android.inputmethod.japanese.keyboard;
 
+import java.util.List;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
 
-import java.util.List;
-
-/**
- * A listener of keyboard actions.
- *
- */
+/** A listener of keyboard actions. */
 public interface KeyboardActionListener {
   public void onCancel();
+
   public void onPress(int keycode);
+
   public void onRelease(int keycode);
+
   public void onKey(int primaryCode, List<TouchEvent> touchEventList);
 }

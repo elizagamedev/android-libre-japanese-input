@@ -29,21 +29,19 @@
 
 package org.mozc.android.inputmethod.japanese.model;
 
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
-import org.mozc.android.inputmethod.japanese.ui.FloatingModeIndicator;
+import android.annotation.TargetApi;
+import android.view.inputmethod.EditorInfo;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
-
-import android.annotation.TargetApi;
-import android.view.inputmethod.EditorInfo;
-
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
+import org.mozc.android.inputmethod.japanese.ui.FloatingModeIndicator;
 
 /**
  * State machine to manage the behavior of {@link FloatingModeIndicator} through
  * {FloatingModeIndicatorController#ControllerListener}.
- * <p>
- * This class doesn't have Looper to keep this class testable.
+ *
+ * <p>This class doesn't have Looper to keep this class testable.
  */
 @TargetApi(21)
 public class FloatingModeIndicatorController {
@@ -51,25 +49,27 @@ public class FloatingModeIndicatorController {
   /** Listener interface to control floating mode indicator. */
   public interface ControllerListener {
     public void show(CompositionMode mode);
+
     public void showWithDelay(CompositionMode mode);
+
     public void hide();
   }
 
   /**
-   * Shows a indicator by {@link #onStartInputView} if the method is not called in the last
-   * time period.
+   * Shows a indicator by {@link #onStartInputView} if the method is not called in the last time
+   * period.
    */
   @VisibleForTesting static final int MIN_INTERVAL_TO_SHOW_INDICATOR_ON_START_MILLIS = 3000;
 
   /**
-   * Maximum time to wait until the cursor position is stabilized.
-   * The position is not stabilized especially on start.
+   * Maximum time to wait until the cursor position is stabilized. The position is not stabilized
+   * especially on start.
    */
   @VisibleForTesting static final int MAX_UNSTABLE_TIME_ON_START_MILLIS = 1000;
 
   /**
-   * The initial value for time related variables.
-   * abs(INVALID_TIME) should be greater than all other time related constants.
+   * The initial value for time related variables. abs(INVALID_TIME) should be greater than all
+   * other time related constants.
    */
   private static final long INVALID_TIME = -1000000;
 
@@ -77,6 +77,7 @@ public class FloatingModeIndicatorController {
 
   /** Name of the application package that owns the editor. */
   private Optional<String> editorPackageName = Optional.absent();
+
   private boolean hasComposition;
   private CompositionMode compositionMode = CompositionMode.HIRAGANA;
 
@@ -129,9 +130,9 @@ public class FloatingModeIndicatorController {
 
   /**
    * Make the cursor position stabilized.
-   * <p>
-   * Caller class should call this method to notify that the last delayed event is invoked without
-   * interruption.
+   *
+   * <p>Caller class should call this method to notify that the last delayed event is invoked
+   * without interruption.
    */
   public void markCursorPositionStabilized() {
     isCursorPositionStabilizedExplicitly = true;
@@ -144,11 +145,13 @@ public class FloatingModeIndicatorController {
 
   /**
    * Updates the visibility of floating mode indicator.
+   *
    * <p>
+   *
    * <ul>
-   * <li>Hide the indicator if there is a composition.
-   * <li>Show indicator if {@code showIfNecessary} is true. If the cursor position is not
-   *     stabilized, this method invokes delayed callback.
+   *   <li>Hide the indicator if there is a composition.
+   *   <li>Show indicator if {@code showIfNecessary} is true. If the cursor position is not
+   *       stabilized, this method invokes delayed callback.
    * </ul>
    */
   private void update(long time, boolean showIfNecessary) {
@@ -168,7 +171,8 @@ public class FloatingModeIndicatorController {
     }
   }
 
-  @VisibleForTesting boolean isCursorPositionStabilized(long time) {
+  @VisibleForTesting
+  boolean isCursorPositionStabilized(long time) {
     return isCursorPositionStabilizedExplicitly
         || time - lastPositionUnstabilizedTime >= MAX_UNSTABLE_TIME_ON_START_MILLIS;
   }

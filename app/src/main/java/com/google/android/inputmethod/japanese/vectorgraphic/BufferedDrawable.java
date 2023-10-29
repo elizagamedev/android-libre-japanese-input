@@ -29,11 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.vectorgraphic;
 
-import com.google.common.base.Objects;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.Resources.Theme;
@@ -49,67 +44,67 @@ import android.graphics.Region;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.SparseIntArray;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
+import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * A Drawable buffering a decorated Drawable.
- * <p>
- * Buffering here means that the decorated Drawable is rendered to on-memory bitmap
- * and draw method call uses the bitmap.
- * <p>
- * There are two motivations for this class.
+ *
+ * <p>Buffering here means that the decorated Drawable is rendered to on-memory bitmap and draw
+ * method call uses the bitmap.
+ *
+ * <p>There are two motivations for this class.
+ *
  * <ol>
- * <li>To support H/W accelerated canvas. H/W canvas has limited API so some Drawable (e.g.,
- * PictureDrawable) cannot be drawn onto it. Through buffering such Drawables become available.
- * <li>Performance. Complex Drawable (e.g., PictureDrawable) takes time to be drawn.
+ *   <li>To support H/W accelerated canvas. H/W canvas has limited API so some Drawable (e.g.,
+ *       PictureDrawable) cannot be drawn onto it. Through buffering such Drawables become
+ *       available.
+ *   <li>Performance. Complex Drawable (e.g., PictureDrawable) takes time to be drawn.
  * </ol>
- * However dumb buffering takes much memory.
- * Therefore this class holds only the decomposed bitmap blocks which has non-transparent pixels.
- * <p>
- * CAUTION: Skew and rotation is not supported. The {@code Matrix} of given {@code Canvas} should
+ *
+ * However dumb buffering takes much memory. Therefore this class holds only the decomposed bitmap
+ * blocks which has non-transparent pixels.
+ *
+ * <p>CAUTION: Skew and rotation is not supported. The {@code Matrix} of given {@code Canvas} should
  * have only transform and scale.
  */
 public class BufferedDrawable extends Drawable {
 
   /**
-   * The length of decomposed bitmap in pixels.
-   * The dimension will be: (COMPOSITION_LENGTH x COMPOSITION_LENGTH)
-   * <p>
-   * Longer length causes faster performance and bigger memory footprint.
-   * <p>
-   * For performance, the value should be 2^n.
+   * The length of decomposed bitmap in pixels. The dimension will be: (COMPOSITION_LENGTH x
+   * COMPOSITION_LENGTH)
+   *
+   * <p>Longer length causes faster performance and bigger memory footprint.
+   *
+   * <p>For performance, the value should be 2^n.
    */
   private static final int COMPOSITION_LENGTH = 16;
 
-  /**
-   * Metadata of decomposed bitmap collection.
-   */
+  /** Metadata of decomposed bitmap collection. */
   private static class DecomposedBitmapMetadata {
 
-    /**
-     * The width of bounds in screen pixels (non-scaled).
-     */
+    /** The width of bounds in screen pixels (non-scaled). */
     private final int width;
 
-    /**
-     * The height of bounds in screen pixels (non-scaled).
-     */
+    /** The height of bounds in screen pixels (non-scaled). */
     private final int height;
 
     /**
-     * The scales (X and Y) of the canvas.
-     * The decomposed bitmaps are rendered with the scales in order to avoid scaling noise.
+     * The scales (X and Y) of the canvas. The decomposed bitmaps are rendered with the scales in
+     * order to avoid scaling noise.
      */
     private final float scaleX;
+
     private final float scaleY;
 
     DecomposedBitmapMetadata(int width, int height, float scaleX, float scaleY) {
@@ -131,8 +126,10 @@ public class BufferedDrawable extends Drawable {
         return false;
       }
       DecomposedBitmapMetadata rhs = DecomposedBitmapMetadata.class.cast(o);
-      return width == rhs.width && height == rhs.height
-          && scaleX == rhs.scaleX && scaleY == rhs.scaleY;
+      return width == rhs.width
+          && height == rhs.height
+          && scaleX == rhs.scaleX
+          && scaleY == rhs.scaleY;
     }
 
     @Override
@@ -142,19 +139,19 @@ public class BufferedDrawable extends Drawable {
   }
 
   /**
-   * A piece of decomposed bitmap.
-   * Rendered image on-memory is decomposed into {@code DecomposedBitmap} instances.
-   * <p>
-   * Monolithic bitmap consumes much memory: (4 * width * height) bytes; however typical
-   * bitmap mainly consists of transparent pixels. Storing such pixels in memory is basically
-   * useless because they affect nothing.
-   * By decomposing bitmap into small part and filtering-out transparent-pixel-only-part from
-   * memory, we can reduce memory footprint.
+   * A piece of decomposed bitmap. Rendered image on-memory is decomposed into {@code
+   * DecomposedBitmap} instances.
+   *
+   * <p>Monolithic bitmap consumes much memory: (4 * width * height) bytes; however typical bitmap
+   * mainly consists of transparent pixels. Storing such pixels in memory is basically useless
+   * because they affect nothing. By decomposing bitmap into small part and filtering-out
+   * transparent-pixel-only-part from memory, we can reduce memory footprint.
    */
   private static class DecomposedBitmap {
     private final int left;
     private final int top;
     private final Bitmap bitmap;
+
     /**
      * @param left left position in the original bitmap in pixels
      * @param top top position in the original bitmap in pixels
@@ -173,32 +170,37 @@ public class BufferedDrawable extends Drawable {
 
   /**
    * Temporary {@code Canvas} for on-memory rendering.
-   * <p>
-   * Using {@code ThreadLocal} for thread safety. The temporary canvas is used only in
-   * {@code Drawable#draw(Canvas)} so by using {@code ThreadLocal} synchronization can be omitted.
-   * <p>
-   * Basically having a Canvas as member field is good way but {@code Canvas} is too big to do so.
+   *
+   * <p>Using {@code ThreadLocal} for thread safety. The temporary canvas is used only in {@code
+   * Drawable#draw(Canvas)} so by using {@code ThreadLocal} synchronization can be omitted.
+   *
+   * <p>Basically having a Canvas as member field is good way but {@code Canvas} is too big to do
+   * so.
    */
-  private static final ThreadLocal<Canvas> TEMPORARY_CANVAS = new ThreadLocal<Canvas>() {
-    @Override
-    protected Canvas initialValue() { return new Canvas(); }
-  };
+  private static final ThreadLocal<Canvas> TEMPORARY_CANVAS =
+      new ThreadLocal<Canvas>() {
+        @Override
+        protected Canvas initialValue() {
+          return new Canvas();
+        }
+      };
 
-  private static final ThreadLocal<Matrix> TEMPORARY_MATRIX = new ThreadLocal<Matrix>() {
-    @Override
-    protected Matrix initialValue() { return new Matrix(); }
-  };
+  private static final ThreadLocal<Matrix> TEMPORARY_MATRIX =
+      new ThreadLocal<Matrix>() {
+        @Override
+        protected Matrix initialValue() {
+          return new Matrix();
+        }
+      };
 
-  /**
-   * Base Drawable to be drawn onto on-memory canvas.
-   */
+  /** Base Drawable to be drawn onto on-memory canvas. */
   private final Drawable baseDrawable;
 
   /**
    * Backing decomposed {@code Bitmap} for on-memory rendering.
-   * <p>
-   * This is a kind of cache. Therefore if depending conditions (e.g., scale) are changed
-   * this should be invalidated.
+   *
+   * <p>This is a kind of cache. Therefore if depending conditions (e.g., scale) are changed this
+   * should be invalidated.
    */
   private final Map<DecomposedBitmapMetadata, Collection<DecomposedBitmap>>
       metadataToBitmapCollection = Maps.newHashMap();
@@ -209,11 +211,10 @@ public class BufferedDrawable extends Drawable {
 
   /**
    * Clears the buffer and its internal resources.
-   * <p>
-   * The buffer is never freed automatically so you have to call this method if you want to clear
-   * the buffer.
-   * For example when you call setter method which affects rendering result,
-   * you have to call this.
+   *
+   * <p>The buffer is never freed automatically so you have to call this method if you want to clear
+   * the buffer. For example when you call setter method which affects rendering result, you have to
+   * call this.
    */
   public void clearBuffer() {
     for (Collection<DecomposedBitmap> bitmaps : metadataToBitmapCollection.values()) {
@@ -224,18 +225,19 @@ public class BufferedDrawable extends Drawable {
     metadataToBitmapCollection.clear();
   }
 
-  private DecomposedBitmapMetadata createDecomposedBitmapMetadata(int width, int height,
-                                                                  float[] matrixValues) {
+  private DecomposedBitmapMetadata createDecomposedBitmapMetadata(
+      int width, int height, float[] matrixValues) {
     Preconditions.checkArgument(width >= 0);
     Preconditions.checkArgument(height >= 0);
     Preconditions.checkArgument(matrixValues.length >= 9);
-    Preconditions.checkArgument(matrixValues[Matrix.MSCALE_X] > 0
-        && matrixValues[Matrix.MSKEW_X] == 0
-        && matrixValues[Matrix.MSKEW_Y] == 0
-        && matrixValues[Matrix.MSCALE_Y] > 0
-        && matrixValues[Matrix.MPERSP_0] == 0
-        && matrixValues[Matrix.MPERSP_1] == 0
-        && matrixValues[Matrix.MPERSP_2] == 1f,
+    Preconditions.checkArgument(
+        matrixValues[Matrix.MSCALE_X] > 0
+            && matrixValues[Matrix.MSKEW_X] == 0
+            && matrixValues[Matrix.MSKEW_Y] == 0
+            && matrixValues[Matrix.MSCALE_Y] > 0
+            && matrixValues[Matrix.MPERSP_0] == 0
+            && matrixValues[Matrix.MPERSP_1] == 0
+            && matrixValues[Matrix.MPERSP_2] == 1f,
         "Only simple matrix (transformation and scale) is supported.");
     return new DecomposedBitmapMetadata(
         width, height, matrixValues[Matrix.MSCALE_X], matrixValues[Matrix.MSCALE_Y]);
@@ -265,40 +267,39 @@ public class BufferedDrawable extends Drawable {
 
   /**
    * Gets rendering result as DecomposedBitmap collection.
-   * <p>
-   * If there is a DecomposedBitmap collection corresponding to given metadata, reuses it.
+   *
+   * <p>If there is a DecomposedBitmap collection corresponding to given metadata, reuses it.
    * Otherwise new one is created and returned.
    */
   private Collection<DecomposedBitmap> maybeCreateDecomposedBitmap(
       DecomposedBitmapMetadata metadata, float[] matrixValues) {
     Collection<DecomposedBitmap> result = metadataToBitmapCollection.get(metadata);
     if (result != null) {
-      return result;  // We have cached data.
+      return result; // We have cached data.
     }
     result = createDecomposedBitmap(metadata, matrixValues);
     metadataToBitmapCollection.put(metadata, result);
     return result;
   }
 
-  /**
-   * Creates a DecomposedBitmap collection.
-   */
-  private Collection<DecomposedBitmap> createDecomposedBitmap(DecomposedBitmapMetadata metadata,
-                                                              float[] matrixValues) {
+  /** Creates a DecomposedBitmap collection. */
+  private Collection<DecomposedBitmap> createDecomposedBitmap(
+      DecomposedBitmapMetadata metadata, float[] matrixValues) {
     // Create bitmap with original (on screen) width and size with alignment.
-    Bitmap bitmap = Bitmap.createBitmap(
-        (int) Math.ceil(metadata.width * metadata.scaleX / COMPOSITION_LENGTH)
-            * COMPOSITION_LENGTH,
-        (int) Math.ceil(metadata.height * metadata.scaleY / COMPOSITION_LENGTH)
-            * COMPOSITION_LENGTH,
-        Bitmap.Config.ARGB_8888);
+    Bitmap bitmap =
+        Bitmap.createBitmap(
+            (int) Math.ceil(metadata.width * metadata.scaleX / COMPOSITION_LENGTH)
+                * COMPOSITION_LENGTH,
+            (int) Math.ceil(metadata.height * metadata.scaleY / COMPOSITION_LENGTH)
+                * COMPOSITION_LENGTH,
+            Bitmap.Config.ARGB_8888);
     // Draw the base Drawable on the bitmap through on-memory canvas.
     Canvas onMemoryCanvas = TEMPORARY_CANVAS.get();
     // Apply transformation and scale based on the canvas's matrix.
     // NOTE: Skew and/or rotation are not supported.
-    onMemoryCanvas.setMatrix(null);  // As the canvas is on-memory, setMatrix works well.
-    onMemoryCanvas.translate(Math.min(0, matrixValues[Matrix.MTRANS_X]),
-                             Math.min(0, matrixValues[Matrix.MTRANS_Y]));
+    onMemoryCanvas.setMatrix(null); // As the canvas is on-memory, setMatrix works well.
+    onMemoryCanvas.translate(
+        Math.min(0, matrixValues[Matrix.MTRANS_X]), Math.min(0, matrixValues[Matrix.MTRANS_Y]));
     onMemoryCanvas.scale(matrixValues[Matrix.MSCALE_X], matrixValues[Matrix.MSCALE_Y]);
     // Render baseDrawable.
     onMemoryCanvas.setBitmap(bitmap);
@@ -310,11 +311,9 @@ public class BufferedDrawable extends Drawable {
     return decomposeBitmap(bitmap);
   }
 
-  /**
-   * Draws a DecomposedBitmap collection onto given canvas.
-   */
-  private void drawDecomposedBitmap(Canvas canvas, float[] matrixValues,
-                                    Collection<DecomposedBitmap> decomposedBitmaps) {
+  /** Draws a DecomposedBitmap collection onto given canvas. */
+  private void drawDecomposedBitmap(
+      Canvas canvas, float[] matrixValues, Collection<DecomposedBitmap> decomposedBitmaps) {
     int saveCount = canvas.save();
     try {
       // What are done here:
@@ -329,14 +328,17 @@ public class BufferedDrawable extends Drawable {
       //   canvas.translate(-matrixValues[Matrix.MTRANS_X], -matrixValues[Matrix.MTRANS_Y]);
       // The translation above can be merged with the translation for 2.
       canvas.scale(1f / matrixValues[Matrix.MSCALE_X], 1f / matrixValues[Matrix.MSCALE_Y]);
-      canvas.translate(Math.max(0, -matrixValues[Matrix.MTRANS_X]),
-                       Math.max(0, -matrixValues[Matrix.MTRANS_Y]));
+      canvas.translate(
+          Math.max(0, -matrixValues[Matrix.MTRANS_X]), Math.max(0, -matrixValues[Matrix.MTRANS_Y]));
       Rect bounds = getBounds();
       int boundsLeft = bounds.left;
       int boundsTop = bounds.top;
       for (DecomposedBitmap decomposedBitmap : decomposedBitmaps) {
-        canvas.drawBitmap(decomposedBitmap.bitmap, decomposedBitmap.left + boundsLeft,
-                          decomposedBitmap.top + boundsTop, null);
+        canvas.drawBitmap(
+            decomposedBitmap.bitmap,
+            decomposedBitmap.left + boundsLeft,
+            decomposedBitmap.top + boundsTop,
+            null);
       }
     } finally {
       canvas.restoreToCount(saveCount);
@@ -345,9 +347,9 @@ public class BufferedDrawable extends Drawable {
 
   /**
    * Check if all the pixels in given region are filled with 0 (==Transparent).
-   * <p>
-   * Don't consider performance improvement:
-   * Current implementation is fast enough even on Nexus S according to profiling.
+   *
+   * <p>Don't consider performance improvement: Current implementation is fast enough even on Nexus
+   * S according to profiling.
    */
   private boolean isPixelsAllTransparent(int[] pixels, int left, int top, int width) {
     for (int y = top; y < top + COMPOSITION_LENGTH; ++y) {
@@ -363,11 +365,12 @@ public class BufferedDrawable extends Drawable {
 
   /**
    * Decomposes a {@code bitmap} into a {@code DecomposedBitmap} collection.
-   * <p>
-   * For rendering performance (reducing drawBitmap operation),
-   * horizontally and vertically connected {@code DecomposedBitmap} are merged internally.
-   * @param bitmap {@code Bitmap} to be decomposed. Note that this is recycled internally so
-   *     the caller side cannot use this after the invocation.
+   *
+   * <p>For rendering performance (reducing drawBitmap operation), horizontally and vertically
+   * connected {@code DecomposedBitmap} are merged internally.
+   *
+   * @param bitmap {@code Bitmap} to be decomposed. Note that this is recycled internally so the
+   *     caller side cannot use this after the invocation.
    */
   private Collection<DecomposedBitmap> decomposeBitmap(Bitmap bitmap) {
     int width = bitmap.getWidth();
@@ -385,7 +388,7 @@ public class BufferedDrawable extends Drawable {
     // Fill the int array with the entire bitmap data.
     int[] pixels = new int[width * height];
     bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
-    boolean noTransparent = true;  // Will be turned off if transparent block is found.
+    boolean noTransparent = true; // Will be turned off if transparent block is found.
     // Scan each block (size: COMPOSITION_LENGTH x COMPOSITION_LENGTH).
     List<SparseIntArray> nonTransparentBlocksList =
         Lists.newArrayListWithCapacity((int) Math.ceil((double) height / COMPOSITION_LENGTH));
@@ -457,8 +460,9 @@ public class BufferedDrawable extends Drawable {
         int right = Math.min(rightIndex * COMPOSITION_LENGTH, width);
         int top = topIndex * COMPOSITION_LENGTH;
         int bottom = Math.min(bottomIndex * COMPOSITION_LENGTH, height);
-        result.add(new DecomposedBitmap(left, top,
-            Bitmap.createBitmap(bitmap, left, top, right - left, bottom - top)));
+        result.add(
+            new DecomposedBitmap(
+                left, top, Bitmap.createBitmap(bitmap, left, top, right - left, bottom - top)));
       }
     }
     bitmap.recycle();

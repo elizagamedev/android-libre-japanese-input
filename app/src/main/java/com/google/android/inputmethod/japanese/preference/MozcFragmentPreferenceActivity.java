@@ -29,16 +29,12 @@
 
 package org.mozc.android.inputmethod.japanese.preference;
 
-import org.mozc.android.inputmethod.japanese.util.LauncherIconManagerFactory;
-
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
+import org.mozc.android.inputmethod.japanese.util.LauncherIconManagerFactory;
 
-/**
- * Main Activity class for the fragment based preference UI on Android with API Level &gt;= 11.
- *
- */
+/** Main Activity class for the fragment based preference UI on Android with API Level &gt;= 11. */
 public class MozcFragmentPreferenceActivity extends MozcFragmentBasePreferenceActivity {
 
   public MozcFragmentPreferenceActivity() {
@@ -59,15 +55,13 @@ public class MozcFragmentPreferenceActivity extends MozcFragmentBasePreferenceAc
   @Override
   protected void onResume() {
     super.onResume();
-    PreferenceManager
-        .getDefaultSharedPreferences(this)
+    PreferenceManager.getDefaultSharedPreferences(this)
         .registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
   }
 
   @Override
   protected void onPause() {
-    PreferenceManager
-        .getDefaultSharedPreferences(this)
+    PreferenceManager.getDefaultSharedPreferences(this)
         .unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
     super.onPause();
   }

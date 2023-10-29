@@ -29,6 +29,29 @@
 
 package org.mozc.android.inputmethod.japanese;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Rect;
+import android.inputmethodservice.InputMethodService;
+import android.os.Build;
+import android.os.IBinder;
+import android.os.Looper;
+import android.view.InputDevice;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.inputmethod.EditorInfo;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import java.util.Collections;
+import java.util.List;
+import javax.annotation.Nullable;
 import org.mozc.android.inputmethod.japanese.FeedbackManager.FeedbackEvent;
 import org.mozc.android.inputmethod.japanese.KeycodeConverter.KeyEventInterface;
 import org.mozc.android.inputmethod.japanese.emoji.EmojiProviderType;
@@ -54,49 +77,16 @@ import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
-import org.mozc.android.inputmethod.japanese.R;
 import org.mozc.android.inputmethod.japanese.ui.MenuDialog;
 import org.mozc.android.inputmethod.japanese.ui.MenuDialog.MenuDialogListener;
 import org.mozc.android.inputmethod.japanese.util.CursorAnchorInfoWrapper;
 import org.mozc.android.inputmethod.japanese.util.ImeSwitcherFactory.ImeSwitcher;
 import org.mozc.android.inputmethod.japanese.view.Skin;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Rect;
-import android.inputmethodservice.InputMethodService;
-import android.os.Build;
-import android.os.IBinder;
-import android.os.Looper;
-import android.view.InputDevice;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.inputmethod.EditorInfo;
-
-import java.util.Collections;
-import java.util.List;
-
-import javax.annotation.Nullable;
-
-/**
- * Manages Input, Candidate and Extracted views.
- *
- */
+/** Manages Input, Candidate and Extracted views. */
 public class ViewManager implements ViewManagerInterface {
 
-  /**
-   * An small wrapper to inject keyboard view resizing when a user selects a candidate.
-   */
+  /** An small wrapper to inject keyboard view resizing when a user selects a candidate. */
   class ViewManagerEventListener extends ViewEventDelegator {
 
     ViewManagerEventListener(ViewEventListener delegated) {
@@ -113,9 +103,7 @@ public class ViewManager implements ViewManagerInterface {
     }
   }
 
-  /**
-   * Converts S/W Keyboard's keycode to KeyEvent instance.
-   */
+  /** Converts S/W Keyboard's keycode to KeyEvent instance. */
   void onKey(int primaryCode, List<TouchEvent> touchEventList) {
     if (primaryCode == keycodeCapslock || primaryCode == keycodeAlt) {
       // Ignore those key events because they are handled by KeyboardView,
@@ -179,10 +167,11 @@ public class ViewManager implements ViewManagerInterface {
 
     Optional<ProtoCommands.KeyEvent> mozcKeyEvent =
         primaryKeyCodeConverter.createMozcKeyEvent(primaryCode, touchEventList);
-    eventListener.onKeyEvent(mozcKeyEvent.orNull(),
-                             primaryKeyCodeConverter.getPrimaryCodeKeyEvent(primaryCode),
-                             getActiveSoftwareKeyboardModel().getKeyboardSpecification(),
-                             touchEventList);
+    eventListener.onKeyEvent(
+        mozcKeyEvent.orNull(),
+        primaryKeyCodeConverter.getPrimaryCodeKeyEvent(primaryCode),
+        getActiveSoftwareKeyboardModel().getKeyboardSpecification(),
+        touchEventList);
   }
 
   /**
@@ -191,8 +180,7 @@ public class ViewManager implements ViewManagerInterface {
    */
   class KeyboardActionAdapter implements KeyboardActionListener {
     @Override
-    public void onCancel() {
-    }
+    public void onCancel() {}
 
     @Override
     public void onKey(int primaryCode, List<TouchEvent> touchEventList) {
@@ -207,11 +195,11 @@ public class ViewManager implements ViewManagerInterface {
     }
 
     @Override
-    public void onRelease(int primaryCode) {
-    }
+    public void onRelease(int primaryCode) {}
   }
 
-  @VisibleForTesting class ViewLayerEventHandler {
+  @VisibleForTesting
+  class ViewLayerEventHandler {
     private static final int NEXUS_KEYBOARD_VENDOR_ID = 0x0D62;
     private static final int NEXUS_KEYBOARD_PRODUCT_ID = 0x160B;
     private boolean isEmojiKeyDownAvailable = false;
@@ -315,20 +303,19 @@ public class ViewManager implements ViewManagerInterface {
   private final KeyEventHandler keyEventHandler;
 
   /** Key event handler to handle events on view layer. */
-  @VisibleForTesting final ViewLayerEventHandler viewLayerKeyEventHandler =
-      new ViewLayerEventHandler();
+  @VisibleForTesting
+  final ViewLayerEventHandler viewLayerKeyEventHandler = new ViewLayerEventHandler();
 
   /**
-   * Model to represent the current software keyboard state.
-   * All the setter methods don't affect symbolNumberSoftwareKeyboardModel but
-   * japaneseSoftwareKeyboardModel.
+   * Model to represent the current software keyboard state. All the setter methods don't affect
+   * symbolNumberSoftwareKeyboardModel but japaneseSoftwareKeyboardModel.
    */
   private final JapaneseSoftwareKeyboardModel japaneseSoftwareKeyboardModel =
       new JapaneseSoftwareKeyboardModel();
+
   /**
-   * Model to represent the number software keyboard state.
-   * Its keyboard mode is set in the constructor to KeyboardMode.SYMBOL_NUMBER and will never be
-   * changed.
+   * Model to represent the number software keyboard state. Its keyboard mode is set in the
+   * constructor to KeyboardMode.SYMBOL_NUMBER and will never be changed.
    */
   private final JapaneseSoftwareKeyboardModel symbolNumberSoftwareKeyboardModel =
       new JapaneseSoftwareKeyboardModel();
@@ -369,17 +356,18 @@ public class ViewManager implements ViewManagerInterface {
 
   /**
    * True if voice input is eligible.
-   * <p>
-   * This conditions is calculated based on following conditions.
+   *
+   * <p>This conditions is calculated based on following conditions.
+   *
    * <ul>
-   * <li>VoiceIME's status: If VoiceIME is not available, this flag becomes false.
-   * <li>EditorInfo: If current editor does not want to use voice input, this flag becomes false.
-   *   <ul>
-   *   <li>Voice input might be explicitly forbidden by the editor.
-   *   <li>Voice input should be useless for the number input editors.
-   *   <li>Voice input should be useless for password field.
-   *   <ul>
-   * </ul>
+   *   <li>VoiceIME's status: If VoiceIME is not available, this flag becomes false.
+   *   <li>EditorInfo: If current editor does not want to use voice input, this flag becomes false.
+   *       <ul>
+   *         <li>Voice input might be explicitly forbidden by the editor.
+   *         <li>Voice input should be useless for the number input editors.
+   *         <li>Voice input should be useless for password field.
+   *             <ul>
+   *         </ul>
    */
   private boolean isVoiceInputEligible = false;
 
@@ -419,18 +407,31 @@ public class ViewManager implements ViewManagerInterface {
 
   private final PrimaryKeyCodeConverter primaryKeyCodeConverter;
 
-  public ViewManager(Context context, ViewEventListener listener,
-                     SymbolHistoryStorage symbolHistoryStorage, ImeSwitcher imeSwitcher,
-                     MenuDialogListener menuDialogListener) {
-    this(context, listener, symbolHistoryStorage, imeSwitcher, menuDialogListener,
-         new ProbableKeyEventGuesser(context.getAssets()), new HardwareKeyboard());
+  public ViewManager(
+      Context context,
+      ViewEventListener listener,
+      SymbolHistoryStorage symbolHistoryStorage,
+      ImeSwitcher imeSwitcher,
+      MenuDialogListener menuDialogListener) {
+    this(
+        context,
+        listener,
+        symbolHistoryStorage,
+        imeSwitcher,
+        menuDialogListener,
+        new ProbableKeyEventGuesser(context.getAssets()),
+        new HardwareKeyboard());
   }
 
   @VisibleForTesting
-  ViewManager(Context context, ViewEventListener listener,
-              SymbolHistoryStorage symbolHistoryStorage, ImeSwitcher imeSwitcher,
-              @Nullable MenuDialogListener menuDialogListener, ProbableKeyEventGuesser guesser,
-              HardwareKeyboard hardwareKeyboard) {
+  ViewManager(
+      Context context,
+      ViewEventListener listener,
+      SymbolHistoryStorage symbolHistoryStorage,
+      ImeSwitcher imeSwitcher,
+      @Nullable MenuDialogListener menuDialogListener,
+      ProbableKeyEventGuesser guesser,
+      HardwareKeyboard hardwareKeyboard) {
     Preconditions.checkNotNull(context);
     Preconditions.checkNotNull(listener);
     Preconditions.checkNotNull(imeSwitcher);
@@ -458,12 +459,13 @@ public class ViewManager implements ViewManagerInterface {
     eventListener = new ViewManagerEventListener(listener);
     keyboardActionListener = new KeyboardActionAdapter();
     // Prepare callback object.
-    keyEventHandler = new KeyEventHandler(
-        Looper.getMainLooper(),
-        keyboardActionListener,
-        res.getInteger(R.integer.config_repeat_key_delay),
-        res.getInteger(R.integer.config_repeat_key_interval),
-        res.getInteger(R.integer.config_long_press_key_delay));
+    keyEventHandler =
+        new KeyEventHandler(
+            Looper.getMainLooper(),
+            keyboardActionListener,
+            res.getInteger(R.integer.config_repeat_key_delay),
+            res.getInteger(R.integer.config_repeat_key_interval),
+            res.getInteger(R.integer.config_long_press_key_delay));
 
     this.imeSwitcher = imeSwitcher;
     this.menuDialogListener = menuDialogListener;
@@ -474,9 +476,9 @@ public class ViewManager implements ViewManagerInterface {
   /**
    * Creates new input view.
    *
-   * "Input view" is a software keyboard in almost all cases.
+   * <p>"Input view" is a software keyboard in almost all cases.
    *
-   * Previously created input view is not accessed any more after calling this method.
+   * <p>Previously created input view is not accessed any more after calling this method.
    *
    * @param context
    * @return newly created view.
@@ -489,33 +491,37 @@ public class ViewManager implements ViewManagerInterface {
     mozcView.setVisibility(View.GONE);
     mozcView.setKeyboardHeightRatio(keyboardHeightRatio);
     mozcView.setCursorAnchorInfoEnabled(cursorAnchroInfoEnabled);
-    OnClickListener widenButtonClickListener = new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        eventListener.onFireFeedbackEvent(FeedbackEvent.NARROW_FRAME_WIDEN_BUTTON_DOWN);
-        setNarrowMode(!narrowMode);
-      }
-    };
-    OnClickListener leftAdjustButtonClickListener = new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        eventListener.onUpdateKeyboardLayoutAdjustment(LayoutAdjustment.LEFT);
-      }
-    };
-    OnClickListener rightAdjustButtonClickListener = new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        eventListener.onUpdateKeyboardLayoutAdjustment(LayoutAdjustment.RIGHT);
-      }
-    };
+    OnClickListener widenButtonClickListener =
+        new OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            eventListener.onFireFeedbackEvent(FeedbackEvent.NARROW_FRAME_WIDEN_BUTTON_DOWN);
+            setNarrowMode(!narrowMode);
+          }
+        };
+    OnClickListener leftAdjustButtonClickListener =
+        new OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            eventListener.onUpdateKeyboardLayoutAdjustment(LayoutAdjustment.LEFT);
+          }
+        };
+    OnClickListener rightAdjustButtonClickListener =
+        new OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            eventListener.onUpdateKeyboardLayoutAdjustment(LayoutAdjustment.RIGHT);
+          }
+        };
 
-    OnClickListener microphoneButtonClickListener = new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        eventListener.onFireFeedbackEvent(FeedbackEvent.MICROPHONE_BUTTON_DOWN);
-        imeSwitcher.switchToVoiceIme("ja-jp");
-      }
-    };
+    OnClickListener microphoneButtonClickListener =
+        new OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            eventListener.onFireFeedbackEvent(FeedbackEvent.MICROPHONE_BUTTON_DOWN);
+            imeSwitcher.switchToVoiceIme("ja-jp");
+          }
+        };
     mozcView.setEventListener(
         eventListener,
         widenButtonClickListener,
@@ -584,7 +590,7 @@ public class ViewManager implements ViewManagerInterface {
   /**
    * Renders views which this instance own based on Command.Output.
    *
-   * Note that showing/hiding views is Service's responsibility.
+   * <p>Note that showing/hiding views is Service's responsibility.
    */
   @Override
   public void render(Command outCommand) {
@@ -639,7 +645,9 @@ public class ViewManager implements ViewManagerInterface {
 
   private boolean shouldVoiceImeBeEnabled() {
     // Disable voice IME if hardware keyboard exists to avoid a framework bug.
-    return isVoiceInputEligible && isVoiceInputEnabledByPreference && !hardwareKeyboardExist
+    return isVoiceInputEligible
+        && isVoiceInputEnabledByPreference
+        && !hardwareKeyboardExist
         && imeSwitcher.isVoiceImeAvailable();
   }
 
@@ -664,25 +672,24 @@ public class ViewManager implements ViewManagerInterface {
 
   /**
    * Creates and sets a keyboard represented by the resource id to the input frame.
-   * <p>
-   * Note that this method requires inputFrameView is not null, and its first child is
-   * the JapaneseKeyboardView.
+   *
+   * <p>Note that this method requires inputFrameView is not null, and its first child is the
+   * JapaneseKeyboardView.
    */
   private void updateKeyboardView() {
     if (mozcView == null) {
       return;
     }
     Rect size = mozcView.getKeyboardSize();
-    Keyboard keyboard = keyboardFactory.get(
-        mozcView.getResources(), japaneseSoftwareKeyboardModel.getKeyboardSpecification(),
-        size.width(), size.height());
+    Keyboard keyboard =
+        keyboardFactory.get(
+            mozcView.getResources(), japaneseSoftwareKeyboardModel.getKeyboardSpecification(),
+            size.width(), size.height());
     mozcView.setKeyboard(keyboard);
     primaryKeyCodeConverter.setKeyboard(keyboard);
   }
 
-  /**
-   * Propagates the change of S/W keyboard to the view layer and the H/W keyboard configuration.
-   */
+  /** Propagates the change of S/W keyboard to the view layer and the H/W keyboard configuration. */
   private void propagateSoftwareKeyboardChange(List<TouchEvent> touchEventList) {
     KeyboardSpecification specification = japaneseSoftwareKeyboardModel.getKeyboardSpecification();
 
@@ -694,7 +701,8 @@ public class ViewManager implements ViewManagerInterface {
     // Update H/W keyboard specification to keep a consistency with S/W keyboard.
     hardwareKeyboard.setCompositionMode(
         specification.getCompositionMode() == CompositionMode.HIRAGANA
-        ? CompositionSwitchMode.KANA : CompositionSwitchMode.ALPHABET);
+            ? CompositionSwitchMode.KANA
+            : CompositionSwitchMode.ALPHABET);
 
     updateKeyboardView();
   }
@@ -714,20 +722,24 @@ public class ViewManager implements ViewManagerInterface {
       eventListener.onKeyEvent(null, null, specification, Collections.<TouchEvent>emptyList());
     } else {
       eventListener.onKeyEvent(
-          hardwareKeyboard.getMozcKeyEvent(event), hardwareKeyboard.getKeyEventInterface(event),
-          specification, Collections.<TouchEvent>emptyList());
+          hardwareKeyboard.getMozcKeyEvent(event),
+          hardwareKeyboard.getKeyEventInterface(event),
+          specification,
+          Collections.<TouchEvent>emptyList());
     }
 
     // Update S/W keyboard specification to keep a consistency with H/W keyboard.
     japaneseSoftwareKeyboardModel.setKeyboardMode(
         specification.getCompositionMode() == CompositionMode.HIRAGANA
-        ? KeyboardMode.KANA : KeyboardMode.ALPHABET);
+            ? KeyboardMode.KANA
+            : KeyboardMode.ALPHABET);
 
     updateKeyboardView();
   }
 
   /**
    * Set this keyboard layout to the specified one.
+   *
    * @param keyboardLayout New keyboard layout.
    * @throws NullPointerException If <code>keyboardLayout</code> is <code>null</code>.
    */
@@ -746,9 +758,10 @@ public class ViewManager implements ViewManagerInterface {
 
   /**
    * Set the input style.
+   *
    * @param inputStyle new input style.
-   * @throws NullPointerException If <code>inputStyle</code> is <code>null</code>.
-   * TODO(hidehiko): Refactor out following keyboard switching logic into another class.
+   * @throws NullPointerException If <code>inputStyle</code> is <code>null</code>. TODO(hidehiko):
+   *     Refactor out following keyboard switching logic into another class.
    */
   @Override
   public void setInputStyle(InputStyle inputStyle) {
@@ -806,8 +819,8 @@ public class ViewManager implements ViewManagerInterface {
   }
 
   /**
-   * Updates whether Globe button should be enabled or not based on
-   * {@code InputMethodManager#shouldOfferSwitchingToNextInputMethod(IBinder)}
+   * Updates whether Globe button should be enabled or not based on {@code
+   * InputMethodManager#shouldOfferSwitchingToNextInputMethod(IBinder)}
    */
   @Override
   public void updateGlobeButtonEnabled() {
@@ -818,8 +831,8 @@ public class ViewManager implements ViewManagerInterface {
   }
 
   /**
-   * Updates whether Microphone button should be enabled or not based on
-   * availability of voice input method.
+   * Updates whether Microphone button should be enabled or not based on availability of voice input
+   * method.
    */
   @Override
   public void updateMicrophoneButtonEnabled() {
@@ -830,11 +843,10 @@ public class ViewManager implements ViewManagerInterface {
 
   /**
    * Sets narrow mode.
-   * <p>
-   * The behavior of this method depends on API level.
-   * We decided to respect the configuration on API 21 or later, so this method ignores the argument
-   * in such case. If you really want to bypass the version check, please use
-   * {@link #setNarrowModeWithoutVersionCheck(boolean)} instead.
+   *
+   * <p>The behavior of this method depends on API level. We decided to respect the configuration on
+   * API 21 or later, so this method ignores the argument in such case. If you really want to bypass
+   * the version check, please use {@link #setNarrowModeWithoutVersionCheck(boolean)} instead.
    */
   private void setNarrowMode(boolean isNarrowMode) {
     if (Build.VERSION.SDK_INT >= 21) {
@@ -861,13 +873,14 @@ public class ViewManager implements ViewManagerInterface {
   }
 
   /**
-   * Returns true if we should transit to narrow mode,
-   *  based on returned {@code Command} and {@code KeyEventInterface} from the server.
+   * Returns true if we should transit to narrow mode, based on returned {@code Command} and {@code
+   * KeyEventInterface} from the server.
    *
    * <p>If all of the following conditions are satisfied, narrow mode is shown.
+   *
    * <ul>
-   * <li>The key event is from h/w keyboard.
-   * <li>The key event has printable character without modifier.
+   *   <li>The key event is from h/w keyboard.
+   *   <li>The key event has printable character without modifier.
    * </ul>
    */
   @Override
@@ -941,10 +954,10 @@ public class ViewManager implements ViewManagerInterface {
 
   /**
    * Set layout adjustment and show animation if required.
-   * <p>
-   * Note that this method does *NOT* update SharedPreference.
-   * If you want to update it, use ViewEventListener#onUpdateKeyboardLayoutAdjustment(),
-   * which updates SharedPreference and indirectly calls this method.
+   *
+   * <p>Note that this method does *NOT* update SharedPreference. If you want to update it, use
+   * ViewEventListener#onUpdateKeyboardLayoutAdjustment(), which updates SharedPreference and
+   * indirectly calls this method.
    */
   @Override
   public void setLayoutAdjustment(LayoutAdjustment layoutAdjustment) {
@@ -969,9 +982,8 @@ public class ViewManager implements ViewManagerInterface {
   /**
    * Reset the status of the current input view.
    *
-   * This method must be called when the IME is turned on.
-   * Note that this method can be called before {@link #createMozcView(Context)}
-   * so null-check is mandatory.
+   * <p>This method must be called when the IME is turned on. Note that this method can be called
+   * before {@link #createMozcView(Context)} so null-check is mandatory.
    */
   @Override
   public void reset() {
@@ -1016,8 +1028,9 @@ public class ViewManager implements ViewManagerInterface {
 
     if (mozcView == null) {
       outInsets.touchableInsets = InputMethodService.Insets.TOUCHABLE_INSETS_CONTENT;
-      outInsets.contentTopInsets = contentViewHeight
-          - context.getResources().getDimensionPixelSize(R.dimen.input_frame_height);
+      outInsets.contentTopInsets =
+          contentViewHeight
+              - context.getResources().getDimensionPixelSize(R.dimen.input_frame_height);
       outInsets.visibleTopInsets = outInsets.contentTopInsets;
       return;
     }
@@ -1029,7 +1042,7 @@ public class ViewManager implements ViewManagerInterface {
   public void onConfigurationChanged(Configuration newConfig) {
     primaryKeyCodeConverter.setConfiguration(newConfig);
     hardwareKeyboardExist = newConfig.keyboard != Configuration.KEYBOARD_NOKEYS;
-    if (newConfig.hardKeyboardHidden != Configuration.HARDKEYBOARDHIDDEN_UNDEFINED){
+    if (newConfig.hardKeyboardHidden != Configuration.HARDKEYBOARDHIDDEN_UNDEFINED) {
       narrowModeByConfiguration =
           newConfig.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_NO;
       setNarrowMode(narrowModeByConfiguration);
@@ -1079,8 +1092,8 @@ public class ViewManager implements ViewManagerInterface {
   }
 
   /**
-   * Returns active (shown) JapaneseSoftwareKeyboardModel.
-   * If symbol picker is shown, symbol-number keyboard's is returned.
+   * Returns active (shown) JapaneseSoftwareKeyboardModel. If symbol picker is shown, symbol-number
+   * keyboard's is returned.
    */
   @VisibleForTesting
   @Override

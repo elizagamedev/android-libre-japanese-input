@@ -29,26 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese;
 
-import org.mozc.android.inputmethod.japanese.MozcView.InputFrameFoldButtonClickListener;
-import org.mozc.android.inputmethod.japanese.keyboard.BackgroundDrawableFactory.DrawableType;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateList;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.CommandType;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.SessionCommand;
-import org.mozc.android.inputmethod.japanese.R;
-import org.mozc.android.inputmethod.japanese.ui.CandidateLayoutRenderer.DescriptionLayoutPolicy;
-import org.mozc.android.inputmethod.japanese.ui.CandidateLayoutRenderer.ValueScalingPolicy;
-import org.mozc.android.inputmethod.japanese.ui.ConversionCandidateLayouter;
-import org.mozc.android.inputmethod.japanese.ui.InputFrameFoldButtonView;
-import org.mozc.android.inputmethod.japanese.ui.ScrollGuideView;
-import org.mozc.android.inputmethod.japanese.ui.SpanFactory;
-import org.mozc.android.inputmethod.japanese.view.Skin;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -56,11 +36,24 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.MozcView.InputFrameFoldButtonClickListener;
+import org.mozc.android.inputmethod.japanese.keyboard.BackgroundDrawableFactory.DrawableType;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateList;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input;
+import org.mozc.android.inputmethod.japanese.ui.CandidateLayoutRenderer.DescriptionLayoutPolicy;
+import org.mozc.android.inputmethod.japanese.ui.CandidateLayoutRenderer.ValueScalingPolicy;
+import org.mozc.android.inputmethod.japanese.ui.ConversionCandidateLayouter;
+import org.mozc.android.inputmethod.japanese.ui.InputFrameFoldButtonView;
+import org.mozc.android.inputmethod.japanese.ui.ScrollGuideView;
+import org.mozc.android.inputmethod.japanese.ui.SpanFactory;
+import org.mozc.android.inputmethod.japanese.view.Skin;
 
-/**
- * The view to show candidates.
- *
- */
+/** The view to show candidates. */
 public class CandidateView extends InOutAnimatedFrameLayout implements MemoryManageable {
 
   /** Adapter for conversion candidate selection. */
@@ -74,8 +67,8 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
 
     @Override
     public void onCandidateSelected(CandidateWord candidateWord, Optional<Integer> rowIndex) {
-      viewEventListener.onConversionCandidateSelected(candidateWord.getId(),
-                                                      Preconditions.checkNotNull(rowIndex));
+      viewEventListener.onConversionCandidateSelected(
+          candidateWord.getId(), Preconditions.checkNotNull(rowIndex));
     }
   }
 
@@ -276,11 +269,13 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
     }
   }
 
-  @VisibleForTesting InputFrameFoldButtonView getInputFrameFoldButton() {
+  @VisibleForTesting
+  InputFrameFoldButtonView getInputFrameFoldButton() {
     return InputFrameFoldButtonView.class.cast(findViewById(R.id.input_frame_fold_button));
   }
 
-  @VisibleForTesting ConversionCandidateWordView getConversionCandidateWordView() {
+  @VisibleForTesting
+  ConversionCandidateWordView getConversionCandidateWordView() {
     return ConversionCandidateWordView.class.cast(findViewById(R.id.candidate_word_view));
   }
 
@@ -289,11 +284,13 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
         findViewById(R.id.conversion_candidate_word_container_view));
   }
 
-  @VisibleForTesting ScrollGuideView getScrollGuideView() {
+  @VisibleForTesting
+  ScrollGuideView getScrollGuideView() {
     return ScrollGuideView.class.cast(findViewById(R.id.candidate_scroll_guide_view));
   }
 
-  @VisibleForTesting LinearLayout getCandidateWordFrame() {
+  @VisibleForTesting
+  LinearLayout getCandidateWordFrame() {
     return LinearLayout.class.cast(findViewById(R.id.candidate_word_frame));
   }
 
@@ -319,6 +316,7 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
 
   /**
    * Register callback object.
+   *
    * @param listener
    */
   void setViewEventListener(ViewEventListener listener) {
@@ -356,14 +354,15 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
     Preconditions.checkArgument(candidateTextSize > 0);
     Preconditions.checkArgument(descriptionTextSize > 0);
 
-    getConversionCandidateWordView().setCandidateTextDimension(candidateTextSize,
-                                                               descriptionTextSize);
+    getConversionCandidateWordView()
+        .setCandidateTextDimension(candidateTextSize, descriptionTextSize);
     getConversionCandidateWordContainerView().setCandidateTextDimension(candidateTextSize);
   }
 
   void enableFoldButton(boolean enabled) {
     getInputFrameFoldButton().setVisibility(enabled ? VISIBLE : GONE);
-    getConversionCandidateWordView().getCandidateLayouter()
+    getConversionCandidateWordView()
+        .getCandidateLayouter()
         .reserveEmptySpanForInputFoldButton(enabled);
   }
 

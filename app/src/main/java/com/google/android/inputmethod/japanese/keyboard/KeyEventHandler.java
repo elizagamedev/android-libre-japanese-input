@@ -29,21 +29,16 @@
 
 package org.mozc.android.inputmethod.japanese.keyboard;
 
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Preconditions;
-
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Preconditions;
 import java.util.Collections;
 import java.util.List;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
 
-/**
- * A class to handle key events including repeat-keys/long-press-keys.
- *
- */
+/** A class to handle key events including repeat-keys/long-press-keys. */
 public class KeyEventHandler implements Handler.Callback {
 
   // A dummy argument which is passed to the callback's message.
@@ -62,12 +57,15 @@ public class KeyEventHandler implements Handler.Callback {
   private final int longPressKeyDelay;
 
   /**
-   * Note that we expect that the {@code looper} is UI thread's looper when it's working on
-   * the production. It is injectable for testing purpose.
+   * Note that we expect that the {@code looper} is UI thread's looper when it's working on the
+   * production. It is injectable for testing purpose.
    */
   public KeyEventHandler(
-      Looper looper, KeyboardActionListener keyboardActionListener,
-      int repeatKeyDelay, int repeatKeyInterval, int longPressKeyDelay) {
+      Looper looper,
+      KeyboardActionListener keyboardActionListener,
+      int repeatKeyDelay,
+      int repeatKeyInterval,
+      int longPressKeyDelay) {
     this.handler = new Handler(Preconditions.checkNotNull(looper), this);
     this.keyboardActionListener = Preconditions.checkNotNull(keyboardActionListener);
     this.repeatKeyDelay = repeatKeyDelay;
@@ -79,10 +77,11 @@ public class KeyEventHandler implements Handler.Callback {
   public boolean handleMessage(Message message) {
     KeyEventContext context = KeyEventContext.class.cast(message.obj);
     switch (message.what) {
-      case REPEAT_KEY: {
-        handleMessageRepeatKey(context);
-        break;
-      }
+      case REPEAT_KEY:
+        {
+          handleMessageRepeatKey(context);
+          break;
+        }
       case LONG_PRESS_KEY:
         handleMessageLongPress(context);
         break;
@@ -102,8 +101,8 @@ public class KeyEventHandler implements Handler.Callback {
 
   /**
    * Does the things which should be done when long-press operation is done.
-   * <p>
-   * This is public because this is called from KeyboardView directory in order to implement
+   *
+   * <p>This is public because this is called from KeyboardView directory in order to implement
    * accessibility feature.
    */
   public void handleMessageLongPress(KeyEventContext context) {
@@ -144,8 +143,8 @@ public class KeyEventHandler implements Handler.Callback {
   }
 
   /**
-   * Maybe trigger repeating onKey events or a long press key event,
-   * based on the given {@code context}.
+   * Maybe trigger repeating onKey events or a long press key event, based on the given {@code
+   * context}.
    */
   public void maybeStartDelayedKeyEvent(KeyEventContext context) {
     Key key = Preconditions.checkNotNull(context).key;
@@ -163,10 +162,9 @@ public class KeyEventHandler implements Handler.Callback {
   }
 
   /**
-   * Cancel pending repeating onKey events or a long press key event, related to
-   * the given {@code context}. Note that it is necessary to invoke this method
-   * on the thread whose {@code Looper} is passed to this instance via the constructor.
-   * Otherwise, some events may NOT be canceled.
+   * Cancel pending repeating onKey events or a long press key event, related to the given {@code
+   * context}. Note that it is necessary to invoke this method on the thread whose {@code Looper} is
+   * passed to this instance via the constructor. Otherwise, some events may NOT be canceled.
    */
   public void cancelDelayedKeyEvent(KeyEventContext context) {
     handler.removeMessages(REPEAT_KEY, context);

@@ -34,10 +34,9 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
 /**
- * A class corresponding to a {@code &lt;KeyEntity&gt;} element in xml resource files.
- * This class has basic attributes for a key, which can have various values based on conditions,
- * e.g. meta keys' state or flick directions.
- *
+ * A class corresponding to a {@code &lt;KeyEntity&gt;} element in xml resource files. This class
+ * has basic attributes for a key, which can have various values based on conditions, e.g. meta
+ * keys' state or flick directions.
  */
 public class KeyEntity {
 
@@ -60,11 +59,19 @@ public class KeyEntity {
   private final int iconWidth;
   private final int iconHeight;
 
-  public KeyEntity(int sourceId, int keyCode, int longPressKeyCode,
-                   boolean longPressTimeoutTrigger, int keyIconResourceId,
-                   Optional<String> keyCharacter, boolean flickHighlightEnabled,
-                   Optional<PopUp> popUp, int horizontalPadding, int verticalPadding,
-                   int iconWidth, int iconHeight) {
+  public KeyEntity(
+      int sourceId,
+      int keyCode,
+      int longPressKeyCode,
+      boolean longPressTimeoutTrigger,
+      int keyIconResourceId,
+      Optional<String> keyCharacter,
+      boolean flickHighlightEnabled,
+      Optional<PopUp> popUp,
+      int horizontalPadding,
+      int verticalPadding,
+      int iconWidth,
+      int iconHeight) {
     this.sourceId = sourceId;
     this.keyCode = keyCode;
     this.longPressKeyCode = longPressKeyCode;
@@ -130,16 +137,16 @@ public class KeyEntity {
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(this)
-                  .add("sourceId", sourceId)
-                  .add("keyCode", keyCode)
-                  .add("longPressKeyCode", longPressKeyCode)
-                  .add("longPressTimeoutTrigger", longPressTimeoutTrigger)
-                  .add("keyIconResourceId", keyIconResourceId)
-                  .add("keyCharacter", keyCharacter)
-                  .add("horizontalPadding", horizontalPadding)
-                  .add("verticalPadding", verticalPadding)
-                  .add("iconWidth", iconWidth)
-                  .add("iconHeight", iconHeight)
-                  .toString();
+        .add("sourceId", sourceId)
+        .add("keyCode", keyCode)
+        .add("longPressKeyCode", longPressKeyCode)
+        .add("longPressTimeoutTrigger", longPressTimeoutTrigger)
+        .add("keyIconResourceId", keyIconResourceId)
+        .add("keyCharacter", keyCharacter)
+        .add("horizontalPadding", horizontalPadding)
+        .add("verticalPadding", verticalPadding)
+        .add("iconWidth", iconWidth)
+        .add("iconHeight", iconHeight)
+        .toString();
   }
 }

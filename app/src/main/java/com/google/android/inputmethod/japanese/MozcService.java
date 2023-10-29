@@ -29,17 +29,14 @@
 
 package org.mozc.android.inputmethod.japanese;
 
-import org.mozc.android.inputmethod.japanese.util.CursorAnchorInfoWrapper;
-
 import android.annotation.TargetApi;
 import android.view.inputmethod.CursorAnchorInfo;
-
+import org.mozc.android.inputmethod.japanese.util.CursorAnchorInfoWrapper;
 
 /** Thin wrapper for {@link MozcBaseService}. */
 public class MozcService extends MozcBaseService {
 
-  public MozcService() {
-  }
+  public MozcService() {}
 
   /** Converts {@link CursorAnchorInfo} to {@link CursorAnchorInfoWrapper} and process it. */
   @Override

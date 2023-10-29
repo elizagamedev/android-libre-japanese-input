@@ -29,41 +29,35 @@
 
 package org.mozc.android.inputmethod.japanese;
 
-import org.mozc.android.inputmethod.japanese.CandidateView.ConversionCandidateWordView;
-import org.mozc.android.inputmethod.japanese.R;
-import org.mozc.android.inputmethod.japanese.ui.ConversionCandidateLayouter;
-import com.google.common.base.Preconditions;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.ToggleButton;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.CandidateView.ConversionCandidateWordView;
+import org.mozc.android.inputmethod.japanese.ui.ConversionCandidateLayouter;
 
 /**
  * A container (ViewGroup) of candidate word view and input frame fold button.
  *
- * The fold button should be laid out based on candidate word view's internal state
- * (candidate layouter), which is determined at layout flow.
- * The initial implementation sets the button's layout parameter from onLayout method
- * but setting layout parameter on layout flow (e.g. in onLayout() and onSizeChanged())
- * causes unexpected behavior (e.g. infinite loop).
- * This class is introduced to solve this issue.
+ * <p>The fold button should be laid out based on candidate word view's internal state (candidate
+ * layouter), which is determined at layout flow. The initial implementation sets the button's
+ * layout parameter from onLayout method but setting layout parameter on layout flow (e.g. in
+ * onLayout() and onSizeChanged()) causes unexpected behavior (e.g. infinite loop). This class is
+ * introduced to solve this issue.
  *
- * This class is a simple ViewGroup. The layout algorithm is fixed (layout .xml file doesn't affect
- * anything) so {@link #onMeasure(int, int)} is omitted.
- * First, candidate word view fills all the view.
- * Second, input frame fold button is laid out based on ConversionCandidateLayouter's state
- * (which cannot be accessed from standard view layouters. This is the reason why this class is
- * introduced).
- * The layout flow descibed above doesn't depend on {@link android.view.ViewGroup.LayoutParams}
- * we can avoid from unexpected behavior.
+ * <p>This class is a simple ViewGroup. The layout algorithm is fixed (layout .xml file doesn't
+ * affect anything) so {@link #onMeasure(int, int)} is omitted. First, candidate word view fills all
+ * the view. Second, input frame fold button is laid out based on ConversionCandidateLayouter's
+ * state (which cannot be accessed from standard view layouters. This is the reason why this class
+ * is introduced). The layout flow descibed above doesn't depend on {@link
+ * android.view.ViewGroup.LayoutParams} we can avoid from unexpected behavior.
  */
 public class ConversionCandidateWordContainerView extends ViewGroup {
 
   private float foldingIconSize;
 
-  public ConversionCandidateWordContainerView(
-      Context context, AttributeSet attrs, int defStyle) {
+  public ConversionCandidateWordContainerView(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
   }
 
@@ -97,9 +91,10 @@ public class ConversionCandidateWordContainerView extends ViewGroup {
     ConversionCandidateLayouter layouter = candidateWordView.getCandidateLayouter();
     float topMargin = (layouter.getRowHeight() - foldingIconSize) / 2;
     float rightMargin = (layouter.getChunkWidth() - foldingIconSize) / 2;
-    inputFrameFoldButton.layout((int) (right - rightMargin - foldingIconSize),
-                                (int) (top + topMargin),
-                                (int) (right - rightMargin),
-                                (int) (top + topMargin + foldingIconSize));
+    inputFrameFoldButton.layout(
+        (int) (right - rightMargin - foldingIconSize),
+        (int) (top + topMargin),
+        (int) (right - rightMargin),
+        (int) (top + topMargin + foldingIconSize));
   }
 }

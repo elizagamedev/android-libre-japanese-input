@@ -29,14 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese;
 
-import org.mozc.android.inputmethod.japanese.keyboard.Keyboard.KeyboardSpecification;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Request;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
-import com.google.protobuf.ByteString;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
@@ -57,15 +49,16 @@ import android.os.SystemClock;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.InputType;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
-
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
+import com.google.protobuf.ByteString;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
@@ -74,26 +67,22 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.zip.ZipFile;
+import org.mozc.android.inputmethod.japanese.keyboard.Keyboard.KeyboardSpecification;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Request;
 
-/**
- * Utility class
- *
- */
+/** Utility class */
 public final class MozcUtil {
 
-  /**
-   * Simple interface to use mock of TelephonyManager for testing purpose.
-   */
+  /** Simple interface to use mock of TelephonyManager for testing purpose. */
   public interface TelephonyManagerInterface {
     public String getNetworkOperator();
   }
 
-  /**
-   * Real implementation of TelephonyManagerInterface.
-   */
+  /** Real implementation of TelephonyManagerInterface. */
   private static class TelephonyManagerImpl implements TelephonyManagerInterface {
 
     private final TelephonyManager telephonyManager;
+
     TelephonyManagerImpl(TelephonyManager telephonyManager) {
       this.telephonyManager = Preconditions.checkNotNull(telephonyManager);
     }
@@ -109,8 +98,9 @@ public final class MozcUtil {
     @Override
     public boolean handleMessage(Message msg) {
       Context context = Context.class.cast(Preconditions.checkNotNull(msg).obj);
-      InputMethodManager.class.cast(
-          context.getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
+      InputMethodManager.class
+          .cast(context.getSystemService(Context.INPUT_METHOD_SERVICE))
+          .showInputMethodPicker();
       return false;
     }
   }
@@ -148,27 +138,25 @@ public final class MozcUtil {
   /**
    * Lazy creation of a handler.
    *
-   * Creating a handler must be done in threads which has a Looper.
-   * This lazy creation enables worker threads (which don't have a Looper) to access this class.
+   * <p>Creating a handler must be done in threads which has a Looper. This lazy creation enables
+   * worker threads (which don't have a Looper) to access this class.
    */
   private static Handler getShowInputMethodPickerHandler() {
     if (!showInputMethodPickerHandler.isPresent()) {
       showInputMethodPickerHandler =
-        Optional.of(new Handler(new InputMethodPickerShowingCallback()));
+          Optional.of(new Handler(new InputMethodPickerShowingCallback()));
     }
     return showInputMethodPickerHandler.get();
   }
 
   // Disallow instantiation.
-  private MozcUtil() {
-  }
+  private MozcUtil() {}
 
   private static final boolean checkApplicationFlag(Context context, int flag) {
     Preconditions.checkNotNull(context);
     PackageManager manager = context.getPackageManager();
     try {
-      ApplicationInfo appInfo =
-          manager.getApplicationInfo(context.getPackageName(), 0);
+      ApplicationInfo appInfo = manager.getApplicationInfo(context.getPackageName(), 0);
       return (appInfo.flags & flag) != 0;
     } catch (NameNotFoundException e) {
       MozcLog.w("PackageManager#getApplicationInfo cannot find this application.");
@@ -211,6 +199,7 @@ public final class MozcUtil {
 
   /**
    * For testing purpose.
+   *
    * @param isSystemApplication Optional.absent() if default behavior is preferable
    */
   public static final void setSystemApplication(Optional<Boolean> isSystemApplication) {
@@ -227,6 +216,7 @@ public final class MozcUtil {
 
   /**
    * For testing purpose.
+   *
    * @param isUpdatedSystemApplication Optional.absent() if default behavior is preferable
    */
   public static final void setUpdatedSystemApplication(
@@ -252,9 +242,7 @@ public final class MozcUtil {
     return "";
   }
 
-  /**
-   * For testing purpose.
-   */
+  /** For testing purpose. */
   public static void setVersionCode(Optional<Integer> versionCode) {
     MozcUtil.versionCode = Preconditions.checkNotNull(versionCode);
   }
@@ -284,7 +272,7 @@ public final class MozcUtil {
   /**
    * Gets ABI independent version code.
    *
-   * ABI independent version code is equivalent to "Build number" of Mozc project.
+   * <p>ABI independent version code is equivalent to "Build number" of Mozc project.
    *
    * <p>Must be consistent with mozc_version.py
    */
@@ -315,11 +303,11 @@ public final class MozcUtil {
   /**
    * Returns true if {@code versionName} indicates dev channel.
    *
-   * This method sees only the characters between the last period and hyphen.
-   * If the characters is greater than or equal to (int)100,
-   * this method returns true.
+   * <p>This method sees only the characters between the last period and hyphen. If the characters
+   * is greater than or equal to (int)100, this method returns true.
    */
-  @VisibleForTesting static boolean isDevChannelVersionName(String versionName) {
+  @VisibleForTesting
+  static boolean isDevChannelVersionName(String versionName) {
     Preconditions.checkNotNull(versionName);
 
     int lastDot = versionName.lastIndexOf('.');
@@ -362,8 +350,7 @@ public final class MozcUtil {
   }
 
   /**
-   * Just injects the result of isMozcEnabled for testing purpose,
-   * doesn't actually enable Mozc.
+   * Just injects the result of isMozcEnabled for testing purpose, doesn't actually enable Mozc.
    *
    * @param isMozcEnabled Optional.absent() for default behavior
    */
@@ -387,14 +374,15 @@ public final class MozcUtil {
       return false;
     }
 
-    String currentIme = Settings.Secure.getString(
-        context.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD);
+    String currentIme =
+        Settings.Secure.getString(
+            context.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD);
     return mozcInputMethodInfo.get().getId().equals(currentIme);
   }
 
   /**
-   * Just injects the result of isMozcDefaultIme for testing purpose,
-   * doesn't actually set mozc as the default ime.
+   * Just injects the result of isMozcDefaultIme for testing purpose, doesn't actually set mozc as
+   * the default ime.
    *
    * @param isMozcDefaultIme Optional.absent() for default behavior
    */
@@ -420,16 +408,14 @@ public final class MozcUtil {
     return Optional.absent();
   }
 
-  /**
-   * Returns true is touch UI should be shown.
-   */
+  /** Returns true is touch UI should be shown. */
   public static boolean isTouchUI(Context context) {
     Preconditions.checkNotNull(context);
     if (isTouchUI.isPresent()) {
       return isTouchUI.get();
     }
     return context.getResources().getConfiguration().touchscreen
-               != Configuration.TOUCHSCREEN_NOTOUCH;
+        != Configuration.TOUCHSCREEN_NOTOUCH;
   }
 
   /**
@@ -476,9 +462,7 @@ public final class MozcUtil {
     return showInputMethodPickerHandler.hasMessages(SHOW_INPUT_METHOD_PICKER_WHAT, context);
   }
 
-  /**
-   * Returns the {@code TelephonyManagerInterface} corresponding to the given {@code context}.
-   */
+  /** Returns the {@code TelephonyManagerInterface} corresponding to the given {@code context}. */
   public static TelephonyManagerInterface getTelephonyManager(Context context) {
     Preconditions.checkNotNull(context);
     return new TelephonyManagerImpl(
@@ -486,8 +470,8 @@ public final class MozcUtil {
   }
 
   /**
-   * Sets the given {@code token} and some layout parameters required to show the dialog from
-   * the IME service correctly to the {@code dialog}.
+   * Sets the given {@code token} and some layout parameters required to show the dialog from the
+   * IME service correctly to the {@code dialog}.
    */
   public static void setWindowToken(IBinder token, Dialog dialog) {
     Preconditions.checkNotNull(token);
@@ -508,13 +492,13 @@ public final class MozcUtil {
             specification.getKeyboardSpecificationName().formattedKeyboardName(configuration))
         .setSpecialRomanjiTable(specification.getSpecialRomanjiTable())
         .setSpaceOnAlphanumeric(specification.getSpaceOnAlphanumeric())
-        .setKanaModifierInsensitiveConversion(
-            specification.isKanaModifierInsensitiveConversion())
+        .setKanaModifierInsensitiveConversion(specification.isKanaModifierInsensitiveConversion())
         .setCrossingEdgeBehavior(specification.getCrossingEdgeBehavior());
   }
 
   private static void setHardwareKeyboardRequest(Request.Builder builder, Resources resources) {
-    builder.setMixedConversion(false)
+    builder
+        .setMixedConversion(false)
         .setZeroQuerySuggestion(false)
         .setUpdateInputModeFromSurroundingText(true)
         .setAutoPartialSuggestion(false)
@@ -522,7 +506,8 @@ public final class MozcUtil {
   }
 
   public static void setSoftwareKeyboardRequest(Request.Builder builder) {
-    builder.setMixedConversion(true)
+    builder
+        .setMixedConversion(true)
         .setZeroQuerySuggestion(true)
         .setUpdateInputModeFromSurroundingText(false)
         .setAutoPartialSuggestion(true);
@@ -619,18 +604,19 @@ public final class MozcUtil {
   /**
    * Simple utility to close {@link Closeable} instance.
    *
-   * A typical usage is as follows:
-   * <pre>{@code
-   *   Closeable stream = ...;
-   *   boolean succeeded = false;
-   *   try {
-   *     // Read data from stream here.
-   *     ...
+   * <p>A typical usage is as follows:
    *
-   *     succeeded = true;
-   *   } finally {
-   *     close(stream, !succeeded);
-   *   }
+   * <pre>{@code
+   * Closeable stream = ...;
+   * boolean succeeded = false;
+   * try {
+   *   // Read data from stream here.
+   *   ...
+   *
+   *   succeeded = true;
+   * } finally {
+   *   close(stream, !succeeded);
+   * }
    * }</pre>
    *
    * @param closeable
@@ -649,8 +635,8 @@ public final class MozcUtil {
   }
 
   /**
-   * Simple utility to close {@link Socket} instance.
-   * See {@link MozcUtil#close(Closeable,boolean)} for details.
+   * Simple utility to close {@link Socket} instance. See {@link MozcUtil#close(Closeable,boolean)}
+   * for details.
    */
   public static void close(Socket socket, boolean ignoreIOException) throws IOException {
     Preconditions.checkNotNull(socket);
@@ -664,8 +650,8 @@ public final class MozcUtil {
   }
 
   /**
-   * Simple utility to close {@link ServerSocket} instance.
-   * See {@link MozcUtil#close(Closeable,boolean)} for details.
+   * Simple utility to close {@link ServerSocket} instance. See {@link
+   * MozcUtil#close(Closeable,boolean)} for details.
    */
   public static void close(ServerSocket socket, boolean ignoreIOException) throws IOException {
     Preconditions.checkNotNull(socket);
@@ -679,10 +665,10 @@ public final class MozcUtil {
   }
 
   /**
-   * Simple utility to close {@link ParcelFileDescriptor} instance.
-   * See {@link MozcUtil#close(Closeable,boolean)} for details.
+   * Simple utility to close {@link ParcelFileDescriptor} instance. See {@link
+   * MozcUtil#close(Closeable,boolean)} for details.
    *
-   * On later OS ParcelFileDescriptor implements {@link Closeable} but on earlier OS it doesn't.
+   * <p>On later OS ParcelFileDescriptor implements {@link Closeable} but on earlier OS it doesn't.
    */
   public static void close(ParcelFileDescriptor descriptor, boolean ignoreIOException)
       throws IOException {
@@ -696,9 +682,7 @@ public final class MozcUtil {
     }
   }
 
-  /**
-   * Closes the given {@code closeable}, and ignore any {@code IOException}s.
-   */
+  /** Closes the given {@code closeable}, and ignore any {@code IOException}s. */
   public static void closeIgnoringIOException(Closeable closeable) {
     try {
       Preconditions.checkNotNull(closeable).close();
@@ -707,9 +691,7 @@ public final class MozcUtil {
     }
   }
 
-  /**
-   * Closes the given {@code closeable}, and ignore any {@code IOException}s.
-   */
+  /** Closes the given {@code closeable}, and ignore any {@code IOException}s. */
   public static void closeIgnoringIOException(ZipFile zipFile) {
     try {
       Preconditions.checkNotNull(zipFile).close();
@@ -726,7 +708,7 @@ public final class MozcUtil {
   /**
    * Get temporary directory for user dictionary export feature.
    *
-   * This method creates a new directory if it doesn't exist.
+   * <p>This method creates a new directory if it doesn't exist.
    */
   public static File getUserDictionaryExportTempDirectory(Context context) {
     File directory = new File(context.getCacheDir().getAbsolutePath(), USER_DICTIONARY_EXPORT_DIR);
@@ -741,7 +723,7 @@ public final class MozcUtil {
   /**
    * Delete contents of the directory.
    *
-   * The root directory itself is NOT deleted.
+   * <p>The root directory itself is NOT deleted.
    *
    * @return true if all entries are successfully deleted.
    */
@@ -760,10 +742,11 @@ public final class MozcUtil {
   /**
    * Relaxes ThreadPolicy to enable network access.
    *
-   * public accessibility for easier invocation via reflection.
+   * <p>public accessibility for easier invocation via reflection.
    */
   public static class StrictModeRelaxer {
     private StrictModeRelaxer() {}
+
     public static void relaxStrictMode() {
       StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
     }
@@ -775,13 +758,12 @@ public final class MozcUtil {
   /**
    * Relaxes the main thread's restriction.
    *
-   * On newer Android OS, network access from the main thread is forbidden by default.
-   * This method may relax the restriction.
+   * <p>On newer Android OS, network access from the main thread is forbidden by default. This
+   * method may relax the restriction.
    *
-   * Note that this method works only in Debug build because this depends on reflection and
-   * ProGuard will obfuscate the symbol name.
-   * This behavior will not be fixed because this method is used only from Debug utilities
-   * (i.e. SocketSessionHandler).
+   * <p>Note that this method works only in Debug build because this depends on reflection and
+   * ProGuard will obfuscate the symbol name. This behavior will not be fixed because this method is
+   * used only from Debug utilities (i.e. SocketSessionHandler).
    */
   public static void relaxMainthreadStrictMode() {
     if (isStrictModeRelaxed) {
@@ -794,9 +776,11 @@ public final class MozcUtil {
     }
     try {
       Class<?> clazz =
-          Class.forName(new StringBuilder(MozcUtil.class.getCanonicalName())
-                                          .append('$')
-                                          .append("StrictModeRelaxer").toString());
+          Class.forName(
+              new StringBuilder(MozcUtil.class.getCanonicalName())
+                  .append('$')
+                  .append("StrictModeRelaxer")
+                  .toString());
       clazz.getMethod("relaxStrictMode").invoke(null);
       isStrictModeRelaxed = true;
     } catch (ClassNotFoundException e) {
@@ -812,23 +796,19 @@ public final class MozcUtil {
     }
   }
 
-  /**
-   * If value &gt;= max returns max. If value &lt;= min returns min. Otherwise returns value.
-   */
+  /** If value &gt;= max returns max. If value &lt;= min returns min. Otherwise returns value. */
   public static int clamp(int value, int min, int max) {
     return Math.max(Math.min(value, max), min);
   }
 
-  /**
-   * If value &gt;= max returns max. If value &lt;= min returns min. Otherwise returns value.
-   */
+  /** If value &gt;= max returns max. If value &lt;= min returns min. Otherwise returns value. */
   public static float clamp(float value, float min, float max) {
     return Math.max(Math.min(value, max), min);
   }
 
   /**
-   * Get a dimension for the specified orientation.
-   * This method may be heavy since it updates the {@code resources} twice.
+   * Get a dimension for the specified orientation. This method may be heavy since it updates the
+   * {@code resources} twice.
    */
   public static float getDimensionForOrientation(Resources resources, int id, int orientation) {
     Configuration configuration = resources.getConfiguration();

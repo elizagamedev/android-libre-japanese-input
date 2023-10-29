@@ -29,17 +29,16 @@
 
 package org.mozc.android.inputmethod.japanese.view;
 
-import com.google.common.base.Preconditions;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import com.google.common.base.Preconditions;
 
 /**
  * A ImageButton which accepts mozc drawable as src.
- * <p>
- * See {@code MozcImageView}.
+ *
+ * <p>See {@code MozcImageView}.
  */
 public class MozcImageButton extends ImageButton implements MozcImageCapableView {
 

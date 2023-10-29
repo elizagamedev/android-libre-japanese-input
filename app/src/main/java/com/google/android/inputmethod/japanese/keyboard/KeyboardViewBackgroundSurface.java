@@ -29,36 +29,34 @@
 
 package org.mozc.android.inputmethod.japanese.keyboard;
 
-import org.mozc.android.inputmethod.japanese.keyboard.BackgroundDrawableFactory.DrawableType;
-import org.mozc.android.inputmethod.japanese.keyboard.Flick.Direction;
-import org.mozc.android.inputmethod.japanese.keyboard.KeyState.MetaState;
-import org.mozc.android.inputmethod.japanese.view.DrawableCache;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
-
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Set;
-
 import javax.annotation.Nullable;
+import org.mozc.android.inputmethod.japanese.keyboard.BackgroundDrawableFactory.DrawableType;
+import org.mozc.android.inputmethod.japanese.keyboard.Flick.Direction;
+import org.mozc.android.inputmethod.japanese.keyboard.KeyState.MetaState;
+import org.mozc.android.inputmethod.japanese.view.DrawableCache;
 
 /**
  * Renderer of the keyboard.
- * <p>
- * Prior to calling {@code #draw(Canvas)}, current keyboard, metastates and pressed keys should be
- * registered.
- * {@code #isDirty()} should be useful to check if the keyboard requires rendering again.
- * <p>
- * TODO(matsuzakit): Rename this class. This class doesn't have any background surface any more.
+ *
+ * <p>Prior to calling {@code #draw(Canvas)}, current keyboard, metastates and pressed keys should
+ * be registered. {@code #isDirty()} should be useful to check if the keyboard requires rendering
+ * again.
+ *
+ * <p>TODO(matsuzakit): Rename this class. This class doesn't have any background surface any more.
  *
  * <p>An example usage of this class is as follows:
+ *
  * <pre>{@code
  * KeyboardViewBackgroundSurface backgroundSurface = new KeyboardViewBackgroundSurface();
  * // Reset the keyboard and its meta state.
@@ -86,25 +84,24 @@ import javax.annotation.Nullable;
  * }</pre>
  *
  * This class is exposed as public in order to mock for testing purpose.
- *
  */
-@VisibleForTesting public class KeyboardViewBackgroundSurface {
+@VisibleForTesting
+public class KeyboardViewBackgroundSurface {
 
-  /**
-   * A simple rendering related utilities for keyboard rendering.
-   */
-  @VisibleForTesting interface SurfaceCanvas {
+  /** A simple rendering related utilities for keyboard rendering. */
+  @VisibleForTesting
+  interface SurfaceCanvas {
 
     /**
-     * Draws the given {@code drawable} in the given region with scaling.
-     * Does nothing if drawable is {@code null}.
+     * Draws the given {@code drawable} in the given region with scaling. Does nothing if drawable
+     * is {@code null}.
      */
     void drawDrawable(Drawable drawable, int x, int y, int width, int height);
 
     /**
-     * Draws the given {@code drawable} at the center of the given region,
-     * and this method scales the drawable to fit the given {@code height}, but it scales
-     * horizontal direction to keep its aspect ratio.
+     * Draws the given {@code drawable} at the center of the given region, and this method scales
+     * the drawable to fit the given {@code height}, but it scales horizontal direction to keep its
+     * aspect ratio.
      */
     void drawDrawableAtCenterWithKeepAspectRatio(
         Drawable drawable, int x, int y, int width, int height);
@@ -133,12 +130,18 @@ import javax.annotation.Nullable;
         return;
       }
 
-      float scale = Math.min(width / (float) drawable.getIntrinsicWidth(),
-                             height / (float) drawable.getIntrinsicHeight());
+      float scale =
+          Math.min(
+              width / (float) drawable.getIntrinsicWidth(),
+              height / (float) drawable.getIntrinsicHeight());
       int scaledWidth = Math.round(drawable.getIntrinsicWidth() * scale);
       int scaledHeight = Math.round(drawable.getIntrinsicHeight() * scale);
-      drawDrawableInternal(drawable, x + (width - scaledWidth) / 2, y + (height - scaledHeight) / 2,
-          scaledWidth, scaledHeight);
+      drawDrawableInternal(
+          drawable,
+          x + (width - scaledWidth) / 2,
+          y + (height - scaledHeight) / 2,
+          scaledWidth,
+          scaledHeight);
     }
 
     private void drawDrawableInternal(Drawable drawable, int x, int y, int width, int height) {
@@ -153,22 +156,18 @@ import javax.annotation.Nullable;
     }
   }
 
-  /**
-   * True if this instance requires to be redrawn.
-   */
+  /** True if this instance requires to be redrawn. */
   private boolean isDirty = true;
+
   private Optional<Keyboard> keyboard = Optional.absent();
   private Set<MetaState> metaStates = Collections.emptySet();
 
-  /**
-   * A set of pressed keys with their direction.
-   */
+  /** A set of pressed keys with their direction. */
   private Map<Key, Direction> pressedKeys = Maps.newHashMap();
 
-  /**
-   * Mapping table from Flick.Direction to appropriate DrawableType.
-   */
+  /** Mapping table from Flick.Direction to appropriate DrawableType. */
   private static final Map<Flick.Direction, DrawableType> FLICK_DRAWABLE_TYPE_MAP;
+
   static {
     Map<Flick.Direction, DrawableType> map =
         new EnumMap<Flick.Direction, DrawableType>(Flick.Direction.class);
@@ -182,7 +181,7 @@ import javax.annotation.Nullable;
 
   // Note: This array is mutable unfortunately due to language spec of Java,
   // but mustn't be overwritten by any methods, and should be treated as a constant value.
-  private static final int[] STATE_PRESSED = { android.R.attr.state_pressed };
+  private static final int[] STATE_PRESSED = {android.R.attr.state_pressed};
   private static final int[] STATE_DEFAULT = {};
 
   private final BackgroundDrawableFactory backgroundDrawableFactory;
@@ -194,15 +193,16 @@ import javax.annotation.Nullable;
     this.drawableCache = Preconditions.checkNotNull(drawableCache);
   }
 
-  @VisibleForTesting void draw(SurfaceCanvas surfaceCanvas) {
+  @VisibleForTesting
+  void draw(SurfaceCanvas surfaceCanvas) {
     if (!keyboard.isPresent()) {
       return;
     }
     Keyboard keyboard = this.keyboard.get();
     for (Row row : keyboard.getRowList()) {
       for (Key key : row.getKeyList()) {
-        renderKey(surfaceCanvas, keyboard, metaStates, key,
-                  Optional.fromNullable(pressedKeys.get(key)));
+        renderKey(
+            surfaceCanvas, keyboard, metaStates, key, Optional.fromNullable(pressedKeys.get(key)));
       }
     }
     isDirty = false;
@@ -213,8 +213,12 @@ import javax.annotation.Nullable;
     draw(new SurfaceCanvasImpl(canvas));
   }
 
-  private void renderKey(SurfaceCanvas canvas, Keyboard keyboard, Set<MetaState> metaStates,
-                         Key key, Optional<Flick.Direction> flickDirection) {
+  private void renderKey(
+      SurfaceCanvas canvas,
+      Keyboard keyboard,
+      Set<MetaState> metaStates,
+      Key key,
+      Optional<Flick.Direction> flickDirection) {
     Preconditions.checkNotNull(canvas);
     Preconditions.checkNotNull(keyboard);
     Preconditions.checkNotNull(metaStates);
@@ -234,15 +238,14 @@ import javax.annotation.Nullable;
     int givenHeight = key.getHeight();
 
     canvas.drawDrawable(getKeyBackground(key, isPressed).orNull(), x, y, givenWidth, givenHeight);
-    Optional<KeyEntity> keyEntity =
-        getKeyEntityForRendering(key, metaStates, flickDirection);
-    if (flickDirection.isPresent() && keyEntity.isPresent()
+    Optional<KeyEntity> keyEntity = getKeyEntityForRendering(key, metaStates, flickDirection);
+    if (flickDirection.isPresent()
+        && keyEntity.isPresent()
         && keyEntity.get().isFlickHighlightEnabled()
-        && KeyEventContext.getKeyEntity(key, metaStates, flickDirection)
-            .equals(keyEntity)) {
+        && KeyEventContext.getKeyEntity(key, metaStates, flickDirection).equals(keyEntity)) {
       DrawableType drawableType = FLICK_DRAWABLE_TYPE_MAP.get(flickDirection.get());
-      Drawable backgroundDrawable = (drawableType != null)
-          ? backgroundDrawableFactory.getDrawable(drawableType) : null;
+      Drawable backgroundDrawable =
+          (drawableType != null) ? backgroundDrawableFactory.getDrawable(drawableType) : null;
       canvas.drawDrawable(backgroundDrawable, x, y, givenWidth, givenHeight);
     }
     int horizontalPadding = keyEntity.isPresent() ? keyEntity.get().getHorizontalPadding() : 0;
@@ -253,15 +256,18 @@ import javax.annotation.Nullable;
     iconHeight = Math.min(iconHeight, givenHeight - verticalPadding * 2);
     canvas.drawDrawableAtCenterWithKeepAspectRatio(
         getKeyIcon(drawableCache, keyEntity, isPressed).orNull(),
-        x + (givenWidth - iconWidth) / 2, y + (givenHeight - iconHeight) / 2,
-        iconWidth, iconHeight);
+        x + (givenWidth - iconWidth) / 2,
+        y + (givenHeight - iconHeight) / 2,
+        iconWidth,
+        iconHeight);
   }
 
   /**
    * Returns KeyEntity which should be used for the {@code key}'s rendering with the given state.
    * {@code Optional.absent()} will be returned if we don't need to render the key.
    */
-  @VisibleForTesting static Optional<KeyEntity> getKeyEntityForRendering(
+  @VisibleForTesting
+  static Optional<KeyEntity> getKeyEntityForRendering(
       Key key, Set<MetaState> metaState, Optional<Flick.Direction> flickDirection) {
     if (flickDirection.isPresent()) {
       // If the key is under flick state, check if there is corresponding key entity for the
@@ -284,20 +290,18 @@ import javax.annotation.Nullable;
     return drawable;
   }
 
-  /**
-   * Returns {@code Drawable} for the given key's background with setting appropriate state.
-   */
-  @VisibleForTesting Optional<Drawable> getKeyBackground(Key key, boolean isPressed) {
+  /** Returns {@code Drawable} for the given key's background with setting appropriate state. */
+  @VisibleForTesting
+  Optional<Drawable> getKeyBackground(Key key, boolean isPressed) {
     Preconditions.checkNotNull(key);
     return setDrawableState(
         Optional.of(backgroundDrawableFactory.getDrawable(key.getKeyBackgroundDrawableType())),
         isPressed);
- }
+  }
 
-  /**
-   * Returns {@code Drawable} for the given key's icon with setting appropriate state.
-   */
-  @VisibleForTesting static Optional<Drawable> getKeyIcon(
+  /** Returns {@code Drawable} for the given key's icon with setting appropriate state. */
+  @VisibleForTesting
+  static Optional<Drawable> getKeyIcon(
       DrawableCache drawableCache, Optional<KeyEntity> keyEntity, boolean isPressed) {
     if (!keyEntity.isPresent()) {
       return Optional.absent();

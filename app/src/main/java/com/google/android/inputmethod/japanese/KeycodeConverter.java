@@ -29,31 +29,30 @@
 
 package org.mozc.android.inputmethod.japanese;
 
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.KeyEvent.ModifierKey;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.KeyEvent.SpecialKey;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 
 /**
  * Converts Androids's KeyEvent to Mozc's KeyEvent.
  *
- * Because Mozc to Android conversion is impossible (by information lack), such
- * feature is not provided.
- *
+ * <p>Because Mozc to Android conversion is impossible (by information lack), such feature is not
+ * provided.
  */
 public class KeycodeConverter {
 
   /**
-   * KeyEventInterface just enables lazy keycode evaluation than android.view.KeyEvent.
-   * This interface is only used from InputMethodService.sendDownUpKeyEvents.
-   * The value returned by {@code getKeyCode} method is used only when a user's input
-   * (from s/w or h/w keyboard) is not consumed by Mozc server.
-   * In such a case we send back the event as a key-code to the framework.
+   * KeyEventInterface just enables lazy keycode evaluation than android.view.KeyEvent. This
+   * interface is only used from InputMethodService.sendDownUpKeyEvents. The value returned by
+   * {@code getKeyCode} method is used only when a user's input (from s/w or h/w keyboard) is not
+   * consumed by Mozc server. In such a case we send back the event as a key-code to the framework.
    * If consumed, {@code getKeyCode} is not invoked.
    */
   public interface KeyEventInterface {
     int getKeyCode();
+
     Optional<android.view.KeyEvent> getNativeEvent();
   }
 
@@ -146,11 +145,11 @@ public class KeycodeConverter {
 
   public static boolean isMetaKey(android.view.KeyEvent keyEvent) {
     int keyCode = Preconditions.checkNotNull(keyEvent).getKeyCode();
-    return keyCode == android.view.KeyEvent.KEYCODE_SHIFT_LEFT ||
-        keyCode == android.view.KeyEvent.KEYCODE_SHIFT_RIGHT ||
-        keyCode == android.view.KeyEvent.KEYCODE_CTRL_LEFT ||
-        keyCode == android.view.KeyEvent.KEYCODE_CTRL_RIGHT ||
-        keyCode == android.view.KeyEvent.KEYCODE_ALT_LEFT ||
-        keyCode == android.view.KeyEvent.KEYCODE_ALT_RIGHT;
+    return keyCode == android.view.KeyEvent.KEYCODE_SHIFT_LEFT
+        || keyCode == android.view.KeyEvent.KEYCODE_SHIFT_RIGHT
+        || keyCode == android.view.KeyEvent.KEYCODE_CTRL_LEFT
+        || keyCode == android.view.KeyEvent.KEYCODE_CTRL_RIGHT
+        || keyCode == android.view.KeyEvent.KEYCODE_ALT_LEFT
+        || keyCode == android.view.KeyEvent.KEYCODE_ALT_RIGHT;
   }
 }

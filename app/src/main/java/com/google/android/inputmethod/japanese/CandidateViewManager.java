@@ -29,15 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese;
 
-import org.mozc.android.inputmethod.japanese.InOutAnimatedFrameLayout.VisibilityChangeListener;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
-import org.mozc.android.inputmethod.japanese.util.CursorAnchorInfoWrapper;
-import org.mozc.android.inputmethod.japanese.view.Skin;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.res.Resources;
@@ -48,21 +39,30 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.InOutAnimatedFrameLayout.VisibilityChangeListener;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
+import org.mozc.android.inputmethod.japanese.util.CursorAnchorInfoWrapper;
+import org.mozc.android.inputmethod.japanese.view.Skin;
 
-/**
- * Manages candidate views (floating, on-keyboard).
- */
+/** Manages candidate views (floating, on-keyboard). */
 class CandidateViewManager implements MemoryManageable {
 
   /** Listener interface to handle the height change of a keyboard candidate view. */
   public interface KeyboardCandidateViewHeightListener {
     public void onExpanded();
+
     public void onCollapse();
   }
 
   /** {@link CandidateMode#FLOATING} is only available on Lollipop or later. */
   private enum CandidateMode {
-    KEYBOARD, NUMBER, FLOATING,
+    KEYBOARD,
+    NUMBER,
+    FLOATING,
   }
 
   private static final Animation NO_ANIMATION = new Animation() {};
@@ -70,39 +70,48 @@ class CandidateViewManager implements MemoryManageable {
 
   @VisibleForTesting final CandidateView keyboardCandidateView;
   @VisibleForTesting final FloatingCandidateView floatingCandidateView;
+
   /**
-   * SymbolInputView which number candidate view belongs to is created lazily.
-   * Therefore number candidate view is not accessible when CandidateViewManager is instantiated.
+   * SymbolInputView which number candidate view belongs to is created lazily. Therefore number
+   * candidate view is not accessible when CandidateViewManager is instantiated.
    */
   @VisibleForTesting Optional<CandidateView> numberCandidateView = Optional.absent();
 
   private Optional<KeyboardCandidateViewHeightListener> keyboardCandidateViewHeightListener =
       Optional.absent();
+
   /**
-   * Current active candidate view.
-   * {@link CandidateMode#FLOATING} is only available on Lollipop or later.
+   * Current active candidate view. {@link CandidateMode#FLOATING} is only available on Lollipop or
+   * later.
    */
   private CandidateMode candidateMode = CandidateMode.KEYBOARD;
 
   /** Cache of {@link EditorInfo} instance to switch candidate views. */
   private EditorInfo editorInfo = new EditorInfo();
+
   /** Cache of {@link Skin} instance to switch candidate views. */
   private Skin skin = Skin.getFallbackInstance();
+
   /** Cache of candidate text size. */
   private float candidateTextSize;
+
   /** Cache of description text size. */
   private float descriptionTextSize;
+
   /** Cache of {@link ViewEventListener}. */
   private Optional<ViewEventListener> viewEventListener = Optional.absent();
+
   /** Cache of {@link VisibilityChangeListener}. */
   private Optional<VisibilityChangeListener> onVisibilityChangeListener = Optional.absent();
+
   /**
    * True if extracted mode (== fullscreen mode) is activated.
-   * <p>
-   * On extracted mode, floating candidate should be disabled in order to show extracted view
-   * in the screen.
+   *
+   * <p>On extracted mode, floating candidate should be disabled in order to show extracted view in
+   * the screen.
    */
   private boolean isExtractedMode = false;
+
   private boolean allowFloatingMode = false;
   private boolean narrowMode = false;
 
@@ -136,8 +145,8 @@ class CandidateViewManager implements MemoryManageable {
 
   /**
    * Updates the candidate views by {@code outCommand} and may invoke some animations.
-   * <p>
-   * On-keyboard candidate view may animate and the animation listener may be invoked.
+   *
+   * <p>On-keyboard candidate view may animate and the animation listener may be invoked.
    */
   public void update(Command outCommand) {
     // Disable the animation in some situation to avoid ugly UI.
@@ -157,9 +166,11 @@ class CandidateViewManager implements MemoryManageable {
 
     Preconditions.checkState(
         candidateMode == CandidateMode.KEYBOARD
-        || (candidateMode == CandidateMode.NUMBER && numberCandidateView.isPresent()));
-    CandidateView candidateView = (candidateMode == CandidateMode.KEYBOARD)
-        ? keyboardCandidateView : numberCandidateView.get();
+            || (candidateMode == CandidateMode.NUMBER && numberCandidateView.isPresent()));
+    CandidateView candidateView =
+        (candidateMode == CandidateMode.KEYBOARD)
+            ? keyboardCandidateView
+            : numberCandidateView.get();
 
     if (withAnimation) {
       if (hasCandidates(outCommand)) {
@@ -192,9 +203,9 @@ class CandidateViewManager implements MemoryManageable {
 
   /**
    * Enables/Disables a floating candidate view.
-   * <p>
-   * This method turned floating mode on if it is preferred.
-   * The floating candidate view is only available on Lollipop or later.
+   *
+   * <p>This method turned floating mode on if it is preferred. The floating candidate view is only
+   * available on Lollipop or later.
    */
   private void updateCandiadateWindowActivation() {
     boolean floatingMode = narrowMode && allowFloatingMode && !isExtractedMode;
@@ -248,8 +259,7 @@ class CandidateViewManager implements MemoryManageable {
     this.candidateTextSize = candidateTextSize;
     this.descriptionTextSize = descriptionTextSize;
     if (numberCandidateView.isPresent()) {
-      numberCandidateView.get().setCandidateTextDimension(
-          candidateTextSize, descriptionTextSize);
+      numberCandidateView.get().setCandidateTextDimension(candidateTextSize, descriptionTextSize);
     } else {
       keyboardCandidateView.setCandidateTextDimension(candidateTextSize, descriptionTextSize);
     }
@@ -295,8 +305,8 @@ class CandidateViewManager implements MemoryManageable {
     }
   }
 
-  public void setEventListener(ViewEventListener viewEventListener,
-                               KeyboardCandidateViewHeightListener hightListener) {
+  public void setEventListener(
+      ViewEventListener viewEventListener, KeyboardCandidateViewHeightListener hightListener) {
     this.viewEventListener = Optional.of(viewEventListener);
     this.keyboardCandidateViewHeightListener = Optional.of(hightListener);
     keyboardCandidateView.setViewEventListener(viewEventListener);
@@ -306,9 +316,7 @@ class CandidateViewManager implements MemoryManageable {
     }
   }
 
-  /**
-   * Set true if extracted mode (== fullscreen mode) is activated.
-   */
+  /** Set true if extracted mode (== fullscreen mode) is activated. */
   public void setExtractedMode(boolean isExtractedMode) {
     this.isExtractedMode = isExtractedMode;
     updateCandiadateWindowActivation();
@@ -343,16 +351,20 @@ class CandidateViewManager implements MemoryManageable {
     float fromAlpha = 0.0f;
     float toAlpha = 1.0f;
 
-    keyboardCandidateView.setInAnimation(createKeyboardCandidateViewTransitionAnimation(
-        keyboardCandidateViewHeight, 0, fromAlpha, toAlpha, duration));
-    keyboardCandidateView.setOutAnimation(createKeyboardCandidateViewTransitionAnimation(
-        0, keyboardCandidateViewHeight, toAlpha, fromAlpha, duration));
+    keyboardCandidateView.setInAnimation(
+        createKeyboardCandidateViewTransitionAnimation(
+            keyboardCandidateViewHeight, 0, fromAlpha, toAlpha, duration));
+    keyboardCandidateView.setOutAnimation(
+        createKeyboardCandidateViewTransitionAnimation(
+            0, keyboardCandidateViewHeight, toAlpha, fromAlpha, duration));
 
     int numberCandidateViewHeight = resources.getDimensionPixelSize(R.dimen.button_frame_height);
-    numberCandidateViewInAnimation = createKeyboardCandidateViewTransitionAnimation(
-        numberCandidateViewHeight, 0, fromAlpha, toAlpha, duration);
-    numberCandidateViewOutAnimation = createKeyboardCandidateViewTransitionAnimation(
-        0, numberCandidateViewHeight, toAlpha, fromAlpha, duration);
+    numberCandidateViewInAnimation =
+        createKeyboardCandidateViewTransitionAnimation(
+            numberCandidateViewHeight, 0, fromAlpha, toAlpha, duration);
+    numberCandidateViewOutAnimation =
+        createKeyboardCandidateViewTransitionAnimation(
+            0, numberCandidateViewHeight, toAlpha, fromAlpha, duration);
     if (numberCandidateView.isPresent()) {
       numberCandidateView.get().setInAnimation(numberCandidateViewInAnimation);
       numberCandidateView.get().setOutAnimation(numberCandidateViewOutAnimation);

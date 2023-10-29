@@ -29,34 +29,23 @@
 
 package org.mozc.android.inputmethod.japanese.keyboard;
 
-import org.mozc.android.inputmethod.japanese.MemoryManageable;
-import org.mozc.android.inputmethod.japanese.accessibility.AccessibilityUtil;
-import org.mozc.android.inputmethod.japanese.accessibility.KeyboardAccessibilityDelegate;
-import org.mozc.android.inputmethod.japanese.keyboard.KeyState.MetaState;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchAction;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
-import org.mozc.android.inputmethod.japanese.R;
-import org.mozc.android.inputmethod.japanese.view.DrawableCache;
-import org.mozc.android.inputmethod.japanese.view.Skin;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ForwardingMap;
-import com.google.common.collect.Sets;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.os.Handler;
 import android.os.Looper;
-import androidx.core.view.ViewCompat;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-
+import androidx.core.view.ViewCompat;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ForwardingMap;
+import com.google.common.collect.Sets;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -64,12 +53,19 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.mozc.android.inputmethod.japanese.MemoryManageable;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.accessibility.AccessibilityUtil;
+import org.mozc.android.inputmethod.japanese.accessibility.KeyboardAccessibilityDelegate;
+import org.mozc.android.inputmethod.japanese.keyboard.KeyState.MetaState;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchAction;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
+import org.mozc.android.inputmethod.japanese.view.DrawableCache;
+import org.mozc.android.inputmethod.japanese.view.Skin;
 
 /**
- * Basic implementation of a keyboard's view.
- * This class supports taps and flicks. The clients of this class can handle them via
- * {@code KeyboardActionListener}.
- *
+ * Basic implementation of a keyboard's view. This class supports taps and flicks. The clients of
+ * this class can handle them via {@code KeyboardActionListener}.
  */
 public class KeyboardView extends View implements MemoryManageable {
 
@@ -84,8 +80,11 @@ public class KeyboardView extends View implements MemoryManageable {
   private Optional<Keyboard> keyboard = Optional.absent();
   // Do not update directly. Use setMetaState instead.
   @VisibleForTesting Set<MetaState> metaState;
-  @VisibleForTesting final KeyboardViewBackgroundSurface backgroundSurface =
+
+  @VisibleForTesting
+  final KeyboardViewBackgroundSurface backgroundSurface =
       new KeyboardViewBackgroundSurface(backgroundDrawableFactory, drawableCache);
+
   @VisibleForTesting boolean isKeyPressed;
 
   private final float scaledDensity;
@@ -100,28 +99,29 @@ public class KeyboardView extends View implements MemoryManageable {
 
   /**
    * Decorator class for {@code Map} for {@code KeyEventContextMap}.
-   * <p>
-   * When the number of the content is changed, meta state "HANDLING_TOUCH_EVENT"
-   * is updated.
+   *
+   * <p>When the number of the content is changed, meta state "HANDLING_TOUCH_EVENT" is updated.
    */
-  private final class KeyEventContextMap extends ForwardingMap<Integer, KeyEventContext>{
+  private final class KeyEventContextMap extends ForwardingMap<Integer, KeyEventContext> {
 
     // HANDLING_TOUCH_EVENT metastate must be kept turned on for DELAY millisecond
     // after registered KeyEventContext becomes empty.
     // Otherwise in the time between last TOUCH_UP event and the result from conversion engine
     // (though it is typically very short time) Globe key is shown, which triggers unexpected
     // IME switch.
-    private static final long DELAY = 300;  // in millisecond.
+    private static final long DELAY = 300; // in millisecond.
     // Used for registering delayed update of HANDLING_TOUCH_EVENT.
     private final Handler delayedHandlingTouchEventHandler = new Handler(Looper.getMainLooper());
     // A Runnable to unset HANDLING_TOUCH_EVENT.
-    private final Runnable metastateUnsetter = new Runnable() {
-      @Override
-      public void run() {
-        updateMetaStates(Collections.<MetaState>emptySet(),
-                         Collections.singleton(MetaState.HANDLING_TOUCH_EVENT));
-      }
-    };
+    private final Runnable metastateUnsetter =
+        new Runnable() {
+          @Override
+          public void run() {
+            updateMetaStates(
+                Collections.<MetaState>emptySet(),
+                Collections.singleton(MetaState.HANDLING_TOUCH_EVENT));
+          }
+        };
 
     private final Map<Integer, KeyEventContext> delegate;
 
@@ -173,14 +173,16 @@ public class KeyboardView extends View implements MemoryManageable {
           // After DELAY milliseconds, HANDLING_TOUCH_EVENT will be unset.
           delayedHandlingTouchEventHandler.postDelayed(metastateUnsetter, DELAY);
         } else {
-          updateMetaStates(Collections.<MetaState>emptySet(),
-                           Collections.singleton(MetaState.HANDLING_TOUCH_EVENT));
+          updateMetaStates(
+              Collections.<MetaState>emptySet(),
+              Collections.singleton(MetaState.HANDLING_TOUCH_EVENT));
         }
       } else {
         // Setting HANDLING_TOUCH_EVENT must be processed immediately in order to inactivate
         // Globe key as soon as possible.
-        updateMetaStates(Collections.singleton(MetaState.HANDLING_TOUCH_EVENT),
-                         Collections.<MetaState>emptySet());
+        updateMetaStates(
+            Collections.singleton(MetaState.HANDLING_TOUCH_EVENT),
+            Collections.<MetaState>emptySet());
       }
     }
   }
@@ -192,7 +194,8 @@ public class KeyboardView extends View implements MemoryManageable {
   // We use LinkedHashMap with accessOrder=false here, in order to ensure sending key events
   // in the pressing order in flushPendingKeyEvent.
   // Its initial capacity (16) and load factor (0.75) are just heuristics.
-  @VisibleForTesting public final Map<Integer, KeyEventContext> keyEventContextMap =
+  @VisibleForTesting
+  public final Map<Integer, KeyEventContext> keyEventContextMap =
       new KeyEventContextMap(new LinkedHashMap<Integer, KeyEventContext>(16, 0.75f, false));
 
   private Optional<KeyEventHandler> keyEventHandler = Optional.absent();
@@ -216,32 +219,35 @@ public class KeyboardView extends View implements MemoryManageable {
     Resources res = context.getResources();
     popupDismissDelay = res.getInteger(R.integer.config_popup_dismiss_delay);
     scaledDensity = res.getDisplayMetrics().scaledDensity;
-    accessibilityDelegate = new KeyboardAccessibilityDelegate(
-        this, new KeyboardAccessibilityDelegate.TouchEventEmulator() {
-          @Override
-          public void emulateLongPress(Key key) {
-            Preconditions.checkNotNull(key);
-            emulateImpl(key, true);
-          }
+    accessibilityDelegate =
+        new KeyboardAccessibilityDelegate(
+            this,
+            new KeyboardAccessibilityDelegate.TouchEventEmulator() {
+              @Override
+              public void emulateLongPress(Key key) {
+                Preconditions.checkNotNull(key);
+                emulateImpl(key, true);
+              }
 
-          @Override
-          public void emulateKeyInput(Key key) {
-            Preconditions.checkNotNull(key);
-            emulateImpl(key, false);
-          }
+              @Override
+              public void emulateKeyInput(Key key) {
+                Preconditions.checkNotNull(key);
+                emulateImpl(key, false);
+              }
 
-          private void emulateImpl(Key key, boolean isLongPress) {
-            KeyEventContext keyEventContext = new KeyEventContext(key, 0, 0, 0, 0, 0, 0, metaState);
-            processKeyEventContextForOnDownEvent(keyEventContext);
-            if (isLongPress && keyEventHandler.isPresent()) {
-              keyEventHandler.get().handleMessageLongPress(keyEventContext);
-            }
-            processKeyEventContextForOnUpEvent(keyEventContext);
-            // Without the invalidation this view cannot know that its content
-            // has been updated.
-            invalidateIfRequired();
-          }
-        });
+              private void emulateImpl(Key key, boolean isLongPress) {
+                KeyEventContext keyEventContext =
+                    new KeyEventContext(key, 0, 0, 0, 0, 0, 0, metaState);
+                processKeyEventContextForOnDownEvent(keyEventContext);
+                if (isLongPress && keyEventHandler.isPresent()) {
+                  keyEventHandler.get().handleMessageLongPress(keyEventContext);
+                }
+                processKeyEventContextForOnUpEvent(keyEventContext);
+                // Without the invalidation this view cannot know that its content
+                // has been updated.
+                invalidateIfRequired();
+              }
+            });
     ViewCompat.setAccessibilityDelegate(this, accessibilityDelegate);
     // Not sure if globe is really activated.
     // However metastate requires GLOBE or NO_GLOBE state.
@@ -249,8 +255,8 @@ public class KeyboardView extends View implements MemoryManageable {
   }
 
   /**
-   * At the moment, it is not limited to, but we expected the range of the flickSensitivity
-   * is [-10,+10] inclusive. 0 is the keyboard default sensitivity.
+   * At the moment, it is not limited to, but we expected the range of the flickSensitivity is
+   * [-10,+10] inclusive. 0 is the keyboard default sensitivity.
    */
   public void setFlickSensitivity(int flickSensitivity) {
     this.flickSensitivity = flickSensitivity;
@@ -286,9 +292,7 @@ public class KeyboardView extends View implements MemoryManageable {
     }
   }
 
-  /**
-   * Reset the internal state of this view.
-   */
+  /** Reset the internal state of this view. */
   public void resetState() {
     // To re-render the key in the normal state, notify the background surface about it.
     for (KeyEventContext keyEventContext : keyEventContextMap.values()) {
@@ -315,9 +319,10 @@ public class KeyboardView extends View implements MemoryManageable {
       if (keyEventHandler.isPresent()) {
         // Send relativeTouchEvent as well if exists.
         // TODO(hsumita): Confirm that we can put null on touchEventList or not.
-        List<TouchEvent> touchEventList = relativeTouchEvent.isPresent()
-            ? Arrays.asList(relativeTouchEvent.get(), keyEventContext.getTouchEvent().orNull())
-            : Collections.singletonList(keyEventContext.getTouchEvent().orNull());
+        List<TouchEvent> touchEventList =
+            relativeTouchEvent.isPresent()
+                ? Arrays.asList(relativeTouchEvent.get(), keyEventContext.getTouchEvent().orNull())
+                : Collections.singletonList(keyEventContext.getTouchEvent().orNull());
         keyEventHandler.get().sendKey(keyCode, touchEventList);
         keyEventHandler.get().sendRelease(pressedKeyCode);
       }
@@ -348,7 +353,9 @@ public class KeyboardView extends View implements MemoryManageable {
     return popupEnabled;
   }
 
-  /** @return the current keyboard instance */
+  /**
+   * @return the current keyboard instance
+   */
   public Optional<Keyboard> getKeyboard() {
     return keyboard;
   }
@@ -392,8 +399,8 @@ public class KeyboardView extends View implements MemoryManageable {
 
   @SuppressLint("InlinedApi")
   private static int getPointerIndex(int action) {
-    return
-        (action & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
+    return (action & MotionEvent.ACTION_POINTER_INDEX_MASK)
+        >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
   }
 
   private void onDown(MotionEvent event) {
@@ -418,23 +425,32 @@ public class KeyboardView extends View implements MemoryManageable {
     int pointerId = event.getPointerId(pointerIndex);
     float flickThreshold =
         Math.max(keyboard.get().getFlickThreshold() + getFlickSensitivityInDip(), 1);
-    final KeyEventContext keyEventContext = new KeyEventContext(
-        optionalKey.get(), pointerId, x, y, getWidth(), getHeight(),
-        flickThreshold * flickThreshold, metaState);
+    final KeyEventContext keyEventContext =
+        new KeyEventContext(
+            optionalKey.get(),
+            pointerId,
+            x,
+            y,
+            getWidth(),
+            getHeight(),
+            flickThreshold * flickThreshold,
+            metaState);
 
     // Show popup.
     updatePopUp(keyEventContext, false);
     Optional<KeyEntity> keyEntity =
-        KeyEventContext.getKeyEntity(keyEventContext.key, metaState,
-                                     Optional.of(Flick.Direction.CENTER));
-    if (keyEntity.isPresent() && keyEntity.get().getPopUp().isPresent()
+        KeyEventContext.getKeyEntity(
+            keyEventContext.key, metaState, Optional.of(Flick.Direction.CENTER));
+    if (keyEntity.isPresent()
+        && keyEntity.get().getPopUp().isPresent()
         && !keyEntity.get().isLongPressTimeoutTrigger()) {
-      keyEventContext.setLongPressCallback(new Runnable() {
-          @Override
-          public void run() {
-            updatePopUp(keyEventContext, true);
-          }
-        });
+      keyEventContext.setLongPressCallback(
+          new Runnable() {
+            @Override
+            public void run() {
+              updatePopUp(keyEventContext, true);
+            }
+          });
     }
 
     // Process the KeyEventContext (e.g., sending messages to KeyEventHandler, updating the surface,
@@ -448,8 +464,7 @@ public class KeyboardView extends View implements MemoryManageable {
         "Conflicting keyEventContext is found: " + pointerId);
   }
 
-  private void processKeyEventContextForOnDownEvent(
-      final KeyEventContext keyEventContext) {
+  private void processKeyEventContextForOnDownEvent(final KeyEventContext keyEventContext) {
     Set<MetaState> nextMetaStates = keyEventContext.getNextMetaStates(metaState);
 
     if (!nextMetaStates.equals(metaState)) {
@@ -514,8 +529,9 @@ public class KeyboardView extends View implements MemoryManageable {
     if (keyEventHandler.isPresent()) {
       if (keyCode != KeyEntity.INVALID_KEY_CODE) {
         // TODO(hsumita): Confirm that we can put null as a touch event or not.
-        keyEventHandler.get().sendKey(keyCode,
-            Collections.singletonList(keyEventContext.getTouchEvent().orNull()));
+        keyEventHandler
+            .get()
+            .sendKey(keyCode, Collections.singletonList(keyEventContext.getTouchEvent().orNull()));
       }
       keyEventHandler.get().sendRelease(pressedKeyCode);
     }
@@ -557,8 +573,11 @@ public class KeyboardView extends View implements MemoryManageable {
       }
 
       Key key = keyEventContext.key;
-      if (keyEventContext.update(event.getX(i), event.getY(i), TouchAction.TOUCH_MOVE,
-                                 event.getEventTime() - event.getDownTime())) {
+      if (keyEventContext.update(
+          event.getX(i),
+          event.getY(i),
+          TouchAction.TOUCH_MOVE,
+          event.getEventTime() - event.getDownTime())) {
         if (keyEventHandler.isPresent()) {
           // The key's state is updated from, at least, initial state, so we'll cancel the
           // pending key events, and invoke new pending key events if necessary.
@@ -611,11 +630,13 @@ public class KeyboardView extends View implements MemoryManageable {
 
   /**
    * Finds a key containing the given coordinate.
+   *
    * @param x {@code x}-coordinate.
    * @param y {@code y}-coordinate.
    * @return A corresponding {@code Key} instance, or {@code Optional.<Key>absent()} if not found.
    */
-  @VisibleForTesting Optional<Key> getKeyByCoord(float x, float y) {
+  @VisibleForTesting
+  Optional<Key> getKeyByCoord(float x, float y) {
     if (y < 0 || !keyboard.isPresent() || keyboard.get().getRowList().isEmpty()) {
       return Optional.absent();
     }
@@ -627,14 +648,14 @@ public class KeyboardView extends View implements MemoryManageable {
       rowBottom += row.getHeight() + row.getVerticalGap();
       Key prevKey = null;
       for (Key key : row.getKeyList()) {
-        if ((// Stick vertical gaps to the keys above.
-             y < key.getY() + key.getHeight() + row.getVerticalGap()
-             // Or the key is at the bottom of the keyboard.
-             // Note: Some devices sense touch events of out-side of screen.
-             //   So, for better user experiences, we return the bottom row
-             //   if a user touches below the screen bottom boundary.
-             || row == lastRow
-             || key.getY() + key.getHeight() >= keyboard.get().contentBottom)
+        if (( // Stick vertical gaps to the keys above.
+            y < key.getY() + key.getHeight() + row.getVerticalGap()
+                // Or the key is at the bottom of the keyboard.
+                // Note: Some devices sense touch events of out-side of screen.
+                //   So, for better user experiences, we return the bottom row
+                //   if a user touches below the screen bottom boundary.
+                || row == lastRow
+                || key.getY() + key.getHeight() >= keyboard.get().contentBottom)
             // Horizontal gap is included in the width,
             // so we don't need to calculate horizontal gap in addition to width.
             && x < key.getX() + key.getWidth()
@@ -650,7 +671,7 @@ public class KeyboardView extends View implements MemoryManageable {
             // Hence, the hits on B are excluded.
             && (y < rowBottom || key.getX() <= x)) {
           if (!key.isSpacer()) {
-            return Optional.of(key);  // Found a key.
+            return Optional.of(key); // Found a key.
           }
 
           switch (key.getStick()) {
@@ -680,7 +701,7 @@ public class KeyboardView extends View implements MemoryManageable {
       }
     }
 
-    return Optional.absent();  // Not found.
+    return Optional.absent(); // Not found.
   }
 
   @Override
@@ -724,8 +745,8 @@ public class KeyboardView extends View implements MemoryManageable {
     Preconditions.checkNotNull(addedMetaStates);
     Preconditions.checkNotNull(removedMetaStates);
 
-    setMetaStates(Sets.union(Sets.difference(metaState, removedMetaStates),
-                             addedMetaStates).immutableCopy());
+    setMetaStates(
+        Sets.union(Sets.difference(metaState, removedMetaStates), addedMetaStates).immutableCopy());
     invalidateIfRequired();
   }
 
@@ -787,8 +808,9 @@ public class KeyboardView extends View implements MemoryManageable {
         // Do nothing
     }
 
-    updateMetaStates(metaStates, Sets.union(MetaState.ACTION_EXCLUSIVE_GROUP,
-                                            MetaState.VARIATION_EXCLUSIVE_GROUP));
+    updateMetaStates(
+        metaStates,
+        Sets.union(MetaState.ACTION_EXCLUSIVE_GROUP, MetaState.VARIATION_EXCLUSIVE_GROUP));
   }
 
   public void setGlobeButtonEnabled(boolean isGlobeButtonEnabled) {

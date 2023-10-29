@@ -29,26 +29,24 @@
 
 package org.mozc.android.inputmethod.japanese.view;
 
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.graphics.drawable.Drawable;
 import android.util.SparseArray;
-
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 
 /**
- * Simple cache implementation of {@code Drawable}.
- * This class uses WeakReference mechanism. So, drawables in this instance will be
- * released when gc runs and there are no strong references for them.
- *
+ * Simple cache implementation of {@code Drawable}. This class uses WeakReference mechanism. So,
+ * drawables in this instance will be released when gc runs and there are no strong references for
+ * them.
  */
 public class WeakDrawableCache {
 
   private static class WeakEntry extends WeakReference<Drawable> {
 
     final Integer key;
+
     WeakEntry(Integer key, Drawable value, ReferenceQueue<? super Drawable> queue) {
       super(value, queue);
       this.key = key;
@@ -68,9 +66,7 @@ public class WeakDrawableCache {
     }
   }
 
-  /**
-   * Put the {@code drawable} to this cache whose resource id is {@code key}.
-   */
+  /** Put the {@code drawable} to this cache whose resource id is {@code key}. */
   public void put(Integer key, Drawable value) {
     Preconditions.checkNotNull(key);
     Preconditions.checkNotNull(value);
@@ -79,8 +75,8 @@ public class WeakDrawableCache {
   }
 
   /**
-   * Returns {@code Drawable} instance for the {@code key}, or {@code null} if this doesn't
-   * contain the corresponding {@code Drawable}.
+   * Returns {@code Drawable} instance for the {@code key}, or {@code null} if this doesn't contain
+   * the corresponding {@code Drawable}.
    */
   public Optional<Drawable> get(Integer key) {
     cleanUp();
@@ -89,9 +85,7 @@ public class WeakDrawableCache {
     return Optional.fromNullable(entry == null ? null : entry.get());
   }
 
-  /**
-   * Clears the cache content.
-   */
+  /** Clears the cache content. */
   public void clear() {
     map.clear();
 

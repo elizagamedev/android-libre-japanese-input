@@ -29,20 +29,19 @@
 
 package org.mozc.android.inputmethod.japanese.util;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-
 import android.annotation.TargetApi;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.view.inputmethod.CursorAnchorInfo;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
 
 /**
  * Simple wrapper class of {@link CursorAnchorInfo}.
- * <p>
- * This is introduced for the compatibility on KitKat or prior, since {@link CursorAnchorInfo} class
- * is available on Lollipop or later.
- * We can construct this class safely on any environments iff we use the default constructor.
+ *
+ * <p>This is introduced for the compatibility on KitKat or prior, since {@link CursorAnchorInfo}
+ * class is available on Lollipop or later. We can construct this class safely on any environments
+ * iff we use the default constructor.
  */
 @TargetApi(21)
 public class CursorAnchorInfoWrapper {

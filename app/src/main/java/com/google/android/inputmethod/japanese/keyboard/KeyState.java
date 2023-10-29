@@ -33,7 +33,6 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -43,14 +42,13 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * This is a model class of a key's state, corresponding to a {@code &lt;KeyState&gt;} element
- * in a xml resource file.
+ * This is a model class of a key's state, corresponding to a {@code &lt;KeyState&gt;} element in a
+ * xml resource file.
  *
- * Each key can have multiple state based on meta keys' condition. This class represents such
+ * <p>Each key can have multiple state based on meta keys' condition. This class represents such
  * various state of each key.
  *
- * Each key state can have multiple {@code Flick} instances. See also the class for the details.
- *
+ * <p>Each key state can have multiple {@code Flick} instances. See also the class for the details.
  */
 public class KeyState {
 
@@ -100,8 +98,8 @@ public class KeyState {
     private final int bitFlag;
 
     /**
-     * If this flag is set to {@code true}, the flag should be removed from the meta states
-     * when a user type a key under this state.
+     * If this flag is set to {@code true}, the flag should be removed from the meta states when a
+     * user type a key under this state.
      */
     final boolean isOneTimeMetaState;
 
@@ -131,20 +129,22 @@ public class KeyState {
     // MetaStates for Globe icon.
     public static final Set<MetaState> GLOBE_EXCLUSIVE_OR_GROUP =
         Sets.immutableEnumSet(MetaState.GLOBE, MetaState.NO_GLOBE);
+
     @SuppressWarnings("unchecked")
     private static final Collection<Set<MetaState>> EXCLUSIVE_GROUP =
-        Arrays.<Set<MetaState>>asList(CHAR_TYPE_EXCLUSIVE_GROUP,
-                                      ACTION_EXCLUSIVE_GROUP,
-                                      VARIATION_EXCLUSIVE_GROUP,
-                                      GLOBE_EXCLUSIVE_OR_GROUP);
+        Arrays.<Set<MetaState>>asList(
+            CHAR_TYPE_EXCLUSIVE_GROUP,
+            ACTION_EXCLUSIVE_GROUP,
+            VARIATION_EXCLUSIVE_GROUP,
+            GLOBE_EXCLUSIVE_OR_GROUP);
+
     private static final Collection<Set<MetaState>> OR_GROUP =
         Collections.singleton(GLOBE_EXCLUSIVE_OR_GROUP);
 
     /**
      * Checks if {@code testee} is valid set.
-     * <p>
-     * Note that this check might be a little bit heavy.
-     * Do not call from chokepoint.
+     *
+     * <p>Note that this check might be a little bit heavy. Do not call from chokepoint.
      */
     public static boolean isValidSet(Set<MetaState> testee) {
       Preconditions.checkNotNull(testee);
@@ -177,11 +177,12 @@ public class KeyState {
   private final Set<MetaState> nextRemoveMetaStates;
   private final EnumMap<Flick.Direction, Flick> flickMap;
 
-  public KeyState(String contentDescription,
-                  Set<MetaState> metaStates,
-                  Set<MetaState> nextAddMetaStates,
-                  Set<MetaState> nextRemoveMetaStates,
-                  Collection<? extends Flick> flickCollection) {
+  public KeyState(
+      String contentDescription,
+      Set<MetaState> metaStates,
+      Set<MetaState> nextAddMetaStates,
+      Set<MetaState> nextRemoveMetaStates,
+      Collection<? extends Flick> flickCollection) {
     this.contentDescription = Preconditions.checkNotNull(contentDescription);
     Preconditions.checkNotNull(metaStates);
     this.metaState = Sets.newEnumSet(metaStates, MetaState.class);
@@ -205,15 +206,17 @@ public class KeyState {
 
   /**
    * Gets next MetaState.
-   * <p>
-   * First, flags in {@code nextRemoveMetaState} are removed from {@code originalMetaState}.
+   *
+   * <p>First, flags in {@code nextRemoveMetaState} are removed from {@code originalMetaState}.
    * Then, flags in {@code nextAddMetaState} are added into {@code originalMetaState}.
-   * <p>
-   * The result is "valid" in the light of {@code MetaState#isValidSet(Set)}.
+   *
+   * <p>The result is "valid" in the light of {@code MetaState#isValidSet(Set)}.
    */
   public Set<MetaState> getNextMetaStates(Set<MetaState> originalMetaStates) {
-    return Sets.union(Sets.difference(Preconditions.checkNotNull(originalMetaStates),
-                                      nextRemoveMetaStates), nextAddMetaStates).immutableCopy();
+    return Sets.union(
+            Sets.difference(Preconditions.checkNotNull(originalMetaStates), nextRemoveMetaStates),
+            nextAddMetaStates)
+        .immutableCopy();
   }
 
   public Optional<Flick> getFlick(Flick.Direction direction) {

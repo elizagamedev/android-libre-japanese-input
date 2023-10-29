@@ -33,19 +33,21 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
 
 /**
- * A class corresponding to {@code &lt;Flick&gt;} element in xml resource files.
- * This class represents what should be happened when user flicks at a key.
- *
+ * A class corresponding to {@code &lt;Flick&gt;} element in xml resource files. This class
+ * represents what should be happened when user flicks at a key.
  */
 public class Flick {
-  /**
-   * A simple enum representing flicking direction.
-   */
+  /** A simple enum representing flicking direction. */
   public static enum Direction {
-    CENTER(0), LEFT(1), RIGHT(2), UP(3), DOWN(4);
+    CENTER(0),
+    LEFT(1),
+    RIGHT(2),
+    UP(3),
+    DOWN(4);
 
     // An index also defined in res/values/attr.xml.
     final int index;
+
     private Direction(int index) {
       this.index = index;
     }
@@ -79,8 +81,8 @@ public class Flick {
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(this)
-                  .add("direction", direction.toString())
-                  .add("keyEntity", keyEntity.toString())
-                  .toString();
+        .add("direction", direction.toString())
+        .add("keyEntity", keyEntity.toString())
+        .toString();
   }
 }

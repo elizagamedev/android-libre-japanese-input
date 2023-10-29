@@ -35,8 +35,8 @@ import android.graphics.drawable.Drawable;
 
 /**
  * Singleton dummy drawable which does nothing.
- * <p>
- * Typically used when skin is not specified.
+ *
+ * <p>Typically used when skin is not specified.
  */
 public class DummyDrawable extends Drawable {
 
@@ -49,8 +49,7 @@ public class DummyDrawable extends Drawable {
   private DummyDrawable() {}
 
   @Override
-  public void draw(Canvas canvas) {
-  }
+  public void draw(Canvas canvas) {}
 
   @Override
   public int getOpacity() {
@@ -58,12 +57,10 @@ public class DummyDrawable extends Drawable {
   }
 
   @Override
-  public void setAlpha(int alpha) {
-  }
+  public void setAlpha(int alpha) {}
 
   @Override
-  public void setColorFilter(ColorFilter cf) {
-  }
+  public void setColorFilter(ColorFilter cf) {}
 
   @Override
   public ConstantState getConstantState() {

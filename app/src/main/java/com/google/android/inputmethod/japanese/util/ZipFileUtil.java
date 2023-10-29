@@ -29,8 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.util;
 
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
@@ -41,21 +39,20 @@ import java.nio.channels.FileChannel.MapMode;
 import java.nio.channels.ReadableByteChannel;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
 
 /**
  * This class is used to access the flatten image in a zip file via {@link ByteBuffer}.
  *
- * If the target entry is compressed, this class allocates required memory block and
- * uncompresses the entry into the memory block. Therefore {@link #getBuffer(ZipFile, String)}
- * method blocks a moment.
- * If the target entry in "uncompressed", this class returns {@link MappedByteBuffer}
- * of which back-end is the uncompressed target entry.
- * In this case {@link #getBuffer(ZipFile, String)} blocks very little.
+ * <p>If the target entry is compressed, this class allocates required memory block and uncompresses
+ * the entry into the memory block. Therefore {@link #getBuffer(ZipFile, String)} method blocks a
+ * moment. If the target entry in "uncompressed", this class returns {@link MappedByteBuffer} of
+ * which back-end is the uncompressed target entry. In this case {@link #getBuffer(ZipFile, String)}
+ * blocks very little.
  *
- * We implemented this class instead of using ZipFile class because
- * ZipFile lacks the API which can return the offset value of each entry.
- * Such API is mandatory to implement the behavior for uncompressed entry described above.
- *
+ * <p>We implemented this class instead of using ZipFile class because ZipFile lacks the API which
+ * can return the offset value of each entry. Such API is mandatory to implement the behavior for
+ * uncompressed entry described above.
  */
 public class ZipFileUtil {
   // Following constants come from ZipFile class.
@@ -114,11 +111,11 @@ public class ZipFileUtil {
   }
 
   /**
-   * See http://www.pkware.com/documents/casestudies/APPNOTE.TXT
-   * I.  End of central directory record
+   * See http://www.pkware.com/documents/casestudies/APPNOTE.TXT I. End of central directory record
    */
   private static class EndOfCentralDirectory {
     private final RandomAccessFile file;
+
     EndOfCentralDirectory(RandomAccessFile file) throws IOException {
       this.file = file;
       // Check the signature.
@@ -136,15 +133,13 @@ public class ZipFileUtil {
     }
   }
 
-  /**
-   * See http://www.pkware.com/documents/casestudies/APPNOTE.TXT
-   * F.  Central directory structure
-   */
+  /** See http://www.pkware.com/documents/casestudies/APPNOTE.TXT F. Central directory structure */
   private static class CentralDirectory {
     private final RandomAccessFile file;
     private final int centralDirectoryOffset;
     // The length is intentionally 256 (not 2^15) in order to prevent from creating large array.
     private static final int MAX_FILE_NAME_LENGTH = 256;
+
     CentralDirectory(RandomAccessFile file, int offset) {
       this.file = file;
       this.centralDirectoryOffset = offset;
@@ -176,10 +171,7 @@ public class ZipFileUtil {
     }
   }
 
-  /**
-   * See http://www.pkware.com/documents/casestudies/APPNOTE.TXT
-   * A.  Local file header
-   */
+  /** See http://www.pkware.com/documents/casestudies/APPNOTE.TXT A. Local file header */
   private static class LocalDirectory {
     private final RandomAccessFile file;
     private final long offset;
@@ -202,8 +194,7 @@ public class ZipFileUtil {
       boolean succeeded = false;
       try {
         MappedByteBuffer result =
-            channel.map(MapMode.READ_ONLY,
-                        offset + LOCHDR + fileNameLength + extLength, size);
+            channel.map(MapMode.READ_ONLY, offset + LOCHDR + fileNameLength + extLength, size);
         succeeded = true;
         return result;
       } finally {
@@ -217,8 +208,8 @@ public class ZipFileUtil {
   /**
    * Gets a {@link ByteBuffer} to the entry's content.
    *
-   * If the entry is compressed, returned buffer contains uncompressed data.
-   * See the class's document.
+   * <p>If the entry is compressed, returned buffer contains uncompressed data. See the class's
+   * document.
    *
    * @param zipFile the ZipFile to use
    * @param fileName the file name to access

@@ -29,14 +29,13 @@
 
 package org.mozc.android.inputmethod.japanese.preference;
 
-import org.mozc.android.inputmethod.japanese.DependencyFactory;
-
 import android.app.Activity;
 import android.content.Intent;
+import org.mozc.android.inputmethod.japanese.DependencyFactory;
 
 /**
- * Proxy activity forwarding to preference screen based on
- * {@link org.mozc.android.inputmethod.japanese.DependencyFactory.Dependency}.
+ * Proxy activity forwarding to preference screen based on {@link
+ * org.mozc.android.inputmethod.japanese.DependencyFactory.Dependency}.
  */
 public class MozcProxyPreferenceActivity extends MozcProxyActivity {
 
@@ -46,5 +45,4 @@ public class MozcProxyPreferenceActivity extends MozcProxyActivity {
         DependencyFactory.getDependency(getApplicationContext()).getPreferenceActivityClass();
     return new Intent(this, destinationActivity);
   }
-
 }

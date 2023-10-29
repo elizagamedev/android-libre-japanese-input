@@ -29,24 +29,13 @@
 
 package org.mozc.android.inputmethod.japanese.emoji;
 
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Request;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Request.RewriterCapability;
-import org.mozc.android.inputmethod.japanese.emoji.EmojiRenderableChecker;
+import android.os.Bundle;
+import android.view.inputmethod.EditorInfo;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
-import android.os.Bundle;
-import android.view.inputmethod.EditorInfo;
-
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.Map;
-
-/**
- * Utility class for emoji handling.
- *
- */
+/** Utility class for emoji handling. */
 public class EmojiUtil {
 
   public static final int MIN_EMOJI_PUA_CODE_POINT = 0xFE000;
@@ -73,10 +62,9 @@ public class EmojiUtil {
   private EmojiUtil() {}
 
   /**
-   * @return {@code true} if the given {@code codePoint} is in the emoji pua range.
-   *   Note that the current system may not support codepoint nor the package
-   *   may not have the corresponding drawable resource for the codepoint,
-   *   even if this method returns {@code true}.
+   * @return {@code true} if the given {@code codePoint} is in the emoji pua range. Note that the
+   *     current system may not support codepoint nor the package may not have the corresponding
+   *     drawable resource for the codepoint, even if this method returns {@code true}.
    */
   public static boolean isCarrierEmoji(int codePoint) {
     return MIN_EMOJI_PUA_CODE_POINT <= codePoint && codePoint <= MAX_EMOJI_PUA_CODE_POINT;
@@ -88,13 +76,17 @@ public class EmojiUtil {
   //   return CARRIER_EMOJI_PROVIDER_TYPE_MAP.containsKey(Preconditions.checkNotNull(type));
   // }
 
-  /** @return {@code true} if carrier emoji is allowed on the text edit. */
+  /**
+   * @return {@code true} if carrier emoji is allowed on the text edit.
+   */
   public static boolean isCarrierEmojiAllowed(EditorInfo editorInfo) {
     Bundle bundle = Preconditions.checkNotNull(editorInfo).extras;
     return (bundle != null) && bundle.getBoolean("allowEmoji");
   }
 
-  /** @return {@code true} if Unicode 6.0 emoji is available. */
+  /**
+   * @return {@code true} if Unicode 6.0 emoji is available.
+   */
   public static boolean isUnicodeEmojiAvailable(int sdkInt) {
     if (sdkInt < UNICODE_EMOJI_SUPPORT_API_VERSION) {
       return false;

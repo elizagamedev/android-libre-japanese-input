@@ -37,7 +37,7 @@ import android.graphics.drawable.Drawable;
 /**
  * The basic implementation which is shared by drawables for background.
  *
- * Currently this class supports padding related stuff.
+ * <p>Currently this class supports padding related stuff.
  */
 abstract class BaseBackgroundDrawable extends Drawable {
   private final int leftPadding;
@@ -57,10 +57,11 @@ abstract class BaseBackgroundDrawable extends Drawable {
   @Override
   protected void onBoundsChange(Rect bounds) {
     super.onBoundsChange(bounds);
-    canvasRect.set(bounds.left + leftPadding,
-                   bounds.top + topPadding,
-                   bounds.right - rightPadding,
-                   bounds.bottom - bottomPadding);
+    canvasRect.set(
+        bounds.left + leftPadding,
+        bounds.top + topPadding,
+        bounds.right - rightPadding,
+        bounds.bottom - bottomPadding);
   }
 
   protected boolean isCanvasRectEmpty() {

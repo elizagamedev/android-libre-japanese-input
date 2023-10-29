@@ -29,14 +29,11 @@
 
 package org.mozc.android.inputmethod.japanese.util;
 
+import java.io.IOException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.IOException;
-
-/**
- * Utility for XML parser.
- */
+/** Utility for XML parser. */
 public class ParserUtil {
 
   public static void ignoreWhiteSpaceAndComment(XmlPullParser parser)
@@ -51,7 +48,7 @@ public class ParserUtil {
     if (parser.getEventType() != XmlPullParser.START_DOCUMENT) {
       throw new IllegalArgumentException(
           "The start of document is expected, but actually not: "
-          + parser.getPositionDescription());
+              + parser.getPositionDescription());
     }
   }
 
@@ -73,8 +70,12 @@ public class ParserUtil {
     String actualName = parser.getName();
     if (!actualName.equals(expectedName)) {
       throw new IllegalArgumentException(
-          "Tag <" + expectedName + "> is expected, but found <" + actualName + ">: "
-          + parser.getPositionDescription());
+          "Tag <"
+              + expectedName
+              + "> is expected, but found <"
+              + actualName
+              + ">: "
+              + parser.getPositionDescription());
     }
   }
 

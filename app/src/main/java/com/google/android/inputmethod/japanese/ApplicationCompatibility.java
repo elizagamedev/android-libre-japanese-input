@@ -30,13 +30,9 @@
 package org.mozc.android.inputmethod.japanese;
 
 import android.view.inputmethod.EditorInfo;
-
 import java.util.EnumSet;
 
-/**
- * Configuration for small behavior changing on Mozc depending on the target application.
- *
- */
+/** Configuration for small behavior changing on Mozc depending on the target application. */
 public class ApplicationCompatibility {
 
   private static enum CompatibilityMode {
@@ -98,17 +94,23 @@ public class ApplicationCompatibility {
     this.compatibilityModeSet = compatibilityModeSet;
   }
 
-  /** @return {@code true} if the target application supports full screen mode. */
+  /**
+   * @return {@code true} if the target application supports full screen mode.
+   */
   public boolean isFullScreenModeSupported() {
     return compatibilityModeSet.contains(CompatibilityMode.FULLSCREEN_MODE_SUPPORTED);
   }
 
-  /** @return {@code true} if the target application requires special behavior like WebEditText. */
+  /**
+   * @return {@code true} if the target application requires special behavior like WebEditText.
+   */
   public boolean isPretendingWebEditText() {
     return compatibilityModeSet.contains(CompatibilityMode.PRETEND_WEB_EDIT_TEXT);
   }
 
-  /** @return {@code true} if onUpdateSelection with selection change should be ignored. */
+  /**
+   * @return {@code true} if onUpdateSelection with selection change should be ignored.
+   */
   public boolean isIgnoringMoveToTail() {
     return compatibilityModeSet.contains(CompatibilityMode.IGNORE_MOVE_TO_TAIL);
   }

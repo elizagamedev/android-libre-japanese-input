@@ -29,6 +29,21 @@
 
 package org.mozc.android.inputmethod.japanese;
 
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
+import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.EdgeEffect;
+import androidx.core.view.ViewCompat;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import javax.annotation.Nullable;
 import org.mozc.android.inputmethod.japanese.accessibility.AccessibilityUtil;
 import org.mozc.android.inputmethod.japanese.accessibility.CandidateWindowAccessibilityDelegate;
 import org.mozc.android.inputmethod.japanese.emoji.EmojiProviderType;
@@ -44,34 +59,12 @@ import org.mozc.android.inputmethod.japanese.ui.CandidateLayouter;
 import org.mozc.android.inputmethod.japanese.ui.SnapScroller;
 import org.mozc.android.inputmethod.japanese.view.CarrierEmojiRenderHelper;
 import org.mozc.android.inputmethod.japanese.view.Skin;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
-import androidx.core.view.ViewCompat;
-import android.util.AttributeSet;
-import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.EdgeEffect;
-
-import javax.annotation.Nullable;
-
-/**
- * A view for candidate words.
- *
- */
+/** A view for candidate words. */
 // TODO(matsuzakit): Optional is introduced partially. Complete introduction.
 abstract class CandidateWordView extends View implements MemoryManageable {
 
-  /**
-   * Handles gestures to scroll candidate list and choose a candidate.
-   */
+  /** Handles gestures to scroll candidate list and choose a candidate. */
   class CandidateWordGestureDetector {
 
     class CandidateWordViewGestureListener extends SimpleOnGestureListener {
@@ -124,11 +117,11 @@ abstract class CandidateWordView extends View implements MemoryManageable {
     private final GestureDetector gestureDetector;
 
     /**
-     * Points to an instance of currently pressed candidate word. Or {@code null} if any
-     * candidates aren't pressed.
+     * Points to an instance of currently pressed candidate word. Or {@code null} if any candidates
+     * aren't pressed.
      */
-    @Nullable
-    private CandidateWord pressedCandidate;
+    @Nullable private CandidateWord pressedCandidate;
+
     private final RectF candidateRect = new RectF();
     private Optional<Integer> pressedRowIndex = Optional.absent();
 
@@ -144,8 +137,8 @@ abstract class CandidateWordView extends View implements MemoryManageable {
       // users fail to select a candidate by unconscious small movement of tap point.
       // (i.e. give hysterisis for noise reduction)
       // Needs UX study.
-      candidateRect.set(span.getLeft(), row.getTop(),
-                        span.getRight(), row.getTop() + row.getHeight());
+      candidateRect.set(
+          span.getLeft(), row.getTop(), span.getRight(), row.getTop() + row.getHeight());
     }
 
     void reset() {
@@ -159,11 +152,10 @@ abstract class CandidateWordView extends View implements MemoryManageable {
     }
 
     /**
-     * Checks if a down event is fired inside a candidate rectangle.
-     * If so, begin pressing it.
+     * Checks if a down event is fired inside a candidate rectangle. If so, begin pressing it.
      *
-     * It is assumed that rows are stored in up-to-down order,
-     * and spans are in left-to-right order.
+     * <p>It is assumed that rows are stored in up-to-down order, and spans are in left-to-right
+     * order.
      *
      * @param scrolledX X coordinate of down event point including scroll offset
      * @param scrolledY Y coordinate of down event point including scroll offset
@@ -254,33 +246,45 @@ abstract class CandidateWordView extends View implements MemoryManageable {
     }
   }
 
-  /**
-   * Polymorphic behavior based on scroll orientation.
-   */
+  /** Polymorphic behavior based on scroll orientation. */
   // TODO(hidehiko): rename OrientationTrait to OrientationTraits.
   interface OrientationTrait {
-    /** @return scroll position of which direction corresponds to the orientation. */
+    /**
+     * @return scroll position of which direction corresponds to the orientation.
+     */
     int getScrollPosition(View view);
 
-    /** @return the projected value. */
+    /**
+     * @return the projected value.
+     */
     float projectVector(float x, float y);
 
     /** Scrolls to {@code position}. {@code position} is applied to corresponding axis. */
     void scrollTo(View view, int position);
 
-    /** @return left or top position based on the orientation. */
+    /**
+     * @return left or top position based on the orientation.
+     */
     float getCandidatePosition(Row row, Span span);
 
-    /** @return width or height based on the orientation. */
+    /**
+     * @return width or height based on the orientation.
+     */
     float getCandidateLength(Row row, Span span);
 
-    /** @return view's width or height based on the orientation. */
+    /**
+     * @return view's width or height based on the orientation.
+     */
     int getViewLength(View view);
 
-    /** @return the page size of the layout for the scroll orientation. */
+    /**
+     * @return the page size of the layout for the scroll orientation.
+     */
     int getPageSize(CandidateLayouter layouter);
 
-    /** @return the content size for the scroll orientation of the layout. 0 for absent. */
+    /**
+     * @return the content size for the scroll orientation of the layout. 0 for absent.
+     */
     float getContentSize(Optional<CandidateLayout> layout);
   }
 
@@ -290,30 +294,37 @@ abstract class CandidateWordView extends View implements MemoryManageable {
       public int getScrollPosition(View view) {
         return view.getScrollX();
       }
+
       @Override
       public void scrollTo(View view, int position) {
         view.scrollTo(position, 0);
       }
+
       @Override
       public float getCandidatePosition(Row row, Span span) {
         return span.getLeft();
       }
+
       @Override
       public float getCandidateLength(Row row, Span span) {
         return span.getWidth();
       }
+
       @Override
       public int getViewLength(View view) {
         return view.getWidth();
       }
+
       @Override
       public float projectVector(float x, float y) {
         return x;
       }
+
       @Override
       public int getPageSize(CandidateLayouter layouter) {
         return Preconditions.checkNotNull(layouter).getPageWidth();
       }
+
       @Override
       public float getContentSize(Optional<CandidateLayout> layout) {
         return layout.isPresent() ? layout.get().getContentWidth() : 0;
@@ -324,30 +335,37 @@ abstract class CandidateWordView extends View implements MemoryManageable {
       public int getScrollPosition(View view) {
         return view.getScrollY();
       }
+
       @Override
       public void scrollTo(View view, int position) {
         view.scrollTo(0, position);
       }
+
       @Override
       public float getCandidatePosition(Row row, Span span) {
         return row.getTop();
       }
+
       @Override
       public float getCandidateLength(Row row, Span span) {
         return row.getHeight();
       }
+
       @Override
       public int getViewLength(View view) {
         return view.getHeight();
-          }
+      }
+
       @Override
       public float projectVector(float x, float y) {
         return y;
       }
+
       @Override
       public int getPageSize(CandidateLayouter layouter) {
         return Preconditions.checkNotNull(layouter).getPageHeight();
       }
+
       @Override
       public float getContentSize(Optional<CandidateLayout> layout) {
         return layout.isPresent() ? layout.get().getContentHeight() : 0;
@@ -382,8 +400,7 @@ abstract class CandidateWordView extends View implements MemoryManageable {
 
   protected final CarrierEmojiRenderHelper carrierEmojiRenderHelper =
       new CarrierEmojiRenderHelper(this);
-  protected final CandidateLayoutRenderer candidateLayoutRenderer =
-      new CandidateLayoutRenderer();
+  protected final CandidateLayoutRenderer candidateLayoutRenderer = new CandidateLayoutRenderer();
 
   CandidateWordGestureDetector candidateWordGestureDetector =
       new CandidateWordGestureDetector(getContext());
@@ -402,14 +419,16 @@ abstract class CandidateWordView extends View implements MemoryManageable {
     this.orientationTrait = orientationFeature;
   }
 
-  CandidateWordView(Context context, AttributeSet attributeSet,
-                    OrientationTrait orientationTrait) {
+  CandidateWordView(Context context, AttributeSet attributeSet, OrientationTrait orientationTrait) {
     super(context, attributeSet);
     this.orientationTrait = orientationTrait;
   }
 
-  CandidateWordView(Context context, AttributeSet attributeSet, int defaultStyle,
-                    OrientationTrait orientationTrait) {
+  CandidateWordView(
+      Context context,
+      AttributeSet attributeSet,
+      int defaultStyle,
+      OrientationTrait orientationTrait) {
     super(context, attributeSet, defaultStyle);
     this.orientationTrait = orientationTrait;
   }
@@ -524,8 +543,10 @@ abstract class CandidateWordView extends View implements MemoryManageable {
     try {
       canvas.translate(horizontalPadding, 0);
       CandidateWord pressedCandidate = candidateWordGestureDetector.getPressedCandidate();
-      int pressedCandidateIndex = (pressedCandidate != null && pressedCandidate.hasIndex())
-          ? pressedCandidate.getIndex() : -1;
+      int pressedCandidateIndex =
+          (pressedCandidate != null && pressedCandidate.hasIndex())
+              ? pressedCandidate.getIndex()
+              : -1;
       candidateLayoutRenderer.drawCandidateLayout(
           canvas, calculatedLayout, pressedCandidateIndex, carrierEmojiRenderHelper);
     } finally {
@@ -563,13 +584,14 @@ abstract class CandidateWordView extends View implements MemoryManageable {
     super.computeScroll();
   }
 
-  @VisibleForTesting int getUpdatedScrollPosition(Row row, Span span) {
+  @VisibleForTesting
+  int getUpdatedScrollPosition(Row row, Span span) {
     int scrollPosition = orientationTrait.getScrollPosition(this);
     float candidatePosition = orientationTrait.getCandidatePosition(row, span);
     float candidateLength = orientationTrait.getCandidateLength(row, span);
     int viewLength = orientationTrait.getViewLength(this);
-    if (candidatePosition < scrollPosition ||
-        candidatePosition + candidateLength > scrollPosition + viewLength) {
+    if (candidatePosition < scrollPosition
+        || candidatePosition + candidateLength > scrollPosition + viewLength) {
       return (int) candidatePosition;
     } else {
       return scrollPosition;
@@ -577,14 +599,15 @@ abstract class CandidateWordView extends View implements MemoryManageable {
   }
 
   /**
-   * If focused candidate is invisible (including partial invisible),
-   * update scroll position to see the candidate.
+   * If focused candidate is invisible (including partial invisible), update scroll position to see
+   * the candidate.
    */
   protected void updateScrollPositionBasedOnFocusedIndex() {
     int scrollPosition = 0;
     if (calculatedLayout != null && currentCandidateList != null) {
       int focusedIndex = currentCandidateList.getFocusedIndex();
-      row_loop: for (Row row : calculatedLayout.getRowList()) {
+      row_loop:
+      for (Row row : calculatedLayout.getRowList()) {
         for (Span span : row.getSpanList()) {
           if (!span.getCandidateWord().isPresent()) {
             continue;
@@ -633,18 +656,15 @@ abstract class CandidateWordView extends View implements MemoryManageable {
   /**
    * Updates the layouter, and also updates the calculatedLayout based on the updated layouter.
    *
-   * TODO(hidehiko): This method is remaining here to reduce a CL size smaller
-   * in order to make refactoring step by step. This will be cleaned when CandidateWordView
-   * is refactored.
+   * <p>TODO(hidehiko): This method is remaining here to reduce a CL size smaller in order to make
+   * refactoring step by step. This will be cleaned when CandidateWordView is refactored.
    */
   protected final void updateLayouter() {
     updateCalculatedLayout();
     updateScroller();
   }
 
-  /**
-   * Updates the calculatedLayout if possible.
-   */
+  /** Updates the calculatedLayout if possible. */
   private void updateCalculatedLayout() {
     if (currentCandidateList == null || layouter == null) {
       calculatedLayout = null;
@@ -686,14 +706,14 @@ abstract class CandidateWordView extends View implements MemoryManageable {
   }
 
   private void resetSpanBackground() {
-    Drawable drawable = (backgroundDrawableType != null)
-        ? backgroundDrawableFactory.getDrawable(backgroundDrawableType) : null;
+    Drawable drawable =
+        (backgroundDrawableType != null)
+            ? backgroundDrawableFactory.getDrawable(backgroundDrawableType)
+            : null;
     candidateLayoutRenderer.setSpanBackgroundDrawable(Optional.fromNullable(drawable));
   }
 
-  /**
-   * Returns a Drawable which should be set as the view's background.
-   */
+  /** Returns a Drawable which should be set as the view's background. */
   protected abstract Drawable getViewBackgroundDrawable(Skin skin);
 
   @SuppressWarnings("deprecation")
@@ -701,8 +721,7 @@ abstract class CandidateWordView extends View implements MemoryManageable {
     backgroundDrawableFactory.setSkin(Preconditions.checkNotNull(skin));
     resetSpanBackground();
     candidateLayoutRenderer.setSkin(skin);
-    setBackgroundDrawable(
-        getViewBackgroundDrawable(skin).getConstantState().newDrawable());
+    setBackgroundDrawable(getViewBackgroundDrawable(skin).getConstantState().newDrawable());
   }
 
   @Override

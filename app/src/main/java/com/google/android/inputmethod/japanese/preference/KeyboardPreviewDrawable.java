@@ -29,20 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.preference;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
-import org.mozc.android.inputmethod.japanese.keyboard.BackgroundDrawableFactory;
-import org.mozc.android.inputmethod.japanese.keyboard.KeyState.MetaState;
-import org.mozc.android.inputmethod.japanese.keyboard.Keyboard;
-import org.mozc.android.inputmethod.japanese.keyboard.Keyboard.KeyboardSpecification;
-import org.mozc.android.inputmethod.japanese.keyboard.KeyboardParser;
-import org.mozc.android.inputmethod.japanese.keyboard.KeyboardViewBackgroundSurface;
-import org.mozc.android.inputmethod.japanese.preference.ClientSidePreference.KeyboardLayout;
-import org.mozc.android.inputmethod.japanese.R;
-import org.mozc.android.inputmethod.japanese.view.DrawableCache;
-import org.mozc.android.inputmethod.japanese.view.Skin;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -52,47 +38,47 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-
-import org.xmlpull.v1.XmlPullParserException;
-
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.WeakHashMap;
-
 import javax.annotation.Nullable;
+import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.keyboard.BackgroundDrawableFactory;
+import org.mozc.android.inputmethod.japanese.keyboard.KeyState.MetaState;
+import org.mozc.android.inputmethod.japanese.keyboard.Keyboard;
+import org.mozc.android.inputmethod.japanese.keyboard.Keyboard.KeyboardSpecification;
+import org.mozc.android.inputmethod.japanese.keyboard.KeyboardParser;
+import org.mozc.android.inputmethod.japanese.keyboard.KeyboardViewBackgroundSurface;
+import org.mozc.android.inputmethod.japanese.preference.ClientSidePreference.KeyboardLayout;
+import org.mozc.android.inputmethod.japanese.view.DrawableCache;
+import org.mozc.android.inputmethod.japanese.view.Skin;
+import org.xmlpull.v1.XmlPullParserException;
 
-/**
- * A Drawable to render keyboard preview.
- *
- */
+/** A Drawable to render keyboard preview. */
 public class KeyboardPreviewDrawable extends Drawable {
 
   /**
    * The key of the activity which uses the Bitmap cache.
    *
-   * In order to utilize memories, it is necessary to tell
-   * to the BitmapCache what activities use it now.
-   * The current heuristic is register the activity in its onStart
-   * and unregister it in its onStop.
-   * In theory, it should work well as long as the onStop
-   * corresponding to the already-invoked onStart is invoked without errors.
+   * <p>In order to utilize memories, it is necessary to tell to the BitmapCache what activities use
+   * it now. The current heuristic is register the activity in its onStart and unregister it in its
+   * onStop. In theory, it should work well as long as the onStop corresponding to the
+   * already-invoked onStart is invoked without errors.
    *
-   * As the last resort, we use a finalizer guardian.
-   * The instance of the key should be referred only by an Activity instance
-   * in its field. Then:
-   * - the activity can register and unregister in its onStart/onStop methods.
-   * - Even if onStop is NOT invoked accidentally, the Activity will be
-   *   collected by GC, and the key is also collected at the same time.
-   *   Then the finalize of the key will be invoked, and it will unregister
-   *   itself from Bitmap cache.
-   * - Overriding the finalizer may cause the delay of memory collecting.
-   *   However, the CacheReferenceKey is small enough (at least compared to
-   *   Activity as the Activity refers many other instances, too). So the
-   *   risk (or damage) of the remaining phantom instances should be low enough.
-   * Note: Regardless of the finalizer, if onStop is correctly invoked, the bitmap
-   * cache will be released correctly.
+   * <p>As the last resort, we use a finalizer guardian. The instance of the key should be referred
+   * only by an Activity instance in its field. Then: - the activity can register and unregister in
+   * its onStart/onStop methods. - Even if onStop is NOT invoked accidentally, the Activity will be
+   * collected by GC, and the key is also collected at the same time. Then the finalize of the key
+   * will be invoked, and it will unregister itself from Bitmap cache. - Overriding the finalizer
+   * may cause the delay of memory collecting. However, the CacheReferenceKey is small enough (at
+   * least compared to Activity as the Activity refers many other instances, too). So the risk (or
+   * damage) of the remaining phantom instances should be low enough. Note: Regardless of the
+   * finalizer, if onStop is correctly invoked, the bitmap cache will be released correctly.
    */
   static class CacheReferenceKey {
 
@@ -106,10 +92,9 @@ public class KeyboardPreviewDrawable extends Drawable {
   /**
    * Global cache of bitmap for the keyboard preview.
    *
-   * Assuming that the size of each bitmap preview is same, and skin type is globally unique,
-   * we can use global bitmap cache to keep the memory usage low.
-   * This cache also manages the referencing Activities. See {@link MozcBasePreferenceActivity}
-   * for the details.
+   * <p>Assuming that the size of each bitmap preview is same, and skin type is globally unique, we
+   * can use global bitmap cache to keep the memory usage low. This cache also manages the
+   * referencing Activities. See {@link MozcBasePreferenceActivity} for the details.
    */
   static class BitmapCache {
 
@@ -122,14 +107,14 @@ public class KeyboardPreviewDrawable extends Drawable {
     private final WeakHashMap<CacheReferenceKey, Object> referenceMap =
         new WeakHashMap<CacheReferenceKey, Object>();
 
-    private BitmapCache() {
-    }
+    private BitmapCache() {}
 
     static BitmapCache getInstance() {
       return INSTANCE;
     }
 
-    @Nullable Bitmap get(KeyboardLayout keyboardLayout, int width, int height, Skin skin) {
+    @Nullable
+    Bitmap get(KeyboardLayout keyboardLayout, int width, int height, Skin skin) {
       Preconditions.checkNotNull(skin);
       if (keyboardLayout == null || width <= 0 || height <= 0) {
         return null;
@@ -219,9 +204,14 @@ public class KeyboardPreviewDrawable extends Drawable {
     BitmapCache cache = BitmapCache.getInstance();
     Bitmap bitmap = cache.get(keyboardLayout, bounds.width(), bounds.height(), skin);
     if (bitmap == null) {
-      bitmap = createBitmap(
-          resources, specification, bounds.width(), bounds.height(),
-          resources.getDimensionPixelSize(R.dimen.pref_inputstyle_reference_width), skin);
+      bitmap =
+          createBitmap(
+              resources,
+              specification,
+              bounds.width(),
+              bounds.height(),
+              resources.getDimensionPixelSize(R.dimen.pref_inputstyle_reference_width),
+              skin);
       if (bitmap != null) {
         cache.put(keyboardLayout, skin, bitmap);
       }
@@ -240,13 +230,17 @@ public class KeyboardPreviewDrawable extends Drawable {
   /**
    * @param width width of returned {@code Bitmap}
    * @param height height of returned {@code Bitmap}
-   * @param virtualWidth virtual width of keyboard. This value is used when rendering.
-   *        virtualHeight is internally calculated based on given arguments keeping aspect ratio.
+   * @param virtualWidth virtual width of keyboard. This value is used when rendering. virtualHeight
+   *     is internally calculated based on given arguments keeping aspect ratio.
    */
   @Nullable
   private static Bitmap createBitmap(
-      Resources resources, KeyboardSpecification specification, int width, int height,
-      int virtualWidth, Skin skin) {
+      Resources resources,
+      KeyboardSpecification specification,
+      int width,
+      int height,
+      int virtualWidth,
+      Skin skin) {
     Preconditions.checkNotNull(skin);
     // Scaling is required because some icons are draw with specified fixed size.
     float scale = width / (float) virtualWidth;
@@ -264,8 +258,7 @@ public class KeyboardPreviewDrawable extends Drawable {
 
     // Fill background.
     {
-      Drawable keyboardBackground =
-          skin.windowBackgroundDrawable.getConstantState().newDrawable();
+      Drawable keyboardBackground = skin.windowBackgroundDrawable.getConstantState().newDrawable();
       keyboardBackground.setBounds(0, 0, virtualWidth, virtualHeight);
       keyboardBackground.draw(canvas);
     }
@@ -288,8 +281,7 @@ public class KeyboardPreviewDrawable extends Drawable {
   @Nullable
   private static Keyboard getParsedKeyboard(
       Resources resources, KeyboardSpecification specification, int width, int height) {
-    KeyboardParser parser = new KeyboardParser(
-        resources, width, height, specification);
+    KeyboardParser parser = new KeyboardParser(resources, width, height, specification);
     try {
       return parser.parseKeyboard();
     } catch (XmlPullParserException e) {

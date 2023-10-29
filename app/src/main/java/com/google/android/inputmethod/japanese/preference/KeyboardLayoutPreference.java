@@ -29,14 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.preference;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
-import org.mozc.android.inputmethod.japanese.keyboard.Keyboard.KeyboardSpecification;
-import org.mozc.android.inputmethod.japanese.preference.ClientSidePreference.KeyboardLayout;
-import org.mozc.android.inputmethod.japanese.R;
-import org.mozc.android.inputmethod.japanese.view.Skin;
-import org.mozc.android.inputmethod.japanese.view.SkinType;
-import com.google.common.base.Preconditions;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -56,16 +48,19 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.google.common.base.Preconditions;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
+import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.keyboard.Keyboard.KeyboardSpecification;
+import org.mozc.android.inputmethod.japanese.preference.ClientSidePreference.KeyboardLayout;
+import org.mozc.android.inputmethod.japanese.view.Skin;
+import org.mozc.android.inputmethod.japanese.view.SkinType;
 
-/**
- * Preference class for KeyboardLayout.
- *
- */
+/** Preference class for KeyboardLayout. */
 public class KeyboardLayoutPreference extends Preference {
 
   static class Item {
@@ -73,8 +68,12 @@ public class KeyboardLayoutPreference extends Preference {
     final KeyboardSpecification specification;
     final int titleResId;
     final int descriptionResId;
-    Item(KeyboardLayout keyboardLayout, KeyboardSpecification specification,
-         int titleResId, int descriptionResId) {
+
+    Item(
+        KeyboardLayout keyboardLayout,
+        KeyboardSpecification specification,
+        int titleResId,
+        int descriptionResId) {
       this.keyboardLayout = keyboardLayout;
       this.specification = specification;
       this.titleResId = titleResId;
@@ -130,9 +129,13 @@ public class KeyboardLayoutPreference extends Preference {
       TextView titleView =
           TextView.class.cast(convertView.findViewById(R.id.pref_inputstyle_item_title));
       titleView.setText(item.titleResId);
-      titleView.setTextColor(getContext().getResources().getColor(isEnabled
-          ? R.color.pref_inputstyle_title
-          : R.color.pref_inputstyle_title_disabled));
+      titleView.setTextColor(
+          getContext()
+              .getResources()
+              .getColor(
+                  isEnabled
+                      ? R.color.pref_inputstyle_title
+                      : R.color.pref_inputstyle_title_disabled));
       titleView.setEnabled(parentView.isEnabled());
 
       updateBackground(convertView, position, getActiveIndex());
@@ -161,12 +164,14 @@ public class KeyboardLayoutPreference extends Preference {
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
       // Update the description.
-      TextView descriptionView = TextView.class.cast(
-          View.class.cast(parent.getParent()).findViewById(R.id.pref_inputstyle_description));
+      TextView descriptionView =
+          TextView.class.cast(
+              View.class.cast(parent.getParent()).findViewById(R.id.pref_inputstyle_description));
       if (descriptionView != null) {
         Item item = Item.class.cast(parent.getItemAtPosition(position));
-        descriptionView.setText(Html.fromHtml(
-            descriptionView.getContext().getResources().getString(item.descriptionResId)));
+        descriptionView.setText(
+            Html.fromHtml(
+                descriptionView.getContext().getResources().getString(item.descriptionResId)));
       }
     }
 
@@ -176,22 +181,24 @@ public class KeyboardLayoutPreference extends Preference {
     }
   }
 
-  static final List<Item> itemList = Collections.unmodifiableList(Arrays.asList(
-      new Item(
-          KeyboardLayout.TWELVE_KEYS,
-          KeyboardSpecification.TWELVE_KEY_TOGGLE_FLICK_KANA,
-          R.string.pref_keyboard_layout_title_12keys,
-          R.string.pref_keyboard_layout_description_12keys),
-      new Item(
-          KeyboardLayout.QWERTY,
-          KeyboardSpecification.QWERTY_KANA,
-          R.string.pref_keyboard_layout_title_qwerty,
-          R.string.pref_keyboard_layout_description_qwerty),
-      new Item(
-          KeyboardLayout.GODAN,
-          KeyboardSpecification.GODAN_KANA,
-          R.string.pref_keyboard_layout_title_godan,
-          R.string.pref_keyboard_layout_description_godan)));
+  static final List<Item> itemList =
+      Collections.unmodifiableList(
+          Arrays.asList(
+              new Item(
+                  KeyboardLayout.TWELVE_KEYS,
+                  KeyboardSpecification.TWELVE_KEY_TOGGLE_FLICK_KANA,
+                  R.string.pref_keyboard_layout_title_12keys,
+                  R.string.pref_keyboard_layout_description_12keys),
+              new Item(
+                  KeyboardLayout.QWERTY,
+                  KeyboardSpecification.QWERTY_KANA,
+                  R.string.pref_keyboard_layout_title_qwerty,
+                  R.string.pref_keyboard_layout_description_qwerty),
+              new Item(
+                  KeyboardLayout.GODAN,
+                  KeyboardSpecification.GODAN_KANA,
+                  R.string.pref_keyboard_layout_title_godan,
+                  R.string.pref_keyboard_layout_description_godan)));
 
   private final ImageAdapter imageAdapter = new ImageAdapter(getContext().getResources());
   private final GalleryEventListener galleryEventListener = new GalleryEventListener();
@@ -253,15 +260,15 @@ public class KeyboardLayoutPreference extends Preference {
 
   @Override
   protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-    setValue(restoreValue
-        ? toKeyboardLayoutInternal(getPersistedString(null))
-        : KeyboardLayout.class.cast(defaultValue));
+    setValue(
+        restoreValue
+            ? toKeyboardLayoutInternal(getPersistedString(null))
+            : KeyboardLayout.class.cast(defaultValue));
   }
 
   /**
-   * Parses the name and returns the {@link KeyboardLayout} instance.
-   * If invalid name or {@code null} is given, the default value {@code TWELVE_KEYS} will
-   * be returned.
+   * Parses the name and returns the {@link KeyboardLayout} instance. If invalid name or {@code
+   * null} is given, the default value {@code TWELVE_KEYS} will be returned.
    */
   private KeyboardLayout toKeyboardLayoutInternal(String keyboardLayoutName) {
     if (keyboardLayoutName != null) {
@@ -316,23 +323,24 @@ public class KeyboardLayoutPreference extends Preference {
   protected void onAttachedToHierarchy(PreferenceManager preferenceManager) {
     super.onAttachedToHierarchy(preferenceManager);
     updateSkin();
-    getSharedPreferences().registerOnSharedPreferenceChangeListener(
-        sharedPreferenceChangeListener);
+    getSharedPreferences().registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
   }
 
   @Override
   protected void onPrepareForRemoval() {
-    getSharedPreferences().unregisterOnSharedPreferenceChangeListener(
-        sharedPreferenceChangeListener);
+    getSharedPreferences()
+        .unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
     super.onPrepareForRemoval();
   }
 
   void updateSkin() {
     Resources resources = getContext().getResources();
-    SkinType skinType = PreferenceUtil.getEnum(
-        getSharedPreferences(),
-        resources.getString(R.string.pref_skin_type_key),
-        SkinType.class, SkinType.valueOf(resources.getString(R.string.pref_skin_type_default)));
+    SkinType skinType =
+        PreferenceUtil.getEnum(
+            getSharedPreferences(),
+            resources.getString(R.string.pref_skin_type_key),
+            SkinType.class,
+            SkinType.valueOf(resources.getString(R.string.pref_skin_type_default)));
     imageAdapter.setSkin(skinType.getSkin(resources));
   }
 }

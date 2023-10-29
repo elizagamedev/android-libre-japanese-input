@@ -34,13 +34,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-
 import java.util.List;
 
-/**
- * Utilities to handle Mushroom protocol.
- *
- */
+/** Utilities to handle Mushroom protocol. */
 public class MushroomUtil {
 
   // Constants to handle Mushroom applications.
@@ -50,13 +46,12 @@ public class MushroomUtil {
   public static final String FIELD_ID = "field_id";
 
   // Disallow instantiation.
-  private MushroomUtil() {
-  }
+  private MushroomUtil() {}
 
   /**
    * Clears the proxy which is used to communicate between Mushroom activity and MozcService.
-   * <p>
-   * Should be called prior to launching Mushroom activity to avoid contamination of the results.
+   *
+   * <p>Should be called prior to launching Mushroom activity to avoid contamination of the results.
    */
   public static void clearProxy() {
     MushroomResultProxy resultProxy = MushroomResultProxy.getInstance();
@@ -76,8 +71,8 @@ public class MushroomUtil {
   }
 
   /**
-   * @return an {@code Intent} to launch {@code MushroomSelectionActivity} with
-   * the given parameters.
+   * @return an {@code Intent} to launch {@code MushroomSelectionActivity} with the given
+   *     parameters.
    */
   public static Intent createMushroomSelectionActivityLaunchingIntent(
       Context context, int fieldId, String replaceKey) {
@@ -89,7 +84,8 @@ public class MushroomUtil {
   }
 
   /**
-   * @return an {@code Intent} to launch the given {@code packageName, name} with {@code replaceKey}.
+   * @return an {@code Intent} to launch the given {@code packageName, name} with {@code
+   *     replaceKey}.
    */
   public static Intent createMushroomLaunchingIntent(
       String packageName, String name, String replaceKey) {
@@ -117,9 +113,7 @@ public class MushroomUtil {
     return intent.getIntExtra(FIELD_ID, -1);
   }
 
-  /**
-   * Sends the result from Mushroom Application to ImeService via MushroomResultProxy.
-   */
+  /** Sends the result from Mushroom Application to ImeService via MushroomResultProxy. */
   static void sendReplaceKey(Intent originalIntent, Intent resultIntent) {
     // Retrieve fieldId from the original intent.
     int fieldId = MushroomUtil.getFieldId(originalIntent);

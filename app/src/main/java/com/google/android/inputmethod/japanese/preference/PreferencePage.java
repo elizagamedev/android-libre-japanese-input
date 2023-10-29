@@ -29,18 +29,17 @@
 
 package org.mozc.android.inputmethod.japanese.preference;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
-import org.mozc.android.inputmethod.japanese.R;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.R;
 
 /**
  * Corresponds to a preference fragment.
  *
- * FLAT is used for classic UI, which shows all preferences.
+ * <p>FLAT is used for classic UI, which shows all preferences.
  */
 enum PreferencePage {
   FLAT,
@@ -60,19 +59,24 @@ enum PreferencePage {
 
   /**
    * Returns resouce id list which corresponds to given {@link PreferencePage}.
+   *
    * @param page a page for resource ids
    * @param isDebug true if this is debug mode. Effective only when {@code page} is FLAT.
-   * @param useUsageStats true if usage stats / user feedback page should be shown.
-   *                      Effective only when {@code page} is FLAT.
+   * @param useUsageStats true if usage stats / user feedback page should be shown. Effective only
+   *     when {@code page} is FLAT.
    * @return resource id list
    */
   public static List<Integer> getResourceIdList(
       PreferencePage page, boolean isDebug, boolean useUsageStats) {
     switch (page) {
       case FLAT:
-        List<Integer> result = new ArrayList<Integer>(Arrays.asList(
-            R.xml.pref_software_keyboard, R.xml.pref_input_support, R.xml.pref_conversion,
-            R.xml.pref_dictionary));
+        List<Integer> result =
+            new ArrayList<Integer>(
+                Arrays.asList(
+                    R.xml.pref_software_keyboard,
+                    R.xml.pref_input_support,
+                    R.xml.pref_conversion,
+                    R.xml.pref_dictionary));
         if (useUsageStats) {
           result.add(R.xml.pref_user_feedback);
         }

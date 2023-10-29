@@ -29,15 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.ui;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import org.mozc.android.inputmethod.japanese.mushroom.MushroomUtil;
-import org.mozc.android.inputmethod.japanese.R;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -49,19 +40,21 @@ import android.content.res.Resources;
 import android.os.IBinder;
 import android.view.InflateException;
 import android.view.WindowManager;
-
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import java.util.Collections;
 import java.util.List;
+import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.mushroom.MushroomUtil;
 
-/**
- * UI component implementation for the Mozc's menu dialog.
- *
- */
+/** UI component implementation for the Mozc's menu dialog. */
 public class MenuDialog {
 
-  /**
-   * Listener interface for the menu dialog.
-   */
+  /** Listener interface for the menu dialog. */
   public static interface MenuDialogListener {
 
     /** Invoked when the dialog is shown. */
@@ -80,15 +73,15 @@ public class MenuDialog {
     public void onShowMushroomSelectionDialogSelected(Context context);
   }
 
-  /**
-   * Internal implementation of callback invocation dispatching.
-   */
+  /** Internal implementation of callback invocation dispatching. */
   @VisibleForTesting
   static class MenuDialogListenerHandler
       implements OnClickListener, OnDismissListener, OnShowListener {
     private final Context context;
+
     /** Table to convert from a menu item index to a string resource id. */
     private final int[] indexToIdTable;
+
     private final Optional<MenuDialogListener> listener;
 
     MenuDialogListenerHandler(
@@ -157,15 +150,15 @@ public class MenuDialog {
       indexToIdTable[i] = id;
     }
 
-    listenerHandler = new MenuDialogListenerHandler(
-        context, indexToIdTable, listener);
+    listenerHandler = new MenuDialogListenerHandler(context, indexToIdTable, listener);
 
     AlertDialog tempDialog = null;
     try {
-      tempDialog = new AlertDialog.Builder(context)
-          .setTitle(R.string.menu_dialog_title)
-          .setItems(menuTextList, listenerHandler)
-          .create();
+      tempDialog =
+          new AlertDialog.Builder(context)
+              .setTitle(R.string.menu_dialog_title)
+              .setItems(menuTextList, listenerHandler)
+              .create();
       tempDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
       tempDialog.getWindow().getAttributes().dimAmount = 0.60f;
       tempDialog.setOnDismissListener(listenerHandler);

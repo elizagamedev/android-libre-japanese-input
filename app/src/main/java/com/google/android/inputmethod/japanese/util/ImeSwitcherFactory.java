@@ -29,11 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.util;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Preconditions;
-
 import android.annotation.TargetApi;
 import android.inputmethodservice.InputMethodService;
 import android.os.Build;
@@ -41,40 +36,34 @@ import android.os.IBinder;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
-
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Preconditions;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
+import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
 
 /**
  * Factory class for IME switching.
  *
- * Typical usage ;
- * {@code
- * ImeSwitcher switcher = ImeSwitcherFactory.getImeSwitcher(inputMethodService);
- * boolean isVoiceAvailable = switcher.isVoiceImeAvailable();
- * if (isVoiceAvailable) {
- *   switcher.switchToVoiceIme("ja");
- * }
- * }
- *
+ * <p>Typical usage ; {@code ImeSwitcher switcher =
+ * ImeSwitcherFactory.getImeSwitcher(inputMethodService); boolean isVoiceAvailable =
+ * switcher.isVoiceImeAvailable(); if (isVoiceAvailable) { switcher.switchToVoiceIme("ja"); } }
  */
 public class ImeSwitcherFactory {
 
   private static final String GOOGLE_PACKAGE_ID_PREFIX = "com.google.android";
   private static final String VOICE_IME_MODE = "voice";
 
-  /**
-   * A container of an InputMethodInfo and an InputMethodSubtype.
-   */
+  /** A container of an InputMethodInfo and an InputMethodSubtype. */
   private static class InputMethodSubtypeInfo {
 
     private final InputMethodInfo inputMethodInfo;
     private final InputMethodSubtype subtype;
 
-    public InputMethodSubtypeInfo(
-        InputMethodInfo inputMethodInfo, InputMethodSubtype subtype) {
+    public InputMethodSubtypeInfo(InputMethodInfo inputMethodInfo, InputMethodSubtype subtype) {
       if (inputMethodInfo == null || subtype == null) {
         throw new NullPointerException("All the prameters must be non-null");
       }
@@ -91,36 +80,35 @@ public class ImeSwitcherFactory {
     }
   }
 
-  /**
-   * A class to switch default (==current) input method subtype.
-   */
+  /** A class to switch default (==current) input method subtype. */
   public interface ImeSwitcher {
 
     /**
      * Returns true if at least one voice IME is available.
      *
-     * Eligible voice IME subtype must match following conditions.
+     * <p>Eligible voice IME subtype must match following conditions.
+     *
      * <ul>
-     * <li>The voice IME's id has prefix "com.google.android" (for security and avoiding from
-     *     activating unexpected IME).
-     * <li>The subtype's mode is "voice".
-     * <li>The subtype is auxiliary (usually a user wants to get back to this IME when (s)he
-     *     types back key).
+     *   <li>The voice IME's id has prefix "com.google.android" (for security and avoiding from
+     *       activating unexpected IME).
+     *   <li>The subtype's mode is "voice".
+     *   <li>The subtype is auxiliary (usually a user wants to get back to this IME when (s)he types
+     *       back key).
      * </ul>
      *
-     * You don't have to call this method so frequently. Just call after IME's activation.
-     * The only way to make available an IME is to use system preference screen and when a user
-     * returns from it to an application the IME receives onStartInput.
+     * You don't have to call this method so frequently. Just call after IME's activation. The only
+     * way to make available an IME is to use system preference screen and when a user returns from
+     * it to an application the IME receives onStartInput.
      */
     public boolean isVoiceImeAvailable();
 
     /**
      * Switches to voice ime if possible
      *
-     * @param locale preferred locale. This method uses the subtype of which locale is given one
-     *        but this is best effort.
+     * @param locale preferred locale. This method uses the subtype of which locale is given one but
+     *     this is best effort.
      * @return true if target subtype is found. Note that even if switching itself fails this method
-     *         might return true.
+     *     might return true.
      */
     boolean switchToVoiceIme(String locale);
 
@@ -134,19 +122,17 @@ public class ImeSwitcherFactory {
 
     /**
      * @see InputMethodManager#shouldOfferSwitchingToNextInputMethod(IBinder)
-     *
-     * If not supported the API, returns false.
+     *     <p>If not supported the API, returns false.
      */
     boolean shouldOfferSwitchingToNextInputMethod();
   }
 
-  /**
-   * A switcher for later OS where IME subtype is available.
-   */
+  /** A switcher for later OS where IME subtype is available. */
   static class SubtypeImeSwitcher implements ImeSwitcher {
 
     interface InputMethodManagerProxy {
       Map<InputMethodInfo, List<InputMethodSubtype>> getShortcutInputMethodsAndSubtypes();
+
       void setInputMethodAndSubtype(IBinder token, String id, InputMethodSubtype subtype);
     }
 
@@ -154,23 +140,29 @@ public class ImeSwitcherFactory {
     private final InputMethodManagerProxy inputMethodManagerProxy;
 
     public SubtypeImeSwitcher(final InputMethodService inputMethodService) {
-      this(inputMethodService, new InputMethodManagerProxy() {
-        InputMethodManager inputMethodManager = MozcUtil.getInputMethodManager(inputMethodService);
-        @Override
-        public Map<InputMethodInfo, List<InputMethodSubtype>> getShortcutInputMethodsAndSubtypes() {
-          return inputMethodManager.getShortcutInputMethodsAndSubtypes();
-        }
-        @Override
-        public void setInputMethodAndSubtype(IBinder token,
-            String id, InputMethodSubtype subtype) {
-          inputMethodManager.setInputMethodAndSubtype(token, id, subtype);
-        }
-      });
+      this(
+          inputMethodService,
+          new InputMethodManagerProxy() {
+            InputMethodManager inputMethodManager =
+                MozcUtil.getInputMethodManager(inputMethodService);
+
+            @Override
+            public Map<InputMethodInfo, List<InputMethodSubtype>>
+                getShortcutInputMethodsAndSubtypes() {
+              return inputMethodManager.getShortcutInputMethodsAndSubtypes();
+            }
+
+            @Override
+            public void setInputMethodAndSubtype(
+                IBinder token, String id, InputMethodSubtype subtype) {
+              inputMethodManager.setInputMethodAndSubtype(token, id, subtype);
+            }
+          });
     }
 
     @VisibleForTesting
-    SubtypeImeSwitcher(InputMethodService inputMethodService,
-                       InputMethodManagerProxy inputMethodManagerProxy) {
+    SubtypeImeSwitcher(
+        InputMethodService inputMethodService, InputMethodManagerProxy inputMethodManagerProxy) {
       this.inputMethodService = inputMethodService;
       this.inputMethodManagerProxy = inputMethodManagerProxy;
     }
@@ -186,7 +178,7 @@ public class ImeSwitcherFactory {
     private InputMethodSubtypeInfo getVoiceInputMethod(String locale) {
       InputMethodSubtypeInfo fallBack = null;
       for (Map.Entry<InputMethodInfo, List<InputMethodSubtype>> inputmethod :
-           inputMethodManagerProxy.getShortcutInputMethodsAndSubtypes().entrySet()) {
+          inputMethodManagerProxy.getShortcutInputMethodsAndSubtypes().entrySet()) {
         InputMethodInfo inputMethodInfo = inputmethod.getKey();
         if (!inputMethodInfo.getComponent().getPackageName().startsWith(GOOGLE_PACKAGE_ID_PREFIX)) {
           continue;
@@ -217,9 +209,7 @@ public class ImeSwitcherFactory {
         return false;
       }
       inputMethodManagerProxy.setInputMethodAndSubtype(
-          getToken(),
-          inputMethod.getInputMethodInfo().getId(),
-          inputMethod.getSubtype());
+          getToken(), inputMethod.getInputMethodInfo().getId(), inputMethod.getSubtype());
       return true;
     }
 
@@ -234,9 +224,7 @@ public class ImeSwitcherFactory {
     }
   }
 
-  /**
-   * A switcher for much later OS where switchToNextInputMethod is available.
-   */
+  /** A switcher for much later OS where switchToNextInputMethod is available. */
   @TargetApi(16)
   static class ImeSwitcher16 extends SubtypeImeSwitcher {
 
@@ -247,13 +235,11 @@ public class ImeSwitcherFactory {
     @Override
     public boolean switchToNextInputMethod(boolean onlyCurrentIme) {
       return MozcUtil.getInputMethodManager(inputMethodService)
-                 .switchToNextInputMethod(getToken(), onlyCurrentIme);
+          .switchToNextInputMethod(getToken(), onlyCurrentIme);
     }
   }
 
-  /**
-   * A switcher for much later OS where switchToNextInputMethod is available.
-   */
+  /** A switcher for much later OS where switchToNextInputMethod is available. */
   @TargetApi(19)
   static class ImeSwitcher21 extends ImeSwitcher16 {
 
@@ -290,9 +276,7 @@ public class ImeSwitcherFactory {
     switcherConstructor = constructor;
   }
 
-  /**
-   * Gets an {@link ImeSwitcher}.
-   */
+  /** Gets an {@link ImeSwitcher}. */
   public static ImeSwitcher getImeSwitcher(InputMethodService inputMethodService) {
     Preconditions.checkNotNull(inputMethodService);
     if (switcherConstructor != null) {

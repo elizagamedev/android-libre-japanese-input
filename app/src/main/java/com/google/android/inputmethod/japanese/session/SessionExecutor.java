@@ -29,10 +29,25 @@
 
 package org.mozc.android.inputmethod.japanese.session;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CountDownLatch;
 import org.mozc.android.inputmethod.japanese.KeycodeConverter.KeyEventInterface;
 import org.mozc.android.inputmethod.japanese.MozcLog;
 import org.mozc.android.inputmethod.japanese.MozcUtil;
-import org.mozc.android.inputmethod.japanese.R;
 import org.mozc.android.inputmethod.japanese.ViewManagerInterface.LayoutAdjustment;
 import org.mozc.android.inputmethod.japanese.preference.ClientSidePreference;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands;
@@ -53,36 +68,15 @@ import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.SessionComma
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoConfig.Config;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommand;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommandStatus;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-import com.google.protobuf.ByteString;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Looper;
-import android.os.Message;
-
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.CountDownLatch;
 
 /**
- * This class handles asynchronous and synchronous execution of command evaluation based on
- * {@link SessionHandler}.
+ * This class handles asynchronous and synchronous execution of command evaluation based on {@link
+ * SessionHandler}.
  *
- * All execution is done on the single worker thread (not the UI thread). For asynchronous
+ * <p>All execution is done on the single worker thread (not the UI thread). For asynchronous
  * execution, an evaluation task is sent to the worker thread, and the method returns immediately.
- * For synchronous execution, a task is sent to the worker thread, too, but it waits the
- * execution of the task (and pending tasks which have been sent before the task),
- * and then returns.
- *
+ * For synchronous execution, a task is sent to the worker thread, too, but it waits the execution
+ * of the task (and pending tasks which have been sent before the task), and then returns.
  */
 public class SessionExecutor {
 
@@ -111,13 +105,14 @@ public class SessionExecutor {
   }
 
   /**
-   * Replaces the singleton instance to {@code executor} so {@code getInstance} family
-   * returns the new instance.
+   * Replaces the singleton instance to {@code executor} so {@code getInstance} family returns the
+   * new instance.
+   *
    * @param executor the new instance to replace the old one.
    * @return the old instance.
    */
-  @VisibleForTesting public static Optional<SessionExecutor> setInstanceForTest(
-      Optional<SessionExecutor> executor) {
+  @VisibleForTesting
+  public static Optional<SessionExecutor> setInstanceForTest(Optional<SessionExecutor> executor) {
     synchronized (SessionExecutor.class) {
       Optional<SessionExecutor> old = instance;
       instance = Preconditions.checkNotNull(executor);
@@ -126,9 +121,8 @@ public class SessionExecutor {
   }
 
   /**
-   * Returns an instance of {@link SessionExecutor}.
-   * This method may return an instance without initialization, assuming it will be initialized
-   * by client in appropriate timing.
+   * Returns an instance of {@link SessionExecutor}. This method may return an instance without
+   * initialization, assuming it will be initialized by client in appropriate timing.
    */
   public static SessionExecutor getInstance(Context applicationContext) {
     return getInstanceInternal(
@@ -146,6 +140,7 @@ public class SessionExecutor {
   }
 
   private static volatile Optional<HandlerThread> sessionHandlerThread = Optional.absent();
+
   private static HandlerThread getHandlerThread() {
     Optional<HandlerThread> result = sessionHandlerThread;
     if (!result.isPresent()) {
@@ -162,14 +157,13 @@ public class SessionExecutor {
     return result.get();
   }
 
-  /**
-   * An interface to accept the result of asynchronous evaluation.
-   */
+  /** An interface to accept the result of asynchronous evaluation. */
   public interface EvaluationCallback {
     void onCompleted(Optional<Command> command, Optional<KeyEventInterface> triggeringKeyEvent);
   }
 
-  @VisibleForTesting static class AsynchronousEvaluationContext {
+  @VisibleForTesting
+  static class AsynchronousEvaluationContext {
 
     // For asynchronous evaluation, we set the sessionId in the callback running on the worker
     // thread. So, this class has Input.Builer as an argument for an evaluation, while
@@ -181,11 +175,12 @@ public class SessionExecutor {
     final Optional<EvaluationCallback> callback;
     final Optional<Handler> callbackHandler;
 
-    AsynchronousEvaluationContext(long timeStamp,
-                                  Input.Builder inputBuilder,
-                                  Optional<KeyEventInterface> triggeringKeyEvent,
-                                  Optional<EvaluationCallback> callback,
-                                  Optional<Handler> callbackHandler) {
+    AsynchronousEvaluationContext(
+        long timeStamp,
+        Input.Builder inputBuilder,
+        Optional<KeyEventInterface> triggeringKeyEvent,
+        Optional<EvaluationCallback> callback,
+        Optional<Handler> callbackHandler) {
       this.timeStamp = timeStamp;
       this.inputBuilder = Preconditions.checkNotNull(inputBuilder);
       this.triggeringKeyEvent = Preconditions.checkNotNull(triggeringKeyEvent);
@@ -194,7 +189,8 @@ public class SessionExecutor {
     }
   }
 
-  @VisibleForTesting static class SynchronousEvaluationContext {
+  @VisibleForTesting
+  static class SynchronousEvaluationContext {
 
     final Input input;
     volatile Optional<Command> outCommand = Optional.absent();
@@ -207,91 +203,81 @@ public class SessionExecutor {
   }
 
   /** Context class just lines handler queue. */
-  @VisibleForTesting static class KeyEventCallbackContext {
+  @VisibleForTesting
+  static class KeyEventCallbackContext {
 
     final KeyEventInterface triggeringKeyEvent;
     final EvaluationCallback callback;
     final Handler callbackHandler;
 
-    KeyEventCallbackContext(KeyEventInterface triggeringKeyEvent,
-                            EvaluationCallback callback,
-                            Handler callbackHandler) {
+    KeyEventCallbackContext(
+        KeyEventInterface triggeringKeyEvent,
+        EvaluationCallback callback,
+        Handler callbackHandler) {
       this.triggeringKeyEvent = Preconditions.checkNotNull(triggeringKeyEvent);
       this.callback = Preconditions.checkNotNull(callback);
       this.callbackHandler = Preconditions.checkNotNull(callbackHandler);
     }
   }
 
-
   /**
    * A core implementation of evaluation executing process.
    *
-   * <p>This class takes messages from the UI thread. By using {@link SessionHandler},
-   * it evaluates the {@link Input} in a message, and then returns the result with notifying
-   * the UI thread if necessary.
-   * All evaluations should be done with this class in order to keep evaluation in the incoming
-   * order.
+   * <p>This class takes messages from the UI thread. By using {@link SessionHandler}, it evaluates
+   * the {@link Input} in a message, and then returns the result with notifying the UI thread if
+   * necessary. All evaluations should be done with this class in order to keep evaluation in the
+   * incoming order.
    */
-  @VisibleForTesting static class ExecutorMainCallback implements Handler.Callback {
+  @VisibleForTesting
+  static class ExecutorMainCallback implements Handler.Callback {
 
     /**
-     * Initializes the currently connected sesion handler.
-     * We need to initialize the current session handler in the executor thread due to
-     * performance reason. This message should be run before any other messages.
+     * Initializes the currently connected sesion handler. We need to initialize the current session
+     * handler in the executor thread due to performance reason. This message should be run before
+     * any other messages.
      */
     static final int INITIALIZE_SESSION_HANDLER = 0;
 
-    /**
-     * Deletes the session.
-     */
+    /** Deletes the session. */
     static final int DELETE_SESSION = 1;
 
-    /**
-     * Evaluates the command asynchronously.
-     */
+    /** Evaluates the command asynchronously. */
     static final int EVALUATE_ASYNCHRONOUSLY = 2;
 
     /**
-     * Evaluates the command asynchronously as similar to {@code EVALUATE_ASYNCHRONOUSLY}.
-     * The difference from it is this should be used for the actual "key" event, such as
-     * "hit 'A' key," "hit 'BACKSPACE'", "hit 'SPACEKEY'" or something.
+     * Evaluates the command asynchronously as similar to {@code EVALUATE_ASYNCHRONOUSLY}. The
+     * difference from it is this should be used for the actual "key" event, such as "hit 'A' key,"
+     * "hit 'BACKSPACE'", "hit 'SPACEKEY'" or something.
      *
-     * Note: this is used to figure out whether it is ok to skip some heavier instruction
-     * in the server.
+     * <p>Note: this is used to figure out whether it is ok to skip some heavier instruction in the
+     * server.
      */
     static final int EVALUATE_KEYEVENT_ASYNCHRONOUSLY = 3;
 
-    /**
-     * Evaluates the command synchronously.
-     */
+    /** Evaluates the command synchronously. */
     static final int EVALUATE_SYNCHRONOUSLY = 4;
 
-    /**
-     * Updates the current request, and notify it to the server.
-     */
+    /** Updates the current request, and notify it to the server. */
     static final int UPDATE_REQUEST = 5;
 
-    /**
-     * Just pass a message to callback.
-     */
+    /** Just pass a message to callback. */
     static final int PASS_TO_CALLBACK = 6;
 
     @VisibleForTesting static final long INVALID_SESSION_ID = 0;
 
     // TODO(exv): ensure list is exhaustive
-    /**
-     * A set of CommandType which don't need session id.
-     */
+    /** A set of CommandType which don't need session id. */
     private static final Set<CommandType> SESSION_INDEPENDENT_COMMAND_TYPE_SET =
-        Collections.unmodifiableSet(EnumSet.of(
-            CommandType.NO_OPERATION,
-            CommandType.SET_CONFIG,
-            CommandType.GET_CONFIG,
-            CommandType.CLEAR_USER_HISTORY,
-            CommandType.CLEAR_USER_PREDICTION,
-            CommandType.CLEAR_UNUSED_USER_PREDICTION,
-            CommandType.RELOAD,
-            CommandType.SEND_USER_DICTIONARY_COMMAND));
+        Collections.unmodifiableSet(
+            EnumSet.of(
+                CommandType.NO_OPERATION,
+                CommandType.SET_CONFIG,
+                CommandType.GET_CONFIG,
+                CommandType.CLEAR_USER_HISTORY,
+                CommandType.CLEAR_USER_PREDICTION,
+                CommandType.CLEAR_UNUSED_USER_PREDICTION,
+                CommandType.RELOAD,
+                CommandType.SEND_USER_DICTIONARY_COMMAND));
 
     private final SessionHandler sessionHandler;
 
@@ -303,7 +289,8 @@ public class SessionExecutor {
     // The logging for debugging is disabled by default.
     boolean isLogging = false;
 
-    @VisibleForTesting ExecutorMainCallback(SessionHandler sessionHandler) {
+    @VisibleForTesting
+    ExecutorMainCallback(SessionHandler sessionHandler) {
       this.sessionHandler = Preconditions.checkNotNull(sessionHandler);
     }
 
@@ -342,10 +329,8 @@ public class SessionExecutor {
     }
 
     private Command evaluate(Input input) {
-      Command inCommand = Command.newBuilder()
-          .setInput(input)
-          .setOutput(Output.getDefaultInstance())
-          .build();
+      Command inCommand =
+          Command.newBuilder().setInput(input).setOutput(Output.getDefaultInstance()).build();
       // Note that toString() of ProtocolBuffers' message is very heavy.
       if (isLogging) {
         MozcCommandDebugger.inLog(inCommand);
@@ -357,17 +342,20 @@ public class SessionExecutor {
       return outCommand;
     }
 
-    @VisibleForTesting void ensureSession() {
+    @VisibleForTesting
+    void ensureSession() {
       if (sessionId != INVALID_SESSION_ID) {
         return;
       }
 
       // Send CREATE_SESSION command and keep the returned sessionId.
-      Input input = Input.newBuilder()
-          .setType(CommandType.CREATE_SESSION)
-          .setCapability(Capability.newBuilder()
-              .setTextDeletion(TextDeletionCapabilityType.DELETE_PRECEDING_TEXT))
-          .build();
+      Input input =
+          Input.newBuilder()
+              .setType(CommandType.CREATE_SESSION)
+              .setCapability(
+                  Capability.newBuilder()
+                      .setTextDeletion(TextDeletionCapabilityType.DELETE_PRECEDING_TEXT))
+              .build();
       sessionId = evaluate(input).getOutput().getId();
 
       // Just after session creation, we send the default "request" to the server,
@@ -377,11 +365,12 @@ public class SessionExecutor {
       Request.Builder builder = Request.newBuilder();
       MozcUtil.setSoftwareKeyboardRequest(builder);
       request = Optional.of(builder);
-      evaluate(Input.newBuilder()
-          .setId(sessionId)
-          .setType(CommandType.SET_REQUEST)
-          .setRequest(request.get())
-          .build());
+      evaluate(
+          Input.newBuilder()
+              .setId(sessionId)
+              .setType(CommandType.SET_REQUEST)
+              .setRequest(request.get())
+              .build());
     }
 
     void deleteSession() {
@@ -389,10 +378,7 @@ public class SessionExecutor {
         return;
       }
 
-      Input input = Input.newBuilder()
-          .setType(CommandType.DELETE_SESSION)
-          .setId(sessionId)
-          .build();
+      Input input = Input.newBuilder().setType(CommandType.DELETE_SESSION).setId(sessionId).build();
       evaluate(input);
       sessionId = INVALID_SESSION_ID;
       request = Optional.<Request.Builder>absent();
@@ -401,15 +387,16 @@ public class SessionExecutor {
     /**
      * Returns {@code true} iff the given {@code output} is squashable by following output.
      *
-     * <p>Here, a squashable output A may be dropped if the next output B is sent before the
-     * UI thread processes A (for performance reason).
+     * <p>Here, a squashable output A may be dropped if the next output B is sent before the UI
+     * thread processes A (for performance reason).
      *
      * <p>{@link Output} consists from both fields which can be overwritten by following outputs
      * (e.g. composing text, a candidate list), and/or ones which cannot be (e.g. conversion
-     * result). Squashing will happen when an output consists from only overwritable fields and
-     * then another output, which will overwrite the UI change caused by the older output, comes.
+     * result). Squashing will happen when an output consists from only overwritable fields and then
+     * another output, which will overwrite the UI change caused by the older output, comes.
      */
-    @VisibleForTesting static boolean isSquashableOutput(Output output) {
+    @VisibleForTesting
+    static boolean isSquashableOutput(Output output) {
       // - If the output contains a result, it is not squashable because it is necessary
       //   to commit the string to the client application.
       // - If it has deletion_range, it is not squashable either because it is necessary
@@ -428,15 +415,17 @@ public class SessionExecutor {
     }
 
     /**
-     * @return {@code true} if the given {@code inputBuilder} needs to be set session id.
-     *   Otherwise {@code false}.
+     * @return {@code true} if the given {@code inputBuilder} needs to be set session id. Otherwise
+     *     {@code false}.
      */
-    @VisibleForTesting static boolean isSessionIdRequired(InputOrBuilder input) {
+    @VisibleForTesting
+    static boolean isSessionIdRequired(InputOrBuilder input) {
       return !SESSION_INDEPENDENT_COMMAND_TYPE_SET.contains(input.getType());
     }
 
-    @VisibleForTesting void evaluateAsynchronously(AsynchronousEvaluationContext context,
-                                                   Handler sessionExecutorHandler) {
+    @VisibleForTesting
+    void evaluateAsynchronously(
+        AsynchronousEvaluationContext context, Handler sessionExecutorHandler) {
       // Before the evaluation, we remove all pending squashable result callbacks for performance
       // reason of less powerful devices.
       Input.Builder inputBuilder = context.inputBuilder;
@@ -449,10 +438,10 @@ public class SessionExecutor {
         callbackHandler.get().removeMessages(CallbackHandler.SQUASHABLE_OUTPUT);
       }
 
-      if (inputBuilder.hasKey() &&
-          (!inputBuilder.getKey().hasSpecialKey() ||
-           inputBuilder.getKey().getSpecialKey() == SpecialKey.BACKSPACE) &&
-          sessionExecutorHandler.hasMessages(EVALUATE_KEYEVENT_ASYNCHRONOUSLY)) {
+      if (inputBuilder.hasKey()
+          && (!inputBuilder.getKey().hasSpecialKey()
+              || inputBuilder.getKey().getSpecialKey() == SpecialKey.BACKSPACE)
+          && sessionExecutorHandler.hasMessages(EVALUATE_KEYEVENT_ASYNCHRONOUSLY)) {
         // Do not request suggestion result, due to performance reason, when:
         // - the key is normal key or backspace, and
         // - there is (at least one) following event.
@@ -474,15 +463,20 @@ public class SessionExecutor {
         // We annotate if the output can be overwritten or not here, so that we can remove
         // only those messages in later evaluation.
         Output output = context.outCommand.get().getOutput();
-        Message message = callbackHandler.get().obtainMessage(
-            isSquashableOutput(output) ? CallbackHandler.SQUASHABLE_OUTPUT
-                                       : CallbackHandler.UNSQUASHABLE_OUTPUT,
-            context);
+        Message message =
+            callbackHandler
+                .get()
+                .obtainMessage(
+                    isSquashableOutput(output)
+                        ? CallbackHandler.SQUASHABLE_OUTPUT
+                        : CallbackHandler.UNSQUASHABLE_OUTPUT,
+                    context);
         callbackHandler.get().sendMessage(message);
       }
     }
 
-    @VisibleForTesting void evaluateSynchronously(SynchronousEvaluationContext context) {
+    @VisibleForTesting
+    void evaluateSynchronously(SynchronousEvaluationContext context) {
       Input input = context.input;
       Preconditions.checkArgument(
           !isSessionIdRequired(input),
@@ -490,42 +484,43 @@ public class SessionExecutor {
 
       context.outCommand = Optional.of(evaluate(input));
 
-       // The client thread is waiting for the evaluation by evaluationSynchronizer,
-       // so notify the thread via the lock.
-       context.evaluationSynchronizer.countDown();
+      // The client thread is waiting for the evaluation by evaluationSynchronizer,
+      // so notify the thread via the lock.
+      context.evaluationSynchronizer.countDown();
     }
 
-    @VisibleForTesting void updateRequest(Input.Builder inputBuilder) {
+    @VisibleForTesting
+    void updateRequest(Input.Builder inputBuilder) {
       ensureSession();
       Preconditions.checkState(request.isPresent());
       request.get().mergeFrom(inputBuilder.getRequest());
-      Input input = inputBuilder
-          .setId(sessionId)
-          .setType(CommandType.SET_REQUEST)
-          .setRequest(request.get())
-          .build();
+      Input input =
+          inputBuilder
+              .setId(sessionId)
+              .setType(CommandType.SET_REQUEST)
+              .setRequest(request.get())
+              .build();
       // Do not render the result because the result does not have preedit.
       evaluate(input);
     }
 
-    @VisibleForTesting void passToCallBack(KeyEventCallbackContext context) {
+    @VisibleForTesting
+    void passToCallBack(KeyEventCallbackContext context) {
       Handler callbackHandler = context.callbackHandler;
       Message message = callbackHandler.obtainMessage(CallbackHandler.UNSQUASHABLE_OUTPUT, context);
       callbackHandler.sendMessage(message);
     }
   }
 
-  /**
-   * A handler to process callback for asynchronous evaluation on the UI thread.
-   */
-  @VisibleForTesting static class CallbackHandler extends Handler {
-    /**
-     * The message with this {@code what} cannot be overwritten by following evaluation.
-     */
+  /** A handler to process callback for asynchronous evaluation on the UI thread. */
+  @VisibleForTesting
+  static class CallbackHandler extends Handler {
+    /** The message with this {@code what} cannot be overwritten by following evaluation. */
     static final int UNSQUASHABLE_OUTPUT = 0;
+
     /**
-     * The message with this {@code what} may be cancelled by following evaluation
-     * because the result of the message would be overwritten soon.
+     * The message with this {@code what} may be cancelled by following evaluation because the
+     * result of the message would be overwritten soon.
      */
     static final int SQUASHABLE_OUTPUT = 1;
 
@@ -558,18 +553,20 @@ public class SessionExecutor {
   private final CallbackHandler callbackHandler;
 
   // Note that theoretically the constructor should be private in order to keep this singleton,
-  @VisibleForTesting protected SessionExecutor() {
+  @VisibleForTesting
+  protected SessionExecutor() {
     callbackHandler = new CallbackHandler(Looper.getMainLooper());
   }
 
   private static void waitForQueueForEmpty(Handler handler) {
     final CountDownLatch synchronizer = new CountDownLatch(1);
-    handler.post(new Runnable() {
-      @Override
-      public void run() {
-        synchronizer.countDown();
-      }
-    });
+    handler.post(
+        new Runnable() {
+          @Override
+          public void run() {
+            synchronizer.countDown();
+          }
+        });
     try {
       synchronizer.await();
     } catch (InterruptedException exception) {
@@ -577,9 +574,7 @@ public class SessionExecutor {
     }
   }
 
-  /**
-   * Blocks until both incoming and outgoing queues become empty, for testing.
-   */
+  /** Blocks until both incoming and outgoing queues become empty, for testing. */
   @VisibleForTesting
   public void waitForAllQueuesForEmpty() {
     Preconditions.checkState(handler.isPresent());
@@ -587,17 +582,20 @@ public class SessionExecutor {
     waitForQueueForEmpty(callbackHandler);
   }
 
-  /**
-   * Resets the instance by setting {@code SessionHandler} created by the given {@code factory}.
-   */
+  /** Resets the instance by setting {@code SessionHandler} created by the given {@code factory}. */
   public void reset(SessionHandlerFactory factory, Context applicationContext) {
     Preconditions.checkNotNull(factory);
     Preconditions.checkNotNull(applicationContext);
     HandlerThread thread = getHandlerThread();
     mainCallback = Optional.of(new ExecutorMainCallback(factory.create()));
     handler = Optional.of(new Handler(thread.getLooper(), mainCallback.get()));
-    handler.get().sendMessage(handler.get().obtainMessage(
-        ExecutorMainCallback.INITIALIZE_SESSION_HANDLER, applicationContext));
+    handler
+        .get()
+        .sendMessage(
+            handler
+                .get()
+                .obtainMessage(
+                    ExecutorMainCallback.INITIALIZE_SESSION_HANDLER, applicationContext));
   }
 
   /**
@@ -609,9 +607,7 @@ public class SessionExecutor {
     }
   }
 
-  /**
-   * Remove pending evaluations from the pending queue.
-   */
+  /** Remove pending evaluations from the pending queue. */
   public void removePendingEvaluations() {
     callbackHandler.cancelTimeStamp = System.nanoTime();
     if (handler.isPresent()) {
@@ -630,89 +626,98 @@ public class SessionExecutor {
   }
 
   /**
-   * Evaluates the input caused by triggeringKeyEvent on the JNI worker thread.
-   * When the evaluation is done, callbackHandler will receive the message with the evaluation
-   * context.
+   * Evaluates the input caused by triggeringKeyEvent on the JNI worker thread. When the evaluation
+   * is done, callbackHandler will receive the message with the evaluation context.
    *
-   * This method returns immediately, i.e., even after this method's invocation,
-   * it shouldn't be assumed that the evaluation is done.
+   * <p>This method returns immediately, i.e., even after this method's invocation, it shouldn't be
+   * assumed that the evaluation is done.
    *
    * @param inputBuilder the input data
    * @param triggeringKeyEvent a key event which triggers this evaluation
    * @param callback a callback handler if needed
    */
-  @VisibleForTesting void evaluateAsynchronously(
-      Input.Builder inputBuilder, Optional<KeyEventInterface> triggeringKeyEvent,
+  @VisibleForTesting
+  void evaluateAsynchronously(
+      Input.Builder inputBuilder,
+      Optional<KeyEventInterface> triggeringKeyEvent,
       Optional<EvaluationCallback> callback) {
     Preconditions.checkState(handler.isPresent());
-    AsynchronousEvaluationContext context = new AsynchronousEvaluationContext(
-        System.nanoTime(), Preconditions.checkNotNull(inputBuilder),
-        Preconditions.checkNotNull(triggeringKeyEvent), Preconditions.checkNotNull(callback),
-        callback.isPresent() ? Optional.<Handler>of(callbackHandler) : Optional.<Handler>absent());
-    int type = (triggeringKeyEvent.isPresent())
-        ? ExecutorMainCallback.EVALUATE_KEYEVENT_ASYNCHRONOUSLY
-        : ExecutorMainCallback.EVALUATE_ASYNCHRONOUSLY;
+    AsynchronousEvaluationContext context =
+        new AsynchronousEvaluationContext(
+            System.nanoTime(),
+            Preconditions.checkNotNull(inputBuilder),
+            Preconditions.checkNotNull(triggeringKeyEvent),
+            Preconditions.checkNotNull(callback),
+            callback.isPresent()
+                ? Optional.<Handler>of(callbackHandler)
+                : Optional.<Handler>absent());
+    int type =
+        (triggeringKeyEvent.isPresent())
+            ? ExecutorMainCallback.EVALUATE_KEYEVENT_ASYNCHRONOUSLY
+            : ExecutorMainCallback.EVALUATE_ASYNCHRONOUSLY;
     handler.get().sendMessage(handler.get().obtainMessage(type, context));
   }
 
-  /**
-   * Sends {@code SEND_KEY} command to the server asynchronously.
-   */
-  public void sendKey(ProtoCommands.KeyEvent mozcKeyEvent, KeyEventInterface triggeringKeyEvent,
-                      List<TouchEvent> touchEventList, EvaluationCallback callback) {
+  /** Sends {@code SEND_KEY} command to the server asynchronously. */
+  public void sendKey(
+      ProtoCommands.KeyEvent mozcKeyEvent,
+      KeyEventInterface triggeringKeyEvent,
+      List<TouchEvent> touchEventList,
+      EvaluationCallback callback) {
     Preconditions.checkNotNull(mozcKeyEvent);
     Preconditions.checkNotNull(triggeringKeyEvent);
     Preconditions.checkNotNull(touchEventList);
     Preconditions.checkNotNull(callback);
 
-    Input.Builder inputBuilder = Input.newBuilder()
-        .setType(CommandType.SEND_KEY)
-        .setKey(mozcKeyEvent)
-        .addAllTouchEvents(touchEventList);
+    Input.Builder inputBuilder =
+        Input.newBuilder()
+            .setType(CommandType.SEND_KEY)
+            .setKey(mozcKeyEvent)
+            .addAllTouchEvents(touchEventList);
     evaluateAsynchronously(inputBuilder, Optional.of(triggeringKeyEvent), Optional.of(callback));
   }
 
-  /**
-   * Sends {@code SUBMIT} command to the server asynchronously.
-   */
+  /** Sends {@code SUBMIT} command to the server asynchronously. */
   public void submit(EvaluationCallback callback) {
     Preconditions.checkNotNull(callback);
-    Input.Builder inputBuilder = Input.newBuilder()
-        .setType(CommandType.SEND_COMMAND)
-        .setCommand(SessionCommand.newBuilder()
-            .setType(SessionCommand.CommandType.SUBMIT));
+    Input.Builder inputBuilder =
+        Input.newBuilder()
+            .setType(CommandType.SEND_COMMAND)
+            .setCommand(SessionCommand.newBuilder().setType(SessionCommand.CommandType.SUBMIT));
     evaluateAsynchronously(
         inputBuilder, Optional.<KeyEventInterface>absent(), Optional.of(callback));
   }
 
-  /**
-   * Sends {@code SWITCH_INPUT_MODE} command to the server asynchronously.
-   */
-  public void switchInputMode(Optional<KeyEventInterface> triggeringKeyEvent, CompositionMode mode,
-                              EvaluationCallback callback) {
+  /** Sends {@code SWITCH_INPUT_MODE} command to the server asynchronously. */
+  public void switchInputMode(
+      Optional<KeyEventInterface> triggeringKeyEvent,
+      CompositionMode mode,
+      EvaluationCallback callback) {
     Preconditions.checkNotNull(triggeringKeyEvent);
     Preconditions.checkNotNull(mode);
     Preconditions.checkNotNull(callback);
-    Input.Builder inputBuilder = Input.newBuilder()
-        .setType(CommandType.SEND_COMMAND)
-        .setCommand(SessionCommand.newBuilder()
-            .setType(SessionCommand.CommandType.SWITCH_INPUT_MODE)
-            .setCompositionMode(mode));
+    Input.Builder inputBuilder =
+        Input.newBuilder()
+            .setType(CommandType.SEND_COMMAND)
+            .setCommand(
+                SessionCommand.newBuilder()
+                    .setType(SessionCommand.CommandType.SWITCH_INPUT_MODE)
+                    .setCompositionMode(mode));
     evaluateAsynchronously(inputBuilder, triggeringKeyEvent, Optional.of(callback));
   }
 
-  /**
-   * Sends {@code SUBMIT_CANDIDATE} command to the server asynchronously.
-   */
-  public void submitCandidate(int candidateId, Optional<Integer> rowIndex,
-                              EvaluationCallback callback) {
+  /** Sends {@code SUBMIT_CANDIDATE} command to the server asynchronously. */
+  public void submitCandidate(
+      int candidateId, Optional<Integer> rowIndex, EvaluationCallback callback) {
     Preconditions.checkNotNull(rowIndex);
     Preconditions.checkNotNull(callback);
-    Input.Builder inputBuilder = Input.newBuilder()
-        .setType(CommandType.SEND_COMMAND)
-        .setCommand(SessionCommand.newBuilder()
-            .setType(SessionCommand.CommandType.SUBMIT_CANDIDATE)
-            .setId(candidateId));
+    Input.Builder inputBuilder =
+        Input.newBuilder()
+            .setType(CommandType.SEND_COMMAND)
+            .setCommand(
+                SessionCommand.newBuilder()
+                    .setType(SessionCommand.CommandType.SUBMIT_CANDIDATE)
+                    .setId(candidateId));
     evaluateAsynchronously(
         inputBuilder, Optional.<KeyEventInterface>absent(), Optional.of(callback));
 
@@ -761,84 +766,80 @@ public class SessionExecutor {
     }
     sendUsageStatsEvent(event);
   }
-  /**
-   * Sends {@code RESET_CONTEXT} command to the server asynchronously.
-   */
+
+  /** Sends {@code RESET_CONTEXT} command to the server asynchronously. */
   public void resetContext() {
-    Input.Builder inputBuilder = Input.newBuilder()
-        .setType(CommandType.SEND_COMMAND)
-        .setCommand(SessionCommand.newBuilder()
-            .setType(SessionCommand.CommandType.RESET_CONTEXT));
+    Input.Builder inputBuilder =
+        Input.newBuilder()
+            .setType(CommandType.SEND_COMMAND)
+            .setCommand(
+                SessionCommand.newBuilder().setType(SessionCommand.CommandType.RESET_CONTEXT));
     evaluateAsynchronously(
         inputBuilder, Optional.<KeyEventInterface>absent(), Optional.<EvaluationCallback>absent());
   }
 
-  /**
-   * Sends {@code MOVE_CURSOR} command to the server asynchronously.
-   */
+  /** Sends {@code MOVE_CURSOR} command to the server asynchronously. */
   public void moveCursor(int cursorPosition, EvaluationCallback callback) {
     Preconditions.checkNotNull(callback);
-    Input.Builder inputBuilder = Input.newBuilder()
-        .setType(CommandType.SEND_COMMAND)
-        .setCommand(SessionCommand.newBuilder()
-            .setType(ProtoCommands.SessionCommand.CommandType.MOVE_CURSOR)
-            .setCursorPosition(cursorPosition));
+    Input.Builder inputBuilder =
+        Input.newBuilder()
+            .setType(CommandType.SEND_COMMAND)
+            .setCommand(
+                SessionCommand.newBuilder()
+                    .setType(ProtoCommands.SessionCommand.CommandType.MOVE_CURSOR)
+                    .setCursorPosition(cursorPosition));
     evaluateAsynchronously(
         inputBuilder, Optional.<KeyEventInterface>absent(), Optional.of(callback));
   }
 
-  /**
-   * Sends {@code CONVERT_NEXT_PAGE} command to the server asynchronously.
-   */
+  /** Sends {@code CONVERT_NEXT_PAGE} command to the server asynchronously. */
   public void pageDown(EvaluationCallback callback) {
     Preconditions.checkNotNull(callback);
-    Input.Builder inputBuilder = Input.newBuilder()
-        .setType(CommandType.SEND_COMMAND)
-        .setCommand(SessionCommand.newBuilder()
-            .setType(SessionCommand.CommandType.CONVERT_NEXT_PAGE));
+    Input.Builder inputBuilder =
+        Input.newBuilder()
+            .setType(CommandType.SEND_COMMAND)
+            .setCommand(
+                SessionCommand.newBuilder().setType(SessionCommand.CommandType.CONVERT_NEXT_PAGE));
     evaluateAsynchronously(
         inputBuilder, Optional.<KeyEventInterface>absent(), Optional.of(callback));
   }
 
-  /**
-   * Sends {@code CONVERT_PREV_PAGE} command to the server asynchronously.
-   */
+  /** Sends {@code CONVERT_PREV_PAGE} command to the server asynchronously. */
   public void pageUp(EvaluationCallback callback) {
     Preconditions.checkNotNull(callback);
-    Input.Builder inputBuilder = Input.newBuilder()
-        .setType(CommandType.SEND_COMMAND)
-        .setCommand(SessionCommand.newBuilder()
-            .setType(SessionCommand.CommandType.CONVERT_PREV_PAGE));
+    Input.Builder inputBuilder =
+        Input.newBuilder()
+            .setType(CommandType.SEND_COMMAND)
+            .setCommand(
+                SessionCommand.newBuilder().setType(SessionCommand.CommandType.CONVERT_PREV_PAGE));
     evaluateAsynchronously(
         inputBuilder, Optional.<KeyEventInterface>absent(), Optional.of(callback));
   }
 
-  /**
-   * Sends {@code SWITCH_INPUT_FIELD_TYPE} command to the server asynchronously.
-   */
+  /** Sends {@code SWITCH_INPUT_FIELD_TYPE} command to the server asynchronously. */
   public void switchInputFieldType(InputFieldType inputFieldType) {
     Preconditions.checkNotNull(inputFieldType);
-    Input.Builder inputBuilder = Input.newBuilder()
-        .setType(CommandType.SEND_COMMAND)
-        .setCommand(SessionCommand.newBuilder()
-            .setType(ProtoCommands.SessionCommand.CommandType.SWITCH_INPUT_FIELD_TYPE))
-        .setContext(ProtoCommands.Context.newBuilder()
-            .setInputFieldType(inputFieldType));
+    Input.Builder inputBuilder =
+        Input.newBuilder()
+            .setType(CommandType.SEND_COMMAND)
+            .setCommand(
+                SessionCommand.newBuilder()
+                    .setType(ProtoCommands.SessionCommand.CommandType.SWITCH_INPUT_FIELD_TYPE))
+            .setContext(ProtoCommands.Context.newBuilder().setInputFieldType(inputFieldType));
     evaluateAsynchronously(
         inputBuilder, Optional.<KeyEventInterface>absent(), Optional.<EvaluationCallback>absent());
   }
 
-  /**
-   * Sends {@code UNDO_OR_REWIND} command to the server asynchronously.
-   */
+  /** Sends {@code UNDO_OR_REWIND} command to the server asynchronously. */
   public void undoOrRewind(List<TouchEvent> touchEventList, EvaluationCallback callback) {
     Preconditions.checkNotNull(touchEventList);
     Preconditions.checkNotNull(callback);
-    Input.Builder inputBuilder = Input.newBuilder()
-        .setType(CommandType.SEND_COMMAND)
-        .setCommand(SessionCommand.newBuilder()
-            .setType(SessionCommand.CommandType.UNDO_OR_REWIND))
-        .addAllTouchEvents(touchEventList);
+    Input.Builder inputBuilder =
+        Input.newBuilder()
+            .setType(CommandType.SEND_COMMAND)
+            .setCommand(
+                SessionCommand.newBuilder().setType(SessionCommand.CommandType.UNDO_OR_REWIND))
+            .addAllTouchEvents(touchEventList);
     evaluateAsynchronously(
         inputBuilder, Optional.<KeyEventInterface>absent(), Optional.of(callback));
   }
@@ -859,7 +860,8 @@ public class SessionExecutor {
   //           .setKey(key)
   //           .addAllValue(values));
   //   evaluateAsynchronously(
-  //       inputBuilder, Optional.<KeyEventInterface>absent(), Optional.<EvaluationCallback>absent());
+  //       inputBuilder, Optional.<KeyEventInterface>absent(),
+  // Optional.<EvaluationCallback>absent());
   // }
 
   // TODO(exv): replace this function
@@ -887,10 +889,10 @@ public class SessionExecutor {
     //     (int) Math.ceil(MozcUtil.getDimensionForOrientation(
     //         resources, R.dimen.ime_window_height, Configuration.ORIENTATION_PORTRAIT)));
 
-    ClientSidePreference landscapePreference = new ClientSidePreference(
-            sharedPreferences, resources, Configuration.ORIENTATION_LANDSCAPE);
-    ClientSidePreference portraitPreference = new ClientSidePreference(
-        sharedPreferences, resources, Configuration.ORIENTATION_PORTRAIT);
+    ClientSidePreference landscapePreference =
+        new ClientSidePreference(sharedPreferences, resources, Configuration.ORIENTATION_LANDSCAPE);
+    ClientSidePreference portraitPreference =
+        new ClientSidePreference(sharedPreferences, resources, Configuration.ORIENTATION_PORTRAIT);
 
     sendIntegerUsageStatsUsageStatsEvent(
         UsageStatsEvent.SOFTWARE_KEYBOARD_LAYOUT_LANDSCAPE,
@@ -913,13 +915,16 @@ public class SessionExecutor {
   }
 
   private void sendIntegerUsageStatsUsageStatsEvent(UsageStatsEvent event, int value) {
-    evaluateAsynchronously(Input.newBuilder()
-        .setType(CommandType.SEND_COMMAND)
-        .setCommand(SessionCommand.newBuilder()
-            .setType(SessionCommand.CommandType.USAGE_STATS_EVENT)
-            .setUsageStatsEvent(event)
-            .setUsageStatsEventIntValue(value)),
-        Optional.<KeyEventInterface>absent(), Optional.<EvaluationCallback>absent());
+    evaluateAsynchronously(
+        Input.newBuilder()
+            .setType(CommandType.SEND_COMMAND)
+            .setCommand(
+                SessionCommand.newBuilder()
+                    .setType(SessionCommand.CommandType.USAGE_STATS_EVENT)
+                    .setUsageStatsEvent(event)
+                    .setUsageStatsEventIntValue(value)),
+        Optional.<KeyEventInterface>absent(),
+        Optional.<EvaluationCallback>absent());
   }
 
   public void touchEventUsageStatsEvent(List<TouchEvent> touchEventList) {
@@ -927,33 +932,36 @@ public class SessionExecutor {
       return;
     }
 
-    Input.Builder inputBuilder = Input.newBuilder()
-        .setType(CommandType.SEND_COMMAND)
-        .setCommand(SessionCommand.newBuilder()
-            .setType(SessionCommand.CommandType.USAGE_STATS_EVENT))
-        .addAllTouchEvents(touchEventList);
+    Input.Builder inputBuilder =
+        Input.newBuilder()
+            .setType(CommandType.SEND_COMMAND)
+            .setCommand(
+                SessionCommand.newBuilder().setType(SessionCommand.CommandType.USAGE_STATS_EVENT))
+            .addAllTouchEvents(touchEventList);
     evaluateAsynchronously(
         inputBuilder, Optional.<KeyEventInterface>absent(), Optional.<EvaluationCallback>absent());
   }
 
   public void syncData() {
-    Input.Builder inputBuilder = Input.newBuilder()
-        .setType(CommandType.SYNC_DATA);
+    Input.Builder inputBuilder = Input.newBuilder().setType(CommandType.SYNC_DATA);
     evaluateAsynchronously(
         inputBuilder, Optional.<KeyEventInterface>absent(), Optional.<EvaluationCallback>absent());
   }
 
   /**
-   * Evaluates the input on the JNI worker thread, and wait that the evaluation is done.
-   * This method blocks (typically <30ms).
+   * Evaluates the input on the JNI worker thread, and wait that the evaluation is done. This method
+   * blocks (typically <30ms).
    */
-  @VisibleForTesting Output evaluateSynchronously(Input input) {
+  @VisibleForTesting
+  Output evaluateSynchronously(Input input) {
     Preconditions.checkState(handler.isPresent());
     CountDownLatch evaluationSynchronizer = new CountDownLatch(1);
     SynchronousEvaluationContext context =
-          new SynchronousEvaluationContext(input, evaluationSynchronizer);
-    handler.get().sendMessage(handler.get().obtainMessage(
-        ExecutorMainCallback.EVALUATE_SYNCHRONOUSLY, context));
+        new SynchronousEvaluationContext(input, evaluationSynchronizer);
+    handler
+        .get()
+        .sendMessage(
+            handler.get().obtainMessage(ExecutorMainCallback.EVALUATE_SYNCHRONOUSLY, context));
 
     try {
       evaluationSynchronizer.await();
@@ -964,23 +972,20 @@ public class SessionExecutor {
     return context.outCommand.get().getOutput();
   }
 
-  /**
-   * Gets a config from the server.
-   */
+  /** Gets a config from the server. */
   public Config getConfig() {
     Input input = Input.newBuilder().setType(Input.CommandType.GET_CONFIG).build();
     return evaluateSynchronously(input).getConfig();
   }
 
-  /**
-   * Sets the given {@code config} to the server.
-   */
+  /** Sets the given {@code config} to the server. */
   public void setConfig(Config config) {
     Preconditions.checkNotNull(config);
     // Ignore output.
     evaluateAsynchronously(
         Input.newBuilder().setType(Input.CommandType.SET_CONFIG).setConfig(config),
-        Optional.<KeyEventInterface>absent(), Optional.<EvaluationCallback>absent());
+        Optional.<KeyEventInterface>absent(),
+        Optional.<EvaluationCallback>absent());
   }
 
   // TODO(exv): replace this
@@ -995,28 +1000,20 @@ public class SessionExecutor {
   //       Optional.<KeyEventInterface>absent(), Optional.<EvaluationCallback>absent());
   // }
 
-  /**
-   * Clears the unused user prediction from the server synchronously.
-   */
+  /** Clears the unused user prediction from the server synchronously. */
   public void clearUnusedUserPrediction() {
     evaluateSynchronously(
         Input.newBuilder().setType(CommandType.CLEAR_UNUSED_USER_PREDICTION).build());
   }
 
-  /**
-   * Clears the user's history from the server synchronously.
-   */
+  /** Clears the user's history from the server synchronously. */
   public void clearUserHistory() {
-    evaluateSynchronously(
-        Input.newBuilder().setType(CommandType.CLEAR_USER_HISTORY).build());
+    evaluateSynchronously(Input.newBuilder().setType(CommandType.CLEAR_USER_HISTORY).build());
   }
 
-  /**
-   * Clears user's prediction from the server synchronously.
-   */
+  /** Clears user's prediction from the server synchronously. */
   public void clearUserPrediction() {
-    evaluateSynchronously(
-        Input.newBuilder().setType(CommandType.CLEAR_USER_PREDICTION).build());
+    evaluateSynchronously(Input.newBuilder().setType(CommandType.CLEAR_USER_PREDICTION).build());
   }
 
   // TODO(exv): replace this function
@@ -1048,40 +1045,38 @@ public class SessionExecutor {
   //   return output.getStorageEntry().getValueList();
   // }
 
-  /**
-   * Sends 'Reload' request to the server, typically for reloading user dictionaries.
-   */
+  /** Sends 'Reload' request to the server, typically for reloading user dictionaries. */
   public void reload() {
     // Ignore output.
     evaluateAsynchronously(
-        Input.newBuilder().setType(Input.CommandType.RELOAD), Optional.<KeyEventInterface>absent(),
+        Input.newBuilder().setType(Input.CommandType.RELOAD),
+        Optional.<KeyEventInterface>absent(),
         Optional.<EvaluationCallback>absent());
   }
 
-  /**
-   * Sends SEND_USER_DICTIONARY_COMMAND to edit user dictionaries.
-   */
+  /** Sends SEND_USER_DICTIONARY_COMMAND to edit user dictionaries. */
   public UserDictionaryCommandStatus sendUserDictionaryCommand(UserDictionaryCommand command) {
     Preconditions.checkNotNull(command);
-    Output output = evaluateSynchronously(Input.newBuilder()
-        .setType(CommandType.SEND_USER_DICTIONARY_COMMAND)
-        .setUserDictionaryCommand(command)
-        .build());
+    Output output =
+        evaluateSynchronously(
+            Input.newBuilder()
+                .setType(CommandType.SEND_USER_DICTIONARY_COMMAND)
+                .setUserDictionaryCommand(command)
+                .build());
     return output.getUserDictionaryCommandStatus();
   }
 
-  /**
-   * Sends an UPDATE_REQUEST command to the evaluation thread.
-   */
+  /** Sends an UPDATE_REQUEST command to the evaluation thread. */
   public void updateRequest(Request update, List<TouchEvent> touchEventList) {
     Preconditions.checkNotNull(update);
     Preconditions.checkNotNull(touchEventList);
     Preconditions.checkState(handler.isPresent());
-    Input.Builder inputBuilder = Input.newBuilder()
-        .setRequest(update)
-        .addAllTouchEvents(touchEventList);
-    handler.get().sendMessage(
-        handler.get().obtainMessage(ExecutorMainCallback.UPDATE_REQUEST, inputBuilder));
+    Input.Builder inputBuilder =
+        Input.newBuilder().setRequest(update).addAllTouchEvents(touchEventList);
+    handler
+        .get()
+        .sendMessage(
+            handler.get().obtainMessage(ExecutorMainCallback.UPDATE_REQUEST, inputBuilder));
   }
 
   public void sendKeyEvent(KeyEventInterface triggeringKeyEvent, EvaluationCallback callback) {
@@ -1090,17 +1085,20 @@ public class SessionExecutor {
     Preconditions.checkState(handler.isPresent());
     KeyEventCallbackContext context =
         new KeyEventCallbackContext(triggeringKeyEvent, callback, callbackHandler);
-    handler.get().sendMessage(
-        handler.get().obtainMessage(ExecutorMainCallback.PASS_TO_CALLBACK, context));
+    handler
+        .get()
+        .sendMessage(handler.get().obtainMessage(ExecutorMainCallback.PASS_TO_CALLBACK, context));
   }
 
   public void sendUsageStatsEvent(UsageStatsEvent event) {
     evaluateAsynchronously(
         Input.newBuilder()
             .setType(CommandType.SEND_COMMAND)
-            .setCommand(SessionCommand.newBuilder()
-                .setType(SessionCommand.CommandType.USAGE_STATS_EVENT)
-                .setUsageStatsEvent(event)),
-        Optional.<KeyEventInterface>absent(), Optional.<EvaluationCallback>absent());
+            .setCommand(
+                SessionCommand.newBuilder()
+                    .setType(SessionCommand.CommandType.USAGE_STATS_EVENT)
+                    .setUsageStatsEvent(event)),
+        Optional.<KeyEventInterface>absent(),
+        Optional.<EvaluationCallback>absent());
   }
 }

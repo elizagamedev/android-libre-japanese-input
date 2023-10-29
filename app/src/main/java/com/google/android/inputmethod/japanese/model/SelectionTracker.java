@@ -29,39 +29,36 @@
 
 package org.mozc.android.inputmethod.japanese.model;
 
+import android.util.Log;
+import com.google.common.base.MoreObjects;
+import java.util.ArrayDeque;
 import org.mozc.android.inputmethod.japanese.MozcLog;
 import org.mozc.android.inputmethod.japanese.MozcUtil;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.DeletionRange;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Preedit;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Preedit.Segment;
-import com.google.common.base.MoreObjects;
-
-import android.util.Log;
-
-import java.util.ArrayDeque;
 
 /**
  * This class tracks the caret position based on the callback from MozcService.
  *
- * In order to reset the context at appropriate timing, we need to find an unknown event
- * from connected applications. The only way to know that the text field is updated outside
- * from MozcSerivce is using onUpdateSelection. Unfortunately there is no function to get
- * the current selection position via InputConnection, we need to track all the caret positions
- * by calculating them from the result of the mozc server, initial caret positions and
- * the onUpdateSelection's arguments.
+ * <p>In order to reset the context at appropriate timing, we need to find an unknown event from
+ * connected applications. The only way to know that the text field is updated outside from
+ * MozcSerivce is using onUpdateSelection. Unfortunately there is no function to get the current
+ * selection position via InputConnection, we need to track all the caret positions by calculating
+ * them from the result of the mozc server, initial caret positions and the onUpdateSelection's
+ * arguments.
  *
- * However, the behavior of the callback doesn't look standardized. Actually it's called
+ * <p>However, the behavior of the callback doesn't look standardized. Actually it's called
  * differently from various applications. One of the biggest clients for IME is EditText and
  * WebTextView widgets (i.e. browsers), but they have also different behaviors...
  *
- * This class is introduced to fill the gap as much as possible.
- *
+ * <p>This class is introduced to fill the gap as much as possible.
  */
 public class SelectionTracker {
 
   /**
-   * This is a update log by Mozc in order to support onUpdatedSelection.
-   * See details in the comments in {@link SelectionTracker#onUpdateSelection}.
+   * This is a update log by Mozc in order to support onUpdatedSelection. See details in the
+   * comments in {@link SelectionTracker#onUpdateSelection}.
    */
   static class Record {
     final int candidatesStart;
@@ -91,8 +88,11 @@ public class SelectionTracker {
     @Override
     public String toString() {
       return MoreObjects.toStringHelper(this)
-          .add("candidates", candidatesStart).addValue(candidatesEnd)
-          .add("selection", selectionStart).addValue(selectionEnd).toString();
+          .add("candidates", candidatesStart)
+          .addValue(candidatesEnd)
+          .add("selection", selectionStart)
+          .addValue(selectionEnd)
+          .toString();
     }
 
     // Skipped to implement hashCode intentionally, as we don't expect use it.
@@ -122,13 +122,12 @@ public class SelectionTracker {
     }
   }
 
-  private void offerInternal(int candidatesStart, int candidatesEnd,
-                             int selectionStart, int selectionEnd) {
+  private void offerInternal(
+      int candidatesStart, int candidatesEnd, int selectionStart, int selectionEnd) {
     while (recordQueue.size() >= MAX_UPDATE_RECORD_QUEUE_SIZE) {
       recordQueue.removeFirst();
     }
-    recordQueue.offerLast(
-        new Record(candidatesStart, candidatesEnd, selectionStart, selectionEnd));
+    recordQueue.offerLast(new Record(candidatesStart, candidatesEnd, selectionStart, selectionEnd));
     if (MozcLog.isLoggable(Log.DEBUG)) {
       MozcLog.d("offerInternal: " + toString());
     }
@@ -137,8 +136,9 @@ public class SelectionTracker {
   public void onStartInput(
       int initialSelectionStart, int initialSelectionEnd, boolean webTextView) {
     if (MozcLog.isLoggable(Log.DEBUG)) {
-      MozcLog.d(String.format("onStartInput: %d %d %b",
-                              initialSelectionStart, initialSelectionEnd, webTextView));
+      MozcLog.d(
+          String.format(
+              "onStartInput: %d %d %b", initialSelectionStart, initialSelectionEnd, webTextView));
     }
     this.webTextView = webTextView;
 
@@ -222,9 +222,7 @@ public class SelectionTracker {
     return -1;
   }
 
-  /**
-   * Should be invoked when the MozcService sends text to the connected application.
-   */
+  /** Should be invoked when the MozcService sends text to the connected application. */
   public void onRender(DeletionRange deletionRange, String commitText, Preedit preedit) {
     if (MozcLog.isLoggable(Log.DEBUG)) {
       MozcLog.d("onRender: " + MoreObjects.firstNonNull(preedit, "").toString());
@@ -276,9 +274,9 @@ public class SelectionTracker {
       // previous composition string, 1) looks "just a staying caret". So, the 1) will be simply
       // skipped. Regardless of such exceptional cases, 2)'s event will happen.
       Record record = recordQueue.peekLast();
-      if (record != null &&
-          (record.selectionStart != record.selectionEnd ||
-           record.selectionStart != record.candidatesEnd)) {
+      if (record != null
+          && (record.selectionStart != record.selectionEnd
+              || record.selectionStart != record.candidatesEnd)) {
         if (record.candidatesStart == -1) {
           // If no candidates are available, the right position of selection{Start,End} is
           // considered as the dummy caret position.
@@ -313,17 +311,23 @@ public class SelectionTracker {
 
   /**
    * Should be invoked when MozcServer receives the callback {@code onUpdateSelection}.
-   * @return the move cursor position, or one of special values
-   *    {@code DO_NOTHING, RESET_CONTEXT}. The caller should follow the result.
+   *
+   * @return the move cursor position, or one of special values {@code DO_NOTHING, RESET_CONTEXT}.
+   *     The caller should follow the result.
    */
-  public int onUpdateSelection(int oldSelStart, int oldSelEnd,
-                               int newSelStart, int newSelEnd,
-                               int candidatesStart, int candidatesEnd,
-                               boolean isIgnoringMoveToTail) {
+  public int onUpdateSelection(
+      int oldSelStart,
+      int oldSelEnd,
+      int newSelStart,
+      int newSelEnd,
+      int candidatesStart,
+      int candidatesEnd,
+      boolean isIgnoringMoveToTail) {
     if (MozcLog.isLoggable(Log.DEBUG)) {
-      MozcLog.d(String.format("onUpdateSelection: %d %d %d %d %d %d",
-                              oldSelStart, oldSelEnd, newSelStart, newSelEnd,
-                              candidatesStart, candidatesEnd));
+      MozcLog.d(
+          String.format(
+              "onUpdateSelection: %d %d %d %d %d %d",
+              oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd));
       MozcLog.d(recordQueue.toString());
     }
     Record record = new Record(candidatesStart, candidatesEnd, newSelStart, newSelEnd);
@@ -354,10 +358,10 @@ public class SelectionTracker {
 
     // Here, the event is not caused by MozcService (probably).
     Record lastRecord = recordQueue.peekLast();
-    if (lastRecord != null &&
-        lastRecord.candidatesStart >= 0 &&
-        lastRecord.candidatesStart == candidatesStart &&
-        lastRecord.candidatesEnd == candidatesEnd) {
+    if (lastRecord != null
+        && lastRecord.candidatesStart >= 0
+        && lastRecord.candidatesStart == candidatesStart
+        && lastRecord.candidatesEnd == candidatesEnd) {
       // This is the case 2).
       // Remember the new position.
       clear();
@@ -365,8 +369,8 @@ public class SelectionTracker {
       if (newSelStart == newSelEnd) {
         // This is case 2-1)
         // In composition with tapping somewhere.
-        int newPosition = MozcUtil.clamp(newSelStart - candidatesStart,
-                                         0, candidatesEnd - candidatesStart);
+        int newPosition =
+            MozcUtil.clamp(newSelStart - candidatesStart, 0, candidatesEnd - candidatesStart);
         // Ignore move to the tail when isIgnoringMoveToTail is set.
         if (isIgnoringMoveToTail && newPosition == candidatesEnd - candidatesStart) {
           return DO_NOTHING;
@@ -406,10 +410,11 @@ public class SelectionTracker {
       }
       if (webTextView && containsSeeingOnlyCandidateLength(record)) {
         if (MozcLog.isLoggable(Log.DEBUG)) {
-          MozcLog.d(String.format(
-              "Fall-back is applied as " +
-                  "there is a entry of which the candidate length (%d) meets expectation.",
-              candidatesEnd - candidatesStart));
+          MozcLog.d(
+              String.format(
+                  "Fall-back is applied as "
+                      + "there is a entry of which the candidate length (%d) meets expectation.",
+                  candidatesEnd - candidatesStart));
         }
         clear();
         offerInternal(candidatesStart, candidatesEnd, newSelStart, newSelEnd);

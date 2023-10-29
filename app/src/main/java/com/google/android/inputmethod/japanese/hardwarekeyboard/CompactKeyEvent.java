@@ -29,15 +29,12 @@
 
 package org.mozc.android.inputmethod.japanese.hardwarekeyboard;
 
-import org.mozc.android.inputmethod.japanese.hardwarekeyboard.KeyEventMapperFactory.KeyEventMapper;
-import com.google.common.base.Preconditions;
-
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.hardwarekeyboard.KeyEventMapperFactory.KeyEventMapper;
 
-/**
- * Compact and mutable KeyEvent for internal use.
- */
+/** Compact and mutable KeyEvent for internal use. */
 class CompactKeyEvent {
 
   private int keyCode;
@@ -58,9 +55,7 @@ class CompactKeyEvent {
     scanCode = keyEvent.getScanCode();
   }
 
-  /**
-   * Construct an instance and apply overlay mapping.
-   */
+  /** Construct an instance and apply overlay mapping. */
   public CompactKeyEvent(KeyEvent keyEvent, KeyEventMapper overlayMapper) {
     this(keyEvent);
     Preconditions.checkNotNull(overlayMapper).applyMapping(this);

@@ -29,16 +29,14 @@
 
 package org.mozc.android.inputmethod.japanese;
 
-/**
- * Indicates that this class can manage its memory if trimming is requested.
- */
+/** Indicates that this class can manage its memory if trimming is requested. */
 public interface MemoryManageable {
 
   /**
    * Trims its memory if possible.
    *
-   * <p>CONTRACT: It's guaranteed that the window is hidden.
-   * Therefore all the UI relating resources can be released if they can be regenerated.
+   * <p>CONTRACT: It's guaranteed that the window is hidden. Therefore all the UI relating resources
+   * can be released if they can be regenerated.
    */
   void trimMemory();
 }

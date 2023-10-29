@@ -29,25 +29,15 @@
 
 package org.mozc.android.inputmethod.japanese.keyboard;
 
-import org.mozc.android.inputmethod.japanese.KeyboardSpecificationName;
-import org.mozc.android.inputmethod.japanese.MozcLog;
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchAction;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchPosition;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.KeyEvent.ProbableKeyEvent;
-import org.mozc.android.inputmethod.japanese.util.LeastRecentlyUsedCacheMap;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
-
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -61,38 +51,43 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import org.mozc.android.inputmethod.japanese.KeyboardSpecificationName;
+import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchAction;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchPosition;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.KeyEvent.ProbableKeyEvent;
+import org.mozc.android.inputmethod.japanese.util.LeastRecentlyUsedCacheMap;
 
 /**
  * An object which guesses probable key events for typing correction feature.
  *
  * <p>We can use following values as touch event statistics, which are store in the file system.
- * <ul>
- * <li>Average of start position (X and Y).
- * <li>Variance of start position (X and Y).
- * <li>Average of delta (X and Y).
- * <li>Variance of delta (X and Y).
- * </ul>
- * We use probability distribution of 4-dimentional Gaussian distribution
- * as likelihood function.
- * We cannot use covariance so we assume that each elements are orthogonal (covariance is 0).
  *
+ * <ul>
+ *   <li>Average of start position (X and Y).
+ *   <li>Variance of start position (X and Y).
+ *   <li>Average of delta (X and Y).
+ *   <li>Variance of delta (X and Y).
+ * </ul>
+ *
+ * We use probability distribution of 4-dimentional Gaussian distribution as likelihood function. We
+ * cannot use covariance so we assume that each elements are orthogonal (covariance is 0).
  */
 public class ProbableKeyEventGuesser {
 
   /**
    * Accessor for stats files.
    *
-   * Extracted as an interface for testing.
+   * <p>Extracted as an interface for testing.
    */
   @VisibleForTesting
   interface StatsFileAccessor {
-    InputStream openStream(Keyboard keyboard, Configuration configuration)
-        throws IOException;
+    InputStream openStream(Keyboard keyboard, Configuration configuration) throws IOException;
   }
 
-  /**
-   * Concrete implementation of StatsFileAccessor, using AssetManager.
-   */
+  /** Concrete implementation of StatsFileAccessor, using AssetManager. */
   @VisibleForTesting
   static final class StatsFileAccessorImpl implements StatsFileAccessor {
 
@@ -119,8 +114,7 @@ public class ProbableKeyEventGuesser {
       Preconditions.checkNotNull(keyboard);
       Preconditions.checkNotNull(configuration);
 
-      String baseName =
-          keyboard.getSpecification().getKeyboardSpecificationName().baseName;
+      String baseName = keyboard.getSpecification().getKeyboardSpecificationName().baseName;
       String orientation = KeyboardSpecificationName.getDeviceOrientationString(configuration);
       String fileName = String.format("%s_%s.touch_stats", baseName, orientation);
       Preconditions.checkArgument(
@@ -142,19 +136,17 @@ public class ProbableKeyEventGuesser {
   @VisibleForTesting
   static interface LikelihoodCalculator {
 
-    public double getLikelihood(float firstX, float firstY, float deltaX, float deltaY,
-        float[] probableEvent);
+    public double getLikelihood(
+        float firstX, float firstY, float deltaX, float deltaY, float[] probableEvent);
   }
 
-  /**
-   * Concrete implementation of LikelihoodCalculator.
-   */
+  /** Concrete implementation of LikelihoodCalculator. */
   @VisibleForTesting
   static final class LikelihoodCalculatorImpl implements LikelihoodCalculator {
 
     @Override
-    public double getLikelihood(float firstX, float firstY, float deltaX, float deltaY,
-        float[] probableEvent) {
+    public double getLikelihood(
+        float firstX, float firstY, float deltaX, float deltaY, float[] probableEvent) {
       Preconditions.checkNotNull(probableEvent);
 
       float sdx = firstX - probableEvent[START_X_AVG];
@@ -171,23 +163,25 @@ public class ProbableKeyEventGuesser {
       float ddy = deltaY - probableEvent[DELTA_Y_AVG];
       double ddx2 = ddx * ddx;
       double ddy2 = ddy * ddy;
-      return Math.exp(-(
-          sdx2 / (probableEvent[START_X_VAR])
-          + sdy2 / (probableEvent[START_Y_VAR])
-          + ddx2 / (probableEvent[DELTA_X_VAR])
-          + ddy2 / (probableEvent[DELTA_X_VAR])) / 2d) / probableEvent[PRECALCULATED_DENOMINATOR];
-      }
+      return Math.exp(
+              -(sdx2 / (probableEvent[START_X_VAR])
+                      + sdy2 / (probableEvent[START_Y_VAR])
+                      + ddx2 / (probableEvent[DELTA_X_VAR])
+                      + ddy2 / (probableEvent[DELTA_X_VAR]))
+                  / 2d)
+          / probableEvent[PRECALCULATED_DENOMINATOR];
+    }
   }
 
   /**
    * A Runnable to load a stats file and calls back a {@link UpdateStatsListener} with loaded stats.
    *
-   * <p>File access itself and updating the stats (via UpdateStatsListener) are
-   * done on the caller's thread (so worker thread can be applicable).
-   * So if you want to run the process asyncnously,
+   * <p>File access itself and updating the stats (via UpdateStatsListener) are done on the caller's
+   * thread (so worker thread can be applicable). So if you want to run the process asyncnously,
+   *
    * <ul>
-   * <li>Run this on a worker thread.
-   * <li>Make UpdateStatsListener thread safe or make it run on the UI thread.
+   *   <li>Run this on a worker thread.
+   *   <li>Make UpdateStatsListener thread safe or make it run on the UI thread.
    * </ul>
    */
   @VisibleForTesting
@@ -222,22 +216,24 @@ public class ProbableKeyEventGuesser {
           configuration,
           new UpdateStatsListener() {
             @Override
-            public void updateStats(final String formattedKeyboardName,
-                                    final SparseArray<float[]> stats) {
+            public void updateStats(
+                final String formattedKeyboardName, final SparseArray<float[]> stats) {
               Preconditions.checkNotNull(formattedKeyboardName);
               Preconditions.checkNotNull(stats);
-              updateStatsExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                  formattedKeyboardNameToStats.put(formattedKeyboardName, stats);
-                }
-              });
+              updateStatsExecutor.execute(
+                  new Runnable() {
+                    @Override
+                    public void run() {
+                      formattedKeyboardNameToStats.put(formattedKeyboardName, stats);
+                    }
+                  });
             }
           });
     }
 
     @VisibleForTesting
-    StatisticsLoader(StatsFileAccessor statsFileAccessor,
+    StatisticsLoader(
+        StatsFileAccessor statsFileAccessor,
         Keyboard keyboard,
         Configuration configuration,
         UpdateStatsListener updateStatsListener) {
@@ -251,8 +247,8 @@ public class ProbableKeyEventGuesser {
      * Reads an {@link InputStream} and updates given {@link SparseArray}.
      *
      * @param stream an {@link InputStream} to be read
-     * @param statsToUpdate a {@link SparseArray} which maps source_id to the values.
-     *                      Expected to be empty.
+     * @param statsToUpdate a {@link SparseArray} which maps source_id to the values. Expected to be
+     *     empty.
      * @throws IOException when stream access fails
      */
     private void readStream(DataInputStream stream, SparseArray<float[]> statsToUpdate)
@@ -265,8 +261,12 @@ public class ProbableKeyEventGuesser {
           stats[j] = stream.readFloat();
         }
         stats[PRECALCULATED_DENOMINATOR] =
-          (float)Math.sqrt(stats[START_X_VAR] * stats[START_Y_VAR]
-                           * stats[DELTA_X_VAR] * stats[DELTA_Y_VAR]);
+            (float)
+                Math.sqrt(
+                    stats[START_X_VAR]
+                        * stats[START_Y_VAR]
+                        * stats[DELTA_X_VAR]
+                        * stats[DELTA_Y_VAR]);
         statsToUpdate.put(sourceId, stats);
       }
     }
@@ -291,8 +291,11 @@ public class ProbableKeyEventGuesser {
         }
       }
       // Successfully loaded the file so call back updateStatsListener.
-      String formattedKeyboardName = keyboard.getSpecification()
-          .getKeyboardSpecificationName().formattedKeyboardName(configuration);
+      String formattedKeyboardName =
+          keyboard
+              .getSpecification()
+              .getKeyboardSpecificationName()
+              .formattedKeyboardName(configuration);
       updateStatsListener.updateStats(formattedKeyboardName, result);
     }
   }
@@ -339,7 +342,8 @@ public class ProbableKeyEventGuesser {
 
   // LRU cache of mapping table.
   // formattedKeyboardName -> souce_id -> keyCode.
-  @VisibleForTesting final Map<String, SparseIntArray> formattedKeyboardNameToKeycodeMapper =
+  @VisibleForTesting
+  final Map<String, SparseIntArray> formattedKeyboardNameToKeycodeMapper =
       new LeastRecentlyUsedCacheMap<String, SparseIntArray>(MAX_LRU_CACHE_CAPACITY);
 
   // StatsFileAccessor to access the files under assets/ directory.
@@ -386,23 +390,26 @@ public class ProbableKeyEventGuesser {
 
     // Execute propagation of read stats data on current thread.
     // By this we can avoid from synchronized keywords.
-    this.dataPropagationExecutor = new Executor() {
-      private final Handler mainloopHandler = new Handler(Looper.getMainLooper());
-      @Override
-      public void execute(Runnable command) {
-        mainloopHandler.post(command);
-      }
-    };
+    this.dataPropagationExecutor =
+        new Executor() {
+          private final Handler mainloopHandler = new Handler(Looper.getMainLooper());
+
+          @Override
+          public void execute(Runnable command) {
+            mainloopHandler.post(command);
+          }
+        };
 
     this.likelihoodCalculator = new LikelihoodCalculatorImpl();
   }
 
   @VisibleForTesting
-  ProbableKeyEventGuesser(StatsFileAccessor statsFileAccessor,
-                          double likelyhoodThreshold,
-                          ThreadPoolExecutor dataLoadExecutor,
-                          Executor dataPropagationExecutor,
-                          LikelihoodCalculator likelihoodCalculator) {
+  ProbableKeyEventGuesser(
+      StatsFileAccessor statsFileAccessor,
+      double likelyhoodThreshold,
+      ThreadPoolExecutor dataLoadExecutor,
+      Executor dataPropagationExecutor,
+      LikelihoodCalculator likelihoodCalculator) {
     this.statsFileAccessor = Preconditions.checkNotNull(statsFileAccessor);
     this.likelihoodThreshold = likelyhoodThreshold;
     this.dataLoadExecutor = Preconditions.checkNotNull(dataLoadExecutor);
@@ -413,9 +420,9 @@ public class ProbableKeyEventGuesser {
   /**
    * Sets a {@link Keyboard}.
    *
-   * This invocation might load a stats data file (typically) asynchronously.
-   * Before the loading has finished
-   * {@link #getProbableKeyEvents(List)} cannot return any probable key events.
+   * <p>This invocation might load a stats data file (typically) asynchronously. Before the loading
+   * has finished {@link #getProbableKeyEvents(List)} cannot return any probable key events.
+   *
    * @see #getProbableKeyEvents(List)
    * @param keyboard a {@link Keyboard} to be set.
    */
@@ -428,7 +435,8 @@ public class ProbableKeyEventGuesser {
   /**
    * Sets a {@link Configuration}.
    *
-   * Behaves almost the same as {@link #setKeyboard(Keyboard)}.
+   * <p>Behaves almost the same as {@link #setKeyboard(Keyboard)}.
+   *
    * @param configuration a {@link Configuration} to be set.
    */
   public void setConfiguration(Optional<Configuration> configuration) {
@@ -437,32 +445,29 @@ public class ProbableKeyEventGuesser {
     maybeUpdateEventStatistics();
   }
 
-  /**
-   * Updates (cached) {@link #formattedKeyboardName}.
-   */
+  /** Updates (cached) {@link #formattedKeyboardName}. */
   private void updateFormattedKeyboardName() {
     if (!keyboard.isPresent() || !configuration.isPresent()) {
       formattedKeyboardName = Optional.absent();
       return;
     }
-    formattedKeyboardName = Optional.of(keyboard.get()
-                                                        .getSpecification()
-                                                        .getKeyboardSpecificationName()
-                                                        .formattedKeyboardName(
-                                                            configuration.get()));
+    formattedKeyboardName =
+        Optional.of(
+            keyboard
+                .get()
+                .getSpecification()
+                .getKeyboardSpecificationName()
+                .formattedKeyboardName(configuration.get()));
   }
 
   /**
-   * If stats for current {@code Keyboard} and {@code Configuration} has not been loaded,
-   * load and update it asynchronously.
+   * If stats for current {@code Keyboard} and {@code Configuration} has not been loaded, load and
+   * update it asynchronously.
    *
-   * Loading queue contains only the latest task.
-   * Older ones are discarded.
+   * <p>Loading queue contains only the latest task. Older ones are discarded.
    */
   private void maybeUpdateEventStatistics() {
-    if (!formattedKeyboardName.isPresent()
-        || !keyboard.isPresent()
-        || !configuration.isPresent()) {
+    if (!formattedKeyboardName.isPresent() || !keyboard.isPresent() || !configuration.isPresent()) {
       return;
     }
     if (!formattedKeyboardNameToStats.containsKey(formattedKeyboardName.get())) {
@@ -471,7 +476,9 @@ public class ProbableKeyEventGuesser {
       }
       dataLoadExecutor.execute(
           new StatisticsLoader(
-              statsFileAccessor, keyboard.get(), configuration.get(),
+              statsFileAccessor,
+              keyboard.get(),
+              configuration.get(),
               formattedKeyboardNameToStats,
               dataPropagationExecutor));
     }
@@ -480,11 +487,11 @@ public class ProbableKeyEventGuesser {
   /**
    * Calculates probable key events for given {@code touchEventList}.
    *
-   * If corresponding stats data has not been loaded yet (file access is done asynchronously),
+   * <p>If corresponding stats data has not been loaded yet (file access is done asynchronously),
    * empty list is returned.
    *
-   * TODO(matsuzakit): Change the caller side which expects null-return-value,
-   *                   before submitting this CL.
+   * <p>TODO(matsuzakit): Change the caller side which expects null-return-value, before submitting
+   * this CL.
    *
    * @param touchEventList a List of TouchEvents.
    */
@@ -502,8 +509,8 @@ public class ProbableKeyEventGuesser {
       // If size >= 2, this is special situation (saturating touch event) so do nothing.
       return Collections.emptyList();
     }
-    SparseArray<float[]> eventStatistics = formattedKeyboardNameToStats.get(
-        formattedKeyboardName.get());
+    SparseArray<float[]> eventStatistics =
+        formattedKeyboardNameToStats.get(formattedKeyboardName.get());
     if (eventStatistics == null) {
       // No corresponding stats is available. Returning null.
       // The stats we need might be pushed out from the LRU cache because of bulk-updates of
@@ -549,10 +556,11 @@ public class ProbableKeyEventGuesser {
     for (int i = 0; i < likelihoodArray.size(); ++i) {
       int keyCode = likelihoodArray.keyAt(i);
       double likelihood = likelihoodArray.valueAt(i);
-      ProbableKeyEvent probableKeyEvent = ProbableKeyEvent.newBuilder()
-          .setProbability(likelihood / sumLikelihood)
-          .setKeyCode(keyCode)
-          .build();
+      ProbableKeyEvent probableKeyEvent =
+          ProbableKeyEvent.newBuilder()
+              .setProbability(likelihood / sumLikelihood)
+              .setKeyCode(keyCode)
+              .build();
       result.add(probableKeyEvent);
     }
     return result;
@@ -563,9 +571,12 @@ public class ProbableKeyEventGuesser {
    *
    * @return a SparseArray (non-null). The size might be 0. Its values are not NaN.
    */
-  private SparseArray<Double> getLikelihoodArray(SparseArray<float[]> eventStatistics,
-                                                 float firstX, float firstY,
-                                                 float deltaX, float deltaY) {
+  private SparseArray<Double> getLikelihoodArray(
+      SparseArray<float[]> eventStatistics,
+      float firstX,
+      float firstY,
+      float deltaX,
+      float deltaY) {
     Preconditions.checkNotNull(eventStatistics);
     Preconditions.checkState(keyboard.isPresent());
 

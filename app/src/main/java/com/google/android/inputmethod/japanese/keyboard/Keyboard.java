@@ -29,32 +29,26 @@
 
 package org.mozc.android.inputmethod.japanese.keyboard;
 
+import android.util.SparseIntArray;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import java.util.Collections;
+import java.util.List;
 import org.mozc.android.inputmethod.japanese.KeyboardSpecificationName;
+import org.mozc.android.inputmethod.japanese.R;
 import org.mozc.android.inputmethod.japanese.keyboard.Flick.Direction;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Request.CrossingEdgeBehavior;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Request.SpaceOnAlphanumeric;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Request.SpecialRomanjiTable;
-import org.mozc.android.inputmethod.japanese.R;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 
-import android.util.SparseIntArray;
-
-import java.util.Collections;
-import java.util.List;
-
-/**
- * A simple model class of a keyboard.
- * A keyboard can contain a sequence of {@code Row}s.
- *
- */
+/** A simple model class of a keyboard. A keyboard can contain a sequence of {@code Row}s. */
 public class Keyboard {
 
   /**
    * Each keyboard has its own specification.
    *
-   * For example, some keyboards use a special Romanji table.
+   * <p>For example, some keyboards use a special Romanji table.
    */
   public static enum KeyboardSpecification {
     // 12 keys.
@@ -212,7 +206,6 @@ public class Keyboard {
         SpaceOnAlphanumeric.COMMIT,
         false,
         CrossingEdgeBehavior.DO_NOTHING),
-
     ;
 
     private final KeyboardSpecificationName specName;
@@ -287,15 +280,19 @@ public class Keyboard {
   protected final KeyboardSpecification specification;
   private Optional<SparseIntArray> sourceIdToKeyCode = Optional.absent();
 
-  public Keyboard(Optional<String> contentDescription,
-                  List<? extends Row> rowList, float flickThreshold,
-                  KeyboardSpecification specification) {
+  public Keyboard(
+      Optional<String> contentDescription,
+      List<? extends Row> rowList,
+      float flickThreshold,
+      KeyboardSpecification specification) {
     this.contentDescription = Preconditions.checkNotNull(contentDescription);
     this.flickThreshold = flickThreshold;
     this.rowList = Collections.unmodifiableList(rowList);
 
-    int left = Integer.MAX_VALUE, right = Integer.MIN_VALUE,
-        top = Integer.MAX_VALUE, bottom = Integer.MIN_VALUE;
+    int left = Integer.MAX_VALUE,
+        right = Integer.MIN_VALUE,
+        top = Integer.MAX_VALUE,
+        bottom = Integer.MIN_VALUE;
     for (Row row : this.rowList) {
       for (Key key : row.getKeyList()) {
         left = Math.min(left, key.getX());

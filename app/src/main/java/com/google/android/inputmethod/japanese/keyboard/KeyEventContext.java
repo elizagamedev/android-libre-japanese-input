@@ -29,23 +29,21 @@
 
 package org.mozc.android.inputmethod.japanese.keyboard;
 
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import java.util.Set;
 import org.mozc.android.inputmethod.japanese.keyboard.KeyState.MetaState;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchAction;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchPosition;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
-import java.util.Set;
 
 /**
- * This class represents user's one action, e.g., the sequence of:
- * press -> move -> move -> ... -> move -> release.
+ * This class represents user's one action, e.g., the sequence of: press -> move -> move -> ... ->
+ * move -> release.
  *
- * For user's multi touch events, multiple instances will be instantiated.
- * E.g. for user's two finger strokes, two instances will be instantiated.
- *
+ * <p>For user's multi touch events, multiple instances will be instantiated. E.g. for user's two
+ * finger strokes, two instances will be instantiated.
  */
 public class KeyEventContext {
 
@@ -72,9 +70,15 @@ public class KeyEventContext {
 
   Optional<Runnable> longPressCallback = Optional.absent();
 
-  public KeyEventContext(Key key, int pointerId, float pressedX, float pressedY,
-                         int keyboardWidth, int keyboardHeight,
-                         float flickThresholdSquared, Set<MetaState> metaState) {
+  public KeyEventContext(
+      Key key,
+      int pointerId,
+      float pressedX,
+      float pressedY,
+      int keyboardWidth,
+      int keyboardHeight,
+      float flickThresholdSquared,
+      Set<MetaState> metaState) {
     Preconditions.checkNotNull(key);
     Preconditions.checkNotNull(metaState);
 
@@ -93,19 +97,18 @@ public class KeyEventContext {
     return flickThresholdSquared;
   }
 
-  /**
-   * Returns true iff the point ({@code x}, {@code y}) is contained by the {@code key}'s region.
-   */
-  @VisibleForTesting static boolean isContained(float x, float y, Key key) {
+  /** Returns true iff the point ({@code x}, {@code y}) is contained by the {@code key}'s region. */
+  @VisibleForTesting
+  static boolean isContained(float x, float y, Key key) {
     float relativeX = x - key.getX();
     float relativeY = y - key.getY();
-    return 0 <= relativeX && relativeX < key.getWidth() &&
-           0 <= relativeY && relativeY < key.getHeight();
+    return 0 <= relativeX
+        && relativeX < key.getWidth()
+        && 0 <= relativeY
+        && relativeY < key.getHeight();
   }
 
-  /**
-   * Returns true iff the key is flickable. Otherwise returns false.
-   */
+  /** Returns true iff the key is flickable. Otherwise returns false. */
   @VisibleForTesting
   static boolean isFlickable(Key key, Set<MetaState> metaState) {
     Preconditions.checkNotNull(key);
@@ -116,17 +119,15 @@ public class KeyEventContext {
       return false;
     }
     KeyState keyState = optionalKeyState.get();
-    return keyState.getFlick(Flick.Direction.LEFT).isPresent() ||
-           keyState.getFlick(Flick.Direction.UP).isPresent() ||
-           keyState.getFlick(Flick.Direction.RIGHT).isPresent() ||
-           keyState.getFlick(Flick.Direction.DOWN).isPresent();
+    return keyState.getFlick(Flick.Direction.LEFT).isPresent()
+        || keyState.getFlick(Flick.Direction.UP).isPresent()
+        || keyState.getFlick(Flick.Direction.RIGHT).isPresent()
+        || keyState.getFlick(Flick.Direction.DOWN).isPresent();
   }
 
-  /**
-   * Returns the key entity corresponding to {@code metaState} and {@code direction}.
-   */
-  public static Optional<KeyEntity> getKeyEntity(Key key, Set<MetaState> metaState,
-                                                 Optional<Flick.Direction> direction) {
+  /** Returns the key entity corresponding to {@code metaState} and {@code direction}. */
+  public static Optional<KeyEntity> getKeyEntity(
+      Key key, Set<MetaState> metaState, Optional<Flick.Direction> direction) {
     Preconditions.checkNotNull(key);
     Preconditions.checkNotNull(metaState);
     Preconditions.checkNotNull(direction);
@@ -144,8 +145,8 @@ public class KeyEventContext {
         : Optional.<KeyEntity>absent();
   }
 
-  private static Optional<KeyEntity> getKeyEntityInternal(KeyState keyState,
-                                                          Optional<Flick.Direction> direction) {
+  private static Optional<KeyEntity> getKeyEntityInternal(
+      KeyState keyState, Optional<Flick.Direction> direction) {
     Preconditions.checkNotNull(keyState);
     Preconditions.checkNotNull(direction);
 
@@ -161,9 +162,9 @@ public class KeyEventContext {
 
   /**
    * Returns the key code to be sent via {@link KeyboardActionListener#onKey(int, java.util.List)}.
-   * <p>
-   * If {@code keyEntyty} doesn't trigger longpress by timeout (isLongPressTimeoutTrigger is false),
-   * the result depends on the timestamp of touch-down event.
+   *
+   * <p>If {@code keyEntyty} doesn't trigger longpress by timeout (isLongPressTimeoutTrigger is
+   * false), the result depends on the timestamp of touch-down event.
    */
   public int getKeyCode() {
     Optional<KeyEntity> keyEntity = getKeyEntity(flickDirection);
@@ -173,9 +174,10 @@ public class KeyEventContext {
       return KeyEntity.INVALID_KEY_CODE;
     }
     return !keyEntity.get().isLongPressTimeoutTrigger()
-           && keyEntity.get().getLongPressKeyCode() != KeyEntity.INVALID_KEY_CODE
-           && pastLongPressSentTimeout
-           ? keyEntity.get().getLongPressKeyCode() : keyEntity.get().getKeyCode();
+            && keyEntity.get().getLongPressKeyCode() != KeyEntity.INVALID_KEY_CODE
+            && pastLongPressSentTimeout
+        ? keyEntity.get().getLongPressKeyCode()
+        : keyEntity.get().getKeyCode();
   }
 
   Set<MetaState> getNextMetaStates(Set<MetaState> originalMetaStates) {
@@ -187,9 +189,7 @@ public class KeyEventContext {
     return keyState.get().getNextMetaStates(originalMetaStates);
   }
 
-  /**
-   * Returns the key code to be sent for long press event.
-   */
+  /** Returns the key code to be sent for long press event. */
   int getLongPressKeyCode() {
     if (pastLongPressSentTimeout) {
       // If the long-press-key event is already sent, just return INVALID_KEY_CODE.
@@ -209,27 +209,22 @@ public class KeyEventContext {
   }
 
   /**
-   * Returns the key code to be send via {@link KeyboardActionListener#onPress(int)} and
-   * {@link KeyboardActionListener#onRelease(int)}.
+   * Returns the key code to be send via {@link KeyboardActionListener#onPress(int)} and {@link
+   * KeyboardActionListener#onRelease(int)}.
    */
   public int getPressedKeyCode() {
     Optional<KeyEntity> keyEntity = getKeyEntity(Flick.Direction.CENTER);
-    return keyEntity.isPresent()
-        ? keyEntity.get().getKeyCode()
-        : KeyEntity.INVALID_KEY_CODE;
+    return keyEntity.isPresent() ? keyEntity.get().getKeyCode() : KeyEntity.INVALID_KEY_CODE;
   }
 
-  /**
-   * Returns true if this key event sequence represents toggling meta state.
-   */
+  /** Returns true if this key event sequence represents toggling meta state. */
   boolean isMetaStateToggleEvent() {
-    return !pastLongPressSentTimeout && key.isModifier()
+    return !pastLongPressSentTimeout
+        && key.isModifier()
         && flickDirection == Flick.Direction.CENTER;
   }
 
-  /**
-   * Returns the pop up data for the current state.
-   */
+  /** Returns the pop up data for the current state. */
   Optional<PopUp> getCurrentPopUp() {
     if (pastLongPressSentTimeout) {
       return Optional.absent();
@@ -240,8 +235,9 @@ public class KeyEventContext {
   }
 
   /**
-   * Updates the internal state of this context when the touched position is moved to
-   * {@code (x, y)} at time {@code timestamp} in milliseconds since the press.
+   * Updates the internal state of this context when the touched position is moved to {@code (x, y)}
+   * at time {@code timestamp} in milliseconds since the press.
+   *
    * @return {@code true} if the internal state is actually updated.
    */
   public boolean update(float x, float y, TouchAction touchAction, long timestamp) {
@@ -254,8 +250,8 @@ public class KeyEventContext {
     float deltaX = x - pressedX;
     float deltaY = y - pressedY;
 
-    if (deltaX * deltaX + deltaY * deltaY < flickThresholdSquared ||
-        !isFlickableKey && isContained(x, y, key)) {
+    if (deltaX * deltaX + deltaY * deltaY < flickThresholdSquared
+        || !isFlickableKey && isContained(x, y, key)) {
       // A user touches (or returns back to) the same key, so we don't fire flick.
       // If the key isn't flickable, we also look at the key's region to avoid unexpected
       // cancellation.
@@ -295,13 +291,14 @@ public class KeyEventContext {
       return Optional.absent();
     }
 
-    TouchEvent.Builder builder = TouchEvent.newBuilder()
-        .setSourceId(keyEntity.get().getSourceId());
-    builder.addStroke(createTouchPosition(
-        TouchAction.TOUCH_DOWN, pressedX, pressedY, keyboardWidth, keyboardHeight, 0));
+    TouchEvent.Builder builder = TouchEvent.newBuilder().setSourceId(keyEntity.get().getSourceId());
+    builder.addStroke(
+        createTouchPosition(
+            TouchAction.TOUCH_DOWN, pressedX, pressedY, keyboardWidth, keyboardHeight, 0));
     if (lastAction.isPresent()) {
-      builder.addStroke(createTouchPosition(
-          lastAction.get(), lastX, lastY, keyboardWidth, keyboardHeight, lastTimestamp));
+      builder.addStroke(
+          createTouchPosition(
+              lastAction.get(), lastX, lastY, keyboardWidth, keyboardHeight, lastTimestamp));
     }
     return Optional.of(builder.build());
   }

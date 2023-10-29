@@ -35,14 +35,10 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
-
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Drawable to render a candidate background.
- *
- */
+/** Drawable to render a candidate background. */
 public class CandidateBackgroundFocusedDrawable extends BaseBackgroundDrawable {
 
   private static final int SHADOW_PIXELS = 3;
@@ -58,11 +54,17 @@ public class CandidateBackgroundFocusedDrawable extends BaseBackgroundDrawable {
 
   /** Cached Paint instance to reuse for performance reason. */
   private final Paint paint = new Paint();
+
   private final List<Shader> shaderList = new ArrayList<Shader>(3);
 
   public CandidateBackgroundFocusedDrawable(
-      int leftPadding, int topPadding, int rightPadding, int bottomPadding,
-      int topColor, int bottomColor, int shadowColor) {
+      int leftPadding,
+      int topPadding,
+      int rightPadding,
+      int bottomPadding,
+      int topColor,
+      int bottomColor,
+      int shadowColor) {
     super(leftPadding, topPadding, rightPadding, bottomPadding);
     this.topColor = topColor;
     this.bottomColor = bottomColor;
@@ -111,15 +113,27 @@ public class CandidateBackgroundFocusedDrawable extends BaseBackgroundDrawable {
     // Shader rendering top/bottom edge gradient shadows.
     float verticalShadowStep0 = (SHADOW_PIXELS + 1) / (float) (bottom - top);
     float verticalShadowStep1 = 1.0f - verticalShadowStep0;
-    shaderList.add(new LinearGradient(0, top, 0, bottom,
-        new int[]{shadowColor, 0, 0, shadowColor},
-        new float[]{0.0f, verticalShadowStep0, verticalShadowStep1, 1.0f}, TileMode.CLAMP));
+    shaderList.add(
+        new LinearGradient(
+            0,
+            top,
+            0,
+            bottom,
+            new int[] {shadowColor, 0, 0, shadowColor},
+            new float[] {0.0f, verticalShadowStep0, verticalShadowStep1, 1.0f},
+            TileMode.CLAMP));
 
     // Shader rendering left/right edge gradient shadows.
     float horizontalShadowStep0 = (SHADOW_PIXELS + 1) / (float) (right - left);
     float horizontalShadowStep1 = 1.0f - horizontalShadowStep0;
-    shaderList.add(new LinearGradient(left, 0, right, 0,
-        new int[]{shadowColor, 0, 0, shadowColor},
-        new float[]{0.0f, horizontalShadowStep0, horizontalShadowStep1, 1.0f}, TileMode.CLAMP));
+    shaderList.add(
+        new LinearGradient(
+            left,
+            0,
+            right,
+            0,
+            new int[] {shadowColor, 0, 0, shadowColor},
+            new float[] {0.0f, horizontalShadowStep0, horizontalShadowStep1, 1.0f},
+            TileMode.CLAMP));
   }
 }

@@ -30,20 +30,19 @@
 package org.mozc.android.inputmethod.japanese.keyboard;
 
 import com.google.common.base.Preconditions;
-
 import java.util.Collections;
 import java.util.List;
 
 /**
- * A simple model class of a row. This class corresponds to {@code &lt;Row&gt;} element
- * in a xml resource file. Each row can contain a sequence of {@code Key}s.
+ * A simple model class of a row. This class corresponds to {@code &lt;Row&gt;} element in a xml
+ * resource file. Each row can contain a sequence of {@code Key}s.
  *
- * Here is a list this class supports.
+ * <p>Here is a list this class supports.
+ *
  * <ul>
- *   <li> {@code height}: the row's height.
- *   <li> {@code verticalGap}: the gap between the next row and this class.
+ *   <li>{@code height}: the row's height.
+ *   <li>{@code verticalGap}: the gap between the next row and this class.
  * </ul>
- *
  */
 public class Row {
 

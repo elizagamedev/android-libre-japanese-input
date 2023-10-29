@@ -29,6 +29,41 @@
 
 package org.mozc.android.inputmethod.japanese;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.graphics.Canvas;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.InsetDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.os.IBinder;
+import android.os.Looper;
+import android.preference.PreferenceManager;
+import android.util.AttributeSet;
+import android.view.InflateException;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TabHost;
+import android.widget.TabHost.OnTabChangeListener;
+import android.widget.TabHost.TabSpec;
+import android.widget.TabWidget;
+import android.widget.TextView;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import java.util.Collections;
+import java.util.List;
 import org.mozc.android.inputmethod.japanese.FeedbackManager.FeedbackEvent;
 import org.mozc.android.inputmethod.japanese.emoji.EmojiProviderType;
 import org.mozc.android.inputmethod.japanese.keyboard.BackgroundDrawableFactory;
@@ -57,66 +92,23 @@ import org.mozc.android.inputmethod.japanese.view.RoundRectKeyDrawable;
 import org.mozc.android.inputmethod.japanese.view.Skin;
 import org.mozc.android.inputmethod.japanese.view.SymbolMajorCategoryButtonDrawableFactory;
 import org.mozc.android.inputmethod.japanese.view.TabSelectedBackgroundDrawable;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.InsetDrawable;
-import android.graphics.drawable.LayerDrawable;
-import android.os.IBinder;
-import android.os.Looper;
-import android.preference.PreferenceManager;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
-import android.util.AttributeSet;
-import android.view.InflateException;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TabHost;
-import android.widget.TabHost.OnTabChangeListener;
-import android.widget.TabHost.TabSpec;
-import android.widget.TabWidget;
-import android.widget.TextView;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
- * This class is used to show symbol input view on which an user can
- * input emoticon/symbol/emoji.
+ * This class is used to show symbol input view on which an user can input emoticon/symbol/emoji.
  *
- * In this class,
- * "Emoticon" means "Kaomoji", like ＼(^o^)／
- * "Symbol" means symbol character, like $ % ! €
- * "Emoji" means a more graphical character of face, building, food etc.
+ * <p>In this class, "Emoticon" means "Kaomoji", like ＼(^o^)／ "Symbol" means symbol character, like
+ * $ % ! € "Emoji" means a more graphical character of face, building, food etc.
  *
- * This class treats all Emoticon, Symbol and Emoji category as "SymbolMajorCategory".
- * A major category has several minor categories.
- * Each minor category belongs to only one major category.
+ * <p>This class treats all Emoticon, Symbol and Emoji category as "SymbolMajorCategory". A major
+ * category has several minor categories. Each minor category belongs to only one major category.
  * Major-Minor relation is defined by using R.layout.symbol_minor_category_*.
- *
  */
 public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryManageable {
 
-  /**
-   * Adapter for symbol candidate selection.
-   */
+  /** Adapter for symbol candidate selection. */
   // TODO(hidehiko): make this class static.
-  @VisibleForTesting class SymbolCandidateSelectListener implements CandidateSelectListener {
+  @VisibleForTesting
+  class SymbolCandidateSelectListener implements CandidateSelectListener {
     @Override
     public void onCandidateSelected(CandidateWord candidateWord, Optional<Integer> row) {
       Preconditions.checkNotNull(candidateWord);
@@ -125,16 +117,17 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       Preconditions.checkState(currentMajorCategory != SymbolMajorCategory.NUMBER);
       if (viewEventListener.isPresent()) {
         // If we are on password field, history shouldn't be updated to protect privacy.
-        viewEventListener.get().onSymbolCandidateSelected(
-            currentMajorCategory, candidateWord.getValue(), !isPasswordField);
+        viewEventListener
+            .get()
+            .onSymbolCandidateSelected(
+                currentMajorCategory, candidateWord.getValue(), !isPasswordField);
       }
     }
   }
 
-  /**
-   * Click handler of major category buttons.
-   */
-  @VisibleForTesting class MajorCategoryButtonClickListener implements OnClickListener {
+  /** Click handler of major category buttons. */
+  @VisibleForTesting
+  class MajorCategoryButtonClickListener implements OnClickListener {
     private final SymbolMajorCategory majorCategory;
 
     MajorCategoryButtonClickListener(SymbolMajorCategory majorCategory) {
@@ -144,8 +137,9 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     @Override
     public void onClick(View majorCategorySelectorButton) {
       if (viewEventListener.isPresent()) {
-        viewEventListener.get().onFireFeedbackEvent(
-            FeedbackEvent.SYMBOL_INPUTVIEW_MAJOR_CATEGORY_SELECTED);
+        viewEventListener
+            .get()
+            .onFireFeedbackEvent(FeedbackEvent.SYMBOL_INPUTVIEW_MAJOR_CATEGORY_SELECTED);
       }
 
       if (emojiEnabled
@@ -195,11 +189,17 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     private boolean feedbackEnabled = true;
 
     SymbolTabWidgetViewPagerAdapter(
-        Context context, SymbolCandidateStorage symbolCandidateStorage,
+        Context context,
+        SymbolCandidateStorage symbolCandidateStorage,
         Optional<ViewEventListener> viewEventListener,
-        CandidateSelectListener candidateSelectListener, SymbolMajorCategory majorCategory,
-        Skin skin, EmojiProviderType emojiProviderType, TabHost tabHost, ViewPager viewPager,
-        float candidateTextSize, float descriptionTextSize) {
+        CandidateSelectListener candidateSelectListener,
+        SymbolMajorCategory majorCategory,
+        Skin skin,
+        EmojiProviderType emojiProviderType,
+        TabHost tabHost,
+        ViewPager viewPager,
+        float candidateTextSize,
+        float descriptionTextSize) {
       this.context = Preconditions.checkNotNull(context);
       this.symbolCandidateStorage = Preconditions.checkNotNull(symbolCandidateStorage);
       this.viewEventListener = Preconditions.checkNotNull(viewEventListener);
@@ -237,13 +237,15 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       View noHistoryView = historyViewCache.get().findViewById(R.id.symbol_input_no_history);
       if (candidateList.getCandidatesCount() == 0) {
         noHistoryView.setVisibility(View.VISIBLE);
-        TextView.class.cast(historyViewCache.get().findViewById(R.id.symbol_input_no_history_text))
+        TextView.class
+            .cast(historyViewCache.get().findViewById(R.id.symbol_input_no_history_text))
             .setTextColor(skin.candidateValueTextColor);
       } else {
         noHistoryView.setVisibility(View.GONE);
       }
-      SymbolCandidateView.class.cast(historyViewCache.get().findViewById(
-          R.id.symbol_input_candidate_view)).update(candidateList);
+      SymbolCandidateView.class
+          .cast(historyViewCache.get().findViewById(R.id.symbol_input_candidate_view))
+          .update(candidateList);
     }
 
     @Override
@@ -276,8 +278,9 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       viewPager.setCurrentItem(position, false);
 
       if (feedbackEnabled && viewEventListener.isPresent()) {
-        viewEventListener.get().onFireFeedbackEvent(
-            FeedbackEvent.SYMBOL_INPUTVIEW_MINOR_CATEGORY_SELECTED);
+        viewEventListener
+            .get()
+            .onFireFeedbackEvent(FeedbackEvent.SYMBOL_INPUTVIEW_MINOR_CATEGORY_SELECTED);
       }
     }
 
@@ -316,8 +319,8 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
         historyViewCache = Optional.of(view);
         resetHistoryView();
       } else {
-        symbolCandidateView.update(symbolCandidateStorage.getCandidateList(
-            majorCategory.minorCategories.get(position)));
+        symbolCandidateView.update(
+            symbolCandidateStorage.getCandidateList(majorCategory.minorCategories.get(position)));
         symbolCandidateView.updateScrollPositionBasedOnFocusedIndex();
       }
 
@@ -342,9 +345,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     }
   }
 
-  /**
-   * An event listener for the menu dialog window.
-   */
+  /** An event listener for the menu dialog window. */
   private class EmojiProviderDialogListener implements DialogInterface.OnClickListener {
     private final Context context;
 
@@ -362,9 +363,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       } finally {
         typedArray.recycle();
       }
-      sharedPreferences.edit()
-          .putString(PreferenceUtil.PREF_EMOJI_PROVIDER_TYPE, value)
-          .commit();
+      sharedPreferences.edit().putString(PreferenceUtil.PREF_EMOJI_PROVIDER_TYPE, value).commit();
       setMajorCategory(SymbolMajorCategory.EMOJI);
     }
   }
@@ -372,8 +371,8 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
   /**
    * The candidate view for SymbolInputView.
    *
-   * The differences from CandidateView.CandidateWordViewForConversion are
-   * 1) this class scrolls horizontally 2) the layout algorithm is simpler.
+   * <p>The differences from CandidateView.CandidateWordViewForConversion are 1) this class scrolls
+   * horizontally 2) the layout algorithm is simpler.
    */
   private static class SymbolCandidateView extends CandidateWordView {
     private static final String DESCRIPTION_DELIMITER = "\n";
@@ -474,11 +473,10 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     }
   }
 
-  /**
-   * Name to represent this view for logging.
-   */
+  /** Name to represent this view for logging. */
   static final KeyboardSpecificationName SPEC_NAME =
       new KeyboardSpecificationName("SYMBOL_INPUT_VIEW", 0, 1, 0);
+
   // Source ID of the delete/enter button for logging usage stats.
   private static final int DELETE_BUTTON_SOURCE_ID = 1;
   private static final int ENTER_BUTTON_SOURCE_ID = 2;
@@ -564,9 +562,9 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
   }
 
   /**
-   * Initializes the instance. Called only once.
-   * {@code onFinishInflate()} is *not* invoked for the inflation of &lt;merge&gt; element we use.
-   * So, instead, we define another onFinishInflate method and invoke this manually.
+   * Initializes the instance. Called only once. {@code onFinishInflate()} is *not* invoked for the
+   * inflation of &lt;merge&gt; element we use. So, instead, we define another onFinishInflate
+   * method and invoke this manually.
    */
   protected void onFinishInflateSelf() {
     if (viewHeight.isPresent() && keyboardHeightScale.isPresent()) {
@@ -585,53 +583,56 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     // state_pressed one unexpectedly. Note that those keys are NOT children of this view.
     // Setting ClickListener to the key seems to suppress this unexpected highlight, too,
     // but we want to keep the current TouchListener for the enter key.
-    OnTouchListener doNothingOnTouchListener = new OnTouchListener() {
-      @Override
-      public boolean onTouch(View button, android.view.MotionEvent event) {
-        return true;
-      }
-    };
-    for (int id : new int[] {R.id.button_frame_in_symbol_view,
-                             R.id.symbol_view_backspace_separator,
-                             R.id.symbol_major_category,
-                             R.id.symbol_separator_1,
-                             R.id.symbol_separator_2,
-                             R.id.symbol_separator_3,
-                             R.id.symbol_view_close_button_separator,
-                             R.id.symbol_view_enter_button_separator}) {
+    OnTouchListener doNothingOnTouchListener =
+        new OnTouchListener() {
+          @Override
+          public boolean onTouch(View button, android.view.MotionEvent event) {
+            return true;
+          }
+        };
+    for (int id :
+        new int[] {
+          R.id.button_frame_in_symbol_view,
+          R.id.symbol_view_backspace_separator,
+          R.id.symbol_major_category,
+          R.id.symbol_separator_1,
+          R.id.symbol_separator_2,
+          R.id.symbol_separator_3,
+          R.id.symbol_view_close_button_separator,
+          R.id.symbol_view_enter_button_separator
+        }) {
       findViewById(id).setOnTouchListener(doNothingOnTouchListener);
     }
 
     KeyboardView keyboardView = KeyboardView.class.cast(findViewById(R.id.number_keyboard));
     keyboardView.setPopupEnabled(popupEnabled);
-    keyboardView.setKeyEventHandler(new KeyEventHandler(
-        Looper.getMainLooper(),
-        new KeyboardActionListener() {
-          @Override
-          public void onRelease(int keycode) {
-          }
+    keyboardView.setKeyEventHandler(
+        new KeyEventHandler(
+            Looper.getMainLooper(),
+            new KeyboardActionListener() {
+              @Override
+              public void onRelease(int keycode) {}
 
-          @Override
-          public void onPress(int keycode) {
-            if (viewEventListener.isPresent()) {
-              viewEventListener.get().onFireFeedbackEvent(FeedbackEvent.KEY_DOWN);
-            }
-          }
+              @Override
+              public void onPress(int keycode) {
+                if (viewEventListener.isPresent()) {
+                  viewEventListener.get().onFireFeedbackEvent(FeedbackEvent.KEY_DOWN);
+                }
+              }
 
-          @Override
-          public void onKey(int primaryCode, List<TouchEvent> touchEventList) {
-            if (keyEventHandler.isPresent()) {
-              keyEventHandler.get().sendKey(primaryCode, touchEventList);
-            }
-          }
+              @Override
+              public void onKey(int primaryCode, List<TouchEvent> touchEventList) {
+                if (keyEventHandler.isPresent()) {
+                  keyEventHandler.get().sendKey(primaryCode, touchEventList);
+                }
+              }
 
-          @Override
-          public void onCancel() {
-          }
-        },
-        getResources().getInteger(R.integer.config_repeat_key_delay),
-        getResources().getInteger(R.integer.config_repeat_key_interval),
-        getResources().getInteger(R.integer.config_long_press_key_delay)));
+              @Override
+              public void onCancel() {}
+            },
+            getResources().getInteger(R.integer.config_repeat_key_delay),
+            getResources().getInteger(R.integer.config_repeat_key_interval),
+            getResources().getInteger(R.integer.config_long_press_key_delay)));
 
     enableEmoji(emojiEnabled);
 
@@ -653,9 +654,11 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     float originalMajorCategoryHeight =
         resources.getDimension(R.dimen.symbol_view_major_category_height);
     int majorCategoryHeight = Math.round(originalMajorCategoryHeight * keyboardHeightScale);
-    this.numberKeyboardHeight = Optional.of(
-        symbolInputViewHeight - majorCategoryHeight
-        - resources.getDimensionPixelSize(R.dimen.button_frame_height));
+    this.numberKeyboardHeight =
+        Optional.of(
+            symbolInputViewHeight
+                - majorCategoryHeight
+                - resources.getDimensionPixelSize(R.dimen.button_frame_height));
 
     if (!isInflated()) {
       return;
@@ -680,11 +683,19 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     TabHost tabHost = getTabHost();
     Preconditions.checkState(symbolCandidateStorage.isPresent());
 
-    SymbolTabWidgetViewPagerAdapter adapter = new SymbolTabWidgetViewPagerAdapter(
-        getContext(),
-        symbolCandidateStorage.get(), viewEventListener, symbolCandidateSelectListener,
-        currentMajorCategory, skin, emojiProviderType, tabHost, candidateViewPager,
-        candidateTextSize, desciptionTextSize);
+    SymbolTabWidgetViewPagerAdapter adapter =
+        new SymbolTabWidgetViewPagerAdapter(
+            getContext(),
+            symbolCandidateStorage.get(),
+            viewEventListener,
+            symbolCandidateSelectListener,
+            currentMajorCategory,
+            skin,
+            emojiProviderType,
+            tabHost,
+            candidateViewPager,
+            candidateTextSize,
+            desciptionTextSize);
     candidateViewPager.setAdapter(adapter);
     candidateViewPager.setOnPageChangeListener(adapter);
     tabHost.setOnTabChangedListener(adapter);
@@ -711,15 +722,15 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
   @SuppressWarnings("deprecation")
   private void updateNumberKeyboardSkin() {
     getNumberKeyboardView().setSkin(skin);
-    findViewById(R.id.number_frame).setBackgroundDrawable(
-        skin.windowBackgroundDrawable.getConstantState().newDrawable());
-    findViewById(R.id.button_frame_in_symbol_view).setBackgroundDrawable(
-        skin.buttonFrameBackgroundDrawable.getConstantState().newDrawable());
+    findViewById(R.id.number_frame)
+        .setBackgroundDrawable(skin.windowBackgroundDrawable.getConstantState().newDrawable());
+    findViewById(R.id.button_frame_in_symbol_view)
+        .setBackgroundDrawable(skin.buttonFrameBackgroundDrawable.getConstantState().newDrawable());
   }
 
   /**
-   * Sets click event handlers to each major category button.
-   * It is necessary that the inflation has been done before this method invocation.
+   * Sets click event handlers to each major category button. It is necessary that the inflation has
+   * been done before this method invocation.
    */
   @SuppressWarnings("deprecation")
   private void updateMajorCategoryButtonsSkin() {
@@ -731,8 +742,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       view.setOnClickListener(new MajorCategoryButtonClickListener(majorCategory));
       switch (majorCategory) {
         case NUMBER:
-          view.setBackgroundDrawable(
-              majorCategoryButtonDrawableFactory.createLeftButtonDrawable());
+          view.setBackgroundDrawable(majorCategoryButtonDrawableFactory.createLeftButtonDrawable());
           break;
         case EMOJI:
           view.setBackgroundDrawable(
@@ -743,9 +753,10 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
               majorCategoryButtonDrawableFactory.createCenterButtonDrawable());
           break;
       }
-      view.setImageDrawable(BackgroundDrawableFactory.createSelectableDrawable(
-          skin.getDrawable(resources, majorCategory.buttonSelectedImageResourceId),
-          Optional.of(skin.getDrawable(resources, majorCategory.buttonImageResourceId))));
+      view.setImageDrawable(
+          BackgroundDrawableFactory.createSelectableDrawable(
+              skin.getDrawable(resources, majorCategory.buttonSelectedImageResourceId),
+              Optional.of(skin.getDrawable(resources, majorCategory.buttonImageResourceId))));
       // Update the padding since setBackgroundDrawable() overwrites it.
       view.setMaxImageHeight(
           resources.getDimensionPixelSize(majorCategory.maxImageHeightResourceId));
@@ -755,25 +766,34 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
   private void initializeNumberKeyboard() {
     final KeyboardFactory factory = new KeyboardFactory();
 
-    getNumberKeyboardView().addOnLayoutChangeListener(new OnLayoutChangeListener() {
-      @Override
-      public void onLayoutChange(
-          View view, int left, int top, int right, int bottom,
-          int oldLeft, int oldTop, int oldRight, int oldBottom) {
-        int width = right - left;
-        int height = bottom - top;
-        int oldWidth = oldRight - oldLeft;
-        int oldHeight = oldBottom - oldTop;
-        if (width == 0 || height == 0 || (width == oldWidth && height == oldHeight)) {
-          return;
-        }
-        KeyboardView keyboardView = KeyboardView.class.cast(view);
-        Keyboard keyboard =
-            factory.get(getResources(), KeyboardSpecification.SYMBOL_NUMBER, width, height);
-        keyboardView.setKeyboard(keyboard);
-        keyboardView.invalidate();
-      }
-    });
+    getNumberKeyboardView()
+        .addOnLayoutChangeListener(
+            new OnLayoutChangeListener() {
+              @Override
+              public void onLayoutChange(
+                  View view,
+                  int left,
+                  int top,
+                  int right,
+                  int bottom,
+                  int oldLeft,
+                  int oldTop,
+                  int oldRight,
+                  int oldBottom) {
+                int width = right - left;
+                int height = bottom - top;
+                int oldWidth = oldRight - oldLeft;
+                int oldHeight = oldBottom - oldTop;
+                if (width == 0 || height == 0 || (width == oldWidth && height == oldHeight)) {
+                  return;
+                }
+                KeyboardView keyboardView = KeyboardView.class.cast(view);
+                Keyboard keyboard =
+                    factory.get(getResources(), KeyboardSpecification.SYMBOL_NUMBER, width, height);
+                keyboardView.setKeyboard(keyboard);
+                keyboardView.invalidate();
+              }
+            });
   }
 
   private void initializeMinorCategoryTab() {
@@ -804,8 +824,8 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     if (!isInflated()) {
       return;
     }
-    getTabHost().setBackgroundDrawable(
-        skin.windowBackgroundDrawable.getConstantState().newDrawable());
+    getTabHost()
+        .setBackgroundDrawable(skin.windowBackgroundDrawable.getConstantState().newDrawable());
     TabWidget tabWidget = getTabWidget();
     // Explicitly set non-transparent drawable to avoid strange background on
     // some devices.
@@ -819,14 +839,15 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
 
   private static Drawable createTabBackgroundDrawable(Skin skin) {
     Preconditions.checkNotNull(skin);
-    return new LayerDrawable(new Drawable[] {
-        BackgroundDrawableFactory.createSelectableDrawable(
-            new TabSelectedBackgroundDrawable(
-                Math.round(skin.symbolMinorIndicatorHeightDimension),
-                skin.symbolMinorCategoryTabSelectedColor),
-            Optional.<Drawable>absent()),
-        createMinorButtonBackgroundDrawable(skin)
-    });
+    return new LayerDrawable(
+        new Drawable[] {
+          BackgroundDrawableFactory.createSelectableDrawable(
+              new TabSelectedBackgroundDrawable(
+                  Math.round(skin.symbolMinorIndicatorHeightDimension),
+                  skin.symbolMinorCategoryTabSelectedColor),
+              Optional.<Drawable>absent()),
+          createMinorButtonBackgroundDrawable(skin)
+        });
   }
 
   private void resetNumberKeyboard() {
@@ -850,10 +871,11 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       SymbolMinorCategory symbolMinorCategory = minorCategoryList.get(i);
       if (symbolMinorCategory.drawableResourceId != SymbolMinorCategory.INVALID_RESOURCE_ID
           && symbolMinorCategory.selectedDrawableResourceId
-                 != SymbolMinorCategory.INVALID_RESOURCE_ID) {
-        view.setImageDrawable(BackgroundDrawableFactory.createSelectableDrawable(
-            skin.getDrawable(resources, symbolMinorCategory.selectedDrawableResourceId),
-            Optional.of(skin.getDrawable(resources, symbolMinorCategory.drawableResourceId))));
+              != SymbolMinorCategory.INVALID_RESOURCE_ID) {
+        view.setImageDrawable(
+            BackgroundDrawableFactory.createSelectableDrawable(
+                skin.getDrawable(resources, symbolMinorCategory.selectedDrawableResourceId),
+                Optional.of(skin.getDrawable(resources, symbolMinorCategory.drawableResourceId))));
       }
       if (symbolMinorCategory.maxImageHeightResourceId != SymbolMinorCategory.INVALID_RESOURCE_ID) {
         view.setMaxImageHeight(
@@ -872,23 +894,31 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     int round = Math.round(skin.symbolMajorButtonRoundDimension);
     return BackgroundDrawableFactory.createPressableDrawable(
         new RoundRectKeyDrawable(
-            padding, padding, padding, padding, round,
+            padding,
+            padding,
+            padding,
+            padding,
+            round,
             skin.symbolPressedFunctionKeyTopColor,
             skin.symbolPressedFunctionKeyBottomColor,
             skin.symbolPressedFunctionKeyHighlightColor,
             skin.symbolPressedFunctionKeyShadowColor),
-        Optional.<Drawable>of(new RoundRectKeyDrawable(
-            padding, padding, padding, padding, round,
-            skin.symbolReleasedFunctionKeyTopColor,
-            skin.symbolReleasedFunctionKeyBottomColor,
-            skin.symbolReleasedFunctionKeyHighlightColor,
-            skin.symbolReleasedFunctionKeyShadowColor)));
+        Optional.<Drawable>of(
+            new RoundRectKeyDrawable(
+                padding,
+                padding,
+                padding,
+                padding,
+                round,
+                skin.symbolReleasedFunctionKeyTopColor,
+                skin.symbolReleasedFunctionKeyBottomColor,
+                skin.symbolReleasedFunctionKeyHighlightColor,
+                skin.symbolReleasedFunctionKeyShadowColor)));
   }
 
   private static Drawable createMinorButtonBackgroundDrawable(Skin skin) {
     return BackgroundDrawableFactory.createPressableDrawable(
-        new ColorDrawable(skin.symbolMinorCategoryTabPressedColor),
-        Optional.<Drawable>absent());
+        new ColorDrawable(skin.symbolMinorCategoryTabPressedColor), Optional.<Drawable>absent());
   }
 
   @SuppressWarnings("deprecation")
@@ -900,8 +930,8 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
   }
 
   /**
-   * Sets a click event handler to the delete button.
-   * It is necessary that the inflation has been done before this method invocation.
+   * Sets a click event handler to the delete button. It is necessary that the inflation has been
+   * done before this method invocation.
    */
   @SuppressWarnings("deprecation")
   private void initializeDeleteButton() {
@@ -928,33 +958,50 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
   @SuppressWarnings("deprecation")
   private void updateSeparatorsSkin() {
     Resources resources = getResources();
-    int minorPaddingSize = (int) resources.getFraction(
-        R.fraction.symbol_separator_padding_fraction,
-        resources.getDimensionPixelSize(R.dimen.button_frame_height), 0);
-    findViewById(R.id.symbol_view_backspace_separator).setBackgroundDrawable(
-        new InsetDrawable(new ColorDrawable(skin.symbolSeparatorColor),
-                          0, minorPaddingSize, 0, minorPaddingSize));
-    int majorPaddingSize = (int) resources.getFraction(
-        R.fraction.symbol_separator_padding_fraction,
-        resources.getDimensionPixelSize(R.dimen.symbol_view_major_category_height), 0);
-    InsetDrawable separator = new InsetDrawable(
-        new ColorDrawable(skin.symbolSeparatorColor), 0, majorPaddingSize, 0, majorPaddingSize);
-    for (int id : new int[] {R.id.symbol_view_close_button_separator,
-                             R.id.symbol_view_enter_button_separator}) {
+    int minorPaddingSize =
+        (int)
+            resources.getFraction(
+                R.fraction.symbol_separator_padding_fraction,
+                resources.getDimensionPixelSize(R.dimen.button_frame_height),
+                0);
+    findViewById(R.id.symbol_view_backspace_separator)
+        .setBackgroundDrawable(
+            new InsetDrawable(
+                new ColorDrawable(skin.symbolSeparatorColor),
+                0,
+                minorPaddingSize,
+                0,
+                minorPaddingSize));
+    int majorPaddingSize =
+        (int)
+            resources.getFraction(
+                R.fraction.symbol_separator_padding_fraction,
+                resources.getDimensionPixelSize(R.dimen.symbol_view_major_category_height),
+                0);
+    InsetDrawable separator =
+        new InsetDrawable(
+            new ColorDrawable(skin.symbolSeparatorColor), 0, majorPaddingSize, 0, majorPaddingSize);
+    for (int id :
+        new int[] {
+          R.id.symbol_view_close_button_separator, R.id.symbol_view_enter_button_separator
+        }) {
       findViewById(id).setBackgroundDrawable(separator.getConstantState().newDrawable());
     }
 
-    for (int id : new int[] {R.id.symbol_separator_1,
-                             R.id.symbol_separator_3}) {
-      findViewById(id).setBackgroundDrawable(
-          skin.keyboardFrameSeparatorBackgroundDrawable.getConstantState().newDrawable());
+    for (int id : new int[] {R.id.symbol_separator_1, R.id.symbol_separator_3}) {
+      findViewById(id)
+          .setBackgroundDrawable(
+              skin.keyboardFrameSeparatorBackgroundDrawable.getConstantState().newDrawable());
     }
-    findViewById(R.id.symbol_separator_2).setBackgroundDrawable(
-        skin.symbolSeparatorAboveMajorCategoryBackgroundDrawable
-            .getConstantState().newDrawable());
+    findViewById(R.id.symbol_separator_2)
+        .setBackgroundDrawable(
+            skin.symbolSeparatorAboveMajorCategoryBackgroundDrawable
+                .getConstantState()
+                .newDrawable());
   }
 
-  @VisibleForTesting TabHost getTabHost() {
+  @VisibleForTesting
+  TabHost getTabHost() {
     return TabHost.class.cast(findViewById(android.R.id.tabhost));
   }
 
@@ -962,12 +1009,14 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     return ViewPager.class.cast(findViewById(R.id.symbol_input_candidate_view_pager));
   }
 
-  @VisibleForTesting MozcImageButton getMajorCategoryButton(SymbolMajorCategory majorCategory) {
+  @VisibleForTesting
+  MozcImageButton getMajorCategoryButton(SymbolMajorCategory majorCategory) {
     Preconditions.checkNotNull(majorCategory);
     return MozcImageButton.class.cast(findViewById(majorCategory.buttonResourceId));
   }
 
-  @VisibleForTesting View getEmojiDisabledMessageView() {
+  @VisibleForTesting
+  View getEmojiDisabledMessageView() {
     return findViewById(R.id.symbol_emoji_disabled_message_view);
   }
 
@@ -992,8 +1041,8 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     imageButton.setBackgroundDrawable(
         majorCategoryButtonDrawableFactory.createRightButtonDrawable(enableEmoji));
     // Update the padding since setBackgroundDrawable() overwrites it.
-    imageButton.setMaxImageHeight(getResources().getDimensionPixelSize(
-        SymbolMajorCategory.EMOJI.maxImageHeightResourceId));
+    imageButton.setMaxImageHeight(
+        getResources().getDimensionPixelSize(SymbolMajorCategory.EMOJI.maxImageHeightResourceId));
   }
 
   void resetToMajorCategory(Optional<SymbolMajorCategory> category) {
@@ -1003,7 +1052,8 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     enterKeyEventButtonTouchListener.reset();
   }
 
-  @VisibleForTesting void reset() {
+  @VisibleForTesting
+  void reset() {
     // the current minor category is also updated in setMajorCategory.
     resetToMajorCategory(Optional.of(SymbolMajorCategory.NUMBER));
   }
@@ -1067,20 +1117,20 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     getNumberKeyboardView().setPopupEnabled(popupEnabled);
   }
 
-  /**
-   * Initializes EmojiProvider selection dialog, if necessary.
-   */
-  @VisibleForTesting void maybeInitializeEmojiProviderDialog(Context context) {
+  /** Initializes EmojiProvider selection dialog, if necessary. */
+  @VisibleForTesting
+  void maybeInitializeEmojiProviderDialog(Context context) {
     if (emojiProviderDialog.isPresent()) {
       return;
     }
 
     EmojiProviderDialogListener listener = new EmojiProviderDialogListener(context);
     try {
-      AlertDialog dialog = new AlertDialog.Builder(context)
-          .setTitle(R.string.pref_emoji_provider_type_title)
-          .setItems(R.array.pref_emoji_provider_type_entries, listener)
-          .create();
+      AlertDialog dialog =
+          new AlertDialog.Builder(context)
+              .setTitle(R.string.pref_emoji_provider_type_title)
+              .setItems(R.array.pref_emoji_provider_type_entries, listener)
+              .create();
       this.emojiProviderDialog = Optional.of(dialog);
     } catch (InflateException e) {
       // Ignore the exception.
@@ -1090,15 +1140,15 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
   /**
    * Sets the major category to show.
    *
-   * The view is updated.
-   * The active minor category is also updated.
+   * <p>The view is updated. The active minor category is also updated.
    *
-   * This method submit a preedit text except for a {@link SymbolMajorCategory#NUMBER} major
+   * <p>This method submit a preedit text except for a {@link SymbolMajorCategory#NUMBER} major
    * category since this class commit a candidate directly.
    *
    * @param newCategory the major category to show.
    */
-  @VisibleForTesting void setMajorCategory(SymbolMajorCategory newCategory) {
+  @VisibleForTesting
+  void setMajorCategory(SymbolMajorCategory newCategory) {
     Preconditions.checkNotNull(newCategory);
 
     {
@@ -1160,8 +1210,9 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     if (emojiDisabledMessageView != null) {
       // Show messages about emoji-disabling, if necessary.
       emojiDisabledMessageView.setVisibility(
-          currentMajorCategory == SymbolMajorCategory.EMOJI
-          && !emojiEnabled ? View.VISIBLE : View.GONE);
+          currentMajorCategory == SymbolMajorCategory.EMOJI && !emojiEnabled
+              ? View.VISIBLE
+              : View.GONE);
     }
   }
 
@@ -1204,7 +1255,8 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
   }
 
   void setEventListener(
-      ViewEventListener viewEventListener, OnClickListener closeButtonClickListener,
+      ViewEventListener viewEventListener,
+      OnClickListener closeButtonClickListener,
       OnClickListener microphoneButtonClickListener) {
     this.viewEventListener = Optional.of(viewEventListener);
     this.closeButtonClickListener = Optional.of(closeButtonClickListener);
@@ -1255,8 +1307,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
 
     // Note delete button shouldn't be applied createMajorButtonBackgroundDrawable as background
     // as it should show different background (same as minor categories).
-    for (int id : new int[] {R.id.symbol_view_close_button,
-                             R.id.symbol_view_enter_button}) {
+    for (int id : new int[] {R.id.symbol_view_close_button, R.id.symbol_view_enter_button}) {
       MozcImageView view = MozcImageView.class.cast(findViewById(id));
       view.setSkin(skin);
       view.setBackgroundDrawable(createMajorButtonBackgroundDrawable(skin));

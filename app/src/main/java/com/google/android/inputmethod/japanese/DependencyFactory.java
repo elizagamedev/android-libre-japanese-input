@@ -29,38 +29,30 @@
 
 package org.mozc.android.inputmethod.japanese;
 
+import android.app.Activity;
+import android.content.Context;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import org.mozc.android.inputmethod.japanese.model.SymbolCandidateStorage.SymbolHistoryStorage;
 import org.mozc.android.inputmethod.japanese.preference.MozcFragmentPreferenceActivity;
 import org.mozc.android.inputmethod.japanese.ui.MenuDialog.MenuDialogListener;
 import org.mozc.android.inputmethod.japanese.util.ImeSwitcherFactory.ImeSwitcher;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
-import android.app.Activity;
-import android.content.Context;
-import android.os.Build;
 
 /**
  * Factory class for dependency.
  *
- * Here "Depenency" is for "Dependency Injection".
- * Dependency is resolved on runtime.
- * For example preference activity is dependent on the API level.
- * Previously the same thing is done by string resources (create instances by reflection).
- * But it is hard to test and sometime cause crash bugs which are found after external launch.
+ * <p>Here "Depenency" is for "Dependency Injection". Dependency is resolved on runtime. For example
+ * preference activity is dependent on the API level. Previously the same thing is done by string
+ * resources (create instances by reflection). But it is hard to test and sometime cause crash bugs
+ * which are found after external launch.
  */
 public class DependencyFactory {
 
-
-  /**
-   * Dependencies.
-   */
+  /** Dependencies. */
   public interface Dependency {
 
-    /**
-     * Creates a ViewManager.
-     */
+    /** Creates a ViewManager. */
     public ViewManagerInterface createViewManager(
         Context context,
         ViewEventListener listener,
@@ -68,43 +60,42 @@ public class DependencyFactory {
         ImeSwitcher imeSwitcher,
         MenuDialogListener menuDialogListener);
 
-    /**
-     * Returns a class for preference activity.
-     */
+    /** Returns a class for preference activity. */
     public Class<? extends Activity> getPreferenceActivityClass();
 
     public boolean isWelcomeActivityPreferrable();
   }
 
-  /**
-   * Dependency for standard (with fragment) UI.
-   */
+  /** Dependency for standard (with fragment) UI. */
   @VisibleForTesting
-  static final Dependency TOUCH_FRAGMENT_PREF = new Dependency() {
+  static final Dependency TOUCH_FRAGMENT_PREF =
+      new Dependency() {
 
-    @Override
-    public ViewManagerInterface createViewManager(Context context, ViewEventListener listener,
-        SymbolHistoryStorage symbolHistoryStorage, ImeSwitcher imeSwitcher,
-        MenuDialogListener menuDialogListener) {
-      return new ViewManager(
-          Preconditions.checkNotNull(context),
-          Preconditions.checkNotNull(listener),
-          Preconditions.checkNotNull(symbolHistoryStorage),
-          Preconditions.checkNotNull(imeSwitcher),
-          Preconditions.checkNotNull(menuDialogListener));
-    }
+        @Override
+        public ViewManagerInterface createViewManager(
+            Context context,
+            ViewEventListener listener,
+            SymbolHistoryStorage symbolHistoryStorage,
+            ImeSwitcher imeSwitcher,
+            MenuDialogListener menuDialogListener) {
+          return new ViewManager(
+              Preconditions.checkNotNull(context),
+              Preconditions.checkNotNull(listener),
+              Preconditions.checkNotNull(symbolHistoryStorage),
+              Preconditions.checkNotNull(imeSwitcher),
+              Preconditions.checkNotNull(menuDialogListener));
+        }
 
-    @Override
-    public Class<? extends Activity> getPreferenceActivityClass() {
-      return MozcFragmentPreferenceActivity.class;
-    }
+        @Override
+        public Class<? extends Activity> getPreferenceActivityClass() {
+          return MozcFragmentPreferenceActivity.class;
+        }
 
-    @Override
-    public boolean isWelcomeActivityPreferrable() {
-      return true;
-    }
-  };
-
+        @Override
+        public boolean isWelcomeActivityPreferrable() {
+          return true;
+        }
+      };
 
   // For testing
   private static Optional<Dependency> dependencyForTesting = Optional.absent();

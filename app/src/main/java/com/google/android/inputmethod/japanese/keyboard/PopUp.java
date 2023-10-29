@@ -29,9 +29,7 @@
 
 package org.mozc.android.inputmethod.japanese.keyboard;
 
-
-/**
- */
+/** */
 public class PopUp {
 
   private final int popUpIconResourceId;
@@ -42,8 +40,14 @@ public class PopUp {
   private final int iconWidth;
   private final int iconHeight;
 
-  public PopUp(int popUpIconResourceId, int popUpLongPressIconResourceId,
-               int height, int xOffset, int yOffset, int iconWidth, int iconHeight) {
+  public PopUp(
+      int popUpIconResourceId,
+      int popUpLongPressIconResourceId,
+      int height,
+      int xOffset,
+      int yOffset,
+      int iconWidth,
+      int iconHeight) {
     this.popUpIconResourceId = popUpIconResourceId;
     this.longPressPopUpIconResourceId = popUpLongPressIconResourceId;
     this.height = height;

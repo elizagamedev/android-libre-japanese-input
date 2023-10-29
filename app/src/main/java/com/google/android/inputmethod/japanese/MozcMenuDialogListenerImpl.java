@@ -29,19 +29,15 @@
 
 package org.mozc.android.inputmethod.japanese;
 
-import org.mozc.android.inputmethod.japanese.mushroom.MushroomUtil;
-import org.mozc.android.inputmethod.japanese.ui.MenuDialog.MenuDialogListener;
-import com.google.common.base.Preconditions;
-
 import android.content.Context;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
 import android.view.inputmethod.InputConnection;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.mushroom.MushroomUtil;
+import org.mozc.android.inputmethod.japanese.ui.MenuDialog.MenuDialogListener;
 
-/**
- * Real implementation of MozcDialogListener.
- *
- */
+/** Real implementation of MozcDialogListener. */
 class MozcMenuDialogListenerImpl implements MenuDialogListener {
   private final InputMethodService inputMethodService;
   private final ViewEventListener eventListener;
@@ -79,8 +75,7 @@ class MozcMenuDialogListenerImpl implements MenuDialogListener {
   public void onLaunchPreferenceActivitySelected(Context context) {
     // Launch the preference activity.
     Intent intent =
-        new Intent(context,
-                   DependencyFactory.getDependency(context).getPreferenceActivityClass());
+        new Intent(context, DependencyFactory.getDependency(context).getPreferenceActivityClass());
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     context.startActivity(intent);
   }
@@ -102,8 +97,9 @@ class MozcMenuDialogListenerImpl implements MenuDialogListener {
     eventListener.onShowMushroomSelectionDialog();
 
     // Launch the activity.
-    Intent intent = MushroomUtil.createMushroomSelectionActivityLaunchingIntent(
-        context, inputMethodService.getCurrentInputEditorInfo().fieldId, composingText);
+    Intent intent =
+        MushroomUtil.createMushroomSelectionActivityLaunchingIntent(
+            context, inputMethodService.getCurrentInputEditorInfo().fieldId, composingText);
     context.startActivity(intent);
   }
 }

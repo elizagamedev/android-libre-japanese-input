@@ -29,26 +29,25 @@
 
 package org.mozc.android.inputmethod.japanese.accessibility;
 
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
-import org.mozc.android.inputmethod.japanese.ui.CandidateLayout;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.accessibility.AccessibilityEventCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
 import androidx.core.view.accessibility.AccessibilityRecordCompat;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.accessibility.AccessibilityEvent;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
+import org.mozc.android.inputmethod.japanese.ui.CandidateLayout;
 
 /**
  * Delegate object for candidate view to support accessibility.
- * <p>
- * This class is similar to {@code KeyboardAccessibilityDelegate} but the behavior
- * is different. It is not good idea to extract common behavior as super class.
+ *
+ * <p>This class is similar to {@code KeyboardAccessibilityDelegate} but the behavior is different.
+ * It is not good idea to extract common behavior as super class.
  */
 // TODO(matsuzakit): It seems that TYPE_VIEW_SCROLLED event from IME cannot reach to accessibility
 //                   service. Alternative solution might be required.
@@ -67,8 +66,8 @@ public class CandidateWindowAccessibilityDelegate extends AccessibilityDelegateC
   }
 
   @VisibleForTesting
-  CandidateWindowAccessibilityDelegate(View view,
-                                       CandidateWindowAccessibilityNodeProvider nodeProvider) {
+  CandidateWindowAccessibilityDelegate(
+      View view, CandidateWindowAccessibilityNodeProvider nodeProvider) {
     this.view = Preconditions.checkNotNull(view);
     this.nodeProvider = Preconditions.checkNotNull(nodeProvider);
   }
@@ -80,8 +79,8 @@ public class CandidateWindowAccessibilityDelegate extends AccessibilityDelegateC
 
   /**
    * Sets (updated) candidate layout.
-   * <p>
-   * Should be called when the view's candidate layout is updated.
+   *
+   * <p>Should be called when the view's candidate layout is updated.
    */
   public void setCandidateLayout(Optional<CandidateLayout> layout, int contentSize, int viewSize) {
     Preconditions.checkNotNull(layout);
@@ -180,10 +179,10 @@ public class CandidateWindowAccessibilityDelegate extends AccessibilityDelegateC
     info.setFocusable(true);
     int scrollY = view.getScrollY();
     if (scrollY > 0) {
-        info.addAction(AccessibilityNodeInfoCompat.ACTION_SCROLL_BACKWARD);
+      info.addAction(AccessibilityNodeInfoCompat.ACTION_SCROLL_BACKWARD);
     }
     if (scrollY < contentSize - viewSize) {
-        info.addAction(AccessibilityNodeInfoCompat.ACTION_SCROLL_FORWARD);
+      info.addAction(AccessibilityNodeInfoCompat.ACTION_SCROLL_FORWARD);
     }
   }
 }

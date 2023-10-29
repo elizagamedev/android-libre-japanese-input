@@ -34,22 +34,20 @@ import android.util.SparseArray;
 /**
  * Simple map object to proxy the result from Mushroom application.
  *
- * Background: MozcService is the {@code Service} instance but Mushroom application is
- * {@code Activity}, and its protocol to tell the result of the activity uses
- * "result" of Activity stack.
- * Thus, we need to tell it to ImeService somehow. Unfortunately, there seems
- * no good way, so we use global map instance for the proxy.
+ * <p>Background: MozcService is the {@code Service} instance but Mushroom application is {@code
+ * Activity}, and its protocol to tell the result of the activity uses "result" of Activity stack.
+ * Thus, we need to tell it to ImeService somehow. Unfortunately, there seems no good way, so we use
+ * global map instance for the proxy.
  *
- * This class is a singleton.
- *
+ * <p>This class is a singleton.
  */
 public class MushroomResultProxy {
   private static final MushroomResultProxy INSTANCE = new MushroomResultProxy();
 
   /** A map from fieldId to mushroom result. */
   private final SparseArray<String> replaceKeyMap = new SparseArray<String>();
-  private MushroomResultProxy() {
-  }
+
+  private MushroomResultProxy() {}
 
   /**
    * @return the singleton instance of this class.
@@ -68,15 +66,13 @@ public class MushroomResultProxy {
 
   /**
    * @return the String to be filled in the field with the given {@code fieldId} if available.
-   *   Otherwise, {@code null}.
+   *     Otherwise, {@code null}.
    */
   public String getReplaceKey(int fieldId) {
     return replaceKeyMap.get(fieldId);
   }
 
-  /**
-   * Clears all the data in the instance.
-   */
+  /** Clears all the data in the instance. */
   public void clear() {
     replaceKeyMap.clear();
   }

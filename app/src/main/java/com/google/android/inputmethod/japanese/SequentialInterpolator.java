@@ -30,15 +30,13 @@
 package org.mozc.android.inputmethod.japanese;
 
 import android.view.animation.Interpolator;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This interpolator uses registered interpolators sequentially.
  *
- * If you want an interpolator which has complex interpolation, this class help you.
- *
+ * <p>If you want an interpolator which has complex interpolation, this class help you.
  */
 class SequentialInterpolator implements Interpolator {
   static class Builder {
@@ -46,6 +44,7 @@ class SequentialInterpolator implements Interpolator {
     private List<Float> durations;
     private List<Float> toValues;
     private float totalDuration;
+
     private Builder() {
       final int EXPECTED_SIZE = 4;
       interpolators = new ArrayList<Interpolator>(EXPECTED_SIZE);
@@ -56,11 +55,12 @@ class SequentialInterpolator implements Interpolator {
 
     /**
      * Adds internal interpolator.
+     *
      * @param interpolator the interpolator to be added.
-     * @param duration the duration ratio which <code>interpolator</code> occupies.
-     *     Must be 0 or positive value.
-     * @param toValue the target value to which <code>interpolator</code> targes.
-     *     The last interpolator's <code>toValue</code> must be 1f.
+     * @param duration the duration ratio which <code>interpolator</code> occupies. Must be 0 or
+     *     positive value.
+     * @param toValue the target value to which <code>interpolator</code> targes. The last
+     *     interpolator's <code>toValue</code> must be 1f.
      * @return the builder.
      */
     Builder add(Interpolator interpolator, float duration, float toValue) {
@@ -76,6 +76,7 @@ class SequentialInterpolator implements Interpolator {
       totalDuration += duration;
       return this;
     }
+
     /**
      * @return Built interpolator.
      */
@@ -95,8 +96,11 @@ class SequentialInterpolator implements Interpolator {
   private final Float[] targets;
   private final float totalDuration;
 
-  private SequentialInterpolator(List<Interpolator> interpolators, List<Float> durations,
-      float totalDuration, List<Float> targets) {
+  private SequentialInterpolator(
+      List<Interpolator> interpolators,
+      List<Float> durations,
+      float totalDuration,
+      List<Float> targets) {
     this.interpolators = interpolators.toArray(new Interpolator[interpolators.size()]);
     this.durations = durations.toArray(new Float[durations.size()]);
     this.totalDuration = totalDuration;

@@ -29,23 +29,21 @@
 
 package org.mozc.android.inputmethod.japanese.ui;
 
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import com.google.common.base.Preconditions;
-
 import android.graphics.Rect;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.FrameLayout;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
 
 /**
  * A pop-up view layouter.
- * <p>
- * This class registers given popup View as a direct child of root View.
- * This makes the popup be able to appear to anywhere in the screen.
- * To control the position a Bounds should be specified. It will be converted into a LayoutParams
- * internally.
+ *
+ * <p>This class registers given popup View as a direct child of root View. This makes the popup be
+ * able to appear to anywhere in the screen. To control the position a Bounds should be specified.
+ * It will be converted into a LayoutParams internally.
  */
 public class PopUpLayouter<T extends View> {
 

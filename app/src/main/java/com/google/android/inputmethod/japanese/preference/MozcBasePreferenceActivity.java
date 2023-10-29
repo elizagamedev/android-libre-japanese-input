@@ -29,18 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.preference;
 
-import org.mozc.android.inputmethod.japanese.ApplicationInitializerFactory;
-import org.mozc.android.inputmethod.japanese.ApplicationInitializerFactory.ApplicationInitializer;
-import org.mozc.android.inputmethod.japanese.DependencyFactory;
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import org.mozc.android.inputmethod.japanese.hardwarekeyboard.HardwareKeyboardSpecification;
-import org.mozc.android.inputmethod.japanese.preference.KeyboardPreviewDrawable.BitmapCache;
-import org.mozc.android.inputmethod.japanese.preference.KeyboardPreviewDrawable.CacheReferenceKey;
-import org.mozc.android.inputmethod.japanese.R;
-import org.mozc.android.inputmethod.japanese.util.LauncherIconManagerFactory;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -54,13 +42,23 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import org.mozc.android.inputmethod.japanese.ApplicationInitializerFactory;
+import org.mozc.android.inputmethod.japanese.ApplicationInitializerFactory.ApplicationInitializer;
+import org.mozc.android.inputmethod.japanese.DependencyFactory;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.hardwarekeyboard.HardwareKeyboardSpecification;
+import org.mozc.android.inputmethod.japanese.preference.KeyboardPreviewDrawable.BitmapCache;
+import org.mozc.android.inputmethod.japanese.preference.KeyboardPreviewDrawable.CacheReferenceKey;
+import org.mozc.android.inputmethod.japanese.util.LauncherIconManagerFactory;
 
 /**
  * This class handles the preferences of mozc.
  *
- * The same information might be stored in both SharedPreference and Config.
- * In this case SharedPreference is the master and Config is just a copy.
- *
+ * <p>The same information might be stored in both SharedPreference and Config. In this case
+ * SharedPreference is the master and Config is just a copy.
  */
 public class MozcBasePreferenceActivity extends PreferenceActivity {
 
@@ -156,13 +154,14 @@ public class MozcBasePreferenceActivity extends PreferenceActivity {
   @VisibleForTesting
   void onPostResumeInternal(ApplicationInitializer initializer) {
     Context context = getApplicationContext();
-    Optional<Intent> forwardIntent = initializer.initialize(
-        MozcUtil.isSystemApplication(context),
-        MozcUtil.isDevChannel(context),
-        DependencyFactory.getDependency(getApplicationContext()).isWelcomeActivityPreferrable(),
-        MozcUtil.getAbiIndependentVersionCode(context),
-        LauncherIconManagerFactory.getDefaultInstance(),
-        PreferenceUtil.getDefaultPreferenceManagerStatic());
+    Optional<Intent> forwardIntent =
+        initializer.initialize(
+            MozcUtil.isSystemApplication(context),
+            MozcUtil.isDevChannel(context),
+            DependencyFactory.getDependency(getApplicationContext()).isWelcomeActivityPreferrable(),
+            MozcUtil.getAbiIndependentVersionCode(context),
+            LauncherIconManagerFactory.getDefaultInstance(),
+            PreferenceUtil.getDefaultPreferenceManagerStatic());
     if (forwardIntent.isPresent()) {
       startActivity(forwardIntent.get());
     } else {
@@ -198,19 +197,21 @@ public class MozcBasePreferenceActivity extends PreferenceActivity {
 
   private void initializeAlertDialog() {
     Resources resource = getResources();
-    imeEnableDialog = createAlertDialog(
-        this,
-        R.string.pref_ime_enable_alert_title,
-        resource.getString(R.string.pref_ime_enable_alert_message,
-                           resource.getString(R.string.app_name)),
-        new ImeEnableDialogClickListener(this));
+    imeEnableDialog =
+        createAlertDialog(
+            this,
+            R.string.pref_ime_enable_alert_title,
+            resource.getString(
+                R.string.pref_ime_enable_alert_message, resource.getString(R.string.app_name)),
+            new ImeEnableDialogClickListener(this));
     ImeSwitchDialogListener listener = new ImeSwitchDialogListener(this);
-    imeSwitchDialog = createAlertDialog(
-        this,
-        R.string.pref_ime_switch_alert_title,
-        resource.getString(R.string.pref_ime_switch_alert_message,
-                           resource.getString(R.string.app_name)),
-        listener);
+    imeSwitchDialog =
+        createAlertDialog(
+            this,
+            R.string.pref_ime_switch_alert_title,
+            resource.getString(
+                R.string.pref_ime_switch_alert_message, resource.getString(R.string.app_name)),
+            listener);
     imeSwitchDialog.setOnCancelListener(listener);
     imeSwitchDialog.setOnDismissListener(listener);
   }
@@ -225,9 +226,7 @@ public class MozcBasePreferenceActivity extends PreferenceActivity {
     return builder.create();
   }
 
-  /**
-   * Check the current default IME status, and show alerting dialog if necessary.
-   */
+  /** Check the current default IME status, and show alerting dialog if necessary. */
   private void maybeShowAlertDialogIme() {
     if (imeEnableDialog.isShowing() || imeSwitchDialog.isShowing()) {
       // Either dialog is already shown, right now. So just skip the check.
@@ -249,9 +248,7 @@ public class MozcBasePreferenceActivity extends PreferenceActivity {
     }
   }
 
-  /**
-   * For the time being, pretend default behavior of apps for the framework older than KITKAT.
-   */
+  /** For the time being, pretend default behavior of apps for the framework older than KITKAT. */
   @Override
   protected boolean isValidFragment(@SuppressWarnings("unused") String fragmentName) {
     return true;

@@ -29,52 +29,51 @@
 
 package org.mozc.android.inputmethod.japanese.keyboard;
 
-import org.mozc.android.inputmethod.japanese.keyboard.BackgroundDrawableFactory.DrawableType;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.MoreObjects.ToStringHelper;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import org.mozc.android.inputmethod.japanese.keyboard.BackgroundDrawableFactory.DrawableType;
 
 /**
- * This is a model class of a key, corresponding to a {@code &lt;Key&gt;} element
- * in a xml resource file.
+ * This is a model class of a key, corresponding to a {@code &lt;Key&gt;} element in a xml resource
+ * file.
  *
- * Here is a list this class supports.
+ * <p>Here is a list this class supports.
+ *
  * <ul>
- *   <li> {@code keyBackground}: an background image for the key.
- *   <li> {@code width}: key width.
- *   <li> {@code height}: key height.
- *   <li> {@code horizontalGap}: the gap between the (both) next keys and this key.
- *        Note that the width should includes horizontalGap. HorizontalGap will be evenly
- *        divided into each side.
- *   <li> {@code edgeFlags}: flags whether the key should stick to keyboard's boundary.
- *   <li> {@code isRepeatable}: whether the key long press cause a repeated key tapping.
- *   <li> {@code isModifier}: whether the key is modifier (e.g. shift key).
+ *   <li>{@code keyBackground}: an background image for the key.
+ *   <li>{@code width}: key width.
+ *   <li>{@code height}: key height.
+ *   <li>{@code horizontalGap}: the gap between the (both) next keys and this key. Note that the
+ *       width should includes horizontalGap. HorizontalGap will be evenly divided into each side.
+ *   <li>{@code edgeFlags}: flags whether the key should stick to keyboard's boundary.
+ *   <li>{@code isRepeatable}: whether the key long press cause a repeated key tapping.
+ *   <li>{@code isModifier}: whether the key is modifier (e.g. shift key).
  * </ul>
  *
- * The {@code &lt;Key&gt;} element can have (at most) two {@code &lt;KeyState&gt;} elements.
- * See also KeyState class for details.
- *
+ * The {@code &lt;Key&gt;} element can have (at most) two {@code &lt;KeyState&gt;} elements. See
+ * also KeyState class for details.
  */
 public class Key {
   /**
-   * This enum is only for spacers, not actual keys, to specify clicking behavior.
-   * If this is set to:
-   * - {@code EVEN}, then the spacer will be split into two regions, left and right.
-   *     If a user touches left half, it is considered a part of the key on the spacer's immediate
-   *     left. If a user touches right half, it is considered a part of the right one.
-   * - {@code LEFT}, then the corresponding key is the left one.
-   * - {@code RIGHT}, then the corresponding key is the right one.
+   * This enum is only for spacers, not actual keys, to specify clicking behavior. If this is set
+   * to: - {@code EVEN}, then the spacer will be split into two regions, left and right. If a user
+   * touches left half, it is considered a part of the key on the spacer's immediate left. If a user
+   * touches right half, it is considered a part of the right one. - {@code LEFT}, then the
+   * corresponding key is the left one. - {@code RIGHT}, then the corresponding key is the right
+   * one.
    */
   public enum Stick {
-    EVEN, LEFT, RIGHT,
+    EVEN,
+    LEFT,
+    RIGHT,
   }
 
   private final int x;
@@ -93,10 +92,18 @@ public class Key {
 
   private final List<KeyState> keyStateList;
 
-  public Key(int x, int y, int width, int height, int horizontalGap,
-             int edgeFlags, boolean isRepeatable, boolean isModifier,
-             Stick stick, DrawableType keyBackgroundDrawableType,
-             List<? extends KeyState> keyStateList) {
+  public Key(
+      int x,
+      int y,
+      int width,
+      int height,
+      int horizontalGap,
+      int edgeFlags,
+      boolean isRepeatable,
+      boolean isModifier,
+      Stick stick,
+      DrawableType keyBackgroundDrawableType,
+      List<? extends KeyState> keyStateList) {
     Preconditions.checkNotNull(stick);
     Preconditions.checkNotNull(keyBackgroundDrawableType);
     Preconditions.checkNotNull(keyStateList);
@@ -114,7 +121,7 @@ public class Key {
     this.stick = stick;
     this.keyBackgroundDrawableType = keyBackgroundDrawableType;
 
-    List<KeyState> tmpKeyStateList = null;  // Lazy creation.
+    List<KeyState> tmpKeyStateList = null; // Lazy creation.
     Optional<KeyState> defaultKeyState = Optional.absent();
     for (KeyState keyState : keyStateList) {
       Set<KeyState.MetaState> metaStateSet = keyState.getMetaStateSet();
@@ -123,7 +130,7 @@ public class Key {
           throw new IllegalArgumentException("Found duplicate default meta state");
         }
         defaultKeyState = Optional.of(keyState);
-        if (metaStateSet.size() <= 1) {  // metaStateSet contains only FALLBACK
+        if (metaStateSet.size() <= 1) { // metaStateSet contains only FALLBACK
           continue;
         }
       }
@@ -132,12 +139,14 @@ public class Key {
       }
       tmpKeyStateList.add(keyState);
     }
-    Preconditions.checkArgument(defaultKeyState.isPresent() || tmpKeyStateList == null,
-                                "Default KeyState is mandatory for non-spacer.");
+    Preconditions.checkArgument(
+        defaultKeyState.isPresent() || tmpKeyStateList == null,
+        "Default KeyState is mandatory for non-spacer.");
     this.defaultKeyState = defaultKeyState;
-    this.keyStateList = tmpKeyStateList == null
-        ? Collections.<KeyState>emptyList()
-        : Collections.unmodifiableList(tmpKeyStateList);
+    this.keyStateList =
+        tmpKeyStateList == null
+            ? Collections.<KeyState>emptyList()
+            : Collections.unmodifiableList(tmpKeyStateList);
   }
 
   public int getX() {
@@ -182,18 +191,20 @@ public class Key {
 
   /**
    * Returns {@code KeyState} at least one of which the metaState is in given {@code metaStates}.
-   * <p>
-   * For example, if there are following {@code KeyState}s (registered in this order);
+   *
+   * <p>For example, if there are following {@code KeyState}s (registered in this order);
+   *
    * <ul>
-   * <li>KeyState1 : metaStates=A|B
-   * <li>KeyState2 : metaStates=C
-   * <li>KeyState3 : metaStates=null (default)
+   *   <li>KeyState1 : metaStates=A|B
+   *   <li>KeyState2 : metaStates=C
+   *   <li>KeyState3 : metaStates=null (default)
    * </ul>
+   *
    * <ul>
-   * <li>metaStates=A gets KeyState1
-   * <li>metaStates=A|B gets KeyState1
-   * <li>metaStates=D gets KeyState3 as default
-   * <li>metaStates=A|C gets KeyState1 as it is registered earlier than KeyState2.
+   *   <li>metaStates=A gets KeyState1
+   *   <li>metaStates=A|B gets KeyState1
+   *   <li>metaStates=D gets KeyState3 as default
+   *   <li>metaStates=A|C gets KeyState1 as it is registered earlier than KeyState2.
    * </ul>
    */
   public Optional<KeyState> getKeyState(Set<KeyState.MetaState> metaStates) {
@@ -214,21 +225,19 @@ public class Key {
   @Override
   public String toString() {
     ToStringHelper helper = MoreObjects.toStringHelper(this);
-    helper.add("defaultKeyState",
-               defaultKeyState.isPresent() ? defaultKeyState.get().toString() : "empty");
+    helper.add(
+        "defaultKeyState",
+        defaultKeyState.isPresent() ? defaultKeyState.get().toString() : "empty");
     for (KeyState entry : keyStateList) {
       helper.addValue(entry.toString());
     }
     return helper.toString();
   }
 
-  /**
-   * Gets all the {@code KeyState}s, including default one.
-   */
+  /** Gets all the {@code KeyState}s, including default one. */
   public Iterable<KeyState> getKeyStates() {
     if (defaultKeyState.isPresent()) {
-      return Iterables.concat(keyStateList,
-                              Collections.singletonList(defaultKeyState.get()));
+      return Iterables.concat(keyStateList, Collections.singletonList(defaultKeyState.get()));
     } else {
       // Spacer
       return Collections.emptySet();

@@ -29,11 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.preference;
 
-import org.mozc.android.inputmethod.japanese.R;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -43,18 +38,19 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import java.util.regex.Pattern;
+import org.mozc.android.inputmethod.japanese.R;
 
 /**
  * Mini browser to show licenses.
  *
- * <p>We must show some web sites (e.g. EULA) from preference screen.
- * However in some special environments default browser is not installed so
- * even if an Intent is issued nothing will happen.
- * This mini browser accepts an Intent and shows its content (of which URL is included as
- * Intent's data) like as a browser.
- *
+ * <p>We must show some web sites (e.g. EULA) from preference screen. However in some special
+ * environments default browser is not installed so even if an Intent is issued nothing will happen.
+ * This mini browser accepts an Intent and shows its content (of which URL is included as Intent's
+ * data) like as a browser.
  */
 public class MiniBrowserActivity extends Activity {
 
@@ -117,8 +113,10 @@ public class MiniBrowserActivity extends Activity {
     WebView webView = new WebView(this);
     this.webView = Optional.of(webView);
     webView.setWebViewClient(
-        new MiniBrowserClient(getResources().getString(R.string.pref_url_restriction_regex),
-                              getPackageManager(), this));
+        new MiniBrowserClient(
+            getResources().getString(R.string.pref_url_restriction_regex),
+            getPackageManager(),
+            this));
     webView.loadUrl(getIntent().getData().toString());
     setContentView(webView);
   }

@@ -29,10 +29,9 @@
 
 package org.mozc.android.inputmethod.japanese.accessibility;
 
-import com.google.common.base.Preconditions;
-
 import android.content.Context;
 import android.media.AudioManager;
+import com.google.common.base.Preconditions;
 
 /**
  * Wrapper for {@link AudioManager}.
@@ -44,8 +43,9 @@ class AudioManagerWrapper {
   private final AudioManager manager;
 
   AudioManagerWrapper(Context context) {
-    this.manager = AudioManager.class.cast(Preconditions.checkNotNull(context)
-        .getSystemService(Context.AUDIO_SERVICE));
+    this.manager =
+        AudioManager.class.cast(
+            Preconditions.checkNotNull(context).getSystemService(Context.AUDIO_SERVICE));
   }
 
   public boolean isBluetoothA2dpOn() {

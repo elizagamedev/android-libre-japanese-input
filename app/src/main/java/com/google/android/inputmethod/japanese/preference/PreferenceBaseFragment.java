@@ -29,20 +29,17 @@
 
 package org.mozc.android.inputmethod.japanese.preference;
 
+import android.os.Bundle;
+import android.preference.PreferenceFragment;
+import java.util.List;
 import org.mozc.android.inputmethod.japanese.MozcLog;
 import org.mozc.android.inputmethod.japanese.MozcUtil;
 import org.mozc.android.inputmethod.japanese.R;
 
-import android.os.Bundle;
-import android.preference.PreferenceFragment;
-
-import java.util.List;
-
 /**
  * A PreferenceFragment for each {@link PreferencePage}.
  *
- * A referenceBaseFragment instance corresponds to a &lt;header&gt;(in prefernce header xml).
- *
+ * <p>A referenceBaseFragment instance corresponds to a &lt;header&gt;(in prefernce header xml).
  */
 public class PreferenceBaseFragment extends PreferenceFragment {
   @Override
@@ -65,8 +62,8 @@ public class PreferenceBaseFragment extends PreferenceFragment {
   }
 
   /**
-   * Does same thing as {@link PreferencePage#valueOf}, but also handles errors.
-   * Returns FLAT if an error is found.
+   * Does same thing as {@link PreferencePage#valueOf}, but also handles errors. Returns FLAT if an
+   * error is found.
    */
   static PreferencePage toPreferencePage(String preferencePageName) {
     if (preferencePageName == null) {
@@ -86,10 +83,10 @@ public class PreferenceBaseFragment extends PreferenceFragment {
   }
 
   /**
-   * Returns {@link PreferencePage}'s name which corresponds to the instance
-   * based on {@code bundle}.
+   * Returns {@link PreferencePage}'s name which corresponds to the instance based on {@code
+   * bundle}.
    *
-   * Typically {@code bundle} is set in preference header xml.
+   * <p>Typically {@code bundle} is set in preference header xml.
    */
   static String getPrefrerencePageName(Bundle bundle) {
     if (bundle == null) {

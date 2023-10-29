@@ -29,58 +29,45 @@
 
 package org.mozc.android.inputmethod.japanese.view;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import org.mozc.android.inputmethod.japanese.emoji.EmojiData;
-import org.mozc.android.inputmethod.japanese.emoji.EmojiProviderType;
-import org.mozc.android.inputmethod.japanese.emoji.EmojiRenderableChecker;
-import org.mozc.android.inputmethod.japanese.emoji.EmojiUtil;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateList;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.text.Layout;
-import android.text.Layout.Alignment;
-import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.TextView;
-
-import java.util.Arrays;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import java.util.BitSet;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
-
 import javax.annotation.Nullable;
+import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.emoji.EmojiData;
+import org.mozc.android.inputmethod.japanese.emoji.EmojiProviderType;
+import org.mozc.android.inputmethod.japanese.emoji.EmojiRenderableChecker;
+import org.mozc.android.inputmethod.japanese.emoji.EmojiUtil;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateList;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
 
-/**
- * Helper to render Japanese Emoji.
- *
- */
+/** Helper to render Japanese Emoji. */
 public class CarrierEmojiRenderHelper {
 
   /**
-   * Background view to support rendering carrier emoji (including animated emoji
-   * which is supported _somehow_ on TextView by manufacturers).
+   * Background view to support rendering carrier emoji (including animated emoji which is supported
+   * _somehow_ on TextView by manufacturers).
    *
-   * Due to the API limitation, a unit of emoji-support by each carrier/manufacture is
-   * {@link android.widget.TextView}, in other words, more simpler components, such as
-   * {@code Canvas} or {@code Paint} don't, unfortunately. So, we implement this class
-   * to support emoji on MechaMozc.
+   * <p>Due to the API limitation, a unit of emoji-support by each carrier/manufacture is {@link
+   * android.widget.TextView}, in other words, more simpler components, such as {@code Canvas} or
+   * {@code Paint} don't, unfortunately. So, we implement this class to support emoji on MechaMozc.
    */
   static class BackgroundTextView extends TextView {
 
@@ -91,9 +78,8 @@ public class CarrierEmojiRenderHelper {
     @Nullable private final View targetView;
 
     /**
-     * {@code invalidate} is designed to be invoked on the UI thread.
-     * So, just can use simple lock flag to prohibit unexpected {@code invalidate} invocation
-     * during rendering process.
+     * {@code invalidate} is designed to be invoked on the UI thread. So, just can use simple lock
+     * flag to prohibit unexpected {@code invalidate} invocation during rendering process.
      */
     private boolean invalidateLocked = false;
 
@@ -168,42 +154,36 @@ public class CarrierEmojiRenderHelper {
       return targetView.getHandler();
     }
 
-    /**
-     * Expose as public to access this method from the enclosing candidate view.
-     */
+    /** Expose as public to access this method from the enclosing candidate view. */
     @Override
     public void onAttachedToWindow() {
       super.onAttachedToWindow();
     }
 
-    /**
-     * Expose as public to access this method from the enclosing candidate view.
-     */
+    /** Expose as public to access this method from the enclosing candidate view. */
     @Override
     public void onDetachedFromWindow() {
       super.onDetachedFromWindow();
     }
 
-    /**
-     * Unfortunately measure(int, int) is final so make a proxy method for testing purpose.
-     */
+    /** Unfortunately measure(int, int) is final so make a proxy method for testing purpose. */
     void measureInternal(int width, int height) {
       super.measure(width, height);
     }
 
     /**
      * Ignores accessibility events.
-     * <p>
-     * As {@link #isShown()} is overridden with fake, without this hack
-     * the framework thinks this view is shown correctly and calls {@link #getParent()},
-     * which throws NPE as this view has no parent.
+     *
+     * <p>As {@link #isShown()} is overridden with fake, without this hack the framework thinks this
+     * view is shown correctly and calls {@link #getParent()}, which throws NPE as this view has no
+     * parent.
      */
     @Override
-    public void sendAccessibilityEventUnchecked(AccessibilityEvent event) {
-    }
+    public void sendAccessibilityEventUnchecked(AccessibilityEvent event) {}
   }
 
   private static final Set<EmojiProviderType> RENDERABLE_EMOJI_PROVIDER_SET;
+
   static {
     EmojiRenderableChecker renderableChecker = new EmojiRenderableChecker();
     EnumSet<EmojiProviderType> renderableEmojiProviderSet = EnumSet.noneOf(EmojiProviderType.class);
@@ -247,8 +227,9 @@ public class CarrierEmojiRenderHelper {
   private final Rect rect = new Rect();
 
   public CarrierEmojiRenderHelper(View targetView) {
-    this(RENDERABLE_EMOJI_PROVIDER_SET,
-         new BackgroundTextView(Preconditions.checkNotNull(targetView)));
+    this(
+        RENDERABLE_EMOJI_PROVIDER_SET,
+        new BackgroundTextView(Preconditions.checkNotNull(targetView)));
   }
 
   @VisibleForTesting
@@ -269,8 +250,9 @@ public class CarrierEmojiRenderHelper {
 
   /**
    * Sets the provider type to this instance.
-   * @param providerType the type of emoji provider.
-   *     {@link EmojiProviderType#NONE} if the runtime environment doesn't support emoji.
+   *
+   * @param providerType the type of emoji provider. {@link EmojiProviderType#NONE} if the runtime
+   *     environment doesn't support emoji.
    */
   public void setEmojiProviderType(EmojiProviderType providerType) {
     Preconditions.checkNotNull(providerType);
@@ -297,31 +279,40 @@ public class CarrierEmojiRenderHelper {
       // CAUTION! EmojiData.CARRIER_CATEGORY_NAME may contain null elements.
       switch (providerType) {
         case DOCOMO:
-          emojiBitSet = Optional.of(buildEmojiSet(new String[][] {
-              EmojiData.DOCOMO_FACE_NAME,
-              EmojiData.DOCOMO_FOOD_NAME,
-              EmojiData.DOCOMO_ACTIVITY_NAME,
-              EmojiData.DOCOMO_CITY_NAME,
-              EmojiData.DOCOMO_NATURE_NAME,
-          }));
+          emojiBitSet =
+              Optional.of(
+                  buildEmojiSet(
+                      new String[][] {
+                        EmojiData.DOCOMO_FACE_NAME,
+                        EmojiData.DOCOMO_FOOD_NAME,
+                        EmojiData.DOCOMO_ACTIVITY_NAME,
+                        EmojiData.DOCOMO_CITY_NAME,
+                        EmojiData.DOCOMO_NATURE_NAME,
+                      }));
           break;
         case SOFTBANK:
-          emojiBitSet = Optional.of(buildEmojiSet(new String[][] {
-              EmojiData.SOFTBANK_FACE_NAME,
-              EmojiData.SOFTBANK_FOOD_NAME,
-              EmojiData.SOFTBANK_ACTIVITY_NAME,
-              EmojiData.SOFTBANK_CITY_NAME,
-              EmojiData.SOFTBANK_NATURE_NAME,
-          }));
+          emojiBitSet =
+              Optional.of(
+                  buildEmojiSet(
+                      new String[][] {
+                        EmojiData.SOFTBANK_FACE_NAME,
+                        EmojiData.SOFTBANK_FOOD_NAME,
+                        EmojiData.SOFTBANK_ACTIVITY_NAME,
+                        EmojiData.SOFTBANK_CITY_NAME,
+                        EmojiData.SOFTBANK_NATURE_NAME,
+                      }));
           break;
         case KDDI:
-          emojiBitSet = Optional.of(buildEmojiSet(new String[][] {
-              EmojiData.KDDI_FACE_NAME,
-              EmojiData.KDDI_FOOD_NAME,
-              EmojiData.KDDI_ACTIVITY_NAME,
-              EmojiData.KDDI_CITY_NAME,
-              EmojiData.KDDI_NATURE_NAME,
-          }));
+          emojiBitSet =
+              Optional.of(
+                  buildEmojiSet(
+                      new String[][] {
+                        EmojiData.KDDI_FACE_NAME,
+                        EmojiData.KDDI_FOOD_NAME,
+                        EmojiData.KDDI_ACTIVITY_NAME,
+                        EmojiData.KDDI_CITY_NAME,
+                        EmojiData.KDDI_NATURE_NAME,
+                      }));
           break;
         default:
           MozcLog.e("Unexpected Emoji provider type is given: " + providerType.name());
@@ -330,26 +321,26 @@ public class CarrierEmojiRenderHelper {
   }
 
   /**
-   * Builds the bitset, whose range is [MIN_PUA_CODE_POINT, MAX_PUA_CODE_POINT] with
-   * offset MIN_PUA_CODE_POINT.
-   * If the bit is true, it means the code point is a part of the carrier's emoji characters.
+   * Builds the bitset, whose range is [MIN_PUA_CODE_POINT, MAX_PUA_CODE_POINT] with offset
+   * MIN_PUA_CODE_POINT. If the bit is true, it means the code point is a part of the carrier's
+   * emoji characters.
    *
    * @param providerDescriptionList is an array of {FACE, FOOD, ACTIVITY, CITY, NATURE}
-   *   descriptions, in {@link EmojiData}. It may contains null elements.
+   *     descriptions, in {@link EmojiData}. It may contains null elements.
    */
   private static BitSet buildEmojiSet(String[][] providerDescriptionList) {
     String[][] valueList = {
-        EmojiData.FACE_PUA_VALUES,
-        EmojiData.FOOD_PUA_VALUES,
-        EmojiData.ACTIVITY_PUA_VALUES,
-        EmojiData.CITY_PUA_VALUES,
-        EmojiData.NATURE_PUA_VALUES,
+      EmojiData.FACE_PUA_VALUES,
+      EmojiData.FOOD_PUA_VALUES,
+      EmojiData.ACTIVITY_PUA_VALUES,
+      EmojiData.CITY_PUA_VALUES,
+      EmojiData.NATURE_PUA_VALUES,
     };
     if (valueList.length != providerDescriptionList.length) {
       throw new IllegalArgumentException();
     }
-    BitSet result = new BitSet(
-        EmojiUtil.MAX_EMOJI_PUA_CODE_POINT - EmojiUtil.MIN_EMOJI_PUA_CODE_POINT + 1);
+    BitSet result =
+        new BitSet(EmojiUtil.MAX_EMOJI_PUA_CODE_POINT - EmojiUtil.MIN_EMOJI_PUA_CODE_POINT + 1);
     for (int i = 0; i < valueList.length; ++i) {
       buildEmojiSetInternal(result, valueList[i], providerDescriptionList[i]);
     }
@@ -385,8 +376,8 @@ public class CarrierEmojiRenderHelper {
   }
 
   /**
-   * @return {@code true} if the given {@code value} is the renderable emoji supported
-   *   by this class.
+   * @return {@code true} if the given {@code value} is the renderable emoji supported by this
+   *     class.
    */
   public boolean isRenderableEmoji(String value) {
     // TODO(exv): replace this
@@ -415,9 +406,8 @@ public class CarrierEmojiRenderHelper {
   }
 
   /**
-   * Sets the candidate list (of emoji characters) to be rendered.
-   * We assume that the id of the each CandidateWord equals to the position (index) of the
-   * instance in the given list.
+   * Sets the candidate list (of emoji characters) to be rendered. We assume that the id of the each
+   * CandidateWord equals to the position (index) of the instance in the given list.
    */
   public void setCandidateList(Optional<CandidateList> candidateList) {
     Preconditions.checkNotNull(candidateList);
@@ -458,8 +448,8 @@ public class CarrierEmojiRenderHelper {
       backgroundTextView.setText(concatText);
       backgroundTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, candidateTextSize);
       ViewGroup.LayoutParams layoutParams = backgroundTextView.getLayoutParams();
-      if (layoutParams != null &&
-          (layoutParams.width != measureWidth || layoutParams.height != measureHeight)) {
+      if (layoutParams != null
+          && (layoutParams.width != measureWidth || layoutParams.height != measureHeight)) {
         layoutParams.width = measureWidth;
         layoutParams.height = measureHeight;
         backgroundTextView.setLayoutParams(layoutParams);
@@ -473,11 +463,12 @@ public class CarrierEmojiRenderHelper {
   }
 
   /**
-   * Builds a String instance, which concat all emoji candidates in candateList.
-   * The length of {@code emojiLineIndex} should be equal to candidateList.getCandidatesCount().
-   * This method fills the line index for the emoji candidates, or -1 for non-emoji candidates.
+   * Builds a String instance, which concat all emoji candidates in candateList. The length of
+   * {@code emojiLineIndex} should be equal to candidateList.getCandidatesCount(). This method fills
+   * the line index for the emoji candidates, or -1 for non-emoji candidates.
    */
-  @VisibleForTesting String toString(CandidateList candidateList, int[] emojiLineIndex) {
+  @VisibleForTesting
+  String toString(CandidateList candidateList, int[] emojiLineIndex) {
     Preconditions.checkNotNull(candidateList);
     Preconditions.checkNotNull(emojiLineIndex);
     Preconditions.checkArgument(emojiLineIndex.length == candidateList.getCandidatesCount());
@@ -504,16 +495,16 @@ public class CarrierEmojiRenderHelper {
   }
 
   /**
-   * To enable emoji animation on some devices, it is necessary to call this method
-   * from the client view's onAttachedToWindow.
+   * To enable emoji animation on some devices, it is necessary to call this method from the client
+   * view's onAttachedToWindow.
    */
   public void onAttachedToWindow() {
     backgroundTextView.onAttachedToWindow();
   }
 
   /**
-   * To enable emoji animation on some devices, it is necessary to call this method
-   * from the client view's onDetachedFromWindow.
+   * To enable emoji animation on some devices, it is necessary to call this method from the client
+   * view's onDetachedFromWindow.
    */
   @SuppressLint("MissingSuperCall")
   public void onDetachedFromWindow() {
@@ -549,8 +540,11 @@ public class CarrierEmojiRenderHelper {
       // The text content of backgroundTextView has a candidate word per line,
       // so getLineBounds returns the bounding box of the candidate, here.
       layout.getLineBounds(line, rect);
-      canvas.clipRect(centerX - rect.width() / 2, centerY - rect.height() / 2,
-                      centerX + rect.width() / 2, centerY + rect.height() / 2);
+      canvas.clipRect(
+          centerX - rect.width() / 2,
+          centerY - rect.height() / 2,
+          centerX + rect.width() / 2,
+          centerY + rect.height() / 2);
       canvas.translate(centerX - rect.centerX(), centerY - rect.centerY());
       layout.draw(canvas);
     } finally {

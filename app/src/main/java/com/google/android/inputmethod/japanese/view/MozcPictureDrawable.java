@@ -29,18 +29,16 @@
 
 package org.mozc.android.inputmethod.japanese.view;
 
-import com.google.common.base.Preconditions;
-
 import android.graphics.Canvas;
 import android.graphics.Picture;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
+import com.google.common.base.Preconditions;
 
 /**
- * This class is very similar to {@link PictureDrawable}, except this class scale to fit
- * to the given bounding box as similar to other drawables.
- *
+ * This class is very similar to {@link PictureDrawable}, except this class scale to fit to the
+ * given bounding box as similar to other drawables.
  */
 public class MozcPictureDrawable extends PictureDrawable {
   public MozcPictureDrawable(Picture picture) {
@@ -49,9 +47,10 @@ public class MozcPictureDrawable extends PictureDrawable {
 
   @Override
   public void draw(Canvas canvas) {
-    Preconditions.checkArgument(!canvas.isHardwareAccelerated(),
+    Preconditions.checkArgument(
+        !canvas.isHardwareAccelerated(),
         "MozcPictureDrawable doesn't accept h/w accelerated canvas, "
-        + "which doesn't support drawPicture().");
+            + "which doesn't support drawPicture().");
     Picture picture = getPicture();
     if (picture == null) {
       return;

@@ -29,37 +29,33 @@
 
 package org.mozc.android.inputmethod.japanese.ui;
 
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateList;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
 import org.mozc.android.inputmethod.japanese.ui.CandidateLayout.Row;
 import org.mozc.android.inputmethod.japanese.ui.CandidateLayout.Span;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Layouts the conversion candidate words.
  *
- * First, all the rows this layouter creates are split into "chunk"s.
- * The width of each chunk is equal to {@code pageWidth / numChunks} evenly.
- * Next, the candidates are assigned to chunks. The order of the candidates is kept.
- * A candidate may occupy one or more successive chunks which are on the same row.
+ * <p>First, all the rows this layouter creates are split into "chunk"s. The width of each chunk is
+ * equal to {@code pageWidth / numChunks} evenly. Next, the candidates are assigned to chunks. The
+ * order of the candidates is kept. A candidate may occupy one or more successive chunks which are
+ * on the same row.
  *
- * The height of each row is round up to integer, so that the snap-paging
- * should work well.
- *
+ * <p>The height of each row is round up to integer, so that the snap-paging should work well.
  */
 public class ConversionCandidateLayouter implements CandidateLayouter {
 
   /**
    * The metrics between chunk and span.
    *
-   * The main purpose of this class is to inject the chunk compression
-   * heuristics for testing.
+   * <p>The main purpose of this class is to inject the chunk compression heuristics for testing.
    */
   static class ChunkMetrics {
 
@@ -68,10 +64,8 @@ public class ConversionCandidateLayouter implements CandidateLayouter {
     private final float horizontalPadding;
     private final float minWidth;
 
-    ChunkMetrics(float chunkWidth,
-                 float compressionRatio,
-                 float horizontalPadding,
-                 float minWidth) {
+    ChunkMetrics(
+        float chunkWidth, float compressionRatio, float horizontalPadding, float minWidth) {
       this.chunkWidth = chunkWidth;
       this.compressionRatio = compressionRatio;
       this.horizontalPadding = horizontalPadding;
@@ -206,17 +200,20 @@ public class ConversionCandidateLayouter implements CandidateLayouter {
   @Override
   public Optional<CandidateLayout> layout(CandidateList candidateList) {
     Preconditions.checkNotNull(candidateList);
-    if (minChunkWidth <= 0 || viewWidth <= 0 || candidateList.getCandidatesCount() == 0 ||
-        !spanFactory.isPresent()) {
+    if (minChunkWidth <= 0
+        || viewWidth <= 0
+        || candidateList.getCandidatesCount() == 0
+        || !spanFactory.isPresent()) {
       return Optional.<CandidateLayout>absent();
     }
 
     int numChunks = getNumChunks();
     float chunkWidth = getChunkWidth();
-    ChunkMetrics chunkMetrics = new ChunkMetrics(
-        chunkWidth, valueWidthCompressionRate, valueHorizontalPadding, minValueWidth);
-    List<Row> rowList = buildRowList(candidateList, spanFactory.get(), numChunks, chunkMetrics,
-                                     reserveEmptySpan);
+    ChunkMetrics chunkMetrics =
+        new ChunkMetrics(
+            chunkWidth, valueWidthCompressionRate, valueHorizontalPadding, minValueWidth);
+    List<Row> rowList =
+        buildRowList(candidateList, spanFactory.get(), numChunks, chunkMetrics, reserveEmptySpan);
     int[] numAllocatedChunks = new int[numChunks];
     boolean isFirst = reserveEmptySpan;
     for (Row row : rowList) {
@@ -224,14 +221,15 @@ public class ConversionCandidateLayouter implements CandidateLayouter {
           row.getSpanList(),
           (isFirst ? (viewWidth - (int) chunkWidth) : viewWidth),
           (isFirst ? numChunks - 1 : numChunks),
-          chunkMetrics, numAllocatedChunks);
+          chunkMetrics,
+          numAllocatedChunks);
       isFirst = false;
     }
 
     // Push empty span at the end of the first row.
     if (reserveEmptySpan) {
-      Span emptySpan = new Span(Optional.<CandidateWord>absent(), 0, 0,
-                                Collections.<String>emptyList());
+      Span emptySpan =
+          new Span(Optional.<CandidateWord>absent(), 0, 0, Collections.<String>emptyList());
       List<Span> spanList = rowList.get(0).getSpanList();
       emptySpan.setLeft(spanList.get(spanList.size() - 1).getRight());
       emptySpan.setRight(viewWidth);
@@ -249,12 +247,15 @@ public class ConversionCandidateLayouter implements CandidateLayouter {
   /**
    * Builds the row list based on the number of estimated chunks for each span.
    *
-   * The order of the candidates will be kept.
+   * <p>The order of the candidates will be kept.
    */
   @VisibleForTesting
   static List<Row> buildRowList(
-      CandidateList candidateList, SpanFactory spanFactory,
-      int numChunks, ChunkMetrics chunkMetrics, boolean enableSpan) {
+      CandidateList candidateList,
+      SpanFactory spanFactory,
+      int numChunks,
+      ChunkMetrics chunkMetrics,
+      boolean enableSpan) {
     Preconditions.checkNotNull(candidateList);
     Preconditions.checkNotNull(spanFactory);
     Preconditions.checkNotNull(chunkMetrics);
@@ -288,19 +289,21 @@ public class ConversionCandidateLayouter implements CandidateLayouter {
   }
 
   /**
-   * Sets left and right of each span. The left and right should be aligned to the chunks.
-   * Also, the right of the last span should be equal to {@code pageWidth}.
+   * Sets left and right of each span. The left and right should be aligned to the chunks. Also, the
+   * right of the last span should be equal to {@code pageWidth}.
    *
-   * In order to avoid integer array memory allocation (as this method will be invoked
-   * many times to layout a {@link CandidateList}), it is necessary to pass an integer
-   * array for the calculation buffer, {@code numAllocatedChunks}.
-   * The size of the buffer must be equal to or greater than {@code spanList.size()}.
-   * Its elements needn't be initialized.
+   * <p>In order to avoid integer array memory allocation (as this method will be invoked many times
+   * to layout a {@link CandidateList}), it is necessary to pass an integer array for the
+   * calculation buffer, {@code numAllocatedChunks}. The size of the buffer must be equal to or
+   * greater than {@code spanList.size()}. Its elements needn't be initialized.
    */
   @VisibleForTesting
   static void layoutSpanList(
-      List<Span> spanList, int pageWidth,
-      int numChunks, ChunkMetrics chunkMetrics, int[] numAllocatedChunks) {
+      List<Span> spanList,
+      int pageWidth,
+      int numChunks,
+      ChunkMetrics chunkMetrics,
+      int[] numAllocatedChunks) {
     Preconditions.checkNotNull(spanList);
     Preconditions.checkNotNull(chunkMetrics);
     Preconditions.checkNotNull(numAllocatedChunks);
@@ -319,8 +322,9 @@ public class ConversionCandidateLayouter implements CandidateLayouter {
     }
 
     // Then assign remaining chunks to each span as even as possible by round-robin.
-    for (int index = 0; numRemainingChunks > 0;
-         --numRemainingChunks, index = (index + 1) % spanList.size()) {
+    for (int index = 0;
+        numRemainingChunks > 0;
+        --numRemainingChunks, index = (index + 1) % spanList.size()) {
       ++numAllocatedChunks[index];
     }
 

@@ -29,8 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.view;
 
-import com.google.common.base.Optional;
-
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -38,11 +36,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
+import com.google.common.base.Optional;
 
-/**
- * Drawable to render a candidate background.
- *
- */
+/** Drawable to render a candidate background. */
 public class CandidateBackgroundDrawable extends BaseBackgroundDrawable {
 
   private final int topColor;
@@ -57,11 +53,18 @@ public class CandidateBackgroundDrawable extends BaseBackgroundDrawable {
 
   /** Cached Paint instance to reuse for performance reason. */
   private final Paint paint = new Paint();
+
   private Optional<Shader> shader = Optional.absent();
 
   public CandidateBackgroundDrawable(
-      int leftPadding, int topPadding, int rightPadding, int bottomPadding,
-      int topColor, int bottomColor, int highlightColor, int borderColor) {
+      int leftPadding,
+      int topPadding,
+      int rightPadding,
+      int bottomPadding,
+      int topColor,
+      int bottomColor,
+      int highlightColor,
+      int borderColor) {
     super(leftPadding, topPadding, rightPadding, bottomPadding);
     this.topColor = topColor;
     this.bottomColor = bottomColor;
@@ -100,8 +103,8 @@ public class CandidateBackgroundDrawable extends BaseBackgroundDrawable {
     if (shader.isPresent()) {
       paint.reset();
       paint.setShader(shader.get());
-      canvas.drawRect(left + 1, top + 1,
-                      Math.max(left + 1, right - 1), Math.max(top + 1, bottom - 1), paint);
+      canvas.drawRect(
+          left + 1, top + 1, Math.max(left + 1, right - 1), Math.max(top + 1, bottom - 1), paint);
     }
   }
 
@@ -115,8 +118,9 @@ public class CandidateBackgroundDrawable extends BaseBackgroundDrawable {
     right = canvasRect.right;
     bottom = canvasRect.bottom;
     if (Color.alpha(topColor | bottomColor) != 0) {
-      shader = Optional.<Shader>of(
-          new LinearGradient(0, top, 0, bottom, topColor, bottomColor, TileMode.CLAMP));
+      shader =
+          Optional.<Shader>of(
+              new LinearGradient(0, top, 0, bottom, topColor, bottomColor, TileMode.CLAMP));
     }
   }
 }

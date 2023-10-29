@@ -29,24 +29,20 @@
 
 package org.mozc.android.inputmethod.japanese.ui;
 
-import org.mozc.android.inputmethod.japanese.R;
-import org.mozc.android.inputmethod.japanese.view.RectKeyDrawable;
-import org.mozc.android.inputmethod.japanese.view.Skin;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.view.RectKeyDrawable;
+import org.mozc.android.inputmethod.japanese.view.Skin;
 
-/**
- * Skin-aware vertical indicator to represent the current scroller's position.
- *
- */
+/** Skin-aware vertical indicator to represent the current scroller's position. */
 public class ScrollGuideView extends View {
 
   private final int scrollBarMinimumHeight = getScrollBarMinimumHeight(getResources());
@@ -69,10 +65,17 @@ public class ScrollGuideView extends View {
   private static Drawable createScrollBarDrawable(Skin skin) {
     // TODO(hidehiko): Probably we should rename the RectKeyDrawable,
     //   because this usage is not the key but actually we can reuse the code as is.
-    return new RectKeyDrawable(1, 0, 1, 1,
-                               skin.candidateScrollBarTopColor,
-                               skin.candidateScrollBarBottomColor,
-                               0, 0, 0, 0);
+    return new RectKeyDrawable(
+        1,
+        0,
+        1,
+        1,
+        skin.candidateScrollBarTopColor,
+        skin.candidateScrollBarBottomColor,
+        0,
+        0,
+        0,
+        0);
   }
 
   private static int getScrollBarMinimumHeight(Resources resources) {
@@ -109,8 +112,9 @@ public class ScrollGuideView extends View {
     }
     SnapScroller scroller = snapScroller.get();
 
-    int contentSize = Math.max(
-        scroller.getContentSize(), scroller.getMaxScrollPosition() + scroller.getViewSize());
+    int contentSize =
+        Math.max(
+            scroller.getContentSize(), scroller.getMaxScrollPosition() + scroller.getViewSize());
     if (contentSize == 0) {
       return;
     }
@@ -118,16 +122,18 @@ public class ScrollGuideView extends View {
     int height = getHeight();
 
     // Ceil the slide bar's size.
-    int length = Math.max(
-        (height * scroller.getViewSize() + contentSize - 1) / contentSize,
-        scrollBarMinimumHeight);
+    int length =
+        Math.max(
+            (height * scroller.getViewSize() + contentSize - 1) / contentSize,
+            scrollBarMinimumHeight);
     if (length == 0) {
       return;
     }
     int maxScrollPosition = scroller.getMaxScrollPosition();
-    int top = (maxScrollPosition == 0)
-        ? 0
-        : (height - length) * scroller.getScrollPosition() / maxScrollPosition;
+    int top =
+        (maxScrollPosition == 0)
+            ? 0
+            : (height - length) * scroller.getScrollPosition() / maxScrollPosition;
     scrollBarDrawable.setBounds(0, top, getWidth(), top + length);
     scrollBarDrawable.draw(canvas);
   }

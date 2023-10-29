@@ -29,13 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.preference;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import org.mozc.android.inputmethod.japanese.preference.ClientSidePreference.KeyboardLayout;
-import org.mozc.android.inputmethod.japanese.R;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -45,14 +38,16 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
-
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import java.util.HashSet;
 import java.util.Set;
+import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.preference.ClientSidePreference.KeyboardLayout;
 
-/**
- * Utilities for Mozc preferences.
- *
- */
+/** Utilities for Mozc preferences. */
 public class PreferenceUtil {
 
   /** Simple {@code PreferenceManager} wrapper for testing purpose. */
@@ -60,8 +55,9 @@ public class PreferenceUtil {
     public Preference findPreference(CharSequence key);
   }
 
-  /** Simple {@code PreferenceManager} wrapper for testing purpose.
-   *  This interface wraps static method so no constructor is required.
+  /**
+   * Simple {@code PreferenceManager} wrapper for testing purpose. This interface wraps static
+   * method so no constructor is required.
    */
   public interface PreferenceManagerStaticInterface {
     public void setDefaultValues(Context context, int id, boolean readAgain);
@@ -87,13 +83,14 @@ public class PreferenceUtil {
     // As construction cost of defaultPrereferenceManagerStatic is cheap and it is invariant,
     // no lock mechanism is employed here.
     if (!defaultPreferenceManagerStatic.isPresent()) {
-      defaultPreferenceManagerStatic = Optional.<PreferenceManagerStaticInterface>of(
-          new PreferenceManagerStaticInterface() {
-            @Override
-            public void setDefaultValues(Context context, int id, boolean readAgain) {
-              PreferenceManager.setDefaultValues(context, id, readAgain);
-            }
-          });
+      defaultPreferenceManagerStatic =
+          Optional.<PreferenceManagerStaticInterface>of(
+              new PreferenceManagerStaticInterface() {
+                @Override
+                public void setDefaultValues(Context context, int id, boolean readAgain) {
+                  PreferenceManager.setDefaultValues(context, id, readAgain);
+                }
+              });
     }
     return defaultPreferenceManagerStatic.get();
   }
@@ -107,9 +104,12 @@ public class PreferenceUtil {
 
       // Write back to with the appropriate preference key.
       SharedPreferences sharedPreferences = preference.getSharedPreferences();
-      boolean isLandscapeKeyboardSettingActive = isLandscapeKeyboardSettingActive(
-          sharedPreferences, preference.getContext().getResources().getConfiguration().orientation);
-      sharedPreferences.edit()
+      boolean isLandscapeKeyboardSettingActive =
+          isLandscapeKeyboardSettingActive(
+              sharedPreferences,
+              preference.getContext().getResources().getConfiguration().orientation);
+      sharedPreferences
+          .edit()
           .putString(
               isLandscapeKeyboardSettingActive
                   ? PREF_LANDSCAPE_KEYBOARD_LAYOUT_KEY
@@ -121,15 +121,13 @@ public class PreferenceUtil {
   }
 
   // Keys for Keyboard Layout.
-  public static final String PREF_CURRENT_KEYBOARD_LAYOUT_KEY =
-      "pref_current_keyboard_layout_key";
+  public static final String PREF_CURRENT_KEYBOARD_LAYOUT_KEY = "pref_current_keyboard_layout_key";
 
   public static final String PREF_SOFTWARE_KEYBOARD_ADVANED_PORTRAIT_KEY =
       "pref_software_keyboard_advanced_portrait_key";
   public static final String PREF_PORTRAIT_KEYBOARD_LAYOUT_KEY =
       "pref_portrait_keyboard_layout_key";
-  public static final String PREF_PORTRAIT_INPUT_STYLE_KEY =
-      "pref_portrait_input_style_key";
+  public static final String PREF_PORTRAIT_INPUT_STYLE_KEY = "pref_portrait_input_style_key";
   public static final String PREF_PORTRAIT_QWERTY_LAYOUT_FOR_ALPHABET_KEY =
       "pref_portrait_qwerty_layout_for_alphabet_key";
   public static final String PREF_PORTRAIT_FLICK_SENSITIVITY_KEY =
@@ -143,8 +141,7 @@ public class PreferenceUtil {
       "pref_software_keyboard_advanced_landscape_key";
   public static final String PREF_LANDSCAPE_KEYBOARD_LAYOUT_KEY =
       "pref_landscape_keyboard_layout_key";
-  public static final String PREF_LANDSCAPE_INPUT_STYLE_KEY =
-      "pref_landscape_input_style_key";
+  public static final String PREF_LANDSCAPE_INPUT_STYLE_KEY = "pref_landscape_input_style_key";
   public static final String PREF_LANDSCAPE_QWERTY_LAYOUT_FOR_ALPHABET_KEY =
       "pref_landscape_qwerty_layout_for_alphabet_key";
   public static final String PREF_LANDSCAPE_FLICK_SENSITIVITY_KEY =
@@ -158,10 +155,8 @@ public class PreferenceUtil {
       "pref_use_portrait_keyboard_settings_for_landscape_key";
 
   // Full screen keys.
-  public static final String PREF_PORTRAIT_FULLSCREEN_KEY =
-      "pref_portrait_fullscreen_key";
-  public static final String PREF_LANDSCAPE_FULLSCREEN_KEY =
-      "pref_landscape_fullscreen_key";
+  public static final String PREF_PORTRAIT_FULLSCREEN_KEY = "pref_portrait_fullscreen_key";
+  public static final String PREF_LANDSCAPE_FULLSCREEN_KEY = "pref_landscape_fullscreen_key";
 
   // Keys for generic preferences.
   public static final String PREF_HARDWARE_KEYMAP = "pref_hardware_keymap";
@@ -170,17 +165,13 @@ public class PreferenceUtil {
   public static final String PREF_HAPTIC_FEEDBACK_DURATION_KEY =
       "pref_haptic_feedback_duration_key";
   public static final String PREF_SOUND_FEEDBACK_KEY = "pref_sound_feedback_key";
-  public static final String PREF_SOUND_FEEDBACK_VOLUME_KEY =
-      "pref_sound_feedback_volume_key";
+  public static final String PREF_SOUND_FEEDBACK_VOLUME_KEY = "pref_sound_feedback_volume_key";
   public static final String PREF_POPUP_FEEDBACK_KEY = "pref_popup_feedback_key";
-  public static final String PREF_SPACE_CHARACTER_FORM_KEY =
-      "pref_space_character_form_key";
+  public static final String PREF_SPACE_CHARACTER_FORM_KEY = "pref_space_character_form_key";
   public static final String PREF_KANA_MODIFIER_INSENSITIVE_CONVERSION_KEY =
       "pref_kana_modifier_insensitive_conversion";
-  public static final String PREF_TYPING_CORRECTION_KEY =
-      "pref_typing_correction";
-  public static final String PREF_EMOJI_PROVIDER_TYPE =
-      "pref_emoji_provider_type";
+  public static final String PREF_TYPING_CORRECTION_KEY = "pref_typing_correction";
+  public static final String PREF_EMOJI_PROVIDER_TYPE = "pref_emoji_provider_type";
   public static final String PREF_DICTIONARY_PERSONALIZATION_KEY =
       "pref_dictionary_personalization_key";
   public static final String PREF_DICTIONARY_USER_DICTIONARY_TOOL_KEY =
@@ -198,8 +189,7 @@ public class PreferenceUtil {
           new CurrentKeyboardLayoutPreferenceChangeListener();
 
   // Disallow instantiation.
-  private PreferenceUtil() {
-  }
+  private PreferenceUtil() {}
 
   public static boolean isLandscapeKeyboardSettingActive(
       SharedPreferences sharedPreferences, int deviceOrientation) {
@@ -212,9 +202,7 @@ public class PreferenceUtil {
     return deviceOrientation == Configuration.ORIENTATION_LANDSCAPE;
   }
 
-  /**
-   * Initializes some preferences which need special initialization.
-   */
+  /** Initializes some preferences which need special initialization. */
   static void initializeSpecialPreferences(PreferenceManager preferenceManager) {
     if (preferenceManager == null) {
       return;
@@ -229,7 +217,6 @@ public class PreferenceUtil {
     initializeUsageStatsPreference(preferenceManager.findPreference(PREF_OTHER_USAGE_STATS_KEY));
     initializeVersionPreference(preferenceManager.findPreference(PREF_ABOUT_VERSION));
     initializeLayoutAdjustmentPreference(preferenceManager);
-
   }
 
   private static void initializeCurrentKeyboardLayoutPreference(Preference preference) {
@@ -239,19 +226,22 @@ public class PreferenceUtil {
 
     // Initialize the value based on the current orientation.
     SharedPreferences sharedPreferences = preference.getSharedPreferences();
-    boolean isLandscapeKeyboardSettingActive = isLandscapeKeyboardSettingActive(
-        sharedPreferences, preference.getContext().getResources().getConfiguration().orientation);
-    KeyboardLayoutPreference.class.cast(preference).setValue(
-        getKeyboardLayout(sharedPreferences,
-                          isLandscapeKeyboardSettingActive
-                              ? PREF_LANDSCAPE_KEYBOARD_LAYOUT_KEY
-                              : PREF_PORTRAIT_KEYBOARD_LAYOUT_KEY));
+    boolean isLandscapeKeyboardSettingActive =
+        isLandscapeKeyboardSettingActive(
+            sharedPreferences,
+            preference.getContext().getResources().getConfiguration().orientation);
+    KeyboardLayoutPreference.class
+        .cast(preference)
+        .setValue(
+            getKeyboardLayout(
+                sharedPreferences,
+                isLandscapeKeyboardSettingActive
+                    ? PREF_LANDSCAPE_KEYBOARD_LAYOUT_KEY
+                    : PREF_PORTRAIT_KEYBOARD_LAYOUT_KEY));
     preference.setOnPreferenceChangeListener(CURRENT_KEYBOARD_LAYOUT_PREFERENCE_CHANGE_LISTENER);
   }
 
-  /**
-   * Returns parsed {@link KeyboardLayout} instance, or TWELVE_KEYS if any error is found.
-   */
+  /** Returns parsed {@link KeyboardLayout} instance, or TWELVE_KEYS if any error is found. */
   private static KeyboardLayout getKeyboardLayout(SharedPreferences sharedPreferences, String key) {
     if (sharedPreferences == null || key == null) {
       return KeyboardLayout.TWELVE_KEYS;
@@ -279,8 +269,9 @@ public class PreferenceUtil {
     Context context = preference.getContext();
     Resources resources = context.getResources();
     preference.setSummary(
-        resources.getString(R.string.pref_other_usage_stats_description,
-                            resources.getString(R.string.developer_organization)));
+        resources.getString(
+            R.string.pref_other_usage_stats_description,
+            resources.getString(R.string.developer_organization)));
     // Disable (always on to send usage stats) for dev-channel build.
     preference.setEnabled(!MozcUtil.isDevChannel(context));
   }
@@ -294,15 +285,16 @@ public class PreferenceUtil {
 
   static boolean shouldRemoveLayoutAdjustmentPreferences(
       PreferenceManagerInterface preferenceManager) {
-    Preference preference = preferenceManager.findPreference(
-        PREF_SOFTWARE_KEYBOARD_ADVANED_PORTRAIT_KEY);
+    Preference preference =
+        preferenceManager.findPreference(PREF_SOFTWARE_KEYBOARD_ADVANED_PORTRAIT_KEY);
     if (preference == null) {
       return false;
     }
 
     Resources resouces = preference.getContext().getResources();
-    int smallestWidth = resouces.getDimensionPixelSize(R.dimen.ime_window_partial_width)
-        + resouces.getDimensionPixelSize(R.dimen.side_frame_width);
+    int smallestWidth =
+        resouces.getDimensionPixelSize(R.dimen.ime_window_partial_width)
+            + resouces.getDimensionPixelSize(R.dimen.side_frame_width);
     DisplayMetrics displayMetrics = resouces.getDisplayMetrics();
     return displayMetrics.widthPixels < smallestWidth
         || displayMetrics.heightPixels < smallestWidth;
@@ -319,8 +311,8 @@ public class PreferenceUtil {
     }
 
     Preference preference = preferenceManager.findPreference(key);
-    PreferenceGroup parentPreference = PreferenceGroup.class.cast(preferenceManager
-        .findPreference(parentKey));
+    PreferenceGroup parentPreference =
+        PreferenceGroup.class.cast(preferenceManager.findPreference(parentKey));
     if (preference == null || parentPreference == null) {
       return;
     }
@@ -341,14 +333,16 @@ public class PreferenceUtil {
    * @param key a key name
    * @param type a class of enum value
    * @param defaultValue default value if the {@link SharedPreferences} doesn't have corresponding
-   *        entry.
-   * @param conversionRecoveryValue default value if unknown value is stored.
-   *        For example, if the value is "ALPHA" and {@code type} doesn't have "ALPHA" entry,
-   *        this argument is returned.
+   *     entry.
+   * @param conversionRecoveryValue default value if unknown value is stored. For example, if the
+   *     value is "ALPHA" and {@code type} doesn't have "ALPHA" entry, this argument is returned.
    */
   public static <T extends Enum<T>> T getEnum(
-      SharedPreferences sharedPreference, String key, Class<T> type,
-      T defaultValue, T conversionRecoveryValue) {
+      SharedPreferences sharedPreference,
+      String key,
+      Class<T> type,
+      T defaultValue,
+      T conversionRecoveryValue) {
     if (sharedPreference == null) {
       return defaultValue;
     }
@@ -366,7 +360,7 @@ public class PreferenceUtil {
   /**
    * Same as {@link getEnum}.
    *
-   * {@code defaultValue} is used as {@code conversionRecoveryValue}
+   * <p>{@code defaultValue} is used as {@code conversionRecoveryValue}
    */
   @SuppressWarnings("javadoc")
   public static <T extends Enum<T>> T getEnum(
@@ -374,8 +368,11 @@ public class PreferenceUtil {
     return getEnum(sharedPreference, key, type, defaultValue, defaultValue);
   }
 
-  public static void setDefaultValues(PreferenceManagerStaticInterface preferenceManager,
-                                      Context context, boolean isDebug, boolean useUsageStats) {
+  public static void setDefaultValues(
+      PreferenceManagerStaticInterface preferenceManager,
+      Context context,
+      boolean isDebug,
+      boolean useUsageStats) {
     Preconditions.checkNotNull(preferenceManager);
     Preconditions.checkNotNull(context);
     Set<Integer> preferenceResources = new HashSet<Integer>();

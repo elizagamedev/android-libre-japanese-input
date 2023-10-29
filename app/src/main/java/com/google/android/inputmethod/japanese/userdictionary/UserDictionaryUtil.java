@@ -29,13 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.userdictionary;
 
-import org.mozc.android.inputmethod.japanese.MozcUtil;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionary.Entry;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionary.PosType;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommandStatus.Status;
-import org.mozc.android.inputmethod.japanese.R;
-import com.google.common.base.Preconditions;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -54,7 +47,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
+import com.google.common.base.Preconditions;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
@@ -69,16 +62,16 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import org.mozc.android.inputmethod.japanese.MozcUtil;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionary.Entry;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionary.PosType;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommandStatus.Status;
 
-/**
- * Utilities (of, especially, UI related stuff) for the user dictionary tool.
- *
- */
+/** Utilities (of, especially, UI related stuff) for the user dictionary tool. */
 class UserDictionaryUtil {
 
-  /**
-   * Callback which is called when the "positive button" on a dialog is clicked.
-   */
+  /** Callback which is called when the "positive button" on a dialog is clicked. */
   private interface UserDictionaryBaseDialogListener {
     public Status onPositiveButtonClicked(View view);
   }
@@ -86,16 +79,17 @@ class UserDictionaryUtil {
   /**
    * Base implementation of popup dialog on user dictionary tool.
    *
-   * This class has:
+   * <p>This class has:
+   *
    * <ul>
-   * <li>Title messaging
-   * <li>Content view based on the given resource id
-   * <li>Cancel and OK buttons
+   *   <li>Title messaging
+   *   <li>Content view based on the given resource id
+   *   <li>Cancel and OK buttons
    * </ul>
    *
-   * When the OK button is clicked, UserDictionaryBaseDialogListener callback is invoked.
-   * The expected usage is invoke something action by interacting with the mozc server.
-   * If the interaction fails (in more precise, the returned status is not
+   * When the OK button is clicked, UserDictionaryBaseDialogListener callback is invoked. The
+   * expected usage is invoke something action by interacting with the mozc server. If the
+   * interaction fails (in more precise, the returned status is not
    * USER_DICTIONARY_COMMAND_SUCCESS), this class will show a toast message, and the popup dialog
    * won't be dismissed.
    */
@@ -103,9 +97,12 @@ class UserDictionaryUtil {
     private final UserDictionaryBaseDialogListener listener;
     private final ToastManager toastManager;
 
-    UserDictionaryBaseDialog(Context context, int titleResourceId, int viewResourceId,
-                             UserDictionaryBaseDialogListener listener,
-                             ToastManager toastManager) {
+    UserDictionaryBaseDialog(
+        Context context,
+        int titleResourceId,
+        int viewResourceId,
+        UserDictionaryBaseDialogListener listener,
+        ToastManager toastManager) {
       super(context);
       this.listener = listener;
       this.toastManager = toastManager;
@@ -118,10 +115,12 @@ class UserDictionaryUtil {
       // On Android 2.1, com.android.internal.app.AlertController wrongly checks the message
       // for the availability of button view. So without the dummy message,
       // getButton(BUTTON_POSITIVE) used in onCreate would return null.
-      setButton(DialogInterface.BUTTON_POSITIVE, context.getText(android.R.string.ok),
-                Message.obtain());
-      setButton(DialogInterface.BUTTON_NEGATIVE, context.getText(android.R.string.cancel),
-                DialogInterface.OnClickListener.class.cast(null));
+      setButton(
+          DialogInterface.BUTTON_POSITIVE, context.getText(android.R.string.ok), Message.obtain());
+      setButton(
+          DialogInterface.BUTTON_NEGATIVE,
+          context.getText(android.R.string.cancel),
+          DialogInterface.OnClickListener.class.cast(null));
       setCancelable(true);
     }
 
@@ -135,23 +134,23 @@ class UserDictionaryUtil {
       // Note that it is necessary to do this here, instead of in the constructor,
       // because the UI is initialized in super class's onCreate method, and we cannot obtain
       // the button until the initialization.
-      getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          Status status = listener.onPositiveButtonClicked(view);
-          toastManager.maybeShowMessageShortly(status);
-          if (status == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
-            // Dismiss the dialog, iff the operation is successfully done.
-            dismiss();
-          }
-        }
-      });
+      getButton(DialogInterface.BUTTON_POSITIVE)
+          .setOnClickListener(
+              new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                  Status status = listener.onPositiveButtonClicked(view);
+                  toastManager.maybeShowMessageShortly(status);
+                  if (status == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
+                    // Dismiss the dialog, iff the operation is successfully done.
+                    dismiss();
+                  }
+                }
+              });
     }
   }
 
-  /**
-   * Simple class to show the internationalized POS names on a spinner.
-   */
+  /** Simple class to show the internationalized POS names on a spinner. */
   private static class PosItem {
     final PosType posType;
     final String name;
@@ -171,16 +170,18 @@ class UserDictionaryUtil {
   /**
    * Spinner implementation which has a list of POS.
    *
-   * To keep users out from confusing UI, this class hides the IME when the list dialog is
-   * shown by user's tap.
+   * <p>To keep users out from confusing UI, this class hides the IME when the list dialog is shown
+   * by user's tap.
    */
   public static class PosSpinner extends Spinner {
     public PosSpinner(Context context) {
       super(context);
     }
+
     public PosSpinner(Context context, AttributeSet attrs) {
       super(context, attrs);
     }
+
     public PosSpinner(Context context, AttributeSet attrs, int defStyle) {
       super(context, attrs, defStyle);
     }
@@ -188,8 +189,11 @@ class UserDictionaryUtil {
     @Override
     protected void onFinishInflate() {
       // Set adapter containing a list of POS types.
-      ArrayAdapter<PosItem> adapter = new ArrayAdapter<PosItem>(
-          getContext(), android.R.layout.simple_spinner_item, createPosItemList(getResources()));
+      ArrayAdapter<PosItem> adapter =
+          new ArrayAdapter<PosItem>(
+              getContext(),
+              android.R.layout.simple_spinner_item,
+              createPosItemList(getResources()));
       adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
       setAdapter(adapter);
     }
@@ -198,8 +202,8 @@ class UserDictionaryUtil {
       PosType[] posTypeValues = PosType.values();
       List<PosItem> result = new ArrayList<PosItem>(posTypeValues.length);
       for (PosType posType : posTypeValues) {
-        result.add(new PosItem(posType,
-                               resources.getText(getPosStringResourceId(posType)).toString()));
+        result.add(
+            new PosItem(posType, resources.getText(getPosStringResourceId(posType)).toString()));
       }
       return result;
     }
@@ -210,8 +214,9 @@ class UserDictionaryUtil {
       // we hide the soft input method.
       // This is because the list of the POS is long so if the soft input is shown
       // continuously, a part of list would be out of the display.
-      InputMethodManager imm = InputMethodManager.class.cast(
-          getContext().getSystemService(Context.INPUT_METHOD_SERVICE));
+      InputMethodManager imm =
+          InputMethodManager.class.cast(
+              getContext().getSystemService(Context.INPUT_METHOD_SERVICE));
       imm.hideSoftInputFromWindow(getWindowToken(), 0);
 
       return super.performClick();
@@ -222,6 +227,7 @@ class UserDictionaryUtil {
 
     /**
      * Callback to be called when the positive button is clicked.
+     *
      * @return result status of the executed command.
      */
     public Status onPositiveButtonClicked(String word, String reading, PosType pos);
@@ -230,42 +236,50 @@ class UserDictionaryUtil {
   /**
    * Word Register Dialog implementation for adding/editing entries.
    *
-   * The dialog should have:
+   * <p>The dialog should have:
+   *
    * <ul>
-   * <li>A EditText for "word" editing,
-   * <li>A EditText for "reading" editing, and
-   * <li>A Spinner for "pos" selecting.
+   *   <li>A EditText for "word" editing,
+   *   <li>A EditText for "reading" editing, and
+   *   <li>A Spinner for "pos" selecting.
    */
   static class WordRegisterDialog extends UserDictionaryBaseDialog {
-    WordRegisterDialog(Context context, int titleResourceId,
-                       final WordRegisterDialogListener listener,
-                       ToastManager toastManager) {
-      super(context, titleResourceId, R.layout.user_dictionary_tool_word_register_dialog_view,
-            new UserDictionaryBaseDialogListener() {
-              @Override
-              public Status onPositiveButtonClicked(View view) {
-                return listener.onPositiveButtonClicked(
-                    getText(view, R.id.user_dictionary_tool_word_register_dialog_word),
-                    getText(view, R.id.user_dictionary_tool_word_register_dialog_reading),
-                    getPos(view, R.id.user_dictionary_tool_word_register_dialog_pos));
-              }
-            }, toastManager);
+    WordRegisterDialog(
+        Context context,
+        int titleResourceId,
+        final WordRegisterDialogListener listener,
+        ToastManager toastManager) {
+      super(
+          context,
+          titleResourceId,
+          R.layout.user_dictionary_tool_word_register_dialog_view,
+          new UserDictionaryBaseDialogListener() {
+            @Override
+            public Status onPositiveButtonClicked(View view) {
+              return listener.onPositiveButtonClicked(
+                  getText(view, R.id.user_dictionary_tool_word_register_dialog_word),
+                  getText(view, R.id.user_dictionary_tool_word_register_dialog_reading),
+                  getPos(view, R.id.user_dictionary_tool_word_register_dialog_pos));
+            }
+          },
+          toastManager);
       // TODO(hidehiko): Attach a callback for un-focused event on "word" EditText.
       //   and invoke reverse conversion (if necessary) to fill reading automatically.
     }
 
     /**
-     * Sets the entry so that users can see it when the dialog is shown.
-     * To make editing convenient, select all region.
+     * Sets the entry so that users can see it when the dialog is shown. To make editing convenient,
+     * select all region.
      */
     void setEntry(Entry entry) {
-      EditText wordEditText = EditText.class.cast(
-          findViewById(R.id.user_dictionary_tool_word_register_dialog_word));
+      EditText wordEditText =
+          EditText.class.cast(findViewById(R.id.user_dictionary_tool_word_register_dialog_word));
       wordEditText.setText(entry.getValue());
-      EditText.class.cast(findViewById(R.id.user_dictionary_tool_word_register_dialog_reading))
+      EditText.class
+          .cast(findViewById(R.id.user_dictionary_tool_word_register_dialog_reading))
           .setText(entry.getKey());
-      Spinner posSpinner = Spinner.class.cast(
-          findViewById(R.id.user_dictionary_tool_word_register_dialog_pos));
+      Spinner posSpinner =
+          Spinner.class.cast(findViewById(R.id.user_dictionary_tool_word_register_dialog_pos));
       int numItems = posSpinner.getCount();
       for (int i = 0; i < numItems; ++i) {
         if (PosItem.class.cast(posSpinner.getItemAtPosition(i)).posType == entry.getPos()) {
@@ -283,36 +297,41 @@ class UserDictionaryUtil {
 
     /**
      * Callback to be called when the positive button is clicked.
+     *
      * @param dictionaryName the text which is filled in EditText on the dialog.
      * @return result status of the executed command.
      */
     public Status onPositiveButtonClicked(String dictionaryName);
   }
 
-  /**
-   * Dialog implementation which has one edit box for dictionary name editing.
-   */
+  /** Dialog implementation which has one edit box for dictionary name editing. */
   static class DictionaryNameDialog extends UserDictionaryBaseDialog {
-    DictionaryNameDialog(Context context, int titleResourceId,
-                         final DictionaryNameDialogListener listener,
-                         ToastManager toastManager) {
-      super(context, titleResourceId, R.layout.user_dictionary_tool_dictionary_name_dialog_view,
-            new UserDictionaryBaseDialogListener() {
-              @Override
-              public Status onPositiveButtonClicked(View view) {
-                return listener.onPositiveButtonClicked(
-                    getText(view, R.id.user_dictionary_tool_dictionary_name_dialog_name));
-              }
-            }, toastManager);
+    DictionaryNameDialog(
+        Context context,
+        int titleResourceId,
+        final DictionaryNameDialogListener listener,
+        ToastManager toastManager) {
+      super(
+          context,
+          titleResourceId,
+          R.layout.user_dictionary_tool_dictionary_name_dialog_view,
+          new UserDictionaryBaseDialogListener() {
+            @Override
+            public Status onPositiveButtonClicked(View view) {
+              return listener.onPositiveButtonClicked(
+                  getText(view, R.id.user_dictionary_tool_dictionary_name_dialog_name));
+            }
+          },
+          toastManager);
     }
 
     /**
-     * Sets the dictionaryName so that users can see it when the dialog is shown.
-     * To make editing convenient, select all region.
+     * Sets the dictionaryName so that users can see it when the dialog is shown. To make editing
+     * convenient, select all region.
      */
     void setDictionaryName(String dictionaryName) {
-      EditText editText = EditText.class.cast(
-          findViewById(R.id.user_dictionary_tool_dictionary_name_dialog_name));
+      EditText editText =
+          EditText.class.cast(findViewById(R.id.user_dictionary_tool_dictionary_name_dialog_name));
       editText.setText(dictionaryName);
       editText.selectAll();
     }
@@ -320,6 +339,7 @@ class UserDictionaryUtil {
 
   /** A map from PosType to the string resource id for i18n. */
   private static final Map<PosType, Integer> POS_RESOURCE_MAP;
+
   static {
     EnumMap<PosType, Integer> map = new EnumMap<PosType, Integer>(PosType.class);
     map.put(PosType.NOUN, R.string.japanese_pos_noun);
@@ -331,8 +351,8 @@ class UserDictionaryUtil {
     map.put(PosType.FIRST_NAME, R.string.japanese_pos_first_name);
     map.put(PosType.ORGANIZATION_NAME, R.string.japanese_pos_organization_name);
     map.put(PosType.PLACE_NAME, R.string.japanese_pos_place_name);
-    map.put(PosType.SA_IRREGULAR_CONJUGATION_NOUN,
-            R.string.japanese_pos_sa_irregular_conjugation_noun);
+    map.put(
+        PosType.SA_IRREGULAR_CONJUGATION_NOUN, R.string.japanese_pos_sa_irregular_conjugation_noun);
     map.put(PosType.ADJECTIVE_VERBAL_NOUN, R.string.japanese_pos_adjective_verbal_noun);
     map.put(PosType.NUMBER, R.string.japanese_pos_number);
     map.put(PosType.ALPHABET, R.string.japanese_pos_alphabet);
@@ -377,6 +397,7 @@ class UserDictionaryUtil {
 
   /** A map from PosType to the string resource id dictionary export. */
   private static final Map<PosType, Integer> POS_RESOURCE_MAP_FOR_DICTIONARY_EXPORT;
+
   static {
     EnumMap<PosType, Integer> map = new EnumMap<PosType, Integer>(PosType.class);
     map.put(PosType.NOUN, R.string.japanese_pos_for_dictionary_export_noun);
@@ -386,29 +407,31 @@ class UserDictionaryUtil {
     map.put(PosType.PERSONAL_NAME, R.string.japanese_pos_for_dictionary_export_personal_name);
     map.put(PosType.FAMILY_NAME, R.string.japanese_pos_for_dictionary_export_family_name);
     map.put(PosType.FIRST_NAME, R.string.japanese_pos_for_dictionary_export_first_name);
-    map.put(PosType.ORGANIZATION_NAME,
-            R.string.japanese_pos_for_dictionary_export_organization_name);
+    map.put(
+        PosType.ORGANIZATION_NAME, R.string.japanese_pos_for_dictionary_export_organization_name);
     map.put(PosType.PLACE_NAME, R.string.japanese_pos_for_dictionary_export_place_name);
-    map.put(PosType.SA_IRREGULAR_CONJUGATION_NOUN,
-            R.string.japanese_pos_for_dictionary_export_sa_irregular_conjugation_noun);
-    map.put(PosType.ADJECTIVE_VERBAL_NOUN,
-            R.string.japanese_pos_for_dictionary_export_adjective_verbal_noun);
+    map.put(
+        PosType.SA_IRREGULAR_CONJUGATION_NOUN,
+        R.string.japanese_pos_for_dictionary_export_sa_irregular_conjugation_noun);
+    map.put(
+        PosType.ADJECTIVE_VERBAL_NOUN,
+        R.string.japanese_pos_for_dictionary_export_adjective_verbal_noun);
     map.put(PosType.NUMBER, R.string.japanese_pos_for_dictionary_export_number);
     map.put(PosType.ALPHABET, R.string.japanese_pos_for_dictionary_export_alphabet);
     map.put(PosType.SYMBOL, R.string.japanese_pos_for_dictionary_export_symbol);
     map.put(PosType.EMOTICON, R.string.japanese_pos_for_dictionary_export_emoticon);
     map.put(PosType.ADVERB, R.string.japanese_pos_for_dictionary_export_adverb);
-    map.put(PosType.PRENOUN_ADJECTIVAL,
-            R.string.japanese_pos_for_dictionary_export_prenoun_adjectival);
+    map.put(
+        PosType.PRENOUN_ADJECTIVAL, R.string.japanese_pos_for_dictionary_export_prenoun_adjectival);
     map.put(PosType.CONJUNCTION, R.string.japanese_pos_for_dictionary_export_conjunction);
     map.put(PosType.INTERJECTION, R.string.japanese_pos_for_dictionary_export_interjection);
     map.put(PosType.PREFIX, R.string.japanese_pos_for_dictionary_export_prefix);
     map.put(PosType.COUNTER_SUFFIX, R.string.japanese_pos_for_dictionary_export_counter_suffix);
     map.put(PosType.GENERIC_SUFFIX, R.string.japanese_pos_for_dictionary_export_generic_suffix);
-    map.put(PosType.PERSON_NAME_SUFFIX,
-            R.string.japanese_pos_for_dictionary_export_person_name_suffix);
-    map.put(PosType.PLACE_NAME_SUFFIX,
-            R.string.japanese_pos_for_dictionary_export_place_name_suffix);
+    map.put(
+        PosType.PERSON_NAME_SUFFIX, R.string.japanese_pos_for_dictionary_export_person_name_suffix);
+    map.put(
+        PosType.PLACE_NAME_SUFFIX, R.string.japanese_pos_for_dictionary_export_place_name_suffix);
     map.put(PosType.WA_GROUP1_VERB, R.string.japanese_pos_for_dictionary_export_wa_group1_verb);
     map.put(PosType.KA_GROUP1_VERB, R.string.japanese_pos_for_dictionary_export_ka_group1_verb);
     map.put(PosType.SA_GROUP1_VERB, R.string.japanese_pos_for_dictionary_export_sa_group1_verb);
@@ -424,13 +447,13 @@ class UserDictionaryUtil {
     map.put(PosType.SURU_GROUP3_VERB, R.string.japanese_pos_for_dictionary_export_suru_group3_verb);
     map.put(PosType.ZURU_GROUP3_VERB, R.string.japanese_pos_for_dictionary_export_zuru_group3_verb);
     map.put(PosType.RU_GROUP3_VERB, R.string.japanese_pos_for_dictionary_export_ru_group3_verb);
-    map.put(PosType.ADJECTIVE,
-            R.string.japanese_pos_for_dictionary_export_adjective);
-    map.put(PosType.SENTENCE_ENDING_PARTICLE,
-            R.string.japanese_pos_for_dictionary_export_sentence_ending_particle);
+    map.put(PosType.ADJECTIVE, R.string.japanese_pos_for_dictionary_export_adjective);
+    map.put(
+        PosType.SENTENCE_ENDING_PARTICLE,
+        R.string.japanese_pos_for_dictionary_export_sentence_ending_particle);
     map.put(PosType.PUNCTUATION, R.string.japanese_pos_for_dictionary_export_punctuation);
-    map.put(PosType.FREE_STANDING_WORD,
-            R.string.japanese_pos_for_dictionary_export_free_standing_word);
+    map.put(
+        PosType.FREE_STANDING_WORD, R.string.japanese_pos_for_dictionary_export_free_standing_word);
     map.put(PosType.SUPPRESSION_WORD, R.string.japanese_pos_for_dictionary_export_suppression_word);
 
     if (map.size() != PosType.values().length) {
@@ -441,85 +464,72 @@ class UserDictionaryUtil {
   }
 
   /**
-   * List of Japanese encodings to convert text for data importing.
-   * These encodings are tries in the order, in other words, UTF-8 is the most high-prioritized
-   * encoding.
+   * List of Japanese encodings to convert text for data importing. These encodings are tries in the
+   * order, in other words, UTF-8 is the most high-prioritized encoding.
    */
   private static final String[] JAPANESE_ENCODING_LIST = {
     "UTF-8", "EUC-JP", "ISO-2022-JP", "Shift_JIS", "UTF-16",
   };
 
-  private UserDictionaryUtil() {
-  }
+  private UserDictionaryUtil() {}
 
-  /**
-   * Returns the text content of the view with the given resourceId.
-   */
+  /** Returns the text content of the view with the given resourceId. */
   private static String getText(View view, int resourceId) {
     view = view.getRootView();
     TextView textView = TextView.class.cast(view.findViewById(resourceId));
     return textView.getText().toString();
   }
 
-  /**
-   * Returns the PosType of the view with the given resourceId.
-   */
+  /** Returns the PosType of the view with the given resourceId. */
   private static PosType getPos(View view, int resourceId) {
     view = view.getRootView();
     Spinner spinner = Spinner.class.cast(view.findViewById(resourceId));
     return PosItem.class.cast(spinner.getSelectedItem()).posType;
   }
 
-  /**
-   * Returns string resource id for the given {@code pos}.
-   */
+  /** Returns string resource id for the given {@code pos}. */
   static int getPosStringResourceId(PosType pos) {
     return POS_RESOURCE_MAP.get(Preconditions.checkNotNull(pos));
   }
 
-  /**
-   * Returns string resource id for the given {@code pos} for dictionary export.
-   */
+  /** Returns string resource id for the given {@code pos} for dictionary export. */
   static int getPosStringResourceIdForDictionaryExport(PosType pos) {
     return POS_RESOURCE_MAP_FOR_DICTIONARY_EXPORT.get(Preconditions.checkNotNull(pos));
   }
 
-  /**
-   * Returns the instance for Word Register Dialog.
-   */
+  /** Returns the instance for Word Register Dialog. */
   static WordRegisterDialog createWordRegisterDialog(
-      Context context, int titleResourceId, WordRegisterDialogListener listener,
+      Context context,
+      int titleResourceId,
+      WordRegisterDialogListener listener,
       ToastManager toastManager) {
     return new WordRegisterDialog(context, titleResourceId, listener, toastManager);
   }
 
-  /**
-   * Returns a new instance for Dictionary Name Dialog.
-   */
+  /** Returns a new instance for Dictionary Name Dialog. */
   static DictionaryNameDialog createDictionaryNameDialog(
-      Context context, int titleResourceId, DictionaryNameDialogListener listener,
+      Context context,
+      int titleResourceId,
+      DictionaryNameDialogListener listener,
       ToastManager toastManager) {
     return new DictionaryNameDialog(context, titleResourceId, listener, toastManager);
   }
 
-  /**
-   * Returns a new instance for a dialog to select a file in a zipfile.
-   */
+  /** Returns a new instance for a dialog to select a file in a zipfile. */
   static Dialog createZipFileSelectionDialog(
-      Context context, int titleResourceId,
+      Context context,
+      int titleResourceId,
       DialogInterface.OnClickListener positiveButtonListener,
       DialogInterface.OnClickListener negativeButtonListener,
       DialogInterface.OnCancelListener cancelListener) {
     return createSimpleSpinnerDialog(
-        context, titleResourceId, positiveButtonListener, negativeButtonListener,
-        cancelListener);
+        context, titleResourceId, positiveButtonListener, negativeButtonListener, cancelListener);
   }
 
-  /**
-   * Returns a new instance for a dialog to select import destination.
-   */
+  /** Returns a new instance for a dialog to select import destination. */
   static Dialog createImportDictionarySelectionDialog(
-      Context context, int titleResourceId,
+      Context context,
+      int titleResourceId,
       DialogInterface.OnClickListener positiveButtonListener,
       DialogInterface.OnClickListener negativeButtonListener,
       DialogInterface.OnCancelListener cancelListener) {
@@ -528,32 +538,34 @@ class UserDictionaryUtil {
   }
 
   private static Dialog createSimpleSpinnerDialog(
-      Context context, int titleResourceId,
+      Context context,
+      int titleResourceId,
       DialogInterface.OnClickListener positiveButtonListener,
       DialogInterface.OnClickListener negativeButtonListener,
       DialogInterface.OnCancelListener cancelListener) {
-    View view = LayoutInflater.from(context).inflate(
-        R.layout.user_dictionary_tool_simple_spinner_dialog_view, null);
-    AlertDialog dialog = new AlertDialog.Builder(context)
-        .setTitle(titleResourceId)
-        .setView(view)
-        .setPositiveButton(android.R.string.ok, positiveButtonListener)
-        .setNegativeButton(android.R.string.cancel, negativeButtonListener)
-        .setOnCancelListener(cancelListener)
-        .setCancelable(true)
-        .create();
+    View view =
+        LayoutInflater.from(context)
+            .inflate(R.layout.user_dictionary_tool_simple_spinner_dialog_view, null);
+    AlertDialog dialog =
+        new AlertDialog.Builder(context)
+            .setTitle(titleResourceId)
+            .setView(view)
+            .setPositiveButton(android.R.string.ok, positiveButtonListener)
+            .setNegativeButton(android.R.string.cancel, negativeButtonListener)
+            .setOnCancelListener(cancelListener)
+            .setCancelable(true)
+            .create();
     return dialog;
   }
 
-  /**
-   * Sets the parameter to show IME when the given dialog is shown.
-   */
+  /** Sets the parameter to show IME when the given dialog is shown. */
   static void showInputMethod(Dialog dialog) {
     dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
   }
 
   /**
    * Returns the {@code String} instance with detecting the Japanese encoding.
+   *
    * @throws UnsupportedEncodingException if it fails to detect the encoding.
    */
   static String toStringWithEncodingDetection(ByteBuffer buffer)
@@ -562,12 +574,14 @@ class UserDictionaryUtil {
       buffer.position(0);
       try {
         Charset charset = Charset.forName(encoding);
-        CharBuffer result = charset.newDecoder()
-           .onMalformedInput(CodingErrorAction.REPORT)
-           .onUnmappableCharacter(CodingErrorAction.REPORT)
-           .decode(buffer);
+        CharBuffer result =
+            charset
+                .newDecoder()
+                .onMalformedInput(CodingErrorAction.REPORT)
+                .onUnmappableCharacter(CodingErrorAction.REPORT)
+                .decode(buffer);
         if (result.length() > 0 && result.charAt(0) == 0xFEFF) {
-            result.position(result.position() + 1);  // Skip BOM
+          result.position(result.position() + 1); // Skip BOM
         }
         return result.toString();
       } catch (Exception e) {
@@ -578,9 +592,7 @@ class UserDictionaryUtil {
     throw new UnsupportedEncodingException("Failed to detect encoding");
   }
 
-  /**
-   * Reads the text file with detecting the file encoding.
-   */
+  /** Reads the text file with detecting the file encoding. */
   static String readFromFile(String path) throws IOException {
     RandomAccessFile file = new RandomAccessFile(path, "r");
     boolean succeeded = false;
@@ -597,8 +609,8 @@ class UserDictionaryUtil {
     FileChannel channel = file.getChannel();
     boolean succeeded = false;
     try {
-      String result = toStringWithEncodingDetection(
-          channel.map(MapMode.READ_ONLY, 0, channel.size()));
+      String result =
+          toStringWithEncodingDetection(channel.map(MapMode.READ_ONLY, 0, channel.size()));
       succeeded = true;
       return result;
     } finally {
@@ -606,9 +618,7 @@ class UserDictionaryUtil {
     }
   }
 
-  /**
-   * Returns import source uri based on the Intent.
-   */
+  /** Returns import source uri based on the Intent. */
   static Uri getImportUri(Intent intent) {
     String action = intent.getAction();
     if (Intent.ACTION_SEND.equals(action)) {
@@ -620,9 +630,7 @@ class UserDictionaryUtil {
     return null;
   }
 
-  /**
-   * Returns a name for a new dictionary based on import URI.
-   */
+  /** Returns a name for a new dictionary based on import URI. */
   static String generateDictionaryNameByUri(Uri importUri, List<String> dictionaryNameList) {
     String name = importUri.getLastPathSegment();
 

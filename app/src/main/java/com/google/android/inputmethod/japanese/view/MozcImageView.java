@@ -29,27 +29,25 @@
 
 package org.mozc.android.inputmethod.japanese.view;
 
-import com.google.common.base.Preconditions;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+import com.google.common.base.Preconditions;
 
 /**
  * A ImageView which accepts mozc drawable as src.
- * <p>
- * In addition to ImageView, following XML attributes are supported:
+ *
+ * <p>In addition to ImageView, following XML attributes are supported:
+ *
  * <ul>
- * <li>maxImageWidth(dimension): If set, additional padding (left and right) are automatically
- * set in order to make drawn image thinner than given width.
- * {@code setPadding} and {@code setPaddingRelative} are disabled
- *  (UnsupportedOperationException will be thrown}.
- * <li>maxImageHeight(dimension): Same as maxImageWidth.
+ *   <li>maxImageWidth(dimension): If set, additional padding (left and right) are automatically set
+ *       in order to make drawn image thinner than given width. {@code setPadding} and {@code
+ *       setPaddingRelative} are disabled (UnsupportedOperationException will be thrown}.
+ *   <li>maxImageHeight(dimension): Same as maxImageWidth.
  * </ul>
- * <p>
- * This class is not intended to be changed its padding.
- * There was a warning code for it but on old Android framework setPadding() is always called
- * so the warning code has been removed.
+ *
+ * <p>This class is not intended to be changed its padding. There was a warning code for it but on
+ * old Android framework setPadding() is always called so the warning code has been removed.
  */
 public class MozcImageView extends ImageView implements MozcImageCapableView {
 

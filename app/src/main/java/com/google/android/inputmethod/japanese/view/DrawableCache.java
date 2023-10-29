@@ -29,17 +29,13 @@
 
 package org.mozc.android.inputmethod.japanese.view;
 
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.SparseArray;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 
-/**
- * Cache of android's Drawable instances.
- *
- */
+/** Cache of android's Drawable instances. */
 public class DrawableCache {
 
   private final SparseArray<Drawable> cacheMap = new SparseArray<Drawable>(128);
@@ -61,9 +57,9 @@ public class DrawableCache {
   }
 
   /**
-   * First, looks up cache data in this instance, and returns the value if found.
-   * If not found, tries to load {@code Drawable} instance from resources given via the constructor,
-   * stores it into this instance, and returns it.
+   * First, looks up cache data in this instance, and returns the value if found. If not found,
+   * tries to load {@code Drawable} instance from resources given via the constructor, stores it
+   * into this instance, and returns it.
    */
   public Optional<Drawable> getDrawable(int resourceId) {
     if (resourceId == 0) {
@@ -74,16 +70,14 @@ public class DrawableCache {
     Integer key = Integer.valueOf(resourceId);
     Optional<Drawable> drawable = Optional.fromNullable(cacheMap.get(key));
     if (!drawable.isPresent()) {
-      drawable = Optional.of(
-          skin.getDrawable(resources, resourceId).getConstantState().newDrawable());
+      drawable =
+          Optional.of(skin.getDrawable(resources, resourceId).getConstantState().newDrawable());
       cacheMap.put(key, drawable.get());
     }
     return drawable;
   }
 
-  /**
-   * Clears all {@code Drawable}s stored in this instance.
-   */
+  /** Clears all {@code Drawable}s stored in this instance. */
   public void clear() {
     cacheMap.clear();
   }

@@ -29,19 +29,6 @@
 
 package org.mozc.android.inputmethod.japanese.ui;
 
-import org.mozc.android.inputmethod.japanese.MozcLog;
-import org.mozc.android.inputmethod.japanese.model.FloatingModeIndicatorController;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.SessionCommand;
-import org.mozc.android.inputmethod.japanese.R;
-import org.mozc.android.inputmethod.japanese.util.CursorAnchorInfoWrapper;
-import org.mozc.android.inputmethod.japanese.view.MozcImageView;
-import org.mozc.android.inputmethod.japanese.view.Skin;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Preconditions;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
@@ -59,26 +46,37 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.inputmethod.EditorInfo;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Preconditions;
+import org.mozc.android.inputmethod.japanese.MozcLog;
+import org.mozc.android.inputmethod.japanese.R;
+import org.mozc.android.inputmethod.japanese.model.FloatingModeIndicatorController;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.SessionCommand;
+import org.mozc.android.inputmethod.japanese.util.CursorAnchorInfoWrapper;
+import org.mozc.android.inputmethod.japanese.view.MozcImageView;
+import org.mozc.android.inputmethod.japanese.view.Skin;
 
-/**
- * Draws mode indicator for floating candidate window.
- */
+/** Draws mode indicator for floating candidate window. */
 @TargetApi(21)
 public class FloatingModeIndicator {
 
   /** The message to hide the mode indicator. */
   @VisibleForTesting static final int HIDE_MODE_INDICATOR = 0;
+
   @VisibleForTesting static final int SHOW_MODE_INDICATOR = 1;
 
   /**
    * Delay to ensure that the cursor position is stabilized.
-   * <p>
-   * Unfortunately, the cursor position is unstable especially on start.
-   * We don't have a concrete way to know that the cursor position is stabilized or not, since
-   * {@link InputMethodService#onUpdateCursorAnchorInfo} is not called until it is updated.
-   * As a workaround, we introduced this delay.
-   * <p>
-   * The delay should be greater than 33.3 msec for 30fps devices.
+   *
+   * <p>Unfortunately, the cursor position is unstable especially on start. We don't have a concrete
+   * way to know that the cursor position is stabilized or not, since {@link
+   * InputMethodService#onUpdateCursorAnchorInfo} is not called until it is updated. As a
+   * workaround, we introduced this delay.
+   *
+   * <p>The delay should be greater than 33.3 msec for 30fps devices.
    */
   private static final int DELAY_TO_STABILIZE_MILLIS = 50;
 
@@ -91,21 +89,21 @@ public class FloatingModeIndicator {
     }
 
     @Override
-    public void onAnimationRepeat(Animation animation) {
-    }
+    public void onAnimationRepeat(Animation animation) {}
 
     @Override
-    public void onAnimationStart(Animation animation) {
-    }
+    public void onAnimationStart(Animation animation) {}
   }
 
-  @VisibleForTesting class ModeIndicatorMessageCallback implements Handler.Callback {
+  @VisibleForTesting
+  class ModeIndicatorMessageCallback implements Handler.Callback {
     @Override
     public boolean handleMessage(Message msg) {
       return handleWhat(msg.what);
     }
 
-    @VisibleForTesting boolean handleWhat(int what) {
+    @VisibleForTesting
+    boolean handleWhat(int what) {
       switch (what) {
         case HIDE_MODE_INDICATOR:
           hide();
@@ -145,8 +143,10 @@ public class FloatingModeIndicator {
 
   @VisibleForTesting final Handler handler;
   @VisibleForTesting final PopUpLayouter<MozcImageView> popup;
-  @VisibleForTesting final ModeIndicatorMessageCallback messageCallback =
-      new ModeIndicatorMessageCallback();
+
+  @VisibleForTesting
+  final ModeIndicatorMessageCallback messageCallback = new ModeIndicatorMessageCallback();
+
   private final FloatingModeIndicatorController controller =
       new FloatingModeIndicatorController(new ControllerListenerImpl());
   private final View parentView;
@@ -161,6 +161,7 @@ public class FloatingModeIndicator {
   private final int displayTime;
 
   private CursorAnchorInfoWrapper cursorAnchorInfo = new CursorAnchorInfoWrapper();
+
   /** True if the mode indicator is shown and is not hiding. */
   private boolean isVisible = false;
 
@@ -171,12 +172,10 @@ public class FloatingModeIndicator {
     Context context = parent.getContext();
     Resources resources = context.getResources();
     Skin skin = Skin.getFallbackInstance();
-    kanaIndicatorDrawable =
-        skin.getDrawable(resources, R.raw.floating_mode_indicator__kana_normal);
+    kanaIndicatorDrawable = skin.getDrawable(resources, R.raw.floating_mode_indicator__kana_normal);
     abcIndicatorDrawable =
         skin.getDrawable(resources, R.raw.floating_mode_indicator__alphabet_normal);
-    indicatorSize =
-        resources.getDimensionPixelSize(R.dimen.floating_mode_indicator_size);
+    indicatorSize = resources.getDimensionPixelSize(R.dimen.floating_mode_indicator_size);
     verticalMargin =
         resources.getDimensionPixelSize(R.dimen.floating_mode_indicator_vertical_margin);
     displayTime = resources.getInteger(R.integer.floating_mode_indicator_display_time);
@@ -185,7 +184,7 @@ public class FloatingModeIndicator {
     contentView.setVisibility(View.GONE);
     popup = new PopUpLayouter<MozcImageView>(parentView, contentView);
 
-    inAnimation =  createInAnimation(resources, indicatorSize / 2f, verticalMargin);
+    inAnimation = createInAnimation(resources, indicatorSize / 2f, verticalMargin);
     outAnimation = createOutAnimation(resources, indicatorSize / 2f, verticalMargin);
     drawRect = new Rect(0, 0, indicatorSize, indicatorSize);
   }
@@ -202,10 +201,11 @@ public class FloatingModeIndicator {
   }
 
   private void updateDrawRect() {
-    float[] cursorPosition = new float[] {
-        cursorAnchorInfo.getInsertionMarkerHorizontal(),
-        cursorAnchorInfo.getInsertionMarkerBottom()
-    };
+    float[] cursorPosition =
+        new float[] {
+          cursorAnchorInfo.getInsertionMarkerHorizontal(),
+          cursorAnchorInfo.getInsertionMarkerBottom()
+        };
     cursorAnchorInfo.getMatrix().mapPoints(cursorPosition);
     int location[] = new int[2];
     parentView.getLocationOnScreen(location);
@@ -219,8 +219,8 @@ public class FloatingModeIndicator {
 
   /**
    * Updates the state of the mode indicator according to the {@code command}.
-   * <p>
-   * This method hides the indicator if there is a composition text.
+   *
+   * <p>This method hides the indicator if there is a composition text.
    */
   public void setCommand(Command command) {
     Preconditions.checkNotNull(command);
@@ -241,8 +241,8 @@ public class FloatingModeIndicator {
 
   /**
    * Shows the mode indicator with animation.
-   * <p>
-   * This method issues hide command with delay.
+   *
+   * <p>This method issues hide command with delay.
    */
   private void show() {
     handler.removeMessages(SHOW_MODE_INDICATOR);
@@ -299,8 +299,10 @@ public class FloatingModeIndicator {
   }
 
   private void updateIcon(CompositionMode mode) {
-    popup.getContentView().setImageDrawable(mode == CompositionMode.HIRAGANA
-        ? kanaIndicatorDrawable : abcIndicatorDrawable);
+    popup
+        .getContentView()
+        .setImageDrawable(
+            mode == CompositionMode.HIRAGANA ? kanaIndicatorDrawable : abcIndicatorDrawable);
   }
 
   private void reset() {
@@ -316,7 +318,8 @@ public class FloatingModeIndicator {
     handler.removeMessages(SHOW_MODE_INDICATOR);
   }
 
-  @VisibleForTesting boolean isVisible() {
+  @VisibleForTesting
+  boolean isVisible() {
     return isVisible;
   }
 }

@@ -29,10 +29,8 @@
 
 package org.mozc.android.inputmethod.japanese.preference;
 
-import org.mozc.android.inputmethod.japanese.R;
-
-import android.app.Dialog;
 import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
@@ -44,16 +42,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
+import org.mozc.android.inputmethod.japanese.R;
 
-/**
- * Preference widget with a dialog containing multi selectable items.
- *
- */
+/** Preference widget with a dialog containing multi selectable items. */
 public class MozcMultiSelectListPreference extends DialogPreference {
 
-  /**
-   * State of the current dialog.
-   */
+  /** State of the current dialog. */
   private static class SavedState extends BaseSavedState {
     boolean isDialogShowing;
     Bundle dialogBundle;
@@ -76,17 +70,18 @@ public class MozcMultiSelectListPreference extends DialogPreference {
     }
 
     @SuppressWarnings({"hiding", "unused"})
-    public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-      @Override
-      public SavedState createFromParcel(Parcel in) {
-        return new SavedState(in);
-      }
+    public static final Creator<SavedState> CREATOR =
+        new Creator<SavedState>() {
+          @Override
+          public SavedState createFromParcel(Parcel in) {
+            return new SavedState(in);
+          }
 
-      @Override
-      public SavedState[] newArray(int size) {
-        return new SavedState[size];
-      }
-    };
+          @Override
+          public SavedState[] newArray(int size) {
+            return new SavedState[size];
+          }
+        };
   }
 
   /** A list of entries shown on the dialog. */
@@ -184,17 +179,24 @@ public class MozcMultiSelectListPreference extends DialogPreference {
     if (entryList.length != keyList.length || entryList.length != valueList.length) {
       throw new IllegalStateException(
           "All entryList, keyList and valueList must have the same number of elements: "
-              + entryList.length + ", " + keyList.length + ", " + valueList.length);
+              + entryList.length
+              + ", "
+              + keyList.length
+              + ", "
+              + valueList.length);
     }
 
     // Set multi selectable items and its handler.
     dialogValueList = valueList.clone();
-    builder.setMultiChoiceItems(entryList, dialogValueList, new OnMultiChoiceClickListener() {
-      @Override
-      public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-        dialogValueList[which] = isChecked;
-      }
-    });
+    builder.setMultiChoiceItems(
+        entryList,
+        dialogValueList,
+        new OnMultiChoiceClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+            dialogValueList[which] = isChecked;
+          }
+        });
   }
 
   @Override

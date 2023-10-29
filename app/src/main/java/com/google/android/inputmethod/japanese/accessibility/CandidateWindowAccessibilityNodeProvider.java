@@ -29,35 +29,33 @@
 
 package org.mozc.android.inputmethod.japanese.accessibility;
 
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
-import org.mozc.android.inputmethod.japanese.ui.CandidateLayout;
-import org.mozc.android.inputmethod.japanese.ui.CandidateLayout.Row;
-import org.mozc.android.inputmethod.japanese.ui.CandidateLayout.Span;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.SparseArray;
+import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityEventCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
 import androidx.core.view.accessibility.AccessibilityRecordCompat;
-import android.util.SparseArray;
-import android.view.View;
-import android.view.accessibility.AccessibilityEvent;
-
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import javax.annotation.Nullable;
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
+import org.mozc.android.inputmethod.japanese.ui.CandidateLayout;
+import org.mozc.android.inputmethod.japanese.ui.CandidateLayout.Row;
+import org.mozc.android.inputmethod.japanese.ui.CandidateLayout.Span;
 
 /**
  * Represents candidate window's virtual structure.
  *
- * <p>Note about virtual view ID: This class uses {@code CandidateWord}'s {@code id}
- * as virtual view ID.
+ * <p>Note about virtual view ID: This class uses {@code CandidateWord}'s {@code id} as virtual view
+ * ID.
  */
 class CandidateWindowAccessibilityNodeProvider extends AccessibilityNodeProviderCompat {
 
@@ -85,17 +83,15 @@ class CandidateWindowAccessibilityNodeProvider extends AccessibilityNodeProvider
     return view.getContext();
   }
 
-  /**
-   * Sets updated layout and resets virtual view structure.
-   */
+  /** Sets updated layout and resets virtual view structure. */
   void setCandidateLayout(Optional<CandidateLayout> layout) {
     this.layout = Preconditions.checkNotNull(layout);
     resetVirtualStructure();
   }
 
   /**
-   * Returns a {@code Row} which contains a {@code CandidateWord} of which the
-   * {@code id} is given {@code virtualViewId}.
+   * Returns a {@code Row} which contains a {@code CandidateWord} of which the {@code id} is given
+   * {@code virtualViewId}.
    */
   private Optional<Row> getRowByVirtualViewId(int virtualViewId) {
     if (!virtualViewIdToRow.isPresent()) {
@@ -136,8 +132,10 @@ class CandidateWindowAccessibilityNodeProvider extends AccessibilityNodeProvider
         continue;
       }
       AccessibilityNodeInfoCompat info = createNodeInfoForSpan(virtualViewId, row, span);
-      info.setContentDescription(span.getCandidateWord().isPresent()
-          ? getContentDescription(span.getCandidateWord().get()) : null);
+      info.setContentDescription(
+          span.getCandidateWord().isPresent()
+              ? getContentDescription(span.getCandidateWord().get())
+              : null);
       if (virtualFocusedViewId == virtualViewId) {
         info.addAction(AccessibilityNodeInfoCompat.ACTION_CLEAR_ACCESSIBILITY_FOCUS);
       } else {
@@ -151,8 +149,9 @@ class CandidateWindowAccessibilityNodeProvider extends AccessibilityNodeProvider
   private AccessibilityNodeInfoCompat createNodeInfoForSpan(int virtualViewId, Row row, Span span) {
     AccessibilityNodeInfoCompat info = AccessibilityNodeInfoCompat.obtain();
     Rect boundsInParent =
-        new Rect((int) (span.getLeft()), (int) (row.getTop()),
-                 (int) (span.getRight()), (int) (row.getTop() + row.getHeight()));
+        new Rect(
+            (int) (span.getLeft()), (int) (row.getTop()),
+            (int) (span.getRight()), (int) (row.getTop() + row.getHeight()));
     int[] parentLocationOnScreen = new int[2];
     view.getLocationOnScreen(parentLocationOnScreen);
     Rect boundsInScreen = new Rect(boundsInParent);
@@ -177,8 +176,7 @@ class CandidateWindowAccessibilityNodeProvider extends AccessibilityNodeProvider
     }
     if (virtualViewId == View.NO_ID) {
       // Required to return the information about entire view.
-      AccessibilityNodeInfoCompat info =
-          AccessibilityNodeInfoCompat.obtain(view);
+      AccessibilityNodeInfoCompat info = AccessibilityNodeInfoCompat.obtain(view);
       Preconditions.checkNotNull(info);
       ViewCompat.onInitializeAccessibilityNodeInfo(view, info);
       if (!layout.isPresent()) {
@@ -236,16 +234,15 @@ class CandidateWindowAccessibilityNodeProvider extends AccessibilityNodeProvider
     return Optional.absent();
   }
 
-  void sendAccessibilityEventForCandidateWordIfAccessibilityEnabled(CandidateWord candidateWord,
-                                                                    int eventType) {
+  void sendAccessibilityEventForCandidateWordIfAccessibilityEnabled(
+      CandidateWord candidateWord, int eventType) {
     if (isAccessibilityEnabled()) {
       AccessibilityEvent event = createAccessibilityEvent(candidateWord, eventType);
       AccessibilityUtil.sendAccessibilityEvent(getContext(), event);
     }
   }
 
-  private AccessibilityEvent createAccessibilityEvent(CandidateWord candidateWord,
-                                                      int eventType) {
+  private AccessibilityEvent createAccessibilityEvent(CandidateWord candidateWord, int eventType) {
     Preconditions.checkNotNull(candidateWord);
 
     AccessibilityEvent event = AccessibilityEvent.obtain(eventType);
@@ -258,9 +255,7 @@ class CandidateWindowAccessibilityNodeProvider extends AccessibilityNodeProvider
     return event;
   }
 
-  /**
-   * Returns content description based on value and annotation.
-   */
+  /** Returns content description based on value and annotation. */
   private String getContentDescription(CandidateWord candidateWord) {
     Preconditions.checkNotNull(candidateWord);
     String contentDescription = Strings.nullToEmpty(candidateWord.getValue());
@@ -294,15 +289,14 @@ class CandidateWindowAccessibilityNodeProvider extends AccessibilityNodeProvider
         : false;
   }
 
-  boolean performActionForCandidateWord(CandidateWord candidateWord,
-                                        int actionAccessibilityFocus) {
+  boolean performActionForCandidateWord(CandidateWord candidateWord, int actionAccessibilityFocus) {
     Preconditions.checkNotNull(candidateWord);
     return performActionForCandidateWordInternal(
         candidateWord, candidateIdToVirtualId(candidateWord.getId()), actionAccessibilityFocus);
   }
 
-  private boolean performActionForCandidateWordInternal(CandidateWord candidateWord,
-                                                        int virtualViewId, int action) {
+  private boolean performActionForCandidateWordInternal(
+      CandidateWord candidateWord, int virtualViewId, int action) {
     Preconditions.checkArgument(virtualViewId >= 0);
     Preconditions.checkNotNull(candidateWord);
 
@@ -319,8 +313,7 @@ class CandidateWindowAccessibilityNodeProvider extends AccessibilityNodeProvider
           AccessibilityUtil.sendAccessibilityEvent(
               getContext(),
               createAccessibilityEvent(
-                  candidateWord,
-                  AccessibilityEventCompat.TYPE_VIEW_ACCESSIBILITY_FOCUSED));
+                  candidateWord, AccessibilityEventCompat.TYPE_VIEW_ACCESSIBILITY_FOCUSED));
         }
         return true;
       case AccessibilityNodeInfoCompat.ACTION_CLEAR_ACCESSIBILITY_FOCUS:
@@ -334,8 +327,7 @@ class CandidateWindowAccessibilityNodeProvider extends AccessibilityNodeProvider
           AccessibilityUtil.sendAccessibilityEvent(
               getContext(),
               createAccessibilityEvent(
-                  candidateWord,
-                  AccessibilityEventCompat.TYPE_VIEW_ACCESSIBILITY_FOCUS_CLEARED));
+                  candidateWord, AccessibilityEventCompat.TYPE_VIEW_ACCESSIBILITY_FOCUS_CLEARED));
         }
         return true;
       default:
@@ -352,8 +344,8 @@ class CandidateWindowAccessibilityNodeProvider extends AccessibilityNodeProvider
   }
 
   private static int candidateIdToVirtualId(int candidateId) {
-    Preconditions.checkArgument(candidateId != UNDEFINED_VIRTUAL_VIEW_ID
-                                && candidateId != FOLD_BUTTON_VIRTUAL_VIEW_ID);
+    Preconditions.checkArgument(
+        candidateId != UNDEFINED_VIRTUAL_VIEW_ID && candidateId != FOLD_BUTTON_VIRTUAL_VIEW_ID);
     return candidateId + VIRTUAL_VIEW_ID_OFFSET;
   }
 }
