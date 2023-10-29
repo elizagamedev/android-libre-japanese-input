@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">ઉપયોગનાં આંકડાઓ મોકલો</string>
 <string name="pref_about_about_this_software_title">આ સોફ્ટવેર વિશે</string>
 <string name="pref_about_version_title">સંસ્કરણ</string>
-<string name="pref_about_terms_of_service_title">સેવાની શરતો</string>
-<string name="pref_about_privacy_policy_title">ગોપનીયતા નીતિ</string>
 <string name="pref_about_oss_credits_title">ઓપન સોર્સ સોફ્ટવેર</string>
 <string name="pref_launcher_icon_visibility_title">એપ્લિકેશન આયકન બતાવો</string>
 <string name="pref_haptic_feedback_description">કી દબાવવા પર વાઇબ્રેટ.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">વપરાશકર્તા શબ્દકોશ સાફ કરો</string>
 <string name="pref_other_incognito_mode_description">વૈયક્તિકરણ, સૂચનો અને વપરાશકર્તા શબ્દકોશને અસ્થાયી રૂપે અક્ષમ કરો.</string>
 <string name="pref_other_usage_stats_description">વપરાશના આંકડાઓ %1$s ને મોકલો. આનો ઉપયોગ માત્ર %1$s ઉત્પાદનો અને સેવાઓને સુધારવા માટે જ કરવામાં આવશે.</string>
-<string name="pref_about_terms_of_service_description">સેવાની શરતો પ્રદર્શિત કરો (વેબપેજ).</string>
-<string name="pref_about_privacy_policy_description">ગોપનીયતા નીતિ પ્રદર્શિત કરો (વેબપેજ).</string>
 <string name="pref_about_oss_credits_description">આ સોફ્ટવેર ઓપન સોર્સ સોફ્ટવેરનો ઉપયોગ કરે છે: લાઇસેંસેસ જુઓ.</string>
 <string name="pref_launcher_icon_visibility_description">લૉન્ચરમાં એપ્લિકેશન આયકન પ્રદર્શિત કરો</string>
 <string name="pref_input_style_setting_entry_toggle">ટૉગલ કરો</string>

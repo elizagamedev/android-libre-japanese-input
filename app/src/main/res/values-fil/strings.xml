@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Ipadala ang mga istatistika ng paggamit</string>
 <string name="pref_about_about_this_software_title">Tungkol sa software na ito</string>
 <string name="pref_about_version_title">Bersyon</string>
-<string name="pref_about_terms_of_service_title">Mga tuntunin ng serbisyo</string>
-<string name="pref_about_privacy_policy_title">Patakaran sa privacy</string>
 <string name="pref_about_oss_credits_title">Open source na software</string>
 <string name="pref_launcher_icon_visibility_title">Ipakita ang icon ng app</string>
 <string name="pref_haptic_feedback_description">Mag-vibrate sa pagpindot ng key.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">I-clear ang diksyunaryo ng user</string>
 <string name="pref_other_incognito_mode_description">Pansamantalang i-disable ang pag-personalize, mga suhestyon at diksyunaryo ng user.</string>
 <string name="pref_other_usage_stats_description">Ipadala ang mga istatistika ng paggamit sa %1$s. Gagamitin lang ang mga ito upang mapahusay ang mga produkto at serbisyo ng %1$s.</string>
-<string name="pref_about_terms_of_service_description">Ipakita ang mga tuntunin ng serbisyo (webpage).</string>
-<string name="pref_about_privacy_policy_description">Ipakita ang patakaran sa privacy (webpage).</string>
 <string name="pref_about_oss_credits_description">Ang software na ito ay gumagamit ng open source na software: tingnan ang mga lisensya.</string>
 <string name="pref_launcher_icon_visibility_description">Ipakita ang icon ng application sa launcher</string>
 <string name="pref_input_style_setting_entry_toggle">Pag-toggle</string>

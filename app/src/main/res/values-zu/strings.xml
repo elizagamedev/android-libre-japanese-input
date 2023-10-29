@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Thumela izibalo zokusetshenziswa</string>
 <string name="pref_about_about_this_software_title">Mayelana nale softhiwe</string>
 <string name="pref_about_version_title">Inguqulo</string>
-<string name="pref_about_terms_of_service_title">Imigomo yesevisi</string>
-<string name="pref_about_privacy_policy_title">Inqubomgomo yemfihlo</string>
 <string name="pref_about_oss_credits_title">Isofthiwe yomthombo ovulekile</string>
 <string name="pref_launcher_icon_visibility_title">Bonisa isithonjana sohlelo lokusebenza</string>
 <string name="pref_haptic_feedback_description">Ukudlidliza uma kucindezelwa okhiye.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Sula isichazamazwi somsebenzisi.</string>
 <string name="pref_other_incognito_mode_description">Khubaza okwesikhashana ukwenza ngezifiso, iziphakamiso nesichazamazwi somsebenzisi.</string>
 <string name="pref_other_usage_stats_description">Thumela izibalo zokusebenzia ku-%1$s. Lezo zizosetshenziswa kuphela ukuthuthukisa imikhiqizo namasevisi we-%1$s.</string>
-<string name="pref_about_terms_of_service_description">Bonisa imigomo yesevisi (ikhasi lewebhu).</string>
-<string name="pref_about_privacy_policy_description">Bonisa inqubomgomo yobumfihlo (ikhasi lewebhu).</string>
 <string name="pref_about_oss_credits_description">Le softhiwe isebenzisa isofthiwe yomthombo ovulekile: buka amalayisensi.</string>
 <string name="pref_launcher_icon_visibility_description">Bonisa isithonjana sohlelo lokusebenza kusiqalisi</string>
 <string name="pref_input_style_setting_entry_toggle">Ukuguquguqula</string>

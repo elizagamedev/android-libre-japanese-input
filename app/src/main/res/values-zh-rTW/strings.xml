@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">傳送使用情形統計資料</string>
 <string name="pref_about_about_this_software_title">關於這個軟體</string>
 <string name="pref_about_version_title">版本</string>
-<string name="pref_about_terms_of_service_title">服務條款</string>
-<string name="pref_about_privacy_policy_title">隱私權政策</string>
 <string name="pref_about_oss_credits_title">開放原始碼軟體</string>
 <string name="pref_launcher_icon_visibility_title">顯示應用程式圖示</string>
 <string name="pref_haptic_feedback_description">按鍵時發出震動。</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">清除使用者字典。</string>
 <string name="pref_other_incognito_mode_description">暫時停用個人化設定、建議和使用者字典功能。</string>
 <string name="pref_other_usage_stats_description">將使用情形統計資料傳送給 %1$s。這些資料只會用於改善各項 %1$s 產品與服務。</string>
-<string name="pref_about_terms_of_service_description">顯示服務條款 (網頁)。</string>
-<string name="pref_about_privacy_policy_description">顯示隱私權政策 (網頁)。</string>
 <string name="pref_about_oss_credits_description">本軟體使用開放原始碼軟體：查看授權。</string>
 <string name="pref_launcher_icon_visibility_description">在應用程式啟動器中顯示應用程式圖示</string>
 <string name="pref_input_style_setting_entry_toggle">切換</string>

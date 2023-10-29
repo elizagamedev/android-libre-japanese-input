@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">ഉപയോഗ സ്ഥിതിവിവരക്കണക്കുകൾ അയയ്‌ക്കുക</string>
 <string name="pref_about_about_this_software_title">ഈ സോഫ്‌‌റ്റ്‌വെയറിന് ഒരാമുഖം</string>
 <string name="pref_about_version_title">പതിപ്പ്</string>
-<string name="pref_about_terms_of_service_title">സേവന നിബന്ധനകൾ</string>
-<string name="pref_about_privacy_policy_title">സ്വകാര്യത നയം</string>
 <string name="pref_about_oss_credits_title">ഓപ്പൺ‌ സോഴ്‌സ് സോഫ്‌റ്റ്‌വെയർ</string>
 <string name="pref_launcher_icon_visibility_title">അപ്ലിക്കേഷൻ ഐക്കൺ ദൃശ്യമാക്കുക</string>
 <string name="pref_haptic_feedback_description">കീ അമർത്തുമ്പോൾ വൈബ്രേറ്റുചെയ്യുക.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">ഉപയോക്തൃ നിഘണ്ടു മായ്‌ക്കുക.</string>
 <string name="pref_other_incognito_mode_description">വ്യക്തിഗതമാക്കൽ, നിർദ്ദേശങ്ങൾ, ഉപയോക്തൃ നിഘണ്ടു എന്നിവ താൽക്കാലികമായി പ്രവർത്തനരഹിതമാക്കുക.</string>
 <string name="pref_other_usage_stats_description">%1$s എന്നതിലേക്ക് ഉപയോഗ സ്ഥിതിവിവരക്കണക്കുകൾ അയയ്‌ക്കുക. %1$s ഉൽപ്പന്നങ്ങളും സേവനങ്ങളും മെച്ചപ്പെടുത്തുന്നതിന് മാത്രമാണ് ഇവ ഉപയോഗിക്കുന്നത്.</string>
-<string name="pref_about_terms_of_service_description">സേവന നിബന്ധനകൾ പ്രദർശിപ്പിക്കുക (വെബ്‌പേജ്).</string>
-<string name="pref_about_privacy_policy_description">സ്വകാര്യത നയം പ്രദർശിപ്പിക്കുക (വെബ്‌പേജ്).</string>
 <string name="pref_about_oss_credits_description">ഈ സോഫ്‌റ്റ്‌വെയർ ഓപ്പൺ സോഴ്‌സ് സോഫ്‌റ്റ്‌വെയർ ഉപയോഗിക്കുന്നു: ലൈസൻസുകൾ കാണുക.</string>
 <string name="pref_launcher_icon_visibility_description">ലോഞ്ചറിൽ അപ്ലിക്കേഷൻ ഐക്കൺ പ്രദർശിപ്പിക്കുക</string>
 <string name="pref_input_style_setting_entry_toggle">ടോഗിൾ ചെയ്യുക</string>

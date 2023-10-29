@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Senda inn notkunarupplýsingar</string>
 <string name="pref_about_about_this_software_title">Um þennan hugbúnað</string>
 <string name="pref_about_version_title">Útgáfa</string>
-<string name="pref_about_terms_of_service_title">Þjónustuskilmálar</string>
-<string name="pref_about_privacy_policy_title">Persónuverndarstefna</string>
 <string name="pref_about_oss_credits_title">Opinn hugbúnaður</string>
 <string name="pref_launcher_icon_visibility_title">Sýna forritstákn</string>
 <string name="pref_haptic_feedback_description">Titringur þegar ýtt er á lykla.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Hreinsa orðabók notanda.</string>
 <string name="pref_other_incognito_mode_description">Slökkva tímabundið á sérsniði, tillögum og orðabók notanda.</string>
 <string name="pref_other_usage_stats_description">Senda upplýsingar um notkun til %1$s. Þær verða eingöngu notaðar til að bæta vörur og þjónustu %1$s.</string>
-<string name="pref_about_terms_of_service_description">Birta þjónustuskilmálana (vefsíða).</string>
-<string name="pref_about_privacy_policy_description">Birta persónuverndarstefnuna (vefsíða).</string>
 <string name="pref_about_oss_credits_description">Þessi hugbúnaður notast við opinn hugbúnað: Skoðaðu leyfin.</string>
 <string name="pref_launcher_icon_visibility_description">Sýna tákn forritsins í ræsiforritinu</string>
 <string name="pref_input_style_setting_entry_toggle">Rofi</string>

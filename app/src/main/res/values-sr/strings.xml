@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Шаљи статистику коришћења</string>
 <string name="pref_about_about_this_software_title">О овом софтверу</string>
 <string name="pref_about_version_title">Верзија</string>
-<string name="pref_about_terms_of_service_title">Услови коришћења услуге</string>
-<string name="pref_about_privacy_policy_title">Политика приватности</string>
 <string name="pref_about_oss_credits_title">Софтвер отвореног кода</string>
 <string name="pref_launcher_icon_visibility_title">Прикажи икону апликације</string>
 <string name="pref_haptic_feedback_description">Вибрације при притиску на тастер.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Обришите кориснички речник.</string>
 <string name="pref_other_incognito_mode_description">Привремено онемогућите персонализацију, предлоге и кориснички речник.</string>
 <string name="pref_other_usage_stats_description">Шаљите статистику коришћења %1$s-у. Она ће се користити само за побољшање %1$s производа и услуга.</string>
-<string name="pref_about_terms_of_service_description">Приказује услове коришћења услуге (веб-страница).</string>
-<string name="pref_about_privacy_policy_description">Приказује политику приватности (веб-страница).</string>
 <string name="pref_about_oss_credits_description">Овај софтвер користи софтвер отвореног кода: прегледајте лиценце.</string>
 <string name="pref_launcher_icon_visibility_description">Приказује икону апликације у покретачу</string>
 <string name="pref_input_style_setting_entry_toggle">Избор</string>

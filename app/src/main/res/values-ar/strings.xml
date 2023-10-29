@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">إرسال إحصاءات الاستخدام</string>
 <string name="pref_about_about_this_software_title">حول هذا البرنامج</string>
 <string name="pref_about_version_title">الإصدار</string>
-<string name="pref_about_terms_of_service_title">بنود الخدمة</string>
-<string name="pref_about_privacy_policy_title">سياسة الخصوصية</string>
 <string name="pref_about_oss_credits_title">برنامج مفتوح المصدر</string>
 <string name="pref_launcher_icon_visibility_title">عرض رمز التطبيق</string>
 <string name="pref_haptic_feedback_description">الاهتزاز عند الضغط على المفاتيح.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">محو قاموس المستخدم.</string>
 <string name="pref_other_incognito_mode_description">تعطيل التخصيص والاقتراح وقاموس المستخدم مؤقتًا.</string>
 <string name="pref_other_usage_stats_description">إرسال إحصاءات الاستخدام إلى %1$s. سيتم استخدام هذه البيانات فقط لتحسين منتجات وخدمات %1$s.</string>
-<string name="pref_about_terms_of_service_description">عرض بنود الخدمة (صفحة ويب).</string>
-<string name="pref_about_privacy_policy_description">عرض سياسة الخصوصية (صفحة ويب).</string>
 <string name="pref_about_oss_credits_description">هذا البرنامج يستخدم برنامجًا مفتوح المصدر: عرض التراخيص</string>
 <string name="pref_launcher_icon_visibility_description">عرض رمز التطبيق في المشغّل</string>
 <string name="pref_input_style_setting_entry_toggle">تبديل</string>

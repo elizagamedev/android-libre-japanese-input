@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">İstifadə statistikasını göndər</string>
 <string name="pref_about_about_this_software_title">Bu proqram haqqında</string>
 <string name="pref_about_version_title">Versiya</string>
-<string name="pref_about_terms_of_service_title">Xidmət şərtləri</string>
-<string name="pref_about_privacy_policy_title">Məxfilik Siyasəti</string>
 <string name="pref_about_oss_credits_title">Mənbə proqramını açın</string>
 <string name="pref_launcher_icon_visibility_title">Tətbiq ikonasını göstər</string>
 <string name="pref_haptic_feedback_description">Düymə basarkən vibrasiya.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">İstifadəçi lüğətini təmizləyin.</string>
 <string name="pref_other_incognito_mode_description">Müvəqqəti olaraq şəxsləndirmə, təklif və istifadəçi sözlüyünü deaktiv edin.</string>
 <string name="pref_other_usage_stats_description">İstifadə statistikasını %1$s üzərinə göndərin. Bu yalnız %1$s məhsulları və xidmətlərini təkmilləşdirmək üçün istifadə olunacaq.</string>
-<string name="pref_about_terms_of_service_description">Xidmət şərtlərini (veb səhifə) görüntüləyin.</string>
-<string name="pref_about_privacy_policy_description">Məxfilik siyasətini (veb səhifə) görüntüləyin.</string>
 <string name="pref_about_oss_credits_description">Bu proqram açıq mənbə proqramını istifadə edir: lisenziyalara baxın.</string>
 <string name="pref_launcher_icon_visibility_description">Başlatma panelində tətbiq ikonasını göstər</string>
 <string name="pref_input_style_setting_entry_toggle">Keçirin</string>

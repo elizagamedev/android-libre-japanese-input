@@ -83,8 +83,6 @@
       <string name="pref_other_usage_stats_title">利用統計を送信</string>
     <string name="pref_about_about_this_software_title">このアプリケーションについて</string>
         <string name="pref_about_version_title">バージョン</string>
-        <string name="pref_about_terms_of_service_title">モバイル利用規約</string>
-        <string name="pref_about_privacy_policy_title">プライバシーポリシー</string>
         <string name="pref_about_oss_credits_title">オープンソースソフトウェア</string>
         <string name="pref_launcher_icon_visibility_title">アイコンを表示する</string>
 
@@ -126,8 +124,6 @@
         <string name="pref_other_incognito_mode_description">一時的に学習機能、入力からのサジェスト機能、ユーザー辞書機能を無効にします。</string>
         <string name="pref_other_usage_stats_description">%1$sのサーバーに利用統計を送ります。送られた利用統計はソフトウェアの改善に利用されます。通信が発生します。</string>
     <!-- About -->
-        <string name="pref_about_terms_of_service_description">モバイル利用規約を表示します(ウェブページ)。</string>
-        <string name="pref_about_privacy_policy_description">プライバシーポリシーを表示します(ウェブページ)。</string>
         <string name="pref_about_oss_credits_description">本ソフトウェアはオープンソースソフトウェアを利用しています。</string>
         <string name="pref_launcher_icon_visibility_description">アプリケーション一覧にアイコンを表示します。</string>
 

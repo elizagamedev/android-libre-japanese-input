@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">发送使用情况统计信息</string>
 <string name="pref_about_about_this_software_title">关于本软件</string>
 <string name="pref_about_version_title">版本</string>
-<string name="pref_about_terms_of_service_title">服务条款</string>
-<string name="pref_about_privacy_policy_title">隐私权政策</string>
 <string name="pref_about_oss_credits_title">开源软件</string>
 <string name="pref_launcher_icon_visibility_title">显示应用图标</string>
 <string name="pref_haptic_feedback_description">按键时振动。</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">清除用户字典。</string>
 <string name="pref_other_incognito_mode_description">暂时停用个性化设置、建议内容和用户字典。</string>
 <string name="pref_other_usage_stats_description">将使用情况统计信息发送给%1$s。这些信息将仅用于完善%1$s的产品和服务。</string>
-<string name="pref_about_terms_of_service_description">显示服务条款（网页）。</string>
-<string name="pref_about_privacy_policy_description">显示隐私权政策（网页）。</string>
 <string name="pref_about_oss_credits_description">此软件使用开源软件：查看许可。</string>
 <string name="pref_launcher_icon_visibility_description">显示启动器中的应用图标</string>
 <string name="pref_input_style_setting_entry_toggle">切换</string>

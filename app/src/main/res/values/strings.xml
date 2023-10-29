@@ -87,8 +87,6 @@
       <string name="pref_other_usage_stats_title">Send usage statistics</string>
     <string name="pref_about_about_this_software_title">About this software</string>
         <string name="pref_about_version_title">Version</string>
-        <string name="pref_about_terms_of_service_title">Terms of service</string>
-        <string name="pref_about_privacy_policy_title">Privacy policy</string>
         <string name="pref_about_oss_credits_title">Open source software</string>
         <string name="pref_launcher_icon_visibility_title">Show app icon</string>
     <!-- Preference description -->
@@ -130,8 +128,6 @@
         <!-- TODO(matsuzakit): Needs an expert's check => need to check with legal -->
         <string name="pref_other_usage_stats_description">Send usage statistics to %1$s. These will only be used to improve %1$s products and services.</string>
     <!-- About -->
-        <string name="pref_about_terms_of_service_description">Display the terms of service (webpage).</string>
-        <string name="pref_about_privacy_policy_description">Display the privacy policy (webpage).</string>
         <string name="pref_about_oss_credits_description">This software uses open source software: view the licenses.</string>
         <string name="pref_launcher_icon_visibility_description">Display application icon in the launcher</string>
 
@@ -165,13 +161,6 @@
     <string name="pref_layout_adjustment_entry_fill">Fill</string>
     <string name="pref_layout_adjustment_entry_right">Right</string>
     <string name="pref_layout_adjustment_entry_left">Left</string>
-
-    <!-- First time launch activity -->
-    <string name="firsttime_close_button">Next &gt;&gt;</string>
-    <!-- TODO(matsuzakit): Needs an expert's check -->
-    <string name="firsttime_description_thank_you">Thank you for using %s.</string>
-    <string name="firsttime_description_usage_stats"><![CDATA[In order for us to improve %s products and services, we kindly ask you to consider enabling usage statistics.\n\nThis setting can be changed from the preferences screen.]]></string>
-    <string name="firsttime_send_usage_stats_devchannel">Usage statistics are enabled because you are using a development version.</string>
 
     <!-- Alert messages -->
     <string name="pref_ime_enable_alert_title">Setup for text settings</string>

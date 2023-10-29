@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">उपयोग तथ्याङ्क पठाउनुहोस्</string>
 <string name="pref_about_about_this_software_title">यो सफ्टवेयरको बारेमा</string>
 <string name="pref_about_version_title">संस्करण</string>
-<string name="pref_about_terms_of_service_title">सेवाका सर्तहरू</string>
-<string name="pref_about_privacy_policy_title">गोपनीयता नीति</string>
 <string name="pref_about_oss_credits_title">खुला स्रोत सफ्टवेयर</string>
 <string name="pref_launcher_icon_visibility_title">अनुप्रयोग आइकन देखाउनुहोस्</string>
 <string name="pref_haptic_feedback_description">कुञ्जी थिचाइमा भाइब्रेट।</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">प्रयोगकर्ता शब्दकोश खाली गर्नुहोस्।</string>
 <string name="pref_other_incognito_mode_description">अस्थायी रूपमा निजीकरण, सुझावहरू र प्रयोगकर्ता शब्दकोश असक्षम पार्नुहोस्।</string>
 <string name="pref_other_usage_stats_description">%1$s मा उपयोगको तथ्याङ्कहरू पठाउनुहोस् । यी केवल %1$s उत्पादन र सेवाहरू सुधार गर्न प्रयोग गरिने छन्।</string>
-<string name="pref_about_terms_of_service_description">सेवा (वेबपेज) को सर्तहरू प्रदर्शन गर्नुहोस्।</string>
-<string name="pref_about_privacy_policy_description">गोपनीयता नीति (वेबपेज) प्रर्दशन गर्नुहोस्।</string>
 <string name="pref_about_oss_credits_description">यो सफ्टवेयरले खुला स्रोत सफ्टवेयर प्रयोग गर्दछ: लाइसेनहरू हेर्नुहोस्।</string>
 <string name="pref_launcher_icon_visibility_description">launcher मा अनुप्रयोग आइकन देखाउनुहोस्</string>
 <string name="pref_input_style_setting_entry_toggle">टगल</string>

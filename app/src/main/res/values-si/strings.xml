@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">භාවිතාවේ සංඛ්‍යාන යවන්න</string>
 <string name="pref_about_about_this_software_title">මෙම මෘදුකාංගය පිළිබඳ</string>
 <string name="pref_about_version_title">අනුවාදය</string>
-<string name="pref_about_terms_of_service_title">සේවා කොන්දේසි</string>
-<string name="pref_about_privacy_policy_title">පෞද්ගලිකත්ව ප්‍රතිපත්තිය</string>
 <string name="pref_about_oss_credits_title">විවෘත මූලාශ්‍ර මෘදුකාංගය</string>
 <string name="pref_launcher_icon_visibility_title">යෙදුම් නිරූපකය පෙන්වන්න</string>
 <string name="pref_haptic_feedback_description">යතුරු එබුමට කම්පනය.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">පරිශීලක ශබ්දකෝෂය හිස් කරන්න</string>
 <string name="pref_other_incognito_mode_description">පුද්ගලාරෝපණය, යෝජනා, සහ පරිශීලක ශබ්දකෝෂය තාවකාලිකව අබල කරන්න.</string>
 <string name="pref_other_usage_stats_description">%1$s වෙත භාවිත සංඛ්‍යාෙල්ඛන යවන්න. මෙය %1$s නිපැයුම් සහ සේවා වැඩි දියුණු කිරීමට පමණක් භාවිත වනු ඇත.</string>
-<string name="pref_about_terms_of_service_description">සේවා නියම සංදර්ශනය කරන්න (වෙබ්පිටුව).</string>
-<string name="pref_about_privacy_policy_description">රහස්‍යතා ප්‍රතිපත්තිය සංදර්ශනය කරන්න (වෙබ්පිටුව).</string>
 <string name="pref_about_oss_credits_description">මෙම මෘදුකාංගය විවෘත මූලාශ්‍ර මෘදුකාංගය භාවිත කරයි: වරපත් බලන්න.</string>
 <string name="pref_launcher_icon_visibility_description">දියත්කරණය තුළ යෙදුම් නිරූපකය දර්ශනය කරන්න</string>
 <string name="pref_input_style_setting_entry_toggle">ටොගල</string>

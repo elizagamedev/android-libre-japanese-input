@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Nutzungsstatistiken senden</string>
 <string name="pref_about_about_this_software_title">Über diese Software</string>
 <string name="pref_about_version_title">Version</string>
-<string name="pref_about_terms_of_service_title">Nutzungsbedingungen</string>
-<string name="pref_about_privacy_policy_title">Datenschutzerklärung</string>
 <string name="pref_about_oss_credits_title">Open-Source-Software</string>
 <string name="pref_launcher_icon_visibility_title">App-Symbol anzeigen</string>
 <string name="pref_haptic_feedback_description">Bei Tastendruck vibrieren</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">\"Mein Wörterbuch\" löschen</string>
 <string name="pref_other_incognito_mode_description">Personalisierung, Vorschläge und \"Mein Wörterbuch\" vorübergehend deaktivieren</string>
 <string name="pref_other_usage_stats_description">Nutzungsstatistiken an %1$s senden. Diese werden nur zur Verbesserung der Produkte und Dienste von %1$s verwendet.</string>
-<string name="pref_about_terms_of_service_description">Nutzungsbedingungen anzeigen (Webseite)</string>
-<string name="pref_about_privacy_policy_description">Datenschutzerklärung anzeigen (Webseite)</string>
 <string name="pref_about_oss_credits_description">Diese Software verwendet Open-Source-Software: Lizenzen ansehen</string>
 <string name="pref_launcher_icon_visibility_description">App-Symbol in der Übersicht anzeigen</string>
 <string name="pref_input_style_setting_entry_toggle">Umschalten</string>

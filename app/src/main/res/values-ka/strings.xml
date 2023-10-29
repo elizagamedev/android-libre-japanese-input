@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">გამოყენების სტატისტიკის გაგზავნა</string>
 <string name="pref_about_about_this_software_title">ამ პროგრამის შესახებ</string>
 <string name="pref_about_version_title">ვერსია</string>
-<string name="pref_about_terms_of_service_title">მომსახურების პირობები</string>
-<string name="pref_about_privacy_policy_title">კონფიდენციალურობის დებულება</string>
 <string name="pref_about_oss_credits_title">ღია წყაროს მქონე პროგრამული უზრუნველყოფა</string>
 <string name="pref_launcher_icon_visibility_title">აპის ხატულის ჩვენება</string>
 <string name="pref_haptic_feedback_description">ვიბრაცია კლავიშზე დაჭერისას.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">მომხმარებლის ლექსიკონის წაშლა.</string>
 <string name="pref_other_incognito_mode_description">პერსონალიზაციის, შემოთავაზებებისა და მომხმარებლის ლექსიკონის დროებით გამორთვა.</string>
 <string name="pref_other_usage_stats_description">მოხმარების სტატისტიკის %1$s-ისთვის გაგზავნა. მისი გამოყენება მოხდება მხოლოდ %1$s -ის პროდუქციისა და სერვისების გასაუმჯობესებლად.</string>
-<string name="pref_about_terms_of_service_description">მომსახურების პირობების (ვებგვერდზე) ჩვენება.</string>
-<string name="pref_about_privacy_policy_description">კონფიდენციალურობის დებულების (ვებგვერდზე) ჩვენება.</string>
 <string name="pref_about_oss_credits_description">ეს პროგრამა იყენებს ღია წყაროს მქონე პროგრამულ უზრუნველყოფას: იხილეთ ლიცენზია.</string>
 <string name="pref_launcher_icon_visibility_description">აპლიკაციის ხატულის ჩვენება გამშვებში</string>
 <string name="pref_input_style_setting_entry_toggle">Toggle</string>

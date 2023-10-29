@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Sūtīt lietojuma statistiku</string>
 <string name="pref_about_about_this_software_title">Par šo programmatūru</string>
 <string name="pref_about_version_title">Versija</string>
-<string name="pref_about_terms_of_service_title">Pakalpojumu sniegšanas noteikumi</string>
-<string name="pref_about_privacy_policy_title">Konfidencialitātes politika</string>
 <string name="pref_about_oss_credits_title">Atklātā pirmkoda programmatūra</string>
 <string name="pref_launcher_icon_visibility_title">Rādīt lietotnes ikonu</string>
 <string name="pref_haptic_feedback_description">Vibrācija, nospiežot taustiņu.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Notīriet lietotāja vārdnīcu.</string>
 <string name="pref_other_incognito_mode_description">Īslaicīgi atspējojiet personalizēšanu, ieteikumus un lietotāja vārdnīcu.</string>
 <string name="pref_other_usage_stats_description">Sūtiet lietojuma statistikas datus uz: %1$s. Šie dati tiks izmantoti tikai %1$s produktu un pakalpojumu uzlabošanai.</string>
-<string name="pref_about_terms_of_service_description">Parādīt pakalpojumu sniegšanas noteikumus (tīmekļa lapa).</string>
-<string name="pref_about_privacy_policy_description">Parādīt konfidencialitātes politiku (tīmekļa lapa).</string>
 <string name="pref_about_oss_credits_description">Šai programmatūrai tiek izmantota atklātā pirmkoda programmatūra: skatiet licences.</string>
 <string name="pref_launcher_icon_visibility_description">Rādīt lietojumprogrammas ikonu palaišanas programmā</string>
 <string name="pref_input_style_setting_entry_toggle">Pārslēgtaustiņš</string>

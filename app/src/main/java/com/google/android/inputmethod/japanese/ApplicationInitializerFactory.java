@@ -30,7 +30,6 @@
 package org.mozc.android.inputmethod.japanese;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -171,9 +170,8 @@ public class ApplicationInitializerFactory {
      *     if it's not been shown yet.
      * @param abiIndependentVersionCode ABI independent version code, typically obtained from {@link
      *     MozcUtil#getAbiIndependentVersionCode(Context)}
-     * @return if forwarding is needed Intent is returned. The caller side should invoke the Intent.
      */
-    public Optional<Intent> initialize(
+    public void initialize(
         boolean isSystemApplication,
         boolean isDevChannel,
         boolean isWelcomeActivityPreferred,
@@ -249,15 +247,6 @@ public class ApplicationInitializerFactory {
           editor.putBoolean(PreferenceUtil.PREF_OTHER_USAGE_STATS_KEY, true);
           maybeShowNotificationForDevChannel(abiIndependentVersionCode, lastVersionCode);
         }
-
-        // Welcome Activity
-        if (!isActivityShown && !isSystemApplication && isWelcomeActivityPreferred) {
-          editor.putBoolean(PREF_WELCOME_ACTIVITY_SHOWN, true);
-          Intent intent = new Intent(context, FirstTimeLaunchActivity.class);
-          intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-          return Optional.of(intent);
-        }
-        return Optional.absent();
       } finally {
         editor.remove(PREF_LAUNCHED_AT_LEAST_ONCE);
         editor.putInt(

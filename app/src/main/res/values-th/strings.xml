@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">ส่งสถิติการใช้งาน</string>
 <string name="pref_about_about_this_software_title">เกี่ยวกับซอฟต์แวร์นี้</string>
 <string name="pref_about_version_title">เวอร์ชัน</string>
-<string name="pref_about_terms_of_service_title">ข้อกำหนดในการให้บริการ</string>
-<string name="pref_about_privacy_policy_title">นโยบายส่วนบุคคล</string>
 <string name="pref_about_oss_credits_title">ซอฟต์แวร์โอเพนซอร์ส</string>
 <string name="pref_launcher_icon_visibility_title">แสดงไอคอนแอป</string>
 <string name="pref_haptic_feedback_description">สั่นเมื่อกดปุ่ม</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">ล้างพจนานุกรมผู้ใช้</string>
 <string name="pref_other_incognito_mode_description">ปิดใช้การปรับเปลี่ยนในแบบของคุณ คำแนะนำ และพจนานุกรมผู้ใช้ชั่วคราว</string>
 <string name="pref_other_usage_stats_description">ส่งสถิติการใช้งานไปที่ %1$s โดยจะใช้สถิติเหล่านี้เพื่อปรับปรุงผลิตภัณฑ์และบริการ %1$s เท่านั้น</string>
-<string name="pref_about_terms_of_service_description">แสดงข้อกำหนดในการให้บริการ (หน้าเว็บ)</string>
-<string name="pref_about_privacy_policy_description">แสดงนโยบายส่วนบุคคล (หน้าเว็บ)</string>
 <string name="pref_about_oss_credits_description">ซอฟต์แวร์นี้ใช้ซอฟต์แวร์โอเพนซอร์ส: ดูใบอนุญาต</string>
 <string name="pref_launcher_icon_visibility_description">แสดงไอคอนแอปพลิเคชันใน Launcher</string>
 <string name="pref_input_style_setting_entry_toggle">สลับ</string>

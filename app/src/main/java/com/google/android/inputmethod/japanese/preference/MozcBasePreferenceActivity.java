@@ -43,7 +43,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
 import org.mozc.android.inputmethod.japanese.ApplicationInitializerFactory;
 import org.mozc.android.inputmethod.japanese.ApplicationInitializerFactory.ApplicationInitializer;
 import org.mozc.android.inputmethod.japanese.DependencyFactory;
@@ -154,21 +153,13 @@ public class MozcBasePreferenceActivity extends PreferenceActivity {
   @VisibleForTesting
   void onPostResumeInternal(ApplicationInitializer initializer) {
     Context context = getApplicationContext();
-    Optional<Intent> forwardIntent =
-        initializer.initialize(
-            MozcUtil.isSystemApplication(context),
-            MozcUtil.isDevChannel(context),
-            DependencyFactory.getDependency(getApplicationContext()).isWelcomeActivityPreferrable(),
-            MozcUtil.getAbiIndependentVersionCode(context),
-            LauncherIconManagerFactory.getDefaultInstance(),
-            PreferenceUtil.getDefaultPreferenceManagerStatic());
-    if (forwardIntent.isPresent()) {
-      startActivity(forwardIntent.get());
-    } else {
-      // After all resuming processes, we check the default IME status.
-      // Note that we need to do this only when first launch activity is *not* launched.
-      maybeShowAlertDialogIme();
-    }
+    initializer.initialize(
+        MozcUtil.isSystemApplication(context),
+        MozcUtil.isDevChannel(context),
+        DependencyFactory.getDependency(getApplicationContext()).isWelcomeActivityPreferrable(),
+        MozcUtil.getAbiIndependentVersionCode(context),
+        LauncherIconManagerFactory.getDefaultInstance(),
+        PreferenceUtil.getDefaultPreferenceManagerStatic());
   }
 
   // Note: when an activity A starts another activity B, the order of their onStart/onStop
@@ -224,28 +215,6 @@ public class MozcBasePreferenceActivity extends PreferenceActivity {
     builder.setPositiveButton(R.string.pref_ime_alert_next, clickListener);
     builder.setNegativeButton(R.string.pref_ime_alert_cancel, clickListener);
     return builder.create();
-  }
-
-  /** Check the current default IME status, and show alerting dialog if necessary. */
-  private void maybeShowAlertDialogIme() {
-    if (imeEnableDialog.isShowing() || imeSwitchDialog.isShowing()) {
-      // Either dialog is already shown, right now. So just skip the check.
-      return;
-    }
-
-    Context context = getApplicationContext();
-    if (!MozcUtil.isMozcEnabled(context)) {
-      imeEnableDialog.show();
-      return;
-    }
-    // If this is a system (=preinstalled) application (including updated one),
-    // Notification dialogs won't be shown to improve usability.
-    // If this is not a system one, imeSwitchDialog is shown because users might misunderstand
-    // that their system IME is Google Japanese Input.
-    if (!MozcUtil.isMozcDefaultIme(context) && !MozcUtil.isSystemApplication(context)) {
-      imeSwitchDialog.show();
-      return;
-    }
   }
 
   /** For the time being, pretend default behavior of apps for the framework older than KITKAT. */

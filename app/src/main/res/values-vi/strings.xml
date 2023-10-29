@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Gửi số liệu thống kê sử dụng</string>
 <string name="pref_about_about_this_software_title">Giới thiệu về phần mềm này</string>
 <string name="pref_about_version_title">Phiên bản</string>
-<string name="pref_about_terms_of_service_title">Điều khoản dịch vụ</string>
-<string name="pref_about_privacy_policy_title">Chính sách bảo mật</string>
 <string name="pref_about_oss_credits_title">Phần mềm nguồn mở</string>
 <string name="pref_launcher_icon_visibility_title">Hiển thị biểu tượng ứng dụng</string>
 <string name="pref_haptic_feedback_description">Rung khi nhấn phím.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Xóa từ điển người dùng.</string>
 <string name="pref_other_incognito_mode_description">Tạm thời tắt tính năng cá nhân hóa, đề xuất và từ điển người dùng.</string>
 <string name="pref_other_usage_stats_description">Gửi số liệu thống kê sử dụng cho %1$s. Số liệu thống kê này sẽ chỉ được sử dụng để cải thiện sản phẩm và dịch vụ của %1$s.</string>
-<string name="pref_about_terms_of_service_description">Hiển thị điều khoản dịch vụ (trang web).</string>
-<string name="pref_about_privacy_policy_description">Hiển thị chính sách bảo mật (trang web).</string>
 <string name="pref_about_oss_credits_description">Phần mềm này sử dụng phần mềm nguồn mở: xem giấy phép.</string>
 <string name="pref_launcher_icon_visibility_description">Hiển thị biểu tượng ứng dụng trong trình khởi chạy</string>
 <string name="pref_input_style_setting_entry_toggle">Chuyển đổi</string>

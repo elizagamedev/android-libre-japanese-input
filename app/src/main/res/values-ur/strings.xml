@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">استعمال کے اعداد و شمار بھیجیں</string>
 <string name="pref_about_about_this_software_title">اس سافٹ ویئر کے بارے میں</string>
 <string name="pref_about_version_title">ورژن</string>
-<string name="pref_about_terms_of_service_title">سروس کی شرائط</string>
-<string name="pref_about_privacy_policy_title">رازداری کی پالیسی</string>
 <string name="pref_about_oss_credits_title">اوپن سورس سافٹ ویئر</string>
 <string name="pref_launcher_icon_visibility_title">ایپ آئیکن دکھائیں</string>
 <string name="pref_haptic_feedback_description">کلید دبانے پر وائبریٹ کرے۔</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">صارف کی لغت کو صاف کریں۔</string>
 <string name="pref_other_incognito_mode_description">ذاتی نوعیت کا بنانے، تجاویز اور صارف کی لغت کو عارضی طور پر غیر فعال کریں۔</string>
 <string name="pref_other_usage_stats_description">استعمال کے اعداد و شمار %1$s کو بھیجیں۔ ان کا استعمال صرف %1$s پروڈکٹس اور سروسز کو بہتر بنانے کیلئے کیا جائے گا۔</string>
-<string name="pref_about_terms_of_service_description">سروس  کی شرائط ڈسپلے کریں (ویب صفحہ)۔</string>
-<string name="pref_about_privacy_policy_description">رازداری کی پالیسی ڈسپلے کریں (ویب صفحہ)۔</string>
 <string name="pref_about_oss_credits_description">یہ سافٹ ویئر اوپن سورس سافٹ ویئر استعمال کرتا ہے: لائسنسز دیکھیں۔</string>
 <string name="pref_launcher_icon_visibility_description">ایپلیکیشن آئیکن کو لانچر میں ڈسپلے کریں</string>
 <string name="pref_input_style_setting_entry_toggle">ٹوگل</string>

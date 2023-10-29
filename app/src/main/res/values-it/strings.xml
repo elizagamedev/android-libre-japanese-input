@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Invia statistiche sull\'utilizzo</string>
 <string name="pref_about_about_this_software_title">Informazioni su questo software</string>
 <string name="pref_about_version_title">Versione</string>
-<string name="pref_about_terms_of_service_title">Termini di servizio</string>
-<string name="pref_about_privacy_policy_title">Norme sulla privacy</string>
 <string name="pref_about_oss_credits_title">Software open source</string>
 <string name="pref_launcher_icon_visibility_title">Mostra icona app</string>
 <string name="pref_haptic_feedback_description">Vibra alla pressione dei tasti.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Cancella il dizionario utente.</string>
 <string name="pref_other_incognito_mode_description">Disattiva temporaneamente la personalizzazione, i suggerimenti e il dizionario utente.</string>
 <string name="pref_other_usage_stats_description">Invia a %1$s le statistiche sull\'utilizzo, che verranno utilizzate soltanto per migliorare i prodotti e servizi %1$s.</string>
-<string name="pref_about_terms_of_service_description">Visualizza i termini di servizio (pagina web).</string>
-<string name="pref_about_privacy_policy_description">Visualizza le norme sulla privacy (pagina web).</string>
 <string name="pref_about_oss_credits_description">Questo software utilizza software open source: visualizza le licenze.</string>
 <string name="pref_launcher_icon_visibility_description">Mostra l\'icona dell\'app in Avvio applicazioni</string>
 <string name="pref_input_style_setting_entry_toggle">Attivazione/disattivazione</string>

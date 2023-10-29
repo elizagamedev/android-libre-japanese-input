@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Ашиглалтын статистикийг илгээх</string>
 <string name="pref_about_about_this_software_title">Энэ програмын тухай</string>
 <string name="pref_about_version_title">Хувилбар</string>
-<string name="pref_about_terms_of_service_title">Үйлчилгээний нөхцөл</string>
-<string name="pref_about_privacy_policy_title">Нууцлалын бодлого</string>
 <string name="pref_about_oss_credits_title">Нээлттэй програм хангамж</string>
 <string name="pref_launcher_icon_visibility_title">Апп дүрсийг харуулах</string>
 <string name="pref_haptic_feedback_description">Чичиргээ идэвхжүүлэх товчлуур дарна уу.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Хэрэглэгчийн толь бичгийг цэвэрлэх.</string>
 <string name="pref_other_incognito_mode_description">Түр зуур хувийн тохиргоо, санал болон хэрэглэгчийн толь бичгийг хаасан.</string>
 <string name="pref_other_usage_stats_description">Хэрэглээний статистик %1$s-д илгээнэ үү. Эдгээр нь зөвхөн %1$s-н бүтээгдэхүүн болон үйлчилгээг сайжруулахад ашиглагдах болно.</string>
-<string name="pref_about_terms_of_service_description">Үйлчилгээний нөхцлийг үзүүлэх (вэб хуудас).</string>
-<string name="pref_about_privacy_policy_description">Нууцлалын бодлогыг үзүүлэх (вэб хуудас).</string>
 <string name="pref_about_oss_credits_description">Энэ програм нь нээлттэй эхийн програм хангамжийг ашигладаг: лиценз үзэх.</string>
 <string name="pref_launcher_icon_visibility_description">Эхлүүлэгч дээр аппликешний дүрсийг харуулах</string>
 <string name="pref_input_style_setting_entry_toggle">Toggle</string>

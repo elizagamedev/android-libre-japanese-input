@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">[Šéñð ûšåĝé šţåţîšţîçš one two three]</string>
 <string name="pref_about_about_this_software_title">[Åбöûţ ţĥîš šöƒţŵåŕé one two three]</string>
 <string name="pref_about_version_title">[Véŕšîöñ one]</string>
-<string name="pref_about_terms_of_service_title">[Ţéŕmš öƒ šéŕvîçé one two]</string>
-<string name="pref_about_privacy_policy_title">[Þŕîvåçý þöļîçý one two]</string>
 <string name="pref_about_oss_credits_title">[Öþéñ šöûŕçé šöƒţŵåŕé one two three]</string>
 <string name="pref_launcher_icon_visibility_title">[Šĥöŵ åþþ îçöñ one two]</string>
 <string name="pref_haptic_feedback_description">[Vîбŕåţé öñ ķéý þŕéšš. one two three four five]</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">[Çļéåŕ ûšéŕ ðîçţîöñåŕý. one two three]</string>
 <string name="pref_other_incognito_mode_description">[Ţémþöŕåŕîļý ðîšåбļé þéŕšöñåļîžåţîöñ, šûĝĝéšţîöñš åñð ûšéŕ ðîçţîöñåŕý. one two three four five six seven eight nine ten eleven twelve thirteen]</string>
 <string name="pref_other_usage_stats_description">[Šéñð ûšåĝé šţåţîšţîçš ţö ᐅ%1$sᐊ. Ţĥéšé ŵîļļ öñļý бé ûšéð ţö îmþŕövé ᐅ%1$sᐊ þŕöðûçţš åñð šéŕvîçéš. one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen]</string>
-<string name="pref_about_terms_of_service_description">[Ðîšþļåý ţĥé ţéŕmš öƒ šéŕvîçé (ŵéбþåĝé). one two three four five six seven eight]</string>
-<string name="pref_about_privacy_policy_description">[Ðîšþļåý ţĥé þŕîvåçý þöļîçý (ŵéбþåĝé). one two three four five six seven eight]</string>
 <string name="pref_about_oss_credits_description">[Ţĥîš šöƒţŵåŕé ûšéš öþéñ šöûŕçé šöƒţŵåŕé: vîéŵ ţĥé ļîçéñšéš. one two three four five six seven eight nine ten eleven twelve]</string>
 <string name="pref_launcher_icon_visibility_description">[Ðîšþļåý åþþļîçåţîöñ îçöñ îñ ţĥé ļåûñçĥéŕ one two three four five six seven eight]</string>
 <string name="pref_input_style_setting_entry_toggle">[Ţöĝĝļé one]</string>

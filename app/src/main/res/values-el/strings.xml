@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Αποστολή στατιστικών στοιχείων χρήσης</string>
 <string name="pref_about_about_this_software_title">Σχετικά με αυτό το λογισμικό</string>
 <string name="pref_about_version_title">Έκδοση</string>
-<string name="pref_about_terms_of_service_title">Όροι Παροχής Υπηρεσιών</string>
-<string name="pref_about_privacy_policy_title">Πολιτική Απορρήτου</string>
 <string name="pref_about_oss_credits_title">Λογισμικό ανοικτού κώδικα</string>
 <string name="pref_launcher_icon_visibility_title">Εμφάνιση εικονιδίου εφαρμογής</string>
 <string name="pref_haptic_feedback_description">Δόνηση κατά το πάτημα πλήκτρων.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Διαγραφή λεξικού χρήστη.</string>
 <string name="pref_other_incognito_mode_description">Προσωρινή απενεργοποίηση εξατομίκευσης, προτάσεων και λεξικού χρήστη.</string>
 <string name="pref_other_usage_stats_description">Αποστολή στατιστικών στοιχείων χρήσης σε %1$s. Αυτά θα χρησιμοποιούνται μόνο για τη βελτίωση των προϊόντων και υπηρεσιών %1$s.</string>
-<string name="pref_about_terms_of_service_description">Εμφάνιση των Όρων Παροχής Υπηρεσιών (ιστοσελίδα).</string>
-<string name="pref_about_privacy_policy_description">Εμφάνιση της Πολιτική Απορρήτου (ιστοσελίδα).</string>
 <string name="pref_about_oss_credits_description">Αυτό το λογισμικό χρησιμοποιεί λογισμικό ανοικτού κώδικα: Προβολή αδειών.</string>
 <string name="pref_launcher_icon_visibility_description">Προβολή εικονιδίου εφαρμογής στην εφαρμογή εκκίνησης</string>
 <string name="pref_input_style_setting_entry_toggle">Εναλλαγή</string>

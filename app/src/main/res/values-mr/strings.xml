@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">वापर आकडेवारी पाठवा</string>
 <string name="pref_about_about_this_software_title">या सॉफ्टवेअर विषयी</string>
 <string name="pref_about_version_title">आवृत्ती</string>
-<string name="pref_about_terms_of_service_title">सेवा अटी</string>
-<string name="pref_about_privacy_policy_title">गोपनीयता धोरण</string>
 <string name="pref_about_oss_credits_title">मुक्त स्त्रोत सॉफ्‍टवेअर</string>
 <string name="pref_launcher_icon_visibility_title">अॅप चिन्ह दर्शवा</string>
 <string name="pref_haptic_feedback_description">की दाबल्यावर कंपन.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">वापरकर्ता शब्दकोश साफ करा.</string>
 <string name="pref_other_incognito_mode_description">तात्पुरते वैयक्तिकरण, सूचना आणि वापरकर्ता शब्दकोश अक्षम करा.</string>
 <string name="pref_other_usage_stats_description">%1$s कडे वापर आकडेवारी पाठवा. यांचा वापर फक्त %1$s उत्पादने आणि सेवा सुधारित करण्यासाठी केला जाईल.</string>
-<string name="pref_about_terms_of_service_description">सेवा अटी प्रदर्शित करा (वेबपृष्‍ठ).</string>
-<string name="pref_about_privacy_policy_description">गोपनीयता धोरण प्रदर्शित करा (वेबपृष्‍ठ).</string>
 <string name="pref_about_oss_credits_description">हे सॉफ्‍टवेअर मुक्त स्त्रोत सॉफ्‍टवेअरचा वापर करते: परवाने पहा.</string>
 <string name="pref_launcher_icon_visibility_description">लाँचर मध्ये अनुप्रयोग चिन्ह प्रदर्शित करा</string>
 <string name="pref_input_style_setting_entry_toggle">टॉगल करा</string>

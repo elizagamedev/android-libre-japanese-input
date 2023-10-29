@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Slanje statistike upotrebe</string>
 <string name="pref_about_about_this_software_title">O ovom softveru</string>
 <string name="pref_about_version_title">Verzija</string>
-<string name="pref_about_terms_of_service_title">Uvjeti pružanja usluge</string>
-<string name="pref_about_privacy_policy_title">Pravila o privatnosti</string>
 <string name="pref_about_oss_credits_title">Softver otvorenog izvornog koda</string>
 <string name="pref_launcher_icon_visibility_title">Prikaži ikonu aplikacije</string>
 <string name="pref_haptic_feedback_description">Vibracija po pritisku tipke.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Izbriši korisnički rječnik.</string>
 <string name="pref_other_incognito_mode_description">Privremeno onemogući prilagođavanje, prijedloge i korisnički rječnik.</string>
 <string name="pref_other_usage_stats_description">Pošalji korisničku statistiku usluzi %1$s. Podaci će se upotrebljavati samo za poboljšanje %1$s proizvoda i usluga.</string>
-<string name="pref_about_terms_of_service_description">Prikaži uvjete pružanja usluge (web-stranica).</string>
-<string name="pref_about_privacy_policy_description">Prikaži pravila o privatnosti (web-stranica).</string>
 <string name="pref_about_oss_credits_description">Ovaj softver upotrebljava softver otvorenog izvornog koda: pogledajte licence.</string>
 <string name="pref_launcher_icon_visibility_description">Prikaži ikonu aplikacije u pokretaču</string>
 <string name="pref_input_style_setting_entry_toggle">Prebacivanje</string>

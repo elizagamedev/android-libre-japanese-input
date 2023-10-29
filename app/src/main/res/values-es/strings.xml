@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Enviar estadísticas de uso</string>
 <string name="pref_about_about_this_software_title">Acerca de este software</string>
 <string name="pref_about_version_title">Versión</string>
-<string name="pref_about_terms_of_service_title">Condiciones de servicio</string>
-<string name="pref_about_privacy_policy_title">Política de privacidad</string>
 <string name="pref_about_oss_credits_title">Software de código abierto</string>
 <string name="pref_launcher_icon_visibility_title">Mostrar icono de aplicación</string>
 <string name="pref_haptic_feedback_description">Vibración al pulsar tecla.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Borrar diccionario del usuario.</string>
 <string name="pref_other_incognito_mode_description">Inhabilitar temporalmente el diccionario del usuario, las sugerencias y la personalización.</string>
 <string name="pref_other_usage_stats_description">Enviar estadísticas de uso a %1$s. Solo se utilizarán para mejorar los productos y servicios de %1$s.</string>
-<string name="pref_about_terms_of_service_description">Mostrar las condiciones de servicio (página web).</string>
-<string name="pref_about_privacy_policy_description">Mostrar la política de privacidad (página web).</string>
 <string name="pref_about_oss_credits_description">Este software utiliza código abierto: consulta las licencias.</string>
 <string name="pref_launcher_icon_visibility_description">Mostrar icono de aplicación en el launcher</string>
 <string name="pref_input_style_setting_entry_toggle">Cambiar</string>

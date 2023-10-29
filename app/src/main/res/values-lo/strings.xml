@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">ສົ່ງ​ສະຖິຕິການນຳໃຊ້</string>
 <string name="pref_about_about_this_software_title">​ກ່ຽວ​ກັບ​ຊອບ​ແວ​ນີ້</string>
 <string name="pref_about_version_title">ເວີຊັນ</string>
-<string name="pref_about_terms_of_service_title">​ເງື່ອນ​ໄຂ​ການ​ໃຫ້​ບໍ​ລິ​ການ</string>
-<string name="pref_about_privacy_policy_title">​ນະ​ໂຍ​ບາຍ​ຄວາມ​ເປັນ​ສ່ວນ​ໂຕ</string>
 <string name="pref_about_oss_credits_title">​ຊອບ​ແວ​ໂອ​ເພນ​ຊອດ</string>
 <string name="pref_launcher_icon_visibility_title">​ສະ​ແດງ​ໄອ​ຄອນ​ແອັບຯ</string>
 <string name="pref_haptic_feedback_description">ສັ່ນ​ເມື່ອ​ກົດ​ປຸ່ມ.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">ລຶບວັດ​ຈະນາ​ນຸກົມ​ຜູ່ໃຊ້​.</string>
 <string name="pref_other_incognito_mode_description">ປິດ​ການ​ປັບ​ແຕ່ງ​ສ່ວນ​ໂຕ, ການ​ແນະ​ນຳ ແລະ​ວັດ​ຈະ​ນາ​ນຸ​ກົມ​ຜູ່​ໃຊ້​ຊົ່ວ​ຄາວ.</string>
 <string name="pref_other_usage_stats_description">ສົ່ງ​ສະ​ຖິ​ຕິ​ການ​ນຳ​ໃຊ້​ໄປ​ໃຫ້ %1$s. ຂໍ້​ມູນ​ເຫຼົ່າ​ນີ້​ຈະ​ຖືກ​ໃຊ້​ເພື່ອ​ປັບ​ປຸງ​ຜະ​ລິດ​ຕະ​ພັນ​ແລະ​ບໍ​ລິ​ການ %1$s ເທົ່າ​ນັ້ນ.</string>
-<string name="pref_about_terms_of_service_description">ສະ​ແດງ​ເງື່ອນ​ໄຂ​ການ​ໃຫ້​ບໍ​ລິ​ການ (ເວັບ​ໄຊ).</string>
-<string name="pref_about_privacy_policy_description">ສະ​ແດງ​ນະ​ໂຍ​ບາຍ​ຄວາມ​ເປັນ​ສ່ວນ​ໂຕ (ເວັບ​ໄຊ).</string>
 <string name="pref_about_oss_credits_description">ຊອບ​ແວ​ນີ້​ໃຊ້​ຊອບ​ແວ​ໂອ​ເພນ​ຊອດ: ເບິ່ງ​ລິ​ຂະ​ສິດ.</string>
 <string name="pref_launcher_icon_visibility_description">ສະ​ແດງ​ໄອ​ຄ​ອນ​ແອັບ​ພລິ​ເຄ​ຊັນ​ໃນ Launcher</string>
 <string name="pref_input_style_setting_entry_toggle">​ປິດ/ເປີດ</string>

@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Stuur gebruikstatistiek</string>
 <string name="pref_about_about_this_software_title">Meer oor hierdie sagteware</string>
 <string name="pref_about_version_title">Weergawe</string>
-<string name="pref_about_terms_of_service_title">Diensbepalings</string>
-<string name="pref_about_privacy_policy_title">Privaatheidbeleid</string>
 <string name="pref_about_oss_credits_title">Oopbronsagteware</string>
 <string name="pref_launcher_icon_visibility_title">Wys program-ikoon</string>
 <string name="pref_haptic_feedback_description">Vibreer as sleutel gedruk word.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Vee gebruikerwoordeboek uit.</string>
 <string name="pref_other_incognito_mode_description">Deaktiveer personalisering, voorstelle en gebruikerwoordeboek tydelik.</string>
 <string name="pref_other_usage_stats_description">Stuur gebruikstatistiek na %1$s. Dit sal net gebruik word om %1$s-produkte en -dienste te verbeter.</string>
-<string name="pref_about_terms_of_service_description">Wys die diensbepalings (webbladsy).</string>
-<string name="pref_about_privacy_policy_description">Wys die privaatheidsbeleid (webbladsy).</string>
 <string name="pref_about_oss_credits_description">Hierdie sagteware gebruik oopbronsagteware: bekyk die lisensies.</string>
 <string name="pref_launcher_icon_visibility_description">Wys program-ikoon in die lanseerpoort</string>
 <string name="pref_input_style_setting_entry_toggle">Wissel</string>

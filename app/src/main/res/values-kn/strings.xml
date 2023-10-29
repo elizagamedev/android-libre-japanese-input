@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">ಬಳಕೆಯ ಅಂಕಿಅಂಶಗಳನ್ನು ಕಳುಹಿಸಿ</string>
 <string name="pref_about_about_this_software_title">ಈ ಸಾಫ್ಟವೇರ್‌ ಕುರಿತು</string>
 <string name="pref_about_version_title">ಆವೃತ್ತಿ</string>
-<string name="pref_about_terms_of_service_title">ಸೇವಾ ನಿಯಮಗಳು</string>
-<string name="pref_about_privacy_policy_title">ಗೌಪ್ಯತೆ ನೀತಿ</string>
 <string name="pref_about_oss_credits_title">ಮುಕ್ತ ಮೂಲದ ಸಾಫ್ಟ್‌ವೇರ್‌</string>
 <string name="pref_launcher_icon_visibility_title">ಅಪ್ಲಿಕೇಶನ್ ಐಕಾನ್ ತೋರಿಸು</string>
 <string name="pref_haptic_feedback_description">ಕೀ ಒತ್ತಿದ ಮೇಲೆ ವೈಬ್ರೇಟ್‌.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">ಬಳಕೆದಾರರ ನಿಘಂಟನ್ನು ತೆರವುಗೊಳಿಸಿ.</string>
 <string name="pref_other_incognito_mode_description">ತಾತ್ಕಾಲಿಕವಾಗಿ ವೈಯಕ್ತೀಕರಣ, ಸಲಹೆಗಳು ಮತ್ತು ಬಳಕೆದಾರರ ನಿಘಂಟನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ.</string>
 <string name="pref_other_usage_stats_description">%1$s ಗೆ ಬಳಕೆಯ ಅಂಕಿಅಂಶಗಳನ್ನು ಕಳುಹಿಸಿ. ಇವುಗಳನ್ನು ಕೇವಲ %1$s ಉತ್ಪನ್ನಗಳು ಮತ್ತು ಸೇವೆಗಳನ್ನು ಸುಧಾರಿಸಲು ಬಳಸಲಾಗುತ್ತದೆ.</string>
-<string name="pref_about_terms_of_service_description">ಸೇವಾ ನಿಯಮಗಳನ್ನು ಪ್ರದರ್ಶಿಸು (ವೆಬ್‌ಪುಟ).</string>
-<string name="pref_about_privacy_policy_description">ಗೌಪ್ಯತೆ ನೀತಿಯನ್ನು ಪ್ರದರ್ಶಿಸು (ವೆಬ್‌ಪುಟ).</string>
 <string name="pref_about_oss_credits_description">ಈ ಸಾಫ್ಟ್‌ವೇರ್‌ ಮುಕ್ತ ಮೂಲ ಸಾಫ್ಟ್‌ವೇರ್‌ ಅನ್ನು ಬಳಸುತ್ತದೆ: ಪರವಾನಗಿಗಳನ್ನು ವೀಕ್ಷಿಸಿ.</string>
 <string name="pref_launcher_icon_visibility_description">ಲಾಂಚರ್‌ನಲ್ಲಿ ಅಪ್ಲಿಕೇಶನ್ ಐಕಾನ್ ಪ್ರದರ್ಶಿಸು</string>
 <string name="pref_input_style_setting_entry_toggle">ಟಾಗಲ್‌</string>

@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Надсилати статистику використання</string>
 <string name="pref_about_about_this_software_title">Про це програмне забезпечення</string>
 <string name="pref_about_version_title">Версія</string>
-<string name="pref_about_terms_of_service_title">Умови використання</string>
-<string name="pref_about_privacy_policy_title">Політика конфіденційності</string>
 <string name="pref_about_oss_credits_title">Програмне забезпечення з відкритим кодом</string>
 <string name="pref_launcher_icon_visibility_title">Показувати значок додатка</string>
 <string name="pref_haptic_feedback_description">Вібрація під час натискання клавіш.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Очистити словник користувача.</string>
 <string name="pref_other_incognito_mode_description">Тимчасово вимкнути персоналізацію, пропозиції та словник користувача.</string>
 <string name="pref_other_usage_stats_description">Надсилати статистику використання в %1$s. Вона використовуватиметься лише для покращення продуктів і служб %1$s.</string>
-<string name="pref_about_terms_of_service_description">Показувати Умови використання (веб-сторінка).</string>
-<string name="pref_about_privacy_policy_description">Показувати Політику конфіденційності (веб-сторінка).</string>
 <string name="pref_about_oss_credits_description">Це програмне забезпечення створено на основі ПЗ з відкритим кодом. Переглянути ліцензії.</string>
 <string name="pref_launcher_icon_visibility_description">Показувати значок додатка на панелі запуску</string>
 <string name="pref_input_style_setting_entry_toggle">Переключати</string>

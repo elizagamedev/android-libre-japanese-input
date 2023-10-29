@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">ব্যবহারের পরিসংখ্যান পাঠান</string>
 <string name="pref_about_about_this_software_title">এই সফ্টওয়্যার সম্পর্কে</string>
 <string name="pref_about_version_title">সংস্করণ</string>
-<string name="pref_about_terms_of_service_title">পরিষেবার শর্তাবলী</string>
-<string name="pref_about_privacy_policy_title">গোপনীয়তা নীতি</string>
 <string name="pref_about_oss_credits_title">মুক্ত উৎস সফ্টওয়্যার</string>
 <string name="pref_launcher_icon_visibility_title">অ্যাপ্লিকেশান আইকন দেখান</string>
 <string name="pref_haptic_feedback_description">কী টেপার সাথে কম্পন৷</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">ব্যবহারকারীর অভিধান সাফ করুন৷</string>
 <string name="pref_other_incognito_mode_description">সাময়িকভাবে ব্যক্তিগতকরণ, প্রস্তাবনা এবং ব্যবহারকারীর অভিধান অক্ষম করুন৷</string>
 <string name="pref_other_usage_stats_description">%1$s এ ব্যবহারের পরিসংখ্যান পাঠান৷ এগুলি শুধুমাত্র %1$s পণ্য এবং পরিষেবাগুলির উন্নতির জন্য ব্যবহার করা হবে৷</string>
-<string name="pref_about_terms_of_service_description">পরিষেবার শর্তাবলী প্রদর্শন করুন (ওয়েবপৃষ্ঠা)৷</string>
-<string name="pref_about_privacy_policy_description">গোপনীয়তা নীতি প্রদর্শন করুন (ওয়েবপৃষ্ঠা)৷</string>
 <string name="pref_about_oss_credits_description">এই সফ্টওয়্যারটি মুক্ত উৎস সফ্টওয়্যার ব্যবহার করে: লাইসেন্সগুলি দেখুন৷</string>
 <string name="pref_launcher_icon_visibility_description">লঞ্চারে অ্যাপ্লিকেশান আইকন প্রদর্শন করুন</string>
 <string name="pref_input_style_setting_entry_toggle">টগল করুন</string>

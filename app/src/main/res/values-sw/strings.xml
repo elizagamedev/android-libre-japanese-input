@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Tuma takwimu za matumizi</string>
 <string name="pref_about_about_this_software_title">Kuhusu programu hii</string>
 <string name="pref_about_version_title">Toleo</string>
-<string name="pref_about_terms_of_service_title">Sheria na masharti</string>
-<string name="pref_about_privacy_policy_title">Sera ya faragha</string>
 <string name="pref_about_oss_credits_title">Programu huria</string>
 <string name="pref_launcher_icon_visibility_title">Onyesha aikoni ya programu</string>
 <string name="pref_haptic_feedback_description">Tetema kitufe kikibonyezwa.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Futa kamusi ya mtumiaji</string>
 <string name="pref_other_incognito_mode_description">Zima kwa muda uwekaji mapendeleo, mapendekezo na kamusi ya mtumiaji.</string>
 <string name="pref_other_usage_stats_description">Tuma takwimu za matumizi kwa %1$s. Hizi zitatumika kwa kuboresha %1$s bidhaa na huduma pekee.</string>
-<string name="pref_about_terms_of_service_description">Onyesha sheria na masharti (ukurasa wa wavuti).</string>
-<string name="pref_about_privacy_policy_description">Onyesha sera ya faragha (ukurasa wa wavuti).</string>
 <string name="pref_about_oss_credits_description">Programu hii inatumia programu huria: tazama leseni.</string>
 <string name="pref_launcher_icon_visibility_description">Onyesha aikoni ya programu kwenye kifungua programu</string>
 <string name="pref_input_style_setting_entry_toggle">Geuza</string>

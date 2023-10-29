@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">उपयोग के आंकड़े भेजें</string>
 <string name="pref_about_about_this_software_title">इस सॉफ़्टवेयर के बारे में</string>
 <string name="pref_about_version_title">वर्शन</string>
-<string name="pref_about_terms_of_service_title">सेवा की शर्तें</string>
-<string name="pref_about_privacy_policy_title">गोपनीयता नीति</string>
 <string name="pref_about_oss_credits_title">मुक्त स्रोत सोफ़्टवेयर</string>
 <string name="pref_launcher_icon_visibility_title">ऐप्लिकेशन आइकन दिखाएं</string>
 <string name="pref_haptic_feedback_description">कुंजी दबाने पर कंपन करें.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">उपयोगकर्ता शब्दकोश साफ करें.</string>
 <string name="pref_other_incognito_mode_description">अस्थायी रूप से वैयक्तिकरण, सुझाव और उपयोगकर्ता शब्दकोश अक्षम करें.</string>
 <string name="pref_other_usage_stats_description">%1$s को उपयोग आंकड़े भेजें. इनका उपयोग केवल %1$s उत्पादों और सेवाओं के सुधार के लिए किया जाएगा.</string>
-<string name="pref_about_terms_of_service_description">सेवा की शर्तें प्रदर्शित करें (वेबपृष्ठ).</string>
-<string name="pref_about_privacy_policy_description">गोपनीयता नीति प्रदर्शित करें (वेबपृष्ठ).</string>
 <string name="pref_about_oss_credits_description">यह सॉफ़्टवेयर मुक्त स्रोत सॉफ़्टवेयर का उपयोग करता है: लाइसेंस देखें.</string>
 <string name="pref_launcher_icon_visibility_description">लॉन्चर में ऐप्लिकेशन आइकन प्रदर्शित करें</string>
 <string name="pref_input_style_setting_entry_toggle">टॉगल</string>

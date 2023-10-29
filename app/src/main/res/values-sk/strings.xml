@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Odosielať štatistiky používania</string>
 <string name="pref_about_about_this_software_title">Informácie o tomto softvéri</string>
 <string name="pref_about_version_title">Verzia</string>
-<string name="pref_about_terms_of_service_title">Zmluvné podmienky</string>
-<string name="pref_about_privacy_policy_title">Pravidlá ochrany osobných údajov</string>
 <string name="pref_about_oss_credits_title">Softvér s otvoreným zdrojom</string>
 <string name="pref_launcher_icon_visibility_title">Zobraziť ikonu aplikácie</string>
 <string name="pref_haptic_feedback_description">Vibrovať pri stlačení klávesov</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Vymazať používateľský slovník</string>
 <string name="pref_other_incognito_mode_description">Dočasne zakázať prispôsobenie, návrhy a používateľský slovník</string>
 <string name="pref_other_usage_stats_description">Odosielať štatistiky využitia spoločnosti %1$s. Použijú sa iba na zlepšenie produktov a služieb spoločnosti %1$s.</string>
-<string name="pref_about_terms_of_service_description">Zobraziť zmluvné podmienky (webová stránka)</string>
-<string name="pref_about_privacy_policy_description">Zobraziť pravidlá ochrany osobných údajov (webová stránka)</string>
 <string name="pref_about_oss_credits_description">Tento softvér používa softvér s otvoreným zdrojom: zobraziť licencie</string>
 <string name="pref_launcher_icon_visibility_description">Zobraziť ikonu aplikácie v aplikácii Launcher</string>
 <string name="pref_input_style_setting_entry_toggle">Prepnúť</string>

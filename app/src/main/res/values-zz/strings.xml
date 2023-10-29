@@ -86,8 +86,6 @@
       <string name="pref_other_usage_stats_title">(37)[Send usage statistics]</string>
     <string name="pref_about_about_this_software_title">(38)[About this software]</string>
         <string name="pref_about_version_title">(39)[Version]</string>
-        <string name="pref_about_terms_of_service_title">(40)[Terms of service]</string>
-        <string name="pref_about_privacy_policy_title">(41)[Privacy policy]</string>
         <string name="pref_about_oss_credits_title">(42)[Open source software]</string>
         <string name="pref_launcher_icon_visibility_title">(43)[Show app icon]</string>
     <!-- Preference description -->
@@ -129,8 +127,6 @@
         <!-- TODO(matsuzakit): Needs an expert's check => need to check with legal -->
         <string name="pref_other_usage_stats_description">(73)[Send usage statistics to %1$s. These will only be used to improve %1$s products and services.]</string>
     <!-- About -->
-        <string name="pref_about_terms_of_service_description">(74)[Display the terms of service (webpage).]</string>
-        <string name="pref_about_privacy_policy_description">(75)[Display the privacy policy (webpage).]</string>
         <string name="pref_about_oss_credits_description">(76)[This software uses open source software: view the licenses.]</string>
         <string name="pref_launcher_icon_visibility_description">(77)[Display application icon in the launcher]</string>
 

@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Wyślij statystyki użytkowania</string>
 <string name="pref_about_about_this_software_title">Informacje o tym programie</string>
 <string name="pref_about_version_title">Wersja</string>
-<string name="pref_about_terms_of_service_title">Warunki usługi</string>
-<string name="pref_about_privacy_policy_title">Polityka prywatności</string>
 <string name="pref_about_oss_credits_title">Oprogramowanie open source</string>
 <string name="pref_launcher_icon_visibility_title">Pokaż ikonę aplikacji</string>
 <string name="pref_haptic_feedback_description">Wibracja po naciśnięciu klawisza.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Wyczyść słownik użytkownika.</string>
 <string name="pref_other_incognito_mode_description">Tymczasowo wyłącz personalizację, sugestie i słownik użytkownika.</string>
 <string name="pref_other_usage_stats_description">Wysyłaj statystyki użytkowania do %1$s. Będą one używane wyłącznie do ulepszania produktów i usług %1$s.</string>
-<string name="pref_about_terms_of_service_description">Wyświetl Warunki usługi (na stronie internetowej).</string>
-<string name="pref_about_privacy_policy_description">Wyświetl Politykę prywatności (na stronie internetowej).</string>
 <string name="pref_about_oss_credits_description">W tym oprogramowaniu wykorzystano oprogramowanie open source. Wyświetl licencje.</string>
 <string name="pref_launcher_icon_visibility_description">Wyświetl ikonę aplikacji w programie uruchamiającym</string>
 <string name="pref_input_style_setting_entry_toggle">Przełączanie</string>

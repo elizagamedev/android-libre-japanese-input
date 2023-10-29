@@ -32,7 +32,6 @@ package org.mozc.android.inputmethod.japanese;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
@@ -730,19 +729,14 @@ public class MozcBaseService extends InputMethodService {
       @Nullable ViewManagerInterface viewManager,
       @Nullable SharedPreferences sharedPreferences) {
     Context context = getApplicationContext();
-    Optional<Intent> forwardIntent =
-        ApplicationInitializerFactory.createInstance(this)
-            .initialize(
-                MozcUtil.isSystemApplication(context),
-                MozcUtil.isDevChannel(context),
-                DependencyFactory.getDependency(getApplicationContext())
-                    .isWelcomeActivityPreferrable(),
-                MozcUtil.getAbiIndependentVersionCode(context),
-                LauncherIconManagerFactory.getDefaultInstance(),
-                PreferenceUtil.getDefaultPreferenceManagerStatic());
-    if (forwardIntent.isPresent()) {
-      startActivity(forwardIntent.get());
-    }
+    ApplicationInitializerFactory.createInstance(this)
+        .initialize(
+            MozcUtil.isSystemApplication(context),
+            MozcUtil.isDevChannel(context),
+            DependencyFactory.getDependency(getApplicationContext()).isWelcomeActivityPreferrable(),
+            MozcUtil.getAbiIndependentVersionCode(context),
+            LauncherIconManagerFactory.getDefaultInstance(),
+            PreferenceUtil.getDefaultPreferenceManagerStatic());
 
     // Create a ViewManager.
     if (viewManager == null) {

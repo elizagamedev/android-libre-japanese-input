@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">ផ្ញើ​ស្ថិតិ​​​ប្រើប្រាស់</string>
 <string name="pref_about_about_this_software_title">អំពី​កម្មវិធី​នេះ</string>
 <string name="pref_about_version_title">កំណែ</string>
-<string name="pref_about_terms_of_service_title">លក្ខខណ្ឌ​ប្រើប្រាស់</string>
-<string name="pref_about_privacy_policy_title">គោលនយោបាយ​ភាព​​ឯកជន​</string>
 <string name="pref_about_oss_credits_title">កម្មវិធី​ប្រភព​បើក​ចំហ</string>
 <string name="pref_launcher_icon_visibility_title">បង្ហាញ​រូប​តំណាង​កម្មវិធី</string>
 <string name="pref_haptic_feedback_description">ញ័រ​នៅ​លើ​គន្លឹះ​ចុច​។</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">សម្អាត​វចនានុក្រម​អ្នក​ប្រើ</string>
 <string name="pref_other_incognito_mode_description">ជា​បណ្ដោះអាសន្ន​បិទ​ភាព​ផ្ទាល់​ខ្លួន, ការ​ស្នើ និង​វចនានុក្រម​អ្នក​ប្រើ​។</string>
 <string name="pref_other_usage_stats_description">ផ្ញើ​ស្ថិតិ​ការ​ប្រើ​ប្រាស់​ទៅ %1$s ។ ទាំង​នេះ​នឹង​ត្រូវ​បាន​ប្រើ​តែ​ដើម្បី​កែ​លម្អ​ផលិតផល​និង​សេវាកម្ម %1$s ​។</string>
-<string name="pref_about_terms_of_service_description">បង្ហាញ​លក្ខខណ្ឌ​នៃ​សេវាកម្ម (គេហទំព័រ​) ។</string>
-<string name="pref_about_privacy_policy_description">បង្ហាញ​គោល​នយោបាយ​ឯកជន​ភាព (គេហទំព័រ​) ។</string>
 <string name="pref_about_oss_credits_description">ផ្នែក​ទន់​នេះ​ប្រើ​កម្មវិធី​ប្រភព​បើក​ចំហ​​៖ មើល​អាជ្ញា​ប័ណ្ណ​។</string>
 <string name="pref_launcher_icon_visibility_description">បង្ហាញ​រូប​តំណាង​កម្មវិធី​នៅ​ក្នុង​កម្ម​​វិធី​ចាប់ផ្ដើម</string>
 <string name="pref_input_style_setting_entry_toggle">បិទ​បើក</string>

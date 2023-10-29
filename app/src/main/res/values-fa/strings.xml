@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">ارسال آمار کاربرد</string>
 <string name="pref_about_about_this_software_title">درباره این نرم‌افزار</string>
 <string name="pref_about_version_title">نسخه</string>
-<string name="pref_about_terms_of_service_title">شرایط سرویس</string>
-<string name="pref_about_privacy_policy_title">خط‌مشی رازداری</string>
 <string name="pref_about_oss_credits_title">نرم‌افزار منبع آزاد</string>
 <string name="pref_launcher_icon_visibility_title">نمایش نماد برنامه</string>
 <string name="pref_haptic_feedback_description">هنگام فشار دادن کلید، بلرزد.</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">فرهنگ‌لغت کاربر را پاک کنید.</string>
 <string name="pref_other_incognito_mode_description">موقتاً شخصی‌سازی، پیشنهادات و فرهنگ‌لغت کاربر را غیرفعال کنید.</string>
 <string name="pref_other_usage_stats_description">آمار کاربرد را به %1$s ارسال کنید. از این موارد فقط برای بهبود سرویس‌ها و محصولات %1$s استفاده می‌شود.</string>
-<string name="pref_about_terms_of_service_description">شرایط سرویس (صفحه وب) را نمایش دهید.</string>
-<string name="pref_about_privacy_policy_description">خط‌مشی رازداری (صفحه وب) را نمایش دهید.</string>
 <string name="pref_about_oss_credits_description">این نرم‌افزار از نرم‌افزار منبع آزاد استفاده می‌کند: مجوزها را مشاهده کنید.</string>
 <string name="pref_launcher_icon_visibility_description">نمایش نماد برنامه در راه‌انداز</string>
 <string name="pref_input_style_setting_entry_toggle">تغییر وضعیت</string>

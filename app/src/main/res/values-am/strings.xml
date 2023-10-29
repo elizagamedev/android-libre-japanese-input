@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">የአጠቃቀም ስታትስቲክስ ላክ</string>
 <string name="pref_about_about_this_software_title">ስለዚህ ሶፍትዌር</string>
 <string name="pref_about_version_title">ሥሪት</string>
-<string name="pref_about_terms_of_service_title">የአገልግሎት ውል</string>
-<string name="pref_about_privacy_policy_title">የግላዊነት መመሪያ</string>
 <string name="pref_about_oss_credits_title">ክፍት ምንጭ ሶፍትዌር</string>
 <string name="pref_launcher_icon_visibility_title">የመተግበሪያ አዶ አሳይ</string>
 <string name="pref_haptic_feedback_description">ቁልፍ ጫን ሲደረግ ይንዘር።</string>
@@ -112,8 +110,6 @@
 <string name="pref_clear_user_dictionary_description">የተጠቃሚ መዝበ ቃላትን አጽዳ።</string>
 <string name="pref_other_incognito_mode_description">ለግል ማበጀትን፣ ጥቆማዎችንና የተጠቃሚ መዝገበ ቃላትን ለጊዜው አሰናክል።</string>
 <string name="pref_other_usage_stats_description">የአጠቃቀም ስታቲስቲክስን ለ%1$s ላክ። እነዚህ የ%1$s ምርቶችና አገልግሎቶችን ለማሻሻል ብቻ ጥቅም ላይ ይውላሉ።</string>
-<string name="pref_about_terms_of_service_description">የአገልግሎት ውሉን አሳይ (የድር ገጽ)።</string>
-<string name="pref_about_privacy_policy_description">የግላዊነት መመሪያውን አሳይ (የድር ገጽ)።</string>
 <string name="pref_about_oss_credits_description">ይህ ሶፍትዌር የክፍት ምንጭ ሶፍትዌር ይጠቀማል፦ ፈቃዶቹን ይመልከቱ።</string>
 <string name="pref_launcher_icon_visibility_description">የመተግበሪያ አዶውን በማስጀመሪያው ውስጥ አሳይ</string>
 <string name="pref_input_style_setting_entry_toggle">ለዋውጥ</string>

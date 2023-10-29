@@ -77,8 +77,6 @@
 <string name="pref_other_usage_stats_title">Skicka användningsstatistik</string>
 <string name="pref_about_about_this_software_title">Om programvaran</string>
 <string name="pref_about_version_title">Version</string>
-<string name="pref_about_terms_of_service_title">Användarvillkor</string>
-<string name="pref_about_privacy_policy_title">Sekretesspolicy</string>
 <string name="pref_about_oss_credits_title">Programvara med öppen källkod</string>
 <string name="pref_launcher_icon_visibility_title">Visa appikon</string>
 <string name="pref_haptic_feedback_description">Vibrera vid knapptryckning</string>
@@ -112,9 +110,6 @@
 <string name="pref_clear_user_dictionary_description">Rensa egen ordlista.</string>
 <string name="pref_other_incognito_mode_description">Inaktivera tillfälligt anpassning, förslag och egen ordlista.</string>
 <string name="pref_other_usage_stats_description">Skicka användningsstatistik till %1$s. Den kommer endast att användas för att förbättra %1$s-produkter och -tjänster.</string>
-<string name="pref_about_terms_of_service_description">Visa användarvillkor (webbsida).</string>
-<string name="pref_about_privacy_policy_description">Visa sekretesspolicy (webbsida).</string>
-<string name="pref_about_oss_credits_description">Den här programvaran använder öppen källkod: visa licenserna.</string>
 <string name="pref_launcher_icon_visibility_description">Visa appikonen i startprogrammet</string>
 <string name="pref_input_style_setting_entry_toggle">Byt</string>
 <string name="pref_input_style_setting_entry_flick">Svep</string>
