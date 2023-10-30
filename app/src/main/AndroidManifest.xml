@@ -43,7 +43,7 @@
   <application android:icon="@drawable/application_icon"
                android:label="@string/app_full_name"
                android:allowBackup="false"
-               android:theme="@style/Theme.Material3.DayNight"
+               android:theme="@style/Theme.Material3.DayNight.NoActionBar"
                tools:targetApi="33">
     <service android:name="sh.eliza.japaneseinput.MozcService"
              android:permission="android.permission.BIND_INPUT_METHOD"
@@ -78,7 +78,7 @@
     <activity android:name="sh.eliza.japaneseinput.preference.MozcProxyPreferenceActivity" />
     <activity android:name="sh.eliza.japaneseinput.preference.MozcMainPreferenceActivity"
               android:launchMode="singleTask"/>
-    <activity android:name="sh.eliza.japaneseinput.preference.MozcFragmentSoftwareKeyboardAdvancedSettingsPreferenceActivity"
+    <activity android:name="sh.eliza.japaneseinput.preference.MozcSoftwareKeyboardAdvancedPreferenceActivity"
               android:launchMode="singleTop"/>
 
     <activity android:name="sh.eliza.japaneseinput.FirstTimeLaunchActivity" />
