@@ -31,7 +31,9 @@ package sh.eliza.japaneseinput.session;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import com.google.android.apps.inputmethod.libs.mozc.session.MozcJNI;
 import com.google.common.base.Preconditions;
+import com.google.protobuf.InvalidProtocolBufferException;
 import java.io.File;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
 import sh.eliza.japaneseinput.MozcLog;
@@ -40,7 +42,6 @@ import sh.eliza.japaneseinput.MozcLog;
 class LocalSessionHandler implements SessionHandler {
 
   private static final String USER_PROFILE_DIRECTORY_NAME = ".mozc";
-  private static final String MOZC_VERSION = "2.29.5160.102";
 
   @Override
   public void initialize(Context context) {
@@ -60,24 +61,22 @@ class LocalSessionHandler implements SessionHandler {
     }
 
     // Load the shared object.
-    // TODO(exv): actually load the damn thing
-    // MozcJNI.load(userProfileDirectory.getAbsolutePath(), null, MOZC_VERSION);
+    MozcJNI.load(userProfileDirectory.getAbsolutePath(), null);
   }
 
   @Override
   public Command evalCommand(Command command) {
-    // TODO(exv): actually evaluate commands
-    // byte[] inBytes = Preconditions.checkNotNull(command).toByteArray();
-    // byte[] outBytes = null;
-    // outBytes = MozcJNI.evalCommand(inBytes);
-    // try {
-    //   return Command.parseFrom(outBytes);
-    // } catch (InvalidProtocolBufferException e) {
-    //   MozcLog.w("InvalidProtocolBufferException is thrown."
-    //       + "We can do nothing so just return default instance.");
-    //   MozcLog.w(e.toString());
-    //   return Command.getDefaultInstance();
-    // }
-    return Command.getDefaultInstance();
+    byte[] inBytes = Preconditions.checkNotNull(command).toByteArray();
+    byte[] outBytes = null;
+    outBytes = MozcJNI.evalCommand(inBytes);
+    try {
+      return Command.parseFrom(outBytes);
+    } catch (InvalidProtocolBufferException e) {
+      MozcLog.w(
+          "InvalidProtocolBufferException is thrown."
+              + "We can do nothing so just return default instance.");
+      MozcLog.w(e.toString());
+      return Command.getDefaultInstance();
+    }
   }
 }

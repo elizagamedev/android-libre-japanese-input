@@ -13,18 +13,18 @@ This project is not affiliated with Google.
 
 ## What works/What's been done already?
 
-The Android client code has had the bare minimum changed to be able to correctly
-build on the standard Android Studio/gradle build system. The app builds for and
-runs on modern Android devices.
+The bulk of the Android client code has had the bare minimum changed to be able
+to correctly build on the standard Android Studio/gradle build system. Some work
+has been done to modernize and replace deprecated APIs and theming. The app
+builds for and runs on modern Android devices. Basic kana text entry works.
 
 ## What doesn't work/What still needs to be done?
 
-- Actual text entry/henkan. The native mozc protocol has changed a decent amount
-  in the years since the standalone mozc app was discontinued. Rather than opt
-  to try to build the old binary, I instead opted to bring the client-side to
-  speed with the latest version of the protocol. Unfortunately, that currently
-  means a ton of randomly commented-out code marked with `TODO(exv)`. Plus, the
-  native mozc server isn't even built and running on the device yet.
+- Henkan. The native mozc protocol has changed a decent amount in the years
+  since the standalone mozc app was discontinued. Rather than opt to try to
+  build the old binary, I instead opted to bring the client-side to speed with
+  the latest version of the protocol. Unfortunately, that currently means a ton
+  of randomly commented-out code marked with `TODO(exv)`.
 - Proper handling of emoji/emoticons. The client code has some weird per-carrier
   pre-unicode standardization code that needs to be gutted and refactored.
 - Layout/theming looks incorrect. Keyboard key text sizes are either too small
@@ -50,46 +50,39 @@ nix develop
 
 The best way to do this is via the [Docker setup described in the mozc
 repo](https://github.com/google/mozc/blob/master/docs/build_mozc_in_docker.md).
-Libre Japanese Input depends on the exact version 2.29.5160.102.
-
-[TODO: Revise these instructions once Android builds have been fixed
-upstream.](https://github.com/google/mozc/issues/840)
+Libre Japanese Input depends on the exact revision
+`ddd9730b068387631e3b4d212314ef0ed93befe0`. Specific instructions are provided
+below.
 
 ```shell
+# Clone and setup Libre Japanese Input.
+git clone https://github.com/elizagamedev/android-libre-japanese-input.git
+cd android-libre-japanese-input
+git submodule update --init --recursive
+
 # Create Docker image.
-git clone https://github.com/google/mozc.git
-cd mozc
-# check out known good commit
-git checkout 51e0d20285de63d2f0f5007d01c7bf63c0a8dfae
-cd docker/ubuntu22.04
+cd third_party/mozc/docker/ubuntu22.04
 docker build --rm --tag mozc_ubuntu22.04 .
 docker create --interactive --tty --name mozc_build mozc_ubuntu22.04
 
-# Start and configure Docker build image.
+# Build the libraries.
 docker start mozc_build
 docker exec -it mozc_build bash
-git checkout 2.29.5160.102
+# Check out the exact version of mozc that LJI uses.
+git checkout ddd9730b068387631e3b4d212314ef0ed93befe0
 git submodule deinit -f .
 git submodule update --init --recursive
+bazel build package --config oss_android
 exit
 
-# Build the image for armeabi.
-docker exec -it mozc_build bash
-bazel build package --config oss_android --fat_apk_cpu=arm64-v8a --android_crosstool_top=@androidndk//:toolchain --cpu=armeabi-v7a
-exit
-docker cp \
-       mozc_build:/home/mozc_builder/work/mozc/src/bazel-bin/android/jni/libmozcjni.so \
-       /path/to/libre-japanese-input/app/src/main/jniLibs/armeabi-v7a
+# Extract the libraries.
+cd ../../../../app/src/main/jniLibs
+docker cp mozc_build:/home/mozc_builder/work/mozc/src/bazel-bin/android/jni/native_libs.zip .
+ln -s . lib
+unzip native_libs.zip
+rm -f lib native_libs.zip
 
-# Build the image for aarch64.
-docker exec -it mozc_build bash
-bazel build package --config oss_android --cpu=arm64-v8a
-exit
-docker cp \
-       mozc_build:/home/mozc_builder/work/mozc/src/bazel-bin/android/jni/libmozcjni.so \
-       /path/to/libre-japanese-input/app/src/main/jniLibs/arm64-v8a
-
-# Clean up.
+# Clean up Docker.
 docker stop mozc_build
 docker rm mozc_build
 docker image rm mozc_ubuntu22.04

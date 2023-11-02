@@ -768,7 +768,7 @@ public class MozcBaseService extends InputMethodService {
   @Override
   public View onCreateInputView() {
     MozcLog.d("start MozcService#onCreateInputView " + System.nanoTime());
-    View inputView = viewManager.createMozcView(this);
+    View inputView = viewManager.createMozcViews(this);
     MozcLog.d("end MozcService#onCreateInputView " + System.nanoTime());
     return inputView;
   }
