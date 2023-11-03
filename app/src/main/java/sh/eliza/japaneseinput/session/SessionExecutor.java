@@ -878,16 +878,16 @@ public class SessionExecutor {
     //         resources, R.dimen.ime_window_height, Configuration.ORIENTATION_PORTRAIT)));
 
     ClientSidePreference landscapePreference =
-        new ClientSidePreference(sharedPreferences, resources, Configuration.ORIENTATION_LANDSCAPE);
+        ClientSidePreference.createFromSharedPreferences(
+            sharedPreferences, resources, Configuration.ORIENTATION_LANDSCAPE);
     ClientSidePreference portraitPreference =
-        new ClientSidePreference(sharedPreferences, resources, Configuration.ORIENTATION_PORTRAIT);
+        ClientSidePreference.createFromSharedPreferences(
+            sharedPreferences, resources, Configuration.ORIENTATION_PORTRAIT);
 
     sendIntegerUsageStatsUsageStatsEvent(
-        UsageStatsEvent.SOFTWARE_KEYBOARD_LAYOUT_LANDSCAPE,
-            landscapePreference.keyboardLayout.id);
+        UsageStatsEvent.SOFTWARE_KEYBOARD_LAYOUT_LANDSCAPE, landscapePreference.keyboardLayout.id);
     sendIntegerUsageStatsUsageStatsEvent(
-        UsageStatsEvent.SOFTWARE_KEYBOARD_LAYOUT_PORTRAIT,
-            portraitPreference.keyboardLayout.id);
+        UsageStatsEvent.SOFTWARE_KEYBOARD_LAYOUT_PORTRAIT, portraitPreference.keyboardLayout.id);
 
     boolean layoutAdjustmentEnabledInLandscape =
         landscapePreference.layoutAdjustment != LayoutAdjustment.FILL;

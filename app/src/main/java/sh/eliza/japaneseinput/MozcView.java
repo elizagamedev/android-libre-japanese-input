@@ -67,7 +67,6 @@ import sh.eliza.japaneseinput.CandidateViewManager.KeyboardCandidateViewHeightLi
 import sh.eliza.japaneseinput.FeedbackManager.FeedbackEvent;
 import sh.eliza.japaneseinput.LayoutParamsAnimator.InterpolationListener;
 import sh.eliza.japaneseinput.ViewManagerInterface.LayoutAdjustment;
-import sh.eliza.japaneseinput.emoji.EmojiProviderType;
 import sh.eliza.japaneseinput.keyboard.BackgroundDrawableFactory;
 import sh.eliza.japaneseinput.keyboard.KeyEventHandler;
 import sh.eliza.japaneseinput.keyboard.KeyState.MetaState;
@@ -358,9 +357,9 @@ public class MozcView extends FrameLayout implements MemoryManageable {
     candidateViewManager.setHardwareCompositionMode(compositionMode);
   }
 
-  public void setEmojiEnabled(boolean unicodeEmojiEnabled, boolean carrierEmojiEnabled) {
+  public void setEmojiEnabled(boolean unicodeEmojiEnabled) {
     checkInflated();
-    getSymbolInputView().setEmojiEnabled(unicodeEmojiEnabled, carrierEmojiEnabled);
+    getSymbolInputView().setEmojiEnabled(unicodeEmojiEnabled);
   }
 
   public void setPasswordField(boolean isPasswordField) {
@@ -378,13 +377,6 @@ public class MozcView extends FrameLayout implements MemoryManageable {
   public void setFlickSensitivity(int flickSensitivity) {
     checkInflated();
     getKeyboardView().setFlickSensitivity(flickSensitivity);
-  }
-
-  public void setEmojiProviderType(EmojiProviderType emojiProviderType) {
-    Preconditions.checkNotNull(emojiProviderType);
-
-    checkInflated();
-    getSymbolInputView().setEmojiProviderType(emojiProviderType);
   }
 
   public void setSymbolCandidateStorage(SymbolCandidateStorage symbolCandidateStorage) {

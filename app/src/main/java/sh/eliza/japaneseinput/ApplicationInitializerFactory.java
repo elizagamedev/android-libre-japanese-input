@@ -40,7 +40,6 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.io.File;
 import sh.eliza.japaneseinput.MozcUtil.TelephonyManagerInterface;
-import sh.eliza.japaneseinput.emoji.EmojiProviderType;
 import sh.eliza.japaneseinput.preference.PreferenceUtil;
 import sh.eliza.japaneseinput.preference.PreferenceUtil.PreferenceManagerStaticInterface;
 import sh.eliza.japaneseinput.util.LauncherIconManagerFactory.LauncherIconManager;
@@ -215,10 +214,6 @@ public class ApplicationInitializerFactory {
                           R.dimen.input_frame_height,
                           Configuration.ORIENTATION_LANDSCAPE)),
               resources.getDimensionPixelOffset(R.dimen.fullscreen_threshold));
-
-          // Run emoji provider type detection, so that the detected provider will be
-          // used as the default values of the preference activity.
-          EmojiProviderType.maybeSetDetectedEmojiProviderType(sharedPreferences, telephonyManager);
         }
         // Update launcher icon visibility and relating preference.
         launcherIconManager.updateLauncherIconVisibility(context);

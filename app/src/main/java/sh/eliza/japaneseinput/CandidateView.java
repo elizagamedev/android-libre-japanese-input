@@ -118,7 +118,6 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
           resources.getDimension(R.dimen.symbol_description_bottom_padding);
       float separatorWidth = resources.getDimensionPixelSize(R.dimen.candidate_separator_width);
 
-      carrierEmojiRenderHelper.setCandidateTextSize(candidateTextSize);
       candidateLayoutRenderer.setValueTextSize(candidateTextSize);
       candidateLayoutRenderer.setValueHorizontalPadding(valueHorizontalPadding);
       candidateLayoutRenderer.setValueScalingPolicy(ValueScalingPolicy.HORIZONTAL);

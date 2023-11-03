@@ -13,20 +13,16 @@ This project is not affiliated with Google.
 
 ## What works/What's been done already?
 
-The bulk of the Android client code has had the bare minimum changed to be able
-to correctly build on the standard Android Studio/gradle build system. Some work
-has been done to modernize and replace deprecated APIs and theming. The app
-builds for and runs on modern Android devices. Basic kana entry and henkan work.
+- Software text entry. Kana input and henkan work (with spurious lag).
 
 ## What doesn't work/What still needs to be done?
 
-- Lots of visual glitches; henkan works, but completion candidates are not
-  rendered correctly.
-- Layout/theming looks incorrect. Keyboard key text sizes are either too small
-  or too big in some places. Currently unsure of the cause.
-- Proper handling of emoji/emoticons. The client code has some weird per-carrier
-  pre-unicode standardization code that needs to be gutted and refactored.
+- Lots of visual glitches/layout issues. Keyboard key text sizes are either too
+  small or too big in some places. Occasional tofus rendered.
+- Included emoji/emoticon sets are outdated.
 - Some preferences cannot be set correctly.
+- Hardware keyboard input needs to be tested.
+- Not yet sure if personalization/user dictionaries work.
 
 ## Development
 

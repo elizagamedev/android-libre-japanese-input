@@ -30,20 +30,15 @@
 package sh.eliza.japaneseinput;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.IBinder;
 import android.os.Looper;
-import androidx.preference.PreferenceManager;
 import android.util.AttributeSet;
-import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +50,7 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TabWidget;
 import android.widget.TextView;
-import androidx.appcompat.app.AlertDialog;
+import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
@@ -68,7 +63,6 @@ import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateL
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
 import sh.eliza.japaneseinput.FeedbackManager.FeedbackEvent;
-import sh.eliza.japaneseinput.emoji.EmojiProviderType;
 import sh.eliza.japaneseinput.keyboard.BackgroundDrawableFactory;
 import sh.eliza.japaneseinput.keyboard.BackgroundDrawableFactory.DrawableType;
 import sh.eliza.japaneseinput.keyboard.KeyEventHandler;
@@ -80,7 +74,6 @@ import sh.eliza.japaneseinput.keyboard.KeyboardView;
 import sh.eliza.japaneseinput.model.SymbolCandidateStorage;
 import sh.eliza.japaneseinput.model.SymbolMajorCategory;
 import sh.eliza.japaneseinput.model.SymbolMinorCategory;
-import sh.eliza.japaneseinput.preference.PreferenceUtil;
 import sh.eliza.japaneseinput.ui.CandidateLayoutRenderer.DescriptionLayoutPolicy;
 import sh.eliza.japaneseinput.ui.CandidateLayoutRenderer.ValueScalingPolicy;
 import sh.eliza.japaneseinput.ui.ScrollGuideView;
@@ -142,27 +135,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
             .onFireFeedbackEvent(FeedbackEvent.SYMBOL_INPUTVIEW_MAJOR_CATEGORY_SELECTED);
       }
 
-      if (emojiEnabled
-          && majorCategory == SymbolMajorCategory.EMOJI
-          && emojiProviderType == EmojiProviderType.NONE) {
-        // Ask the user which emoji provider s/he'd like to use.
-        // If the user cancels the dialog, do nothing.
-        maybeInitializeEmojiProviderDialog(getContext());
-        if (emojiProviderDialog.isPresent()) {
-          IBinder token = getWindowToken();
-          if (token != null) {
-            MozcUtil.setWindowToken(token, emojiProviderDialog.get());
-          } else {
-            MozcLog.w("Unknown window token.");
-          }
-
-          // If a user selects a provider, the dialog handler will set major category
-          // to EMOJI automatically. If s/he cancels, nothing will be happened.
-          emojiProviderDialog.get().show();
-          return;
-        }
-      }
-
       setMajorCategory(majorCategory);
     }
   }
@@ -178,7 +150,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     private final CandidateSelectListener candidateSelectListener;
     private final SymbolMajorCategory majorCategory;
     private Skin skin;
-    private final EmojiProviderType emojiProviderType;
     private final TabHost tabHost;
     private final ViewPager viewPager;
     private final float candidateTextSize;
@@ -195,7 +166,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
         CandidateSelectListener candidateSelectListener,
         SymbolMajorCategory majorCategory,
         Skin skin,
-        EmojiProviderType emojiProviderType,
         TabHost tabHost,
         ViewPager viewPager,
         float candidateTextSize,
@@ -206,7 +176,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       this.candidateSelectListener = Preconditions.checkNotNull(candidateSelectListener);
       this.majorCategory = Preconditions.checkNotNull(majorCategory);
       this.skin = Preconditions.checkNotNull(skin);
-      this.emojiProviderType = Preconditions.checkNotNull(emojiProviderType);
       this.tabHost = Preconditions.checkNotNull(tabHost);
       this.viewPager = Preconditions.checkNotNull(viewPager);
       this.candidateTextSize = Preconditions.checkNotNull(candidateTextSize);
@@ -301,7 +270,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       symbolCandidateView.setMinColumnWidth(
           context.getResources().getDimension(majorCategory.minColumnWidthResourceId));
       symbolCandidateView.setSkin(skin);
-      symbolCandidateView.setEmojiProviderType(emojiProviderType);
       if (majorCategory.layoutPolicy == DescriptionLayoutPolicy.GONE) {
         // As it's guaranteed for descriptions not to be shown,
         // show values using additional space where is reserved for descriptions.
@@ -340,29 +308,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
         historyViewCache = Optional.absent();
       }
       collection.removeView((View) view);
-    }
-  }
-
-  /** An event listener for the menu dialog window. */
-  private class EmojiProviderDialogListener implements DialogInterface.OnClickListener {
-    private final Context context;
-
-    EmojiProviderDialogListener(Context context) {
-      this.context = Preconditions.checkNotNull(context);
-    }
-
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
-      String value;
-      TypedArray typedArray =
-          context.getResources().obtainTypedArray(R.array.pref_emoji_provider_type_values);
-      try {
-        value = typedArray.getString(which);
-      } finally {
-        typedArray.recycle();
-      }
-      sharedPreferences.edit().putString(PreferenceUtil.PREF_EMOJI_PROVIDER_TYPE, value).commit();
-      setMajorCategory(SymbolMajorCategory.EMOJI);
     }
   }
 
@@ -414,7 +359,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
           resources.getDimension(R.dimen.symbol_description_bottom_padding);
       float separatorWidth = resources.getDimensionPixelSize(R.dimen.candidate_separator_width);
 
-      carrierEmojiRenderHelper.setCandidateTextSize(textSize);
       candidateLayoutRenderer.setValueTextSize(textSize);
       candidateLayoutRenderer.setValueHorizontalPadding(valueHorizontalPadding);
       candidateLayoutRenderer.setValueScalingPolicy(ValueScalingPolicy.UNIFORM);
@@ -490,10 +434,8 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
   @VisibleForTesting SymbolMajorCategory currentMajorCategory = SymbolMajorCategory.NUMBER;
   @VisibleForTesting boolean emojiEnabled;
   private boolean isPasswordField;
-  @VisibleForTesting EmojiProviderType emojiProviderType = EmojiProviderType.NONE;
 
   @VisibleForTesting SharedPreferences sharedPreferences;
-  @VisibleForTesting Optional<AlertDialog> emojiProviderDialog = Optional.absent();
 
   private Optional<ViewEventListener> viewEventListener = Optional.absent();
   private final KeyEventButtonTouchListener deleteKeyEventButtonTouchListener =
@@ -689,7 +631,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
             symbolCandidateSelectListener,
             currentMajorCategory,
             skin,
-            emojiProviderType,
             tabHost,
             candidateViewPager,
             candidateTextSize,
@@ -1017,11 +958,11 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     return findViewById(R.id.symbol_emoji_disabled_message_view);
   }
 
-  public void setEmojiEnabled(boolean unicodeEmojiEnabled, boolean carrierEmojiEnabled) {
-    this.emojiEnabled = unicodeEmojiEnabled || carrierEmojiEnabled;
+  public void setEmojiEnabled(boolean unicodeEmojiEnabled) {
+    this.emojiEnabled = unicodeEmojiEnabled;
     enableEmoji(this.emojiEnabled);
     Preconditions.checkState(symbolCandidateStorage.isPresent());
-    symbolCandidateStorage.get().setEmojiEnabled(unicodeEmojiEnabled, carrierEmojiEnabled);
+    symbolCandidateStorage.get().setEmojiEnabled(unicodeEmojiEnabled);
   }
 
   public void setPasswordField(boolean isPasswordField) {
@@ -1112,26 +1053,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       return;
     }
     getNumberKeyboardView().setPopupEnabled(popupEnabled);
-  }
-
-  /** Initializes EmojiProvider selection dialog, if necessary. */
-  @VisibleForTesting
-  void maybeInitializeEmojiProviderDialog(Context context) {
-    if (emojiProviderDialog.isPresent()) {
-      return;
-    }
-
-    EmojiProviderDialogListener listener = new EmojiProviderDialogListener(context);
-    try {
-      AlertDialog dialog =
-          new AlertDialog.Builder(context)
-              .setTitle(R.string.pref_emoji_provider_type_title)
-              .setItems(R.array.pref_emoji_provider_type_entries, listener)
-              .create();
-      this.emojiProviderDialog = Optional.of(dialog);
-    } catch (InflateException e) {
-      // Ignore the exception.
-    }
   }
 
   /**
@@ -1236,19 +1157,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     adapter.setFeedbackEnabled(false);
     getTabHost().setCurrentTab(index);
     adapter.setFeedbackEnabled(true);
-  }
-
-  void setEmojiProviderType(EmojiProviderType emojiProviderType) {
-    Preconditions.checkNotNull(emojiProviderType);
-
-    Preconditions.checkState(symbolCandidateStorage.isPresent());
-    this.emojiProviderType = emojiProviderType;
-    this.symbolCandidateStorage.get().setEmojiProviderType(emojiProviderType);
-    if (!isInflated()) {
-      return;
-    }
-
-    resetCandidateViewPager();
   }
 
   void setEventListener(

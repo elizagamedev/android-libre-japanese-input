@@ -32,10 +32,8 @@ package sh.eliza.japaneseinput.model;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,9 +43,6 @@ import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateW
 import sh.eliza.japaneseinput.EmoticonData;
 import sh.eliza.japaneseinput.SymbolData;
 import sh.eliza.japaneseinput.emoji.EmojiData;
-import sh.eliza.japaneseinput.emoji.EmojiProviderType;
-import sh.eliza.japaneseinput.emoji.EmojiRenderableChecker;
-import sh.eliza.japaneseinput.emoji.EmojiUtil;
 
 /** Manages between MinorCategory and its candidates. */
 public class SymbolCandidateStorage {
@@ -113,78 +108,18 @@ public class SymbolCandidateStorage {
     DESCRIPTION_MAP = Collections.unmodifiableMap(descriptionMap);
   }
 
-  /** Map from the carrier to its Emoji description set. */
-  private static final Map<EmojiProviderType, EmojiDescriptionSet>
-      CARRIER_EMOJI_DESCRIPTION_SET_MAP;
-
-  static {
-    EnumMap<EmojiProviderType, EmojiDescriptionSet> map =
-        new EnumMap<EmojiProviderType, EmojiDescriptionSet>(EmojiProviderType.class);
-    map.put(
-        EmojiProviderType.DOCOMO,
-        new EmojiDescriptionSet(
-            EmojiData.DOCOMO_FACE_NAME,
-            EmojiData.DOCOMO_FOOD_NAME,
-            EmojiData.DOCOMO_ACTIVITY_NAME,
-            EmojiData.DOCOMO_CITY_NAME,
-            EmojiData.DOCOMO_NATURE_NAME));
-    map.put(
-        EmojiProviderType.SOFTBANK,
-        new EmojiDescriptionSet(
-            EmojiData.SOFTBANK_FACE_NAME,
-            EmojiData.SOFTBANK_FOOD_NAME,
-            EmojiData.SOFTBANK_ACTIVITY_NAME,
-            EmojiData.SOFTBANK_CITY_NAME,
-            EmojiData.SOFTBANK_NATURE_NAME));
-    map.put(
-        EmojiProviderType.KDDI,
-        new EmojiDescriptionSet(
-            EmojiData.KDDI_FACE_NAME,
-            EmojiData.KDDI_FOOD_NAME,
-            EmojiData.KDDI_ACTIVITY_NAME,
-            EmojiData.KDDI_CITY_NAME,
-            EmojiData.KDDI_NATURE_NAME));
-    CARRIER_EMOJI_DESCRIPTION_SET_MAP = Collections.unmodifiableMap(map);
-  }
-
   private final SymbolHistoryStorage symbolHistoryStorage;
-  private final EmojiRenderableChecker emojiRenderableChecker = new EmojiRenderableChecker();
   private final Map<String, Boolean> isRenderableCache = new HashMap<String, Boolean>();
   private boolean isUnicodeEmojiEnabled = false;
   private boolean isCarrierEmojiEnabled = false;
-  private EmojiProviderType emojiProviderType = EmojiProviderType.NONE;
-  private EmojiDescriptionSet carrierEmojiDescriptionSet = EmojiDescriptionSet.NULL_INSTANCE;
   private Map<String, String> emojiDescriptionMap = Collections.emptyMap();
 
   public SymbolCandidateStorage(SymbolHistoryStorage symbolHistoryStorage) {
     this.symbolHistoryStorage = Preconditions.checkNotNull(symbolHistoryStorage);
-    setEmojiProviderTypeInternal(EmojiProviderType.NONE);
   }
 
-  public void setEmojiEnabled(boolean isUnicodeEmojiEnabled, boolean isCarrierEmojiEnabled) {
+  public void setEmojiEnabled(boolean isUnicodeEmojiEnabled) {
     this.isUnicodeEmojiEnabled = isUnicodeEmojiEnabled;
-    this.isCarrierEmojiEnabled = isCarrierEmojiEnabled;
-  }
-
-  public void setEmojiProviderType(EmojiProviderType emojiProviderType) {
-    if (this.emojiProviderType == Preconditions.checkNotNull(emojiProviderType)) {
-      // No change.
-      return;
-    }
-    setEmojiProviderTypeInternal(emojiProviderType);
-  }
-
-  private void setEmojiProviderTypeInternal(EmojiProviderType emojiProviderType) {
-    EmojiDescriptionSet carrierEmojiDescriptionSet =
-        CARRIER_EMOJI_DESCRIPTION_SET_MAP.get(emojiProviderType);
-    this.emojiProviderType = emojiProviderType;
-    if (carrierEmojiDescriptionSet == null) {
-      this.carrierEmojiDescriptionSet = EmojiDescriptionSet.NULL_INSTANCE;
-      this.emojiDescriptionMap = createEmojiDescriptionMap(Optional.absent());
-    } else {
-      this.carrierEmojiDescriptionSet = carrierEmojiDescriptionSet;
-      this.emojiDescriptionMap = createEmojiDescriptionMap(Optional.of(carrierEmojiDescriptionSet));
-    }
   }
 
   private static Map<String, String> createEmojiDescriptionMap(
@@ -269,49 +204,22 @@ public class SymbolCandidateStorage {
         // EMOJI major category candidates.
       case EMOJI_HISTORY:
         return toEmojiCandidateListForHistory(
-            symbolHistoryStorage.getAllHistory(SymbolMajorCategory.EMOJI),
-            emojiDescriptionMap,
-            isCarrierEmojiEnabled);
+            symbolHistoryStorage.getAllHistory(SymbolMajorCategory.EMOJI), emojiDescriptionMap);
       case EMOJI_FACE:
         return toEmojiCandidateList(
-            EmojiData.FACE_VALUES,
-            EmojiData.UNICODE_FACE_NAME,
-            EmojiData.FACE_PUA_VALUES,
-            carrierEmojiDescriptionSet.faceDescription,
-            isUnicodeEmojiEnabled,
-            isCarrierEmojiEnabled);
+            EmojiData.FACE_VALUES, EmojiData.UNICODE_FACE_NAME, isUnicodeEmojiEnabled);
       case EMOJI_FOOD:
         return toEmojiCandidateList(
-            EmojiData.FOOD_VALUES,
-            EmojiData.UNICODE_FOOD_NAME,
-            EmojiData.FOOD_PUA_VALUES,
-            carrierEmojiDescriptionSet.foodDescription,
-            isUnicodeEmojiEnabled,
-            isCarrierEmojiEnabled);
+            EmojiData.FOOD_VALUES, EmojiData.UNICODE_FOOD_NAME, isUnicodeEmojiEnabled);
       case EMOJI_ACTIVITY:
         return toEmojiCandidateList(
-            EmojiData.ACTIVITY_VALUES,
-            EmojiData.UNICODE_ACTIVITY_NAME,
-            EmojiData.ACTIVITY_PUA_VALUES,
-            carrierEmojiDescriptionSet.activityDescription,
-            isUnicodeEmojiEnabled,
-            isCarrierEmojiEnabled);
+            EmojiData.ACTIVITY_VALUES, EmojiData.UNICODE_ACTIVITY_NAME, isUnicodeEmojiEnabled);
       case EMOJI_CITY:
         return toEmojiCandidateList(
-            EmojiData.CITY_VALUES,
-            EmojiData.UNICODE_CITY_NAME,
-            EmojiData.CITY_PUA_VALUES,
-            carrierEmojiDescriptionSet.cityDescription,
-            isUnicodeEmojiEnabled,
-            isCarrierEmojiEnabled);
+            EmojiData.CITY_VALUES, EmojiData.UNICODE_CITY_NAME, isUnicodeEmojiEnabled);
       case EMOJI_NATURE:
         return toEmojiCandidateList(
-            EmojiData.NATURE_VALUES,
-            EmojiData.UNICODE_NATURE_NAME,
-            EmojiData.NATURE_PUA_VALUES,
-            carrierEmojiDescriptionSet.natureDescription,
-            isUnicodeEmojiEnabled,
-            isCarrierEmojiEnabled);
+            EmojiData.NATURE_VALUES, EmojiData.UNICODE_NATURE_NAME, isUnicodeEmojiEnabled);
     }
 
     throw new IllegalArgumentException("Unknown minor category: " + minorCategory);
@@ -330,19 +238,8 @@ public class SymbolCandidateStorage {
    * GoogleQuickSearchBox) crashes when they receives carrier emoji.
    */
   private CandidateList toEmojiCandidateListForHistory(
-      List<String> values, Map<String, String> emojiDescriptionMap, boolean isCarrierEmojiEnabled) {
-    if (isCarrierEmojiEnabled) {
-      return toCandidateList(values, Optional.of(emojiDescriptionMap));
-    }
-
-    List<String> valuesWithoutCarrierEmoji = new ArrayList<String>(values.size());
-    for (String value : values) {
-      if (value.codePointCount(0, value.length()) != 1
-          || !EmojiUtil.isCarrierEmoji(value.codePointAt(0))) {
-        valuesWithoutCarrierEmoji.add(value);
-      }
-    }
-    return toCandidateList(valuesWithoutCarrierEmoji, Optional.of(emojiDescriptionMap));
+      List<String> values, Map<String, String> emojiDescriptionMap) {
+    return toCandidateList(values, Optional.of(emojiDescriptionMap));
   }
 
   /** Builds the {@link CandidateList} based on the given values and emojiDescriptionMap. */
@@ -411,10 +308,7 @@ public class SymbolCandidateStorage {
   private CandidateList toEmojiCandidateList(
       String[] unicodeEmojiValues,
       String[] unicodeEmojiDescriptions,
-      String[] carrierEmojiValues,
-      String[] carrierEmojiDescriptions,
-      boolean isUnicodeEmojiEnabled,
-      boolean isCarrierEmojiEnabled) {
+      boolean isUnicodeEmojiEnabled) {
     CandidateList.Builder builder = CandidateList.newBuilder();
     int index = 0;
 
@@ -422,11 +316,6 @@ public class SymbolCandidateStorage {
       index +=
           addEmojiCandidateListToBuilder(
               builder, index, unicodeEmojiValues, unicodeEmojiDescriptions);
-    }
-    if (isCarrierEmojiEnabled) {
-      index +=
-          addEmojiCandidateListToBuilder(
-              builder, index, carrierEmojiValues, carrierEmojiDescriptions);
     }
 
     if (index == 0) {
@@ -444,10 +333,6 @@ public class SymbolCandidateStorage {
     int index = startIndex;
     for (int i = 0; i < descriptions.length; ++i) {
       String value = values[i];
-      if (!isRenderableEmoji(value)) {
-        continue;
-      }
-
       String description = descriptions[i];
       if (description == null) {
         // If no description (name) is available, we skip the value,
@@ -464,14 +349,5 @@ public class SymbolCandidateStorage {
       ++index;
     }
     return index - startIndex;
-  }
-
-  private boolean isRenderableEmoji(String value) {
-    Boolean result = isRenderableCache.get(value);
-    if (result == null) {
-      result = emojiRenderableChecker.isRenderable(value);
-      isRenderableCache.put(value, result);
-    }
-    return result;
   }
 }

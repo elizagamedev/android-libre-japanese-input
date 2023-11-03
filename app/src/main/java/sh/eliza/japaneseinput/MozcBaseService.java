@@ -710,7 +710,7 @@ public class MozcBaseService extends InputMethodService {
         null, null, currentKeyboardSpecification, deviceConfiguration, Collections.emptyList());
     if (sharedPreferences != null) {
       propagateClientSidePreference(
-          new ClientSidePreference(
+          ClientSidePreference.createFromSharedPreferences(
               sharedPreferences, getResources(), deviceConfiguration.orientation));
       // TODO(hidehiko): here we just set the config based on preferences. When we start
       //   to support sync on Android, we need to revisit the config related design.
@@ -1591,10 +1591,6 @@ public class MozcBaseService extends InputMethodService {
     if (oldPreference == null || oldPreference.flickSensitivity != newPreference.flickSensitivity) {
       viewManager.setFlickSensitivity(newPreference.flickSensitivity);
     }
-    if (oldPreference == null
-        || oldPreference.emojiProviderType != newPreference.emojiProviderType) {
-      viewManager.setEmojiProviderType(newPreference.emojiProviderType);
-    }
     if (oldPreference == null || oldPreference.hardwareKeyMap != newPreference.hardwareKeyMap) {
       viewManager.setHardwareKeyMap(newPreference.hardwareKeyMap);
     }
@@ -1652,7 +1648,7 @@ public class MozcBaseService extends InputMethodService {
         return;
       }
       propagateClientSidePreference(
-          new ClientSidePreference(
+          ClientSidePreference.createFromSharedPreferences(
               sharedPreferences, getResources(), getConfiguration().orientation));
       sessionExecutor.setConfig(ConfigUtil.toConfig(sharedPreferences));
       sessionExecutor.preferenceUsageStatsEvent(sharedPreferences, getResources());
@@ -1694,7 +1690,7 @@ public class MozcBaseService extends InputMethodService {
     // Based on newConfig, client side preferences should be sent
     // because they change based on device config.
     propagateClientSidePreference(
-        new ClientSidePreference(
+        ClientSidePreference.createFromSharedPreferences(
             Preconditions.checkNotNull(PreferenceManager.getDefaultSharedPreferences(this)),
             getResources(),
             newConfig.orientation));

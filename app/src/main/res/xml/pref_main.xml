@@ -73,7 +73,7 @@
         android:title="@string/pref_haptic_feedback_duration_title"
         android:max="250"
         android:dependency="pref_haptic_feedback_key"
-        app:min="0"
+        app:min="1"
         app:low_text="@string/pref_haptic_feedback_duration_low_text"
         app:high_text="@string/pref_haptic_feedback_duration_high_text"
         app:unit="ms" />
@@ -90,7 +90,7 @@
         android:title="@string/pref_sound_feedback_volume_title"
         android:dependency="pref_sound_feedback_key"
         android:max="100"
-        app:min="0"
+        app:min="1"
         app:low_text="@string/pref_sound_feedback_volume_low_text"
         app:middle_text="@string/pref_sound_feedback_volume_middle_text"
         app:high_text="@string/pref_sound_feedback_volume_high_text" />
@@ -159,13 +159,6 @@
         android:key="pref_other_anonimous_mode_key"
         android:summary="@string/pref_other_incognito_mode_description"
         android:title="@string/pref_other_incognito_mode_title" />
-
-    <androidx.preference.ListPreference
-        android:entries="@array/pref_emoji_provider_type_entries"
-        android:entryValues="@array/pref_emoji_provider_type_values"
-        android:key="pref_emoji_provider_type"
-        android:summary="@string/pref_emoji_provider_type_description"
-        android:title="@string/pref_emoji_provider_type_title" />
   </androidx.preference.PreferenceCategory>
 
   <androidx.preference.PreferenceCategory

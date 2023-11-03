@@ -48,7 +48,6 @@ import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateL
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
 import sh.eliza.japaneseinput.accessibility.AccessibilityUtil;
 import sh.eliza.japaneseinput.accessibility.CandidateWindowAccessibilityDelegate;
-import sh.eliza.japaneseinput.emoji.EmojiProviderType;
 import sh.eliza.japaneseinput.keyboard.BackgroundDrawableFactory;
 import sh.eliza.japaneseinput.keyboard.BackgroundDrawableFactory.DrawableType;
 import sh.eliza.japaneseinput.ui.CandidateLayout;
@@ -57,7 +56,6 @@ import sh.eliza.japaneseinput.ui.CandidateLayout.Span;
 import sh.eliza.japaneseinput.ui.CandidateLayoutRenderer;
 import sh.eliza.japaneseinput.ui.CandidateLayouter;
 import sh.eliza.japaneseinput.ui.SnapScroller;
-import sh.eliza.japaneseinput.view.CarrierEmojiRenderHelper;
 import sh.eliza.japaneseinput.view.Skin;
 
 /** A view for candidate words. */
@@ -398,8 +396,6 @@ abstract class CandidateWordView extends View implements MemoryManageable {
   // No padding by default.
   private int horizontalPadding = 0;
 
-  protected final CarrierEmojiRenderHelper carrierEmojiRenderHelper =
-      new CarrierEmojiRenderHelper(this);
   protected final CandidateLayoutRenderer candidateLayoutRenderer = new CandidateLayoutRenderer();
 
   CandidateWordGestureDetector candidateWordGestureDetector =
@@ -474,23 +470,6 @@ abstract class CandidateWordView extends View implements MemoryManageable {
   }
 
   @Override
-  protected void onAttachedToWindow() {
-    super.onAttachedToWindow();
-    carrierEmojiRenderHelper.onAttachedToWindow();
-  }
-
-  @Override
-  protected void onDetachedFromWindow() {
-    carrierEmojiRenderHelper.onDetachedFromWindow();
-    super.onDetachedFromWindow();
-  }
-
-  public void setEmojiProviderType(EmojiProviderType providerType) {
-    Preconditions.checkNotNull(providerType);
-    carrierEmojiRenderHelper.setEmojiProviderType(providerType);
-  }
-
-  @Override
   public void draw(Canvas canvas) {
     super.draw(canvas);
 
@@ -547,8 +526,7 @@ abstract class CandidateWordView extends View implements MemoryManageable {
           (pressedCandidate != null && pressedCandidate.hasIndex())
               ? pressedCandidate.getIndex()
               : -1;
-      candidateLayoutRenderer.drawCandidateLayout(
-          canvas, calculatedLayout, pressedCandidateIndex, carrierEmojiRenderHelper);
+      candidateLayoutRenderer.drawCandidateLayout(canvas, calculatedLayout, pressedCandidateIndex);
     } finally {
       canvas.restoreToCount(saveCount);
     }
@@ -634,7 +612,6 @@ abstract class CandidateWordView extends View implements MemoryManageable {
     currentCandidateList = candidateList;
     Optional<CandidateList> optionalCandidateList = Optional.fromNullable(candidateList);
     candidateLayoutRenderer.setCandidateList(optionalCandidateList);
-    carrierEmojiRenderHelper.setCandidateList(optionalCandidateList);
     if (layouter != null && !equals(candidateList, previousCandidateList)) {
       updateCalculatedLayout();
     }

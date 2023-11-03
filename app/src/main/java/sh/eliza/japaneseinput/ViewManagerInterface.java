@@ -40,7 +40,6 @@ import android.view.inputmethod.EditorInfo;
 import com.google.common.annotations.VisibleForTesting;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
 import sh.eliza.japaneseinput.KeycodeConverter.KeyEventInterface;
-import sh.eliza.japaneseinput.emoji.EmojiProviderType;
 import sh.eliza.japaneseinput.hardwarekeyboard.HardwareKeyboard.CompositionSwitchMode;
 import sh.eliza.japaneseinput.keyboard.Keyboard.KeyboardSpecification;
 import sh.eliza.japaneseinput.keyboard.KeyboardActionListener;
@@ -145,8 +144,6 @@ public interface ViewManagerInterface extends MemoryManageable {
 
   void setFlickSensitivity(int flickSensitivity);
 
-  void setEmojiProviderType(EmojiProviderType emojiProviderType);
-
   void maybeTransitToNarrowMode(Command command, KeyEventInterface keyEvent);
 
   boolean isNarrowMode();
@@ -195,9 +192,6 @@ public interface ViewManagerInterface extends MemoryManageable {
 
   @VisibleForTesting
   int getFlickSensitivity();
-
-  @VisibleForTesting
-  EmojiProviderType getEmojiProviderType();
 
   @VisibleForTesting
   Skin getSkin();

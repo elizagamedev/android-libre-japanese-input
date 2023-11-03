@@ -26,44 +26,41 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+package sh.eliza.japaneseinput
 
-package sh.eliza.japaneseinput;
-
-import com.google.common.base.Optional;
-import java.util.List;
-import javax.annotation.Nullable;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
-import sh.eliza.japaneseinput.FeedbackManager.FeedbackEvent;
-import sh.eliza.japaneseinput.KeycodeConverter.KeyEventInterface;
-import sh.eliza.japaneseinput.hardwarekeyboard.HardwareKeyboard.CompositionSwitchMode;
-import sh.eliza.japaneseinput.keyboard.Keyboard.KeyboardSpecification;
-import sh.eliza.japaneseinput.model.SymbolMajorCategory;
+import com.google.common.base.Optional
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent
+import sh.eliza.japaneseinput.FeedbackManager.FeedbackEvent
+import sh.eliza.japaneseinput.KeycodeConverter.KeyEventInterface
+import sh.eliza.japaneseinput.ViewManagerInterface.LayoutAdjustment
+import sh.eliza.japaneseinput.hardwarekeyboard.HardwareKeyboard.CompositionSwitchMode
+import sh.eliza.japaneseinput.keyboard.Keyboard.KeyboardSpecification
+import sh.eliza.japaneseinput.model.SymbolMajorCategory
 
 /** Callback object for view evnets. */
-public interface ViewEventListener {
+interface ViewEventListener {
   /**
    * Called when KeyEvent is fired (by soft keyboard)
    *
    * @param mozcKeyEvent the key event to be processed by mozc server.
    * @param keyEvent the original key event
    * @param keyboardSpecification the keyboard specification used to input the key.
-   * @param touchEventList {@code TouchEvent} instances related to this key event for logging usage
-   *     stats.
+   * @param touchEventList `TouchEvent` instances related to this key event for logging usage stats.
    */
-  void onKeyEvent(
-      @Nullable ProtoCommands.KeyEvent mozcKeyEvent,
-      @Nullable KeyEventInterface keyEvent,
-      @Nullable KeyboardSpecification keyboardSpecification,
-      List<TouchEvent> touchEventList);
+  fun onKeyEvent(
+    mozcKeyEvent: ProtoCommands.KeyEvent?,
+    keyEvent: KeyEventInterface?,
+    keyboardSpecification: KeyboardSpecification?,
+    touchEventList: List<ProtoCommands.Input.TouchEvent?>?
+  )
 
   /**
    * Called when Undo is fired (by soft keyboard).
    *
-   * @param touchEventList {@code TouchEvent} instances related to this undo for logging usage
-   *     stats.
+   * @param touchEventList `TouchEvent` instances related to this undo for logging usage stats.
    */
-  void onUndo(List<TouchEvent> touchEventList);
+  fun onUndo(touchEventList: List<ProtoCommands.Input.TouchEvent>)
 
   /**
    * Called when a conversion candidate is selected.
@@ -71,71 +68,74 @@ public interface ViewEventListener {
    * @param candidateId the id which Candidate and CandidateWord has.
    * @param rowIndex index of row in which the candidate is. If absent no stats are sent.
    */
-  void onConversionCandidateSelected(int candidateId, Optional<Integer> rowIndex);
+  fun onConversionCandidateSelected(candidateId: Int, rowIndex: Optional<Int>)
 
   /** Called when page down button is tapped. */
-  void onPageUp();
+  fun onPageUp()
 
   /** Called when page down button is tapped. */
-  void onPageDown();
+  fun onPageDown()
 
   /** Called when a candidate on symbol input view is selected. */
-  void onSymbolCandidateSelected(
-      SymbolMajorCategory majorCategory, String candidate, boolean updateHistory);
+  fun onSymbolCandidateSelected(
+    majorCategory: SymbolMajorCategory?,
+    candidate: String?,
+    updateHistory: Boolean
+  )
 
   /**
    * Called when a feedback event happens.
    *
    * @param event the event which makes feedback.
    */
-  void onFireFeedbackEvent(FeedbackEvent event);
+  fun onFireFeedbackEvent(event: FeedbackEvent?)
 
   /** Called when the preedit should be submitted. */
-  void onSubmitPreedit();
+  fun onSubmitPreedit()
 
   /** Called when expanding suggestion is needed. */
-  void onExpandSuggestion();
+  fun onExpandSuggestion()
 
   /**
    * Called when the menu dialog is shown.
    *
-   * @param touchEventList {@code TouchEvent} instances which is related to this event for logging
-   *     usage stats.
+   * @param touchEventList `TouchEvent` instances which is related to this event for logging usage
+   * stats.
    */
   // TODO(matsuzakit): Rename. onFlushTouchEventStats ?
-  void onShowMenuDialog(List<TouchEvent> touchEventList);
+  fun onShowMenuDialog(touchEventList: List<ProtoCommands.Input.TouchEvent?>?)
 
   /**
    * Called when the symbol input view is shown.
    *
-   * @param touchEventList {@code TouchEvent} instances which is related to this event for logging
-   *     usage stats.
+   * @param touchEventList `TouchEvent` instances which is related to this event for logging usage
+   * stats.
    */
-  void onShowSymbolInputView(List<TouchEvent> touchEventList);
+  fun onShowSymbolInputView(touchEventList: List<ProtoCommands.Input.TouchEvent?>?)
 
   /** Called when the symbol input view is closed. */
-  void onCloseSymbolInputView();
+  fun onCloseSymbolInputView()
 
   /**
    * Called when the hardware_composition_button is clicked.
    *
    * @param mode new mode
    */
-  void onHardwareKeyboardCompositionModeChange(CompositionSwitchMode mode);
+  fun onHardwareKeyboardCompositionModeChange(mode: CompositionSwitchMode?)
 
   /** Called when the key for editor action is pressed. */
-  void onActionKey();
+  fun onActionKey()
 
   /** Called when the narrow mode of the view is changed. */
-  void onNarrowModeChanged(boolean newNarrowMode);
+  fun onNarrowModeChanged(newNarrowMode: Boolean)
 
   /**
    * Called when the keyboard layout preference should be updated.
    *
-   * <p>The visible keyboard will also be updated as the result through a callback object.
+   * The visible keyboard will also be updated as the result through a callback object.
    */
-  void onUpdateKeyboardLayoutAdjustment(ViewManagerInterface.LayoutAdjustment layoutAdjustment);
+  fun onUpdateKeyboardLayoutAdjustment(layoutAdjustment: LayoutAdjustment?)
 
   /** Called when the mushroom selection dialog is shown. */
-  void onShowMushroomSelectionDialog();
+  fun onShowMushroomSelectionDialog()
 }
