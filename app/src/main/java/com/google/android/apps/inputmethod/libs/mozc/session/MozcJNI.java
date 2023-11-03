@@ -41,10 +41,11 @@ public class MozcJNI {
    * Loads and initializes the JNI library.
    *
    * @param userProfileDirectoryPath path to user profile directory
-   * @param dataFilePath optional path to data file (e.g., mozc.data), or {@code null}
+   * @param dataFilePath path to data file (e.g., mozc.data)
    */
   public static void load(String userProfileDirectoryPath, String dataFilePath) {
     Preconditions.checkNotNull(userProfileDirectoryPath);
+    Preconditions.checkNotNull(dataFilePath);
 
     if (isLoaded) {
       return;
@@ -71,7 +72,17 @@ public class MozcJNI {
     }
   }
 
+  /** Loads the below functions. */
   private static synchronized native void initialize();
+
+  /**
+   * This method initializes the internal state of mozc server, especially dictionary data and
+   * session related stuff. We cannot do this in JNI_OnLoad, which is the callback API for JNI
+   * called when the shared object is loaded, because we need to pass the file path of data file
+   * from Java as only Java knows where the data is in our context.
+   */
+  private static synchronized native boolean onPostLoad(
+      String userProfileDirectoryPath, String dataFilePath);
 
   /**
    * Sends Command message to Mozc server and get a result.
@@ -82,15 +93,6 @@ public class MozcJNI {
    * @return blob of Command message.
    */
   public static synchronized native byte[] evalCommand(byte[] command);
-
-  /**
-   * This method initializes the internal state of mozc server, especially dictionary data and
-   * session related stuff. We cannot do this in JNI_OnLoad, which is the callback API for JNI
-   * called when the shared object is loaded, because we need to pass the file path of data file
-   * from Java as only Java knows where the data is in our context.
-   */
-  private static synchronized native boolean onPostLoad(
-      String userProfileDirectoryPath, String dataFilePath);
 
   /**
    * @return Data version string currently loaded in native layer. Empty if initialization has not

@@ -38,6 +38,7 @@ import android.inputmethodservice.InputMethodService;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.Looper;
+import android.view.ContextThemeWrapper;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -485,7 +486,10 @@ public class ViewManager implements ViewManagerInterface {
    */
   @Override
   public MozcView createMozcView(Context context) {
-    mozcView = (MozcView) LayoutInflater.from(context).inflate(R.layout.mozc_view, null);
+    ContextThemeWrapper contextWrapper =
+        new ContextThemeWrapper(
+            context, com.google.android.material.R.style.Theme_Material3_DayNight_NoActionBar);
+    mozcView = (MozcView) LayoutInflater.from(contextWrapper).inflate(R.layout.mozc_view, null);
     // Suppress update of View's internal state
     // until all the updates done in this method are finished. Just in case.
     mozcView.setVisibility(View.GONE);
