@@ -39,7 +39,6 @@ import android.text.Layout
 import android.text.Layout.Alignment
 import android.text.StaticLayout
 import android.text.TextPaint
-import android.util.Log
 import com.google.common.annotations.VisibleForTesting
 import com.google.common.base.Optional
 import com.google.common.base.Preconditions
@@ -286,7 +285,6 @@ class CandidateLayoutRenderer {
   ) {
     Preconditions.checkState(span.candidateWord.isPresent)
     val valueText = span.candidateWord.get().value
-    Log.i("CandidateLayoutRenderer", "Drawing $valueText")
     if (valueText == null || valueText.length == 0) {
       // No value is available.
       return
