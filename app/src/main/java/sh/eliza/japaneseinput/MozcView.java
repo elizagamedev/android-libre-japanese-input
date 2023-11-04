@@ -252,6 +252,7 @@ public class MozcView extends FrameLayout implements MemoryManageable {
 
   @Override
   public void onFinishInflate() {
+    super.onFinishInflate();
     setKeyboardHeightRatio(100);
 
     leftFrameStubProxy.initialize(

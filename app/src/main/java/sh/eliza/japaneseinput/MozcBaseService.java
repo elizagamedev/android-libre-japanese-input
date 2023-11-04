@@ -761,6 +761,7 @@ public class MozcBaseService extends InputMethodService {
 
   @Override
   public boolean onEvaluateInputViewShown() {
+    super.onEvaluateInputViewShown();
     // TODO(matsuzakit): Implement me
     return true;
   }

@@ -49,11 +49,11 @@
     } // {
       overlays.default = final: prev: {
         project-android-sdk = rec {
-          buildToolsVersion = "33.0.2";
+          buildToolsVersion = "34.0.0";
           androidComposition = prev.androidenv.composeAndroidPackages {
-            platformToolsVersion = "34.0.1";
+            platformToolsVersion = "34.0.4";
             buildToolsVersions = [ buildToolsVersion ];
-            platformVersions = [ "33" ];
+            platformVersions = [ "34" ];
             abiVersions = [ "arm64-v8a" "armeabi-v7a" ];
             includeNDK = false;
             includeEmulator = false;

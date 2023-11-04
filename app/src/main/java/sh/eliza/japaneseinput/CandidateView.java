@@ -245,9 +245,9 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
     super(context, attrs);
   }
 
-  @SuppressWarnings("deprecation")
   @Override
   public void onFinishInflate() {
+    super.onFinishInflate();
     // Connect candidate word view and its scroll guide.
     ScrollGuideView scrollGuideView = getScrollGuideView();
     ConversionCandidateWordView conversionCandidateWordView = getConversionCandidateWordView();

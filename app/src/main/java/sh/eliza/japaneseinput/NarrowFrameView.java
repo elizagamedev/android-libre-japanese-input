@@ -68,6 +68,7 @@ public class NarrowFrameView extends LinearLayout {
 
   @Override
   public void onFinishInflate() {
+    super.onFinishInflate();
     setSkin(skin);
   }
 

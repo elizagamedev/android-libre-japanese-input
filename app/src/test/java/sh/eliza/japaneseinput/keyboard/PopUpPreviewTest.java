@@ -131,15 +131,15 @@ public class PopUpPreviewTest extends InstrumentationTestCaseWithMock {
     assertEquals(
         key.getX()
             + key.getWidth() / 2
-            + popup.getXOffset()
+            + popup.xOffset
             - layoutParams.width / 2
             + parentLocationX,
         layoutParams.leftMargin);
     assertEquals(
         key.getY()
             + key.getHeight() / 2
-            + popup.getYOffset()
-            - popup.getHeight() / 2
+            + popup.yOffset
+            - popup.height / 2
             + parentLocationY
             - popupWindowPadding,
         layoutParams.topMargin);

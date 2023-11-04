@@ -26,62 +26,14 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+package sh.eliza.japaneseinput.keyboard
 
-package sh.eliza.japaneseinput.keyboard;
-
-/** */
-public class PopUp {
-
-  private final int popUpIconResourceId;
-  private final int longPressPopUpIconResourceId;
-  private final int height;
-  private final int xOffset;
-  private final int yOffset;
-  private final int iconWidth;
-  private final int iconHeight;
-
-  public PopUp(
-      int popUpIconResourceId,
-      int popUpLongPressIconResourceId,
-      int height,
-      int xOffset,
-      int yOffset,
-      int iconWidth,
-      int iconHeight) {
-    this.popUpIconResourceId = popUpIconResourceId;
-    this.longPressPopUpIconResourceId = popUpLongPressIconResourceId;
-    this.height = height;
-    this.xOffset = xOffset;
-    this.yOffset = yOffset;
-    this.iconWidth = iconWidth;
-    this.iconHeight = iconHeight;
-  }
-
-  public int getPopUpIconResourceId() {
-    return popUpIconResourceId;
-  }
-
-  public int getPopUpLongPressIconResourceId() {
-    return longPressPopUpIconResourceId;
-  }
-
-  public int getHeight() {
-    return height;
-  }
-
-  public int getXOffset() {
-    return xOffset;
-  }
-
-  public int getYOffset() {
-    return yOffset;
-  }
-
-  public int getIconWidth() {
-    return iconWidth;
-  }
-
-  public int getIconHeight() {
-    return iconHeight;
-  }
-}
+data class PopUp(
+  val popUpIconResourceId: Int,
+  val popUpLongPressIconResourceId: Int,
+  val height: Int,
+  val xOffset: Int,
+  val yOffset: Int,
+  val iconWidth: Int,
+  val iconHeight: Int
+)

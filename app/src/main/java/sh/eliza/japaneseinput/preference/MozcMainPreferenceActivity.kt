@@ -108,7 +108,7 @@ class MozcMainPreferenceFragment() : PreferenceFragmentCompat() {
 
   private val sharedPreferenceChangeListener =
     object : OnSharedPreferenceChangeListener {
-      override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+      override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
         if (PreferenceUtil.PREF_LAUNCHER_ICON_VISIBILITY_KEY == key) {
           LauncherIconManagerFactory.getDefaultInstance().updateLauncherIconVisibility(context)
         }

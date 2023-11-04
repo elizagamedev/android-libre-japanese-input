@@ -167,7 +167,7 @@ class KeyboardLayoutPreference : Preference {
   private val galleryEventListener = GalleryEventListener()
   private val sharedPreferenceChangeListener =
     object : OnSharedPreferenceChangeListener {
-      override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+      override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
         if (key == getContext().getResources().getString(R.string.pref_skin_type_key)) {
           updateSkin()
         }

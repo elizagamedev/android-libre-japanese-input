@@ -44,7 +44,7 @@
                android:label="@string/app_full_name"
                android:allowBackup="false"
                android:theme="@style/Theme.Material3.DayNight.NoActionBar"
-               tools:targetApi="33">
+               tools:targetApi="34">
     <service android:name="sh.eliza.japaneseinput.MozcService"
              android:permission="android.permission.BIND_INPUT_METHOD"
              android:label="@string/app_full_name"

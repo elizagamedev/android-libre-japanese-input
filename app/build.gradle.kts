@@ -141,13 +141,13 @@ tasks.preBuild {
 
 android {
   namespace = "sh.eliza.japaneseinput"
-  compileSdk = 33
-  buildToolsVersion = "33.0.2"
+  compileSdk = 34
+  buildToolsVersion = "34.0.0"
 
   defaultConfig {
     applicationId = "sh.eliza.japaneseinput"
     minSdk = 26
-    targetSdk = 33
+    targetSdk = 34
     versionCode = 100
     versionName = "0.1.0"
 
@@ -175,16 +175,16 @@ android {
     }
   }
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
   }
-  kotlinOptions { jvmTarget = "11" }
+  kotlinOptions { jvmTarget = "1.8" }
 }
 
 dependencies {
   implementation("androidx.appcompat:appcompat:1.6.1")
-  implementation("androidx.preference:preference:1.2.0")
-  implementation("com.google.android.material:material:1.9.0")
+  implementation("androidx.preference:preference-ktx:1.2.1")
+  implementation("com.google.android.material:material:1.10.0")
   implementation("com.google.guava:guava:32.1.3-android")
   implementation("com.google.protobuf:protobuf-javalite:3.8.0")
 

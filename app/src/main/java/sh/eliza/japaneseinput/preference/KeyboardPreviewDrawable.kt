@@ -36,7 +36,6 @@ import android.graphics.Paint
 import android.graphics.PixelFormat
 import android.graphics.drawable.Drawable
 import com.google.common.base.Optional
-import com.google.common.base.Preconditions
 import java.io.IOException
 import java.util.EnumMap
 import java.util.WeakHashMap
@@ -100,7 +99,6 @@ internal constructor(
       height: Int,
       skin: Skin
     ): Bitmap? {
-      Preconditions.checkNotNull(skin)
       if (keyboardLayout == null || width <= 0 || height <= 0) {
         return null
       }
@@ -118,7 +116,6 @@ internal constructor(
     }
 
     fun put(keyboardLayout: KeyboardLayout?, skin: Skin, bitmap: Bitmap?) {
-      Preconditions.checkNotNull(skin)
       if (keyboardLayout == null || bitmap == null) {
         return
       }
@@ -160,6 +157,7 @@ internal constructor(
   private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
   private var skin = Skin.getFallbackInstance()
   private var enabled = true
+
   override fun draw(canvas: Canvas) {
     val bounds = bounds
     if (bounds.isEmpty) {
@@ -183,11 +181,12 @@ internal constructor(
         cache.put(keyboardLayout, skin, bitmap)
       }
     }
-    canvas.drawBitmap(bitmap!!, bounds.left.toFloat(), bounds.top.toFloat(), paint)
+    if (bitmap != null) {
+      canvas.drawBitmap(bitmap, bounds.left.toFloat(), bounds.top.toFloat(), paint)
+    }
     if (!enabled) {
       // To represent disabling, gray it out.
-      val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-      paint.color = -0x80000000
+      val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = -0x80000000 }
       canvas.drawRect(bounds, paint)
     }
   }
@@ -231,78 +230,69 @@ internal constructor(
     invalidateSelf()
     return true
   }
+}
 
-  companion object {
-    /**
-     * @param width width of returned `Bitmap`
-     * @param height height of returned `Bitmap`
-     * @param virtualWidth virtual width of keyboard. This value is used when rendering.
-     * virtualHeight is internally calculated based on given arguments keeping aspect ratio.
-     */
-    private fun createBitmap(
-      resources: Resources,
-      specification: KeyboardSpecification,
-      width: Int,
-      height: Int,
-      virtualWidth: Int,
-      skin: Skin
-    ): Bitmap? {
-      Preconditions.checkNotNull(skin)
-      // Scaling is required because some icons are draw with specified fixed size.
-      val scale = width / virtualWidth.toFloat()
-      val virtualHeight = (height / scale).toInt()
-      val keyboard =
-        getParsedKeyboard(resources, specification, virtualWidth, virtualHeight) ?: return null
-      val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-      val canvas = Canvas(bitmap)
-      canvas.scale(scale, scale)
-      val drawableCache = DrawableCache(resources)
-      drawableCache.setSkin(skin)
+/**
+ * @param width width of returned `Bitmap`
+ * @param height height of returned `Bitmap`
+ * @param virtualWidth virtual width of keyboard. This value is used when rendering. virtualHeight
+ * is internally calculated based on given arguments keeping aspect ratio.
+ */
+private fun createBitmap(
+  resources: Resources,
+  specification: KeyboardSpecification,
+  width: Int,
+  height: Int,
+  virtualWidth: Int,
+  skin: Skin
+): Bitmap? {
+  // Scaling is required because some icons are draw with specified fixed size.
+  val scale = width / virtualWidth.toFloat()
+  val virtualHeight = (height / scale).toInt()
+  val keyboard =
+    getParsedKeyboard(resources, specification, virtualWidth, virtualHeight) ?: return null
+  val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+  val canvas = Canvas(bitmap).apply { scale(scale, scale) }
+  val drawableCache = DrawableCache(resources).apply { setSkin(skin) }
 
-      // Fill background.
-      run {
-        val keyboardBackground = skin.windowBackgroundDrawable.constantState!!.newDrawable()
-        keyboardBackground.setBounds(0, 0, virtualWidth, virtualHeight)
-        keyboardBackground.draw(canvas)
-      }
+  // Fill background.
+  skin.windowBackgroundDrawable.constantState?.newDrawable()?.run {
+    setBounds(0, 0, virtualWidth, virtualHeight)
+    draw(canvas)
+  }
 
-      // Draw keyboard layout.
-      run {
-        val backgroundDrawableFactory = BackgroundDrawableFactory(resources)
-        backgroundDrawableFactory.setSkin(skin)
-        val backgroundSurface =
-          KeyboardViewBackgroundSurface(backgroundDrawableFactory, drawableCache)
-        backgroundSurface.reset(Optional.of(keyboard), emptySet())
-        backgroundSurface.draw(canvas)
-      }
-      return bitmap
-    }
+  // Draw keyboard layout.
+  val backgroundDrawableFactory = BackgroundDrawableFactory(resources).apply { setSkin(skin) }
+  KeyboardViewBackgroundSurface(backgroundDrawableFactory, drawableCache).run {
+    reset(Optional.of(keyboard), emptySet())
+    draw(canvas)
+  }
+  return bitmap
+}
 
-    /** Create a Keyboard instance which fits the current bitmap. */
-    private fun getParsedKeyboard(
-      resources: Resources,
-      specification: KeyboardSpecification,
-      width: Int,
-      height: Int
-    ): Keyboard? {
-      val parser = KeyboardParser(resources, width, height, specification)
-      try {
-        return parser.parseKeyboard()
-      } catch (e: XmlPullParserException) {
-        MozcLog.e("Failed to parse keyboard layout: ", e)
-      } catch (e: IOException) {
-        MozcLog.e("Failed to parse keyboard layout: ", e)
-      }
-      return null
-    }
+/** Create a Keyboard instance which fits the current bitmap. */
+private fun getParsedKeyboard(
+  resources: Resources,
+  specification: KeyboardSpecification,
+  width: Int,
+  height: Int
+): Keyboard? {
+  val parser = KeyboardParser(resources, width, height, specification)
+  try {
+    return parser.parseKeyboard()
+  } catch (e: XmlPullParserException) {
+    MozcLog.e("Failed to parse keyboard layout: ", e)
+  } catch (e: IOException) {
+    MozcLog.e("Failed to parse keyboard layout: ", e)
+  }
+  return null
+}
 
-    private fun isEnabled(state: IntArray): Boolean {
-      for (i in state.indices) {
-        if (state[i] == android.R.attr.state_enabled) {
-          return true
-        }
-      }
-      return false
+private fun isEnabled(state: IntArray): Boolean {
+  for (i in state.indices) {
+    if (state[i] == android.R.attr.state_enabled) {
+      return true
     }
   }
+  return false
 }
