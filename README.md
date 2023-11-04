@@ -13,7 +13,7 @@ This project is not affiliated with Google.
 
 ## What works/What's been done already?
 
-- Software text entry. Kana input and henkan work (with spurious lag).
+- Software text entry. Kana input and henkan work.
 
 ## What doesn't work/What still needs to be done?
 
@@ -66,7 +66,7 @@ docker exec -it mozc_build bash
 git checkout ddd9730b068387631e3b4d212314ef0ed93befe0
 git submodule deinit -f .
 git submodule update --init --recursive
-bazel build package --config oss_android
+bazel build package --config oss_android -c opt
 bazel build //data_manager/oss:mozc_dataset_for_oss --config linux
 exit
 
