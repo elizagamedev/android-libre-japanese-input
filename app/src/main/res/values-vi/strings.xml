@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">Chọn ánh xạ phím cho bàn phím phần cứng.</string>
 <string name="pref_dictionary_personalization_description">Bật đề xuất cá nhân dựa trên nội dung nhập trước đây.</string>
 <string name="pref_dictionary_user_dictionary_tool_description">Chỉnh sửa từ điển người dùng.</string>
-<string name="pref_clear_category_description">Xóa dữ liệu đề xuất hoặc cá nhân hóa.</string>
 <string name="pref_clear_conversion_history_description">Xóa lịch sử chuyển đổi.</string>
 <string name="pref_clear_symbol_history_description">Xóa lịch sử nhập biểu tượng.</string>
 <string name="pref_clear_user_dictionary_description">Xóa từ điển người dùng.</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">Dấu câu</string>
 <string name="japanese_pos_free_standing_word">Từ đứng tự do</string>
 <string name="japanese_pos_suppression_word">Từ lược bỏ</string>
+<string name="yes">Có</string>
+<string name="no">Không</string>
 </resources>

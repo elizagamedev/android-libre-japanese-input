@@ -53,9 +53,7 @@ class SeekBarPreference
 constructor(
   context: Context,
   attrs: AttributeSet? = null,
-  defStyleAttr: Int = 0,
-  defStyleRes: Int = 0,
-) : Preference(context, attrs, defStyleAttr, defStyleRes) {
+) : Preference(context, attrs) {
   private var seekBarValue = 0
   private var seekBarIncrement = 0
   private var seekBar: SeekBar? = null
@@ -109,25 +107,19 @@ constructor(
     }
 
   init {
-    context.theme.obtainStyledAttributes(
-        attrs,
-        R.styleable.SeekBarPreference,
-        defStyleAttr,
-        defStyleRes
-      )
-      .run {
-        try {
-          min = getInteger(R.styleable.SeekBarPreference_min, 0)
-          max = getInteger(R.styleable.SeekBarPreference_android_max, 1)
-          seekBarIncrement = getInteger(R.styleable.SeekBarPreference_seekBarIncrement, 0)
-          unit = getString(R.styleable.SeekBarPreference_unit)
-          lowText = getString(R.styleable.SeekBarPreference_low_text)
-          middleText = getString(R.styleable.SeekBarPreference_middle_text)
-          highText = getString(R.styleable.SeekBarPreference_high_text)
-        } finally {
-          recycle()
-        }
+    context.theme.obtainStyledAttributes(attrs, R.styleable.SeekBarPreference, 0, 0).run {
+      try {
+        min = getInteger(R.styleable.SeekBarPreference_min, 0)
+        max = getInteger(R.styleable.SeekBarPreference_android_max, 1)
+        seekBarIncrement = getInteger(R.styleable.SeekBarPreference_seekBarIncrement, 0)
+        unit = getString(R.styleable.SeekBarPreference_unit)
+        lowText = getString(R.styleable.SeekBarPreference_low_text)
+        middleText = getString(R.styleable.SeekBarPreference_middle_text)
+        highText = getString(R.styleable.SeekBarPreference_high_text)
+      } finally {
+        recycle()
       }
+    }
 
     setIconSpaceReserved(true)
     setLayoutResource(R.layout.pref_seekbar)

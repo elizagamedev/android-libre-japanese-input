@@ -37,6 +37,7 @@ import android.os.IBinder
 import android.view.InflateException
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.common.base.Optional
 import java.util.Collections
 import sh.eliza.japaneseinput.MozcLog
@@ -118,7 +119,7 @@ class MenuDialog(context: Context, listener: Optional<MenuDialogListener>) {
     listenerHandler = MenuDialogListenerHandler(context, indexToIdTable, listener)
     dialog =
       try {
-        AlertDialog.Builder(context)
+        MaterialAlertDialogBuilder(context)
           .setTitle(R.string.menu_dialog_title)
           .setItems(menuTextList, listenerHandler)
           .create()

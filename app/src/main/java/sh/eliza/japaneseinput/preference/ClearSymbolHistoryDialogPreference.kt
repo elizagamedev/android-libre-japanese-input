@@ -30,24 +30,39 @@ package sh.eliza.japaneseinput.preference
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.preference.DialogPreference
+import androidx.preference.Preference
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import sh.eliza.japaneseinput.R
 
 /** A DialogPreference to clear symbol histories. */
-class ClearSymbolHistoryDialogPreference : DialogPreference {
-  constructor(context: Context) : super(context)
-  constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-
-  // TODO(exv): fix this
-  // fun fixmeOnClick(which: Int) {
-  //   if (which == DialogInterface.BUTTON_POSITIVE) {
-  //     val sessionExecutor =
-  //       SessionExecutor.getInstanceInitializedIfNecessary(
-  //         SessionHandlerFactory(getContext()),
-  //         getContext()
-  //       )
-  //     sessionExecutor.clearStorage(StorageType.EMOJI_HISTORY)
-  //     sessionExecutor.clearStorage(StorageType.EMOTICON_HISTORY)
-  //     sessionExecutor.clearStorage(StorageType.SYMBOL_HISTORY)
-  //   }
-  // }
+class ClearSymbolHistoryDialogPreference
+@JvmOverloads
+constructor(
+  context: Context,
+  attrs: AttributeSet? = null,
+) : Preference(context, attrs) {
+  override fun onClick() {
+    MaterialAlertDialogBuilder(context)
+      .apply {
+        setTitle(context.getString(R.string.pref_clear_symbol_history_title))
+        setMessage(context.getString(R.string.pref_clear_symbol_history_description))
+        setPositiveButton(
+            R.string.yes,
+            { _, _ ->
+              // TODO(exv): replace this
+              // val sessionExecutor =
+              //   SessionExecutor.getInstanceInitializedIfNecessary(
+              //     SessionHandlerFactory(getContext()),
+              //     getContext()
+              //   )
+              // sessionExecutor.clearStorage(StorageType.EMOJI_HISTORY)
+              // sessionExecutor.clearStorage(StorageType.EMOTICON_HISTORY)
+              // sessionExecutor.clearStorage(StorageType.SYMBOL_HISTORY)
+            }
+          )
+          .setNegativeButton(R.string.no, { _, _ -> })
+      }
+      .create()
+      .show()
+  }
 }

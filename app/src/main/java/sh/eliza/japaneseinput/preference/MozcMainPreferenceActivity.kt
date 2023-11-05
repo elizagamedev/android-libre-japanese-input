@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import sh.eliza.japaneseinput.ApplicationInitializerFactory
 import sh.eliza.japaneseinput.ApplicationInitializerFactory.ApplicationInitializer
 import sh.eliza.japaneseinput.MozcUtil
@@ -30,7 +31,7 @@ private fun createAlertDialog(
   message: String,
   clickListener: DialogInterface.OnClickListener
 ) =
-  AlertDialog.Builder(context).run {
+  MaterialAlertDialogBuilder(context).run {
     setTitle(titleResourceId)
     setMessage(message)
     setPositiveButton(R.string.pref_ime_alert_next, clickListener)

@@ -48,6 +48,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatSpinner;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.base.Preconditions;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -547,7 +548,7 @@ class UserDictionaryUtil {
         LayoutInflater.from(context)
             .inflate(R.layout.user_dictionary_tool_simple_spinner_dialog_view, null);
     AlertDialog dialog =
-        new AlertDialog.Builder(context)
+        new MaterialAlertDialogBuilder(context)
             .setTitle(titleResourceId)
             .setView(view)
             .setPositiveButton(android.R.string.ok, positiveButtonListener)

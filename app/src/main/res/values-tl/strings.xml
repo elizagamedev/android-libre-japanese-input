@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">Pillin ang key mapping para sa mga hardware keyboard.</string>
 <string name="pref_dictionary_personalization_description">I-enable ang mga personal na suhestyon batay sa nakaraang pag-input.</string>
 <string name="pref_dictionary_user_dictionary_tool_description">Mag-edit ng mga diksyunaryo ng user.</string>
-<string name="pref_clear_category_description">I-clear ang data ng pag-personalize o pagmungkahi.</string>
 <string name="pref_clear_conversion_history_description">I-clear ang history ng pag-convert.</string>
 <string name="pref_clear_symbol_history_description">I-clear ang history ng pag-input ng simbolo.</string>
 <string name="pref_clear_user_dictionary_description">I-clear ang diksyunaryo ng user</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">Bantas</string>
 <string name="japanese_pos_free_standing_word">Free standing word</string>
 <string name="japanese_pos_suppression_word">Suppression word</string>
+<string name="yes">Oo</string>
+<string name="no">Hindi</string>
 </resources>

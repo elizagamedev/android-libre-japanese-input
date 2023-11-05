@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">Khetha umephu wokhiye wamakhibhodi wehadiwe.</string>
 <string name="pref_dictionary_personalization_description">Nika amandla iziphakamiso zomuntu siqu ezisuselwe kokufaka kwangaphambilini.</string>
 <string name="pref_dictionary_user_dictionary_tool_description">Hlela izichazamazwi zomsebenzisi.</string>
-<string name="pref_clear_category_description">Sula ukwenza ngezifiso noma idatha yesiphakamiso.</string>
 <string name="pref_clear_conversion_history_description">Sula umlando wukuguqulela.</string>
 <string name="pref_clear_symbol_history_description">Sula umlando wokufaka wophawu.</string>
 <string name="pref_clear_user_dictionary_description">Sula isichazamazwi somsebenzisi.</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">Izimpawu zolimi</string>
 <string name="japanese_pos_free_standing_word">Igama elizimele</string>
 <string name="japanese_pos_suppression_word">Igama lokucindezela</string>
+<string name="yes">Yebo</string>
+<string name="no">Cha</string>
 </resources>

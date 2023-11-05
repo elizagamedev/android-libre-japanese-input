@@ -30,26 +30,43 @@ package sh.eliza.japaneseinput.preference
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.preference.DialogPreference
+import androidx.preference.Preference
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommand
+import sh.eliza.japaneseinput.R
+import sh.eliza.japaneseinput.session.SessionExecutor
+import sh.eliza.japaneseinput.session.SessionHandlerFactory
 
 /** A DialogPreference to clear user dictionary. */
-class ClearUserDictionaryDialogPreference : DialogPreference {
-  constructor(context: Context) : super(context)
-  constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-
-  // TODO(exv): fix this
-  // fun fixmeOnClick(dialog: DialogInterface?, which: Int) {
-  //   if (which == DialogInterface.BUTTON_POSITIVE) {
-  //     val sessionExecutor =
-  //       SessionExecutor.getInstanceInitializedIfNecessary(
-  //         SessionHandlerFactory(getContext()),
-  //         getContext()
-  //       )
-  //     sessionExecutor.sendUserDictionaryCommand(
-  //       UserDictionaryCommand.newBuilder()
-  //         .setType(UserDictionaryCommand.CommandType.CLEAR_STORAGE)
-  //         .build()
-  //     )
-  //   }
-  // }
+class ClearUserDictionaryDialogPreference
+@JvmOverloads
+constructor(
+  context: Context,
+  attrs: AttributeSet? = null,
+) : Preference(context, attrs) {
+  override fun onClick() {
+    MaterialAlertDialogBuilder(context)
+      .apply {
+        setTitle(context.getString(R.string.pref_clear_user_dictionary_title))
+        setMessage(context.getString(R.string.pref_clear_user_dictionary_description))
+        setPositiveButton(
+            R.string.yes,
+            { _, _ ->
+              val sessionExecutor =
+                SessionExecutor.getInstanceInitializedIfNecessary(
+                  SessionHandlerFactory(getContext()),
+                  getContext()
+                )
+              sessionExecutor.sendUserDictionaryCommand(
+                UserDictionaryCommand.newBuilder()
+                  .setType(UserDictionaryCommand.CommandType.CLEAR_STORAGE)
+                  .build()
+              )
+            }
+          )
+          .setNegativeButton(R.string.no, { _, _ -> })
+      }
+      .create()
+      .show()
+  }
 }

@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">Klaviaturalar üçün düymə görüntüləməsini seçin.</string>
 <string name="pref_dictionary_personalization_description">Keçmiş daxiletmələr əsasında şəxsi təklifləri aktiv edin.</string>
 <string name="pref_dictionary_user_dictionary_tool_description">İstifadəçi lüğətlərini redaktə edin.</string>
-<string name="pref_clear_category_description">Şəxsləndirmə və ya təklif datasını silin.</string>
 <string name="pref_clear_conversion_history_description">Konversiya tarixçəsini silin.</string>
 <string name="pref_clear_symbol_history_description">Simvol daxiletmə tarixçəsini təmizləyin.</string>
 <string name="pref_clear_user_dictionary_description">İstifadəçi lüğətini təmizləyin.</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">Punktuasiya</string>
 <string name="japanese_pos_free_standing_word">Sərbəst işlənən söz</string>
 <string name="japanese_pos_suppression_word">Gizlətmə sözü</string>
+<string name="yes">Bəli</string>
+<string name="no">Xeyr</string>
 </resources>

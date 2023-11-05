@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">ہارڈ ویئر کی بورڈز کیلئے کلید کی نقشہ سازی استعمال کریں۔</string>
 <string name="pref_dictionary_personalization_description">سابقہ ان پٹ کی بنیاد پر ذاتی تجاویز کو فعال کریں۔</string>
 <string name="pref_dictionary_user_dictionary_tool_description">صارف کی لغات میں ترمیم کریں۔</string>
-<string name="pref_clear_category_description">ذاتی نوعیت کا بنانے یا تجویز کا ڈیٹا صاف کریں۔</string>
 <string name="pref_clear_conversion_history_description">تبدیلی کی سرگزشت صاف کریں۔</string>
 <string name="pref_clear_symbol_history_description">علامت ان پٹ کی سرگزشت صاف کریں۔</string>
 <string name="pref_clear_user_dictionary_description">صارف کی لغت کو صاف کریں۔</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">رموز اوقاف</string>
 <string name="japanese_pos_free_standing_word">فری اسٹینڈنگ ورڈ</string>
 <string name="japanese_pos_suppression_word">سپریشن ورڈ</string>
+<string name="yes">ہاں</string>
+<string name="no">نہیں</string>
 </resources>

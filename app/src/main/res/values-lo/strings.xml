@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">ເລືອກ​ການ​ໝາຍ​ຕຳ​ແໜ່ງ​ປຸ່ມ​ສຳ​ລັບ​ແປ້ນ​ພິມ​ພາຍນອກ.</string>
 <string name="pref_dictionary_personalization_description">ເປີດ​ນຳ​ໃຊ້​ຄຳ​ແນະ​ນຳ​ສ່ວນ​ໂຕ​ໂດຍ​ອ້າງ​ອີງ​ຈາກ​ການ​ປ້ອນ​ຂໍ້​ມູນ​ທີ່​ຜ່ານ​ມາ.</string>
 <string name="pref_dictionary_user_dictionary_tool_description">ແກ້​ໄຂວັດ​ຈະ​ນາ​ນຸ​ກົມ​ຜູ່​ໃຊ້.</string>
-<string name="pref_clear_category_description">ລຶບ​ຂໍ້​ມູນ​ການ​ປັບ​ແຕ່ງ​ສ່ວນ​ໂຕ ຫຼື​ຄຳ​ແນະ​ນຳ.</string>
 <string name="pref_clear_conversion_history_description">ລຶບ​ປະ​ຫວັດ​ການ​ສົນ​ທະ​ນາ.</string>
 <string name="pref_clear_symbol_history_description">ລຶບ​ປະ​ຫວັດ​ການ​ປ້ອນ​ຂໍ້​ມູນ​ສັນ​ຍາ​ລັກ.</string>
 <string name="pref_clear_user_dictionary_description">ລຶບວັດ​ຈະນາ​ນຸກົມ​ຜູ່ໃຊ້​.</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">​ເຄື່ອງ​ໝາຍ​ວັກ​ຕອນ</string>
 <string name="japanese_pos_free_standing_word">Free standing word</string>
 <string name="japanese_pos_suppression_word">Suppression word</string>
+<string name="yes">​ຕົກ​ລົງ</string>
+<string name="no">ບໍ່</string>
 </resources>

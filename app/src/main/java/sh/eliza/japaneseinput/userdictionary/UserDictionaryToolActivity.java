@@ -95,10 +95,9 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
       // - Reading
       // - POS name
       if (convertView == null) {
-        // TODO(exv): verify that this call is okay.
         convertView =
             LayoutInflater.from(getContext())
-                .inflate(R.layout.user_dictionary_tool_entry_list_view, parent);
+                .inflate(R.layout.user_dictionary_tool_entry_list_view, null);
       }
 
       final ListView entryListView = (ListView) parent;

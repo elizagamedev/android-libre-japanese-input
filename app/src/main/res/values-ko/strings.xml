@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">하드웨어 키보드에 대한 키 매핑을 선택합니다.</string>
 <string name="pref_dictionary_personalization_description">과거 입력에 따른 맞춤형 추천을 사용하도록 설정합니다.</string>
 <string name="pref_dictionary_user_dictionary_tool_description">사용자 사전 수정</string>
-<string name="pref_clear_category_description">맞춤설정 또는 추천 데이터 삭제</string>
 <string name="pref_clear_conversion_history_description">변환 기록 삭제</string>
 <string name="pref_clear_symbol_history_description">기호 입력 기록 삭제</string>
 <string name="pref_clear_user_dictionary_description">사용자 사전 삭제</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">구두점</string>
 <string name="japanese_pos_free_standing_word">자립어</string>
 <string name="japanese_pos_suppression_word">금지 단어</string>
+<string name="yes">예</string>
+<string name="no">아니요</string>
 </resources>

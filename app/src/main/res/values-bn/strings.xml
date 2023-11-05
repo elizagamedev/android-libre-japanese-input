@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">হার্ডওয়্যার কীবোর্ডের জন্য কী ম্যাপিং নির্বাচন করুন৷</string>
 <string name="pref_dictionary_personalization_description">পূর্ববর্তী ইনপুটের উপর ভিত্তি করে ব্যক্তিগত প্রস্তাবনাগুলি সক্ষম করুন৷</string>
 <string name="pref_dictionary_user_dictionary_tool_description">ব্যবহারকারীর অভিধানগুলি সম্পাদনা করুন৷</string>
-<string name="pref_clear_category_description">ব্যক্তিগতকরণ বা প্রস্তাবনা ডেটা সাফ করুন৷</string>
 <string name="pref_clear_conversion_history_description">রূপান্তরের ইতিহাস সাফ করুন৷</string>
 <string name="pref_clear_symbol_history_description">চিহ্ন ইনপুটের ইতিহাস সাফ করুন৷</string>
 <string name="pref_clear_user_dictionary_description">ব্যবহারকারীর অভিধান সাফ করুন৷</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">বিরাম চিহ্ন</string>
 <string name="japanese_pos_free_standing_word">মৌলিক শব্দ</string>
 <string name="japanese_pos_suppression_word">অনুচ্চারিত শব্দ</string>
+<string name="yes">হ্যাঁ</string>
+<string name="no">না</string>
 </resources>

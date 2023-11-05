@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">Виберіть зіставлення клавіш для фізичних клавіатур.</string>
 <string name="pref_dictionary_personalization_description">Увімкніть персональні пропозиції на основі раніше введеного тексту.</string>
 <string name="pref_dictionary_user_dictionary_tool_description">Редагувати словники користувача.</string>
-<string name="pref_clear_category_description">Очистити дані персоналізації або пропозицій.</string>
 <string name="pref_clear_conversion_history_description">Очистити історію перетворень.</string>
 <string name="pref_clear_symbol_history_description">Очистити історію введення символів.</string>
 <string name="pref_clear_user_dictionary_description">Очистити словник користувача.</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">Пунктуація</string>
 <string name="japanese_pos_free_standing_word">Окреме слово</string>
 <string name="japanese_pos_suppression_word">Незначуще слово</string>
+<string name="yes">Так</string>
+<string name="no">Ні</string>
 </resources>

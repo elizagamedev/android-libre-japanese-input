@@ -29,9 +29,10 @@
 package sh.eliza.japaneseinput.preference
 
 import android.content.Context
-import android.content.DialogInterface
 import android.util.AttributeSet
-import androidx.preference.DialogPreference
+import androidx.preference.Preference
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import sh.eliza.japaneseinput.R
 import sh.eliza.japaneseinput.session.SessionExecutor
 import sh.eliza.japaneseinput.session.SessionHandlerFactory
 
@@ -39,20 +40,32 @@ import sh.eliza.japaneseinput.session.SessionHandlerFactory
  * A DialogPreference to clear entire history of conversions. This preference command clears all the
  * kind of conversion histories including predictions and suggestions.
  */
-class ClearConversionHistoryDialogPreference : DialogPreference {
-  constructor(context: Context) : super(context)
-  constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-
-  // TODO(exv): fix this
-  fun fixmeOnClick(which: Int) {
-    if (which == DialogInterface.BUTTON_POSITIVE) {
-      val sessionExecutor =
-        SessionExecutor.getInstanceInitializedIfNecessary(
-          SessionHandlerFactory(getContext()),
-          getContext()
-        )
-      sessionExecutor.clearUserHistory()
-      sessionExecutor.clearUserPrediction()
-    }
+class ClearConversionHistoryDialogPreference
+@JvmOverloads
+constructor(
+  context: Context,
+  attrs: AttributeSet? = null,
+) : Preference(context, attrs) {
+  override fun onClick() {
+    MaterialAlertDialogBuilder(context)
+      .apply {
+        setTitle(context.getString(R.string.pref_clear_symbol_history_title))
+        setMessage(context.getString(R.string.pref_clear_symbol_history_description))
+        setPositiveButton(
+            R.string.yes,
+            { _, _ ->
+              val sessionExecutor =
+                SessionExecutor.getInstanceInitializedIfNecessary(
+                  SessionHandlerFactory(getContext()),
+                  getContext()
+                )
+              sessionExecutor.clearUserHistory()
+              sessionExecutor.clearUserPrediction()
+            }
+          )
+          .setNegativeButton(R.string.no, { _, _ -> })
+      }
+      .create()
+      .show()
   }
 }

@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">Vybrať mapovanie klávesov pre hardvérové klávesnice</string>
 <string name="pref_dictionary_personalization_description">Povoliť osobné návrhy na základe predchádzajúceho vstupu</string>
 <string name="pref_dictionary_user_dictionary_tool_description">Upraviť používateľské slovníky</string>
-<string name="pref_clear_category_description">Vymazať údaje prispôsobenia alebo návrhov</string>
 <string name="pref_clear_conversion_history_description">Vymazať históriu konverzií</string>
 <string name="pref_clear_symbol_history_description">Vymazať históriu vstupu symbolov</string>
 <string name="pref_clear_user_dictionary_description">Vymazať používateľský slovník</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">Interpunkcia</string>
 <string name="japanese_pos_free_standing_word">Voľne stojace slovo</string>
 <string name="japanese_pos_suppression_word">Tlmiace slovo</string>
+<string name="yes">Áno</string>
+<string name="no">Nie</string>
 </resources>

@@ -63,10 +63,12 @@ import sh.eliza.japaneseinput.view.Skin
 import sh.eliza.japaneseinput.view.SkinType
 
 /** Preference class for KeyboardLayout. */
-class KeyboardLayoutPreference : Preference {
-  constructor(context: Context) : super(context)
-  constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-
+class KeyboardLayoutPreference
+@JvmOverloads
+constructor(
+  context: Context,
+  attrs: AttributeSet? = null,
+) : Preference(context, attrs) {
   class Item(
     val keyboardLayout: KeyboardLayout,
     val specification: KeyboardSpecification,

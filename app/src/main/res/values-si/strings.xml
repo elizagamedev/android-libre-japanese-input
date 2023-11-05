@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">දෘඪාංග යතුරු පුවරු සඳහා යතුරු සිතියම්කරණය තෝරන්න</string>
 <string name="pref_dictionary_personalization_description">පෙර ආදානය මත පදනම්ව පුද්ගලික යෝජනා සබල කරන්න.</string>
 <string name="pref_dictionary_user_dictionary_tool_description">පරිශීලක ශබ්දකෝෂ සංස්කරණය කරන්න.</string>
-<string name="pref_clear_category_description">පුද්ගලාරෝපණ හෝ යෝජනා දත්ත හිස් කරන්න.</string>
 <string name="pref_clear_conversion_history_description">පරිවර්තන ඉතිහාසය හිස් කරන්න.</string>
 <string name="pref_clear_symbol_history_description">සංකේත ආදාන ඉතිහාසය හිස් කරන්න.</string>
 <string name="pref_clear_user_dictionary_description">පරිශීලක ශබ්දකෝෂය හිස් කරන්න</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">විරාම ලකුණ</string>
 <string name="japanese_pos_free_standing_word">නිදහස් වදන</string>
 <string name="japanese_pos_suppression_word">යටපත් වදන</string>
+<string name="yes">ඔව්</string>
+<string name="no">නැත</string>
 </resources>

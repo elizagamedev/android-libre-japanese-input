@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">Odaberi kartu tipki za hardverske tipkovnice.</string>
 <string name="pref_dictionary_personalization_description">Omogući osobne prijedloge na temelju prošlih unosa.</string>
 <string name="pref_dictionary_user_dictionary_tool_description">Uredi korisničke rječnike.</string>
-<string name="pref_clear_category_description">Izbriši podatke prilagođavanja ili osobne podatke.</string>
 <string name="pref_clear_conversion_history_description">Izbriši povijest pretvorbe.</string>
 <string name="pref_clear_symbol_history_description">Izbriši povijest unosa simbola.</string>
 <string name="pref_clear_user_dictionary_description">Izbriši korisnički rječnik.</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">Interpunkcija</string>
 <string name="japanese_pos_free_standing_word">Zasebna riječ</string>
 <string name="japanese_pos_suppression_word">Riječ za izostavljanje</string>
+<string name="yes">Da</string>
+<string name="no">Ne</string>
 </resources>

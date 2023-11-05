@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">ជ្រើស​​គ្រាប់​ចុច​ផែនទី​​សម្រាប់​ក្ដារចុច​ផ្នែក​រឹង​។</string>
 <string name="pref_dictionary_personalization_description">បើក​ការ​ស្នើ​ផ្ទាល់​ខ្លួន​ផ្អែក​លើ​ការ​បញ្ចូល​កន្លង​មក។</string>
 <string name="pref_dictionary_user_dictionary_tool_description">កែ​សម្រួល​វចនានុក្រម​​អ្នក​ប្រើ​។</string>
-<string name="pref_clear_category_description">ជម្រះ​​ទិន្នន័យ​ផ្ទាល់​ខ្លួន​ឬ​ការ​​ស្នើ។</string>
 <string name="pref_clear_conversion_history_description">ជម្រះ​ប្រវត្តិ​ការ​ប្ដូរ។</string>
 <string name="pref_clear_symbol_history_description">ជម្រះ​ប្រវត្តិ​ការ​បញ្ចូល​និមិត្តសញ្ញា។</string>
 <string name="pref_clear_user_dictionary_description">សម្អាត​វចនានុក្រម​អ្នក​ប្រើ</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">សញ្ញា​វណ្ណយុត្ត</string>
 <string name="japanese_pos_free_standing_word">ពាក្យ​ឈរ​​សេរី</string>
 <string name="japanese_pos_suppression_word">ពាក្យ​បង្ក្រាប</string>
+<string name="yes">បាទ/ចាស</string>
+<string name="no">ទេ</string>
 </resources>

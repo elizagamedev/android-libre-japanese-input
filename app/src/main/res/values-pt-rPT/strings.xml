@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">Selecionar o mapeamento de teclas para teclados de hardware.</string>
 <string name="pref_dictionary_personalization_description">Ativar sugestões pessoais com base em introduções passadas.</string>
 <string name="pref_dictionary_user_dictionary_tool_description">Editar dicionários do utilizador.</string>
-<string name="pref_clear_category_description">Limpar personalização ou dados de sugestões.</string>
 <string name="pref_clear_conversion_history_description">Limpar histórico de conversões.</string>
 <string name="pref_clear_symbol_history_description">Limpar histórico de introdução de símbolos.</string>
 <string name="pref_clear_user_dictionary_description">Limpar dicionário do utilizador.</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">Pontuação</string>
 <string name="japanese_pos_free_standing_word">Palavra independente</string>
 <string name="japanese_pos_suppression_word">Palavra de supressão</string>
+<string name="yes">Sim</string>
+<string name="no">Não</string>
 </resources>

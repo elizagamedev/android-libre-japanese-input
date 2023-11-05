@@ -170,28 +170,24 @@
           android:targetPackage="sh.eliza.japaneseinput"
           android:targetClass="sh.eliza.japaneseinput.userdictionary.UserDictionaryToolActivity" />
     </androidx.preference.Preference>
+  </androidx.preference.PreferenceCategory>
 
-    <androidx.preference.PreferenceScreen
-        android:summary="@string/pref_clear_category_description"
-        android:title="@string/pref_clear_category_title" >
-      <sh.eliza.japaneseinput.preference.ClearConversionHistoryDialogPreference
-          android:dialogMessage="@string/pref_clear_conversion_history_description"
-          android:persistent="false"
-          android:summary="@string/pref_clear_conversion_history_description"
-          android:title="@string/pref_clear_conversion_history_title" />
+  <androidx.preference.PreferenceCategory
+      android:title="@string/pref_clear_category_title" >
+    <sh.eliza.japaneseinput.preference.ClearConversionHistoryDialogPreference
+        android:persistent="false"
+        android:summary="@string/pref_clear_conversion_history_description"
+        android:title="@string/pref_clear_conversion_history_title" />
 
-      <sh.eliza.japaneseinput.preference.ClearSymbolHistoryDialogPreference
-          android:dialogMessage="@string/pref_clear_symbol_history_description"
-          android:persistent="false"
-          android:summary="@string/pref_clear_symbol_history_description"
-          android:title="@string/pref_clear_symbol_history_title" />
+    <sh.eliza.japaneseinput.preference.ClearSymbolHistoryDialogPreference
+        android:persistent="false"
+        android:summary="@string/pref_clear_symbol_history_description"
+        android:title="@string/pref_clear_symbol_history_title" />
 
-      <sh.eliza.japaneseinput.preference.ClearUserDictionaryDialogPreference
-          android:dialogMessage="@string/pref_clear_user_dictionary_description"
-          android:persistent="false"
-          android:summary="@string/pref_clear_user_dictionary_description"
-          android:title="@string/pref_clear_user_dictionary_title" />
-    </androidx.preference.PreferenceScreen>
+    <sh.eliza.japaneseinput.preference.ClearUserDictionaryDialogPreference
+        android:persistent="false"
+        android:summary="@string/pref_clear_user_dictionary_description"
+        android:title="@string/pref_clear_user_dictionary_title" />
   </androidx.preference.PreferenceCategory>
 
   <androidx.preference.PreferenceCategory

@@ -262,7 +262,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-      View view = LayoutInflater.from(context).inflate(R.layout.symbol_candidate_view, container);
+      View view = LayoutInflater.from(context).inflate(R.layout.symbol_candidate_view, null);
       SymbolCandidateView symbolCandidateView =
           (SymbolCandidateView) view.findViewById(R.id.symbol_input_candidate_view);
       symbolCandidateView.setCandidateSelectListener(candidateSelectListener);
@@ -297,8 +297,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       scrollGuideView.setScroller(symbolCandidateView.scroller);
       symbolCandidateView.setScrollIndicator(scrollGuideView);
 
-      // TODO(exv): verify that the changed LayoutInflater call above works correctly.
-      // container.addView(view);
+      container.addView(view);
       return view;
     }
 

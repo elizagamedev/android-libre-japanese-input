@@ -104,7 +104,6 @@
 <!-- Dictionary -->
 <string name="pref_dictionary_personalization_description">連文節変換の学習機能の動作を調節します。予測入力の学習には影響しません。</string>
 <string name="pref_dictionary_user_dictionary_tool_description">ユーザ辞書を編集します。</string>
-<string name="pref_clear_category_description">辞書や予測入力の履歴をクリアします。</string>
 <string name="pref_clear_conversion_history_description">変換結果や予測入力の学習履歴をクリアします。</string>
 <string name="pref_clear_symbol_history_description">記号入力の履歴をクリアします。</string>
 <string name="pref_clear_user_dictionary_description">ユーザ辞書をクリアします。</string>
@@ -274,4 +273,6 @@
 <string name="japanese_pos_suppression_word">抑制単語</string>
 
 <!-- Yes/No -->
+<string name="yes">はい</string>
+<string name="no">いいえ</string>
 </resources>

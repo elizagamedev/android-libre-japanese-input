@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">Хардвер гаранд гол зураглалыг сонгоно уу.</string>
 <string name="pref_dictionary_personalization_description">Сүүлийн оролт дээр тулгуурлан хувийн саналуудыг идэвхжүүлнэ.</string>
 <string name="pref_dictionary_user_dictionary_tool_description">Хэрэглэгчийн толь бичгүүдийг засварлах.</string>
-<string name="pref_clear_category_description">Хувийн эсвэл саналын мэдээллийг цэвэрлэх.</string>
 <string name="pref_clear_conversion_history_description">Хувиргалтын түүх цэвэрлэх.</string>
 <string name="pref_clear_symbol_history_description">Тэмдэгт оролтын түүх цэвэрлэх.</string>
 <string name="pref_clear_user_dictionary_description">Хэрэглэгчийн толь бичгийг цэвэрлэх.</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">Цэг таслал</string>
 <string name="japanese_pos_free_standing_word">Чөлөөт тогтвортой үг</string>
 <string name="japanese_pos_suppression_word">Далдлах үг</string>
+<string name="yes">Тийм</string>
+<string name="no">Үгүй</string>
 </resources>

@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">تطابق کلید را برای صفحه‌کلیدهای سخت‌افزاری انتخاب کنید.</string>
 <string name="pref_dictionary_personalization_description">پیشنهادات شخصی را بر اساس ورودی قبلی فعال کنید.</string>
 <string name="pref_dictionary_user_dictionary_tool_description">فرهنگ‌لغت‌های کاربر را ویرایش کنید.</string>
-<string name="pref_clear_category_description">اطلاعات شخصی‌سازی یا پیشنهاد را پاک کنید.</string>
 <string name="pref_clear_conversion_history_description">سابقه تبدیل را پاک کنید.</string>
 <string name="pref_clear_symbol_history_description">سابقه ورود نماد را پاک کنید.</string>
 <string name="pref_clear_user_dictionary_description">فرهنگ‌لغت کاربر را پاک کنید.</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">نشانه گذاری</string>
 <string name="japanese_pos_free_standing_word">کلمه مستقل</string>
 <string name="japanese_pos_suppression_word">کلمه بازدارنده</string>
+<string name="yes">بله</string>
+<string name="no">خیر</string>
 </resources>

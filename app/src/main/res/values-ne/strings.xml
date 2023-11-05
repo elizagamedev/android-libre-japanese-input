@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">हार्डवेयर किबोर्डहरूको लागि कुञ्जी म्यापिङ चयन गर्नुहोस्।</string>
 <string name="pref_dictionary_personalization_description">विगतका इनपुटमा आधारित व्यक्तिगत सुझावहरू सक्षम पार्नुहोस्।</string>
 <string name="pref_dictionary_user_dictionary_tool_description">प्रयोगकर्ता शब्दकोशहरू सम्पादन गर्नुहोस्।</string>
-<string name="pref_clear_category_description">निजीकरण वा सुझाव डेटा खाली गर्नुहोस्।</string>
 <string name="pref_clear_conversion_history_description">रूपान्तरण इतिहास खाली गर्नुहोस्।</string>
 <string name="pref_clear_symbol_history_description">प्रतीक इनपुट इतिहास खाली गर्नुहोस्।</string>
 <string name="pref_clear_user_dictionary_description">प्रयोगकर्ता शब्दकोश खाली गर्नुहोस्।</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">विराम चिन्ह</string>
 <string name="japanese_pos_free_standing_word">स्वतन्त्र रूपको शब्द</string>
 <string name="japanese_pos_suppression_word">दमन शब्द</string>
+<string name="yes">हो</string>
+<string name="no">होइन</string>
 </resources>

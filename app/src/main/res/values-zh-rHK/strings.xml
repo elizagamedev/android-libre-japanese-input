@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">為硬件鍵盤選取按鍵對應。</string>
 <string name="pref_dictionary_personalization_description">啟用個人建議候選字功能，根據輸入字記錄提供候選字。</string>
 <string name="pref_dictionary_user_dictionary_tool_description">編輯使用者字典。</string>
-<string name="pref_clear_category_description">清除個人化設定或建議資料。</string>
 <string name="pref_clear_conversion_history_description">清除轉換記錄。</string>
 <string name="pref_clear_symbol_history_description">清除符號輸入記錄。</string>
 <string name="pref_clear_user_dictionary_description">清除使用者字典。</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">標點符號</string>
 <string name="japanese_pos_free_standing_word">獨立字詞</string>
 <string name="japanese_pos_suppression_word">抑制字詞</string>
+<string name="yes">是</string>
+<string name="no">否</string>
 </resources>

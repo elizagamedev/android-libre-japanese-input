@@ -932,18 +932,6 @@ public class SessionExecutor {
         Optional.absent());
   }
 
-  // TODO(exv): replace this
-  // /**
-  //  * Sets the given {@code config} to the server as imposed config.
-  //  */
-  // public void setImposedConfig(Config config) {
-  //   Preconditions.checkNotNull(config);
-  //   // Ignore output.
-  //   evaluateAsynchronously(
-  //       Input.newBuilder().setType(Input.CommandType.SET_IMPOSED_CONFIG).setConfig(config),
-  //       Optional.<KeyEventInterface>absent(), Optional.<EvaluationCallback>absent());
-  // }
-
   /** Clears the unused user prediction from the server synchronously. */
   public void clearUnusedUserPrediction() {
     evaluateSynchronously(

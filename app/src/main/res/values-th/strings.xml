@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">เลือกการแมปแป้นพิมพ์สำหรับแป้นพิมพ์จริง</string>
 <string name="pref_dictionary_personalization_description">เปิดใช้คำแนะนำส่วนตัวโดยอิงจากการป้อนข้อมูลที่ผ่านมา</string>
 <string name="pref_dictionary_user_dictionary_tool_description">แก้ไขพจนานุกรมผู้ใช้</string>
-<string name="pref_clear_category_description">ล้างการปรับเปลี่ยนในแบบของคุณหรือข้อมูลคำแนะนำ</string>
 <string name="pref_clear_conversion_history_description">ล้างประวัติการแปลงค่า</string>
 <string name="pref_clear_symbol_history_description">ล้างประวัติการป้อนสัญลักษณ์</string>
 <string name="pref_clear_user_dictionary_description">ล้างพจนานุกรมผู้ใช้</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">เครื่องหมายวรรคตอน</string>
 <string name="japanese_pos_free_standing_word">คำที่ใช้โดดๆ</string>
 <string name="japanese_pos_suppression_word">คำที่งดใช้</string>
+<string name="yes">ใช่</string>
+<string name="no">ไม่</string>
 </resources>

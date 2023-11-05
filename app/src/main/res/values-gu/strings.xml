@@ -92,7 +92,6 @@
 <string name="pref_hardware_keymap_description">હાર્ડવેર કીબોર્ડ માટે કી મેપિંગ પસંદ કરો.</string>
 <string name="pref_dictionary_personalization_description">છેલ્લા ઇનપુટ પર આધારિત વ્યક્તિગત સૂચનો સક્ષમ કરો.</string>
 <string name="pref_dictionary_user_dictionary_tool_description">વપરાશકર્તા શબ્દકોશ સંપાદિત કરો.</string>
-<string name="pref_clear_category_description">વૈયક્તિકરણ અથવા સૂચન ડેટા સાફ કરો.</string>
 <string name="pref_clear_conversion_history_description">રૂપાંતરણ ઇતિહાસ સાફ કરો.</string>
 <string name="pref_clear_symbol_history_description">પ્રતીક ઇનપુટ ઇતિહાસ સાફ કરો.</string>
 <string name="pref_clear_user_dictionary_description">વપરાશકર્તા શબ્દકોશ સાફ કરો</string>
@@ -225,4 +224,6 @@
 <string name="japanese_pos_punctuation">વિરામચિહ્ન</string>
 <string name="japanese_pos_free_standing_word">ફ્રી સ્ટેન્ડિંગ શબ્દ</string>
 <string name="japanese_pos_suppression_word">સપ્રેશન શબ્દ</string>
+<string name="yes">હા</string>
+<string name="no">નહીં</string>
 </resources>
