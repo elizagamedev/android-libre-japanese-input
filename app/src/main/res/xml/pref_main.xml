@@ -40,7 +40,6 @@
     -->
     <sh.eliza.japaneseinput.preference.KeyboardLayoutPreference
         android:defaultValue="TWELVE_KEYS"
-        android:persistent="false"
         android:key="pref_current_keyboard_layout_key"
         android:layout="@layout/pref_large_widget"
         android:summary="@string/pref_keyboard_layout_description"
@@ -94,6 +93,7 @@
   <androidx.preference.PreferenceCategory
       android:title="@string/pref_other_input_support_preference_category_title">
     <androidx.preference.MultiSelectListPreference
+        android:key="pref_fullscreen"
         android:defaultValue="@array/pref_fullscreen_default_values"
         android:entries="@array/pref_fullscreen_entries"
         android:entryValues="@array/pref_fullscreen_keys"

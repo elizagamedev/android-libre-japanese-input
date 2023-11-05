@@ -40,25 +40,24 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemClickListener
-import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.BaseAdapter
-import android.widget.Gallery
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.Px
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
 import androidx.preference.PreferenceViewHolder
-import com.google.common.base.Preconditions
-import java.util.Arrays
-import java.util.Collections
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import java.util.EnumMap
 import sh.eliza.japaneseinput.MozcLog
 import sh.eliza.japaneseinput.R
 import sh.eliza.japaneseinput.keyboard.Keyboard.KeyboardSpecification
 import sh.eliza.japaneseinput.preference.ClientSidePreference.KeyboardLayout
+import sh.eliza.japaneseinput.preference.PreferenceUtil.PREF_CURRENT_KEYBOARD_LAYOUT_KEY
+import sh.eliza.japaneseinput.preference.PreferenceUtil.PREF_LANDSCAPE_KEYBOARD_LAYOUT_KEY
+import sh.eliza.japaneseinput.preference.PreferenceUtil.PREF_PORTRAIT_KEYBOARD_LAYOUT_KEY
+import sh.eliza.japaneseinput.preference.PreferenceUtil.isLandscapeKeyboardSettingActive
 import sh.eliza.japaneseinput.view.Skin
 import sh.eliza.japaneseinput.view.SkinType
 
@@ -69,110 +68,100 @@ constructor(
   context: Context,
   attrs: AttributeSet? = null,
 ) : Preference(context, attrs) {
-  class Item(
+  data class Item(
     val keyboardLayout: KeyboardLayout,
     val specification: KeyboardSpecification,
     val titleResId: Int,
     val descriptionResId: Int,
   )
 
-  internal inner class ImageAdapter(resources: Resources) : BaseAdapter() {
+  internal class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    val root = view.findViewById<View>(R.id.pref_inputstyle_item_root)
+    val image = view.findViewById<ImageView>(R.id.pref_inputstyle_item_image)
+    val title = view.findViewById<TextView>(R.id.pref_inputstyle_item_title)
+  }
+
+  internal inner class ImageAdapter(resources: Resources) : RecyclerView.Adapter<ViewHolder>() {
     private val drawableMap =
       EnumMap<KeyboardLayout, KeyboardPreviewDrawable>(KeyboardLayout::class.java)
 
     init {
-      for (item in itemList) {
+      for (item in ITEM_LIST) {
         drawableMap[item.keyboardLayout] =
           KeyboardPreviewDrawable(resources, item.keyboardLayout, item.specification)
       }
     }
 
-    override fun getCount(): Int {
-      return itemList.size
-    }
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) =
+      ViewHolder(
+        LayoutInflater.from(viewGroup.context)
+          .inflate(R.layout.pref_keyboard_layout_item, viewGroup, /*attachToRoot=*/ false)
+      )
 
-    override fun getItem(item: Int): Any {
-      return itemList[item]
-    }
-
-    override fun getItemId(item: Int): Long {
-      return item.toLong()
-    }
-
-    override fun getView(position: Int, convertView: View?, parentView: ViewGroup): View {
-      val view =
-        if (convertView == null) {
-          LayoutInflater.from(context)
-            .inflate(R.layout.pref_keyboard_layout_item, parentView, false)
-        } else {
-          convertView
-        }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
       val isEnabled = this@KeyboardLayoutPreference.isEnabled()
 
       // Needs to set the properties to the view even if a cached view is available,
       // because the cached view might use to be used for another item.
-      val item = itemList[position]
-      val imageView = view.findViewById<View>(R.id.pref_inputstyle_item_image) as ImageView
-      imageView.setImageDrawable(drawableMap[item.keyboardLayout])
-      imageView.isEnabled = isEnabled
-      val titleView = view.findViewById<View>(R.id.pref_inputstyle_item_title) as TextView
-      titleView.setText(item.titleResId)
-      titleView.setTextColor(
+      val item = ITEM_LIST[position]
+      holder.image.setImageDrawable(drawableMap[item.keyboardLayout])
+      holder.image.isEnabled = isEnabled
+      holder.title.setText(item.titleResId)
+      holder.title.setTextColor(
         ContextCompat.getColor(
           context,
           if (isEnabled) R.color.pref_inputstyle_title else R.color.pref_inputstyle_title_disabled
         )
       )
-      titleView.isEnabled = parentView.isEnabled
-      updateBackground(view, position, getActiveIndex())
-      return view
+      holder.title.isEnabled = isEnabled
+      updateBackground(holder.root, position, getActiveIndex())
+      holder.root.setOnClickListener {
+        // Update the value if necessary.
+        val newValue = ITEM_LIST[position].keyboardLayout
+        if (callChangeListener(newValue)) {
+          value = newValue
+          @Suppress("NotifyDataSetChanged") notifyDataSetChanged()
+        }
+      }
     }
 
+    override fun getItemCount() = ITEM_LIST.size
+
     fun setSkin(skin: Skin) {
-      Preconditions.checkNotNull<Skin>(skin)
       for (drawable in drawableMap.values) {
         drawable.setSkin(skin)
       }
     }
   }
 
-  private inner class GalleryEventListener : OnItemSelectedListener, OnItemClickListener {
-    override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-      // Update the value if necessary.
-      val newValue: KeyboardLayout = itemList[position].keyboardLayout
-      if (callChangeListener(newValue)) {
-        value = newValue
-        updateAllItemBackground(parent, getActiveIndex())
-      }
-    }
+  private inner class GalleryEventListener(private val descriptionView: TextView) :
+    ViewPager2.OnPageChangeCallback() {
 
-    override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+    override fun onPageSelected(position: Int) {
       // Update the description.
-      val descriptionView =
-        (parent.parent as View).findViewById<TextView>(R.id.pref_inputstyle_description)
-      if (descriptionView != null) {
-        val item = parent.getItemAtPosition(position) as Item
-        descriptionView.text =
-          Html.fromHtml(
-            descriptionView.context.resources.getString(item.descriptionResId),
-            Build.VERSION.SDK_INT
-          )
-      }
+      val item = ITEM_LIST[position]
+      descriptionView.text =
+        Html.fromHtml(
+          descriptionView.context.resources.getString(item.descriptionResId),
+          Build.VERSION.SDK_INT
+        )
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-      // Do nothing.
-    }
+    override fun onPageScrollStateChanged(state: Int) {}
+
+    override fun onPageScrolled(
+      position: Int,
+      positionOffset: Float,
+      @Px positionOffsetPixels: Int,
+    ) {}
   }
 
   private val imageAdapter = ImageAdapter(context.resources)
-  private val galleryEventListener = GalleryEventListener()
   private val sharedPreferenceChangeListener =
-    object : OnSharedPreferenceChangeListener {
-      override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
-        if (key == getContext().getResources().getString(R.string.pref_skin_type_key)) {
-          updateSkin()
-        }
+    OnSharedPreferenceChangeListener { _: SharedPreferences, key: String? ->
+      when (key) {
+        context.resources.getString(R.string.pref_skin_type_key) -> updateSkin()
+        this.key -> onSetInitialValue(null)
       }
     }
 
@@ -186,12 +175,12 @@ constructor(
     }
 
   private fun getActiveIndex(): Int {
-    for (i in itemList.indices) {
-      if (itemList[i].keyboardLayout == value) {
+    for (i in ITEM_LIST.indices) {
+      if (ITEM_LIST[i].keyboardLayout == value) {
         return i
       }
     }
-    MozcLog.e("Current value is not found in the itemList: $value")
+    MozcLog.e("Current value is not found in the ITEM_LIST: $value")
     return 0
   }
 
@@ -200,7 +189,6 @@ constructor(
   }
 
   override protected fun onSetInitialValue(defaultValue: Any?) {
-    // TODO(exv): okay to ignore defaultValue here?
     value = toKeyboardLayoutInternal(getPersistedString(null))
   }
 
@@ -223,14 +211,14 @@ constructor(
 
   override fun onBindViewHolder(holder: PreferenceViewHolder) {
     super.onBindViewHolder(holder)
-    (holder.findViewById(R.id.pref_inputstyle_description) as TextView).run {
-      movementMethod = LinkMovementMethod.getInstance()
-    }
-    (holder.findViewById(R.id.pref_inputstyle_gallery) as Gallery).run {
+    val descriptionView =
+      (holder.findViewById(R.id.pref_inputstyle_description) as TextView).apply {
+        movementMethod = LinkMovementMethod.getInstance()
+      }
+    (holder.findViewById(R.id.pref_inputstyle_view_pager) as ViewPager2).run {
       setAdapter(imageAdapter)
-      setOnItemSelectedListener(galleryEventListener)
-      setOnItemClickListener(galleryEventListener)
-      setSelection(getActiveIndex())
+      registerOnPageChangeCallback(GalleryEventListener(descriptionView))
+      setCurrentItem(getActiveIndex(), /*smoothScroll=*/ false)
     }
     updateSkin()
   }
@@ -238,6 +226,21 @@ constructor(
   override protected fun onAttachedToHierarchy(preferenceManager: PreferenceManager) {
     super.onAttachedToHierarchy(preferenceManager)
     updateSkin()
+
+    // Select between portrait and landscape as necessary.
+    if (key == PREF_CURRENT_KEYBOARD_LAYOUT_KEY) {
+      key =
+        if (isLandscapeKeyboardSettingActive(
+            sharedPreferences!!,
+            context.resources.configuration.orientation
+          )
+        ) {
+          PREF_LANDSCAPE_KEYBOARD_LAYOUT_KEY
+        } else {
+          PREF_PORTRAIT_KEYBOARD_LAYOUT_KEY
+        }
+    }
+
     sharedPreferences!!.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
   }
 
@@ -257,47 +260,34 @@ constructor(
       )
     imageAdapter.setSkin(skinType.getSkin(resources))
   }
+}
 
-  companion object {
-    @JvmField
-    val itemList =
-      Collections.unmodifiableList(
-        Arrays.asList(
-          Item(
-            KeyboardLayout.TWELVE_KEYS,
-            KeyboardSpecification.TWELVE_KEY_TOGGLE_FLICK_KANA,
-            R.string.pref_keyboard_layout_title_12keys,
-            R.string.pref_keyboard_layout_description_12keys
-          ),
-          Item(
-            KeyboardLayout.QWERTY,
-            KeyboardSpecification.QWERTY_KANA,
-            R.string.pref_keyboard_layout_title_qwerty,
-            R.string.pref_keyboard_layout_description_qwerty
-          ),
-          Item(
-            KeyboardLayout.GODAN,
-            KeyboardSpecification.GODAN_KANA,
-            R.string.pref_keyboard_layout_title_godan,
-            R.string.pref_keyboard_layout_description_godan
-          )
-        )
-      )
+private val ITEM_LIST =
+  listOf(
+    KeyboardLayoutPreference.Item(
+      KeyboardLayout.TWELVE_KEYS,
+      KeyboardSpecification.TWELVE_KEY_TOGGLE_FLICK_KANA,
+      R.string.pref_keyboard_layout_title_12keys,
+      R.string.pref_keyboard_layout_description_12keys
+    ),
+    KeyboardLayoutPreference.Item(
+      KeyboardLayout.QWERTY,
+      KeyboardSpecification.QWERTY_KANA,
+      R.string.pref_keyboard_layout_title_qwerty,
+      R.string.pref_keyboard_layout_description_qwerty
+    ),
+    KeyboardLayoutPreference.Item(
+      KeyboardLayout.GODAN,
+      KeyboardSpecification.GODAN_KANA,
+      R.string.pref_keyboard_layout_title_godan,
+      R.string.pref_keyboard_layout_description_godan
+    )
+  )
 
-    private fun updateAllItemBackground(gallery: AdapterView<*>, activeIndex: Int) {
-      for (i in 0 until gallery.getChildCount()) {
-        val child: View = gallery.getChildAt(i)
-        val position: Int = gallery.getPositionForView(child)
-        updateBackground(child, position, activeIndex)
-      }
-    }
-
-    private fun updateBackground(view: View, position: Int, activePosition: Int) {
-      if (position == activePosition) {
-        view.setBackgroundResource(android.R.drawable.dialog_frame)
-      } else {
-        view.setBackground(null)
-      }
-    }
+private fun updateBackground(view: View, position: Int, activePosition: Int) {
+  if (position == activePosition) {
+    view.setBackgroundResource(android.R.drawable.dialog_frame)
+  } else {
+    view.setBackground(null)
   }
 }

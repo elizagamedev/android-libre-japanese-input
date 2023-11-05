@@ -29,23 +29,29 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="fill_parent"
-    android:layout_width="wrap_content"
-    android:orientation="vertical" >
-  <ImageView
-      android:adjustViewBounds="true"
-      android:id="@+id/pref_inputstyle_item_image"
-      android:layout_height="0dip"
-      android:layout_width="fill_parent"
-      android:layout_weight="1"
-      android:maxWidth="@dimen/pref_inputstyle_image_width"
-      android:scaleType="fitCenter" />
-  <TextView
-      android:id="@+id/pref_inputstyle_item_title"
-      android:gravity="center"
-      android:layout_height="wrap_content"
-      android:layout_width="fill_parent"
-      android:textSize="@dimen/pref_inputstyle_title_fontsize" />
-</LinearLayout>
+    android:layout_width="fill_parent">
+  <LinearLayout
+      android:id="@+id/pref_inputstyle_item_root"
+      android:layout_height="fill_parent"
+      android:layout_width="wrap_content"
+      android:orientation="vertical"
+      android:layout_gravity="center_horizontal">
+    <ImageView
+        android:adjustViewBounds="true"
+        android:id="@+id/pref_inputstyle_item_image"
+        android:layout_height="0dip"
+        android:layout_width="fill_parent"
+        android:layout_weight="1"
+        android:maxWidth="@dimen/pref_inputstyle_image_width"
+        android:scaleType="fitCenter" />
+    <TextView
+        android:id="@+id/pref_inputstyle_item_title"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:textSize="@dimen/pref_inputstyle_title_fontsize" />
+  </LinearLayout>
+</FrameLayout>

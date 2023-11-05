@@ -34,8 +34,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto" >
   <androidx.preference.PreferenceCategory
       android:title="@string/pref_software_keyboard_preferences_portrait_title"
-      android:key="pref_software_keyboard_advanced_portrait_key"
-      android:persistent="false" >
+      android:key="pref_software_keyboard_advanced_portrait_key">
     <sh.eliza.japaneseinput.preference.KeyboardLayoutPreference
         android:defaultValue="TWELVE_KEYS"
         android:key="pref_portrait_keyboard_layout_key"
@@ -91,8 +90,7 @@
 
   <androidx.preference.PreferenceCategory
       android:title="@string/pref_software_keyboard_preferences_landscape_title"
-      android:key="pref_software_keyboard_advanced_landscape_key"
-      android:persistent="false" >
+      android:key="pref_software_keyboard_advanced_landscape_key">
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="true"
         android:key="pref_use_portrait_keyboard_settings_for_landscape_key"

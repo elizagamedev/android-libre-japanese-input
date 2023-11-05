@@ -33,8 +33,8 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal" >
-  <sh.eliza.japaneseinput.preference.MozcGallery
-      android:id="@+id/pref_inputstyle_gallery"
+  <androidx.viewpager2.widget.ViewPager2
+      android:id="@+id/pref_inputstyle_view_pager"
       android:layout_width="0dip"
       android:layout_height="wrap_content"
       android:layout_weight="1"

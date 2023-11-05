@@ -262,7 +262,9 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-      View view = LayoutInflater.from(context).inflate(R.layout.symbol_candidate_view, null);
+      View view =
+          LayoutInflater.from(context)
+              .inflate(R.layout.symbol_candidate_view, container, /* attachToRoot= */ false);
       SymbolCandidateView symbolCandidateView =
           (SymbolCandidateView) view.findViewById(R.id.symbol_input_candidate_view);
       symbolCandidateView.setCandidateSelectListener(candidateSelectListener);

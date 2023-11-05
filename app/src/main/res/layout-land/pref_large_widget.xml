@@ -16,7 +16,7 @@
   -->
 
 <!-- Forked from: preference/preference/res/layout/preference_material.xml -->
-<!-- Changed orientation of parent layout to veritcal. -->
+<!-- Allow large widget next to text. -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -31,14 +31,14 @@
     android:background="?android:attr/selectableItemBackground"
     android:clipToPadding="false"
     android:baselineAligned="false"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     tools:ignore="Overdraw">
 
   <LinearLayout
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="match_parent"
       android:orientation="horizontal"
-      android:baselineAligned="false">
+      android:baselineAligned="false" >
 
     <include layout="@layout/pref_image_frame"/>
 

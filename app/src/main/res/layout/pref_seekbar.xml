@@ -34,28 +34,7 @@
     android:baselineAligned="false"
     tools:ignore="Overdraw">
 
-  <LinearLayout
-      android:id="@+id/icon_frame"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:minWidth="56dp"
-      android:gravity="start|center_vertical"
-      android:orientation="horizontal"
-      android:paddingLeft="0dp"
-      android:paddingStart="0dp"
-      android:paddingRight="8dp"
-      android:paddingEnd="8dp"
-      android:paddingTop="4dp"
-      android:paddingBottom="4dp">
-
-    <androidx.preference.internal.PreferenceImageView
-        android:id="@android:id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:maxWidth="48dp"
-        app:maxHeight="48dp"/>
-
-  </LinearLayout>
+  <include layout="@layout/pref_image_frame"/>
 
   <LinearLayout
       android:layout_width="match_parent"

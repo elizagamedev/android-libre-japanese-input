@@ -117,43 +117,6 @@ object PreferenceUtil {
     } else deviceOrientation == Configuration.ORIENTATION_LANDSCAPE
   }
 
-  /** Initializes some preferences which need special initialization. */
-  fun initializeSpecialPreferences(preferenceManager: PreferenceManager?) {
-    if (preferenceManager == null) {
-      return
-    }
-    initializeSpecialPreferencesInternal(PreferenceManagerInterfaceImpl(preferenceManager))
-  }
-
-  private fun initializeSpecialPreferencesInternal(preferenceManager: PreferenceManagerInterface) {
-    initializeCurrentKeyboardLayoutPreference(
-      preferenceManager.findPreference(PREF_CURRENT_KEYBOARD_LAYOUT_KEY)
-    )
-    initializeVersionPreference(preferenceManager.findPreference(PREF_ABOUT_VERSION))
-    initializeLayoutAdjustmentPreference(preferenceManager)
-  }
-
-  private fun initializeCurrentKeyboardLayoutPreference(preference: Preference?) {
-    if (preference !is KeyboardLayoutPreference) {
-      return
-    }
-
-    // Initialize the value based on the current orientation.
-    val sharedPreferences = preference.sharedPreferences!!
-    val isLandscapeKeyboardSettingActive =
-      isLandscapeKeyboardSettingActive(
-        sharedPreferences,
-        preference.context.resources.configuration.orientation
-      )
-    preference.value =
-      getKeyboardLayout(
-        sharedPreferences,
-        if (isLandscapeKeyboardSettingActive) PREF_LANDSCAPE_KEYBOARD_LAYOUT_KEY
-        else PREF_PORTRAIT_KEYBOARD_LAYOUT_KEY
-      )
-    preference.setOnPreferenceChangeListener(CURRENT_KEYBOARD_LAYOUT_PREFERENCE_CHANGE_LISTENER)
-  }
-
   /** Returns parsed [KeyboardLayout] instance, or TWELVE_KEYS if any error is found. */
   private fun getKeyboardLayout(
     sharedPreferences: SharedPreferences?,

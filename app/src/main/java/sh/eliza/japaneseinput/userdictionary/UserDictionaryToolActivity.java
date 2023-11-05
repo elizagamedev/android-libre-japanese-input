@@ -97,7 +97,10 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
       if (convertView == null) {
         convertView =
             LayoutInflater.from(getContext())
-                .inflate(R.layout.user_dictionary_tool_entry_list_view, null);
+                .inflate(
+                    R.layout.user_dictionary_tool_entry_list_view,
+                    parent,
+                    /* attachToRoot= */ false);
       }
 
       final ListView entryListView = (ListView) parent;
