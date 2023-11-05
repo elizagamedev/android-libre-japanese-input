@@ -36,7 +36,6 @@ import android.view.ViewStub;
 import android.view.ViewStub.OnInflateListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import sh.eliza.japaneseinput.view.Skin;
@@ -47,7 +46,7 @@ import sh.eliza.japaneseinput.view.Skin;
  */
 public class SideFrameStubProxy {
 
-  @VisibleForTesting public boolean inflated = false;
+  private boolean inflated = false;
 
   private Optional<View> currentView = Optional.absent();
 
@@ -75,7 +74,6 @@ public class SideFrameStubProxy {
     viewStub.setOnInflateListener(
         new OnInflateListener() {
 
-          @SuppressWarnings("deprecation")
           @Override
           public void onInflate(ViewStub stub, View view) {
             inflated = true;

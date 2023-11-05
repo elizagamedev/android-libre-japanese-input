@@ -28,7 +28,6 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package sh.eliza.japaneseinput.ui
 
-import android.R
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -39,7 +38,6 @@ import android.text.Layout
 import android.text.Layout.Alignment
 import android.text.StaticLayout
 import android.text.TextPaint
-import com.google.common.annotations.VisibleForTesting
 import com.google.common.base.Optional
 import com.google.common.base.Preconditions
 import java.util.Locale
@@ -56,7 +54,7 @@ private val STATE_EMPTY = intArrayOf()
 
 // This is actually not the constant, but we should treat this as constant.
 // Should not edit its contents.
-private val STATE_FOCUSED = intArrayOf(R.attr.state_focused)
+private val STATE_FOCUSED = intArrayOf(android.R.attr.state_focused)
 
 /** Locale field for [Paint.setTextLocale]. */
 private val TEXT_LOCALE = Locale.JAPAN
@@ -141,7 +139,8 @@ class CandidateLayoutRenderer {
   private var descriptionLayoutPolicy = DescriptionLayoutPolicy.OVERLAY
   private var spanBackgroundDrawable = Optional.absent<Drawable>()
 
-  @JvmField @VisibleForTesting var focusedIndex = -1
+  private var focusedIndex = -1
+
   fun setSkin(skin: Skin) {
     valuePaint.color = skin.candidateValueTextColor
     focusedValuePaint.color = skin.candidateValueFocusedTextColor
@@ -241,8 +240,7 @@ class CandidateLayoutRenderer {
     }
   }
 
-  @VisibleForTesting
-  fun drawSpan(
+  private fun drawSpan(
     canvas: Canvas,
     row: CandidateLayout.Row,
     span: CandidateLayout.Span,

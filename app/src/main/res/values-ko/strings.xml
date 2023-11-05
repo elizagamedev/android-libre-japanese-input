@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">소프트웨어 키보드</string>
 <string name="pref_software_keyboard_advanced_settings_title">소프트웨어 키보드 고급 설정</string>
-<string name="pref_fragment_software_keyboard_title">소프트웨어 키보드</string>
-<string name="pref_fragment_input_support_title">입력 지원</string>
-<string name="pref_fragment_conversion_title">전환</string>
-<string name="pref_fragment_dictionary_title">사전</string>
-<string name="pref_fragment_user_feedback_title">사용자 의견</string>
-<string name="pref_fragment_about_title">정보</string>
-<string name="pref_fragment_development_title">개발</string>
 <string name="pref_software_keyboard_preferences_portrait_title">세로 모드를 위한 소프트웨어 키보드 환경설정</string>
 <string name="pref_software_keyboard_preferences_landscape_title">가로 모드를 위한 소프트웨어 키보드 환경설정</string>
 <string name="pref_keyboard_layout_title">키보드 레이아웃</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">특수키 무시 변환</string>
 <string name="pref_typing_correction_title">입력 수정</string>
 <string name="pref_other_incognito_mode_title">시크릿 모드</string>
-<string name="pref_emoji_provider_type_title">그림 이모티콘 제공자 선택</string>
 <string name="pref_dictionry_category_title">사전 환경설정</string>
 <string name="pref_dictionary_personalization_title">맞춤설정</string>
 <string name="pref_dictionary_user_dictionary_tool_title">사전 도구</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">변환 기록</string>
 <string name="pref_clear_symbol_history_title">기호 사용 이력</string>
 <string name="pref_clear_user_dictionary_title">사용자 사전</string>
-<string name="pref_user_feedback_category_title">사용자 피드백</string>
-<string name="pref_other_usage_stats_title">사용 통계 보내기</string>
 <string name="pref_about_about_this_software_title">소프트웨어 정보</string>
 <string name="pref_about_version_title">버전</string>
 <string name="pref_about_oss_credits_title">오픈소스 소프트웨어</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">입력 모드와 관계없이 항상 반각 스페이스를 사용합니다.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">카나 특수키 무시 변환을 사용합니다. 12키 및 고단 키보드에 적용됩니다. 예: かつこう→学校</string>
 <string name="pref_typing_correction_description">오타를 감지하여 수정된 후보 단어를 표시합니다. 예: すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">그림 이모티콘을 사용하려면 그림 이모티콘 제공자를 적절하게 선택하세요.</string>
 <string name="pref_skin_type_description">키보드 테마를 선택하여 소프트웨어 키보드의 디자인을 맞춤설정하세요.</string>
 <string name="pref_voice_input_description">소프트웨어 키보드에 음성 입력 버튼을 표시할 수 있습니다.</string>
 <string name="pref_hardware_keymap_description">하드웨어 키보드에 대한 키 매핑을 선택합니다.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">기호 입력 기록 삭제</string>
 <string name="pref_clear_user_dictionary_description">사용자 사전 삭제</string>
 <string name="pref_other_incognito_mode_description">맞춤설정, 추천, 사용자 사전을 일시적으로 사용 중지합니다.</string>
-<string name="pref_other_usage_stats_description">사용자 통계를 %1$s에 전송합니다. 이 정보는 %1$s 제품 및 서비스를 개선하는 용도로만 사용됩니다.</string>
 <string name="pref_about_oss_credits_description">이 소프트웨어는 오픈소스 소프트웨어를 사용합니다. 라이선스를 확인하세요.</string>
 <string name="pref_launcher_icon_visibility_description">런처에 애플리케이션 아이콘 표시</string>
 <string name="pref_input_style_setting_entry_toggle">토글</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">토글 및 플릭</string>
 <string name="pref_fullscreen_portrait">세로 모드에서 사용 설정</string>
 <string name="pref_fullscreen_landscape">가로 모드에서 사용 설정</string>
-<string name="pref_emoji_provider_type_unicode">이동통신사 그림 이모티콘 사용 중지</string>
-<string name="pref_emoji_provider_type_docomo">NTT 도코모</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">오렌지/라이트 그레이</string>
 <string name="pref_skin_type_blue_lightgray">블루/라이트 그레이</string>
 <string name="pref_skin_type_blue_darkgray">블루/다크 그레이</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">소재 디자인(다크)</string>
 <string name="pref_hardware_keymap_default">시스템 기본값</string>
 <string name="pref_hardware_keymap_japanese109A">일본어(109A)</string>
-<string name="pref_hardware_keymap_twelvekey">12키</string>
 <string name="pref_dictionary_personalization_entry_enabled">사용</string>
 <string name="pref_dictionary_personalization_entry_readonly">중지</string>
 <string name="pref_dictionary_personalization_entry_disabled">사용 중지</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">사전 이름 수정</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">사전 이름</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">새 단어 추가</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">단어 수정</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">읽기</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">단어</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">카테고리</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">구두점</string>
 <string name="japanese_pos_free_standing_word">자립어</string>
 <string name="japanese_pos_suppression_word">금지 단어</string>
-<string name="yes">예</string>
-<string name="no">아니요</string>
 </resources>

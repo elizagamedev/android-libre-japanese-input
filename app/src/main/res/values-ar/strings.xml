@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">لوحة مفاتيح برمجية</string>
 <string name="pref_software_keyboard_advanced_settings_title">الإعدادات المتقدمة للوحة المفاتيح البرمجية</string>
-<string name="pref_fragment_software_keyboard_title">لوحة مفاتيح برمجية</string>
-<string name="pref_fragment_input_support_title">دعم الإدخال</string>
-<string name="pref_fragment_conversion_title">التحويل</string>
-<string name="pref_fragment_dictionary_title">القاموس</string>
-<string name="pref_fragment_user_feedback_title">تعليقات المستخدم</string>
-<string name="pref_fragment_about_title">حول</string>
-<string name="pref_fragment_development_title">التطوير</string>
 <string name="pref_software_keyboard_preferences_portrait_title">تفضيلات لوحة المفاتيح البرمجية في الوضع الرأسي</string>
 <string name="pref_software_keyboard_preferences_landscape_title">تفضيلات لوحة المفاتيح البرمجية في الوضع الأفقي</string>
 <string name="pref_keyboard_layout_title">تخطيطات لوحة المفاتيح</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">تحويل غير حساس لمفتاح التعديل</string>
 <string name="pref_typing_correction_title">تصحيح الكتابة</string>
 <string name="pref_other_incognito_mode_title">وضع التصفح المتخفي</string>
-<string name="pref_emoji_provider_type_title">تحديد موفر رموز تعبيرية</string>
 <string name="pref_dictionry_category_title">تفضيلات القاموس</string>
 <string name="pref_dictionary_personalization_title">تخصيص</string>
 <string name="pref_dictionary_user_dictionary_tool_title">أداة القاموس</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">سجلّ التحويل</string>
 <string name="pref_clear_symbol_history_title">تاريخ الرموز</string>
 <string name="pref_clear_user_dictionary_title">قاموس المستخدم</string>
-<string name="pref_user_feedback_category_title">تعليقات المستخدم</string>
-<string name="pref_other_usage_stats_title">إرسال إحصاءات الاستخدام</string>
 <string name="pref_about_about_this_software_title">حول هذا البرنامج</string>
 <string name="pref_about_version_title">الإصدار</string>
 <string name="pref_about_oss_credits_title">برنامج مفتوح المصدر</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">استخدام مسافة نصف العرض دائمًا، بغض النظر عن وضع الإدخال.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">‏استخدام تحويل غير حساس لمفتاح التعديل كانا. مطبق على 12 مفتاحًا ولوحة مفاتيح جودان مثل かつこう→学校</string>
 <string name="pref_typing_correction_description">‏اكتشاف الخطأ في الكتابة وعرض العناصر المرشحة الصحيحة مثل すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">تحديد موفّر الرموز التعبيرية بشكل صحيح للتمكن من استخدام الرموز التعبيرية.</string>
 <string name="pref_skin_type_description">حدد مظهر لوحة المفاتيح لتخصيص شكلها.</string>
 <string name="pref_voice_input_description">إظهار زر الإدخال الصوتي على لوحة المفاتيح البرمجية.</string>
 <string name="pref_hardware_keymap_description">تحديد التخطيط الأساسي للوحات المفاتيح الفعلية.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">محو سجلّ إدخال الرموز.</string>
 <string name="pref_clear_user_dictionary_description">محو قاموس المستخدم.</string>
 <string name="pref_other_incognito_mode_description">تعطيل التخصيص والاقتراح وقاموس المستخدم مؤقتًا.</string>
-<string name="pref_other_usage_stats_description">إرسال إحصاءات الاستخدام إلى %1$s. سيتم استخدام هذه البيانات فقط لتحسين منتجات وخدمات %1$s.</string>
 <string name="pref_about_oss_credits_description">هذا البرنامج يستخدم برنامجًا مفتوح المصدر: عرض التراخيص</string>
 <string name="pref_launcher_icon_visibility_description">عرض رمز التطبيق في المشغّل</string>
 <string name="pref_input_style_setting_entry_toggle">تبديل</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">تبديل ولمس</string>
 <string name="pref_fullscreen_portrait">تمكين في الوضع الرأسي</string>
 <string name="pref_fullscreen_landscape">تمكين في الوضع الأفقي</string>
-<string name="pref_emoji_provider_type_unicode">تعطيل الرموز التعبيرية لمشغل شبكة الجوّال</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">برتقالي/رمادي فاتح</string>
 <string name="pref_skin_type_blue_lightgray">أزرق/رمادي فاتح</string>
 <string name="pref_skin_type_blue_darkgray">أزرق/رمادي قاتم</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">تصميم المواد (قاتم)</string>
 <string name="pref_hardware_keymap_default">الضبط الافتراضي للنظام</string>
 <string name="pref_hardware_keymap_japanese109A">‏اليابانية 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 مفتاحًا</string>
 <string name="pref_dictionary_personalization_entry_enabled">تمكين</string>
 <string name="pref_dictionary_personalization_entry_readonly">تجميد</string>
 <string name="pref_dictionary_personalization_entry_disabled">تعطيل</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">تعديل اسم القاموس</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">اسم القاموس</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">إضافة كلمة جديدة</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">تعديل كلمة</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">القراءة</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">كلمة</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">الفئة</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">علامات الترقيم</string>
 <string name="japanese_pos_free_standing_word">كلمة قائمة بذاتها</string>
 <string name="japanese_pos_suppression_word">إزالة الكلمة</string>
-<string name="yes">نعم</string>
-<string name="no">لا</string>
 </resources>

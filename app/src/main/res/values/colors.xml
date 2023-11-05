@@ -32,14 +32,7 @@
 <resources>
   <color name="pref_inputstyle_title">#FFD8D8D8</color>
   <color name="pref_inputstyle_title_disabled">#80D8D8D8</color>
-  <color name="symbol_input_background_top" >#D8D8D8</color>
-  <color name="symbol_input_background_bottom" >#ABABAB</color>
   <color name="input_frame_background">#e5e5e5</color>
-
-  <!-- Color setting of "action bar"-like UI for User Dictionary Tool. -->
-  <color name="action_bar_background">#EEE</color>
-  <color name="action_bar_background_shade">#CCC</color>
-  <color name="action_bar_pressed_background">#77C5E1</color>
 
   <!-- Floating candidate window. -->
   <color name="floating_candidate_window_background">#eceff1</color>
@@ -48,7 +41,6 @@
   <color name="floating_candidate_focused_text">#000</color>
   <color name="floating_candidate_shortcut_text">#8037474f</color>
   <color name="floating_candidate_description_text">#8037474f</color>
-  <color name="floating_candidate_footer_icon_pressed_background">#1a37474f</color>
   <color name="floating_candidate_footer_text">#8037474f</color>
   <color name="floating_candidate_footer_separator">#4d37474f</color>
   <color name="floating_candidate_scroll_indicator">#4db6ac</color>

@@ -243,7 +243,6 @@ public class BufferedDrawable extends Drawable {
         width, height, matrixValues[Matrix.MSCALE_X], matrixValues[Matrix.MSCALE_Y]);
   }
 
-  @SuppressWarnings("deprecation")
   @Override
   public void draw(Canvas canvas) {
     Rect bounds = getBounds();

@@ -32,7 +32,6 @@ package sh.eliza.japaneseinput;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import java.util.Collections;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchAction;
@@ -57,7 +56,7 @@ public class KeyEventButtonTouchListener implements OnTouchListener {
   private final int sourceId;
   private final int keyCode;
   private KeyEventHandler keyEventHandler = null;
-  @VisibleForTesting KeyEventContext keyEventContext = null;
+  private KeyEventContext keyEventContext = null;
 
   /** This is exported as protected for testing. */
   protected KeyEventButtonTouchListener(int sourceId, int keyCode) {
@@ -86,8 +85,7 @@ public class KeyEventButtonTouchListener implements OnTouchListener {
    * Creates a (pseudo) {@link Key} instance based on the given {@code button} and its {@code
    * keyCode}. This is exported as package private for testing.
    */
-  @VisibleForTesting
-  static Key createKey(View button, int sourceId, int keyCode) {
+  private static Key createKey(View button, int sourceId, int keyCode) {
     KeyEntity keyEntity =
         new KeyEntity(
             sourceId,

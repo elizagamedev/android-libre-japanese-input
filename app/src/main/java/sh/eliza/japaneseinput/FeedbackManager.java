@@ -30,7 +30,6 @@
 package sh.eliza.japaneseinput;
 
 import android.media.AudioManager;
-import com.google.common.annotations.VisibleForTesting;
 
 /** FeedbackManager manages feed back events, like haptic and sound. */
 public class FeedbackManager {
@@ -102,7 +101,7 @@ public class FeedbackManager {
   private long hapticFeedbackDuration = 30; // 30ms by default.
   private boolean isSoundFeedbackEnabled;
   private float soundFeedbackVolume = 0.4f; // System default volume parameter.
-  @VisibleForTesting final FeedbackListener feedbackListener;
+  private final FeedbackListener feedbackListener;
 
   /**
    * @param listener the listener which is called when feedback event is fired.

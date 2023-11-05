@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">সফ্টওয়্যার কীবোর্ড</string>
 <string name="pref_software_keyboard_advanced_settings_title">সফ্টওয়্যার কীবোর্ডের উন্নত সেটিংস</string>
-<string name="pref_fragment_software_keyboard_title">সফ্টওয়্যার কীবোর্ড</string>
-<string name="pref_fragment_input_support_title">ইনপুট সমর্থন</string>
-<string name="pref_fragment_conversion_title">রূপান্তর</string>
-<string name="pref_fragment_dictionary_title">অভিধান</string>
-<string name="pref_fragment_user_feedback_title">ব্যবহারকারীর প্রতিক্রিয়া</string>
-<string name="pref_fragment_about_title">সম্বন্ধে</string>
-<string name="pref_fragment_development_title">বিকাশ</string>
 <string name="pref_software_keyboard_preferences_portrait_title">প্রতিকৃতি মোডের জন্য সফ্টওয়্যার কীবোর্ড বিষয়ক পছন্দগুলি</string>
 <string name="pref_software_keyboard_preferences_landscape_title">ভূদৃশ্য মোডের জন্য সফ্টওয়্যার কীবোর্ডের পছন্দগুলি</string>
 <string name="pref_keyboard_layout_title">কীবোর্ড লেআউট</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">অসংবেদী সংশোধক রূপান্তর</string>
 <string name="pref_typing_correction_title">টাইপিং সংশোধন</string>
 <string name="pref_other_incognito_mode_title">ছদ্মবেশী মোড</string>
-<string name="pref_emoji_provider_type_title">ইমোজি সরবরাহকারী নির্বাচন করুন</string>
 <string name="pref_dictionry_category_title">অভিধান পছন্দগুলি</string>
 <string name="pref_dictionary_personalization_title">ব্যক্তিগতকরণ</string>
 <string name="pref_dictionary_user_dictionary_tool_title">অভিধান সরঞ্জাম</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">রূপান্তরের ইতিহাস:</string>
 <string name="pref_clear_symbol_history_title">চিহ্নের ইতিহাস</string>
 <string name="pref_clear_user_dictionary_title">ব্যবহারকারীর অভিধান</string>
-<string name="pref_user_feedback_category_title">ব্যবহারকারীর প্রতিক্রিয়া</string>
-<string name="pref_other_usage_stats_title">ব্যবহারের পরিসংখ্যান পাঠান</string>
 <string name="pref_about_about_this_software_title">এই সফ্টওয়্যার সম্পর্কে</string>
 <string name="pref_about_version_title">সংস্করণ</string>
 <string name="pref_about_oss_credits_title">মুক্ত উৎস সফ্টওয়্যার</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">ইনপুট মোড যাই হোক না কেন সর্বদা অর্ধ-প্রস্থ স্পেস ব্যবহার করুন৷</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">কানা অসংবেদী সংশোধক রূপান্তর ব্যবহার করুন৷ ১২টি কী এবং গোদান কীবোর্ডে প্রয়োগ করা হয়েছে৷ উদাঃ, かつこう→学校</string>
 <string name="pref_typing_correction_description">টাইপে ভুল থাকলে তা চিহ্নিত করুন এবং সংশোধনগুলি দেখান৷ উদাঃ, すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">ইমোজি ব্যবহার করতে সঠিক ইমোজি সরবরাহকারী নির্বাচন করুন৷</string>
 <string name="pref_skin_type_description">সফ্টওয়্যার কীবোর্ডের চেহারা নিজের ইচ্ছামতো সাজিয়ে নিতে কীবোর্ড থিম নির্বাচন করুন৷</string>
 <string name="pref_voice_input_description">সফ্টওয়্যার কীবোর্ডে ভয়েস ইনপুট বোতাম দেখান৷</string>
 <string name="pref_hardware_keymap_description">হার্ডওয়্যার কীবোর্ডের জন্য কী ম্যাপিং নির্বাচন করুন৷</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">চিহ্ন ইনপুটের ইতিহাস সাফ করুন৷</string>
 <string name="pref_clear_user_dictionary_description">ব্যবহারকারীর অভিধান সাফ করুন৷</string>
 <string name="pref_other_incognito_mode_description">সাময়িকভাবে ব্যক্তিগতকরণ, প্রস্তাবনা এবং ব্যবহারকারীর অভিধান অক্ষম করুন৷</string>
-<string name="pref_other_usage_stats_description">%1$s এ ব্যবহারের পরিসংখ্যান পাঠান৷ এগুলি শুধুমাত্র %1$s পণ্য এবং পরিষেবাগুলির উন্নতির জন্য ব্যবহার করা হবে৷</string>
 <string name="pref_about_oss_credits_description">এই সফ্টওয়্যারটি মুক্ত উৎস সফ্টওয়্যার ব্যবহার করে: লাইসেন্সগুলি দেখুন৷</string>
 <string name="pref_launcher_icon_visibility_description">লঞ্চারে অ্যাপ্লিকেশান আইকন প্রদর্শন করুন</string>
 <string name="pref_input_style_setting_entry_toggle">টগল করুন</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">টগল করুন ও ফ্লিক করুন</string>
 <string name="pref_fullscreen_portrait">প্রতিকৃতিতে সক্ষম করুন</string>
 <string name="pref_fullscreen_landscape">ভূদৃশ্যে সক্ষম করুন</string>
-<string name="pref_emoji_provider_type_unicode">ক্যারিয়ার ইমোজি অক্ষম করুন</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">কমলা/হালকা ধূসর</string>
 <string name="pref_skin_type_blue_lightgray">নীল/হালকা ধূসর</string>
 <string name="pref_skin_type_blue_darkgray">নীল/গাঢ় ধূসর</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">মেটিরিয়্যাল নকশা (গাঢ়)</string>
 <string name="pref_hardware_keymap_default">সিস্টেম ডিফল্ট</string>
 <string name="pref_hardware_keymap_japanese109A">জাপানি 109A</string>
-<string name="pref_hardware_keymap_twelvekey">১২টি কী</string>
 <string name="pref_dictionary_personalization_entry_enabled">সক্ষম করুন</string>
 <string name="pref_dictionary_personalization_entry_readonly">রদবদল করা যাবে না</string>
 <string name="pref_dictionary_personalization_entry_disabled">অক্ষম করুন</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">অভিধানের নামটি সম্পাদনা করুন</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">অভিধানের নাম</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">একটি নতুন শব্দ যোগ করুন</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">একটি শব্দ সম্পাদনা করুন</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">পড়া</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">শব্দ</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">বিভাগ</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">বিরাম চিহ্ন</string>
 <string name="japanese_pos_free_standing_word">মৌলিক শব্দ</string>
 <string name="japanese_pos_suppression_word">অনুচ্চারিত শব্দ</string>
-<string name="yes">হ্যাঁ</string>
-<string name="no">না</string>
 </resources>

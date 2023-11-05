@@ -290,12 +290,11 @@ class KeyboardLayoutPreference : Preference {
       }
     }
 
-    @Suppress("deprecation")
     private fun updateBackground(view: View, position: Int, activePosition: Int) {
       if (position == activePosition) {
         view.setBackgroundResource(android.R.drawable.dialog_frame)
       } else {
-        view.setBackgroundDrawable(null)
+        view.setBackground(null)
       }
     }
   }

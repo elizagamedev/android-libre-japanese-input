@@ -35,7 +35,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import androidx.preference.PreferenceManager;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.io.File;
@@ -57,8 +56,7 @@ public class ApplicationInitializerFactory {
    * <p>Typically they are calculated by using {@link SharedPreferences}. The interface is prepared
    * mainly for testing.
    */
-  @VisibleForTesting
-  public interface ApplicationInitializationStatus {
+  private interface ApplicationInitializationStatus {
     /**
      * @deprecated should use {@link #getLastLaunchAbiIndependentVersionCode()} and {@link
      *     #isWelcomeActivityShownAtLeastOnce()}
@@ -80,11 +78,9 @@ public class ApplicationInitializerFactory {
     boolean isWelcomeActivityShownAtLeastOnce();
   }
 
-  @VisibleForTesting
-  static final String PREF_LAUNCHED_AT_LEAST_ONCE = "pref_launched_at_least_once";
+  private static final String PREF_LAUNCHED_AT_LEAST_ONCE = "pref_launched_at_least_once";
 
-  @VisibleForTesting
-  static final String PREF_WELCOME_ACTIVITY_SHOWN = "pref_welcome_activity_shown";
+  private static final String PREF_WELCOME_ACTIVITY_SHOWN = "pref_welcome_activity_shown";
 
   private static class ApplicationInitializerImpl implements ApplicationInitializationStatus {
 
@@ -230,7 +226,7 @@ public class ApplicationInitializerFactory {
         editor.putInt(
             PreferenceUtil.PREF_LAST_LAUNCH_ABI_INDEPENDENT_VERSION_CODE,
             abiIndependentVersionCode);
-        editor.commit();
+        editor.apply();
       }
     }
 
@@ -243,8 +239,7 @@ public class ApplicationInitializerFactory {
      * <p>If current orientation is PORTRAIT, given {@code currentMetrics} is returned. Otherwise
      * {@code currentMetrics}'s {@code heightPixels} and {@code widthPixels} are swapped.
      */
-    @VisibleForTesting
-    static DisplayMetrics getPortraitDisplayMetrics(
+    private static DisplayMetrics getPortraitDisplayMetrics(
         DisplayMetrics currentMetrics, int currnetOrientation) {
       Preconditions.checkNotNull(currentMetrics);
 
@@ -258,8 +253,7 @@ public class ApplicationInitializerFactory {
     }
 
     /** Stores the default value of "fullscreen mode" to the shared preference. */
-    @VisibleForTesting
-    static void storeDefaultFullscreenMode(
+    private static void storeDefaultFullscreenMode(
         SharedPreferences sharedPreferences,
         int portraitDisplayHeight,
         int landscapeDisplayHeight,
@@ -275,7 +269,7 @@ public class ApplicationInitializerFactory {
       editor.putBoolean(
           "pref_landscape_fullscreen_key",
           landscapeDisplayHeight - landscapeInputFrameHeight < fullscreenThreshold);
-      editor.commit();
+      editor.apply();
     }
   }
 
@@ -290,8 +284,7 @@ public class ApplicationInitializerFactory {
         MozcUtil.getTelephonyManager(context));
   }
 
-  @VisibleForTesting
-  public static ApplicationInitializer createInstance(
+  private static ApplicationInitializer createInstance(
       ApplicationInitializationStatus initializationStatus,
       Context context,
       SharedPreferences sharedPreferences,

@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">സോഫ്‌റ്റ്‌വെയർ കീബോർഡ്</string>
 <string name="pref_software_keyboard_advanced_settings_title">സോഫ്‌റ്റ്‌വെയർ കീബോർഡ് വിപുലമായ ക്രമീകരണങ്ങൾ</string>
-<string name="pref_fragment_software_keyboard_title">സോഫ്‌റ്റ്‌വെയർ കീബോർഡ്</string>
-<string name="pref_fragment_input_support_title">ഇൻപുട്ട് പിന്തുണ</string>
-<string name="pref_fragment_conversion_title">സംഭാഷണം</string>
-<string name="pref_fragment_dictionary_title">നിഘണ്ടു</string>
-<string name="pref_fragment_user_feedback_title">ഉപയോക്തൃ ഫീഡ്‌ബാക്ക്</string>
-<string name="pref_fragment_about_title">ആമുഖം</string>
-<string name="pref_fragment_development_title">വികസനം</string>
 <string name="pref_software_keyboard_preferences_portrait_title">പോർട്രെയ്‌റ്റ് മോഡിനുള്ള സോഫ്‌റ്റ്‌വെയർ കീബോർഡ് മുൻഗണനകൾ</string>
 <string name="pref_software_keyboard_preferences_landscape_title">ലാൻഡ്സ്‌കേപ്പ് മോഡിനുള്ള സോഫ്‌റ്റ്‌വെയർ കീബോർഡ് മുൻഗണനകൾ</string>
 <string name="pref_keyboard_layout_title">കീബോർഡ് ലേഔട്ട്</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">മോഡിഫയർ സംവേദനക്ഷമരഹിത പരിവർത്തനം</string>
 <string name="pref_typing_correction_title">ടൈപ്പിംഗ് തിരുത്തൽ</string>
 <string name="pref_other_incognito_mode_title">ആൾമാറാട്ട മോഡ്</string>
-<string name="pref_emoji_provider_type_title">ഇമോജി ദാതാവിനെ തിരഞ്ഞെടുക്കുക</string>
 <string name="pref_dictionry_category_title">നിഘണ്ടു മുൻഗണനകൾ</string>
 <string name="pref_dictionary_personalization_title">വ്യക്തിഗതമാക്കൽ</string>
 <string name="pref_dictionary_user_dictionary_tool_title">നിഘണ്ടു ഉപകരണം</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">പരിവർത്തന ചരിത്രം</string>
 <string name="pref_clear_symbol_history_title">ചിഹ്ന ചരിത്രം</string>
 <string name="pref_clear_user_dictionary_title">ഉപയോക്തൃ നിഘണ്ടു</string>
-<string name="pref_user_feedback_category_title">ഉപയോക്തൃ ഫീഡ്‌ബാക്ക്</string>
-<string name="pref_other_usage_stats_title">ഉപയോഗ സ്ഥിതിവിവരക്കണക്കുകൾ അയയ്‌ക്കുക</string>
 <string name="pref_about_about_this_software_title">ഈ സോഫ്‌‌റ്റ്‌വെയറിന് ഒരാമുഖം</string>
 <string name="pref_about_version_title">പതിപ്പ്</string>
 <string name="pref_about_oss_credits_title">ഓപ്പൺ‌ സോഴ്‌സ് സോഫ്‌റ്റ്‌വെയർ</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">ടൈപ്പുചെയ്യൽ മോഡ് പരിഗണിക്കാതെ എല്ലായ്‌പ്പോഴും ഹാഫ്‌ വിഡ്‌ത്ത് സ്‌പെയ്‌സ് ഉപയോഗിക്കുക.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Kana മോഡിഫയർ സംവേദനക്ഷമരഹിത പരിവർത്തനം ഉപയോഗിക്കുക. 12 കീകൾക്കും Godan കീബോർഡിനും ബാധകമാക്കുക. ഉദാ. かつこう→学校</string>
 <string name="pref_typing_correction_description">തെറ്റായി ടൈപ്പുചെയ്യൽ കണ്ടെത്തി ശരിയായ കാൻഡിഡേറ്റുകൾ കാണിക്കുക. ഉദാ. すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">ഇമോജി ഉപയോഗിക്കുന്നതിന് ശരിയായ രീതിയിൽ ഇമോജി ദാതാവിനെ തിരഞ്ഞെടുക്കുക.</string>
 <string name="pref_skin_type_description">സോഫ്‌റ്റ്‌വയർ കീബോർഡ് രൂപഭാവം ഇഷ്‌ടാനുസൃ‌തമാക്കാൻ, കീബോർഡ് തീം തിരഞ്ഞെടുക്കുക.</string>
 <string name="pref_voice_input_description">സൊഫ്‌റ്റ്‌വയർ കീബോർഡിൽ വോയ്‌സ് ഇൻപുട്ട് ബട്ടൺ ദൃശ്യമാക്കുക.</string>
 <string name="pref_hardware_keymap_description">ഹാർഡ്‌വെയർ കീബോർഡുകൾക്ക് കീ മാപ്പിംഗ് തിരഞ്ഞെടുക്കുക.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">ചിഹ്‌നം ടൈപ്പുചെയ്യൽ ചരിത്രം മായ്‌ക്കുക.</string>
 <string name="pref_clear_user_dictionary_description">ഉപയോക്തൃ നിഘണ്ടു മായ്‌ക്കുക.</string>
 <string name="pref_other_incognito_mode_description">വ്യക്തിഗതമാക്കൽ, നിർദ്ദേശങ്ങൾ, ഉപയോക്തൃ നിഘണ്ടു എന്നിവ താൽക്കാലികമായി പ്രവർത്തനരഹിതമാക്കുക.</string>
-<string name="pref_other_usage_stats_description">%1$s എന്നതിലേക്ക് ഉപയോഗ സ്ഥിതിവിവരക്കണക്കുകൾ അയയ്‌ക്കുക. %1$s ഉൽപ്പന്നങ്ങളും സേവനങ്ങളും മെച്ചപ്പെടുത്തുന്നതിന് മാത്രമാണ് ഇവ ഉപയോഗിക്കുന്നത്.</string>
 <string name="pref_about_oss_credits_description">ഈ സോഫ്‌റ്റ്‌വെയർ ഓപ്പൺ സോഴ്‌സ് സോഫ്‌റ്റ്‌വെയർ ഉപയോഗിക്കുന്നു: ലൈസൻസുകൾ കാണുക.</string>
 <string name="pref_launcher_icon_visibility_description">ലോഞ്ചറിൽ അപ്ലിക്കേഷൻ ഐക്കൺ പ്രദർശിപ്പിക്കുക</string>
 <string name="pref_input_style_setting_entry_toggle">ടോഗിൾ ചെയ്യുക</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">ടോഗിൾ ചെയ്ത് ഫ്ലിക്ക് ചെയ്യുക</string>
 <string name="pref_fullscreen_portrait">പോർട്രെയ്‌റ്റിൽ പ്രവർത്തനക്ഷമമാക്കുക</string>
 <string name="pref_fullscreen_landscape">ലാൻഡ്‌സ്കേപ്പിൽ പ്രവർത്തനക്ഷമമാക്കുക</string>
-<string name="pref_emoji_provider_type_unicode">കാരിയർ ഇമോജി പ്രവർത്തനരഹിതമാക്കുക</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">ഓറഞ്ച്/ഇളം ചാരനിറം</string>
 <string name="pref_skin_type_blue_lightgray">നീല/ഇളം ചാരനിറം</string>
 <string name="pref_skin_type_blue_darkgray">നീല/ഇരുണ്ട ചാരനിറം</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">മെറ്റീരിയൽ ഡിസൈൻ‌ (ഇരുണ്ട നിറം)</string>
 <string name="pref_hardware_keymap_default">സിസ്‌റ്റം ഡിഫോൾട്ട്</string>
 <string name="pref_hardware_keymap_japanese109A">ജാപ്പനീസ് 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 കീകൾ</string>
 <string name="pref_dictionary_personalization_entry_enabled">പ്രവർത്തനക്ഷമമാക്കുക</string>
 <string name="pref_dictionary_personalization_entry_readonly">ഫ്രോസൺ</string>
 <string name="pref_dictionary_personalization_entry_disabled">പ്രവർത്തനരഹിതമാക്കുക</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">നിഘണ്ടുവിന്റെ പേര് എഡിറ്റുചെയ്യുക</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">നിഘണ്ടുവിന്റെ പേര്</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">ഒരു പുതിയ പദം ചേർക്കുക</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">ഒരു പദം എഡിറ്റുചെയ്യുക</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">റീഡിംഗ്</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">പദം</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">വിഭാഗം</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">വിരാമചിഹ്നം</string>
 <string name="japanese_pos_free_standing_word">സ്വതന്ത്ര പദം</string>
 <string name="japanese_pos_suppression_word">ഒളിഞ്ഞിരിക്കുന്ന പദം</string>
-<string name="yes">അതെ</string>
-<string name="no">ഇല്ല</string>
 </resources>

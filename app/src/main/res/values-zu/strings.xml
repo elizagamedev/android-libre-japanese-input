@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Ikhibhodi yekhibhodi</string>
 <string name="pref_software_keyboard_advanced_settings_title">Izilungiselelo ezithuthukile zekhibhodi yesofthiwe</string>
-<string name="pref_fragment_software_keyboard_title">Ikhibhodi yekhibhodi</string>
-<string name="pref_fragment_input_support_title">Usekelo lokokufaka</string>
-<string name="pref_fragment_conversion_title">Ukugulwa</string>
-<string name="pref_fragment_dictionary_title">Isichazamazwi</string>
-<string name="pref_fragment_user_feedback_title">Impendulo yomsebenzisi</string>
-<string name="pref_fragment_about_title">Mayelana</string>
-<string name="pref_fragment_development_title">Intuthuko</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Okuncamelayo kwekhibhodi yesofthiwe kwemodi yokuma ngobude</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Okuncamelayo kwekhibhodi yesofthiwe yomumo webubanzi</string>
 <string name="pref_keyboard_layout_title">Isakhiwho sekhibhodi</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Ukuguqulela kokuzwela kokushintsha</string>
 <string name="pref_typing_correction_title">Ukuthayipha izilungiso</string>
 <string name="pref_other_incognito_mode_title">Imodi ye-Incognito</string>
-<string name="pref_emoji_provider_type_title">Sebenzisa umhlinzeki we-Emoji</string>
 <string name="pref_dictionry_category_title">Okuncamelayo kwesichazamazwi</string>
 <string name="pref_dictionary_personalization_title">Ukwenza ngendlela ethandwa nguwe</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Ithuluzi lesichazamazwi</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Umlando wokuguqulela</string>
 <string name="pref_clear_symbol_history_title">Umlando wophawu</string>
 <string name="pref_clear_user_dictionary_title">Isichazamazwi somsebenzisi</string>
-<string name="pref_user_feedback_category_title">Impendulo yomsebenzisi</string>
-<string name="pref_other_usage_stats_title">Thumela izibalo zokusetshenziswa</string>
 <string name="pref_about_about_this_software_title">Mayelana nale softhiwe</string>
 <string name="pref_about_version_title">Inguqulo</string>
 <string name="pref_about_oss_credits_title">Isofthiwe yomthombo ovulekile</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Njalo sebenzisa isikhala sobubanzi obuhafu, noma ngabe imodi yokufaka ingakanani.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Sebenzisa isiguquleli sokuzwela sokushintsha. Kufakwe kokhiye abangu-12 nekhibhodi ye-Godan. isb. かつこう→学校</string>
 <string name="pref_typing_correction_description">Thola ukuthayipha iphutha bese ubonise okulungile. isb. すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">Khetha imhlinzeki we-Emoji kahle ukuze usebenzise i-emoji.</string>
 <string name="pref_skin_type_description">Khetha itimu yekhibhodi ukwenza ngezifiso  ukubukeka kwekhibhodi yesofthiwe.</string>
 <string name="pref_voice_input_description">Bonisa inkinobho yokokufaka kukhibhodi yesofthiwe.</string>
 <string name="pref_hardware_keymap_description">Khetha umephu wokhiye wamakhibhodi wehadiwe.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Sula umlando wokufaka wophawu.</string>
 <string name="pref_clear_user_dictionary_description">Sula isichazamazwi somsebenzisi.</string>
 <string name="pref_other_incognito_mode_description">Khubaza okwesikhashana ukwenza ngezifiso, iziphakamiso nesichazamazwi somsebenzisi.</string>
-<string name="pref_other_usage_stats_description">Thumela izibalo zokusebenzia ku-%1$s. Lezo zizosetshenziswa kuphela ukuthuthukisa imikhiqizo namasevisi we-%1$s.</string>
 <string name="pref_about_oss_credits_description">Le softhiwe isebenzisa isofthiwe yomthombo ovulekile: buka amalayisensi.</string>
 <string name="pref_launcher_icon_visibility_description">Bonisa isithonjana sohlelo lokusebenza kusiqalisi</string>
 <string name="pref_input_style_setting_entry_toggle">Ukuguquguqula</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Ukuguquguqula ne-Flick</string>
 <string name="pref_fullscreen_portrait">Nika amandla ukuma ngobude</string>
 <string name="pref_fullscreen_landscape">Nika amandla ukwakheka kwezwe</string>
-<string name="pref_emoji_provider_type_unicode">Khubaza i-Emoji yenkampani yenethiwekhi</string>
-<string name="pref_emoji_provider_type_docomo">I-NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">I-SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Uwolintshi/Okumpunga okukhanyayo</string>
 <string name="pref_skin_type_blue_lightgray">Okuluhlaza/Okumpunga okukhanyayo</string>
 <string name="pref_skin_type_blue_darkgray">Okuluhlaza/Okumpunga okumnyama</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Ukwakheka komsebenzi (Kumnyama)</string>
 <string name="pref_hardware_keymap_default">Okuzenzakalelayo kwesistimu</string>
 <string name="pref_hardware_keymap_japanese109A">Japanese 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 okhiye</string>
 <string name="pref_dictionary_personalization_entry_enabled">Nika amandla</string>
 <string name="pref_dictionary_personalization_entry_readonly">Eqandisiwe</string>
 <string name="pref_dictionary_personalization_entry_disabled">Khubaza</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Hlela igama lesichazamazwi</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Igama lesichazamazwi</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Engeza igama elisha</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Hlela igama</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Ukufunda</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Igama</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Isigaba</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Izimpawu zolimi</string>
 <string name="japanese_pos_free_standing_word">Igama elizimele</string>
 <string name="japanese_pos_suppression_word">Igama lokucindezela</string>
-<string name="yes">Yebo</string>
-<string name="no">Cha</string>
 </resources>

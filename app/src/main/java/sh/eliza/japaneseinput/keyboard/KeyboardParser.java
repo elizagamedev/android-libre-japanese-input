@@ -34,7 +34,6 @@ import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -57,11 +56,9 @@ import sh.eliza.japaneseinput.keyboard.Keyboard.KeyboardSpecification;
 public class KeyboardParser {
 
   /** Attributes for the key dimensions. */
-  @VisibleForTesting
-  static class KeyAttributes {
+  private static class KeyAttributes {
 
-    @VisibleForTesting
-    static class Builder {
+    private static class Builder {
 
       private int width;
       private int height;
@@ -471,8 +468,7 @@ public class KeyboardParser {
   /**
    * @return the pixel offsets based on metrics and base
    */
-  @VisibleForTesting
-  static int getDimensionOrFraction(
+  private static int getDimensionOrFraction(
       Optional<TypedValue> optionalValue, int base, int defaultValue, DisplayMetrics metrics) {
     if (!optionalValue.isPresent()) {
       return defaultValue;
@@ -490,8 +486,7 @@ public class KeyboardParser {
         "The type dimension or fraction is required." + "  value = " + value);
   }
 
-  @VisibleForTesting
-  static int getFraction(Optional<TypedValue> optionalValue, int base, int defaultValue) {
+  private static int getFraction(Optional<TypedValue> optionalValue, int base, int defaultValue) {
     if (!optionalValue.isPresent()) {
       return defaultValue;
     }
@@ -507,8 +502,7 @@ public class KeyboardParser {
   /**
    * @return "codes" assigned to {@code value}
    */
-  @VisibleForTesting
-  static int getCode(Optional<TypedValue> optionalValue, int defaultValue) {
+  private static int getCode(Optional<TypedValue> optionalValue, int defaultValue) {
     if (!optionalValue.isPresent()) {
       return defaultValue;
     }
@@ -730,8 +724,8 @@ public class KeyboardParser {
         specification);
   }
 
-  @VisibleForTesting
-  static List<Key> buildKeyList(List<KeyAttributes> keyAttributesList, int y, int rowWidth) {
+  private static List<Key> buildKeyList(
+      List<KeyAttributes> keyAttributesList, int y, int rowWidth) {
     float remainingWidthByWeight = rowWidth;
     int remainingWeight = 0;
     for (KeyAttributes attributes : keyAttributesList) {

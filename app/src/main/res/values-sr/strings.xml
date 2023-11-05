@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Софтверска тастатура</string>
 <string name="pref_software_keyboard_advanced_settings_title">Напредна подешавања софтверске тастатуре</string>
-<string name="pref_fragment_software_keyboard_title">Software keyboard</string>
-<string name="pref_fragment_input_support_title">Input support</string>
-<string name="pref_fragment_conversion_title">Conversion</string>
-<string name="pref_fragment_dictionary_title">Dictionary</string>
-<string name="pref_fragment_user_feedback_title">User feedback</string>
-<string name="pref_fragment_about_title">About</string>
-<string name="pref_fragment_development_title">Development</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Подешавања софтверске тастатуре за усправни режим</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Подешавања софтверске тастатуре за водоравни режим</string>
 <string name="pref_keyboard_layout_title">Распоред тастатуре</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Конверзија која не узима у обзир модификаторе</string>
 <string name="pref_typing_correction_title">Исправка уноса</string>
 <string name="pref_other_incognito_mode_title">Режим Без архивирања</string>
-<string name="pref_emoji_provider_type_title">Изаберите добављача емоџија</string>
 <string name="pref_dictionry_category_title">Подешавања речника</string>
 <string name="pref_dictionary_personalization_title">Персонализација</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Алатка за речнике</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Историја конверзија</string>
 <string name="pref_clear_symbol_history_title">Историја симбола</string>
 <string name="pref_clear_user_dictionary_title">Кориснички речник</string>
-<string name="pref_user_feedback_category_title">Повратне информације корисника</string>
-<string name="pref_other_usage_stats_title">Шаљи статистику коришћења</string>
 <string name="pref_about_about_this_software_title">О овом софтверу</string>
 <string name="pref_about_version_title">Верзија</string>
 <string name="pref_about_oss_credits_title">Софтвер отвореног кода</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Увек користите половични размак, без обзира на режим уноса.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Користите конверзију која не узима у обзир кана модификаторе. Примењује се на тастатуру са 12 тастера и годан тастатуру. Нпр. かつこう→学校</string>
 <string name="pref_typing_correction_description">Открива погрешно написане речи и приказује исправљене предлоге. Нпр. すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">Правилно изаберите добављача емоџија да бисте користили емоџије.</string>
 <string name="pref_skin_type_description">Select the keyboard theme to customize the software keyboard look.</string>
 <string name="pref_voice_input_description">Show voice input button on the software keyboard.</string>
 <string name="pref_hardware_keymap_description">Изаберите мапирање тастера за хардверске тастатуре.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Обришите историју уноса симбола.</string>
 <string name="pref_clear_user_dictionary_description">Обришите кориснички речник.</string>
 <string name="pref_other_incognito_mode_description">Привремено онемогућите персонализацију, предлоге и кориснички речник.</string>
-<string name="pref_other_usage_stats_description">Шаљите статистику коришћења %1$s-у. Она ће се користити само за побољшање %1$s производа и услуга.</string>
 <string name="pref_about_oss_credits_description">Овај софтвер користи софтвер отвореног кода: прегледајте лиценце.</string>
 <string name="pref_launcher_icon_visibility_description">Приказује икону апликације у покретачу</string>
 <string name="pref_input_style_setting_entry_toggle">Избор</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Избор и додир</string>
 <string name="pref_fullscreen_portrait">Омогући у усправном режиму</string>
 <string name="pref_fullscreen_landscape">Омогући у водоравном режиму</string>
-<string name="pref_emoji_provider_type_unicode">Онемогући емоџије мобилног оператера</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Наранџаста/светлосива</string>
 <string name="pref_skin_type_blue_lightgray">Плава/светлосива</string>
 <string name="pref_skin_type_blue_darkgray">Плава/тамносива</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Дизајн материјала (тамни)</string>
 <string name="pref_hardware_keymap_default">Подразумевано системско подешавање</string>
 <string name="pref_hardware_keymap_japanese109A">Јапанска 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 тастера</string>
 <string name="pref_dictionary_personalization_entry_enabled">Омогући</string>
 <string name="pref_dictionary_personalization_entry_readonly">Замрзнута</string>
 <string name="pref_dictionary_personalization_entry_disabled">Онемогући</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Измените назив речника</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Назив речника</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Додајте нову реч</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Измените реч</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Садржај за читање</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Реч</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Категорија</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Знак интерпункције</string>
 <string name="japanese_pos_free_standing_word">Независна реч</string>
 <string name="japanese_pos_suppression_word">Реч за изостављање</string>
-<string name="yes">Да</string>
-<string name="no">Не</string>
 </resources>

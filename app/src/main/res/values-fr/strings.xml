@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Clavier virtuel</string>
 <string name="pref_software_keyboard_advanced_settings_title">Paramètres avancés du clavier virtuel</string>
-<string name="pref_fragment_software_keyboard_title">Clavier virtuel</string>
-<string name="pref_fragment_input_support_title">Assistance pour la saisie</string>
-<string name="pref_fragment_conversion_title">Conversion</string>
-<string name="pref_fragment_dictionary_title">Dictionnaire</string>
-<string name="pref_fragment_user_feedback_title">Commentaires des utilisateurs</string>
-<string name="pref_fragment_about_title">À propos</string>
-<string name="pref_fragment_development_title">Développement</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Préférences du clavier virtuel pour le mode portrait</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Préférences du clavier virtuel pour le mode paysage</string>
 <string name="pref_keyboard_layout_title">Disposition du clavier</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Conversion insensible du modificateur</string>
 <string name="pref_typing_correction_title">Correction de frappe</string>
 <string name="pref_other_incognito_mode_title">Mode navigation privée</string>
-<string name="pref_emoji_provider_type_title">Sélectionner le fournisseur d\'emoji</string>
 <string name="pref_dictionry_category_title">Préférences du dictionnaire</string>
 <string name="pref_dictionary_personalization_title">Personnalisation</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Outil dictionnaire</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Historique des conversions</string>
 <string name="pref_clear_symbol_history_title">Historique des symboles</string>
 <string name="pref_clear_user_dictionary_title">Dictionnaire personnel</string>
-<string name="pref_user_feedback_category_title">Commentaires des utilisateurs</string>
-<string name="pref_other_usage_stats_title">Envoyer des statistiques d\'utilisation</string>
 <string name="pref_about_about_this_software_title">À propos de ce logiciel</string>
 <string name="pref_about_version_title">Version</string>
 <string name="pref_about_oss_credits_title">Logiciel Open Source</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Toujours utiliser les espaces demi-largeur, indépendamment du mode de saisie.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Utiliser la conversion insensible kana. S\'applique au clavier 12 touches et au clavier godan. Par exemple : かつこう → 学校.</string>
 <string name="pref_typing_correction_description">Détecter les fautes de frappe et afficher les candidats corrigés. Par exemple : すんかい→深海.</string>
-<string name="pref_emoji_provider_type_description">Sélectionner le fournisseur d\'emoji à utiliser</string>
 <string name="pref_skin_type_description">Sélectionnez le thème du clavier pour personnaliser l\'apparence du clavier virtuel.</string>
 <string name="pref_voice_input_description">Afficher le bouton de saisie vocale sur le clavier virtuel</string>
 <string name="pref_hardware_keymap_description">Sélectionner l\'affectation des touches pour les claviers physiques</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Effacer l\'historique de saisie des symboles</string>
 <string name="pref_clear_user_dictionary_description">Effacer le dictionnaire personnel</string>
 <string name="pref_other_incognito_mode_description">Désactiver temporairement la personnalisation, les suggestions et le dictionnaire personnel</string>
-<string name="pref_other_usage_stats_description">Envoyer des statistiques d\'utilisation à %1$s. Celles-ci ne seront utilisées que pour améliorer les produits et les services de %1$s.</string>
 <string name="pref_about_oss_credits_description">Ce produit utilise des logiciels Open Source. Reportez-vous aux licences pour en savoir plus.</string>
 <string name="pref_launcher_icon_visibility_description">Afficher l\'icône de l\'application dans le lanceur</string>
 <string name="pref_input_style_setting_entry_toggle">Basculer</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Basculer et effleurer</string>
 <string name="pref_fullscreen_portrait">Activer en mode portrait</string>
 <string name="pref_fullscreen_landscape">Activer en mode paysage</string>
-<string name="pref_emoji_provider_type_unicode">Désactiver le fournisseur d\'emoji</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Orange/Gris clair</string>
 <string name="pref_skin_type_blue_lightgray">Bleu/Gris clair</string>
 <string name="pref_skin_type_blue_darkgray">Bleu/Gris foncé</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Matériau (foncé)</string>
 <string name="pref_hardware_keymap_default">Valeur par défaut du système</string>
 <string name="pref_hardware_keymap_japanese109A">Japonais 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 touches</string>
 <string name="pref_dictionary_personalization_entry_enabled">Activer</string>
 <string name="pref_dictionary_personalization_entry_readonly">Gelé</string>
 <string name="pref_dictionary_personalization_entry_disabled">Désactiver</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Renommer le dictionnaire</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Nom du dictionnaire</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Ajouter un mot</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Modifier un mot</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Lecture</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Mot</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Catégorie</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Ponctuation</string>
 <string name="japanese_pos_free_standing_word">Mot indépendant</string>
 <string name="japanese_pos_suppression_word">Mot de suppression</string>
-<string name="yes">Oui</string>
-<string name="no">Non</string>
 </resources>

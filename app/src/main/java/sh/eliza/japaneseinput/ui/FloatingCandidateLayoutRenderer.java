@@ -36,7 +36,6 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.os.Build;
 import android.view.MotionEvent;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -77,10 +76,6 @@ public class FloatingCandidateLayoutRenderer {
       this.scrollIndicator = Preconditions.checkNotNull(scrollIndicator);
     }
   }
-
-  /** Locale field for {@link Paint#setTextLocale(Locale)}. */
-  private static final Optional<Locale> TEXT_LOCALE =
-      (Build.VERSION.SDK_INT >= 17) ? Optional.of(Locale.JAPAN) : Optional.absent();
 
   private static final String FOOTER_TEXT_FORMAT = "%d / %d";
 
@@ -130,9 +125,7 @@ public class FloatingCandidateLayoutRenderer {
     candidatePaint.setColor(res.getColor(R.color.floating_candidate_text));
     candidatePaint.setTextSize(res.getDimension(R.dimen.floating_candidate_text_size));
     candidatePaint.setAntiAlias(true);
-    if (TEXT_LOCALE.isPresent()) {
-      candidatePaint.setTextLocale(TEXT_LOCALE.get());
-    }
+    candidatePaint.setTextLocale(Locale.JAPAN);
 
     focusedCandidatePaint = new Paint(candidatePaint);
     focusedCandidatePaint.setColor(res.getColor(R.color.floating_candidate_focused_text));
@@ -346,7 +339,10 @@ public class FloatingCandidateLayoutRenderer {
     drawTextWithAlign(
         canvas,
         String.format(
-            FOOTER_TEXT_FORMAT, candidates.get().getFocusedIndex() + 1, totalCandidatesCount),
+            Locale.getDefault(),
+            FOOTER_TEXT_FORMAT,
+            candidates.get().getFocusedIndex() + 1,
+            totalCandidatesCount),
         paint,
         rect.exactCenterX(),
         rect.exactCenterY() + footerTextCenterToBaseLineOffset,

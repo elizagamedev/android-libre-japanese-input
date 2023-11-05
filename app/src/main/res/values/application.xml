@@ -32,6 +32,4 @@
 <resources>
     <string name="app_name">Libre Japanese Input</string>
     <string name="app_full_name">Libre Japanese Input</string>
-    <string name="developer_organization">@elizagamedev</string>
-    <string name="mozc_preference">Preferences for Libre Japanese Input</string>
 </resources>

@@ -56,7 +56,6 @@ import sh.eliza.japaneseinput.model.SymbolMajorCategory;
  * }
  * }</pre>
  */
-@SuppressWarnings("javadoc")
 public abstract class ViewEventDelegator implements ViewEventListener {
 
   private final ViewEventListener delegated;

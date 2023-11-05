@@ -32,12 +32,8 @@ package sh.eliza.japaneseinput.session;
 import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import sh.eliza.japaneseinput.MozcLog;
 
 /**
  * Factory class for SessionHandlerInterface.
@@ -47,16 +43,13 @@ import sh.eliza.japaneseinput.MozcLog;
  */
 public class SessionHandlerFactory {
 
-  @VisibleForTesting
-  static final String PREF_TWEAK_USE_SOCKET_SESSION_HANDLER_KEY =
+  private static final String PREF_TWEAK_USE_SOCKET_SESSION_HANDLER_KEY =
       "pref_tweak_use_socket_session_handler";
 
-  @VisibleForTesting
-  static final String PREF_TWEAK_SOCKET_SESSION_HANDLER_ADDRESS_KEY =
+  private static final String PREF_TWEAK_SOCKET_SESSION_HANDLER_ADDRESS_KEY =
       "pref_tweak_socket_session_handler_address";
 
-  @VisibleForTesting
-  static final String PREF_TWEAK_SOCKET_SESSION_HANDLER_PORT_KEY =
+  private static final String PREF_TWEAK_SOCKET_SESSION_HANDLER_PORT_KEY =
       "pref_tweak_socket_session_handler_port";
 
   private final Optional<SharedPreferences> sharedPreferences;
@@ -76,46 +69,6 @@ public class SessionHandlerFactory {
 
   /** Creates a session handler. */
   public SessionHandler create() {
-    if (sharedPreferences.isPresent()
-        && sharedPreferences.get().getBoolean(PREF_TWEAK_USE_SOCKET_SESSION_HANDLER_KEY, false)) {
-      try {
-        MozcLog.i("Trying to connect to Mozc server via network");
-        // If PREF_TWEAK_USE_SOCKET_SESSION_HANDLER_KEY is enabled,
-        // try to use SessionHandlerSocketClient.
-        // "10.0.2.2" is the host PC's address in emulator environment.
-        // 8000 is the server's default port.
-        int port =
-            Integer.parseInt(
-                sharedPreferences
-                    .get()
-                    .getString(PREF_TWEAK_SOCKET_SESSION_HANDLER_PORT_KEY, "8000"));
-        InetAddress hostAddress =
-            InetAddress.getByName(
-                sharedPreferences
-                    .get()
-                    .getString(PREF_TWEAK_SOCKET_SESSION_HANDLER_ADDRESS_KEY, "10.0.2.2"));
-        SocketSessionHandler socketSessionHandler = new SocketSessionHandler(hostAddress, port);
-        if (socketSessionHandler.isReachable()) {
-          MozcLog.i(
-              "We can reach "
-                  + hostAddress.getHostAddress()
-                  + ":"
-                  + port
-                  + " so let's communicate via network");
-          return socketSessionHandler;
-        }
-      } catch (NumberFormatException e) {
-        // Do nothing.
-        // SessionHandler instance will be used.
-        MozcLog.i("Port number is malformed.");
-      } catch (UnknownHostException e) {
-        // Do nothing.
-        // SessionHandler instance will be used.
-        MozcLog.i("We cannot reach the host ");
-      }
-    }
-
-    MozcLog.i("We use local Mozc engine.");
     return new LocalSessionHandler();
   }
 }

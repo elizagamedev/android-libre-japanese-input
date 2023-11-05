@@ -29,6 +29,4 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<resources>
-    <string name="mozc_preference">Préférences du mode de saisie</string>
-</resources>
+<resources></resources>

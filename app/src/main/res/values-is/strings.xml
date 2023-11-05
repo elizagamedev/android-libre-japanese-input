@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Hugbúnaðarlyklaborð</string>
 <string name="pref_software_keyboard_advanced_settings_title">Ítarlegar stillingar hugbúnaðarlyklaborðs</string>
-<string name="pref_fragment_software_keyboard_title">Software keyboard</string>
-<string name="pref_fragment_input_support_title">Input support</string>
-<string name="pref_fragment_conversion_title">Conversion</string>
-<string name="pref_fragment_dictionary_title">Dictionary</string>
-<string name="pref_fragment_user_feedback_title">User feedback</string>
-<string name="pref_fragment_about_title">About</string>
-<string name="pref_fragment_development_title">Development</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Kjörstillingar hugbúnaðarlyklaborðs fyrir skammsnið</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Kjörstillingar hugbúnaðarlyklaborðs fyrir langsnið</string>
 <string name="pref_keyboard_layout_title">Lyklaskipan</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Umbreyting án tillits til breytilykla</string>
 <string name="pref_typing_correction_title">Leiðrétting innsláttar</string>
 <string name="pref_other_incognito_mode_title">Huliðsstilling</string>
-<string name="pref_emoji_provider_type_title">Velja emoji-útgefanda</string>
 <string name="pref_dictionry_category_title">Kjörstillingar orðabókar</string>
 <string name="pref_dictionary_personalization_title">Sérsnið</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Orðabókarverkfæri</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Umbreytingaferill</string>
 <string name="pref_clear_symbol_history_title">Táknaferill</string>
 <string name="pref_clear_user_dictionary_title">Orðabók notanda</string>
-<string name="pref_user_feedback_category_title">Ábendingar notanda</string>
-<string name="pref_other_usage_stats_title">Senda inn notkunarupplýsingar</string>
 <string name="pref_about_about_this_software_title">Um þennan hugbúnað</string>
 <string name="pref_about_version_title">Útgáfa</string>
 <string name="pref_about_oss_credits_title">Opinn hugbúnaður</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Nota alltaf bil í hálfri breidd, burtséð frá innsláttarstillingu.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Nota umbreytingu sem tekur ekki tillit til kana-breytingalykla. Notað fyrir 12 lykla og Godan-lyklaborð, t.d. かつこう→学校</string>
 <string name="pref_typing_correction_description">Greina innsláttarvillur og birta leiðréttar tillögur, t.d. すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">Velja emoji-útgefanda til að emoji-tákn virki rétt.</string>
 <string name="pref_skin_type_description">Select the keyboard theme to customize the software keyboard look.</string>
 <string name="pref_voice_input_description">Show voice input button on the software keyboard.</string>
 <string name="pref_hardware_keymap_description">Velja lyklaskipan fyrir vélbúnaðarlyklaborð.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Hreinsa innsláttarferil tákna.</string>
 <string name="pref_clear_user_dictionary_description">Hreinsa orðabók notanda.</string>
 <string name="pref_other_incognito_mode_description">Slökkva tímabundið á sérsniði, tillögum og orðabók notanda.</string>
-<string name="pref_other_usage_stats_description">Senda upplýsingar um notkun til %1$s. Þær verða eingöngu notaðar til að bæta vörur og þjónustu %1$s.</string>
 <string name="pref_about_oss_credits_description">Þessi hugbúnaður notast við opinn hugbúnað: Skoðaðu leyfin.</string>
 <string name="pref_launcher_icon_visibility_description">Sýna tákn forritsins í ræsiforritinu</string>
 <string name="pref_input_style_setting_entry_toggle">Rofi</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Rofi og fletting</string>
 <string name="pref_fullscreen_portrait">Virkja í skammsniði</string>
 <string name="pref_fullscreen_landscape">Virkja í langsniði</string>
-<string name="pref_emoji_provider_type_unicode">Slökkva á emoji-táknum símafyrirtækis</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Appelsínugult/ljósgrátt</string>
 <string name="pref_skin_type_blue_lightgray">Blátt/ljósgrátt</string>
 <string name="pref_skin_type_blue_darkgray">Blátt/dökkgrátt</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Áþreifanlegt (dökkt)</string>
 <string name="pref_hardware_keymap_default">Sjálfgildi kerfis</string>
 <string name="pref_hardware_keymap_japanese109A">Japanskt 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 lyklar</string>
 <string name="pref_dictionary_personalization_entry_enabled">Kveikja</string>
 <string name="pref_dictionary_personalization_entry_readonly">Frosið</string>
 <string name="pref_dictionary_personalization_entry_disabled">Slökkva</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Breyta heiti orðabókarinnar</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Heiti orðabókarinnar</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Bæta nýju orði við</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Breyta orði</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Lestur</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Orð</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Flokkur</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Greinarmerki</string>
 <string name="japanese_pos_free_standing_word">Frístandandi orð</string>
 <string name="japanese_pos_suppression_word">Neitun</string>
-<string name="yes">Já</string>
-<string name="no">Nei</string>
 </resources>

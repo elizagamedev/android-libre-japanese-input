@@ -29,7 +29,6 @@
 
 package sh.eliza.japaneseinput.ui;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.util.ArrayList;
@@ -248,8 +247,7 @@ public class ConversionCandidateLayouter implements CandidateLayouter {
    *
    * <p>The order of the candidates will be kept.
    */
-  @VisibleForTesting
-  static List<Row> buildRowList(
+  private static List<Row> buildRowList(
       CandidateList candidateList,
       SpanFactory spanFactory,
       int numChunks,
@@ -296,8 +294,7 @@ public class ConversionCandidateLayouter implements CandidateLayouter {
    * calculation buffer, {@code numAllocatedChunks}. The size of the buffer must be equal to or
    * greater than {@code spanList.size()}. Its elements needn't be initialized.
    */
-  @VisibleForTesting
-  static void layoutSpanList(
+  private static void layoutSpanList(
       List<Span> spanList,
       int pageWidth,
       int numChunks,
@@ -347,8 +344,7 @@ public class ConversionCandidateLayouter implements CandidateLayouter {
   }
 
   /** Sets top, width and height to the each row. */
-  @VisibleForTesting
-  static void layoutRowList(List<Row> rowList, int pageWidth, int rowHeight) {
+  private static void layoutRowList(List<Row> rowList, int pageWidth, int rowHeight) {
     int top = 0;
     for (Row row : Preconditions.checkNotNull(rowList)) {
       row.setTop(top);

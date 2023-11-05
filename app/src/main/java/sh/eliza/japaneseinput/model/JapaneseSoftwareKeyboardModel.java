@@ -72,7 +72,6 @@ import sh.eliza.japaneseinput.preference.ClientSidePreference.KeyboardLayout;
  * is expected that the {@code inputType} is given by system via {@link
  * InputMethodService#onStartInputView}.
  */
-@SuppressWarnings("javadoc")
 public class JapaneseSoftwareKeyboardModel {
 
   /** Keyboard mode that indicates supported character types. */

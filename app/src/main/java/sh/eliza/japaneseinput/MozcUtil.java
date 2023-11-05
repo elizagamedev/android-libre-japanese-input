@@ -29,7 +29,6 @@
 
 package sh.eliza.japaneseinput;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -38,13 +37,10 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.os.Message;
 import android.os.ParcelFileDescriptor;
-import android.os.StrictMode;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
@@ -61,7 +57,6 @@ import com.google.protobuf.ByteString;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -445,7 +440,6 @@ public final class MozcUtil {
     return builder;
   }
 
-  @SuppressLint("InlinedApi")
   public static boolean isPasswordField(int inputType) {
     int inputClass = inputType & InputType.TYPE_MASK_CLASS;
     int inputVariation = inputType & InputType.TYPE_MASK_VARIATION;
@@ -650,58 +644,6 @@ public final class MozcUtil {
       result &= entry.delete();
     }
     return result;
-  }
-
-  /**
-   * Relaxes ThreadPolicy to enable network access.
-   *
-   * <p>public accessibility for easier invocation via reflection.
-   */
-  public static class StrictModeRelaxer {
-    private StrictModeRelaxer() {}
-
-    public static void relaxStrictMode() {
-      StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
-    }
-  }
-
-  // The restriction is applied since API Level 9.
-  private static boolean isStrictModeRelaxed = Build.VERSION.SDK_INT < 9;
-
-  /**
-   * Relaxes the main thread's restriction.
-   *
-   * <p>On newer Android OS, network access from the main thread is forbidden by default. This
-   * method may relax the restriction.
-   *
-   * <p>Note that this method works only in Debug build because this depends on reflection and
-   * ProGuard will obfuscate the symbol name. This behavior will not be fixed because this method is
-   * used only from Debug utilities (i.e. SocketSessionHandler).
-   */
-  public static void relaxMainthreadStrictMode() {
-    if (isStrictModeRelaxed) {
-      // Already relaxed.
-      return;
-    }
-    if (!Thread.currentThread().equals(Looper.getMainLooper().getThread())) {
-      // Not on the main thread.
-      return;
-    }
-    try {
-      Class<?> clazz = Class.forName(MozcUtil.class.getCanonicalName() + '$' + "StrictModeRelaxer");
-      clazz.getMethod("relaxStrictMode").invoke(null);
-      isStrictModeRelaxed = true;
-    } catch (ClassNotFoundException e) {
-      MozcLog.e(e.getMessage(), e);
-    } catch (NoSuchMethodException e) {
-      MozcLog.e(e.getMessage(), e);
-    } catch (IllegalArgumentException e) {
-      MozcLog.e(e.getMessage(), e);
-    } catch (IllegalAccessException e) {
-      MozcLog.e(e.getMessage(), e);
-    } catch (InvocationTargetException e) {
-      MozcLog.e(e.getMessage(), e);
-    }
   }
 
   /** If value &gt;= max returns max. If value &lt;= min returns min. Otherwise returns value. */

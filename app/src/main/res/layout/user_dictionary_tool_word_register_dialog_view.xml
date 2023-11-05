@@ -42,6 +42,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="8dip"
+        android:paddingRight="8dip"
         android:text="@string/user_dictionary_tool_word_register_dialog_word_label" />
 
     <EditText
@@ -50,7 +51,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/help_userdictionary_edit_word_value"
         android:inputType="text"
-        android:selectAllOnFocus="true" >
+        android:selectAllOnFocus="true"
+        android:importantForAutofill="no">
 
         <requestFocus />
     </EditText>
@@ -59,6 +61,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="8dip"
+        android:paddingRight="8dip"
         android:text="@string/user_dictionary_tool_word_register_dialog_reading_label" />
 
     <EditText
@@ -67,12 +70,14 @@
         android:layout_height="wrap_content"
         android:hint="@string/help_userdictionary_edit_word_key"
         android:inputType="text"
-        android:selectAllOnFocus="true" />
+        android:selectAllOnFocus="true"
+        android:importantForAutofill="no" />
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="8dip"
+        android:paddingRight="8dip"
         android:text="@string/user_dictionary_tool_word_register_dialog_pos_label" />
 
     <view

@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Software keyboard</string>
 <string name="pref_software_keyboard_advanced_settings_title">Software keyboard advanced settings</string>
-<string name="pref_fragment_software_keyboard_title">Software keyboard</string>
-<string name="pref_fragment_input_support_title">Input support</string>
-<string name="pref_fragment_conversion_title">Conversion</string>
-<string name="pref_fragment_dictionary_title">Dictionary</string>
-<string name="pref_fragment_user_feedback_title">User feedback</string>
-<string name="pref_fragment_about_title">About</string>
-<string name="pref_fragment_development_title">Development</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Software keyboard preferences for portrait mode</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Software keyboard preferences for landscape mode</string>
 <string name="pref_keyboard_layout_title">Keyboard layout</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Modifier insensitive conversion</string>
 <string name="pref_typing_correction_title">Typing correction</string>
 <string name="pref_other_incognito_mode_title">Incognito mode</string>
-<string name="pref_emoji_provider_type_title">Select Emoji provider</string>
 <string name="pref_dictionry_category_title">Dictionary preferences</string>
 <string name="pref_dictionary_personalization_title">Personalisation</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Dictionary Tool</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Conversion history</string>
 <string name="pref_clear_symbol_history_title">Symbol history</string>
 <string name="pref_clear_user_dictionary_title">User dictionary</string>
-<string name="pref_user_feedback_category_title">User feedback</string>
-<string name="pref_other_usage_stats_title">Send usage statistics</string>
 <string name="pref_about_about_this_software_title">About this software</string>
 <string name="pref_about_version_title">Version</string>
 <string name="pref_about_oss_credits_title">Open source software</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Always use half-width space, no matter the input mode.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Use kana modifier insensitive conversion. Applied to 12 keys and Godan keyboard, e.g. かつこう→学校</string>
 <string name="pref_typing_correction_description">Detect mistyping and show corrected candidates, e.g. すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">Select the Emoji provider properly to use emoji.</string>
 <string name="pref_skin_type_description">Select the keyboard theme to customise the software keyboard look.</string>
 <string name="pref_voice_input_description">Show voice input button on the software keyboard.</string>
 <string name="pref_hardware_keymap_description">Select key mapping for hardware keyboards.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Clear symbol input history.</string>
 <string name="pref_clear_user_dictionary_description">Clear user dictionary.</string>
 <string name="pref_other_incognito_mode_description">Temporarily disable personalisation, suggestions and user dictionary.</string>
-<string name="pref_other_usage_stats_description">Send usage statistics to %1$s. These will only be used to improve %1$s products and services.</string>
 <string name="pref_about_oss_credits_description">This software uses open source software: view the licences.</string>
 <string name="pref_launcher_icon_visibility_description">Display application icon in the launcher</string>
 <string name="pref_input_style_setting_entry_toggle">Toggle</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Toggle &amp; Flick</string>
 <string name="pref_fullscreen_portrait">Enable on portrait</string>
 <string name="pref_fullscreen_landscape">Enable on landscape</string>
-<string name="pref_emoji_provider_type_unicode">Disable carrier Emoji</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Orange/Light grey</string>
 <string name="pref_skin_type_blue_lightgray">Blue/Light grey</string>
 <string name="pref_skin_type_blue_darkgray">Blue/Dark grey</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Material Design (Dark)</string>
 <string name="pref_hardware_keymap_default">System Default</string>
 <string name="pref_hardware_keymap_japanese109A">Japanese 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 keys</string>
 <string name="pref_dictionary_personalization_entry_enabled">Enable</string>
 <string name="pref_dictionary_personalization_entry_readonly">Frozen</string>
 <string name="pref_dictionary_personalization_entry_disabled">Disable</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Edit the name of the dictionary</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Name of the dictionary</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Add a new word</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Edit a word</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Reading</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Word</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Category</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Punctuation</string>
 <string name="japanese_pos_free_standing_word">Free standing word</string>
 <string name="japanese_pos_suppression_word">Suppression word</string>
-<string name="yes">Yes</string>
-<string name="no">No</string>
 </resources>

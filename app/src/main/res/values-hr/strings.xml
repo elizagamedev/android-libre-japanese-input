@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Softverska tipkovnica</string>
 <string name="pref_software_keyboard_advanced_settings_title">Napredne postavke softverske tipkovnice</string>
-<string name="pref_fragment_software_keyboard_title">Software keyboard</string>
-<string name="pref_fragment_input_support_title">Input support</string>
-<string name="pref_fragment_conversion_title">Conversion</string>
-<string name="pref_fragment_dictionary_title">Dictionary</string>
-<string name="pref_fragment_user_feedback_title">User feedback</string>
-<string name="pref_fragment_about_title">About</string>
-<string name="pref_fragment_development_title">Development</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Postavke softverske tipkovnice za portretni način</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Postavke softverske tipkovnice za pejzažni način</string>
 <string name="pref_keyboard_layout_title">Raspored tipkovnice</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Pretvorba neosjetljiva na modifikator</string>
 <string name="pref_typing_correction_title">Ispravljanje tipkanja</string>
 <string name="pref_other_incognito_mode_title">Anonimno</string>
-<string name="pref_emoji_provider_type_title">Odabir davatelja emojija</string>
 <string name="pref_dictionry_category_title">Postavke rječnika</string>
 <string name="pref_dictionary_personalization_title">Prilagođavanje</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Alat rječnika</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Povijest pretvorbe</string>
 <string name="pref_clear_symbol_history_title">Povijest simbola</string>
 <string name="pref_clear_user_dictionary_title">Korisnički rječnik</string>
-<string name="pref_user_feedback_category_title">Povratne informacije korisnika</string>
-<string name="pref_other_usage_stats_title">Slanje statistike upotrebe</string>
 <string name="pref_about_about_this_software_title">O ovom softveru</string>
 <string name="pref_about_version_title">Verzija</string>
 <string name="pref_about_oss_credits_title">Softver otvorenog izvornog koda</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Uvijek upotrebljavaj razmak polovice širine, bez obzira na način unosa.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Upotrebljavaj kana pretvorbu neosjetljivu na modifikator. Primjenjuje se na tipkovnice od 12 tipki i godan tipkovnice, na primjer, かつこう→学校</string>
 <string name="pref_typing_correction_description">Otkrij pogrešno napisane riječi i prikaži ispravljene prijedloge, na primjer, すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">Odaberi davatelja emojija pravilno radi upotrebe emojija.</string>
 <string name="pref_skin_type_description">Select the keyboard theme to customize the software keyboard look.</string>
 <string name="pref_voice_input_description">Show voice input button on the software keyboard.</string>
 <string name="pref_hardware_keymap_description">Odaberi kartu tipki za hardverske tipkovnice.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Izbriši povijest unosa simbola.</string>
 <string name="pref_clear_user_dictionary_description">Izbriši korisnički rječnik.</string>
 <string name="pref_other_incognito_mode_description">Privremeno onemogući prilagođavanje, prijedloge i korisnički rječnik.</string>
-<string name="pref_other_usage_stats_description">Pošalji korisničku statistiku usluzi %1$s. Podaci će se upotrebljavati samo za poboljšanje %1$s proizvoda i usluga.</string>
 <string name="pref_about_oss_credits_description">Ovaj softver upotrebljava softver otvorenog izvornog koda: pogledajte licence.</string>
 <string name="pref_launcher_icon_visibility_description">Prikaži ikonu aplikacije u pokretaču</string>
 <string name="pref_input_style_setting_entry_toggle">Prebacivanje</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Prebacivanje i trzaj</string>
 <string name="pref_fullscreen_portrait">Omogući u okomitom prikazu</string>
 <string name="pref_fullscreen_landscape">Omogući u vodoravnom prikazu</string>
-<string name="pref_emoji_provider_type_unicode">Onemogući emojije mobilnog operatera</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Narančasta/svijetlosiva</string>
 <string name="pref_skin_type_blue_lightgray">Plava/svijetlosiva</string>
 <string name="pref_skin_type_blue_darkgray">Plava/tamnosiva</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Dizajn materijala (tamno)</string>
 <string name="pref_hardware_keymap_default">Zadane postavke sustava</string>
 <string name="pref_hardware_keymap_japanese109A">Japanski 109a</string>
-<string name="pref_hardware_keymap_twelvekey">12 tipki</string>
 <string name="pref_dictionary_personalization_entry_enabled">Omogući</string>
 <string name="pref_dictionary_personalization_entry_readonly">Smrznuto</string>
 <string name="pref_dictionary_personalization_entry_disabled">Onemogući</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Uređivanje naziva rječnika</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Naziv rječnika</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Dodavanje nove riječi</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Uređivanje riječi</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Čitanje</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Riječ</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Kategorija</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Interpunkcija</string>
 <string name="japanese_pos_free_standing_word">Zasebna riječ</string>
 <string name="japanese_pos_suppression_word">Riječ za izostavljanje</string>
-<string name="yes">Da</string>
-<string name="no">Ne</string>
 </resources>

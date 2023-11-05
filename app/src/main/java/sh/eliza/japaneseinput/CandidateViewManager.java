@@ -29,8 +29,6 @@
 
 package sh.eliza.japaneseinput;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.res.Resources;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -39,7 +37,6 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
@@ -66,16 +63,16 @@ class CandidateViewManager implements MemoryManageable {
   }
 
   private static final Animation NO_ANIMATION = new Animation() {};
-  @VisibleForTesting static final Command EMPTY_COMMAND = Command.getDefaultInstance();
+  private static final Command EMPTY_COMMAND = Command.getDefaultInstance();
 
-  @VisibleForTesting final CandidateView keyboardCandidateView;
-  @VisibleForTesting final FloatingCandidateView floatingCandidateView;
+  private final CandidateView keyboardCandidateView;
+  private final FloatingCandidateView floatingCandidateView;
 
   /**
    * SymbolInputView which number candidate view belongs to is created lazily. Therefore number
    * candidate view is not accessible when CandidateViewManager is instantiated.
    */
-  @VisibleForTesting Optional<CandidateView> numberCandidateView = Optional.absent();
+  private Optional<CandidateView> numberCandidateView = Optional.absent();
 
   private Optional<KeyboardCandidateViewHeightListener> keyboardCandidateViewHeightListener =
       Optional.absent();
@@ -121,7 +118,6 @@ class CandidateViewManager implements MemoryManageable {
   private Animation numberCandidateViewInAnimation = NO_ANIMATION;
   private Animation numberCandidateViewOutAnimation = NO_ANIMATION;
 
-  @SuppressLint("NewApi")
   public CandidateViewManager(
       CandidateView keyboardCandidateView, FloatingCandidateView floatingCandidateView) {
     this.keyboardCandidateView = Preconditions.checkNotNull(keyboardCandidateView);
@@ -220,15 +216,12 @@ class CandidateViewManager implements MemoryManageable {
     candidateMode = floatingMode ? CandidateMode.FLOATING : CandidateMode.KEYBOARD;
     updateWithoutAnimation(EMPTY_COMMAND);
     setEditorInfo(editorInfo);
-    if (FloatingCandidateView.isAvailable()) {
-      setCursorAnchorInfo(cursorAnchorInfo);
-    }
+    setCursorAnchorInfo(cursorAnchorInfo);
     // In order to show extracted view correctly, make the visibility GONE when it is not activated.
     floatingCandidateView.setVisibility(floatingMode ? View.VISIBLE : View.GONE);
   }
 
   public void setAllowFloatingMode(boolean allowFloatingMode) {
-    Preconditions.checkArgument(!allowFloatingMode || FloatingCandidateView.isAvailable());
     this.allowFloatingMode = allowFloatingMode;
     updateCandiadateWindowActivation();
   }
@@ -289,7 +282,6 @@ class CandidateViewManager implements MemoryManageable {
     }
   }
 
-  @TargetApi(21)
   public void setCursorAnchorInfo(CursorAnchorInfoWrapper info) {
     this.cursorAnchorInfo = Preconditions.checkNotNull(info);
     if (candidateMode == CandidateMode.FLOATING) {

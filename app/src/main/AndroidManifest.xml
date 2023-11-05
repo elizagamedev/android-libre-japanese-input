@@ -32,19 +32,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools">
 
-  <!-- Google Japanese Input (the main code) requires the following permissions. -->
-  <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> -->
-  <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
   <uses-permission android:name="android.permission.VIBRATE" />
-  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
   <application android:icon="@drawable/application_icon"
                android:label="@string/app_full_name"
-               android:allowBackup="false"
                android:theme="@style/Theme.Material3.DayNight.NoActionBar"
-               tools:targetApi="34">
+               android:allowBackup="false"
+               android:supportsRtl="false"
+               tools:ignore="DataExtractionRules">
     <service android:name="sh.eliza.japaneseinput.MozcService"
              android:permission="android.permission.BIND_INPUT_METHOD"
              android:label="@string/app_full_name"
@@ -57,7 +53,6 @@
 
     <!-- Launcher Icon -->
     <activity android:name="sh.eliza.japaneseinput.LauncherActivity"
-              android:label="@string/app_full_name"
               android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -81,7 +76,6 @@
     <activity android:name="sh.eliza.japaneseinput.preference.MozcSoftwareKeyboardAdvancedPreferenceActivity"
               android:launchMode="singleTop"/>
 
-    <activity android:name="sh.eliza.japaneseinput.FirstTimeLaunchActivity" />
     <activity android:name="sh.eliza.japaneseinput.preference.MiniBrowserActivity"
               android:launchMode="singleTop" />
 
@@ -115,15 +109,15 @@
     <!-- For mushroom.
          Note about the attributes:
          - launchMode: this activity is singleTask, in order to be the root
-           activity launched from the menu dialog.
+         activity launched from the menu dialog.
          - taskAffinity: set taskAffinity so that the task is split from
-           other activities, such as preference activity.
+         other activities, such as preference activity.
          - windowSoftInputMode: because this activity looks dialog with a
-           ListView. So, in theory it is not necessary to connect with IME.
-           Without this option, some unexpected connection happens, and
-           it causes an issue that mushroom result is not committed.
+         ListView. So, in theory it is not necessary to connect with IME.
+         Without this option, some unexpected connection happens, and
+         it causes an issue that mushroom result is not committed.
          - excludeFromRecents: this pseudo dialog shouldn't be shown on history
-           list.
+         list.
     -->
     <activity android:name="sh.eliza.japaneseinput.mushroom.MushroomSelectionActivity"
               android:launchMode="singleTask"
@@ -141,5 +135,16 @@
       <meta-data android:name="android.hardware.input.metadata.KEYBOARD_LAYOUTS"
                  android:resource="@xml/keyboard_layouts" />
     </receiver>
-</application>
+  </application>
+
+  <queries>
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <data android:scheme="http" />
+    </intent>
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <data android:scheme="https" />
+    </intent>
+  </queries>
 </manifest>

@@ -38,7 +38,6 @@ import android.view.KeyEvent
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-import com.google.common.annotations.VisibleForTesting
 import com.google.common.base.Optional
 import com.google.common.base.Preconditions
 import java.util.regex.Pattern
@@ -62,10 +61,7 @@ private fun PackageManager.queryIntentActivitiesCompat(intent: Intent) =
 class MiniBrowserActivity : AppCompatActivity() {
   // TODO(matsuzakit): "print" link is meaningless. Should be invisible.
   // TODO(matsuzakit): CSS needs to be improved.
-  @VisibleForTesting
-  internal class MiniBrowserClient
-  @VisibleForTesting
-  constructor(
+  private class MiniBrowserClient(
     private val restrictionPattern: String,
     private val packageManager: PackageManager,
     private val context: Context

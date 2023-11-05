@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">პროგრამული კლავიატურა</string>
 <string name="pref_software_keyboard_advanced_settings_title">პროგრამული კლავიატურის გაფართოებული პარამეტრები</string>
-<string name="pref_fragment_software_keyboard_title">Software keyboard</string>
-<string name="pref_fragment_input_support_title">Input support</string>
-<string name="pref_fragment_conversion_title">Conversion</string>
-<string name="pref_fragment_dictionary_title">Dictionary</string>
-<string name="pref_fragment_user_feedback_title">User feedback</string>
-<string name="pref_fragment_about_title">About</string>
-<string name="pref_fragment_development_title">Development</string>
 <string name="pref_software_keyboard_preferences_portrait_title">პროგრამული კლავიატურის პარამეტრები პორტრეტის რეჟიმისთვის</string>
 <string name="pref_software_keyboard_preferences_landscape_title">პროგრამული კლავიატურის პარამეტრები ლანდშაფტის რეჟიმისთვის</string>
 <string name="pref_keyboard_layout_title">კლავიატურის განლაგება</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">არასენსიტიური კონვერტაციის მოდიფიკატორი</string>
 <string name="pref_typing_correction_title">ბეჭდვის შესწორება</string>
 <string name="pref_other_incognito_mode_title">ინკოგნიტო რეჟიმი</string>
-<string name="pref_emoji_provider_type_title">სიცილაკების მომწოდებლის არჩევა</string>
 <string name="pref_dictionry_category_title">ლექსიკონის პარამეტრები</string>
 <string name="pref_dictionary_personalization_title">პერსონალიზაცია</string>
 <string name="pref_dictionary_user_dictionary_tool_title">ლექსიკონის ხელსაწყო</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">კონვერტაციის ისტორია</string>
 <string name="pref_clear_symbol_history_title">სიმბოლოების ისტორია</string>
 <string name="pref_clear_user_dictionary_title">მომხმარებლის ლექსიკონი</string>
-<string name="pref_user_feedback_category_title">მომხმარებლის უკუკავშირი</string>
-<string name="pref_other_usage_stats_title">გამოყენების სტატისტიკის გაგზავნა</string>
 <string name="pref_about_about_this_software_title">ამ პროგრამის შესახებ</string>
 <string name="pref_about_version_title">ვერსია</string>
 <string name="pref_about_oss_credits_title">ღია წყაროს მქონე პროგრამული უზრუნველყოფა</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">ყოველთვის ნახევარი სიგანის ინტერვალის გამოყენება, შეყვანის რეჟიმის მიუხედავად.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">კანას მოდიფიკატორის არასენსიტიური კონვერტაციის გამოყენება. გამოიყენება12 კლავიშისა და გოდან კლავიატურისთვის. მაგალითად: か つ こ う → 学校</string>
 <string name="pref_typing_correction_description">ბეჭდვის შეცდომების პოვნა და შესწორებული ვარიანტების ჩვენება. მაგალითად: す ん か い → 深海</string>
-<string name="pref_emoji_provider_type_description">სიცილაკების მომწოდებლის არჩევა, რათა მოხდეს სიცილაკების სათანადოდ გამოყენება.</string>
 <string name="pref_skin_type_description">Select the keyboard theme to customize the software keyboard look.</string>
 <string name="pref_voice_input_description">Show voice input button on the software keyboard.</string>
 <string name="pref_hardware_keymap_description">აპარატურული კლავიატურისთვის კლავიშების განლაგების არჩევა.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">სიმბოლოების შეყვანის ისტორიის წაშლა.</string>
 <string name="pref_clear_user_dictionary_description">მომხმარებლის ლექსიკონის წაშლა.</string>
 <string name="pref_other_incognito_mode_description">პერსონალიზაციის, შემოთავაზებებისა და მომხმარებლის ლექსიკონის დროებით გამორთვა.</string>
-<string name="pref_other_usage_stats_description">მოხმარების სტატისტიკის %1$s-ისთვის გაგზავნა. მისი გამოყენება მოხდება მხოლოდ %1$s -ის პროდუქციისა და სერვისების გასაუმჯობესებლად.</string>
 <string name="pref_about_oss_credits_description">ეს პროგრამა იყენებს ღია წყაროს მქონე პროგრამულ უზრუნველყოფას: იხილეთ ლიცენზია.</string>
 <string name="pref_launcher_icon_visibility_description">აპლიკაციის ხატულის ჩვენება გამშვებში</string>
 <string name="pref_input_style_setting_entry_toggle">Toggle</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Toggle და Flick</string>
 <string name="pref_fullscreen_portrait">პორტრეტის ჩართვა</string>
 <string name="pref_fullscreen_landscape">ლანდშაფტის ჩართვა</string>
-<string name="pref_emoji_provider_type_unicode">ოპერატორის ემოჯის გამორთვა</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">ნარინჯისფერი/ღია ნაცრისფერი</string>
 <string name="pref_skin_type_blue_lightgray">ცისფერი/ღია ნაცრისფერი</string>
 <string name="pref_skin_type_blue_darkgray">ცისფერი/მუქი ნაცრისფერი</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">მასალის დიზაინი (მუქი)</string>
 <string name="pref_hardware_keymap_default">სისტემის ნაგულისხმევი</string>
 <string name="pref_hardware_keymap_japanese109A">იაპონური 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 კლავიში</string>
 <string name="pref_dictionary_personalization_entry_enabled">ჩართვა</string>
 <string name="pref_dictionary_personalization_entry_readonly">გაყინული</string>
 <string name="pref_dictionary_personalization_entry_disabled">გამორთვა</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">ლექსიკონის სახელის რედაქტირება</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">ლექსიკონის სახელი</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">ახალი სიტყვის დამატება</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">სიტყვის შესწორება</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">წაკითხვა</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">სიტყვა</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">კატეგორია</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">პუნქტუაცია</string>
 <string name="japanese_pos_free_standing_word">ცალკე მდგომი სიტყვა</string>
 <string name="japanese_pos_suppression_word">აღკვეთის სიტყვა</string>
-<string name="yes">დიახ</string>
-<string name="no">არა</string>
 </resources>

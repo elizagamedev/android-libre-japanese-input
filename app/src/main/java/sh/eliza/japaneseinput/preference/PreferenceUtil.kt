@@ -320,7 +320,7 @@ object PreferenceUtil {
           else PREF_PORTRAIT_KEYBOARD_LAYOUT_KEY,
           newValue.name
         )
-        .commit()
+        .apply()
       return true
     }
   }

@@ -189,6 +189,7 @@ class UserDictionaryUtil {
 
     @Override
     protected void onFinishInflate() {
+      super.onFinishInflate();
       // Set adapter containing a list of POS types.
       ArrayAdapter<PosItem> adapter =
           new ArrayAdapter<PosItem>(

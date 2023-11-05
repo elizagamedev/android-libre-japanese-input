@@ -43,6 +43,5 @@
       android:id="@+id/user_dictionary_tool_entry_list"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
-      android:layout_below="@+id/user_dictionary_tool_dictionary_name_spinner"
-      android:layout_above="@+id/user_dictionary_tool_split_action_bar" />
+      android:layout_below="@+id/user_dictionary_tool_dictionary_name_spinner" />
 </RelativeLayout>

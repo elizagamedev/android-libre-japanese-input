@@ -34,7 +34,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.drawable.Drawable;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
@@ -43,31 +42,29 @@ public class Skin {
 
   private static final Skin FALLBACK_INSTANCE = new Skin();
 
-  @VisibleForTesting static final int STYLE_CATEGORY_KEYICON_MAIN = 0;
-  @VisibleForTesting static final int STYLE_CATEGORY_KEYICON_GUIDE = 1;
-  @VisibleForTesting static final int STYLE_CATEGORY_KEYICON_GUIDE_LIGHT = 2;
-  @VisibleForTesting static final int STYLE_CATEGORY_KEYICON_MAIN_HIGHLIGHT = 3;
-  @VisibleForTesting static final int STYLE_CATEGORY_KEYICON_GUIDE_HIGHLIGHT = 4;
-  @VisibleForTesting static final int STYLE_CATEGORY_KEYICON_BOUND = 5;
-  @VisibleForTesting static final int STYLE_CATEGORY_KEYICON_TWELVEKEYS_FUNCTION = 6;
-  @VisibleForTesting static final int STYLE_CATEGORY_KEYICON_TWELVEKEYS_GLOBE = 7;
-  @VisibleForTesting static final int STYLE_CATEGORY_KEYICON_QWERTY_FUNCTION = 8;
-  @VisibleForTesting static final int STYLE_CATEGORY_KEYICON_FUNCTION_DARK = 9;
-  @VisibleForTesting static final int STYLE_CATEGORY_KEYICON_ENTER = 10;
-  @VisibleForTesting static final int STYLE_CATEGORY_KEYICON_ENTER_CIRCLE = 11;
-  @VisibleForTesting static final int STYLE_CATEGORY_KEYICON_QWERTY_SHIFT_ON_ARROW = 12;
-  @VisibleForTesting static final int STYLE_CATEGORY_KEYPOPUP_HIGHLIGHT = 13;
-  @VisibleForTesting static final int STYLE_CATEGORY_SYMBOL_MAJOR = 14;
-  @VisibleForTesting static final int STYLE_CATEGORY_SYMBOL_MAJOR_SELECTED = 15;
-  @VisibleForTesting static final int STYLE_CATEGORY_SYMBOL_MAJOR_EMOJI_DISABLE_CIRCLE = 16;
-  @VisibleForTesting static final int STYLE_CATEGORY_SYMBOL_MINOR = 17;
-  @VisibleForTesting static final int STYLE_CATEGORY_SYMBOL_MINOR_SELECTED = 18;
+  private static final int STYLE_CATEGORY_KEYICON_MAIN = 0;
+  private static final int STYLE_CATEGORY_KEYICON_GUIDE = 1;
+  private static final int STYLE_CATEGORY_KEYICON_GUIDE_LIGHT = 2;
+  private static final int STYLE_CATEGORY_KEYICON_MAIN_HIGHLIGHT = 3;
+  private static final int STYLE_CATEGORY_KEYICON_GUIDE_HIGHLIGHT = 4;
+  private static final int STYLE_CATEGORY_KEYICON_BOUND = 5;
+  private static final int STYLE_CATEGORY_KEYICON_TWELVEKEYS_FUNCTION = 6;
+  private static final int STYLE_CATEGORY_KEYICON_TWELVEKEYS_GLOBE = 7;
+  private static final int STYLE_CATEGORY_KEYICON_QWERTY_FUNCTION = 8;
+  private static final int STYLE_CATEGORY_KEYICON_FUNCTION_DARK = 9;
+  private static final int STYLE_CATEGORY_KEYICON_ENTER = 10;
+  private static final int STYLE_CATEGORY_KEYICON_ENTER_CIRCLE = 11;
+  private static final int STYLE_CATEGORY_KEYICON_QWERTY_SHIFT_ON_ARROW = 12;
+  private static final int STYLE_CATEGORY_KEYPOPUP_HIGHLIGHT = 13;
+  private static final int STYLE_CATEGORY_SYMBOL_MAJOR = 14;
+  private static final int STYLE_CATEGORY_SYMBOL_MAJOR_SELECTED = 15;
+  private static final int STYLE_CATEGORY_SYMBOL_MAJOR_EMOJI_DISABLE_CIRCLE = 16;
+  private static final int STYLE_CATEGORY_SYMBOL_MINOR = 17;
+  private static final int STYLE_CATEGORY_SYMBOL_MINOR_SELECTED = 18;
 
-  @VisibleForTesting
-  static final int STYLE_CATEGORY_KEYBOARD_FOLDING_BUTTON_BACKGROUND_DEFAULT = 19;
+  private static final int STYLE_CATEGORY_KEYBOARD_FOLDING_BUTTON_BACKGROUND_DEFAULT = 19;
 
-  @VisibleForTesting
-  static final int STYLE_CATEGORY_KEYBOARD_FOLDING_BUTTON_BACKGROUND_SCROLLED = 20;
+  private static final int STYLE_CATEGORY_KEYBOARD_FOLDING_BUTTON_BACKGROUND_SCROLLED = 20;
 
   public int keyboardSeparatorColor;
   public int twelvekeysLayoutReleasedKeyTopColor;
@@ -327,8 +324,7 @@ public class Skin {
     return drawableFactory.get();
   }
 
-  @VisibleForTesting
-  void resetDrawableFactory() {
+  private void resetDrawableFactory() {
     drawableFactory = Optional.absent();
   }
 }

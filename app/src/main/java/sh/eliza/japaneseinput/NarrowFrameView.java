@@ -34,7 +34,6 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
@@ -97,7 +96,6 @@ public class NarrowFrameView extends LinearLayout {
                 skin.twelvekeysLayoutReleasedFunctionKeyShadowColor)));
   }
 
-  @SuppressWarnings("deprecation")
   private void setupImageButton(MozcImageView view, int resourceID) {
     float density = getResources().getDisplayMetrics().density;
     view.setImageDrawable(skin.getDrawable(getResources(), resourceID));
@@ -118,7 +116,6 @@ public class NarrowFrameView extends LinearLayout {
     }
   }
 
-  @SuppressWarnings("deprecation")
   public void setSkin(Skin skin) {
     this.skin = Preconditions.checkNotNull(skin);
     setBackgroundDrawable(skin.narrowFrameBackgroundDrawable);
@@ -152,18 +149,15 @@ public class NarrowFrameView extends LinearLayout {
     updateImageButton();
   }
 
-  @VisibleForTesting
-  MozcImageView getHardwareCompositionButton() {
+  private MozcImageView getHardwareCompositionButton() {
     return (MozcImageView) findViewById(R.id.hardware_composition_button);
   }
 
-  @VisibleForTesting
-  MozcImageView getWidenButton() {
+  private MozcImageView getWidenButton() {
     return (MozcImageView) findViewById(R.id.widen_button);
   }
 
-  @VisibleForTesting
-  View getNarrowFrameSeparator() {
+  private View getNarrowFrameSeparator() {
     return findViewById(R.id.narrow_frame_separator);
   }
 }

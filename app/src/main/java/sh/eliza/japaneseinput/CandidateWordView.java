@@ -38,15 +38,14 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.EdgeEffect;
 import androidx.core.view.ViewCompat;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import javax.annotation.Nullable;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateList;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
-import sh.eliza.japaneseinput.accessibility.AccessibilityUtil;
 import sh.eliza.japaneseinput.accessibility.CandidateWindowAccessibilityDelegate;
 import sh.eliza.japaneseinput.keyboard.BackgroundDrawableFactory;
 import sh.eliza.japaneseinput.keyboard.BackgroundDrawableFactory.DrawableType;
@@ -385,7 +384,7 @@ abstract class CandidateWordView extends View implements MemoryManageable {
   protected final SnapScroller scroller = new SnapScroller();
   // The CandidateLayouter which calculates the layout of candidate words.
   // This fields is not final but must be set in initialization in the subclasses.
-  @VisibleForTesting CandidateLayouter layouter;
+  protected CandidateLayouter layouter;
   // The calculated layout, created by this.layouter.
   protected CandidateLayout calculatedLayout;
   // The CandidateList which is currently shown on the view.
@@ -409,15 +408,20 @@ abstract class CandidateWordView extends View implements MemoryManageable {
   private DrawableType backgroundDrawableType = null;
 
   private final CandidateWindowAccessibilityDelegate accessibilityDelegate;
+  private final AccessibilityManager accessibilityManager;
 
   CandidateWordView(Context context, OrientationTrait orientationFeature) {
     super(context);
     this.orientationTrait = orientationFeature;
+    this.accessibilityManager =
+        (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
   }
 
   CandidateWordView(Context context, AttributeSet attributeSet, OrientationTrait orientationTrait) {
     super(context, attributeSet);
     this.orientationTrait = orientationTrait;
+    this.accessibilityManager =
+        (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
   }
 
   CandidateWordView(
@@ -427,6 +431,8 @@ abstract class CandidateWordView extends View implements MemoryManageable {
       OrientationTrait orientationTrait) {
     super(context, attributeSet, defaultStyle);
     this.orientationTrait = orientationTrait;
+    this.accessibilityManager =
+        (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
   }
 
   {
@@ -562,8 +568,7 @@ abstract class CandidateWordView extends View implements MemoryManageable {
     super.computeScroll();
   }
 
-  @VisibleForTesting
-  int getUpdatedScrollPosition(Row row, Span span) {
+  private int getUpdatedScrollPosition(Row row, Span span) {
     int scrollPosition = orientationTrait.getScrollPosition(this);
     float candidatePosition = orientationTrait.getCandidatePosition(row, span);
     float candidateLength = orientationTrait.getCandidateLength(row, span);
@@ -648,10 +653,9 @@ abstract class CandidateWordView extends View implements MemoryManageable {
     } else {
       calculatedLayout = layouter.layout(currentCandidateList).orNull();
     }
-    Optional<CandidateLayout> candidateLayout = Optional.fromNullable(calculatedLayout);
     accessibilityDelegate.setCandidateLayout(
-        candidateLayout,
-        (int) orientationTrait.getContentSize(candidateLayout),
+        calculatedLayout,
+        (int) orientationTrait.getContentSize(Optional.fromNullable(calculatedLayout)),
         orientationTrait.getViewLength(this));
   }
 
@@ -693,7 +697,6 @@ abstract class CandidateWordView extends View implements MemoryManageable {
   /** Returns a Drawable which should be set as the view's background. */
   protected abstract Drawable getViewBackgroundDrawable(Skin skin);
 
-  @SuppressWarnings("deprecation")
   void setSkin(Skin skin) {
     backgroundDrawableFactory.setSkin(Preconditions.checkNotNull(skin));
     resetSpanBackground();
@@ -704,13 +707,13 @@ abstract class CandidateWordView extends View implements MemoryManageable {
   @Override
   public void trimMemory() {
     calculatedLayout = null;
-    accessibilityDelegate.setCandidateLayout(Optional.absent(), 0, 0);
+    accessibilityDelegate.setCandidateLayout(null, 0, 0);
     currentCandidateList = null;
   }
 
   @Override
   protected boolean dispatchHoverEvent(MotionEvent event) {
-    if (AccessibilityUtil.isTouchExplorationEnabled(getContext())) {
+    if (accessibilityManager.isTouchExplorationEnabled()) {
       return accessibilityDelegate.dispatchHoverEvent(event);
     }
     return false;

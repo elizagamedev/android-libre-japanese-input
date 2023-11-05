@@ -34,11 +34,11 @@
     <item android:id="@+id/user_dictionary_tool_menu_add_entry"
           android:icon="@android:drawable/ic_menu_add"
           android:title="@string/user_dictionary_tool_menu_add_entry_title"
-          app:showAsAction="always" />
+          app:showAsAction="ifRoom" />
     <item android:id="@+id/user_dictionary_tool_menu_delete_entry"
           android:icon="@android:drawable/ic_menu_delete"
           android:title="@string/user_dictionary_tool_menu_delete_entry_title"
-          app:showAsAction="always" />
+          app:showAsAction="ifRoom" />
 
     <!-- Overflow menu -->
     <item android:id="@+id/user_dictionary_tool_menu_create_dictionary"
@@ -52,9 +52,7 @@
           app:showAsAction="never" />
     <item android:id="@+id/user_dictionary_tool_menu_export_dictionary"
           android:title="@string/user_dictionary_tool_menu_export_dictionary_title"
-          app:showAsAction="never"
-          android:enabled="@bool/enable_user_dictionary_export"
-          android:visible="@bool/enable_user_dictionary_export" />
+          app:showAsAction="never" />
 
     <item android:id="@+id/user_dictionary_tool_menu_undo"
           android:icon="@android:drawable/ic_menu_revert"

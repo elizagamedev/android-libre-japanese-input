@@ -130,7 +130,6 @@ public class KeyState {
     public static final Set<MetaState> GLOBE_EXCLUSIVE_OR_GROUP =
         Sets.immutableEnumSet(MetaState.GLOBE, MetaState.NO_GLOBE);
 
-    @SuppressWarnings("unchecked")
     private static final Collection<Set<MetaState>> EXCLUSIVE_GROUP =
         Arrays.asList(
             CHAR_TYPE_EXCLUSIVE_GROUP,

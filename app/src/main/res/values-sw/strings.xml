@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Kibodi ya programu</string>
 <string name="pref_software_keyboard_advanced_settings_title">Mipangilio mahiri ya kibodi ya programu</string>
-<string name="pref_fragment_software_keyboard_title">Kibodi ya programu</string>
-<string name="pref_fragment_input_support_title">Usaidizi wa kuweka data</string>
-<string name="pref_fragment_conversion_title">Mazungumzo</string>
-<string name="pref_fragment_dictionary_title">Kamusi</string>
-<string name="pref_fragment_user_feedback_title">Maoni ya mtumiaji</string>
-<string name="pref_fragment_about_title">Kuhusu</string>
-<string name="pref_fragment_development_title">Maendeleo</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Mapendeleo ya kibodi ya programu ya mkao wima</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Mapendeleo ya kibodi ya programu ya mkao wa mlalo</string>
 <string name="pref_keyboard_layout_title">Mpangilio wa kibodi</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Kivumishi cha ubadilishaji kisichohisi</string>
 <string name="pref_typing_correction_title">Sahihisho za uandikaji</string>
 <string name="pref_other_incognito_mode_title">Hali fiche</string>
-<string name="pref_emoji_provider_type_title">Chagua mtoa huduma ya Emoji</string>
 <string name="pref_dictionry_category_title">Mapendeleo ya kamusi</string>
 <string name="pref_dictionary_personalization_title">Uwekaji mapendeleo</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Zana ya Kamusi</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Historia ya ubadilishaji</string>
 <string name="pref_clear_symbol_history_title">Historia ya alama</string>
 <string name="pref_clear_user_dictionary_title">Kamusi ya mtumiaji</string>
-<string name="pref_user_feedback_category_title">Maoni ya mtumiaji</string>
-<string name="pref_other_usage_stats_title">Tuma takwimu za matumizi</string>
 <string name="pref_about_about_this_software_title">Kuhusu programu hii</string>
 <string name="pref_about_version_title">Toleo</string>
 <string name="pref_about_oss_credits_title">Programu huria</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Wakati wote tumia nusu nafasi ya upana, bila kujali hali ya mbinu ya kuingiza data.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Tumia kivumishi cha kikana cha ubadilishaji kisichohisi. Huwekwa kwenye vitufe 12 na kibodi ya Kigodan. mfano: かつこう→学校</string>
 <string name="pref_typing_correction_description">Gundua hitilafu za uandikaji na uonyeshe herufi zilizosahihishwa. Mfano: すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">Chagua vizuri mtoa huduma ya Emoji ili utumie emoji.</string>
 <string name="pref_skin_type_description">Chagua mandhari ya kibodi ili ubadilishe mwonekano wa kibodi ya programu ukufae.</string>
 <string name="pref_voice_input_description">Onyesha kwenye kibodi ya programu kitufe cha kuweka data kwa kutamka.</string>
 <string name="pref_hardware_keymap_description">Chagua vitufe vya kukisia ingizo kwa ajili ya kibodi za maunzi.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Futa historia ya ingizo za alama.</string>
 <string name="pref_clear_user_dictionary_description">Futa kamusi ya mtumiaji</string>
 <string name="pref_other_incognito_mode_description">Zima kwa muda uwekaji mapendeleo, mapendekezo na kamusi ya mtumiaji.</string>
-<string name="pref_other_usage_stats_description">Tuma takwimu za matumizi kwa %1$s. Hizi zitatumika kwa kuboresha %1$s bidhaa na huduma pekee.</string>
 <string name="pref_about_oss_credits_description">Programu hii inatumia programu huria: tazama leseni.</string>
 <string name="pref_launcher_icon_visibility_description">Onyesha aikoni ya programu kwenye kifungua programu</string>
 <string name="pref_input_style_setting_entry_toggle">Geuza</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Geuza na Upindue</string>
 <string name="pref_fullscreen_portrait">Washa kwenye wima</string>
 <string name="pref_fullscreen_landscape">Washa kwenye mlalo</string>
-<string name="pref_emoji_provider_type_unicode">Zima Emoji za mtoa huduma</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Rangi ya chungwa/Kijivu inayong\'aa</string>
 <string name="pref_skin_type_blue_lightgray">Samawati/Kijivu inayong\'aa</string>
 <string name="pref_skin_type_blue_darkgray">Samawati/Kijivu nyeusi</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Usanifu wa Mwonekano katika Hali Tofauti (Nyeusi)</string>
 <string name="pref_hardware_keymap_default">Chaguo-msingi la Mfumo</string>
 <string name="pref_hardware_keymap_japanese109A">Kijapani 109A</string>
-<string name="pref_hardware_keymap_twelvekey">Vitufe 12</string>
 <string name="pref_dictionary_personalization_entry_enabled">Washa</string>
 <string name="pref_dictionary_personalization_entry_readonly">Imegandishwa</string>
 <string name="pref_dictionary_personalization_entry_disabled">Zima</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Badili jina la kamusi</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Jina la kamusi</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Ongeza neno jipya</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Badilisha neno</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Kusoma</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Neno</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Aina</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Uakifishaji</string>
 <string name="japanese_pos_free_standing_word">Neno linalojitegemea</string>
 <string name="japanese_pos_suppression_word">Nomino inayohitimisha sentensi</string>
-<string name="yes">Ndiyo</string>
-<string name="no">Hapana</string>
 </resources>

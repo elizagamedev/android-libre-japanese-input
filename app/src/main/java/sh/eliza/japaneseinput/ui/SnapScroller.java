@@ -32,7 +32,6 @@ package sh.eliza.japaneseinput.ui;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import sh.eliza.japaneseinput.MozcUtil;
@@ -98,7 +97,7 @@ public class SnapScroller {
    * <p>Updated by {@link #computeScrollOffset()}, {@link #scrollTo(int)} and {@link
    * #scrollBy(int)}.
    */
-  @VisibleForTesting int scrollPosition;
+  private int scrollPosition;
 
   /** The scroll position at which scroll animation starts (in pixel). */
   private int startScrollPosition;
@@ -122,8 +121,7 @@ public class SnapScroller {
     this(DEFAULT_TIMESTAMP_CALCULATOR);
   }
 
-  @VisibleForTesting
-  SnapScroller(TimestampCalculator timestampCalculator) {
+  private SnapScroller(TimestampCalculator timestampCalculator) {
     this.timestampCalculator = Preconditions.checkNotNull(timestampCalculator);
   }
 

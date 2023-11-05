@@ -19,6 +19,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?attr/listPreferredItemHeightSmall"
@@ -30,11 +31,10 @@
     android:background="?attr/selectableItemBackground"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    tools:ignore="Overdraw">
 
   <LinearLayout
-      xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
       android:id="@+id/icon_frame"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -78,7 +78,8 @@
           android:layout_height="wrap_content"
           android:singleLine="true"
           android:textAppearance="?attr/textAppearanceListItem"
-          android:ellipsize="marquee"/>
+          android:ellipsize="marquee"
+          tools:ignore="LabelFor" />
 
       <TextView
           android:id="@android:id/summary"
@@ -89,9 +90,9 @@
           android:layout_alignStart="@android:id/title"
           android:layout_gravity="start"
           android:textAlignment="viewStart"
+          android:textAppearance="?android:attr/textAppearanceSmall"
           android:textColor="?android:attr/textColorSecondary"
-          android:maxLines="4"
-          style="@style/PreferenceSummaryTextStyle"/>
+          android:maxLines="4" />
 
     </RelativeLayout>
 
@@ -121,17 +122,18 @@
            input - this might be something we should reconsider down the line. -->
       <SeekBar
           android:id="@+id/seekbar"
+          app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintLeft_toLeftOf="parent"
           app:layout_constraintRight_toLeftOf="@id/seekbar_value"
           app:layout_constraintWidth_default="spread"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:paddingLeft="@dimen/preference_seekbar_padding_horizontal"
-          android:paddingStart="@dimen/preference_seekbar_padding_horizontal"
-          android:paddingRight="@dimen/preference_seekbar_padding_horizontal"
-          android:paddingEnd="@dimen/preference_seekbar_padding_horizontal"
-          android:paddingTop="@dimen/preference_seekbar_padding_vertical"
-          android:paddingBottom="@dimen/preference_seekbar_padding_vertical"
+          android:paddingLeft="0dp"
+          android:paddingStart="0dp"
+          android:paddingRight="0dp"
+          android:paddingEnd="0dp"
+          android:paddingTop="15dp"
+          android:paddingBottom="15dp"
           android:background="@null"/>
 
       <!-- Low/Mid/High labels -->

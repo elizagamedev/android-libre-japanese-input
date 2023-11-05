@@ -179,6 +179,23 @@ android {
     targetCompatibility = JavaVersion.VERSION_1_8
   }
   kotlinOptions { jvmTarget = "1.8" }
+
+  lint {
+    showAll = true
+    disable +=
+      listOf(
+        "ResourceType",
+        "MissingTranslation",
+        "UseCompoundDrawables",
+        "UselessParent",
+        "TooDeepLayout",
+        "ClickableViewAccessibility",
+        "ContentDescription",
+        "RtlHardcoded",
+        "IconDensities",
+        "UnusedResources",
+      )
+  }
 }
 
 dependencies {

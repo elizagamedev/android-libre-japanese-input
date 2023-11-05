@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">የሶፍትዌር ቁልፍ ሰሌዳ</string>
 <string name="pref_software_keyboard_advanced_settings_title">የሶፍትዌር ቁልፍ ሰሌዳ የላቁ ቅንብሮች</string>
-<string name="pref_fragment_software_keyboard_title">የሶፍትዌር ቁልፍ ሰሌዳ</string>
-<string name="pref_fragment_input_support_title">የግብዓት ድጋፍ</string>
-<string name="pref_fragment_conversion_title">ልወጣ</string>
-<string name="pref_fragment_dictionary_title">መዝገበ-ቃላት</string>
-<string name="pref_fragment_user_feedback_title">የተጠቃሚ ግብረ መልስ</string>
-<string name="pref_fragment_about_title">ስለ</string>
-<string name="pref_fragment_development_title">ግንባታ</string>
 <string name="pref_software_keyboard_preferences_portrait_title">የሶፍትዌር ቁልፍ ሰሌዳ ምርጫዎች ለቁልቁል ሁኔታ</string>
 <string name="pref_software_keyboard_preferences_landscape_title">የሶፍትዌር ቁልፍ ሰሌዳ ምርጫዎች ለአግድም ሁኔታ</string>
 <string name="pref_keyboard_layout_title">የቁልፍ ሰሌዳ ገጽታ</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">የማስተካከያ ልዩ ጥንቃቃ የማያስፈልገው ልወጣ</string>
 <string name="pref_typing_correction_title">የትየባ ማስተካከያ</string>
 <string name="pref_other_incognito_mode_title">ማንነትህን ሳታሳውቅ</string>
-<string name="pref_emoji_provider_type_title">የኢሞጂ አቅራቢ ይምረጡ</string>
 <string name="pref_dictionry_category_title">የመዝገበ ቃላት ምርጫዎች</string>
 <string name="pref_dictionary_personalization_title">ለግል ማበጀት</string>
 <string name="pref_dictionary_user_dictionary_tool_title">የመዝገበ ቃላት መሳሪያ</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">የልወጣ ታሪክ</string>
 <string name="pref_clear_symbol_history_title">የምልክት ታሪክ</string>
 <string name="pref_clear_user_dictionary_title">የተጠቃሚ መዝገበ ቃላት</string>
-<string name="pref_user_feedback_category_title">የተጠቃሚ ግብረ ምላሽ</string>
-<string name="pref_other_usage_stats_title">የአጠቃቀም ስታትስቲክስ ላክ</string>
 <string name="pref_about_about_this_software_title">ስለዚህ ሶፍትዌር</string>
 <string name="pref_about_version_title">ሥሪት</string>
 <string name="pref_about_oss_credits_title">ክፍት ምንጭ ሶፍትዌር</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">የግቤት ሁኔታው ምንም ቢሆን ሁልጊዜም ግማሽ ስፋት ባዶ ቦታ ይጠቀሙ።</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">የkana ማስተካከያ ስሜታዊ ያልሆነ ለውጥ ይጠቀሙ። 12 ቁልፎችና Godan ቁልፍ ሰሌዳ ላይ የተተገበረ። ለምሳሌ፣ かつこう→学校</string>
 <string name="pref_typing_correction_description">የተሳሳተ ትየባንና የተስታካከሉ እጩዎችን ይወቁ። ለምሳሌ፣ すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">ኢሞጂ ለመጠቀም የኢሞጂ አቅራቢውን በትክክል ይምረጡ።</string>
 <string name="pref_skin_type_description">የሶፍትዌር ቁልፍ ሰሌዳ መልኩን ለግል ለማበጀት የቁልፍ ሰሌዳ ገጽታ ዓይነትን ይምረጡ።</string>
 <string name="pref_voice_input_description">የድምጽ ግብዓት አዝራር አሳይ</string>
 <string name="pref_hardware_keymap_description">ለሃርድ ዌር የቁልፍ ሰሌዳዎች የቁልፍ ካርታ ማውጣት ይምረጡ።</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">የምልክት የግቤት ታሪክን አጽዳ።</string>
 <string name="pref_clear_user_dictionary_description">የተጠቃሚ መዝበ ቃላትን አጽዳ።</string>
 <string name="pref_other_incognito_mode_description">ለግል ማበጀትን፣ ጥቆማዎችንና የተጠቃሚ መዝገበ ቃላትን ለጊዜው አሰናክል።</string>
-<string name="pref_other_usage_stats_description">የአጠቃቀም ስታቲስቲክስን ለ%1$s ላክ። እነዚህ የ%1$s ምርቶችና አገልግሎቶችን ለማሻሻል ብቻ ጥቅም ላይ ይውላሉ።</string>
 <string name="pref_about_oss_credits_description">ይህ ሶፍትዌር የክፍት ምንጭ ሶፍትዌር ይጠቀማል፦ ፈቃዶቹን ይመልከቱ።</string>
 <string name="pref_launcher_icon_visibility_description">የመተግበሪያ አዶውን በማስጀመሪያው ውስጥ አሳይ</string>
 <string name="pref_input_style_setting_entry_toggle">ለዋውጥ</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">ለዋውጥና ጫር አድርግ</string>
 <string name="pref_fullscreen_portrait">በቋሚ ገጽታ ላይ አንቃ</string>
 <string name="pref_fullscreen_landscape">በአግድም ገጽታ ላይ አንቃ</string>
-<string name="pref_emoji_provider_type_unicode">የአቅራቢን ኢሞጂ አሰናክል</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">ብርቱካናማ/ፈዛዛ ግራጫ</string>
 <string name="pref_skin_type_blue_lightgray">ሰማያዊ/ፈዛዛ ግራጫ</string>
 <string name="pref_skin_type_blue_darkgray">ሰማያዊ/ደማቅ ግራጫ</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">የመሳሪያ ንድፍ (ደማቅ)</string>
 <string name="pref_hardware_keymap_default">የስርዓት ነባሪ</string>
 <string name="pref_hardware_keymap_japanese109A">ጃፓንኛ 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 ቁልፎች</string>
 <string name="pref_dictionary_personalization_entry_enabled">ያንቁ</string>
 <string name="pref_dictionary_personalization_entry_readonly">የቆመ</string>
 <string name="pref_dictionary_personalization_entry_disabled">አቦዝን</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">የመዝገበ ቃላቱን ስም አርትእ ያድርጉ</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">የመዝገበ ቃላቱ ስም</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">አዲስ ቃል ያክሉ</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">አንድ ቃል አርትእ ያድርጉ</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">ንባብ</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">ቃል</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">ምድብ</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">ሥርዓተ ነጥብ</string>
 <string name="japanese_pos_free_standing_word">በነጻ የሚቆም ቃል</string>
 <string name="japanese_pos_suppression_word">የጭቆና ቃል</string>
-<string name="yes">አዎ</string>
-<string name="no">አይ</string>
 </resources>

@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Proqram klaviaturası</string>
 <string name="pref_software_keyboard_advanced_settings_title">Proqram klaviaturasının qabaqcıl ayarları</string>
-<string name="pref_fragment_software_keyboard_title">Proqram klaviaturası</string>
-<string name="pref_fragment_input_support_title">Daxiletmə dəstəyi</string>
-<string name="pref_fragment_conversion_title">Çevirmə</string>
-<string name="pref_fragment_dictionary_title">Lüğət</string>
-<string name="pref_fragment_user_feedback_title">İstifadəçi rəyi</string>
-<string name="pref_fragment_about_title">Haqqında</string>
-<string name="pref_fragment_development_title">İnkişaf</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Portret rejimi üçün proqram klaviaturası tərcihləri</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Landşaft rejimi üçün proqram klaviaturası tərcihləri</string>
 <string name="pref_keyboard_layout_title">Klaviatura düzümü</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Qeyri-həssas konversiya modifikatoru</string>
 <string name="pref_typing_correction_title">Yazı düzəlişi</string>
 <string name="pref_other_incognito_mode_title">İqkoqnito rejimi</string>
-<string name="pref_emoji_provider_type_title">Emoji provayderini seçin</string>
 <string name="pref_dictionry_category_title">Lüğət tərcihləri</string>
 <string name="pref_dictionary_personalization_title">Şəxsiləşdirmə</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Lüğət Aləti</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Konversiya tarixçəsi</string>
 <string name="pref_clear_symbol_history_title">Simvol tarixçəsi</string>
 <string name="pref_clear_user_dictionary_title">İstifadəçi sözlüyü</string>
-<string name="pref_user_feedback_category_title">İstifadəçi geri əlaqəsi</string>
-<string name="pref_other_usage_stats_title">İstifadə statistikasını göndər</string>
 <string name="pref_about_about_this_software_title">Bu proqram haqqında</string>
 <string name="pref_about_version_title">Versiya</string>
 <string name="pref_about_oss_credits_title">Mənbə proqramını açın</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Daxiletmə rejimindən asılı olmayaraq hər zaman yarı-enli boşluq istifadə edin.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Kana qeyri-həssas konversiya modifikatoru istifadə edin. 12 düymə və Godan klaviaturasına tətbiq edilib. məs., かつこう→学校</string>
 <string name="pref_typing_correction_description">Yanlış yazını aşkar edin və süzgün variantları göstərin. məs., すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">Emoji istifadə etmək üçün düzgün Emoji provayderi seçin.</string>
 <string name="pref_skin_type_description">Proqram klaviaturasının görünüşünü fərdiləşdirmək üçün klaviatura mövzusu seçin.</string>
 <string name="pref_voice_input_description">Proqram klaviaturasında səs daxiletmə düyməsini göstər.</string>
 <string name="pref_hardware_keymap_description">Klaviaturalar üçün düymə görüntüləməsini seçin.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Simvol daxiletmə tarixçəsini təmizləyin.</string>
 <string name="pref_clear_user_dictionary_description">İstifadəçi lüğətini təmizləyin.</string>
 <string name="pref_other_incognito_mode_description">Müvəqqəti olaraq şəxsləndirmə, təklif və istifadəçi sözlüyünü deaktiv edin.</string>
-<string name="pref_other_usage_stats_description">İstifadə statistikasını %1$s üzərinə göndərin. Bu yalnız %1$s məhsulları və xidmətlərini təkmilləşdirmək üçün istifadə olunacaq.</string>
 <string name="pref_about_oss_credits_description">Bu proqram açıq mənbə proqramını istifadə edir: lisenziyalara baxın.</string>
 <string name="pref_launcher_icon_visibility_description">Başlatma panelində tətbiq ikonasını göstər</string>
 <string name="pref_input_style_setting_entry_toggle">Keçirin</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Keçirin və flikləyin</string>
 <string name="pref_fullscreen_portrait">Portret kimi aktiv edin</string>
 <string name="pref_fullscreen_landscape">Landşaft kimi aktiv edin</string>
-<string name="pref_emoji_provider_type_unicode">Emoji daşıyıcısını deaktiv edin</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Narıncı/Açıq-boz</string>
 <string name="pref_skin_type_blue_lightgray">Mavi/Açıq-boz</string>
 <string name="pref_skin_type_blue_darkgray">Mavi/Tünd-boz</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Material Dizaynı (Tünd)</string>
 <string name="pref_hardware_keymap_default">Sistem Defoltu</string>
 <string name="pref_hardware_keymap_japanese109A">Yapon 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 düymə</string>
 <string name="pref_dictionary_personalization_entry_enabled">Aktiv edin</string>
 <string name="pref_dictionary_personalization_entry_readonly">Donmuş</string>
 <string name="pref_dictionary_personalization_entry_disabled">Deaktiv et</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Lüğət adını redaktə edin</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Lüğət adı</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Yeni söz əlavə et</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Sözü redaktə et</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Oxu</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Söz</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Kateqoriya</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Punktuasiya</string>
 <string name="japanese_pos_free_standing_word">Sərbəst işlənən söz</string>
 <string name="japanese_pos_suppression_word">Gizlətmə sözü</string>
-<string name="yes">Bəli</string>
-<string name="no">Xeyr</string>
 </resources>

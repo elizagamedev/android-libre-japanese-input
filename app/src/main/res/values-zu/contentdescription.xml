@@ -33,10 +33,8 @@
 <string name="cd_keyboard_alphabet">Ikhibhodi yezinhlamvu</string>
 <string name="cd_keyboard_number">Ikhibhodi yezinombolo</string>
 <string name="cd_key_shift">u-shift</string>
-<string name="cd_key_up">phezulu</string>
 <string name="cd_key_left">kwesokunxele</string>
 <string name="cd_key_right">kwesokudla</string>
-<string name="cd_key_down">phansi</string>
 <string name="cd_key_chartype_to_kana">shintshiela kukhibhodi ye-Kana</string>
 <string name="cd_key_chartype_to_abc">shintshiela kukhibhodi yezinhlamvu</string>
 <string name="cd_key_chartype_to_abc_123">shintshiela kukhibhodi yezimpawu</string>
@@ -46,7 +44,6 @@
 <string name="cd_key_alt_unmodified">izimpawu ezivamile</string>
 <string name="cd_key_capslock">i-caps lock</string>
 <string name="cd_key_capsunlock">i-caps unlock</string>
-<string name="cd_key_menu_dialog">vula imenu</string>
 <string name="cd_key_globe">shintsha indlela yokufaka</string>
 <string name="cd_key_uchar_backspace">i-backspace</string>
 <string name="cd_key_uchar_linefeed">i-linefeed</string>
@@ -177,7 +174,6 @@
 <string name="cd_key_alphabet_tuv">TUV</string>
 <string name="cd_key_alphabet_wxyz">WXYZ</string>
 <string name="cd_key_alphabet_capitalize">yenza ufeleba</string>
-<string name="spoken_use_headphone_for_password">Xhuma ama-earphone ukuze uzwe okhiye bephasiwedi bakhulunywa</string>
 <string name="cd_keyboard_fold_button">Shintsha usayizi wewindi wekhothwayo</string>
 <string name="cd_close_symbol_window">Emuva kukhibhodi</string>
 <string name="cd_symbol_window_number">Inombolo</string>

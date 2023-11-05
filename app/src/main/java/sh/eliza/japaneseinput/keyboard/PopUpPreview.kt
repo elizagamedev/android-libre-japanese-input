@@ -35,7 +35,6 @@ import android.util.SparseArray
 import android.view.View
 import android.widget.ImageView.ScaleType
 import androidx.appcompat.widget.AppCompatImageView
-import com.google.common.annotations.VisibleForTesting
 import com.google.common.base.Optional
 import com.google.common.base.Preconditions
 import java.util.ArrayList
@@ -55,8 +54,7 @@ import sh.eliza.japaneseinput.view.Skin
  *
  * Production clients shouldn't use this class from outside of this package.
  */
-@VisibleForTesting
-class PopUpPreview(
+private class PopUpPreview(
   parent: View,
   private val backgroundDrawableFactory: BackgroundDrawableFactory,
   private val drawableCache: DrawableCache
@@ -125,9 +123,7 @@ class PopUpPreview(
     }
   }
 
-  @JvmField
-  @VisibleForTesting
-  val popUp = run {
+  private val popUp = run {
     val popUpView =
       AppCompatImageView(parent.context).apply {
         visibility = View.GONE

@@ -107,7 +107,6 @@ public interface MozcImageCapableView {
       updateMozcDrawable();
     }
 
-    @SuppressWarnings("deprecation")
     void setSkin(Skin skin) {
       this.skin = Preconditions.checkNotNull(skin);
       updateMozcDrawable();

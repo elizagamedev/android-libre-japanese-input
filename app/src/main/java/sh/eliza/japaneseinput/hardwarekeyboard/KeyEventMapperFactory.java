@@ -29,8 +29,6 @@
 
 package sh.eliza.japaneseinput.hardwarekeyboard;
 
-import android.annotation.SuppressLint;
-import android.os.Build;
 import android.util.SparseIntArray;
 import android.view.KeyEvent;
 
@@ -57,14 +55,10 @@ class KeyEventMapperFactory {
   /** Basically does nothing. For older OS missing key-layout mapping is done. */
   private static class DefaultKeyboardMapper implements KeyEventMapper {
     @Override
-    public void applyMapping(CompactKeyEvent keyEvent) {
-      keyEvent.setKeyCode(
-          doKeyLayoutMappingForOldAndroids(keyEvent.getKeyCode(), keyEvent.getScanCode()));
-    }
+    public void applyMapping(CompactKeyEvent keyEvent) {}
   }
 
   /** Key-layout and key-character mapping for Japanese keyboard. */
-  @SuppressLint("InlinedApi")
   private static class JapaneseKeyboardMapper implements KeyEventMapper {
 
     static final SparseIntArray unshiftedMap;
@@ -134,42 +128,7 @@ class KeyEventMapperFactory {
 
     @Override
     public void applyMapping(CompactKeyEvent keyEvent) {
-      keyEvent.setKeyCode(
-          doKeyLayoutMappingForOldAndroids(keyEvent.getKeyCode(), keyEvent.getScanCode()));
       doKeyCharacterMapping(keyEvent);
-    }
-  }
-
-  /**
-   * Does .kl file's behavior.
-   *
-   * <p>Should be applied for all the keyboard type.
-   */
-  @SuppressLint("InlinedApi")
-  private static int doKeyLayoutMappingForOldAndroids(int keyCode, int scanCode) {
-    if (Build.VERSION.SDK_INT >= 16) {
-      return keyCode;
-    }
-    // c.f., base/data/keyboards/Generic.kl
-    switch (scanCode) {
-      case 85:
-        return KeyEvent.KEYCODE_ZENKAKU_HANKAKU;
-      case 89:
-        return KeyEvent.KEYCODE_RO;
-      case 92:
-        return KeyEvent.KEYCODE_HENKAN;
-      case 93:
-        return KeyEvent.KEYCODE_KATAKANA_HIRAGANA;
-      case 94:
-        return KeyEvent.KEYCODE_MUHENKAN;
-      case 122:
-        return KeyEvent.KEYCODE_KANA;
-      case 123:
-        return KeyEvent.KEYCODE_EISU;
-      case 124:
-        return KeyEvent.KEYCODE_YEN;
-      default:
-        return keyCode;
     }
   }
 }

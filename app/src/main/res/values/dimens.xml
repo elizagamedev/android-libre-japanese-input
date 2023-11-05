@@ -77,7 +77,7 @@
     <dimen name="pref_inputstyle_image_width">200dip</dimen>
     <dimen name="pref_inputstyle_horizontal_span">10dip</dimen>
     <dimen name="pref_inputstyle_description_height">50dip</dimen>
-    <dimen name="pref_inputstyle_title_fontsize">20dip</dimen>
+    <dimen name="pref_inputstyle_title_fontsize">20sp</dimen>
     <!-- The width of on-memory keyboard to render keyboard preview image. 360dip is Nexus5's. -->
     <dimen name="pref_inputstyle_reference_width">360dip</dimen>
     <dimen name="symbol_candidate_horizontal_padding_size">8dip</dimen>
@@ -85,7 +85,7 @@
     <dimen name="symbol_description_bottom_padding">4dip</dimen>
     <!-- symbol_view_major_category_height = input_frame_height / 4 (3 is for candidate rows, 1 is for major category) -->
     <dimen name="symbol_view_major_category_height">55dip</dimen>
-    <dimen name="symbol_view_no_history_text_size">20dip</dimen>
+    <dimen name="symbol_view_no_history_text_size">20sp</dimen>
     <dimen name="symbol_view_symbol_min_column_width">60dip</dimen>
     <dimen name="symbol_view_emoticon_min_column_width">88dip</dimen>
     <dimen name="symbol_view_emoji_min_column_width">60dip</dimen>
@@ -152,4 +152,6 @@
     <dimen name="key_preview_qwerty_icon_height">38.4dip</dimen>
     <dimen name="key_preview_emoji_icon_height">36dip</dimen>
 
+    <!-- Landscape only. -->
+    <dimen name="pref_inputstyle_description_width">150dip</dimen>
 </resources>

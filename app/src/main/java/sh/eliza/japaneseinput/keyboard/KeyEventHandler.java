@@ -32,7 +32,6 @@ package sh.eliza.japaneseinput.keyboard;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import java.util.Collections;
 import java.util.List;
@@ -45,10 +44,10 @@ public class KeyEventHandler implements Handler.Callback {
   private static final int DUMMY_ARG = 0;
 
   // Keys to figure out what message is sent in the callback.
-  @VisibleForTesting static final int REPEAT_KEY = 1;
-  @VisibleForTesting static final int LONG_PRESS_KEY = 2;
+  private static final int REPEAT_KEY = 1;
+  private static final int LONG_PRESS_KEY = 2;
 
-  @VisibleForTesting final Handler handler;
+  private final Handler handler;
   private final KeyboardActionListener keyboardActionListener;
 
   // Following three variables representing delay time are in milliseconds.

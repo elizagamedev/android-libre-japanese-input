@@ -29,20 +29,13 @@
 
 package sh.eliza.japaneseinput.util;
 
-import android.annotation.TargetApi;
 import android.inputmethodservice.InputMethodService;
-import android.os.Build;
 import android.os.IBinder;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Preconditions;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
-import sh.eliza.japaneseinput.MozcLog;
 import sh.eliza.japaneseinput.MozcUtil;
 
 /**
@@ -52,6 +45,7 @@ import sh.eliza.japaneseinput.MozcUtil;
  * ImeSwitcherFactory.getImeSwitcher(inputMethodService); boolean isVoiceAvailable =
  * switcher.isVoiceImeAvailable(); if (isVoiceAvailable) { switcher.switchToVoiceIme("ja"); } }
  */
+// TODO(exv): refactor this out
 public class ImeSwitcherFactory {
 
   private static final String GOOGLE_PACKAGE_ID_PREFIX = "com.google.android";
@@ -160,8 +154,7 @@ public class ImeSwitcherFactory {
           });
     }
 
-    @VisibleForTesting
-    SubtypeImeSwitcher(
+    private SubtypeImeSwitcher(
         InputMethodService inputMethodService, InputMethodManagerProxy inputMethodManagerProxy) {
       this.inputMethodService = inputMethodService;
       this.inputMethodManagerProxy = inputMethodManagerProxy;
@@ -225,7 +218,6 @@ public class ImeSwitcherFactory {
   }
 
   /** A switcher for much later OS where switchToNextInputMethod is available. */
-  @TargetApi(16)
   static class ImeSwitcher16 extends SubtypeImeSwitcher {
 
     public ImeSwitcher16(InputMethodService inputMethodService) {
@@ -240,7 +232,6 @@ public class ImeSwitcherFactory {
   }
 
   /** A switcher for much later OS where switchToNextInputMethod is available. */
-  @TargetApi(19)
   static class ImeSwitcher21 extends ImeSwitcher16 {
 
     public ImeSwitcher21(InputMethodService inputMethodService) {
@@ -254,44 +245,8 @@ public class ImeSwitcherFactory {
     }
   }
 
-  // A constructor of concrete switcher class.
-  // Null if reflection fails.
-  static final Constructor<? extends ImeSwitcher> switcherConstructor;
-
-  static {
-    Class<? extends ImeSwitcher> clazz;
-    if (Build.VERSION.SDK_INT >= 21) {
-      clazz = ImeSwitcher21.class;
-    } else if (Build.VERSION.SDK_INT >= 16) {
-      clazz = ImeSwitcher16.class;
-    } else {
-      clazz = SubtypeImeSwitcher.class;
-    }
-    Constructor<? extends ImeSwitcher> constructor = null;
-    try {
-      constructor = clazz.getConstructor(InputMethodService.class);
-    } catch (NoSuchMethodException e) {
-      MozcLog.e("No ImeSwitcher's constructor found.", e);
-    }
-    switcherConstructor = constructor;
-  }
-
   /** Gets an {@link ImeSwitcher}. */
   public static ImeSwitcher getImeSwitcher(InputMethodService inputMethodService) {
-    Preconditions.checkNotNull(inputMethodService);
-    if (switcherConstructor != null) {
-      try {
-        return switcherConstructor.newInstance(inputMethodService);
-      } catch (IllegalArgumentException e) {
-        MozcLog.e(e.getMessage(), e);
-      } catch (InstantiationException e) {
-        MozcLog.e(e.getMessage(), e);
-      } catch (IllegalAccessException e) {
-        MozcLog.e(e.getMessage(), e);
-      } catch (InvocationTargetException e) {
-        MozcLog.e(e.getMessage(), e);
-      }
-    }
-    return new SubtypeImeSwitcher(inputMethodService);
+    return new ImeSwitcher21(inputMethodService);
   }
 }

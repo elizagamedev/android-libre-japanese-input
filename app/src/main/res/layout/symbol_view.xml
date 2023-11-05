@@ -195,7 +195,7 @@
                 android:shadowRadius="5"
                 android:text="@string/symbol_emoji_disabled_message"
                 android:textColor="@android:color/white"
-                android:textSize="20dip"
+                android:textSize="20sp"
                 android:visibility="gone" />
 
             <View

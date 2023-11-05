@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.common.annotations.VisibleForTesting
 import sh.eliza.japaneseinput.ApplicationInitializerFactory
 import sh.eliza.japaneseinput.ApplicationInitializerFactory.ApplicationInitializer
 import sh.eliza.japaneseinput.MozcUtil
@@ -103,8 +102,8 @@ class MozcMainPreferenceFragment() : PreferenceFragmentCompat() {
     }
   }
 
-  @VisibleForTesting lateinit var imeEnableDialog: AlertDialog
-  @VisibleForTesting lateinit var imeSwitchDialog: AlertDialog
+  private lateinit var imeEnableDialog: AlertDialog
+  private lateinit var imeSwitchDialog: AlertDialog
 
   private val sharedPreferenceChangeListener =
     object : OnSharedPreferenceChangeListener {
@@ -140,12 +139,11 @@ class MozcMainPreferenceFragment() : PreferenceFragmentCompat() {
       false
     )
 
-    onPostResumeInternal(ApplicationInitializerFactory.createInstance(context!!))
+    onPostResumeInternal(ApplicationInitializerFactory.createInstance(requireContext()))
   }
 
-  @VisibleForTesting
-  fun onPostResumeInternal(initializer: ApplicationInitializer) {
-    val context = context!!
+  private fun onPostResumeInternal(initializer: ApplicationInitializer) {
+    val context = requireContext()
     initializer.initialize(
       MozcUtil.getAbiIndependentVersionCode(context),
       LauncherIconManagerFactory.getDefaultInstance(),

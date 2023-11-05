@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">સોફ્ટવેર કીબોર્ડ</string>
 <string name="pref_software_keyboard_advanced_settings_title">સોફ્ટવેર કીબોર્ડ વિગતવાર સેટિંગ્સ</string>
-<string name="pref_fragment_software_keyboard_title">સોફ્ટવેર કીબોર્ડ</string>
-<string name="pref_fragment_input_support_title">ઇનપુટ સમર્થન</string>
-<string name="pref_fragment_conversion_title">રૂપાંતરણ</string>
-<string name="pref_fragment_dictionary_title">શબ્દકોશ</string>
-<string name="pref_fragment_user_feedback_title">વપરાશકર્તા પ્રતિસાદ</string>
-<string name="pref_fragment_about_title">વિશે</string>
-<string name="pref_fragment_development_title">વિકાસ</string>
 <string name="pref_software_keyboard_preferences_portrait_title">પોટ્રેટ મોડ માટે સોફ્ટવેર કીબોર્ડ પસંદગીઓ</string>
 <string name="pref_software_keyboard_preferences_landscape_title">લેન્ડસ્કેપ મોડ માટે સોફ્ટવેર કીબોર્ડ પસંદગીઓ</string>
 <string name="pref_keyboard_layout_title">કીબોર્ડ લેઆઉટ</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">સંશોધક અસંવેદનશીલ રૂપાંતરણ</string>
 <string name="pref_typing_correction_title">ટાઇપિંગ સુધારણા</string>
 <string name="pref_other_incognito_mode_title">છુપો મોડ</string>
-<string name="pref_emoji_provider_type_title">ઇમોજી પ્રદાતા પસંદ કરો</string>
 <string name="pref_dictionry_category_title">શબ્દકોશ પસંદગીઓ</string>
 <string name="pref_dictionary_personalization_title">વૈયક્તિકૃતતા</string>
 <string name="pref_dictionary_user_dictionary_tool_title">શબ્દકોશ સાધન</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">રૂપાંતરણ ઇતિહાસ</string>
 <string name="pref_clear_symbol_history_title">પ્રતીક ઇતિહાસ</string>
 <string name="pref_clear_user_dictionary_title">વપરાશકર્તા શબ્દકોશ</string>
-<string name="pref_user_feedback_category_title">વપરાશકર્તા પ્રતિસાદ</string>
-<string name="pref_other_usage_stats_title">ઉપયોગનાં આંકડાઓ મોકલો</string>
 <string name="pref_about_about_this_software_title">આ સોફ્ટવેર વિશે</string>
 <string name="pref_about_version_title">સંસ્કરણ</string>
 <string name="pref_about_oss_credits_title">ઓપન સોર્સ સોફ્ટવેર</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">ઇનપુટ મોડને ધ્યાનમાં લીધા વગર, હંમેશા અર્ધ-પહોળાઇ સ્થાનનો ઉપયોગ કરો.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">કાના સંશોધક અસંવેદિતા રૂપાંતરણનો ઉપયોગ કરો. 12 કીઝ અને ગોદાન કીબોર્ડ પર લાગુ. ઉદા., かつこう→学校</string>
 <string name="pref_typing_correction_description">ખોટું ટાઇપિંગ શોધો અને સુધારેલા વિકલ્પો દર્શાવો. ઉદા., すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">ઇમોજીનો ઉપયોગ કરવા માટે યોગ્ય ઇમોજી પ્રદાતા પસંદ કરો.</string>
 <string name="pref_skin_type_description">સોફ્ટવેર કીબોર્ડ દેખાવ કસ્ટમાઇઝ કરવા માટે કીબોર્ડ થીમ પસંદ કરો.</string>
 <string name="pref_voice_input_description">સોફ્ટવેર કીબોર્ડ પર વૉઇસ ઇનપુટ બટન દર્શાવો.</string>
 <string name="pref_hardware_keymap_description">હાર્ડવેર કીબોર્ડ માટે કી મેપિંગ પસંદ કરો.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">પ્રતીક ઇનપુટ ઇતિહાસ સાફ કરો.</string>
 <string name="pref_clear_user_dictionary_description">વપરાશકર્તા શબ્દકોશ સાફ કરો</string>
 <string name="pref_other_incognito_mode_description">વૈયક્તિકરણ, સૂચનો અને વપરાશકર્તા શબ્દકોશને અસ્થાયી રૂપે અક્ષમ કરો.</string>
-<string name="pref_other_usage_stats_description">વપરાશના આંકડાઓ %1$s ને મોકલો. આનો ઉપયોગ માત્ર %1$s ઉત્પાદનો અને સેવાઓને સુધારવા માટે જ કરવામાં આવશે.</string>
 <string name="pref_about_oss_credits_description">આ સોફ્ટવેર ઓપન સોર્સ સોફ્ટવેરનો ઉપયોગ કરે છે: લાઇસેંસેસ જુઓ.</string>
 <string name="pref_launcher_icon_visibility_description">લૉન્ચરમાં એપ્લિકેશન આયકન પ્રદર્શિત કરો</string>
 <string name="pref_input_style_setting_entry_toggle">ટૉગલ કરો</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">ટૉગલ કરો અને ફ્લિક કરો</string>
 <string name="pref_fullscreen_portrait">પોટ્રેટ પર સક્ષમ કરો</string>
 <string name="pref_fullscreen_landscape">લેન્ડસ્કેપ પર સક્ષમ કરો</string>
-<string name="pref_emoji_provider_type_unicode">વાહક ઇમોજી અક્ષમ કરો</string>
-<string name="pref_emoji_provider_type_docomo">એનટીટી ડોકોમો</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">નારંગી/આછો-ગ્રે</string>
 <string name="pref_skin_type_blue_lightgray">વાદળી/આછો-ગ્રે</string>
 <string name="pref_skin_type_blue_darkgray">વાદળી/ઘાટો-ગ્રે</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">સામગ્રી ડિઝાઇન (ઘાટી)</string>
 <string name="pref_hardware_keymap_default">સિસ્ટમ ડિફોલ્ટ</string>
 <string name="pref_hardware_keymap_japanese109A">જાપાનીઝ 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 કીઝ</string>
 <string name="pref_dictionary_personalization_entry_enabled">સક્ષમ કરો</string>
 <string name="pref_dictionary_personalization_entry_readonly">ફ્રોઝન</string>
 <string name="pref_dictionary_personalization_entry_disabled">અક્ષમ કરો</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">શબ્દકોશનું નામ સંપાદિત કરો</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">શબ્દકોશનું નામ</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">એક નવો શબ્દ ઉમેરો</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">એક શબ્દ સંપાદિત કરો</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">વાંચન</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">શબ્દ</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">કેટેગરી</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">વિરામચિહ્ન</string>
 <string name="japanese_pos_free_standing_word">ફ્રી સ્ટેન્ડિંગ શબ્દ</string>
 <string name="japanese_pos_suppression_word">સપ્રેશન શબ્દ</string>
-<string name="yes">હા</string>
-<string name="no">નહીં</string>
 </resources>

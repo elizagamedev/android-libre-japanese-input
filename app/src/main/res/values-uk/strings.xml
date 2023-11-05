@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Екранна клавіатура</string>
 <string name="pref_software_keyboard_advanced_settings_title">Розширені налаштування екранної клавіатури</string>
-<string name="pref_fragment_software_keyboard_title">Екранна клавіатура</string>
-<string name="pref_fragment_input_support_title">Підтримка введення</string>
-<string name="pref_fragment_conversion_title">Конвертація</string>
-<string name="pref_fragment_dictionary_title">Словник</string>
-<string name="pref_fragment_user_feedback_title">Відгуки користувачів</string>
-<string name="pref_fragment_about_title">Інформація</string>
-<string name="pref_fragment_development_title">Розробка</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Параметри екранної клавіатури для книжкової орієнтації</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Параметри екранної клавіатури для альбомної орієнтації</string>
 <string name="pref_keyboard_layout_title">Розкладка клавіатури</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Перетворення, нечутливе до модифікатора</string>
 <string name="pref_typing_correction_title">Виправлення введеного тексту</string>
 <string name="pref_other_incognito_mode_title">Режим анонімного перегляду</string>
-<string name="pref_emoji_provider_type_title">Вибрати постачальника смайлів Emoji</string>
 <string name="pref_dictionry_category_title">Параметри словника</string>
 <string name="pref_dictionary_personalization_title">Персоналізація</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Інструмент словника</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Історія перетворень</string>
 <string name="pref_clear_symbol_history_title">Історія введення символів</string>
 <string name="pref_clear_user_dictionary_title">Словник користувача</string>
-<string name="pref_user_feedback_category_title">Відгуки користувачів</string>
-<string name="pref_other_usage_stats_title">Надсилати статистику використання</string>
 <string name="pref_about_about_this_software_title">Про це програмне забезпечення</string>
 <string name="pref_about_version_title">Версія</string>
 <string name="pref_about_oss_credits_title">Програмне забезпечення з відкритим кодом</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Завжди використовувати половинну ширину, незалежно від режиму введення.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Використовувати перетворення на символи кана, нечутливе до модифікатора. Застосовується до клавіатури з 12 клавіш і годан. Наприклад, かつこう→学校</string>
 <string name="pref_typing_correction_description">Виявляти описки та показувати варіанти виправлень. Наприклад, すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">Щоб використовувати смайли Emoji, виберіть дійсного постачальника Emoji.</string>
 <string name="pref_skin_type_description">Виберіть тему, щоб змінити вигляд екранної клавіатури.</string>
 <string name="pref_voice_input_description">Показувати кнопку голосового введення на екранній клавіатурі.</string>
 <string name="pref_hardware_keymap_description">Виберіть зіставлення клавіш для фізичних клавіатур.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Очистити історію введення символів.</string>
 <string name="pref_clear_user_dictionary_description">Очистити словник користувача.</string>
 <string name="pref_other_incognito_mode_description">Тимчасово вимкнути персоналізацію, пропозиції та словник користувача.</string>
-<string name="pref_other_usage_stats_description">Надсилати статистику використання в %1$s. Вона використовуватиметься лише для покращення продуктів і служб %1$s.</string>
 <string name="pref_about_oss_credits_description">Це програмне забезпечення створено на основі ПЗ з відкритим кодом. Переглянути ліцензії.</string>
 <string name="pref_launcher_icon_visibility_description">Показувати значок додатка на панелі запуску</string>
 <string name="pref_input_style_setting_entry_toggle">Переключати</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Переключати та гортати</string>
 <string name="pref_fullscreen_portrait">Увімкнути в книжковій орієнтації</string>
 <string name="pref_fullscreen_landscape">Увімкнути в альбомній орієнтації</string>
-<string name="pref_emoji_provider_type_unicode">Вимкнути постачальника смайлів Emoji</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Оранжева/світло-сіра оболонка</string>
 <string name="pref_skin_type_blue_lightgray">Синя/світло-сіра оболонка</string>
 <string name="pref_skin_type_blue_darkgray">Синя/темно-сіра оболонка</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Матеріальний дизайн (темний)</string>
 <string name="pref_hardware_keymap_default">Система за умовчанням</string>
 <string name="pref_hardware_keymap_japanese109A">Японська 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 клавіш</string>
 <string name="pref_dictionary_personalization_entry_enabled">Увімкнути</string>
 <string name="pref_dictionary_personalization_entry_readonly">Використовувати наявні дані</string>
 <string name="pref_dictionary_personalization_entry_disabled">Вимкнути</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Редагувати назву словника</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Назва словника</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Додати нове слово</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Редагувати слово</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Текст для читання</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Слово</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Категорія</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Пунктуація</string>
 <string name="japanese_pos_free_standing_word">Окреме слово</string>
 <string name="japanese_pos_suppression_word">Незначуще слово</string>
-<string name="yes">Так</string>
-<string name="no">Ні</string>
 </resources>

@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">මෘදුකාංග යතුරුපුවරුව</string>
 <string name="pref_software_keyboard_advanced_settings_title">මෘදුකාංග යතුරුපුවරු උසස් සැකසුම්</string>
-<string name="pref_fragment_software_keyboard_title">මෘදුකාංග යතුරුපුවරුව</string>
-<string name="pref_fragment_input_support_title">ආදාන සහාය</string>
-<string name="pref_fragment_conversion_title">පරිවර්තනය</string>
-<string name="pref_fragment_dictionary_title">ශබ්ද කෝෂය</string>
-<string name="pref_fragment_user_feedback_title">පරිශීලක ප්‍රතිපෝෂණ</string>
-<string name="pref_fragment_about_title">පිළිබඳ</string>
-<string name="pref_fragment_development_title">සංවර්ධක</string>
 <string name="pref_software_keyboard_preferences_portrait_title">සිරස් ප්‍රකාරය සඳහා මෘදුකාංග යතුරුපුවරු මනාප</string>
 <string name="pref_software_keyboard_preferences_landscape_title">තිරස් ප්‍රකාරය සඳහා මෘදුකාංග යතුරුපුවරු මනාප</string>
 <string name="pref_keyboard_layout_title">යතුරුපුවරු පිරිසැලසුම</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">විකරණකාරක සංවේදී නොවන පරිවර්තනය</string>
 <string name="pref_typing_correction_title">ටයිප් කිරීම නිවැරදි කිරීම</string>
 <string name="pref_other_incognito_mode_title">Incognito ප්‍රකාරය</string>
-<string name="pref_emoji_provider_type_title">ඉමෝජි සපයන්නා තෝරන්න</string>
 <string name="pref_dictionry_category_title">ශබ්දකෝෂ මනාප</string>
 <string name="pref_dictionary_personalization_title">පෞද්ගලීකරණය</string>
 <string name="pref_dictionary_user_dictionary_tool_title">ශබ්දකෝෂ මෙවලම</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">සංවාද ඉතිහාසය</string>
 <string name="pref_clear_symbol_history_title">සලකුණු ඉතිහාසය</string>
 <string name="pref_clear_user_dictionary_title">පරිශීලක ශබ්ද කෝෂය</string>
-<string name="pref_user_feedback_category_title">පරිශීලක ප්‍රතිපෝෂණ</string>
-<string name="pref_other_usage_stats_title">භාවිතාවේ සංඛ්‍යාන යවන්න</string>
 <string name="pref_about_about_this_software_title">මෙම මෘදුකාංගය පිළිබඳ</string>
 <string name="pref_about_version_title">අනුවාදය</string>
 <string name="pref_about_oss_credits_title">විවෘත මූලාශ්‍ර මෘදුකාංගය</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">ආදාන ප්‍රකාරය කුමක් වුවත්, සැමවිට අඩ-පළල ඉඩ භාවිත කරන්න.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">kana විකරණකාරක සංවේදී නොවන පරිවර්තනය භාවිත කරන්න. යතුරු 12 සහ Godan යතුරු පුවරුව වෙත යෙදේ. උදා. かつこう→学校</string>
 <string name="pref_typing_correction_description">වැරදි ටයිප් කිරීම් හඳුනාගෙන නිවැරදි කළ අයදුම්කරුවන් පෙන්වන්න. උදා. すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">ඉමෝජි භාවිත කිරීමට ඉමෝජි සැපයුම්කරු තෝරන්න.</string>
 <string name="pref_skin_type_description">මෘදුකාංග යතුරු පුවරු පෙනුම අභිමත කිරීමට යතුරු පුවරු තේමාව තෝරන්න.</string>
 <string name="pref_voice_input_description">මෘදුකාංග යතුරු පුවරුවේ හඬ ආදාන බොත්තම පෙන්වන්න.</string>
 <string name="pref_hardware_keymap_description">දෘඪාංග යතුරු පුවරු සඳහා යතුරු සිතියම්කරණය තෝරන්න</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">සංකේත ආදාන ඉතිහාසය හිස් කරන්න.</string>
 <string name="pref_clear_user_dictionary_description">පරිශීලක ශබ්දකෝෂය හිස් කරන්න</string>
 <string name="pref_other_incognito_mode_description">පුද්ගලාරෝපණය, යෝජනා, සහ පරිශීලක ශබ්දකෝෂය තාවකාලිකව අබල කරන්න.</string>
-<string name="pref_other_usage_stats_description">%1$s වෙත භාවිත සංඛ්‍යාෙල්ඛන යවන්න. මෙය %1$s නිපැයුම් සහ සේවා වැඩි දියුණු කිරීමට පමණක් භාවිත වනු ඇත.</string>
 <string name="pref_about_oss_credits_description">මෙම මෘදුකාංගය විවෘත මූලාශ්‍ර මෘදුකාංගය භාවිත කරයි: වරපත් බලන්න.</string>
 <string name="pref_launcher_icon_visibility_description">දියත්කරණය තුළ යෙදුම් නිරූපකය දර්ශනය කරන්න</string>
 <string name="pref_input_style_setting_entry_toggle">ටොගල</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">ටොගල සහ ෆ්ලික්</string>
 <string name="pref_fullscreen_portrait">සිරස් දැකුමෙහි සබල කරන්න</string>
 <string name="pref_fullscreen_landscape">තිරස් දැකුමෙහි සබල කරන්න</string>
-<string name="pref_emoji_provider_type_unicode">වාහක ඉමෝජි අබල කරන්න</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">තැඹිලි/ලා-අළු</string>
 <string name="pref_skin_type_blue_lightgray">නිල්/ලා-අළු</string>
 <string name="pref_skin_type_blue_darkgray">නිල්/තද-අළු</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">ද්‍රව්‍යමය සැලසුම (තද)</string>
 <string name="pref_hardware_keymap_default">පද්ධති පෙරනිමි</string>
 <string name="pref_hardware_keymap_japanese109A">ජපන් 109A</string>
-<string name="pref_hardware_keymap_twelvekey">යතුරු 12</string>
 <string name="pref_dictionary_personalization_entry_enabled">සබල කරන්න</string>
 <string name="pref_dictionary_personalization_entry_readonly">අත් හිටවූ</string>
 <string name="pref_dictionary_personalization_entry_disabled">අබල කරන්න</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">ශබ්දකෝෂයේ නම සංස්කරණය කරන්න</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">ශබ්දකෝෂයේ නම</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">නව වචනයක් එක් කරන්න</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">වචනයක් සංස්කරණය කරන්න</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">කියවීම</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">වචනය</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">කාණ්ඩය</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">විරාම ලකුණ</string>
 <string name="japanese_pos_free_standing_word">නිදහස් වදන</string>
 <string name="japanese_pos_suppression_word">යටපත් වදන</string>
-<string name="yes">ඔව්</string>
-<string name="no">නැත</string>
 </resources>

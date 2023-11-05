@@ -37,7 +37,6 @@ import android.widget.Gallery
  * Gallery to show the keyboard layout images. The only difference from the [Gallery] is that this
  * class handles "enabled" state, while Gallery doesn't.
  */
-@Suppress("deprecation")
 class MozcGallery : Gallery {
   constructor(context: Context) : super(context)
   constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)

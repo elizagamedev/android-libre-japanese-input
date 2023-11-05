@@ -29,11 +29,9 @@
 
 package sh.eliza.japaneseinput.util;
 
-import android.annotation.TargetApi;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.view.inputmethod.CursorAnchorInfo;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 
 /**
@@ -43,10 +41,9 @@ import com.google.common.base.Optional;
  * class is available on Lollipop or later. We can construct this class safely on any environments
  * iff we use the default constructor.
  */
-@TargetApi(21)
 public class CursorAnchorInfoWrapper {
 
-  @VisibleForTesting public final Optional<CursorAnchorInfo> rawData;
+  private final Optional<CursorAnchorInfo> rawData;
 
   public CursorAnchorInfoWrapper() {
     this.rawData = Optional.absent();

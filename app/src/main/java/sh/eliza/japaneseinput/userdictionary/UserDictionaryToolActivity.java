@@ -95,9 +95,10 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
       // - Reading
       // - POS name
       if (convertView == null) {
+        // TODO(exv): verify that this call is okay.
         convertView =
             LayoutInflater.from(getContext())
-                .inflate(R.layout.user_dictionary_tool_entry_list_view, null);
+                .inflate(R.layout.user_dictionary_tool_entry_list_view, parent);
       }
 
       final ListView entryListView = (ListView) parent;
@@ -326,7 +327,6 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
   }
 
   // Just redirect to the showDialog in order to suppress warnings.
-  @SuppressWarnings("deprecation")
   private void showDialogInternal(int id) {
     super.showDialog(id);
   }
@@ -502,7 +502,6 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
     startActivity(intent);
   }
 
-  @SuppressWarnings("deprecation")
   @Override
   protected Dialog onCreateDialog(int id) {
     switch (id) {
@@ -658,7 +657,6 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
     return null;
   }
 
-  @SuppressWarnings("deprecation")
   @Override
   protected void onPrepareDialog(int id, Dialog dialog) {
     super.onPrepareDialog(id, dialog);

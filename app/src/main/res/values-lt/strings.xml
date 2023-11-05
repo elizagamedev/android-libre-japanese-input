@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Virtualioji klaviatūra</string>
 <string name="pref_software_keyboard_advanced_settings_title">Išplėstiniai virtualiosios klaviatūros nustatymai</string>
-<string name="pref_fragment_software_keyboard_title">Software keyboard</string>
-<string name="pref_fragment_input_support_title">Input support</string>
-<string name="pref_fragment_conversion_title">Conversion</string>
-<string name="pref_fragment_dictionary_title">Dictionary</string>
-<string name="pref_fragment_user_feedback_title">User feedback</string>
-<string name="pref_fragment_about_title">About</string>
-<string name="pref_fragment_development_title">Development</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Virtualiosios klaviatūros nuostatos veikiant portreto režimui</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Virtualiosios klaviatūros nuostatos veikiant gulsčiojo ekrano režimui</string>
 <string name="pref_keyboard_layout_title">Klaviatūros išdėstymas</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Nejautraus modifikatoriaus konversija</string>
 <string name="pref_typing_correction_title">Rašybos klaidų taisymas</string>
 <string name="pref_other_incognito_mode_title">Inkognito režimas</string>
-<string name="pref_emoji_provider_type_title">Pasirinkite jaustukų teikėją</string>
 <string name="pref_dictionry_category_title">Žodyno nuostatos</string>
 <string name="pref_dictionary_personalization_title">Suasmeninimas</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Žodyno įrankis</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Konversijų istorija</string>
 <string name="pref_clear_symbol_history_title">SImbolių istorija</string>
 <string name="pref_clear_user_dictionary_title">Naudotojo žodynas</string>
-<string name="pref_user_feedback_category_title">Naudotojų atsiliepimai</string>
-<string name="pref_other_usage_stats_title">Siųsti naudojimo statistiką</string>
 <string name="pref_about_about_this_software_title">Apie šią programinę įrangą</string>
 <string name="pref_about_version_title">Versija</string>
 <string name="pref_about_oss_credits_title">Atvirojo šaltinio programinė įranga</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Neatsižvelgiant į įvesties režimą, visada naudokite pusės pločio vietą.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Naudoti kana modifikatoriaus nejautrumo konversiją. Pritaikyta 12 klavišų ir Godano klaviatūrai, pvz., かつこう→学校</string>
 <string name="pref_typing_correction_description">Aptikti rašybos klaidas ir rodyti pataisytus variantus, pvz., すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">Pasirinkti tinkamą jaustukų teikėją norint naudoti jaustukus.</string>
 <string name="pref_skin_type_description">Select the keyboard theme to customize the software keyboard look.</string>
 <string name="pref_voice_input_description">Show voice input button on the software keyboard.</string>
 <string name="pref_hardware_keymap_description">Pasirinkti pagrindinį aparatinių klaviatūrų atvaizdį.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Išvalyti simbolių įvesties istoriją.</string>
 <string name="pref_clear_user_dictionary_description">Išvalyti naudotojo žodyną.</string>
 <string name="pref_other_incognito_mode_description">Laikinai išjungti suasmeninimą, pasiūlymus ir naudotojo žodyną.</string>
-<string name="pref_other_usage_stats_description">Siųsti naudojimo statistiką %1$s. Tai bus naudojama tik siekiant pagerinti „%1$s“ produktus ir paslaugas.</string>
 <string name="pref_about_oss_credits_description">Ši programinė įranga naudoja atviro šaltinio programinę įrangą: peržiūrėti licencijas.</string>
 <string name="pref_launcher_icon_visibility_description">Pateikti programos piktogramą paleidimo priemonėje</string>
 <string name="pref_input_style_setting_entry_toggle">Perjungti</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Perjungti ir brūkštelėti</string>
 <string name="pref_fullscreen_portrait">Įgalinti portreto režimu</string>
 <string name="pref_fullscreen_landscape">Įgalinti gulsčiu režimu</string>
-<string name="pref_emoji_provider_type_unicode">Išjungti teikėjo jaustukus</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">Softbank</string>
 <string name="pref_skin_type_orange_lightgray">Oranžinis / šviesiai pilkas</string>
 <string name="pref_skin_type_blue_lightgray">Mėlynas / šviesiai pilkas</string>
 <string name="pref_skin_type_blue_darkgray">Mėlynas / tamsiai pilkas</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Medžiagos dizainas (tamsus)</string>
 <string name="pref_hardware_keymap_default">Numatytieji sistemos nustatymai</string>
 <string name="pref_hardware_keymap_japanese109A">Japonų k. 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 klavišų</string>
 <string name="pref_dictionary_personalization_entry_enabled">Įgalinti</string>
 <string name="pref_dictionary_personalization_entry_readonly">Naudoti esamus suasmenintus duomenis</string>
 <string name="pref_dictionary_personalization_entry_disabled">Išjungti</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Redaguoti žodyno pavadinimą</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Pavadinti žodyną</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Pridėti naują žodį</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Redaguoti žodį</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Skaitymas</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Žodis</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Kategorija</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Skyryba</string>
 <string name="japanese_pos_free_standing_word">Laisvas žodis</string>
 <string name="japanese_pos_suppression_word">Paslėptas žodis</string>
-<string name="yes">Taip</string>
-<string name="no">Ne</string>
 </resources>

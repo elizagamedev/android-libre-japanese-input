@@ -44,20 +44,6 @@
     <item>TOGGLE_FLICK</item>
   </string-array>
 
-  <string-array name="pref_emoji_provider_type_entries">
-    <item>@string/pref_emoji_provider_type_unicode</item>
-    <item>@string/pref_emoji_provider_type_docomo</item>
-    <item>@string/pref_emoji_provider_type_kddi</item>
-    <item>@string/pref_emoji_provider_type_softbank</item>
-  </string-array>
-
-  <string-array name="pref_emoji_provider_type_values">
-    <item>UNICODE</item>
-    <item>DOCOMO</item>
-    <item>KDDI</item>
-    <item>SOFTBANK</item>
-  </string-array>
-
   <string-array name="pref_fullscreen_default_values">
     <item>false</item>
     <item>false</item>

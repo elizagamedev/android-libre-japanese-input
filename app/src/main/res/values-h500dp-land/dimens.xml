@@ -61,11 +61,6 @@
   <!-- partial_width >= 7 * (candidate_text_size + candidate_vertical_padding_size * 2) -->
   <dimen name="ime_window_partial_width">350dip</dimen>
 
-  <dimen name="firsttime_app_name_text_size">32dip</dimen>
-  <dimen name="firsttime_description_text_size">25dip</dimen>
-  <dimen name="firsttime_padding_height">28dip</dimen>
-  <dimen name="firsttime_padding_width">40dip</dimen>
-
   <!-- 2 rows of candidates -->
   <!-- (candidate_text_size + candidate_vertical_padding_size * 2) * 2 -->
   <dimen name="narrow_candidate_window_height">100dip</dimen>

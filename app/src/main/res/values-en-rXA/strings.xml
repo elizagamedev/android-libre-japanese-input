@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">[þŕéƒ_šķîñ_ţýþé_ķéý one two three]</string>
 <string name="pref_software_keyboard_category_title">[Šöƒţŵåŕé ķéýбöåŕð one two three]</string>
 <string name="pref_software_keyboard_advanced_settings_title">[Šöƒţŵåŕé ķéýбöåŕð åðvåñçéð šéţţîñĝš one two three four five six seven eight]</string>
-<string name="pref_fragment_software_keyboard_title">[Šöƒţŵåŕé ķéýбöåŕð one two three]</string>
-<string name="pref_fragment_input_support_title">[Îñþûţ šûþþöŕţ one two]</string>
-<string name="pref_fragment_conversion_title">[Çöñvéŕšîöñ one two]</string>
-<string name="pref_fragment_dictionary_title">[Ðîçţîöñåŕý one two]</string>
-<string name="pref_fragment_user_feedback_title">[Ûšéŕ ƒééðбåçķ one two]</string>
-<string name="pref_fragment_about_title">[Åбöûţ one]</string>
-<string name="pref_fragment_development_title">[Ðévéļöþméñţ one two]</string>
 <string name="pref_software_keyboard_preferences_portrait_title">[Šöƒţŵåŕé ķéýбöåŕð þŕéƒéŕéñçéš ƒöŕ þöŕţŕåîţ möðé one two three four five six seven eight nine ten]</string>
 <string name="pref_software_keyboard_preferences_landscape_title">[Šöƒţŵåŕé ķéýбöåŕð þŕéƒéŕéñçéš ƒöŕ ļåñðšçåþé möðé one two three four five six seven eight nine ten]</string>
 <string name="pref_keyboard_layout_title">[Ķéýбöåŕð ļåýöûţ one two]</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">[Möðîƒîéŕ îñšéñšîţîvé çöñvéŕšîöñ one two three four]</string>
 <string name="pref_typing_correction_title">[Ţýþîñĝ çöŕŕéçţîöñ one two three]</string>
 <string name="pref_other_incognito_mode_title">[Îñçöĝñîţö möðé one two]</string>
-<string name="pref_emoji_provider_type_title">[Šéļéçţ Émöĵî þŕövîðéŕ one two three]</string>
 <string name="pref_dictionry_category_title">[Ðîçţîöñåŕý þŕéƒéŕéñçéš one two three]</string>
 <string name="pref_dictionary_personalization_title">[Þéŕšöñåļîžåţîöñ one two]</string>
 <string name="pref_dictionary_user_dictionary_tool_title">[Ðîçţîöñåŕý Ţööļ one two]</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">[Çöñvéŕšîöñ ĥîšţöŕý one two three]</string>
 <string name="pref_clear_symbol_history_title">[Šýmбöļ ĥîšţöŕý one two]</string>
 <string name="pref_clear_user_dictionary_title">[Ûšéŕ ðîçţîöñåŕý one two]</string>
-<string name="pref_user_feedback_category_title">[Ûšéŕ ƒééðбåçķ one two]</string>
-<string name="pref_other_usage_stats_title">[Šéñð ûšåĝé šţåţîšţîçš one two three]</string>
 <string name="pref_about_about_this_software_title">[Åбöûţ ţĥîš šöƒţŵåŕé one two three]</string>
 <string name="pref_about_version_title">[Véŕšîöñ one]</string>
 <string name="pref_about_oss_credits_title">[Öþéñ šöûŕçé šöƒţŵåŕé one two three]</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">[Åļŵåýš ûšé ĥåļƒ-ŵîðţĥ šþåçé, ñö måţţéŕ ţĥé îñþûţ möðé. one two three four five six seven eight nine ten eleven]</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">[Ûšé ķåñå möðîƒîéŕ îñšéñšîţîvé çöñvéŕšîöñ. Åþþļîéð ţö 12 ķéýš åñð Ĝöðåñ ķéýбöåŕð. é.ĝ. かつこう→学校 one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen]</string>
 <string name="pref_typing_correction_description">[Ðéţéçţ mîšţýþîñĝ åñð šĥöŵ çöŕŕéçţéð çåñðîðåţéš. é.ĝ. すんかい→深海 one two three four five six seven eight nine ten eleven twelve]</string>
-<string name="pref_emoji_provider_type_description">[Šéļéçţ ţĥé Émöĵî þŕövîðéŕ þŕöþéŕļý ţö ûšé émöĵî. one two three four five six seven eight nine ten]</string>
 <string name="pref_skin_type_description">[Šéļéçţ ţĥé ķéýбöåŕð ţĥémé ţö çûšţömîžé ţĥé šöƒţŵåŕé ķéýбöåŕð ļööķ. one two three four five six seven eight nine ten eleven twelve thirteen]</string>
 <string name="pref_voice_input_description">[Šĥöŵ vöîçé îñþûţ бûţţöñ öñ ţĥé šöƒţŵåŕé ķéýбöåŕð. one two three four five six seven eight nine ten]</string>
 <string name="pref_hardware_keymap_description">[Šéļéçţ ķéý måþþîñĝ ƒöŕ ĥåŕðŵåŕé ķéýбöåŕðš. one two three four five six seven eight nine]</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">[Çļéåŕ šýmбöļ îñþûţ ĥîšţöŕý. one two three four five six]</string>
 <string name="pref_clear_user_dictionary_description">[Çļéåŕ ûšéŕ ðîçţîöñåŕý. one two three]</string>
 <string name="pref_other_incognito_mode_description">[Ţémþöŕåŕîļý ðîšåбļé þéŕšöñåļîžåţîöñ, šûĝĝéšţîöñš åñð ûšéŕ ðîçţîöñåŕý. one two three four five six seven eight nine ten eleven twelve thirteen]</string>
-<string name="pref_other_usage_stats_description">[Šéñð ûšåĝé šţåţîšţîçš ţö ᐅ%1$sᐊ. Ţĥéšé ŵîļļ öñļý бé ûšéð ţö îmþŕövé ᐅ%1$sᐊ þŕöðûçţš åñð šéŕvîçéš. one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen]</string>
 <string name="pref_about_oss_credits_description">[Ţĥîš šöƒţŵåŕé ûšéš öþéñ šöûŕçé šöƒţŵåŕé: vîéŵ ţĥé ļîçéñšéš. one two three four five six seven eight nine ten eleven twelve]</string>
 <string name="pref_launcher_icon_visibility_description">[Ðîšþļåý åþþļîçåţîöñ îçöñ îñ ţĥé ļåûñçĥéŕ one two three four five six seven eight]</string>
 <string name="pref_input_style_setting_entry_toggle">[Ţöĝĝļé one]</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">[Ţöĝĝļé &amp; Fļîçķ one two]</string>
 <string name="pref_fullscreen_portrait">[Éñåбļé öñ þöŕţŕåîţ one two three]</string>
 <string name="pref_fullscreen_landscape">[Éñåбļé öñ ļåñðšçåþé one two three]</string>
-<string name="pref_emoji_provider_type_unicode">[Ðîšåбļé çåŕŕîéŕ Émöĵî one two three]</string>
-<string name="pref_emoji_provider_type_docomo">[ÑŢŢ ðöçömö one two]</string>
-<string name="pref_emoji_provider_type_kddi">[ĶÐÐÎ (åû) one two]</string>
-<string name="pref_emoji_provider_type_softbank">[ŠöƒţБåñķ one]</string>
 <string name="pref_skin_type_orange_lightgray">[Öŕåñĝé/Ļîĝĥţ-ĝŕåý one two three]</string>
 <string name="pref_skin_type_blue_lightgray">[Бļûé/Ļîĝĥţ-ĝŕåý one two]</string>
 <string name="pref_skin_type_blue_darkgray">[Бļûé/Ðåŕķ-ĝŕåý one two]</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">[Måţéŕîåļ Ðéšîĝñ (Ðåŕķ) one two three]</string>
 <string name="pref_hardware_keymap_default">[Šýšţém Ðéƒåûļţ one two]</string>
 <string name="pref_hardware_keymap_japanese109A">[Ĵåþåñéšé 109Å one two]</string>
-<string name="pref_hardware_keymap_twelvekey">[12 ķéýš one]</string>
 <string name="pref_dictionary_personalization_entry_enabled">[Éñåбļé one]</string>
 <string name="pref_dictionary_personalization_entry_readonly">[Fŕöžéñ one]</string>
 <string name="pref_dictionary_personalization_entry_disabled">[Ðîšåбļé one]</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">[Éðîţ ţĥé ñåmé öƒ ţĥé ðîçţîöñåŕý one two three four five six seven]</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">[Ñåmé öƒ ţĥé ðîçţîöñåŕý one two three four five]</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">[Åðð å ñéŵ ŵöŕð one two three]</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">[Éðîţ å ŵöŕð one two]</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">[Ŕéåðîñĝ one]</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">[Ŵöŕð one]</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">[Çåţéĝöŕý one]</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">[Þûñçţûåţîöñ one two]</string>
 <string name="japanese_pos_free_standing_word">[Fŕéé šţåñðîñĝ ŵöŕð one two three]</string>
 <string name="japanese_pos_suppression_word">[Šûþþŕéššîöñ ŵöŕð one two]</string>
-<string name="yes">[Ýéš one]</string>
-<string name="no">[Ñö one]</string>
 </resources>

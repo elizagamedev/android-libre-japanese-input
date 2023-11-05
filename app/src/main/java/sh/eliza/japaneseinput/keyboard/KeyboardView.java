@@ -29,7 +29,6 @@
 
 package sh.eliza.japaneseinput.keyboard;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -39,9 +38,9 @@ import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.EditorInfo;
 import androidx.core.view.ViewCompat;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ForwardingMap;
@@ -57,7 +56,6 @@ import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchA
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
 import sh.eliza.japaneseinput.MemoryManageable;
 import sh.eliza.japaneseinput.R;
-import sh.eliza.japaneseinput.accessibility.AccessibilityUtil;
 import sh.eliza.japaneseinput.accessibility.KeyboardAccessibilityDelegate;
 import sh.eliza.japaneseinput.keyboard.KeyState.MetaState;
 import sh.eliza.japaneseinput.view.DrawableCache;
@@ -79,13 +77,12 @@ public class KeyboardView extends View implements MemoryManageable {
 
   private Optional<Keyboard> keyboard = Optional.absent();
   // Do not update directly. Use setMetaState instead.
-  @VisibleForTesting Set<MetaState> metaState;
+  private Set<MetaState> metaState;
 
-  @VisibleForTesting
-  final KeyboardViewBackgroundSurface backgroundSurface =
+  private final KeyboardViewBackgroundSurface backgroundSurface =
       new KeyboardViewBackgroundSurface(backgroundDrawableFactory, drawableCache);
 
-  @VisibleForTesting boolean isKeyPressed;
+  private boolean isKeyPressed;
 
   private final float scaledDensity;
 
@@ -93,9 +90,11 @@ public class KeyboardView extends View implements MemoryManageable {
   private boolean popupEnabled = true;
 
   private final KeyboardAccessibilityDelegate accessibilityDelegate;
+  private final AccessibilityManager accessibilityManager =
+      (AccessibilityManager) getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);
 
   /** Just for testing purpose. If true, HANDLING_TOUCH_EVENET metastate is removed directly. */
-  @VisibleForTesting boolean enableDelayForHandlingTouchEvent = true;
+  private boolean enableDelayForHandlingTouchEvent = true;
 
   /**
    * Decorator class for {@code Map} for {@code KeyEventContextMap}.
@@ -191,8 +190,7 @@ public class KeyboardView extends View implements MemoryManageable {
   // We use LinkedHashMap with accessOrder=false here, in order to ensure sending key events
   // in the pressing order in flushPendingKeyEvent.
   // Its initial capacity (16) and load factor (0.75) are just heuristics.
-  @VisibleForTesting
-  public final Map<Integer, KeyEventContext> keyEventContextMap =
+  private final Map<Integer, KeyEventContext> keyEventContextMap =
       new KeyEventContextMap(new LinkedHashMap<Integer, KeyEventContext>(16, 0.75f, false));
 
   private Optional<KeyEventHandler> keyEventHandler = Optional.absent();
@@ -332,7 +330,7 @@ public class KeyboardView extends View implements MemoryManageable {
 
     this.keyboard = Optional.of(keyboard);
     updateMetaStates(Collections.emptySet(), MetaState.CHAR_TYPE_EXCLUSIVE_GROUP);
-    accessibilityDelegate.setKeyboard(this.keyboard);
+    accessibilityDelegate.setKeyboard(keyboard);
     this.drawableCache.clear();
     backgroundSurface.reset(this.keyboard, Collections.emptySet());
     invalidateIfRequired();
@@ -357,7 +355,6 @@ public class KeyboardView extends View implements MemoryManageable {
     return keyboard;
   }
 
-  @SuppressWarnings("deprecation")
   public void setSkin(Skin skin) {
     Preconditions.checkNotNull(skin);
     drawableCache.setSkin(skin);
@@ -394,7 +391,6 @@ public class KeyboardView extends View implements MemoryManageable {
     backgroundSurface.draw(canvas);
   }
 
-  @SuppressLint("InlinedApi")
   private static int getPointerIndex(int action) {
     return (action & MotionEvent.ACTION_POINTER_INDEX_MASK)
         >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
@@ -632,8 +628,7 @@ public class KeyboardView extends View implements MemoryManageable {
    * @param y {@code y}-coordinate.
    * @return A corresponding {@code Key} instance, or {@code Optional.<Key>absent()} if not found.
    */
-  @VisibleForTesting
-  Optional<Key> getKeyByCoord(float x, float y) {
+  private Optional<Key> getKeyByCoord(float x, float y) {
     if (y < 0 || !keyboard.isPresent() || keyboard.get().getRowList().isEmpty()) {
       return Optional.absent();
     }
@@ -710,7 +705,7 @@ public class KeyboardView extends View implements MemoryManageable {
   @Override
   public boolean dispatchTouchEvent(MotionEvent event) {
     Preconditions.checkNotNull(event);
-    if (AccessibilityUtil.isTouchExplorationEnabled(getContext())) {
+    if (accessibilityManager.isTouchExplorationEnabled()) {
       return accessibilityDelegate.dispatchTouchEvent(event);
     }
     return super.dispatchTouchEvent(event);
@@ -719,15 +714,10 @@ public class KeyboardView extends View implements MemoryManageable {
   @Override
   public boolean dispatchHoverEvent(MotionEvent event) {
     Preconditions.checkNotNull(event);
-    if (AccessibilityUtil.isTouchExplorationEnabled(getContext())) {
+    if (accessibilityManager.isTouchExplorationEnabled()) {
       return accessibilityDelegate.dispatchHoverEvent(event);
     }
     return false;
-  }
-
-  @VisibleForTesting
-  public Set<MetaState> getMetaStates() {
-    return this.metaState;
   }
 
   private void setMetaStates(Set<MetaState> metaState) {
@@ -745,10 +735,6 @@ public class KeyboardView extends View implements MemoryManageable {
     setMetaStates(
         Sets.union(Sets.difference(metaState, removedMetaStates), addedMetaStates).immutableCopy());
     invalidateIfRequired();
-  }
-
-  public void setPasswordField(boolean isPasswordField) {
-    accessibilityDelegate.setPasswordField(isPasswordField);
   }
 
   public void setEditorInfo(EditorInfo editorInfo) {

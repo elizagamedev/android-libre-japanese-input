@@ -32,7 +32,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.inputmethodservice.InputMethodService
-import android.os.Build
 import android.os.Looper
 import android.view.ContextThemeWrapper
 import android.view.InputDevice
@@ -43,7 +42,6 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.Window
 import android.view.inputmethod.EditorInfo
-import com.google.common.annotations.VisibleForTesting
 import com.google.common.base.Optional
 import com.google.common.base.Preconditions
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands
@@ -81,8 +79,7 @@ private const val NEXUS_KEYBOARD_PRODUCT_ID = 0x160B
 
 /** Manages Input, Candidate and Extracted views. */
 class ViewManager
-@VisibleForTesting
-internal constructor(
+private constructor(
   context: Context,
   listener: ViewEventListener?,
   symbolHistoryStorage: SymbolHistoryStorage?,
@@ -180,19 +177,16 @@ internal constructor(
     override fun onRelease(primaryCode: Int) {}
   }
 
-  @VisibleForTesting
-  inner class ViewLayerEventHandler {
+  private inner class ViewLayerEventHandler {
     private var isEmojiKeyDownAvailable = false
     private var isEmojiInvoking = false
     private var pressedKeyNum = 0
 
-    @JvmField @VisibleForTesting var disableDeviceCheck = false
-    @SuppressLint("NewApi")
+    private var disableDeviceCheck = false
     private fun hasPhysicalEmojiKey(event: KeyEvent): Boolean {
       val device = InputDevice.getDevice(event.deviceId)
       return disableDeviceCheck ||
-        Build.VERSION.SDK_INT >= 19 &&
-          device != null &&
+        device != null &&
           device.vendorId == NEXUS_KEYBOARD_VENDOR_ID &&
           device.productId == NEXUS_KEYBOARD_PRODUCT_ID
     }
@@ -267,15 +261,15 @@ internal constructor(
   }
 
   // Registered by the user (typically MozcService)
-  @JvmField @VisibleForTesting val eventListener: ViewEventListener
+  private val eventListener: ViewEventListener
 
   // The view of the MechaMozc.
-  @JvmField @VisibleForTesting var mozcView: MozcView? = null
+  private var mozcView: MozcView? = null
 
   // Menu dialog and its listener.
   private val menuDialogListener: MenuDialogListener?
 
-  @JvmField @VisibleForTesting var menuDialog: MenuDialog? = null
+  private var menuDialog: MenuDialog? = null
 
   // IME switcher instance to detect that voice input is available or not.
   private val imeSwitcher: ImeSwitcher
@@ -284,7 +278,7 @@ internal constructor(
   private val keyEventHandler: KeyEventHandler
 
   /** Key event handler to handle events on view layer. */
-  @JvmField @VisibleForTesting val viewLayerKeyEventHandler = ViewLayerEventHandler()
+  private val viewLayerKeyEventHandler = ViewLayerEventHandler()
 
   /**
    * Model to represent the current software keyboard state. All the setter methods don't affect
@@ -298,7 +292,7 @@ internal constructor(
    */
   private val symbolNumberSoftwareKeyboardModel = JapaneseSoftwareKeyboardModel()
 
-  @JvmField @VisibleForTesting val hardwareKeyboard: HardwareKeyboard
+  private val hardwareKeyboard: HardwareKeyboard
 
   /** True if symbol input view is visible. */
   private var isSymbolInputViewVisible = false
@@ -447,6 +441,7 @@ internal constructor(
         context,
         com.google.android.material.R.style.Theme_Material3_DayNight_NoActionBar
       )
+    @SuppressLint("InflateParams")
     val mozcView =
       (LayoutInflater.from(contextWrapper).inflate(R.layout.mozc_view, null) as MozcView).apply {
         // Suppress update of View's internal state
@@ -955,65 +950,20 @@ internal constructor(
     return false
   }
 
-  @VisibleForTesting
-  override fun getEventListener(): ViewEventListener {
-    return eventListener
-  }
-
   /**
    * Returns active (shown) JapaneseSoftwareKeyboardModel. If symbol picker is shown, symbol-number
    * keyboard's is returned.
    */
-  @VisibleForTesting
-  override fun getActiveSoftwareKeyboardModel(): JapaneseSoftwareKeyboardModel {
-    return if (isSymbolInputViewVisible) {
-      symbolNumberSoftwareKeyboardModel
-    } else {
-      japaneseSoftwareKeyboardModel
-    }
-  }
-
-  @VisibleForTesting
-  override fun isPopupEnabled(): Boolean {
-    return popupEnabled
-  }
-
-  @VisibleForTesting
-  override fun getFlickSensitivity(): Int {
-    return flickSensitivity
-  }
-
-  @VisibleForTesting
-  override fun getSkin(): Skin {
-    return skin
-  }
-
-  @VisibleForTesting
-  override fun isMicrophoneButtonEnabledByPreference(): Boolean {
-    return isVoiceInputEnabledByPreference
-  }
-
-  @VisibleForTesting
-  override fun getLayoutAdjustment(): LayoutAdjustment {
-    return layoutAdjustment
-  }
-
-  @VisibleForTesting
-  override fun getKeyboardHeightRatio(): Int {
-    return keyboardHeightRatio
-  }
-
-  @VisibleForTesting
-  override fun getHardwareKeyMap(): HardwareKeyMap {
-    return hardwareKeyboard.hardwareKeyMap
-  }
+  private val activeSoftwareKeyboardModel: JapaneseSoftwareKeyboardModel
+    get() =
+      if (isSymbolInputViewVisible) {
+        symbolNumberSoftwareKeyboardModel
+      } else {
+        japaneseSoftwareKeyboardModel
+      }
 
   override fun trimMemory() {
     mozcView?.trimMemory()
-  }
-
-  override fun getKeyboardActionListener(): KeyboardActionListener {
-    return keyboardActionListener
   }
 
   override fun onStartInputView(editorInfo: EditorInfo) {

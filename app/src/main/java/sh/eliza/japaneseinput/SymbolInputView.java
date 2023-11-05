@@ -54,7 +54,6 @@ import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.util.Collections;
@@ -100,8 +99,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
 
   /** Adapter for symbol candidate selection. */
   // TODO(hidehiko): make this class static.
-  @VisibleForTesting
-  class SymbolCandidateSelectListener implements CandidateSelectListener {
+  private class SymbolCandidateSelectListener implements CandidateSelectListener {
     @Override
     public void onCandidateSelected(CandidateWord candidateWord, Optional<Integer> row) {
       Preconditions.checkNotNull(candidateWord);
@@ -119,8 +117,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
   }
 
   /** Click handler of major category buttons. */
-  @VisibleForTesting
-  class MajorCategoryButtonClickListener implements OnClickListener {
+  private class MajorCategoryButtonClickListener implements OnClickListener {
     private final SymbolMajorCategory majorCategory;
 
     MajorCategoryButtonClickListener(SymbolMajorCategory majorCategory) {
@@ -263,7 +260,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-      View view = LayoutInflater.from(context).inflate(R.layout.symbol_candidate_view, null);
+      View view = LayoutInflater.from(context).inflate(R.layout.symbol_candidate_view, container);
       SymbolCandidateView symbolCandidateView =
           (SymbolCandidateView) view.findViewById(R.id.symbol_input_candidate_view);
       symbolCandidateView.setCandidateSelectListener(candidateSelectListener);
@@ -298,7 +295,8 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       scrollGuideView.setScroller(symbolCandidateView.scroller);
       symbolCandidateView.setScrollIndicator(scrollGuideView);
 
-      container.addView(view);
+      // TODO(exv): verify that the changed LayoutInflater call above works correctly.
+      // container.addView(view);
       return view;
     }
 
@@ -431,11 +429,11 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
 
   private Optional<SymbolCandidateStorage> symbolCandidateStorage = Optional.absent();
 
-  @VisibleForTesting SymbolMajorCategory currentMajorCategory = SymbolMajorCategory.NUMBER;
-  @VisibleForTesting boolean emojiEnabled;
+  private SymbolMajorCategory currentMajorCategory = SymbolMajorCategory.NUMBER;
+  private boolean emojiEnabled;
   private boolean isPasswordField;
 
-  @VisibleForTesting SharedPreferences sharedPreferences;
+  private SharedPreferences sharedPreferences;
 
   private Optional<ViewEventListener> viewEventListener = Optional.absent();
   private final KeyEventButtonTouchListener deleteKeyEventButtonTouchListener =
@@ -640,7 +638,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     tabHost.setOnTabChangedListener(adapter);
   }
 
-  @SuppressWarnings("deprecation")
   private void updateMajorCategoryBackgroundSkin() {
     View view = getMajorCategoryFrame();
     if (view != null) {
@@ -649,7 +646,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     }
   }
 
-  @SuppressWarnings("deprecation")
   private void updateMinorCategoryBackgroundSkin() {
     View view = getMinorCategoryFrame();
     if (view != null) {
@@ -658,7 +654,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     }
   }
 
-  @SuppressWarnings("deprecation")
   private void updateNumberKeyboardSkin() {
     getNumberKeyboardView().setSkin(skin);
     findViewById(R.id.number_frame)
@@ -671,7 +666,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
    * Sets click event handlers to each major category button. It is necessary that the inflation has
    * been done before this method invocation.
    */
-  @SuppressWarnings("deprecation")
   private void updateMajorCategoryButtonsSkin() {
     Resources resources = getResources();
     for (SymbolMajorCategory majorCategory : SymbolMajorCategory.values()) {
@@ -758,7 +752,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     tabhost.setCurrentTab(2);
   }
 
-  @SuppressWarnings("deprecation")
   private void updateTabBackgroundSkin() {
     if (!isInflated()) {
       return;
@@ -860,7 +853,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
         new ColorDrawable(skin.symbolMinorCategoryTabPressedColor), Optional.absent());
   }
 
-  @SuppressWarnings("deprecation")
   private void initializeCloseButton() {
     ImageView closeButton = (ImageView) findViewById(R.id.symbol_view_close_button);
     if (closeButtonClickListener.isPresent()) {
@@ -872,14 +864,12 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
    * Sets a click event handler to the delete button. It is necessary that the inflation has been
    * done before this method invocation.
    */
-  @SuppressWarnings("deprecation")
   private void initializeDeleteButton() {
     MozcImageView deleteButton = (MozcImageView) findViewById(R.id.symbol_view_delete_button);
     deleteButton.setOnTouchListener(deleteKeyEventButtonTouchListener);
   }
 
   /** c.f., {@code initializeDeleteButton}. */
-  @SuppressWarnings("deprecation")
   private void initializeEnterButton() {
     ImageView enterButton = (ImageView) findViewById(R.id.symbol_view_enter_button);
     enterButton.setOnTouchListener(enterKeyEventButtonTouchListener);
@@ -893,7 +883,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     microphoneButton.setVisibility(isMicrophoneButtonEnabled ? VISIBLE : GONE);
   }
 
-  @SuppressWarnings("deprecation")
   private void updateSeparatorsSkin() {
     Resources resources = getResources();
     int minorPaddingSize =
@@ -938,8 +927,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
                 .newDrawable());
   }
 
-  @VisibleForTesting
-  TabHost getTabHost() {
+  private TabHost getTabHost() {
     return (TabHost) findViewById(android.R.id.tabhost);
   }
 
@@ -947,14 +935,12 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     return (ViewPager) findViewById(R.id.symbol_input_candidate_view_pager);
   }
 
-  @VisibleForTesting
-  MozcImageButton getMajorCategoryButton(SymbolMajorCategory majorCategory) {
+  private MozcImageButton getMajorCategoryButton(SymbolMajorCategory majorCategory) {
     Preconditions.checkNotNull(majorCategory);
     return (MozcImageButton) findViewById(majorCategory.buttonResourceId);
   }
 
-  @VisibleForTesting
-  View getEmojiDisabledMessageView() {
+  private View getEmojiDisabledMessageView() {
     return findViewById(R.id.symbol_emoji_disabled_message_view);
   }
 
@@ -969,7 +955,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     this.isPasswordField = isPasswordField;
   }
 
-  @SuppressWarnings("deprecation")
   private void enableEmoji(boolean enableEmoji) {
     if (!isInflated()) {
       return;
@@ -990,8 +975,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     enterKeyEventButtonTouchListener.reset();
   }
 
-  @VisibleForTesting
-  void reset() {
+  private void reset() {
     // the current minor category is also updated in setMajorCategory.
     resetToMajorCategory(Optional.of(SymbolMajorCategory.NUMBER));
   }
@@ -1065,8 +1049,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
    *
    * @param newCategory the major category to show.
    */
-  @VisibleForTesting
-  void setMajorCategory(SymbolMajorCategory newCategory) {
+  private void setMajorCategory(SymbolMajorCategory newCategory) {
     Preconditions.checkNotNull(newCategory);
 
     {
@@ -1188,7 +1171,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     updateSkinAwareDrawable();
   }
 
-  @SuppressWarnings("deprecation")
   private void updateSkinAwareDrawable() {
     updateTabBackgroundSkin();
     resetTabImageForMinorCategory();

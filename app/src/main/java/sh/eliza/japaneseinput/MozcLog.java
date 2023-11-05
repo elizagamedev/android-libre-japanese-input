@@ -59,61 +59,61 @@ public class MozcLog {
   }
 
   public static void v(String msg) {
-    if (isLoggable(Log.VERBOSE)) {
+    if (Log.isLoggable(MozcUtil.LOGTAG, Log.VERBOSE)) {
       Log.v(MozcUtil.LOGTAG, msg);
     }
   }
 
   public static void v(String msg, Throwable e) {
-    if (isLoggable(Log.VERBOSE)) {
+    if (Log.isLoggable(MozcUtil.LOGTAG, Log.VERBOSE)) {
       Log.v(MozcUtil.LOGTAG, msg, e);
     }
   }
 
   public static void d(String msg) {
-    if (isLoggable(Log.DEBUG)) {
+    if (Log.isLoggable(MozcUtil.LOGTAG, Log.DEBUG)) {
       Log.d(MozcUtil.LOGTAG, msg);
     }
   }
 
   public static void d(String msg, Throwable e) {
-    if (isLoggable(Log.DEBUG)) {
+    if (Log.isLoggable(MozcUtil.LOGTAG, Log.DEBUG)) {
       Log.d(MozcUtil.LOGTAG, msg, e);
     }
   }
 
   public static void i(String msg) {
-    if (isLoggable(Log.INFO)) {
+    if (Log.isLoggable(MozcUtil.LOGTAG, Log.INFO)) {
       Log.i(MozcUtil.LOGTAG, msg);
     }
   }
 
   public static void i(String msg, Throwable e) {
-    if (isLoggable(Log.INFO)) {
+    if (Log.isLoggable(MozcUtil.LOGTAG, Log.INFO)) {
       Log.i(MozcUtil.LOGTAG, msg, e);
     }
   }
 
   public static void w(String msg) {
-    if (isLoggable(Log.WARN)) {
+    if (Log.isLoggable(MozcUtil.LOGTAG, Log.WARN)) {
       Log.w(MozcUtil.LOGTAG, msg);
     }
   }
 
   public static void w(String msg, Throwable e) {
-    if (isLoggable(Log.WARN)) {
+    if (Log.isLoggable(MozcUtil.LOGTAG, Log.WARN)) {
       Log.w(MozcUtil.LOGTAG, msg, e);
     }
   }
 
   public static void e(String msg) {
-    if (isLoggable(Log.ERROR)) {
+    if (Log.isLoggable(MozcUtil.LOGTAG, Log.ERROR)) {
       Log.e(MozcUtil.LOGTAG, msg);
     }
   }
 
   public static void e(String msg, Throwable e) {
-    if (isLoggable(Log.ERROR)) {
+    if (Log.isLoggable(MozcUtil.LOGTAG, Log.ERROR)) {
       Log.e(MozcUtil.LOGTAG, msg, e);
     }
   }

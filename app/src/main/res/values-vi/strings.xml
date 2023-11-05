@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Bàn phím ảo</string>
 <string name="pref_software_keyboard_advanced_settings_title">Cài đặt nâng cao bàn phím ảo</string>
-<string name="pref_fragment_software_keyboard_title">Software keyboard</string>
-<string name="pref_fragment_input_support_title">Input support</string>
-<string name="pref_fragment_conversion_title">Conversion</string>
-<string name="pref_fragment_dictionary_title">Dictionary</string>
-<string name="pref_fragment_user_feedback_title">User feedback</string>
-<string name="pref_fragment_about_title">About</string>
-<string name="pref_fragment_development_title">Development</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Tùy chọn bàn phím ảo cho chế độ dọc</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Tùy chọn bàn phím ảo cho chế độ ngang</string>
 <string name="pref_keyboard_layout_title">Bố cục bàn phím</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Chuyển đổi không nhạy theo phím bổ trợ</string>
 <string name="pref_typing_correction_title">Sửa lỗi nhập</string>
 <string name="pref_other_incognito_mode_title">Chế độ ẩn danh</string>
-<string name="pref_emoji_provider_type_title">Chọn nhà cung cấp biểu tượng cảm xúc</string>
 <string name="pref_dictionry_category_title">Tùy chọn từ điển</string>
 <string name="pref_dictionary_personalization_title">Cá nhân hóa</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Công cụ từ điển</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Lịch sử chuyển đổi</string>
 <string name="pref_clear_symbol_history_title">Lịch sử biểu tượng</string>
 <string name="pref_clear_user_dictionary_title">Từ điển người dùng</string>
-<string name="pref_user_feedback_category_title">Phản hồi người dùng</string>
-<string name="pref_other_usage_stats_title">Gửi số liệu thống kê sử dụng</string>
 <string name="pref_about_about_this_software_title">Giới thiệu về phần mềm này</string>
 <string name="pref_about_version_title">Phiên bản</string>
 <string name="pref_about_oss_credits_title">Phần mềm nguồn mở</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Luôn sử dụng khoảng cách nửa chiều rộng cho dù với chế độ nhập nào.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Sử dụng loại chuyển đổi không nhạy theo phím bổ trợ kana. Áp dụng cho 12 phím và bàn phím Godan. Ví dụ: かつこう→学校</string>
 <string name="pref_typing_correction_description">Phát hiện lỗi nhập nhầm và hiển thị các từ đề xuất đã sửa. Ví dụ: すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">Chọn đúng nhà cung cấp biểu tượng cảm xúc để sử dụng biểu tượng cảm xúc.</string>
 <string name="pref_skin_type_description">Select the keyboard theme to customize the software keyboard look.</string>
 <string name="pref_voice_input_description">Show voice input button on the software keyboard.</string>
 <string name="pref_hardware_keymap_description">Chọn ánh xạ phím cho bàn phím phần cứng.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Xóa lịch sử nhập biểu tượng.</string>
 <string name="pref_clear_user_dictionary_description">Xóa từ điển người dùng.</string>
 <string name="pref_other_incognito_mode_description">Tạm thời tắt tính năng cá nhân hóa, đề xuất và từ điển người dùng.</string>
-<string name="pref_other_usage_stats_description">Gửi số liệu thống kê sử dụng cho %1$s. Số liệu thống kê này sẽ chỉ được sử dụng để cải thiện sản phẩm và dịch vụ của %1$s.</string>
 <string name="pref_about_oss_credits_description">Phần mềm này sử dụng phần mềm nguồn mở: xem giấy phép.</string>
 <string name="pref_launcher_icon_visibility_description">Hiển thị biểu tượng ứng dụng trong trình khởi chạy</string>
 <string name="pref_input_style_setting_entry_toggle">Chuyển đổi</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Chuyển đổi và bấm</string>
 <string name="pref_fullscreen_portrait">Bật ở chế độ dọc</string>
 <string name="pref_fullscreen_landscape">Bật ở chế độ ngang</string>
-<string name="pref_emoji_provider_type_unicode">Tắt biểu tượng cảm xúc của nhà cung cấp dịch vụ</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Màu cam/Xám nhạt</string>
 <string name="pref_skin_type_blue_lightgray">Xanh lam/Xám nhạt</string>
 <string name="pref_skin_type_blue_darkgray">Xanh lam/Xám đậm</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Giao diện Material Design (Màu tối)</string>
 <string name="pref_hardware_keymap_default">Mặc định hệ thống</string>
 <string name="pref_hardware_keymap_japanese109A">Tiếng Nhật 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 phím</string>
 <string name="pref_dictionary_personalization_entry_enabled">Bật</string>
 <string name="pref_dictionary_personalization_entry_readonly">Đóng băng</string>
 <string name="pref_dictionary_personalization_entry_disabled">Tắt</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Chỉnh sửa tên từ điển</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Tên từ điển</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Thêm từ mới</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Chỉnh sửa từ</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Kiểu đọc</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Từ</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Loại</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Dấu câu</string>
 <string name="japanese_pos_free_standing_word">Từ đứng tự do</string>
 <string name="japanese_pos_suppression_word">Từ lược bỏ</string>
-<string name="yes">Có</string>
-<string name="no">Không</string>
 </resources>

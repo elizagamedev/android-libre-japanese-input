@@ -29,9 +29,7 @@
 
 package sh.eliza.japaneseinput.model;
 
-import android.annotation.TargetApi;
 import android.view.inputmethod.EditorInfo;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
@@ -43,7 +41,6 @@ import sh.eliza.japaneseinput.ui.FloatingModeIndicator;
  *
  * <p>This class doesn't have Looper to keep this class testable.
  */
-@TargetApi(21)
 public class FloatingModeIndicatorController {
 
   /** Listener interface to control floating mode indicator. */
@@ -59,13 +56,13 @@ public class FloatingModeIndicatorController {
    * Shows a indicator by {@link #onStartInputView} if the method is not called in the last time
    * period.
    */
-  @VisibleForTesting static final int MIN_INTERVAL_TO_SHOW_INDICATOR_ON_START_MILLIS = 3000;
+  private static final int MIN_INTERVAL_TO_SHOW_INDICATOR_ON_START_MILLIS = 3000;
 
   /**
    * Maximum time to wait until the cursor position is stabilized. The position is not stabilized
    * especially on start.
    */
-  @VisibleForTesting static final int MAX_UNSTABLE_TIME_ON_START_MILLIS = 1000;
+  private static final int MAX_UNSTABLE_TIME_ON_START_MILLIS = 1000;
 
   /**
    * The initial value for time related variables. abs(INVALID_TIME) should be greater than all
@@ -171,8 +168,7 @@ public class FloatingModeIndicatorController {
     }
   }
 
-  @VisibleForTesting
-  boolean isCursorPositionStabilized(long time) {
+  private boolean isCursorPositionStabilized(long time) {
     return isCursorPositionStabilizedExplicitly
         || time - lastPositionUnstabilizedTime >= MAX_UNSTABLE_TIME_ON_START_MILLIS;
   }

@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Papan kekunci perisian</string>
 <string name="pref_software_keyboard_advanced_settings_title">Tetapan terperinci papan kekunci perisian</string>
-<string name="pref_fragment_software_keyboard_title">Papan kekunci perisian</string>
-<string name="pref_fragment_input_support_title">Sokongan input</string>
-<string name="pref_fragment_conversion_title">Penukaran</string>
-<string name="pref_fragment_dictionary_title">Kamus</string>
-<string name="pref_fragment_user_feedback_title">Maklum balas pengguna</string>
-<string name="pref_fragment_about_title">Perihal</string>
-<string name="pref_fragment_development_title">Pembangunan</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Keutamaan papan kekunci perisian untuk mod potret</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Keutamaan papan kekunci perisian untuk mod landskap</string>
 <string name="pref_keyboard_layout_title">Reka letak papan kekunci</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Penukaran tidak sensitif pengubah suai</string>
 <string name="pref_typing_correction_title">Pembetulan menaip</string>
 <string name="pref_other_incognito_mode_title">Mod inkognito</string>
-<string name="pref_emoji_provider_type_title">Pilih penyedia Emoji</string>
 <string name="pref_dictionry_category_title">Keutamaan kamus</string>
 <string name="pref_dictionary_personalization_title">Pemperibadian</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Alat Kamus</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Sejarah penukaran</string>
 <string name="pref_clear_symbol_history_title">Sejarah simbol</string>
 <string name="pref_clear_user_dictionary_title">Kamus pengguna</string>
-<string name="pref_user_feedback_category_title">Maklum balas pengguna</string>
-<string name="pref_other_usage_stats_title">Hantar perangkaan penggunaan</string>
 <string name="pref_about_about_this_software_title">Perihal perisian ini</string>
 <string name="pref_about_version_title">Versi</string>
 <string name="pref_about_oss_credits_title">Perisian sumber terbuka</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Sentiasa gunakan ruang separuh lebar, tanpa mengira mod input.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Gunakan penukaran tidak sensitif pengubah suai kana. Digunakan pada papan kekunci 12 kekunci dan Godan. mis. かつこう→学校</string>
 <string name="pref_typing_correction_description">Kesan kesilapan menaip dan tunjukkan calon yang dibetulkan. mis. すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">Pilih penyedia Emoji dengan betul untuk menggunakan emoji.</string>
 <string name="pref_skin_type_description">Pilih tema papan kekunci untuk menyesuaikan rupa papan kekunci perisian.</string>
 <string name="pref_voice_input_description">Tunjukkan butang input suara pada papan kekunci perisian.</string>
 <string name="pref_hardware_keymap_description">Pilih pemetaan kekunci untuk papan kekunci perkakasan.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Kosongkan sejarah input simbol.</string>
 <string name="pref_clear_user_dictionary_description">Kosongkan kamus pengguna</string>
 <string name="pref_other_incognito_mode_description">Lumpuhkan sementara pemeribadian, cadangan dan kamus pengguna.</string>
-<string name="pref_other_usage_stats_description">Hantar perangkaan penggunaan kepada %1$s. Perangkaan ini hanya akan digunakan untuk meningkatkan produk dan perkhidmatan %1$s.</string>
 <string name="pref_about_oss_credits_description">Perisian ini menggunakan perisian sumber terbuka: lihat lesen.</string>
 <string name="pref_launcher_icon_visibility_description">Paparkan ikon aplikasi dalam pelancar</string>
 <string name="pref_input_style_setting_entry_toggle">Togol</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Togol &amp; Kuis</string>
 <string name="pref_fullscreen_portrait">Dayakan pada potret</string>
 <string name="pref_fullscreen_landscape">Dayakan pada landskap</string>
-<string name="pref_emoji_provider_type_unicode">Lumpuhkan Emoji pembawa</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Jingga/Kelabu cerah</string>
 <string name="pref_skin_type_blue_lightgray">Biru/Kelabu cerah</string>
 <string name="pref_skin_type_blue_darkgray">Biru/Kelabu gelap</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Reka Bentuk Bahan (Gelap)</string>
 <string name="pref_hardware_keymap_default">Lalai Sistem</string>
 <string name="pref_hardware_keymap_japanese109A">109A Jepun</string>
-<string name="pref_hardware_keymap_twelvekey">12 kekunci</string>
 <string name="pref_dictionary_personalization_entry_enabled">Dayakan</string>
 <string name="pref_dictionary_personalization_entry_readonly">Beku</string>
 <string name="pref_dictionary_personalization_entry_disabled">Lumpuhkan</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Edit nama kamus</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Nama kamus</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Tambah perkataan baharu</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Edit perkataan</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Membaca</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Perkataan</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Kategori</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Tanda baca</string>
 <string name="japanese_pos_free_standing_word">Perkataan bebas</string>
 <string name="japanese_pos_suppression_word">Perkataan penekanan</string>
-<string name="yes">Ya</string>
-<string name="no">Tidak</string>
 </resources>

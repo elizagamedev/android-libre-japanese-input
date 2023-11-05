@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">ຊອບ​ແວ​ແປ້ນ​ພິມ</string>
 <string name="pref_software_keyboard_advanced_settings_title">​ການ​ຕັ້ງ​ຄ່າ​ຊອບ​ແວ​ແປ້ນ​ພິມ​ລະ​ດັບ​ສູງ</string>
-<string name="pref_fragment_software_keyboard_title">ແປ້ນ​ພິມຊອບ​ແວ​</string>
-<string name="pref_fragment_input_support_title">ຮອງ​ຮັບ​ການ​ປ້ອນ​ເຂົ້າ</string>
-<string name="pref_fragment_conversion_title">ການ​ປ່ຽນ</string>
-<string name="pref_fragment_dictionary_title">ວັດຈະນານຸກົມ</string>
-<string name="pref_fragment_user_feedback_title">ຄຳ​ຕິ​ຊົມ​ຜູ່​ໃຊ້</string>
-<string name="pref_fragment_about_title">ກ່ຽວກັບ</string>
-<string name="pref_fragment_development_title">ການພັດທະນາ</string>
 <string name="pref_software_keyboard_preferences_portrait_title">​ການ​ຕັ້ງ​ຄ່າ​ຊອບ​ແວ​ແປ້ນ​ພິມ​ສຳ​ລັບ​ໂໝດ​ລວງ​ຕັ້ງ</string>
 <string name="pref_software_keyboard_preferences_landscape_title">​ການ​ຕັ້ງ​ຄ່າ​ຊອບ​ແວ​ແປ້ນ​ພິມ​ສຳ​ລັບ​ໂໝດ​ລວງ​​ນອນ</string>
 <string name="pref_keyboard_layout_title">​ຮູບ​ແບບ​ແປ້ນ​ພິມ</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">​ໂຕ​ແກ້​ໄຂ​ການ​ແປງ​ຂໍ້​ມູນ​ແບບບໍ່​​ລະ​ອຽດ</string>
 <string name="pref_typing_correction_title">​ການ​ແກ້​ໄຂ​ການ​ພິມ</string>
 <string name="pref_other_incognito_mode_title">​ໂໝດ Incognito</string>
-<string name="pref_emoji_provider_type_title">ເລືອກ​ຜູ່​ໃຫ້​ບໍ​ລິ​ການ​ອີ​ໂມ​ຈິ</string>
 <string name="pref_dictionry_category_title">​ການ​ຕັ້ງ​ຄ່າ​ວັດ​ຈະ​ນາ​ນຸ​ກົມ</string>
 <string name="pref_dictionary_personalization_title">​ການ​ປັບ​ແຕ່ງ​ສ່ວນ​ບຸກ​ຄົນ</string>
 <string name="pref_dictionary_user_dictionary_tool_title">​ເຄື່ອງ​ມື​ວັດ​ຈະ​ນາ​ນຸ​ກົມ</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">​ປະ​ຫວັດ​ການ​ແປງ​ຂໍ້​ມູນ</string>
 <string name="pref_clear_symbol_history_title">​ປະ​ຫວັດ​ສັນ​ຍາ​ລັກ</string>
 <string name="pref_clear_user_dictionary_title">ວັດຈະ​ນານຸ​ກົມ​ຜູ່ໃຊ້</string>
-<string name="pref_user_feedback_category_title">ຄຳ​ຕິ​ຊົມ​ຜູ່​ໃຊ້</string>
-<string name="pref_other_usage_stats_title">ສົ່ງ​ສະຖິຕິການນຳໃຊ້</string>
 <string name="pref_about_about_this_software_title">​ກ່ຽວ​ກັບ​ຊອບ​ແວ​ນີ້</string>
 <string name="pref_about_version_title">ເວີຊັນ</string>
 <string name="pref_about_oss_credits_title">​ຊອບ​ແວ​ໂອ​ເພນ​ຊອດ</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">ໃຊ້​ຍະ​ຫວ່າງ​ເຄິ່ງ​ຄວາ​ມ​ຍາວ​ສະ​ເໝີບໍ່​ວ່າ​ໂໝດ​ການ​ປ້ອນ​ຂໍ້​ມູນ​ຈະ​ເປັນ​ແບບ​ໃດ​ກໍ​ຕາມ.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">ໃຊ້​ການ​ແປງຂໍ້​ມູນ kana modifier insensitive. ມີ​ຜົນ​ກັບ​ແປ້ນ​ພິມ 12 ປຸ່ມ​ແລະ​ແປ້ນ​ພິມ​ໂກ​ແດນ. ເຊັ່ນ: かつこう→学校</string>
 <string name="pref_typing_correction_description">​ກວດ​ຫາ​ການ​ພິມ​ຜິດ​ແລະ​ສະ​ແດງ​ໂຕ​ເລືອກ​ທີ່​ຖືກ​ຕ້ອງ. ເຊັ່ນ: すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">ເລືອກ​ຜູ່​ໃຫ້​ບໍ​ລິ​ການ​ອີ​ໂມ​ຈິ​​ໃຫ້​ຖືກ​ຕ້ອງ​ເພື່ອ​ໃຊ້​ອີໂມ​ຈິ.</string>
 <string name="pref_skin_type_description">ເລືອກ​ສີ​ສັນ​ແປ້ນ​ພິມ​ເພື່ອ​ປັບ​ແຕ່ງ​ສີ​ສັນ​ຂອງ​ແປ້ນ​ພິມຊອບ​ແວ.</string>
 <string name="pref_voice_input_description">ສະ​ແດງ​ປຸ່ມ​ປ້ອນຂໍ້ມູນດ້ວຍສຽງຢູ່​ເທິງ​ແປ້ນ​ພິມ​ຊອບ​ແວ.</string>
 <string name="pref_hardware_keymap_description">ເລືອກ​ການ​ໝາຍ​ຕຳ​ແໜ່ງ​ປຸ່ມ​ສຳ​ລັບ​ແປ້ນ​ພິມ​ພາຍນອກ.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">ລຶບ​ປະ​ຫວັດ​ການ​ປ້ອນ​ຂໍ້​ມູນ​ສັນ​ຍາ​ລັກ.</string>
 <string name="pref_clear_user_dictionary_description">ລຶບວັດ​ຈະນາ​ນຸກົມ​ຜູ່ໃຊ້​.</string>
 <string name="pref_other_incognito_mode_description">ປິດ​ການ​ປັບ​ແຕ່ງ​ສ່ວນ​ໂຕ, ການ​ແນະ​ນຳ ແລະ​ວັດ​ຈະ​ນາ​ນຸ​ກົມ​ຜູ່​ໃຊ້​ຊົ່ວ​ຄາວ.</string>
-<string name="pref_other_usage_stats_description">ສົ່ງ​ສະ​ຖິ​ຕິ​ການ​ນຳ​ໃຊ້​ໄປ​ໃຫ້ %1$s. ຂໍ້​ມູນ​ເຫຼົ່າ​ນີ້​ຈະ​ຖືກ​ໃຊ້​ເພື່ອ​ປັບ​ປຸງ​ຜະ​ລິດ​ຕະ​ພັນ​ແລະ​ບໍ​ລິ​ການ %1$s ເທົ່າ​ນັ້ນ.</string>
 <string name="pref_about_oss_credits_description">ຊອບ​ແວ​ນີ້​ໃຊ້​ຊອບ​ແວ​ໂອ​ເພນ​ຊອດ: ເບິ່ງ​ລິ​ຂະ​ສິດ.</string>
 <string name="pref_launcher_icon_visibility_description">ສະ​ແດງ​ໄອ​ຄ​ອນ​ແອັບ​ພລິ​ເຄ​ຊັນ​ໃນ Launcher</string>
 <string name="pref_input_style_setting_entry_toggle">​ປິດ/ເປີດ</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">ປິດ/ເປີດ &amp; ກະ​ພິບ</string>
 <string name="pref_fullscreen_portrait">​ເປີດ​ໃຊ້​ໃນ​ລວງ​ຕັ້ງ</string>
 <string name="pref_fullscreen_landscape">​ເປີດ​ໃຊ້​ໃນ​ລວງນອນ</string>
-<string name="pref_emoji_provider_type_unicode">​ປິດ​ອີ​ໂມ​ຈິ​ເຄືອ​ຂ່າຍ</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">ສົ້ມ/ເທົາ​ແຈ້ງ</string>
 <string name="pref_skin_type_blue_lightgray">ຟ້າ/ເທົາ​ແຈ້ງ</string>
 <string name="pref_skin_type_blue_darkgray">ຟ້າ/ເທົາ​ມືດ</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Material Design (ມືດ)</string>
 <string name="pref_hardware_keymap_default">​ຄ່າ​ເລີ່ມ​ຕົ້ນ​ລະ​ບົບ</string>
 <string name="pref_hardware_keymap_japanese109A">Japanese 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 ປຸ່ມ​</string>
 <string name="pref_dictionary_personalization_entry_enabled">ເປີດນຳໃຊ້</string>
 <string name="pref_dictionary_personalization_entry_readonly">Frozen</string>
 <string name="pref_dictionary_personalization_entry_disabled">ປິດນຳໃຊ້</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">​ແກ້​ໄຂ​ຊື່​ວັດ​ຈະ​ນາ​ນຸ​ກົມ</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">​ຊື່​ວັດ​ຈະ​ນາ​ນຸ​ກົມ</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">​ເພີ່ມ​ຄຳ​ສັບ​ໃໝ່</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">​ແກ້​ໄຂ​ຄຳ​ສັບ</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">​ກຳ​ລັງ​ອ່ານ</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">​ຄຳ​ສັບ</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">ໝວດໝູ່</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">​ເຄື່ອງ​ໝາຍ​ວັກ​ຕອນ</string>
 <string name="japanese_pos_free_standing_word">Free standing word</string>
 <string name="japanese_pos_suppression_word">Suppression word</string>
-<string name="yes">​ຕົກ​ລົງ</string>
-<string name="no">ບໍ່</string>
 </resources>

@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">सॉफ़्टवेयर कीबोर्ड</string>
 <string name="pref_software_keyboard_advanced_settings_title">सॉफ़्टवेयर कीबोर्ड अतिरिक्त सेटिंग</string>
-<string name="pref_fragment_software_keyboard_title">सॉफ़्टवेयर कीबोर्ड</string>
-<string name="pref_fragment_input_support_title">इनपुट समर्थन</string>
-<string name="pref_fragment_conversion_title">रूपांतरण</string>
-<string name="pref_fragment_dictionary_title">शब्दकोश</string>
-<string name="pref_fragment_user_feedback_title">उपयोगकर्ता फ़ीडबैक</string>
-<string name="pref_fragment_about_title">संक्षिप्त विवरण</string>
-<string name="pref_fragment_development_title">विकास</string>
 <string name="pref_software_keyboard_preferences_portrait_title">पोर्ट्रेट मोड के लिए सॉफ़्टवेयर कीबोर्ड प्राथमिकताएं</string>
 <string name="pref_software_keyboard_preferences_landscape_title">लैंडस्केप मोड के लिए सॉफ़्टवेयर कीबोर्ड प्राथमिकताएं</string>
 <string name="pref_keyboard_layout_title">कीबोर्ड लेआउट</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">संशोधक असंवेदनशील रूपांतरण</string>
 <string name="pref_typing_correction_title">लेखन सुधार</string>
 <string name="pref_other_incognito_mode_title">गुप्त मोड</string>
-<string name="pref_emoji_provider_type_title">इमोजी प्रदाता का चयन करें</string>
 <string name="pref_dictionry_category_title">शब्दकोश प्राथमिकताएं</string>
 <string name="pref_dictionary_personalization_title">वैयक्तिकरण</string>
 <string name="pref_dictionary_user_dictionary_tool_title">शब्दकोश डिवाइस</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">रूपांतरण इतिहास</string>
 <string name="pref_clear_symbol_history_title">चिह्न इतिहास</string>
 <string name="pref_clear_user_dictionary_title">उपयोगकर्ता शब्दकोश</string>
-<string name="pref_user_feedback_category_title">उपयोगकर्ता फ़ीडबैक</string>
-<string name="pref_other_usage_stats_title">उपयोग के आंकड़े भेजें</string>
 <string name="pref_about_about_this_software_title">इस सॉफ़्टवेयर के बारे में</string>
 <string name="pref_about_version_title">वर्शन</string>
 <string name="pref_about_oss_credits_title">मुक्त स्रोत सोफ़्टवेयर</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">इनपुट मोड की परवाह किए बिना हमेशा आधी-चौड़ाई के खाली स्थान का उपयोग करें.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">काना संशोधक असंवेदनशील रूपांतरण. 12 कुंजियों और गोदान कीबोर्ड पर लागू. उदा. かつこう→学校</string>
 <string name="pref_typing_correction_description">गलत लेखन का पता लगाएं और सही उम्मीदवार दिखाएं. उदा. すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">इमोजी का उपयोग करने के लिए ईमोजी प्रदाता का उचित रूप से चयन करें.</string>
 <string name="pref_skin_type_description">सॉफ़्टवेयर कीबोर्ड के स्वरूप को कस्टमाइज़ करने के लिए कीबोर्ड थीम का चयन करें.</string>
 <string name="pref_voice_input_description">सॉफ़्टवेयर कीबोर्ड पर ध्वनि इनपुट बटन दिखाएं.</string>
 <string name="pref_hardware_keymap_description">हार्डवेयर कीबोर्ड के लिए कुंजी मानचित्रण का चयन करें.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">चिह्न इनपुट इतिहास साफ करें.</string>
 <string name="pref_clear_user_dictionary_description">उपयोगकर्ता शब्दकोश साफ करें.</string>
 <string name="pref_other_incognito_mode_description">अस्थायी रूप से वैयक्तिकरण, सुझाव और उपयोगकर्ता शब्दकोश अक्षम करें.</string>
-<string name="pref_other_usage_stats_description">%1$s को उपयोग आंकड़े भेजें. इनका उपयोग केवल %1$s उत्पादों और सेवाओं के सुधार के लिए किया जाएगा.</string>
 <string name="pref_about_oss_credits_description">यह सॉफ़्टवेयर मुक्त स्रोत सॉफ़्टवेयर का उपयोग करता है: लाइसेंस देखें.</string>
 <string name="pref_launcher_icon_visibility_description">लॉन्चर में ऐप्लिकेशन आइकन प्रदर्शित करें</string>
 <string name="pref_input_style_setting_entry_toggle">टॉगल</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">टॉगल और फ़्लिक</string>
 <string name="pref_fullscreen_portrait">पोर्ट्रेट पर सक्षम करें</string>
 <string name="pref_fullscreen_landscape">लैंडस्केप पर सक्षम करें</string>
-<string name="pref_emoji_provider_type_unicode">वाहक इमोजी अक्षम करें</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">नारंगी/हल्का-सलेटी</string>
 <string name="pref_skin_type_blue_lightgray">नीला/हल्का-सलेटी</string>
 <string name="pref_skin_type_blue_darkgray">नीला/गहरा-सलेटी</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">सामग्री डिज़ाइन (गहरा)</string>
 <string name="pref_hardware_keymap_default">सिस्टम डिफ़ॉल्ट</string>
 <string name="pref_hardware_keymap_japanese109A">जापानी 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 कुंजियां</string>
 <string name="pref_dictionary_personalization_entry_enabled">सक्षम करें</string>
 <string name="pref_dictionary_personalization_entry_readonly">फ़्रोज़न</string>
 <string name="pref_dictionary_personalization_entry_disabled">अक्षम करें</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">शब्दकोश का नाम संपादित करें</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">शब्दकोश का नाम</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">एक नया शब्द जोड़ें</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">एक शब्द संपादित करें</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">पठन</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">शब्‍द</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">श्रेणी</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">विराम चिह्न</string>
 <string name="japanese_pos_free_standing_word">मुक्त स्थायी शब्द</string>
 <string name="japanese_pos_suppression_word">प्रतिबंध शब्द</string>
-<string name="yes">हां</string>
-<string name="no">नहीं</string>
 </resources>

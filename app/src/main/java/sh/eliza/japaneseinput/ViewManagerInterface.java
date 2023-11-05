@@ -37,13 +37,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
-import com.google.common.annotations.VisibleForTesting;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
 import sh.eliza.japaneseinput.KeycodeConverter.KeyEventInterface;
 import sh.eliza.japaneseinput.hardwarekeyboard.HardwareKeyboard.CompositionSwitchMode;
 import sh.eliza.japaneseinput.keyboard.Keyboard.KeyboardSpecification;
-import sh.eliza.japaneseinput.keyboard.KeyboardActionListener;
-import sh.eliza.japaneseinput.model.JapaneseSoftwareKeyboardModel;
 import sh.eliza.japaneseinput.preference.ClientSidePreference.HardwareKeyMap;
 import sh.eliza.japaneseinput.preference.ClientSidePreference.InputStyle;
 import sh.eliza.japaneseinput.preference.ClientSidePreference.KeyboardLayout;
@@ -180,37 +177,6 @@ public interface ViewManagerInterface extends MemoryManageable {
   void onShowSymbolInputView();
 
   void onCloseSymbolInputView();
-
-  @VisibleForTesting
-  ViewEventListener getEventListener();
-
-  @VisibleForTesting
-  JapaneseSoftwareKeyboardModel getActiveSoftwareKeyboardModel();
-
-  @VisibleForTesting
-  boolean isPopupEnabled();
-
-  @VisibleForTesting
-  int getFlickSensitivity();
-
-  @VisibleForTesting
-  Skin getSkin();
-
-  @VisibleForTesting
-  boolean isMicrophoneButtonEnabledByPreference();
-
-  @VisibleForTesting
-  LayoutAdjustment getLayoutAdjustment();
-
-  @VisibleForTesting
-  int getKeyboardHeightRatio();
-
-  @VisibleForTesting
-  HardwareKeyMap getHardwareKeyMap();
-
-  /** Used for testing to inject key events. */
-  @VisibleForTesting
-  KeyboardActionListener getKeyboardActionListener();
 
   void updateGlobeButtonEnabled();
 

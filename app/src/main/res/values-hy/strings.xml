@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Ծրագրային ստեղնաշար</string>
 <string name="pref_software_keyboard_advanced_settings_title">Ծրագրային ստեղնաշարի ընդլայնված կարգավորումներ</string>
-<string name="pref_fragment_software_keyboard_title">Ծրագրային ստեղնաշար</string>
-<string name="pref_fragment_input_support_title">Ներածման աջակցում</string>
-<string name="pref_fragment_conversion_title">Կոնվերսիա</string>
-<string name="pref_fragment_dictionary_title">Բառարան</string>
-<string name="pref_fragment_user_feedback_title">Օգտվողի կարծիք</string>
-<string name="pref_fragment_about_title">Տեղեկատվություն</string>
-<string name="pref_fragment_development_title">Ծրագրավորում</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Ծրագրային ստեղնաշարի նախընտրանքներ դիմանկարի ռեժիմի համար</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Ծրագրային ստեղնաշարի նախընտրանքներ լանդշաֆտային ռեժիմի համար</string>
 <string name="pref_keyboard_layout_title">Ստեղնաշարի դասավորություն</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Մոդիֆիկատորի անզգայուն փոխարկում</string>
 <string name="pref_typing_correction_title">Մուտքագրման ուղղում</string>
 <string name="pref_other_incognito_mode_title">Անանուն ռեժիմ</string>
-<string name="pref_emoji_provider_type_title">Ընտրեք զմայլիկների մատակարարին</string>
 <string name="pref_dictionry_category_title">Բառարան նախընտրանքներ</string>
 <string name="pref_dictionary_personalization_title">Անհատականացում</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Բառարանի գործիքներ</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Փոխարկման պատմություն</string>
 <string name="pref_clear_symbol_history_title">Նշանների պատմություն</string>
 <string name="pref_clear_user_dictionary_title">Օգտվողի բառարան</string>
-<string name="pref_user_feedback_category_title">Օգտվողի արձագանք</string>
-<string name="pref_other_usage_stats_title">Ուղարկել օգտագործման վիճակագրությունը</string>
 <string name="pref_about_about_this_software_title">Այս ծրագրաշարի մասին</string>
 <string name="pref_about_version_title">Տարբերակ</string>
 <string name="pref_about_oss_credits_title">Բաց կոդով ծրագրային ապահովում</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Միշտ օգտագործել կիսաբացատ` անկախ ներածման ռեժիմից:</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Օգտագործել kana մոդիֆիկատորի անզգայուն փոխարկումը: Կիրառվում է 12 ստեղների և Godan սստեղնաշարի համար, օրինակ` かつこう→学校</string>
 <string name="pref_typing_correction_description">Հայտնաբերել սխալ մուտքագրումը և ցույց տալ ուղղված տարբերակները, օրինակ`  す ん か い → 深海</string>
-<string name="pref_emoji_provider_type_description">Զմայլիկների օգտագործման համար ընտրեք դրանց մատակարարին:</string>
 <string name="pref_skin_type_description">Ընտրեք ստեղնաշարի թեման` ծրագրային ստեղնաշարի տեսքը հարմարեցնելու համար:</string>
 <string name="pref_voice_input_description">Ցուցադրել ձայնային ներածման կոճակը ծրագրային ստեղնաշարի վրա:</string>
 <string name="pref_hardware_keymap_description">Ընտրեք ստեղնի տեղադրությունը ծրագրաշարի ստեղնաշարի համար:</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Մաքրել նիշերի մուտքագրման պատմությունը:</string>
 <string name="pref_clear_user_dictionary_description">Մաքրել օգտվողի բառարանը:</string>
 <string name="pref_other_incognito_mode_description">Ժամանակավորապես անջատել անհատականացումը, առաջարկները և օգտվողի բառարանը:</string>
-<string name="pref_other_usage_stats_description">Ուղարկել օգտագործման վիճակագրությունը %1$s: Դրանք կարող են օգտագործվել միայն %1$s ապրանքների և ծառայությունների բարելավման համար:</string>
 <string name="pref_about_oss_credits_description">Այս ծրագիրը օգտագործում է բաց կոդով ծրագրային ապահովում: Դիտել արտոնագրերը:</string>
 <string name="pref_launcher_icon_visibility_description">Ցուցադրել հավելվածի պատկերակը թողարկչում</string>
 <string name="pref_input_style_setting_entry_toggle">Փոխարկում</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Փոխարկում և Մատնազարկ</string>
 <string name="pref_fullscreen_portrait">Միացնել դիմանկարում</string>
 <string name="pref_fullscreen_landscape">Միացնել լանդշաֆտում</string>
-<string name="pref_emoji_provider_type_unicode">Անջատել զմայլիկների մատաակարարը</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Նարնջագույն/բաց մոխրագույն</string>
 <string name="pref_skin_type_blue_lightgray">Կապույտ/բաց մոխրագույն</string>
 <string name="pref_skin_type_blue_darkgray">Կապույտ/մուգ մոխրագույն</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Material Design (մուգ)</string>
 <string name="pref_hardware_keymap_default">Համակարգի կանխադրած</string>
 <string name="pref_hardware_keymap_japanese109A">Ճապոներեն 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 ստեղն</string>
 <string name="pref_dictionary_personalization_entry_enabled">Միացնել</string>
 <string name="pref_dictionary_personalization_entry_readonly">Սառեցված</string>
 <string name="pref_dictionary_personalization_entry_disabled">Անջատել</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Խմբագրել բառարանի անունը</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Բառարանի անունը</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Ավելացնել նոր բառ</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Խմբագրել բառը</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Ընթերցում</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Բառ</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Բաժին</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Կետադրություն</string>
 <string name="japanese_pos_free_standing_word">Ազատ բառ</string>
 <string name="japanese_pos_suppression_word">Ստորոգյալ բառ</string>
-<string name="yes">Այո</string>
-<string name="no">Ոչ</string>
 </resources>

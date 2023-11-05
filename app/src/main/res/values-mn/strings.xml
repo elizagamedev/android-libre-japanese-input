@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Гарын програм</string>
 <string name="pref_software_keyboard_advanced_settings_title">Гарын програмын дээд тохиргоонууд</string>
-<string name="pref_fragment_software_keyboard_title">Програм хангамжийн гар</string>
-<string name="pref_fragment_input_support_title">Оролтын дэмжлэг</string>
-<string name="pref_fragment_conversion_title">Хувиргалт</string>
-<string name="pref_fragment_dictionary_title">Толь бичиг</string>
-<string name="pref_fragment_user_feedback_title">Хэрэглэгчийн санал хүсэлт</string>
-<string name="pref_fragment_about_title">Тухай</string>
-<string name="pref_fragment_development_title">Хөгжүүлэлт</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Босоо горимд зориулсан гарын тохиргоо</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Ландшафтын горимд зориулсан гарын тохиргоо</string>
 <string name="pref_keyboard_layout_title">Гарын зураглал</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Хувиргалт засагч</string>
 <string name="pref_typing_correction_title">Бичвэрийн залруулга</string>
 <string name="pref_other_incognito_mode_title">Нууцлалын горим</string>
-<string name="pref_emoji_provider_type_title">Emoji үзүүлэгч сонгох</string>
 <string name="pref_dictionry_category_title">Толь бичгийн тохиргоо</string>
 <string name="pref_dictionary_personalization_title">Хувийн тохиргоо</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Толь бичгийн Хэрэгсэл</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Хувиргалтын түүх</string>
 <string name="pref_clear_symbol_history_title">Тэмдэгтийн түүх</string>
 <string name="pref_clear_user_dictionary_title">Хэрэглэгчийн толь</string>
-<string name="pref_user_feedback_category_title">Хэрэглэгчийн санал хүсэлт</string>
-<string name="pref_other_usage_stats_title">Ашиглалтын статистикийг илгээх</string>
 <string name="pref_about_about_this_software_title">Энэ програмын тухай</string>
 <string name="pref_about_version_title">Хувилбар</string>
 <string name="pref_about_oss_credits_title">Нээлттэй програм хангамж</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Оролтын горим ямар ч бай үргэлж хагас-өргөн орон зайг ашиглана.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Хувиргалтанд kana засагчийг ашиглана уу. 12 товч болон Godan гарт хавсаргасан . жишээ нь, か つ こ う → 学校</string>
 <string name="pref_typing_correction_description">Буруу бичсэнийг илрүүлэх болон зассан хэлбэрийг харуулна. жишээ нь, す ん か い → 深海</string>
-<string name="pref_emoji_provider_type_description">Emoji ашиглахын тулд Emoji үзүүлэгчийг сонгоно уу.</string>
 <string name="pref_skin_type_description">Програм хангамжийн гарны харагдах байдлыг өөрчлах зорилгоор гарны тохиргоог сонго.</string>
 <string name="pref_voice_input_description">Програм хангамжийн гаран дээр дуу хойлооны оруулгын товчийг харуулах.</string>
 <string name="pref_hardware_keymap_description">Хардвер гаранд гол зураглалыг сонгоно уу.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Тэмдэгт оролтын түүх цэвэрлэх.</string>
 <string name="pref_clear_user_dictionary_description">Хэрэглэгчийн толь бичгийг цэвэрлэх.</string>
 <string name="pref_other_incognito_mode_description">Түр зуур хувийн тохиргоо, санал болон хэрэглэгчийн толь бичгийг хаасан.</string>
-<string name="pref_other_usage_stats_description">Хэрэглээний статистик %1$s-д илгээнэ үү. Эдгээр нь зөвхөн %1$s-н бүтээгдэхүүн болон үйлчилгээг сайжруулахад ашиглагдах болно.</string>
 <string name="pref_about_oss_credits_description">Энэ програм нь нээлттэй эхийн програм хангамжийг ашигладаг: лиценз үзэх.</string>
 <string name="pref_launcher_icon_visibility_description">Эхлүүлэгч дээр аппликешний дүрсийг харуулах</string>
 <string name="pref_input_style_setting_entry_toggle">Toggle</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Toggle &amp; Flick</string>
 <string name="pref_fullscreen_portrait">Хөрөг дээр идэвхжүүлэх</string>
 <string name="pref_fullscreen_landscape">Хэвтээ дээр идэвхжүүлэх</string>
-<string name="pref_emoji_provider_type_unicode">Emoji хаах</string>
-<string name="pref_emoji_provider_type_docomo">NTT DoCoMo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (Au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Улбар шар/Цагаан саарал</string>
 <string name="pref_skin_type_blue_lightgray">Цэнхэр/Цагаан саарал</string>
 <string name="pref_skin_type_blue_darkgray">Цэнхэр/хар саарал</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Материал дизайн (Хар)</string>
 <string name="pref_hardware_keymap_default">Системийн Анхдагч</string>
 <string name="pref_hardware_keymap_japanese109A">Японы 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 түлхүүр</string>
 <string name="pref_dictionary_personalization_entry_enabled">Идэвхжүүлэх</string>
 <string name="pref_dictionary_personalization_entry_readonly">Хөлдөөсөн</string>
 <string name="pref_dictionary_personalization_entry_disabled">Идэвхгүйжүүлэх</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Толь бичгийн нэрийг засах</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Толь бичгийн нэр</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Шинэ үг нэмэх</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Үгийг засах</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Тайлбар</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Word</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Категори</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Цэг таслал</string>
 <string name="japanese_pos_free_standing_word">Чөлөөт тогтвортой үг</string>
 <string name="japanese_pos_suppression_word">Далдлах үг</string>
-<string name="yes">Тийм</string>
-<string name="no">Үгүй</string>
 </resources>

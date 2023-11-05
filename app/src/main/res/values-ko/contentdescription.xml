@@ -33,10 +33,8 @@
 <string name="cd_keyboard_alphabet">알파벳 키보드</string>
 <string name="cd_keyboard_number">숫자 키보드</string>
 <string name="cd_key_shift">시프트</string>
-<string name="cd_key_up">위로</string>
 <string name="cd_key_left">왼쪽</string>
 <string name="cd_key_right">오른쪽</string>
-<string name="cd_key_down">아래로</string>
 <string name="cd_key_chartype_to_kana">가나 키보드로 전환</string>
 <string name="cd_key_chartype_to_abc">알파벳 키보드로 전환</string>
 <string name="cd_key_chartype_to_abc_123">기호 키보드로 전환</string>
@@ -46,7 +44,6 @@
 <string name="cd_key_alt_unmodified">일반 기호</string>
 <string name="cd_key_capslock">캡스 락</string>
 <string name="cd_key_capsunlock">캡스 락 해제</string>
-<string name="cd_key_menu_dialog">메뉴 열기</string>
 <string name="cd_key_globe">입력 방법 전환</string>
 <string name="cd_key_uchar_backspace">백스페이스 키</string>
 <string name="cd_key_uchar_linefeed">라인피드</string>
@@ -177,7 +174,6 @@
 <string name="cd_key_alphabet_tuv">TUV</string>
 <string name="cd_key_alphabet_wxyz">WXYZ</string>
 <string name="cd_key_alphabet_capitalize">대문자화</string>
-<string name="spoken_use_headphone_for_password">비밀번호 키를 음성으로 들으려면 헤드셋을 연결하세요.</string>
 <string name="cd_keyboard_fold_button">후보 창 크기 변경</string>
 <string name="cd_close_symbol_window">키보드로 돌아가기</string>
 <string name="cd_symbol_window_number">숫자</string>

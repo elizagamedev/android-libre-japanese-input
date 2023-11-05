@@ -29,7 +29,6 @@
 
 package sh.eliza.japaneseinput;
 
-import android.annotation.TargetApi;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -213,7 +212,6 @@ public class ComposingTextTrackingInputConnection implements InputConnection {
     return new ComposingTextTrackingInputConnection(baseConnection);
   }
 
-  @TargetApi(21)
   @Override
   public boolean requestCursorUpdates(int cursorUpdateMode) {
     return baseConnection.requestCursorUpdates(cursorUpdateMode);

@@ -29,11 +29,9 @@
 
 package sh.eliza.japaneseinput.hardwarekeyboard;
 
-import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.view.KeyEvent;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.util.Collections;
@@ -104,8 +102,7 @@ public enum HardwareKeyboardSpecification {
    * <p>{@link KeyEvent#isPrintingKey()} cannot be used for this purpose as the method doesn't take
    * codepoint but keycode.
    */
-  @VisibleForTesting
-  static boolean isPrintable(int codepoint) {
+  private static boolean isPrintable(int codepoint) {
     Preconditions.checkArgument(codepoint >= 0);
     if (Character.isISOControl(codepoint)) {
       return false;
@@ -115,7 +112,6 @@ public enum HardwareKeyboardSpecification {
   }
 
   /** Returns true if composition mode should be changed. */
-  @SuppressLint("InlinedApi")
   private static boolean isKeyForCompositinoModeChange(int keyCode, int metaState) {
     boolean shift = (metaState & KeyEvent.META_SHIFT_MASK) != 0;
     boolean alt = (metaState & KeyEvent.META_ALT_MASK) != 0;
@@ -235,14 +231,14 @@ public enum HardwareKeyboardSpecification {
     return null;
   }
 
-  @VisibleForTesting
-  static void setHardwareKeyMap(SharedPreferences sharedPreference, HardwareKeyMap hardwareKeyMap) {
+  private static void setHardwareKeyMap(
+      SharedPreferences sharedPreference, HardwareKeyMap hardwareKeyMap) {
     Preconditions.checkNotNull(sharedPreference);
     Preconditions.checkNotNull(hardwareKeyMap);
     sharedPreference
         .edit()
         .putString(PreferenceUtil.PREF_HARDWARE_KEYMAP, hardwareKeyMap.name())
-        .commit();
+        .apply();
   }
 
   public HardwareKeyMap getHardwareKeyMap() {

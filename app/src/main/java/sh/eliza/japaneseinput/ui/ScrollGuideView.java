@@ -35,7 +35,6 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import sh.eliza.japaneseinput.R;
@@ -48,7 +47,7 @@ public class ScrollGuideView extends View {
   private final int scrollBarMinimumHeight = getScrollBarMinimumHeight(getResources());
   private Optional<SnapScroller> snapScroller = Optional.absent();
   private Skin skin = Skin.getFallbackInstance();
-  @VisibleForTesting Drawable scrollBarDrawable = createScrollBarDrawable(skin);
+  private Drawable scrollBarDrawable = createScrollBarDrawable(skin);
 
   public ScrollGuideView(Context context) {
     super(context);
@@ -84,7 +83,6 @@ public class ScrollGuideView extends View {
   }
 
   /** Sets the skin type, and regenerates an indicator drawable if necessary. */
-  @SuppressWarnings("deprecation")
   public void setSkin(Skin skin) {
     Preconditions.checkNotNull(skin);
     if (this.skin.equals(skin)) {

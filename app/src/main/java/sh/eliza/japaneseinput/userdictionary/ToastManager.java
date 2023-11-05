@@ -29,6 +29,7 @@
 
 package sh.eliza.japaneseinput.userdictionary;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.Toast;
 import java.util.Collections;
@@ -123,6 +124,7 @@ public class ToastManager {
     // In order to resolve the conflicting of the showing Toast message,
     // we hack-up the Toast and its View.
     // First, creat a dummy toast message, in order to delegate the creation of its View.
+    @SuppressLint("ShowToast")
     Toast toast = Toast.makeText(context, resourceId, Toast.LENGTH_SHORT);
 
     // Delegate the View. Note that it seems to ok to set it even if toast is currently visible.

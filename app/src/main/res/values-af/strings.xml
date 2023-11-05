@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Sagtewaresleutelbord</string>
 <string name="pref_software_keyboard_advanced_settings_title">Gevorderde instellings vir sagtewaresleutelbord</string>
-<string name="pref_fragment_software_keyboard_title">Sagtewaresleutelbord</string>
-<string name="pref_fragment_input_support_title">Invoersteun</string>
-<string name="pref_fragment_conversion_title">Omskakeling</string>
-<string name="pref_fragment_dictionary_title">Woordeboek</string>
-<string name="pref_fragment_user_feedback_title">Gebruikerterugvoer</string>
-<string name="pref_fragment_about_title">Meer oor</string>
-<string name="pref_fragment_development_title">Ontwikkeling</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Voorkeure vir sagtewaresleutelbord in portretmodus</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Voorkeure vir sagtewaresleutelbord in landskapmodus</string>
 <string name="pref_keyboard_layout_title">Sleutelborduitleg</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Wysigerongevoelige omskakeling</string>
 <string name="pref_typing_correction_title">Tikregstelling</string>
 <string name="pref_other_incognito_mode_title">Incognitomodus</string>
-<string name="pref_emoji_provider_type_title">Kies emosiekoonverskaffer</string>
 <string name="pref_dictionry_category_title">Woordeboekvoorkeure</string>
 <string name="pref_dictionary_personalization_title">Personalisering</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Woordeboeknutsding</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Omskakelinggeskiedenis</string>
 <string name="pref_clear_symbol_history_title">Simboolgeskiedenis</string>
 <string name="pref_clear_user_dictionary_title">Gebruikerwoordeboek</string>
-<string name="pref_user_feedback_category_title">Gebruikerterugvoer</string>
-<string name="pref_other_usage_stats_title">Stuur gebruikstatistiek</string>
 <string name="pref_about_about_this_software_title">Meer oor hierdie sagteware</string>
 <string name="pref_about_version_title">Weergawe</string>
 <string name="pref_about_oss_credits_title">Oopbronsagteware</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Gebruik ongeag die invoermodus altyd halfwydtespasie.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Gebruik kana- wysigerongevoelige omskakeling. Toegepas op 12-sleutel- en Godan-sleutelbord, byvoorbeeld かつこう→学校</string>
 <string name="pref_typing_correction_description">Bespeur verkeerde invoer en wys reggestelde kandidate, byvoorbeeld すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">Kies die emosiekoonverskaffer behoorlik om emosiekone te gebruik.</string>
 <string name="pref_skin_type_description">Kies die sleutelbordtema om die sagtewaresleutelbord se voorkoms te pasmaak.</string>
 <string name="pref_voice_input_description">Wys steminvoerknoppie op die sagtewaresleutelbord.</string>
 <string name="pref_hardware_keymap_description">Kies sleutelkartering vir hardewaresleutelborde.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Vee simboolinvoergeskiedenis uit.</string>
 <string name="pref_clear_user_dictionary_description">Vee gebruikerwoordeboek uit.</string>
 <string name="pref_other_incognito_mode_description">Deaktiveer personalisering, voorstelle en gebruikerwoordeboek tydelik.</string>
-<string name="pref_other_usage_stats_description">Stuur gebruikstatistiek na %1$s. Dit sal net gebruik word om %1$s-produkte en -dienste te verbeter.</string>
 <string name="pref_about_oss_credits_description">Hierdie sagteware gebruik oopbronsagteware: bekyk die lisensies.</string>
 <string name="pref_launcher_icon_visibility_description">Wys program-ikoon in die lanseerpoort</string>
 <string name="pref_input_style_setting_entry_toggle">Wissel</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Wissel en vee</string>
 <string name="pref_fullscreen_portrait">Aktiveer op portret</string>
 <string name="pref_fullscreen_landscape">Aktiveer op landskap</string>
-<string name="pref_emoji_provider_type_unicode">Deaktiveer diensverskafferemosiekone</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Oranje/liggrys</string>
 <string name="pref_skin_type_blue_lightgray">Blou/liggrys</string>
 <string name="pref_skin_type_blue_darkgray">Blou/donkergrys</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Materiaalontwerp (donker)</string>
 <string name="pref_hardware_keymap_default">Stelselverstek</string>
 <string name="pref_hardware_keymap_japanese109A">Japannees-109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 sleutels</string>
 <string name="pref_dictionary_personalization_entry_enabled">Aktiveer</string>
 <string name="pref_dictionary_personalization_entry_readonly">Gevries</string>
 <string name="pref_dictionary_personalization_entry_disabled">Deaktiveer</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Wysig die naam van die woordeboek</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Naam van die woordeboek</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Voeg \'n nuwe woord by</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Wysig \'n woord</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Vertolking</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Woord</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Kategorie</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Punktuasie</string>
 <string name="japanese_pos_free_standing_word">Vrystaande woord</string>
 <string name="japanese_pos_suppression_word">Onderdrukkingwoord</string>
-<string name="yes">Ja</string>
-<string name="no">Nee</string>
 </resources>

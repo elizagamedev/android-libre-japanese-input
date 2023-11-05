@@ -29,7 +29,6 @@
 
 package sh.eliza.japaneseinput.ui;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -46,7 +45,6 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.inputmethod.EditorInfo;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
@@ -60,13 +58,12 @@ import sh.eliza.japaneseinput.view.MozcImageView;
 import sh.eliza.japaneseinput.view.Skin;
 
 /** Draws mode indicator for floating candidate window. */
-@TargetApi(21)
 public class FloatingModeIndicator {
 
   /** The message to hide the mode indicator. */
-  @VisibleForTesting static final int HIDE_MODE_INDICATOR = 0;
+  private static final int HIDE_MODE_INDICATOR = 0;
 
-  @VisibleForTesting static final int SHOW_MODE_INDICATOR = 1;
+  private static final int SHOW_MODE_INDICATOR = 1;
 
   /**
    * Delay to ensure that the cursor position is stabilized.
@@ -95,15 +92,13 @@ public class FloatingModeIndicator {
     public void onAnimationStart(Animation animation) {}
   }
 
-  @VisibleForTesting
-  class ModeIndicatorMessageCallback implements Handler.Callback {
+  private class ModeIndicatorMessageCallback implements Handler.Callback {
     @Override
     public boolean handleMessage(Message msg) {
       return handleWhat(msg.what);
     }
 
-    @VisibleForTesting
-    boolean handleWhat(int what) {
+    private boolean handleWhat(int what) {
       switch (what) {
         case HIDE_MODE_INDICATOR:
           hide();
@@ -141,17 +136,16 @@ public class FloatingModeIndicator {
     }
   }
 
-  @VisibleForTesting final Handler handler;
-  @VisibleForTesting final PopUpLayouter<MozcImageView> popup;
+  private final Handler handler;
+  private final PopUpLayouter<MozcImageView> popup;
 
-  @VisibleForTesting
-  final ModeIndicatorMessageCallback messageCallback = new ModeIndicatorMessageCallback();
+  private final ModeIndicatorMessageCallback messageCallback = new ModeIndicatorMessageCallback();
 
   private final FloatingModeIndicatorController controller =
       new FloatingModeIndicatorController(new ControllerListenerImpl());
   private final View parentView;
-  @VisibleForTesting final Drawable kanaIndicatorDrawable;
-  @VisibleForTesting final Drawable abcIndicatorDrawable;
+  private final Drawable kanaIndicatorDrawable;
+  private final Drawable abcIndicatorDrawable;
 
   private final int indicatorSize;
   private final int verticalMargin;
@@ -318,8 +312,7 @@ public class FloatingModeIndicator {
     handler.removeMessages(SHOW_MODE_INDICATOR);
   }
 
-  @VisibleForTesting
-  boolean isVisible() {
+  private boolean isVisible() {
     return isVisible;
   }
 }

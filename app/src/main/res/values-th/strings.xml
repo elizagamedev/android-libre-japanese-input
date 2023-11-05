@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">ซอฟต์แวร์แป้นพิมพ์</string>
 <string name="pref_software_keyboard_advanced_settings_title">การตั้งค่าขั้นสูงของซอฟต์แวร์แป้นพิมพ์</string>
-<string name="pref_fragment_software_keyboard_title">ซอฟต์แวร์แป้นพิมพ์</string>
-<string name="pref_fragment_input_support_title">การสนับสนุนการป้อนข้อมูล</string>
-<string name="pref_fragment_conversion_title">การแปลง</string>
-<string name="pref_fragment_dictionary_title">พจนานุกรม</string>
-<string name="pref_fragment_user_feedback_title">ความคิดเห็นจากผู้ใช้</string>
-<string name="pref_fragment_about_title">เกี่ยวกับ</string>
-<string name="pref_fragment_development_title">การพัฒนา</string>
 <string name="pref_software_keyboard_preferences_portrait_title">ค่ากำหนดซอฟต์แวร์แป้นพิมพ์สำหรับโหมดแนวตั้ง</string>
 <string name="pref_software_keyboard_preferences_landscape_title">ค่ากำหนดซอฟต์แวร์แป้นพิมพ์สำหรับโหมดแนวนอน</string>
 <string name="pref_keyboard_layout_title">การจัดวางแป้นพิมพ์</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">การแปลงค่าที่ไม่คำนึงถึงคีย์ตัวปรับแต่ง</string>
 <string name="pref_typing_correction_title">การแก้ไขการพิมพ์</string>
 <string name="pref_other_incognito_mode_title">โหมดไม่ระบุตัวตน</string>
-<string name="pref_emoji_provider_type_title">เลือกผู้ให้บริการอีโมจิ</string>
 <string name="pref_dictionry_category_title">ค่ากำหนดพจนานุกรม</string>
 <string name="pref_dictionary_personalization_title">การปรับเปลี่ยนในแบบของคุณ</string>
 <string name="pref_dictionary_user_dictionary_tool_title">เครื่องมือพจนานุกรม</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">ประวัติการแปลงค่า</string>
 <string name="pref_clear_symbol_history_title">ประวัติสัญลักษณ์</string>
 <string name="pref_clear_user_dictionary_title">พจนานุกรมผู้ใช้</string>
-<string name="pref_user_feedback_category_title">ความคิดเห็นจากผู้ใช้</string>
-<string name="pref_other_usage_stats_title">ส่งสถิติการใช้งาน</string>
 <string name="pref_about_about_this_software_title">เกี่ยวกับซอฟต์แวร์นี้</string>
 <string name="pref_about_version_title">เวอร์ชัน</string>
 <string name="pref_about_oss_credits_title">ซอฟต์แวร์โอเพนซอร์ส</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">ใช้ระยะห่างครึ่งความกว้างเสมอ ไม่ว่าจะใช้โหมดการป้อนข้อมูลแบบใดก็ตาม</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">ใช้การแปลงค่าโดยไม่คำนึงถึงคีย์ตัวปรับแต่งแบบ Kana ใช้กับแป้นพิมพ์แบบ 12 แป้นและแบบ Godan เช่น かつこう→学校</string>
 <string name="pref_typing_correction_description">ตรวจหาการพิมพ์ผิดและแสดงคำใกล้เคียงที่ถูกต้อง เช่น すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">เลือกผู้ให้บริการอีโมจิที่เหมาะสมเพื่อใช้อีโมจิ</string>
 <string name="pref_skin_type_description">เลือกธีมแป้นพิมพ์เพื่อกำหนดค่ารูปลักษณ์ของซอฟต์แวร์แป้นพิมพ์</string>
 <string name="pref_voice_input_description">แสดงปุ่มป้อนข้อมูลด้วยเสียงบนซอฟต์แวร์แป้นพิมพ์</string>
 <string name="pref_hardware_keymap_description">เลือกการแมปแป้นพิมพ์สำหรับแป้นพิมพ์จริง</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">ล้างประวัติการป้อนสัญลักษณ์</string>
 <string name="pref_clear_user_dictionary_description">ล้างพจนานุกรมผู้ใช้</string>
 <string name="pref_other_incognito_mode_description">ปิดใช้การปรับเปลี่ยนในแบบของคุณ คำแนะนำ และพจนานุกรมผู้ใช้ชั่วคราว</string>
-<string name="pref_other_usage_stats_description">ส่งสถิติการใช้งานไปที่ %1$s โดยจะใช้สถิติเหล่านี้เพื่อปรับปรุงผลิตภัณฑ์และบริการ %1$s เท่านั้น</string>
 <string name="pref_about_oss_credits_description">ซอฟต์แวร์นี้ใช้ซอฟต์แวร์โอเพนซอร์ส: ดูใบอนุญาต</string>
 <string name="pref_launcher_icon_visibility_description">แสดงไอคอนแอปพลิเคชันใน Launcher</string>
 <string name="pref_input_style_setting_entry_toggle">สลับ</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">สลับและสะบัดนิ้ว</string>
 <string name="pref_fullscreen_portrait">เปิดใช้ในแนวตั้ง</string>
 <string name="pref_fullscreen_landscape">เปิดใช้ในแนวนอน</string>
-<string name="pref_emoji_provider_type_unicode">ปิดใช้ผู้ให้บริการอีโมจิ</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">สีส้ม/สีเทาอ่อน</string>
 <string name="pref_skin_type_blue_lightgray">สีฟ้า/สีเทาอ่อน</string>
 <string name="pref_skin_type_blue_darkgray">สีฟ้า/สีเทาเข้ม</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">การออกแบบวัตถุ (สีเข้ม)</string>
 <string name="pref_hardware_keymap_default">ค่าเริ่มต้นของระบบ</string>
 <string name="pref_hardware_keymap_japanese109A">ญี่ปุ่น 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 แป้น</string>
 <string name="pref_dictionary_personalization_entry_enabled">เปิดใช้</string>
 <string name="pref_dictionary_personalization_entry_readonly">หยุดการทำงาน</string>
 <string name="pref_dictionary_personalization_entry_disabled">ปิดใช้</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">แก้ไขชื่อพจนานุกรม</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">ชื่อพจนานุกรม</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">เพิ่มคำใหม่</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">แก้ไขคำ</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">การอ่าน</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">คำ</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">หมวดหมู่</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">เครื่องหมายวรรคตอน</string>
 <string name="japanese_pos_free_standing_word">คำที่ใช้โดดๆ</string>
 <string name="japanese_pos_suppression_word">คำที่งดใช้</string>
-<string name="yes">ใช่</string>
-<string name="no">ไม่</string>
 </resources>

@@ -30,14 +30,12 @@
 package sh.eliza.japaneseinput;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
@@ -57,12 +55,12 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputBinding;
 import android.view.inputmethod.InputConnection;
 import androidx.preference.PreferenceManager;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import javax.annotation.Nullable;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates;
@@ -213,8 +211,7 @@ public class MozcBaseService extends InputMethodService {
   }
 
   // Called back from ViewManager
-  @VisibleForTesting
-  class MozcEventListener implements ViewEventListener {
+  private class MozcEventListener implements ViewEventListener {
     @Override
     public void onConversionCandidateSelected(int candidateId, Optional<Integer> rowIndex) {
       sessionExecutor.submitCandidate(candidateId, rowIndex, renderResultCallback);
@@ -413,8 +410,7 @@ public class MozcBaseService extends InputMethodService {
   }
 
   /** Callback to send key event to a application. */
-  @VisibleForTesting
-  class SendKeyToApplicationCallback implements SessionExecutor.EvaluationCallback {
+  private class SendKeyToApplicationCallback implements SessionExecutor.EvaluationCallback {
 
     @Override
     public void onCompleted(
@@ -500,61 +496,56 @@ public class MozcBaseService extends InputMethodService {
       "pref_tweak_logging_protocol_buffers";
 
   // Focused segment's attribute.
-  @VisibleForTesting
-  static final CharacterStyle SPAN_CONVERT_HIGHLIGHT = new BackgroundColorSpan(0x66EF3566);
+  private static final CharacterStyle SPAN_CONVERT_HIGHLIGHT = new BackgroundColorSpan(0x66EF3566);
 
   // Background color span for non-focused conversion segment.
   // We don't create a static CharacterStyle instance since there are multiple segments at the same
   // time. Otherwise, segments except for the last one cannot have style.
-  @VisibleForTesting static final int CONVERT_NORMAL_COLOR = 0x19EF3566;
+  private static final int CONVERT_NORMAL_COLOR = 0x19EF3566;
 
   // Cursor position.
   // Note that InputConnection seems not to be able to show cursor. This is a workaround.
-  @VisibleForTesting
-  static final CharacterStyle SPAN_BEFORE_CURSOR = new BackgroundColorSpan(0x664DB6AC);
+  private static final CharacterStyle SPAN_BEFORE_CURSOR = new BackgroundColorSpan(0x664DB6AC);
 
   // Background color span for partial conversion.
-  @VisibleForTesting
-  static final CharacterStyle SPAN_PARTIAL_SUGGESTION_COLOR = new BackgroundColorSpan(0x194DB6AC);
+  private static final CharacterStyle SPAN_PARTIAL_SUGGESTION_COLOR =
+      new BackgroundColorSpan(0x194DB6AC);
 
   // Underline.
-  @VisibleForTesting static final CharacterStyle SPAN_UNDERLINE = new UnderlineSpan();
+  private static final CharacterStyle SPAN_UNDERLINE = new UnderlineSpan();
 
   // Mozc's session. All session related task should be done via this instance.
-  @VisibleForTesting SessionExecutor sessionExecutor;
-  @VisibleForTesting final RenderResultCallback renderResultCallback = new RenderResultCallback();
+  private SessionExecutor sessionExecutor;
+  private final RenderResultCallback renderResultCallback = new RenderResultCallback();
 
-  @VisibleForTesting
-  final SendKeyToApplicationCallback sendKeyToApplicationCallback =
+  private final SendKeyToApplicationCallback sendKeyToApplicationCallback =
       new SendKeyToApplicationCallback();
 
   private final SendKeyToViewCallback sendKeyToViewCallback = new SendKeyToViewCallback();
 
   // A manager for all views and feedbacks.
-  @VisibleForTesting public ViewManagerInterface viewManager;
-  @VisibleForTesting FeedbackManager feedbackManager;
-  @VisibleForTesting SymbolHistoryStorage symbolHistoryStorage;
+  private ViewManagerInterface viewManager;
+  private FeedbackManager feedbackManager;
+  private SymbolHistoryStorage symbolHistoryStorage;
 
-  @VisibleForTesting SharedPreferences sharedPreferences;
+  private SharedPreferences sharedPreferences;
 
   // A handler for onSharedPreferenceChanged().
   // Note: the handler is needed to be held by the service not to be GC'ed.
-  @VisibleForTesting
-  final OnSharedPreferenceChangeListener sharedPreferenceChangeListener =
+  private final OnSharedPreferenceChangeListener sharedPreferenceChangeListener =
       new SharedPreferenceChangeAdapter();
 
   // Preference information which are propagated. Null if not propagated yet.
-  @VisibleForTesting ClientSidePreference propagatedClientSidePreference = null;
+  private ClientSidePreference propagatedClientSidePreference = null;
 
   // Track the selection.
-  @VisibleForTesting SelectionTracker selectionTracker = new SelectionTracker();
+  private SelectionTracker selectionTracker = new SelectionTracker();
 
   // A receiver to accept a notification via intents.
-  @VisibleForTesting
-  Handler configurationChangedHandler = new Handler(new ConfigurationChangeCallback());
+  private Handler configurationChangedHandler = new Handler(new ConfigurationChangeCallback());
 
   // Handler to process SYNC_DATA command for storing history data.
-  @VisibleForTesting Handler sendSyncDataCommandHandler = new SendSyncDataCommandHandler();
+  private Handler sendSyncDataCommandHandler = new SendSyncDataCommandHandler();
 
   // Handler to process SYNC_DATA command for storing history data.
   private final Handler memoryTrimmingHandler = new MemoryTrimmingHandler();
@@ -573,10 +564,10 @@ public class MozcBaseService extends InputMethodService {
   // the behavior.
   // TODO(matsuzakit): Clarify the usage of this field (change the behavior to keep the latest
   //   state or change the name to represent current behavior).
-  @VisibleForTesting
-  KeyboardSpecification currentKeyboardSpecification = KeyboardSpecification.TWELVE_KEY_TOGGLE_KANA;
+  private KeyboardSpecification currentKeyboardSpecification =
+      KeyboardSpecification.TWELVE_KEY_TOGGLE_KANA;
 
-  @VisibleForTesting boolean inputBound = false;
+  private boolean inputBound = false;
 
   private Optional<Integer> originalWindowAnimationResourceId = Optional.absent();
 
@@ -587,13 +578,9 @@ public class MozcBaseService extends InputMethodService {
   // Held for testing.
   private ViewEventListener eventListener;
 
-  @SuppressWarnings("deprecation")
-  @SuppressLint("NewApi")
   public MozcBaseService() {
     super();
-    if (Build.VERSION.SDK_INT >= 17) {
-      enableHardwareAcceleration();
-    }
+    enableHardwareAcceleration();
   }
 
   @Override
@@ -613,7 +600,6 @@ public class MozcBaseService extends InputMethodService {
    *
    * <p>This is for mocking since API level 20 or prior doesn't have {@link CursorAnchorInfo}.
    */
-  @TargetApi(21)
   public void onUpdateCursorAnchorInfoWrapper(CursorAnchorInfoWrapper cursorAnchorInfo) {
     if (viewManager != null) {
       viewManager.setCursorAnchorInfo(cursorAnchorInfo);
@@ -659,8 +645,7 @@ public class MozcBaseService extends InputMethodService {
     super.onDestroy();
   }
 
-  @VisibleForTesting
-  void onCreateInternal(
+  private void onCreateInternal(
       ViewEventListener eventListener,
       @Nullable ViewManagerInterface viewManager,
       @Nullable SharedPreferences sharedPreferences,
@@ -882,12 +867,8 @@ public class MozcBaseService extends InputMethodService {
     }
   }
 
-  @SuppressLint("NewApi")
   private static boolean enableCursorAnchorInfo(InputConnection connection) {
     Preconditions.checkNotNull(connection);
-    if (Build.VERSION.SDK_INT < 21) {
-      return false;
-    }
     return connection.requestCursorUpdates(
         InputConnection.CURSOR_UPDATE_IMMEDIATE | InputConnection.CURSOR_UPDATE_MONITOR);
   }
@@ -913,7 +894,7 @@ public class MozcBaseService extends InputMethodService {
   @Override
   public void onStartInputView(EditorInfo attribute, boolean restarting) {
     InputConnection inputConnection = getCurrentInputConnection();
-    if (inputConnection != null && Build.VERSION.SDK_INT >= 21) {
+    if (inputConnection != null) {
       viewManager.setCursorAnchorInfoEnabled(enableCursorAnchorInfo(inputConnection));
       updateImposedConfig();
     }
@@ -931,7 +912,7 @@ public class MozcBaseService extends InputMethodService {
     resetWindowAnimation();
     // Mode indicator is available and narrow frame is NOT available on Lollipop or later.
     // In this case, we temporary disable window animation to show the mode indicator correctly.
-    if (Build.VERSION.SDK_INT >= 21 && viewManager.isNarrowMode()) {
+    if (viewManager.isNarrowMode()) {
       Window window = getWindow().getWindow();
       int animationId = window.getAttributes().windowAnimations;
       if (animationId != 0) {
@@ -976,7 +957,6 @@ public class MozcBaseService extends InputMethodService {
    *
    * <p>This method is called only by the android framework e.g H/W mouse, touch pad input, etc.
    */
-  @TargetApi(17)
   @Override
   public boolean onGenericMotionEvent(MotionEvent event) {
     if (!isInputViewShown()) {
@@ -988,12 +968,11 @@ public class MozcBaseService extends InputMethodService {
     return super.onGenericMotionEvent(event);
   }
 
-  @SuppressLint("DefaultLocale")
-  @VisibleForTesting
-  boolean onKeyDownInternal(int keyCode, KeyEvent event, Configuration configuration) {
+  private boolean onKeyDownInternal(int keyCode, KeyEvent event, Configuration configuration) {
     if (MozcLog.isLoggable(Log.DEBUG)) {
       MozcLog.d(
           String.format(
+              Locale.US,
               "onKeyDown keyCode:0x%x, metaState:0x%x, scanCode:0x%x, uniCode:0x%x, deviceId:%d",
               event.getKeyCode(),
               event.getMetaState(),
@@ -1086,8 +1065,7 @@ public class MozcBaseService extends InputMethodService {
    *
    * <p>This skips to send request if the given keyboard specification is same as before.
    */
-  @VisibleForTesting
-  void sendKeyWithKeyboardSpecification(
+  private void sendKeyWithKeyboardSpecification(
       @Nullable ProtoCommands.KeyEvent mozcKeyEvent,
       @Nullable KeyEventInterface event,
       @Nullable KeyboardSpecification keyboardSpecification,
@@ -1224,8 +1202,7 @@ public class MozcBaseService extends InputMethodService {
    * @param keyEvent Trigger event for this calling. When direct input is needed, this event is sent
    *     to InputConnection.
    */
-  @VisibleForTesting
-  void renderInputConnection(Command command, @Nullable KeyEventInterface keyEvent) {
+  private void renderInputConnection(Command command, @Nullable KeyEventInterface keyEvent) {
     Preconditions.checkNotNull(command);
 
     InputConnection inputConnection = getCurrentInputConnection();
@@ -1281,8 +1258,7 @@ public class MozcBaseService extends InputMethodService {
   }
 
   /** Sends the {@code KeyEvent}, which is not consumed by the mozc server. */
-  @VisibleForTesting
-  void sendKeyEvent(KeyEventInterface keyEvent) {
+  private void sendKeyEvent(KeyEventInterface keyEvent) {
     if (keyEvent == null) {
       return;
     }
@@ -1544,8 +1520,7 @@ public class MozcBaseService extends InputMethodService {
    *
    * @param newPreference the ClientSidePreference to be propagated
    */
-  @VisibleForTesting
-  void propagateClientSidePreference(ClientSidePreference newPreference) {
+  private void propagateClientSidePreference(ClientSidePreference newPreference) {
     // TODO(matsuzakit): Receive a Config to reflect the current device configuration.
     if (newPreference == null) {
       MozcLog.e("newPreference must be non-null. No update is performed.");
@@ -1656,8 +1631,7 @@ public class MozcBaseService extends InputMethodService {
     }
   }
 
-  @VisibleForTesting
-  void onConfigurationChangedInternal(Configuration newConfig) {
+  private void onConfigurationChangedInternal(Configuration newConfig) {
     InputConnection inputConnection = getCurrentInputConnection();
     if (inputConnection != null) {
       if (inputBound) {
@@ -1706,8 +1680,7 @@ public class MozcBaseService extends InputMethodService {
     super.onConfigurationChanged(newConfig);
   }
 
-  @VisibleForTesting
-  void onUpdateSelectionInternal(
+  private void onUpdateSelectionInternal(
       int oldSelStart,
       int oldSelEnd,
       int newSelStart,
@@ -1807,19 +1780,11 @@ public class MozcBaseService extends InputMethodService {
   }
 
   // To use special Configuration for testing, overriding this method might works.
-  @VisibleForTesting
-  Configuration getConfiguration() {
+  private Configuration getConfiguration() {
     return getResources().getConfiguration();
   }
 
-  @VisibleForTesting
-  ViewEventListener getViewEventListener() {
+  private ViewEventListener getViewEventListener() {
     return eventListener;
-  }
-
-  @Override
-  @VisibleForTesting
-  public void attachBaseContext(Context base) {
-    super.attachBaseContext(base);
   }
 }

@@ -32,6 +32,7 @@ package sh.eliza.japaneseinput.model;
 import android.util.Log;
 import com.google.common.base.MoreObjects;
 import java.util.ArrayDeque;
+import java.util.Locale;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.DeletionRange;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Preedit;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Preedit.Segment;
@@ -138,7 +139,11 @@ public class SelectionTracker {
     if (MozcLog.isLoggable(Log.DEBUG)) {
       MozcLog.d(
           String.format(
-              "onStartInput: %d %d %b", initialSelectionStart, initialSelectionEnd, webTextView));
+              Locale.US,
+              "onStartInput: %d %d %b",
+              initialSelectionStart,
+              initialSelectionEnd,
+              webTextView));
     }
     this.webTextView = webTextView;
 
@@ -326,8 +331,14 @@ public class SelectionTracker {
     if (MozcLog.isLoggable(Log.DEBUG)) {
       MozcLog.d(
           String.format(
+              Locale.US,
               "onUpdateSelection: %d %d %d %d %d %d",
-              oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd));
+              oldSelStart,
+              oldSelEnd,
+              newSelStart,
+              newSelEnd,
+              candidatesStart,
+              candidatesEnd));
       MozcLog.d(recordQueue.toString());
     }
     Record record = new Record(candidatesStart, candidatesEnd, newSelStart, newSelEnd);
@@ -412,6 +423,7 @@ public class SelectionTracker {
         if (MozcLog.isLoggable(Log.DEBUG)) {
           MozcLog.d(
               String.format(
+                  new Locale("en_US"),
                   "Fall-back is applied as "
                       + "there is a entry of which the candidate length (%d) meets expectation.",
                   candidatesEnd - candidatesStart));

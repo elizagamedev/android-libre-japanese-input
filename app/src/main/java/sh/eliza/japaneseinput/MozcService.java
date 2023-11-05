@@ -29,7 +29,6 @@
 
 package sh.eliza.japaneseinput;
 
-import android.annotation.TargetApi;
 import android.view.inputmethod.CursorAnchorInfo;
 import sh.eliza.japaneseinput.util.CursorAnchorInfoWrapper;
 
@@ -40,7 +39,6 @@ public class MozcService extends MozcBaseService {
 
   /** Converts {@link CursorAnchorInfo} to {@link CursorAnchorInfoWrapper} and process it. */
   @Override
-  @TargetApi(21)
   public void onUpdateCursorAnchorInfo(CursorAnchorInfo cursorAnchorInfo) {
     super.onUpdateCursorAnchorInfoWrapper(new CursorAnchorInfoWrapper(cursorAnchorInfo));
   }

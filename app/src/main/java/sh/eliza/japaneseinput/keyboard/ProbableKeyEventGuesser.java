@@ -35,7 +35,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.io.DataInputStream;
@@ -82,14 +81,12 @@ public class ProbableKeyEventGuesser {
    *
    * <p>Extracted as an interface for testing.
    */
-  @VisibleForTesting
-  interface StatsFileAccessor {
+  private interface StatsFileAccessor {
     InputStream openStream(Keyboard keyboard, Configuration configuration) throws IOException;
   }
 
   /** Concrete implementation of StatsFileAccessor, using AssetManager. */
-  @VisibleForTesting
-  static final class StatsFileAccessorImpl implements StatsFileAccessor {
+  private static final class StatsFileAccessorImpl implements StatsFileAccessor {
 
     private final AssetManager assetManager;
     private final List<String> assetFileNames;
@@ -133,16 +130,14 @@ public class ProbableKeyEventGuesser {
    *
    * <p>Extracted as an interface for testing.
    */
-  @VisibleForTesting
-  interface LikelihoodCalculator {
+  private interface LikelihoodCalculator {
 
     double getLikelihood(
         float firstX, float firstY, float deltaX, float deltaY, float[] probableEvent);
   }
 
   /** Concrete implementation of LikelihoodCalculator. */
-  @VisibleForTesting
-  static final class LikelihoodCalculatorImpl implements LikelihoodCalculator {
+  private static final class LikelihoodCalculatorImpl implements LikelihoodCalculator {
 
     @Override
     public double getLikelihood(
@@ -184,11 +179,9 @@ public class ProbableKeyEventGuesser {
    *   <li>Make UpdateStatsListener thread safe or make it run on the UI thread.
    * </ul>
    */
-  @VisibleForTesting
-  static final class StatisticsLoader implements Runnable {
+  private static final class StatisticsLoader implements Runnable {
 
-    @VisibleForTesting
-    interface UpdateStatsListener {
+    private interface UpdateStatsListener {
       void updateStats(String formattedKeyboardName, SparseArray<float[]> stats);
     }
 
@@ -231,8 +224,7 @@ public class ProbableKeyEventGuesser {
           });
     }
 
-    @VisibleForTesting
-    StatisticsLoader(
+    private StatisticsLoader(
         StatsFileAccessor statsFileAccessor,
         Keyboard keyboard,
         Configuration configuration,
@@ -342,8 +334,7 @@ public class ProbableKeyEventGuesser {
 
   // LRU cache of mapping table.
   // formattedKeyboardName -> souce_id -> keyCode.
-  @VisibleForTesting
-  final Map<String, SparseIntArray> formattedKeyboardNameToKeycodeMapper =
+  private final Map<String, SparseIntArray> formattedKeyboardNameToKeycodeMapper =
       new LeastRecentlyUsedCacheMap<String, SparseIntArray>(MAX_LRU_CACHE_CAPACITY);
 
   // StatsFileAccessor to access the files under assets/ directory.
@@ -403,8 +394,7 @@ public class ProbableKeyEventGuesser {
     this.likelihoodCalculator = new LikelihoodCalculatorImpl();
   }
 
-  @VisibleForTesting
-  ProbableKeyEventGuesser(
+  private ProbableKeyEventGuesser(
       StatsFileAccessor statsFileAccessor,
       double likelyhoodThreshold,
       ThreadPoolExecutor dataLoadExecutor,

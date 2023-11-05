@@ -29,7 +29,6 @@
 
 package sh.eliza.japaneseinput.model;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.util.Arrays;
@@ -243,8 +242,7 @@ public class SymbolCandidateStorage {
   }
 
   /** Builds the {@link CandidateList} based on the given values and emojiDescriptionMap. */
-  @VisibleForTesting
-  CandidateList toCandidateList(
+  private CandidateList toCandidateList(
       List<String> values, Optional<Map<String, String>> emojiDescriptionMap) {
     Preconditions.checkNotNull(emojiDescriptionMap);
     if (Preconditions.checkNotNull(values).isEmpty()) {

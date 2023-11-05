@@ -48,7 +48,7 @@ import android.graphics.Shader.TileMode;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
-import android.os.Build;
+import androidx.core.content.res.ResourcesCompat;
 import com.google.common.base.Charsets;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -76,10 +76,6 @@ class MozcDrawableFactory {
     Paint paint = new Paint();
     int dominantBaseline = COMMAND_PICTURE_PAINT_DOMINANTE_BASELINE_AUTO;
   }
-
-  /** Locale field for {@link Paint#setTextLocale(Locale)}. */
-  private static final Optional<Locale> TEXT_LOCALE =
-      (Build.VERSION.SDK_INT >= 17) ? Optional.of(Locale.JAPAN) : Optional.absent();
 
   private static final int DRAWABLE_PICTURE = 1;
   private static final int DRAWABLE_STATE_LIST = 2;
@@ -153,7 +149,8 @@ class MozcDrawableFactory {
   Optional<Drawable> getDrawable(int resourceId) {
     if (!resources.getResourceTypeName(resourceId).equalsIgnoreCase("raw")) {
       // For non-"raw" resources, just delegate loading to Resources.
-      return Optional.fromNullable(resources.getDrawable(resourceId));
+      return Optional.fromNullable(
+          ResourcesCompat.getDrawable(resources, resourceId, /* theme= */ null));
     }
 
     Integer key = Integer.valueOf(resourceId);
@@ -450,9 +447,7 @@ class MozcDrawableFactory {
     style.paint.reset();
     style.paint.setAntiAlias(true);
     style.paint.setTypeface(typeface.get());
-    if (TEXT_LOCALE.isPresent()) {
-      style.paint.setTextLocale(TEXT_LOCALE.get());
-    }
+    style.paint.setTextLocale(Locale.JAPAN);
     style.dominantBaseline = COMMAND_PICTURE_PAINT_DOMINANTE_BASELINE_AUTO;
   }
 

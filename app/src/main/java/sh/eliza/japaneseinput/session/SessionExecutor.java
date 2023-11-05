@@ -37,7 +37,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.util.Collections;
@@ -85,7 +84,7 @@ public class SessionExecutor {
   // In order to keep the call order correctly, we call it from the single worker thread.
   // Note that we use well-known double check lazy initialization,
   // so that we can inject instances via reflections for testing purposes.
-  @VisibleForTesting static volatile Optional<SessionExecutor> instance = Optional.absent();
+  private static volatile Optional<SessionExecutor> instance = Optional.absent();
 
   private static SessionExecutor getInstanceInternal(
       Optional<SessionHandlerFactory> factory, Context applicationContext) {
@@ -102,22 +101,6 @@ public class SessionExecutor {
       }
     }
     return result.get();
-  }
-
-  /**
-   * Replaces the singleton instance to {@code executor} so {@code getInstance} family returns the
-   * new instance.
-   *
-   * @param executor the new instance to replace the old one.
-   * @return the old instance.
-   */
-  @VisibleForTesting
-  public static Optional<SessionExecutor> setInstanceForTest(Optional<SessionExecutor> executor) {
-    synchronized (SessionExecutor.class) {
-      Optional<SessionExecutor> old = instance;
-      instance = Preconditions.checkNotNull(executor);
-      return old;
-    }
   }
 
   /**
@@ -161,8 +144,7 @@ public class SessionExecutor {
     void onCompleted(Optional<Command> command, Optional<KeyEventInterface> triggeringKeyEvent);
   }
 
-  @VisibleForTesting
-  static class AsynchronousEvaluationContext {
+  private static class AsynchronousEvaluationContext {
 
     // For asynchronous evaluation, we set the sessionId in the callback running on the worker
     // thread. So, this class has Input.Builer as an argument for an evaluation, while
@@ -188,8 +170,7 @@ public class SessionExecutor {
     }
   }
 
-  @VisibleForTesting
-  static class SynchronousEvaluationContext {
+  private static class SynchronousEvaluationContext {
 
     final Input input;
     volatile Optional<Command> outCommand = Optional.absent();
@@ -202,8 +183,7 @@ public class SessionExecutor {
   }
 
   /** Context class just lines handler queue. */
-  @VisibleForTesting
-  static class KeyEventCallbackContext {
+  private static class KeyEventCallbackContext {
 
     final KeyEventInterface triggeringKeyEvent;
     final EvaluationCallback callback;
@@ -227,8 +207,7 @@ public class SessionExecutor {
    * necessary. All evaluations should be done with this class in order to keep evaluation in the
    * incoming order.
    */
-  @VisibleForTesting
-  static class ExecutorMainCallback implements Handler.Callback {
+  private static class ExecutorMainCallback implements Handler.Callback {
 
     /**
      * Initializes the currently connected sesion handler. We need to initialize the current session
@@ -262,7 +241,7 @@ public class SessionExecutor {
     /** Just pass a message to callback. */
     static final int PASS_TO_CALLBACK = 6;
 
-    @VisibleForTesting static final long INVALID_SESSION_ID = 0;
+    private static final long INVALID_SESSION_ID = 0;
 
     // TODO(exv): ensure list is exhaustive
     /** A set of CommandType which don't need session id. */
@@ -282,14 +261,13 @@ public class SessionExecutor {
 
     // Mozc session's ID.
     // Set on CREATE_SESSION and will not be updated.
-    @VisibleForTesting long sessionId = INVALID_SESSION_ID;
-    @VisibleForTesting Optional<Request.Builder> request = Optional.absent();
+    private long sessionId = INVALID_SESSION_ID;
+    private Optional<Request.Builder> request = Optional.absent();
 
     // The logging for debugging is disabled by default.
     boolean isLogging = false;
 
-    @VisibleForTesting
-    ExecutorMainCallback(SessionHandler sessionHandler) {
+    private ExecutorMainCallback(SessionHandler sessionHandler) {
       this.sessionHandler = Preconditions.checkNotNull(sessionHandler);
     }
 
@@ -340,8 +318,7 @@ public class SessionExecutor {
       return outCommand;
     }
 
-    @VisibleForTesting
-    void ensureSession() {
+    private void ensureSession() {
       if (sessionId != INVALID_SESSION_ID) {
         return;
       }
@@ -393,8 +370,7 @@ public class SessionExecutor {
      * result). Squashing will happen when an output consists from only overwritable fields and then
      * another output, which will overwrite the UI change caused by the older output, comes.
      */
-    @VisibleForTesting
-    static boolean isSquashableOutput(Output output) {
+    private static boolean isSquashableOutput(Output output) {
       // - If the output contains a result, it is not squashable because it is necessary
       //   to commit the string to the client application.
       // - If it has deletion_range, it is not squashable either because it is necessary
@@ -416,13 +392,11 @@ public class SessionExecutor {
      * @return {@code true} if the given {@code inputBuilder} needs to be set session id. Otherwise
      *     {@code false}.
      */
-    @VisibleForTesting
-    static boolean isSessionIdRequired(InputOrBuilder input) {
+    private static boolean isSessionIdRequired(InputOrBuilder input) {
       return !SESSION_INDEPENDENT_COMMAND_TYPE_SET.contains(input.getType());
     }
 
-    @VisibleForTesting
-    void evaluateAsynchronously(
+    private void evaluateAsynchronously(
         AsynchronousEvaluationContext context, Handler sessionExecutorHandler) {
       // Before the evaluation, we remove all pending squashable result callbacks for performance
       // reason of less powerful devices.
@@ -473,8 +447,7 @@ public class SessionExecutor {
       }
     }
 
-    @VisibleForTesting
-    void evaluateSynchronously(SynchronousEvaluationContext context) {
+    private void evaluateSynchronously(SynchronousEvaluationContext context) {
       Input input = context.input;
       Preconditions.checkArgument(
           !isSessionIdRequired(input),
@@ -487,8 +460,7 @@ public class SessionExecutor {
       context.evaluationSynchronizer.countDown();
     }
 
-    @VisibleForTesting
-    void updateRequest(Input.Builder inputBuilder) {
+    private void updateRequest(Input.Builder inputBuilder) {
       ensureSession();
       Preconditions.checkState(request.isPresent());
       request.get().mergeFrom(inputBuilder.getRequest());
@@ -502,8 +474,7 @@ public class SessionExecutor {
       evaluate(input);
     }
 
-    @VisibleForTesting
-    void passToCallBack(KeyEventCallbackContext context) {
+    private void passToCallBack(KeyEventCallbackContext context) {
       Handler callbackHandler = context.callbackHandler;
       Message message = callbackHandler.obtainMessage(CallbackHandler.UNSQUASHABLE_OUTPUT, context);
       callbackHandler.sendMessage(message);
@@ -511,8 +482,7 @@ public class SessionExecutor {
   }
 
   /** A handler to process callback for asynchronous evaluation on the UI thread. */
-  @VisibleForTesting
-  static class CallbackHandler extends Handler {
+  private static class CallbackHandler extends Handler {
     /** The message with this {@code what} cannot be overwritten by following evaluation. */
     static final int UNSQUASHABLE_OUTPUT = 0;
 
@@ -546,13 +516,11 @@ public class SessionExecutor {
     }
   }
 
-  @VisibleForTesting Optional<Handler> handler = Optional.absent();
+  private Optional<Handler> handler = Optional.absent();
   private Optional<ExecutorMainCallback> mainCallback = Optional.absent();
   private final CallbackHandler callbackHandler;
 
-  // Note that theoretically the constructor should be private in order to keep this singleton,
-  @VisibleForTesting
-  protected SessionExecutor() {
+  private SessionExecutor() {
     callbackHandler = new CallbackHandler(Looper.getMainLooper());
   }
 
@@ -570,14 +538,6 @@ public class SessionExecutor {
     } catch (InterruptedException exception) {
       MozcLog.w("waitForQueueForEmpty is interrupted.");
     }
-  }
-
-  /** Blocks until both incoming and outgoing queues become empty, for testing. */
-  @VisibleForTesting
-  public void waitForAllQueuesForEmpty() {
-    Preconditions.checkState(handler.isPresent());
-    waitForQueueForEmpty(handler.get());
-    waitForQueueForEmpty(callbackHandler);
   }
 
   /** Resets the instance by setting {@code SessionHandler} created by the given {@code factory}. */
@@ -634,8 +594,7 @@ public class SessionExecutor {
    * @param triggeringKeyEvent a key event which triggers this evaluation
    * @param callback a callback handler if needed
    */
-  @VisibleForTesting
-  void evaluateAsynchronously(
+  private void evaluateAsynchronously(
       Input.Builder inputBuilder,
       Optional<KeyEventInterface> triggeringKeyEvent,
       Optional<EvaluationCallback> callback) {
@@ -938,8 +897,7 @@ public class SessionExecutor {
    * Evaluates the input on the JNI worker thread, and wait that the evaluation is done. This method
    * blocks (typically <30ms).
    */
-  @VisibleForTesting
-  Output evaluateSynchronously(Input input) {
+  private Output evaluateSynchronously(Input input) {
     Preconditions.checkState(handler.isPresent());
     CountDownLatch evaluationSynchronizer = new CountDownLatch(1);
     SynchronousEvaluationContext context =

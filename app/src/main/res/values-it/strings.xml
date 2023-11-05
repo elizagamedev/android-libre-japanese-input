@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Tastiera software</string>
 <string name="pref_software_keyboard_advanced_settings_title">Impostazioni avanzate tastiera software</string>
-<string name="pref_fragment_software_keyboard_title">Tastiera software</string>
-<string name="pref_fragment_input_support_title">Supporto input</string>
-<string name="pref_fragment_conversion_title">Conversione</string>
-<string name="pref_fragment_dictionary_title">Dizionario</string>
-<string name="pref_fragment_user_feedback_title">Feedback degli utenti</string>
-<string name="pref_fragment_about_title">Informazioni</string>
-<string name="pref_fragment_development_title">Sviluppo</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Preferenze tastiera software per la modalità verticale</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Preferenze tastiera software per la modalità orizzontale</string>
 <string name="pref_keyboard_layout_title">Layout tastiera</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Conversione non sensibile a tasti di modifica</string>
 <string name="pref_typing_correction_title">Correzione digitazione</string>
 <string name="pref_other_incognito_mode_title">Modalità di navigazione in incognito</string>
-<string name="pref_emoji_provider_type_title">Seleziona fornitore Emoji</string>
 <string name="pref_dictionry_category_title">Preferenze del dizionario</string>
 <string name="pref_dictionary_personalization_title">Personalizzazione</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Strumento Dizionario</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Cronologia delle conversioni</string>
 <string name="pref_clear_symbol_history_title">Cronologia simboli</string>
 <string name="pref_clear_user_dictionary_title">Dizionario utente</string>
-<string name="pref_user_feedback_category_title">Feedback degli utenti</string>
-<string name="pref_other_usage_stats_title">Invia statistiche sull\'utilizzo</string>
 <string name="pref_about_about_this_software_title">Informazioni su questo software</string>
 <string name="pref_about_version_title">Versione</string>
 <string name="pref_about_oss_credits_title">Software open source</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Utilizza sempre metà spazio, a prescindere dalla modalità di immissione.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Utilizza la conversione non sensibile ai tasti di modifica kana. Viene applicata alla tastiera con 12 tasti e Godan. Ad es., かつこう→学校</string>
 <string name="pref_typing_correction_description">Vengono rilevati gli errori ortografici e visualizzati candidati corretti, ad es., すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">Seleziona correttamente il fornitore di Emoji per utilizzare le emoji.</string>
 <string name="pref_skin_type_description">Seleziona il tema della tastiera per personalizzare l\'aspetto della tastiera software.</string>
 <string name="pref_voice_input_description">Mostra il pulsante di input vocale sulla tastiera software.</string>
 <string name="pref_hardware_keymap_description">Seleziona il mapping dei tasti per le tastiere hardware.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Cancella la cronologia di immissione di simboli.</string>
 <string name="pref_clear_user_dictionary_description">Cancella il dizionario utente.</string>
 <string name="pref_other_incognito_mode_description">Disattiva temporaneamente la personalizzazione, i suggerimenti e il dizionario utente.</string>
-<string name="pref_other_usage_stats_description">Invia a %1$s le statistiche sull\'utilizzo, che verranno utilizzate soltanto per migliorare i prodotti e servizi %1$s.</string>
 <string name="pref_about_oss_credits_description">Questo software utilizza software open source: visualizza le licenze.</string>
 <string name="pref_launcher_icon_visibility_description">Mostra l\'icona dell\'app in Avvio applicazioni</string>
 <string name="pref_input_style_setting_entry_toggle">Attivazione/disattivazione</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Attivazione/disattivazione e scorrimento</string>
 <string name="pref_fullscreen_portrait">Attiva in verticale</string>
 <string name="pref_fullscreen_landscape">Attiva in orizzontale</string>
-<string name="pref_emoji_provider_type_unicode">Disattiva Emoji operatore</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Arancione/grigio chiaro</string>
 <string name="pref_skin_type_blue_lightgray">Blu/grigio chiaro</string>
 <string name="pref_skin_type_blue_darkgray">Blu/grigio scuro</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Material Design (scuro)</string>
 <string name="pref_hardware_keymap_default">Predefinite di sistema</string>
 <string name="pref_hardware_keymap_japanese109A">Giapponese 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 tasti</string>
 <string name="pref_dictionary_personalization_entry_enabled">Attiva</string>
 <string name="pref_dictionary_personalization_entry_readonly">Bloccata</string>
 <string name="pref_dictionary_personalization_entry_disabled">Disattiva</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Modifica il nome del dizionario</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Nome del dizionario</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Aggiungi una nuova parola</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Modifica una parola</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Testo</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Parola</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Categoria</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Punteggiatura</string>
 <string name="japanese_pos_free_standing_word">Parola indipendente</string>
 <string name="japanese_pos_suppression_word">Parola di eliminazione</string>
-<string name="yes">Sì</string>
-<string name="no">No</string>
 </resources>

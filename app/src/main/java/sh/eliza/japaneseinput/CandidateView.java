@@ -36,7 +36,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateList;
@@ -57,8 +56,7 @@ import sh.eliza.japaneseinput.view.Skin;
 public class CandidateView extends InOutAnimatedFrameLayout implements MemoryManageable {
 
   /** Adapter for conversion candidate selection. */
-  @VisibleForTesting
-  static class ConversionCandidateSelectListener implements CandidateSelectListener {
+  private static class ConversionCandidateSelectListener implements CandidateSelectListener {
     private final ViewEventListener viewEventListener;
 
     ConversionCandidateSelectListener(ViewEventListener viewEventListener) {
@@ -78,7 +76,7 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
 
     ScrollGuideView scrollGuideView = null;
     InputFrameFoldButtonView inputFrameFoldButtonView = null;
-    @VisibleForTesting int foldButtonBackgroundVisibilityThreshold = 0;
+    private int foldButtonBackgroundVisibilityThreshold = 0;
 
     // TODO(hidehiko): Simplify the interface as this is needed just for expandSuggestion.
     private ViewEventListener viewEventListener;
@@ -102,8 +100,7 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
           resources.getInteger(R.integer.candidate_scroller_minimum_velocity));
     }
 
-    @VisibleForTesting
-    void setCandidateTextDimension(float candidateTextSize, float descriptionTextSize) {
+    private void setCandidateTextDimension(float candidateTextSize, float descriptionTextSize) {
       Preconditions.checkArgument(candidateTextSize > 0);
       Preconditions.checkArgument(descriptionTextSize > 0);
 
@@ -268,13 +265,11 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
     }
   }
 
-  @VisibleForTesting
-  InputFrameFoldButtonView getInputFrameFoldButton() {
+  private InputFrameFoldButtonView getInputFrameFoldButton() {
     return (InputFrameFoldButtonView) findViewById(R.id.input_frame_fold_button);
   }
 
-  @VisibleForTesting
-  ConversionCandidateWordView getConversionCandidateWordView() {
+  private ConversionCandidateWordView getConversionCandidateWordView() {
     return (ConversionCandidateWordView) findViewById(R.id.candidate_word_view);
   }
 
@@ -283,13 +278,11 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
         findViewById(R.id.conversion_candidate_word_container_view);
   }
 
-  @VisibleForTesting
-  ScrollGuideView getScrollGuideView() {
+  private ScrollGuideView getScrollGuideView() {
     return (ScrollGuideView) findViewById(R.id.candidate_scroll_guide_view);
   }
 
-  @VisibleForTesting
-  LinearLayout getCandidateWordFrame() {
+  private LinearLayout getCandidateWordFrame() {
     return (LinearLayout) findViewById(R.id.candidate_word_frame);
   }
 
@@ -339,7 +332,6 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
     getInputFrameFoldButton().setChecked(checked);
   }
 
-  @SuppressWarnings("deprecation")
   void setSkin(Skin skin) {
     Preconditions.checkNotNull(skin);
     getScrollGuideView().setSkin(skin);

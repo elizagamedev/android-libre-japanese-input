@@ -34,7 +34,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import androidx.preference.PreferenceManager;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import sh.eliza.japaneseinput.LauncherActivity;
 import sh.eliza.japaneseinput.preference.PreferenceUtil;
@@ -53,8 +52,7 @@ public class LauncherIconManagerFactory {
     void updateLauncherIconVisibility(Context context);
   }
 
-  @VisibleForTesting
-  static class DefaultImplementation implements LauncherIconManager {
+  private static class DefaultImplementation implements LauncherIconManager {
 
     @Override
     public void updateLauncherIconVisibility(Context context) {
@@ -91,8 +89,7 @@ public class LauncherIconManagerFactory {
       }
     }
 
-    @VisibleForTesting
-    static boolean shouldLauncherIconBeVisible(
+    private static boolean shouldLauncherIconBeVisible(
         Context context, SharedPreferences sharedPreferences) {
       return sharedPreferences.getBoolean(PreferenceUtil.PREF_LAUNCHER_ICON_VISIBILITY_KEY, true);
     }

@@ -135,7 +135,6 @@ MozcView(Frame)
                     android:visibility="gone" />
 
                 <LinearLayout
-                    android:id="@+id/center_frame"
                     android:layout_width="0dip"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
@@ -143,7 +142,6 @@ MozcView(Frame)
                     android:orientation="vertical" >
 
                     <FrameLayout
-                        android:id="@+id/input_frame"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:gravity="bottom" >

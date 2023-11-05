@@ -33,10 +33,8 @@
 <string name="cd_keyboard_alphabet">મુળાક્ષર કીબોર્ડ</string>
 <string name="cd_keyboard_number">સંખ્યા કીબોર્ડ</string>
 <string name="cd_key_shift">shift</string>
-<string name="cd_key_up">ઉપર</string>
 <string name="cd_key_left">ડાબે</string>
 <string name="cd_key_right">જમણે</string>
-<string name="cd_key_down">નીચે</string>
 <string name="cd_key_chartype_to_kana">કાના કીબોર્ડ પર સ્વિચ કરો</string>
 <string name="cd_key_chartype_to_abc">મુળાક્ષર કીબોર્ડ પર સ્વિચ કરો</string>
 <string name="cd_key_chartype_to_abc_123">પ્રતીક કીબોર્ડ પર સ્વિચ કરો</string>
@@ -46,7 +44,6 @@
 <string name="cd_key_alt_unmodified">સામાન્ય પ્રતીકો</string>
 <string name="cd_key_capslock">caps lock</string>
 <string name="cd_key_capsunlock">caps unlock</string>
-<string name="cd_key_menu_dialog">મેનૂ ખોલ્યું</string>
 <string name="cd_key_globe">ઇનપુટ પદ્ધતિ સ્વિચ કરી</string>
 <string name="cd_key_uchar_backspace">backspace</string>
 <string name="cd_key_uchar_linefeed">લાઇનફીડ</string>
@@ -182,7 +179,6 @@ Library and Information Science</string>
 <string name="cd_key_alphabet_tuv">TUV</string>
 <string name="cd_key_alphabet_wxyz">WXYZ</string>
 <string name="cd_key_alphabet_capitalize">કેપિટલાઇઝ</string>
-<string name="spoken_use_headphone_for_password">પાસવર્ડ કીઝને મોટેથી બોલાતી સંભળવા માટે એક હેડસેટ પ્લગ ઇન કરો</string>
 <string name="cd_keyboard_fold_button">કૅન્ડિડેટ વિંડોનું કદ બદલાવો</string>
 <string name="cd_close_symbol_window">કીબોર્ડ પર પાછા ફરો</string>
 <string name="cd_symbol_window_number">નંબર</string>

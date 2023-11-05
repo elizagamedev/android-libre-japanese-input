@@ -31,7 +31,6 @@ package sh.eliza.japaneseinput.keyboard;
 
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
@@ -82,15 +81,11 @@ import sh.eliza.japaneseinput.view.DrawableCache;
  * // Render the image to canvas.
  * backgroundSurface.draw(canvas);
  * }</pre>
- *
- * This class is exposed as public in order to mock for testing purpose.
  */
-@VisibleForTesting
 public class KeyboardViewBackgroundSurface {
 
   /** A simple rendering related utilities for keyboard rendering. */
-  @VisibleForTesting
-  interface SurfaceCanvas {
+  private interface SurfaceCanvas {
 
     /**
      * Draws the given {@code drawable} in the given region with scaling. Does nothing if drawable
@@ -193,8 +188,7 @@ public class KeyboardViewBackgroundSurface {
     this.drawableCache = Preconditions.checkNotNull(drawableCache);
   }
 
-  @VisibleForTesting
-  void draw(SurfaceCanvas surfaceCanvas) {
+  private void draw(SurfaceCanvas surfaceCanvas) {
     if (!keyboard.isPresent()) {
       return;
     }
@@ -266,8 +260,7 @@ public class KeyboardViewBackgroundSurface {
    * Returns KeyEntity which should be used for the {@code key}'s rendering with the given state.
    * {@code Optional.absent()} will be returned if we don't need to render the key.
    */
-  @VisibleForTesting
-  static Optional<KeyEntity> getKeyEntityForRendering(
+  private static Optional<KeyEntity> getKeyEntityForRendering(
       Key key, Set<MetaState> metaState, Optional<Flick.Direction> flickDirection) {
     if (flickDirection.isPresent()) {
       // If the key is under flick state, check if there is corresponding key entity for the
@@ -291,8 +284,7 @@ public class KeyboardViewBackgroundSurface {
   }
 
   /** Returns {@code Drawable} for the given key's background with setting appropriate state. */
-  @VisibleForTesting
-  Optional<Drawable> getKeyBackground(Key key, boolean isPressed) {
+  private Optional<Drawable> getKeyBackground(Key key, boolean isPressed) {
     Preconditions.checkNotNull(key);
     return setDrawableState(
         Optional.of(backgroundDrawableFactory.getDrawable(key.getKeyBackgroundDrawableType())),
@@ -300,8 +292,7 @@ public class KeyboardViewBackgroundSurface {
   }
 
   /** Returns {@code Drawable} for the given key's icon with setting appropriate state. */
-  @VisibleForTesting
-  static Optional<Drawable> getKeyIcon(
+  private static Optional<Drawable> getKeyIcon(
       DrawableCache drawableCache, Optional<KeyEntity> keyEntity, boolean isPressed) {
     if (!keyEntity.isPresent()) {
       return Optional.absent();

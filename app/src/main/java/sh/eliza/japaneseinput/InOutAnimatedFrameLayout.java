@@ -36,7 +36,6 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
-import com.google.common.annotations.VisibleForTesting;
 
 /** FrameLayout supporting animation when the view is shown or hidden. */
 public abstract class InOutAnimatedFrameLayout extends FrameLayout {
@@ -61,12 +60,12 @@ public abstract class InOutAnimatedFrameLayout extends FrameLayout {
   }
 
   /** Animation used when this view is shown. */
-  @VisibleForTesting Animation inAnimation;
+  private Animation inAnimation;
 
   /** Animation used when this view is hidden. */
-  @VisibleForTesting Animation outAnimation;
+  private Animation outAnimation;
 
-  @VisibleForTesting VisibilityChangeListener onVisibilityChangeListener = null;
+  private VisibilityChangeListener onVisibilityChangeListener = null;
 
   public InOutAnimatedFrameLayout(Context context) {
     super(context);

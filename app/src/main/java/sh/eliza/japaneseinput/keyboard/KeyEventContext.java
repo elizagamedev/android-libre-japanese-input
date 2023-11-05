@@ -29,7 +29,6 @@
 
 package sh.eliza.japaneseinput.keyboard;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.util.Set;
@@ -98,8 +97,7 @@ public class KeyEventContext {
   }
 
   /** Returns true iff the point ({@code x}, {@code y}) is contained by the {@code key}'s region. */
-  @VisibleForTesting
-  static boolean isContained(float x, float y, Key key) {
+  private static boolean isContained(float x, float y, Key key) {
     float relativeX = x - key.getX();
     float relativeY = y - key.getY();
     return 0 <= relativeX
@@ -109,8 +107,7 @@ public class KeyEventContext {
   }
 
   /** Returns true iff the key is flickable. Otherwise returns false. */
-  @VisibleForTesting
-  static boolean isFlickable(Key key, Set<MetaState> metaState) {
+  private static boolean isFlickable(Key key, Set<MetaState> metaState) {
     Preconditions.checkNotNull(key);
     Preconditions.checkNotNull(metaState);
 

@@ -45,10 +45,8 @@
     -->
 
     <string name="cd_key_shift">shift</string>
-    <string name="cd_key_up">up</string>
     <string name="cd_key_left">left</string>
     <string name="cd_key_right">right</string>
-    <string name="cd_key_down">down</string>
     <string name="cd_key_chartype_to_kana">switch to Kana keyboard</string>
     <string name="cd_key_chartype_to_abc">switch to Alphabet keyboard</string>
     <string name="cd_key_chartype_to_abc_123">switch to symbol keyboard</string>
@@ -58,7 +56,6 @@
     <string name="cd_key_alt_unmodified">normal symbols</string>
     <string name="cd_key_capslock">caps lock</string>
     <string name="cd_key_capsunlock">caps unlock</string>
-    <string name="cd_key_menu_dialog">open menu</string>
     <string name="cd_key_globe">switch input method</string>
     <string name="cd_key_uchar_backspace">backspace</string>
     <string name="cd_key_uchar_linefeed">linefeed</string>
@@ -193,7 +190,6 @@
     <string name="cd_key_alphabet_tuv">TUV</string>
     <string name="cd_key_alphabet_wxyz">WXYZ</string>
     <string name="cd_key_alphabet_capitalize">capitalize</string>
-    <string name="spoken_use_headphone_for_password">Plug in a headset to hear password keys spoken aloud</string>
     <string name="cd_keyboard_fold_button">Change the size of candidate window</string>
 
     <!-- Views -->

@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">ក្តារ​ចុច​កម្មវិធី​កុំព្យូទ័រ</string>
 <string name="pref_software_keyboard_advanced_settings_title">ការ​កំណត់​​ក្តារ​ចុច​កម្មវិធី​កុំព្យូទ័រ​កម្រិត​ខ្ពស់​</string>
-<string name="pref_fragment_software_keyboard_title">ក្តារចុចកម្មវិធី</string>
-<string name="pref_fragment_input_support_title">ការគាំទ្រការបញ្ចូល</string>
-<string name="pref_fragment_conversion_title">ការបម្លែង</string>
-<string name="pref_fragment_dictionary_title">វចនានុក្រម</string>
-<string name="pref_fragment_user_feedback_title">មតិអ្នកប្រើ</string>
-<string name="pref_fragment_about_title">អំពី</string>
-<string name="pref_fragment_development_title">ការអភិវឌ្ឍន៍</string>
 <string name="pref_software_keyboard_preferences_portrait_title">ចំណង់​ចំណូល​ចិត្ត​ក្តារ​ចុច​កម្មវិធី​សម្រាប់​​បែប​​បញ្ឈរ</string>
 <string name="pref_software_keyboard_preferences_landscape_title">ចំណង់​ចំណូល​ចិត្ត​ក្តារ​ចុច​កម្មវិធី​សម្រាប់​បែប​ផ្ដេក</string>
 <string name="pref_keyboard_layout_title">ប្លង់​ក្តារ​ចុច</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">អ្នក​កែ​ប្រែ​ការ​ប្ដូរ​​ដែល​មិន​ដឹង</string>
 <string name="pref_typing_correction_title">កែ​តម្រូវ​ការ​វាយ</string>
 <string name="pref_other_incognito_mode_title">បែប​​បិទបាំង</string>
-<string name="pref_emoji_provider_type_title">ជ្រើស​អ្នក​ផ្តល់ Emoji</string>
 <string name="pref_dictionry_category_title">ចំណង់​ចំណូល​ចិត្ត​វចនានុក្រម</string>
 <string name="pref_dictionary_personalization_title">សម្គាល់</string>
 <string name="pref_dictionary_user_dictionary_tool_title">ឧបករណ៍​វចនានុក្រម</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">ប្រវត្តិ​​ការ​ប្តូរ</string>
 <string name="pref_clear_symbol_history_title">ប្រវត្តិ​​និមិត្ត​សញ្ញា</string>
 <string name="pref_clear_user_dictionary_title">វចនានុក្រម​អ្នកប្រើ</string>
-<string name="pref_user_feedback_category_title">មតិ​អ្នក​ប្រើ</string>
-<string name="pref_other_usage_stats_title">ផ្ញើ​ស្ថិតិ​​​ប្រើប្រាស់</string>
 <string name="pref_about_about_this_software_title">អំពី​កម្មវិធី​នេះ</string>
 <string name="pref_about_version_title">កំណែ</string>
 <string name="pref_about_oss_credits_title">កម្មវិធី​ប្រភព​បើក​ចំហ</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">ជានិច្ចកាល​ប្រើ​ចន្លោះ​ពាក់​កណ្តាល​ទទឹង​, មិន​ថា​របៀប​បញ្ចូល​។</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">ប្រើ​ការ​បម្លែង​ភាសា​កា​ណា​កែប្រែ​ដ៏​អាក្រក់​។ បាន​អនុវត្ត​ទៅ​គ្រាប់ចុច ១២ និង​ក្តារ​ចុច Godan ។ ឧទា. ​か​つ​こ​う​→​学校</string>
 <string name="pref_typing_correction_description">រក​ឃើញ​ការ​ភ្លេច​វាយ និង​កម្មវិធី​កែ​បេក្ខជន​។ ឧទា. ​す​ん​か​い​→​深海</string>
-<string name="pref_emoji_provider_type_description">ជ្រើស​អ្នក​ផ្តល់ Emoji បាន​ត្រឹមត្រូវ​ក្នុង​ការ​ប្រើ emoji ។</string>
 <string name="pref_skin_type_description">ជ្រើសរូបរាងក្តារចុចដើម្បីកែសម្រួលសោភ័ណភាពក្តារចុចកម្មវិធី។</string>
 <string name="pref_voice_input_description">បង្ហាញប៊ូតុងបញ្ចូលសម្លេងនៅលើក្តារចុចកម្មវិធី។</string>
 <string name="pref_hardware_keymap_description">ជ្រើស​​គ្រាប់​ចុច​ផែនទី​​សម្រាប់​ក្ដារចុច​ផ្នែក​រឹង​។</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">ជម្រះ​ប្រវត្តិ​ការ​បញ្ចូល​និមិត្តសញ្ញា។</string>
 <string name="pref_clear_user_dictionary_description">សម្អាត​វចនានុក្រម​អ្នក​ប្រើ</string>
 <string name="pref_other_incognito_mode_description">ជា​បណ្ដោះអាសន្ន​បិទ​ភាព​ផ្ទាល់​ខ្លួន, ការ​ស្នើ និង​វចនានុក្រម​អ្នក​ប្រើ​។</string>
-<string name="pref_other_usage_stats_description">ផ្ញើ​ស្ថិតិ​ការ​ប្រើ​ប្រាស់​ទៅ %1$s ។ ទាំង​នេះ​នឹង​ត្រូវ​បាន​ប្រើ​តែ​ដើម្បី​កែ​លម្អ​ផលិតផល​និង​សេវាកម្ម %1$s ​។</string>
 <string name="pref_about_oss_credits_description">ផ្នែក​ទន់​នេះ​ប្រើ​កម្មវិធី​ប្រភព​បើក​ចំហ​​៖ មើល​អាជ្ញា​ប័ណ្ណ​។</string>
 <string name="pref_launcher_icon_visibility_description">បង្ហាញ​រូប​តំណាង​កម្មវិធី​នៅ​ក្នុង​កម្ម​​វិធី​ចាប់ផ្ដើម</string>
 <string name="pref_input_style_setting_entry_toggle">បិទ​បើក</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">បិទ​បើក &amp; Flick</string>
 <string name="pref_fullscreen_portrait">បើក​ពេល​​បញ្ឈរ</string>
 <string name="pref_fullscreen_landscape">បើក​ពេល​ផ្ដេក</string>
-<string name="pref_emoji_provider_type_unicode">បិទ​ក្រុមហ៊ុន Emoji</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">ពណ៌​ទឹកក្រូច / ពណ៌​ប្រផេះ​ស្រាល</string>
 <string name="pref_skin_type_blue_lightgray">ពណ៌ខៀវ / ពណ៌​ប្រផេះ​ស្រាល</string>
 <string name="pref_skin_type_blue_darkgray">ពណ៌ខៀវ / ​ពណ៌​ប្រផេះ​ក្រាស់</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">ការ​​រចនា​សម្ភារៈ​ (ងងឹត​)</string>
 <string name="pref_hardware_keymap_default">ប្រព័ន្ធ​លំនាំ​ដើម</string>
 <string name="pref_hardware_keymap_japanese109A">109A ប្រទេស​ជប៉ុន</string>
-<string name="pref_hardware_keymap_twelvekey">កូនសោ១២</string>
 <string name="pref_dictionary_personalization_entry_enabled">បើក​ដំណើរការ</string>
 <string name="pref_dictionary_personalization_entry_readonly">កក</string>
 <string name="pref_dictionary_personalization_entry_disabled">បិទ</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">កែសម្រួល​ឈ្មោះ​របស់​វចនានុក្រម​</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">ឈ្មោះ​នៃ​វចនានុក្រម</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">បន្ថែម​ពាក្យ​ថ្មី</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">កែសម្រួល​ពាក្យ</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">កំពុង​អាន</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">ពាក្យ</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">ប្រភេទ</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">សញ្ញា​វណ្ណយុត្ត</string>
 <string name="japanese_pos_free_standing_word">ពាក្យ​ឈរ​​សេរី</string>
 <string name="japanese_pos_suppression_word">ពាក្យ​បង្ក្រាប</string>
-<string name="yes">បាទ/ចាស</string>
-<string name="no">ទេ</string>
 </resources>

@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">软键盘</string>
 <string name="pref_software_keyboard_advanced_settings_title">软键盘高级设置</string>
-<string name="pref_fragment_software_keyboard_title">软键盘</string>
-<string name="pref_fragment_input_support_title">输入法支持</string>
-<string name="pref_fragment_conversion_title">转换</string>
-<string name="pref_fragment_dictionary_title">字典</string>
-<string name="pref_fragment_user_feedback_title">用户反馈</string>
-<string name="pref_fragment_about_title">简介</string>
-<string name="pref_fragment_development_title">开发版</string>
 <string name="pref_software_keyboard_preferences_portrait_title">软键盘纵向模式偏好设置</string>
 <string name="pref_software_keyboard_preferences_landscape_title">软键盘横向模式偏好设置</string>
 <string name="pref_keyboard_layout_title">键盘布局</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">无需辅助键的转换模式</string>
 <string name="pref_typing_correction_title">输入纠正</string>
 <string name="pref_other_incognito_mode_title">隐身模式</string>
-<string name="pref_emoji_provider_type_title">选择表情符号提供商</string>
 <string name="pref_dictionry_category_title">字典偏好设置</string>
 <string name="pref_dictionary_personalization_title">个性化</string>
 <string name="pref_dictionary_user_dictionary_tool_title">字典工具</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">字词转换历史记录</string>
 <string name="pref_clear_symbol_history_title">符号历史记录</string>
 <string name="pref_clear_user_dictionary_title">用户字典</string>
-<string name="pref_user_feedback_category_title">用户反馈</string>
-<string name="pref_other_usage_stats_title">发送使用情况统计信息</string>
 <string name="pref_about_about_this_software_title">关于本软件</string>
 <string name="pref_about_version_title">版本</string>
 <string name="pref_about_oss_credits_title">开源软件</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">无论在哪种输入模式下，始终使用半角空格。</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">使用无需假名辅助键的转换模式。适用于12键和Godan键盘，例如：かつこう→学校</string>
 <string name="pref_typing_correction_description">检测输入错误并显示纠正选项，例如：すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">选择适当的表情符号提供商即可使用相应的表情符号。</string>
 <string name="pref_skin_type_description">选择键盘主题背景即可自定义软键盘外观。</string>
 <string name="pref_voice_input_description">显示软键盘上的语音输入按钮。</string>
 <string name="pref_hardware_keymap_description">为实体键盘选择键映射。</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">清除符号输入历史记录。</string>
 <string name="pref_clear_user_dictionary_description">清除用户字典。</string>
 <string name="pref_other_incognito_mode_description">暂时停用个性化设置、建议内容和用户字典。</string>
-<string name="pref_other_usage_stats_description">将使用情况统计信息发送给%1$s。这些信息将仅用于完善%1$s的产品和服务。</string>
 <string name="pref_about_oss_credits_description">此软件使用开源软件：查看许可。</string>
 <string name="pref_launcher_icon_visibility_description">显示启动器中的应用图标</string>
 <string name="pref_input_style_setting_entry_toggle">切换</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">切换和按键</string>
 <string name="pref_fullscreen_portrait">以纵向模式启用</string>
 <string name="pref_fullscreen_landscape">以横向模式启用</string>
-<string name="pref_emoji_provider_type_unicode">停用运营商表情符号</string>
-<string name="pref_emoji_provider_type_docomo">NTT DoCoMo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">橙色/浅灰色</string>
 <string name="pref_skin_type_blue_lightgray">蓝色/浅灰色</string>
 <string name="pref_skin_type_blue_darkgray">蓝色/深灰色</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">质感设计（深色）</string>
 <string name="pref_hardware_keymap_default">系统默认</string>
 <string name="pref_hardware_keymap_japanese109A">日语109A</string>
-<string name="pref_hardware_keymap_twelvekey">12键</string>
 <string name="pref_dictionary_personalization_entry_enabled">启用</string>
 <string name="pref_dictionary_personalization_entry_readonly">冻结</string>
 <string name="pref_dictionary_personalization_entry_disabled">停用</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">修改字典名称</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">字典名称</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">添加新字词</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">修改字词</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">读音</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">字词</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">词类</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">标点符号</string>
 <string name="japanese_pos_free_standing_word">独立字词</string>
 <string name="japanese_pos_suppression_word">抑音词</string>
-<string name="yes">是</string>
-<string name="no">否</string>
 </resources>

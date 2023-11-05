@@ -33,10 +33,8 @@
 <string name="cd_keyboard_alphabet">Alphabettastatur</string>
 <string name="cd_keyboard_number">Zahlentastatur</string>
 <string name="cd_key_shift">Shift</string>
-<string name="cd_key_up">Aufwärts</string>
 <string name="cd_key_left">Links</string>
 <string name="cd_key_right">Rechts</string>
-<string name="cd_key_down">Abwärts</string>
 <string name="cd_key_chartype_to_kana">Zur Kana-Tastatur wechseln</string>
 <string name="cd_key_chartype_to_abc">Zur Alphabettastatur wechseln</string>
 <string name="cd_key_chartype_to_abc_123">Zur Symboltastatur wechseln</string>
@@ -46,7 +44,6 @@
 <string name="cd_key_alt_unmodified">Normale Symbole</string>
 <string name="cd_key_capslock">Feststelltaste aktiviert</string>
 <string name="cd_key_capsunlock">Feststelltaste deaktiviert</string>
-<string name="cd_key_menu_dialog">Menü geöffnet</string>
 <string name="cd_key_globe">Eingabemethode wechseln</string>
 <string name="cd_key_uchar_backspace">Rücktaste</string>
 <string name="cd_key_uchar_linefeed">Zeilenvorschub</string>
@@ -177,7 +174,6 @@
 <string name="cd_key_alphabet_tuv">TUV</string>
 <string name="cd_key_alphabet_wxyz">WXYZ</string>
 <string name="cd_key_alphabet_capitalize">Großschreiben</string>
-<string name="spoken_use_headphone_for_password">Schließen Sie ein Headset an, um das Passwort gesprochen zu hören.</string>
 <string name="cd_keyboard_fold_button">Vorschlagsfenstergröße ändern</string>
 <string name="cd_close_symbol_window">Zurück zur Tastatur</string>
 <string name="cd_symbol_window_number">Zahl</string>

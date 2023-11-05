@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Software keyboard</string>
 <string name="pref_software_keyboard_advanced_settings_title">Mga advanced na setting ng software keyboard</string>
-<string name="pref_fragment_software_keyboard_title">Software keyboard</string>
-<string name="pref_fragment_input_support_title">Suporta sa input</string>
-<string name="pref_fragment_conversion_title">Conversion</string>
-<string name="pref_fragment_dictionary_title">Diksyunaryo</string>
-<string name="pref_fragment_user_feedback_title">Feedback ng user</string>
-<string name="pref_fragment_about_title">Tungkol dito</string>
-<string name="pref_fragment_development_title">Pag-develop</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Mga kagustuhan sa software keyboard para sa portrait mode</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Mga kagustuhan sa software keyboard para sa landscape mode</string>
 <string name="pref_keyboard_layout_title">Layout ng keyboard</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Pag-convert na hindi sensitibo sa modifier</string>
 <string name="pref_typing_correction_title">Pagwawasto sa pagta-type</string>
 <string name="pref_other_incognito_mode_title">Incognito mode</string>
-<string name="pref_emoji_provider_type_title">Pumili ng provider ng Emoji</string>
 <string name="pref_dictionry_category_title">Mga kagustuhan sa diksyunaryo</string>
 <string name="pref_dictionary_personalization_title">Pag-personalize</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Tool na Diksyunaryo</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">History ng pag-convert</string>
 <string name="pref_clear_symbol_history_title">History ng simbolo</string>
 <string name="pref_clear_user_dictionary_title">Diksyunaryo ng user</string>
-<string name="pref_user_feedback_category_title">Feedback ng user</string>
-<string name="pref_other_usage_stats_title">Ipadala ang mga istatistika ng paggamit</string>
 <string name="pref_about_about_this_software_title">Tungkol sa software na ito</string>
 <string name="pref_about_version_title">Bersyon</string>
 <string name="pref_about_oss_credits_title">Open source na software</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Palaging gamitin ang kalahating space, anuman ang input mode.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Gamitin ang kana modifier insensitive conversion. Nakalapat sa 12 key at Godan keyboard. hal. かつこう→学校</string>
 <string name="pref_typing_correction_description">Maghanap ng maling pag-type at magpakita ng mga naiwastong candidate. hal. すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">Piliin nang tama ang provider ng Emoji upang magamit ang emoji.</string>
 <string name="pref_skin_type_description">Piliin ang tema ng keyboard upang i-customize ang hitsura ng software keyboard.</string>
 <string name="pref_voice_input_description">Ipakita ang button na input na boses sa software keyboard.</string>
 <string name="pref_hardware_keymap_description">Pillin ang key mapping para sa mga hardware keyboard.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">I-clear ang history ng pag-input ng simbolo.</string>
 <string name="pref_clear_user_dictionary_description">I-clear ang diksyunaryo ng user</string>
 <string name="pref_other_incognito_mode_description">Pansamantalang i-disable ang pag-personalize, mga suhestyon at diksyunaryo ng user.</string>
-<string name="pref_other_usage_stats_description">Ipadala ang mga istatistika ng paggamit sa %1$s. Gagamitin lang ang mga ito upang mapahusay ang mga produkto at serbisyo ng %1$s.</string>
 <string name="pref_about_oss_credits_description">Ang software na ito ay gumagamit ng open source na software: tingnan ang mga lisensya.</string>
 <string name="pref_launcher_icon_visibility_description">Ipakita ang icon ng application sa launcher</string>
 <string name="pref_input_style_setting_entry_toggle">Pag-toggle</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Pag-toggle at Pag-flick</string>
 <string name="pref_fullscreen_portrait">I-enable sa portrait</string>
 <string name="pref_fullscreen_landscape">I-enable sa landscape</string>
-<string name="pref_emoji_provider_type_unicode">I-disable ang Emoji ng carrier</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Orange/Light-gray</string>
 <string name="pref_skin_type_blue_lightgray">Asul/Light-gray</string>
 <string name="pref_skin_type_blue_darkgray">Asul/Dark-gray</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Disenyo ng Materyal (Dark)</string>
 <string name="pref_hardware_keymap_default">Default ng System</string>
 <string name="pref_hardware_keymap_japanese109A">Japanese 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 key</string>
 <string name="pref_dictionary_personalization_entry_enabled">I-enable</string>
 <string name="pref_dictionary_personalization_entry_readonly">Frozen</string>
 <string name="pref_dictionary_personalization_entry_disabled">I-disable</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">I-edit ang pangalan ng diksyunaryo</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Pangalan ng diksyunaryo</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Magdagdag ng bagong salita</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Mag-edit ng salita</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Reading</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Salita</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Kategorya</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Bantas</string>
 <string name="japanese_pos_free_standing_word">Free standing word</string>
 <string name="japanese_pos_suppression_word">Suppression word</string>
-<string name="yes">Oo</string>
-<string name="no">Hindi</string>
 </resources>

@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">صفحه‌کلید نرم‌افزاری</string>
 <string name="pref_software_keyboard_advanced_settings_title">تنظیمات پیشرفته صفحه‌کلید نرم‌افزاری</string>
-<string name="pref_fragment_software_keyboard_title">صفحه‌کلید نرم‌افزاری</string>
-<string name="pref_fragment_input_support_title">پشتیبانی از ورودی</string>
-<string name="pref_fragment_conversion_title">تبدیل</string>
-<string name="pref_fragment_dictionary_title">فرهنگ لغت</string>
-<string name="pref_fragment_user_feedback_title">بازخورد کاربر</string>
-<string name="pref_fragment_about_title">درباره</string>
-<string name="pref_fragment_development_title">برنامه‌نویسی</string>
 <string name="pref_software_keyboard_preferences_portrait_title">تنظیمات برگزیده صفحه‌کلید نرم‌افزاری برای حالت پرتره</string>
 <string name="pref_software_keyboard_preferences_landscape_title">تنظیمات برگزیده صفحه‌کلید نرم‌افزاری برای حالت منظره</string>
 <string name="pref_keyboard_layout_title">طرح‌بندی صفحه‌کلید</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">تبدیل غیرحساس متعادل‌ساز</string>
 <string name="pref_typing_correction_title">تصحیح تایپ</string>
 <string name="pref_other_incognito_mode_title">حالت ناشناس</string>
-<string name="pref_emoji_provider_type_title">انتخاب ارائه‌کننده ایموجی</string>
 <string name="pref_dictionry_category_title">تنظیمات برگزیده فرهنگ‌لغت</string>
 <string name="pref_dictionary_personalization_title">شخصی‌سازی</string>
 <string name="pref_dictionary_user_dictionary_tool_title">ابزار فرهنگ‌لغت</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">سابقه تبدیل</string>
 <string name="pref_clear_symbol_history_title">سابقه نماد</string>
 <string name="pref_clear_user_dictionary_title">فرهنگ‌‌لغت کاربر</string>
-<string name="pref_user_feedback_category_title">بازخورد کاربر</string>
-<string name="pref_other_usage_stats_title">ارسال آمار کاربرد</string>
 <string name="pref_about_about_this_software_title">درباره این نرم‌افزار</string>
 <string name="pref_about_version_title">نسخه</string>
 <string name="pref_about_oss_credits_title">نرم‌افزار منبع آزاد</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">بدون توجه به حالت ورودی، همیشه از نیم‌فاصله استفاده شود.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">‏از تبدیل غیرحساس متعادل‌ساز کانا استفاده کنید. برای صفحه‌کلید ۱۲ کلیدی و Godan اعمال می‌شود. مثلاً かつこう→学校</string>
 <string name="pref_typing_correction_description">‏کلماتی که اشتباه تایپی دارند، تشخیص داده شوند و نمونه‌های ممکن صحیح نمایش داده شود. مثلاً  すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">ارائه‌دهنده ایموجی را درست انتخاب کنید تا از ایموجی استفاده کنید.</string>
 <string name="pref_skin_type_description">با انتخاب طرح زمینه صفحه‌کلید، ظاهر صفحه‌کلید نرم‌افزار را سفارشی کنید.</string>
 <string name="pref_voice_input_description">دکمه ورودی صوتی را در صفحه‌کلید نرم‌افزار علامت می‌دهد.</string>
 <string name="pref_hardware_keymap_description">تطابق کلید را برای صفحه‌کلیدهای سخت‌افزاری انتخاب کنید.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">سابقه ورود نماد را پاک کنید.</string>
 <string name="pref_clear_user_dictionary_description">فرهنگ‌لغت کاربر را پاک کنید.</string>
 <string name="pref_other_incognito_mode_description">موقتاً شخصی‌سازی، پیشنهادات و فرهنگ‌لغت کاربر را غیرفعال کنید.</string>
-<string name="pref_other_usage_stats_description">آمار کاربرد را به %1$s ارسال کنید. از این موارد فقط برای بهبود سرویس‌ها و محصولات %1$s استفاده می‌شود.</string>
 <string name="pref_about_oss_credits_description">این نرم‌افزار از نرم‌افزار منبع آزاد استفاده می‌کند: مجوزها را مشاهده کنید.</string>
 <string name="pref_launcher_icon_visibility_description">نمایش نماد برنامه در راه‌انداز</string>
 <string name="pref_input_style_setting_entry_toggle">تغییر وضعیت</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">ضربه زدن و تغییر وضعیت</string>
 <string name="pref_fullscreen_portrait">فعال کردن در پرتره</string>
 <string name="pref_fullscreen_landscape">فعال کردن در منظره</string>
-<string name="pref_emoji_provider_type_unicode">غیرفعال کردن ایموجی شرکت مخابراتی</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">‏KDDI ‏(au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">نارنجی/خاکستری روشن</string>
 <string name="pref_skin_type_blue_lightgray">آبی/خاکستری روشن</string>
 <string name="pref_skin_type_blue_darkgray">آبی/ خاکستری تیره</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">طراحی ماده (تاریک)</string>
 <string name="pref_hardware_keymap_default">پیش‌فرض سیستم</string>
 <string name="pref_hardware_keymap_japanese109A">‏ژاپنی 109A</string>
-<string name="pref_hardware_keymap_twelvekey">۱۲ کلیدی</string>
 <string name="pref_dictionary_personalization_entry_enabled">فعال کردن</string>
 <string name="pref_dictionary_personalization_entry_readonly">ثابت</string>
 <string name="pref_dictionary_personalization_entry_disabled">غیرفعال کردن</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">ویرایش نام فرهنگ‌لغت</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">نام فرهنگ‌لغت</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">افزودن کلمه جدید</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">ویرایش کلمه</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">خوانش</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">کلمه</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">دسته</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">نشانه گذاری</string>
 <string name="japanese_pos_free_standing_word">کلمه مستقل</string>
 <string name="japanese_pos_suppression_word">کلمه بازدارنده</string>
-<string name="yes">بله</string>
-<string name="no">خیر</string>
 </resources>

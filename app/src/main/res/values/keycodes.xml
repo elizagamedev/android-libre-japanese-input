@@ -31,8 +31,6 @@
 -->
 <resources>
   <!-- Unprintable keys, which are not defined in Unicode  -->
-  <!-- Keycodes defined in BaseKeyboard -->
-  <integer name="key_shift">-1</integer>
   <!-- Our definition -->
   <integer name="key_up">-10</integer>
   <integer name="key_left">-11</integer>

@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">Programmatūras tastatūra</string>
 <string name="pref_software_keyboard_advanced_settings_title">Programmatūras tastatūras papildu iestatījumi</string>
-<string name="pref_fragment_software_keyboard_title">Software keyboard</string>
-<string name="pref_fragment_input_support_title">Input support</string>
-<string name="pref_fragment_conversion_title">Conversion</string>
-<string name="pref_fragment_dictionary_title">Dictionary</string>
-<string name="pref_fragment_user_feedback_title">User feedback</string>
-<string name="pref_fragment_about_title">About</string>
-<string name="pref_fragment_development_title">Development</string>
 <string name="pref_software_keyboard_preferences_portrait_title">Programmatūras tastatūras portreta režīma preferences</string>
 <string name="pref_software_keyboard_preferences_landscape_title">Programmatūras tastatūras ainavas režīma preferences</string>
 <string name="pref_keyboard_layout_title">Tastatūras izkārtojums</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">Modificētājtaustiņa nejutīga pārvēršana</string>
 <string name="pref_typing_correction_title">Rakstīzīmju labošana</string>
 <string name="pref_other_incognito_mode_title">Inkognito režīms</string>
-<string name="pref_emoji_provider_type_title">Izvēlēties japāņu emocijzīmju nodrošinātāju</string>
 <string name="pref_dictionry_category_title">Vārdnīcas preferences</string>
 <string name="pref_dictionary_personalization_title">Personalizēšana</string>
 <string name="pref_dictionary_user_dictionary_tool_title">Vārdnīcu rīks</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">Pārvēršanas vēsture</string>
 <string name="pref_clear_symbol_history_title">Simbolu lietojuma vēsture</string>
 <string name="pref_clear_user_dictionary_title">Lietotāja vārdnīca</string>
-<string name="pref_user_feedback_category_title">Lietotāju atsauksmes</string>
-<string name="pref_other_usage_stats_title">Sūtīt lietojuma statistiku</string>
 <string name="pref_about_about_this_software_title">Par šo programmatūru</string>
 <string name="pref_about_version_title">Versija</string>
 <string name="pref_about_oss_credits_title">Atklātā pirmkoda programmatūra</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">Vienmēr izmantot pusplatuma vietu neatkarīgi no ievades režīma.</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">Izmantot kana modificētājtaustiņa nejutīgo pārvēršanu. Tiek lietota 12 taustiņu un Godan tastatūrai. Piemērs: かつこう → 学校.</string>
 <string name="pref_typing_correction_description">Atklāt pareizrakstības kļūdas un parādīt izlabotus kandidātus. Piemērs: すんかい → 深海.</string>
-<string name="pref_emoji_provider_type_description">Atlasiet atbilstošu japāņu emocijzīmju nodrošinātāju, lai izmantotu japāņu emocijzīmes.</string>
 <string name="pref_skin_type_description">Select the keyboard theme to customize the software keyboard look.</string>
 <string name="pref_voice_input_description">Show voice input button on the software keyboard.</string>
 <string name="pref_hardware_keymap_description">Izvēlieties taustiņu kartēšanu aparatūras tastatūrām.</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">Notīriet simbolu ievades vēsturi.</string>
 <string name="pref_clear_user_dictionary_description">Notīriet lietotāja vārdnīcu.</string>
 <string name="pref_other_incognito_mode_description">Īslaicīgi atspējojiet personalizēšanu, ieteikumus un lietotāja vārdnīcu.</string>
-<string name="pref_other_usage_stats_description">Sūtiet lietojuma statistikas datus uz: %1$s. Šie dati tiks izmantoti tikai %1$s produktu un pakalpojumu uzlabošanai.</string>
 <string name="pref_about_oss_credits_description">Šai programmatūrai tiek izmantota atklātā pirmkoda programmatūra: skatiet licences.</string>
 <string name="pref_launcher_icon_visibility_description">Rādīt lietojumprogrammas ikonu palaišanas programmā</string>
 <string name="pref_input_style_setting_entry_toggle">Pārslēgtaustiņš</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">Pārslēgtaustiņš un švīkas žests</string>
 <string name="pref_fullscreen_portrait">Ieslēgt portreta režīmā</string>
 <string name="pref_fullscreen_landscape">Ieslēgt ainavas režīmā</string>
-<string name="pref_emoji_provider_type_unicode">Atspējot mobilo sakaru operatora nodrošinātās emocijzīmes</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">Oranžs/gaiši pelēks</string>
 <string name="pref_skin_type_blue_lightgray">Zils/gaiši pelēks</string>
 <string name="pref_skin_type_blue_darkgray">Zils/tumši pelēks</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">Materiāls (tumšs)</string>
 <string name="pref_hardware_keymap_default">Sistēmas noklusējums</string>
 <string name="pref_hardware_keymap_japanese109A">Japāņu 109a</string>
-<string name="pref_hardware_keymap_twelvekey">12 taustiņi</string>
 <string name="pref_dictionary_personalization_entry_enabled">Iespējot</string>
 <string name="pref_dictionary_personalization_entry_readonly">Nemainīt</string>
 <string name="pref_dictionary_personalization_entry_disabled">Atspējot</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">Rediģēt vārdnīcas nosaukumu</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">Vārdnīcas nosaukums</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">Pievienot jaunu vārdu</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">Rediģēt vārdu</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">Lasīšana</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">Vārds</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">Kategorija</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">Interpunkcija</string>
 <string name="japanese_pos_free_standing_word">Patstāvīgs vārds</string>
 <string name="japanese_pos_suppression_word">Izlaistais vārds</string>
-<string name="yes">Jā</string>
-<string name="no">Nē</string>
 </resources>

@@ -31,7 +31,6 @@ package sh.eliza.japaneseinput.userdictionary;
 
 import android.content.res.Resources;
 import android.net.Uri;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.io.BufferedOutputStream;
@@ -60,15 +59,15 @@ import sh.eliza.japaneseinput.session.SessionExecutor;
 /** */
 public class UserDictionaryToolModel {
   private final SessionExecutor sessionExecutor;
-  @VisibleForTesting long sessionId;
+  private long sessionId;
 
   /** User dictionary storage which only contains dictionary id / name. */
-  @VisibleForTesting UserDictionaryStorage storage = null;
+  private UserDictionaryStorage storage = null;
 
-  @VisibleForTesting long selectedDictionaryId = 0;
+  private long selectedDictionaryId = 0;
 
   // TODO(hidehiko): Move this bit into the server side.
-  @VisibleForTesting boolean dirty = false;
+  private boolean dirty = false;
 
   // Unfortunately our target API level 7 doesn't support to passing any arguments to the dialog.
   // Thus, as a workaround, we relay the edit target entry's index by this model.

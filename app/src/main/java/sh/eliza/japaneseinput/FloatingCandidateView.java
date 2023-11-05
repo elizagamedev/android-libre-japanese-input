@@ -29,13 +29,11 @@
 
 package sh.eliza.japaneseinput;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.os.Build;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -43,7 +41,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.PopupWindow;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.Category;
@@ -56,7 +53,6 @@ import sh.eliza.japaneseinput.ui.FloatingModeIndicator;
 import sh.eliza.japaneseinput.util.CursorAnchorInfoWrapper;
 
 /** Floating candidate view for hardware keyboard. */
-@TargetApi(21)
 public class FloatingCandidateView extends View {
 
   private interface FloatingCandidateViewProxy {
@@ -81,41 +77,6 @@ public class FloatingCandidateView extends View {
     Optional<Rect> getVisibleRect();
   }
 
-  private static class FloatingCandidateViewStub implements FloatingCandidateViewProxy {
-    @Override
-    public void draw(Canvas canvas) {}
-
-    @Override
-    public void viewSizeChanged(int width, int height) {}
-
-    @Override
-    public void onStartInputView(EditorInfo editorInfo) {}
-
-    @Override
-    public void setCursorAnchorInfo(CursorAnchorInfoWrapper info) {}
-
-    @Override
-    public void setCandidates(Command outCommand) {}
-
-    @Override
-    public void setEditorInfo(EditorInfo editorInfo) {}
-
-    @Override
-    public void setCompositionMode(CompositionMode mode) {}
-
-    @Override
-    public void setViewEventListener(ViewEventListener listener) {}
-
-    @Override
-    public void setVisibility(int visibility) {}
-
-    @Override
-    public Optional<Rect> getVisibleRect() {
-      return Optional.absent();
-    }
-  }
-
-  @TargetApi(21)
   private static class FloatingCandidateViewImpl implements FloatingCandidateViewProxy {
 
     private final View parentView;
@@ -500,8 +461,7 @@ public class FloatingCandidateView extends View {
     floatingCandidateViewProxy = createFloatingCandidateViewInstance(this);
   }
 
-  @VisibleForTesting
-  FloatingCandidateView(Context context, PopupWindow popupWindowMock) {
+  private FloatingCandidateView(Context context, PopupWindow popupWindowMock) {
     super(context);
     floatingCandidateViewProxy =
         new FloatingCandidateViewImpl(
@@ -511,8 +471,7 @@ public class FloatingCandidateView extends View {
             new FloatingModeIndicator(this));
   }
 
-  @VisibleForTesting
-  FloatingCandidateView(
+  private FloatingCandidateView(
       Context context,
       PopupWindow popupWindowMock,
       FloatingCandidateLayoutRenderer layoutRenderer,
@@ -523,11 +482,7 @@ public class FloatingCandidateView extends View {
   }
 
   private static FloatingCandidateViewProxy createFloatingCandidateViewInstance(View view) {
-    return isAvailable() ? new FloatingCandidateViewImpl(view) : new FloatingCandidateViewStub();
-  }
-
-  public static boolean isAvailable() {
-    return Build.VERSION.SDK_INT >= 21;
+    return new FloatingCandidateViewImpl(view);
   }
 
   @Override
@@ -576,8 +531,7 @@ public class FloatingCandidateView extends View {
     floatingCandidateViewProxy.setViewEventListener(listener);
   }
 
-  @VisibleForTesting
-  Optional<Rect> getVisibleRect() {
+  private Optional<Rect> getVisibleRect() {
     return floatingCandidateViewProxy.getVisibleRect();
   }
 }

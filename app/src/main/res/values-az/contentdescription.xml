@@ -33,10 +33,8 @@
 <string name="cd_keyboard_alphabet">Əlifbalı klaviatura</string>
 <string name="cd_keyboard_number">Rəqəmli klaviatura</string>
 <string name="cd_key_shift">shift</string>
-<string name="cd_key_up">yuxarı</string>
 <string name="cd_key_left">sol</string>
 <string name="cd_key_right">sağ</string>
-<string name="cd_key_down">aşağı</string>
 <string name="cd_key_chartype_to_kana">Kana klaviaturasına keçin</string>
 <string name="cd_key_chartype_to_abc">Əlifbalı klaviaturaya keçin</string>
 <string name="cd_key_chartype_to_abc_123">simvol klaviaturasına keçin</string>
@@ -46,7 +44,6 @@
 <string name="cd_key_alt_unmodified">normal simvollar</string>
 <string name="cd_key_capslock">böyük hərflər</string>
 <string name="cd_key_capsunlock">kiçik hərflər</string>
-<string name="cd_key_menu_dialog">açıq menyu</string>
 <string name="cd_key_globe">daxiletmə metoduna keçin</string>
 <string name="cd_key_uchar_backspace">gerial</string>
 <string name="cd_key_uchar_linefeed">yeni sətir</string>
@@ -177,7 +174,6 @@
 <string name="cd_key_alphabet_tuv">TUV</string>
 <string name="cd_key_alphabet_wxyz">WXYZ</string>
 <string name="cd_key_alphabet_capitalize">böyük hərflə yazı</string>
-<string name="spoken_use_headphone_for_password">Parolların səsləndirilməsi üçün qulaqlığı taxın.</string>
 <string name="cd_keyboard_fold_button">Kandidat pəncərəsinin ölçüsünü dəyiş</string>
 <string name="cd_close_symbol_window">Klaviaturaya geri</string>
 <string name="cd_symbol_window_number">Nömrə</string>

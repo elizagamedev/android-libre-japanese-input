@@ -33,13 +33,6 @@
 <string name="pref_skin_type_key">pref_skin_type_key</string>
 <string name="pref_software_keyboard_category_title">سافٹ ویئر کی بورڈ</string>
 <string name="pref_software_keyboard_advanced_settings_title">سافٹ ویئر کی بورڈ کی جدید ترتیبات</string>
-<string name="pref_fragment_software_keyboard_title">Software keyboard</string>
-<string name="pref_fragment_input_support_title">Input support</string>
-<string name="pref_fragment_conversion_title">Conversion</string>
-<string name="pref_fragment_dictionary_title">Dictionary</string>
-<string name="pref_fragment_user_feedback_title">User feedback</string>
-<string name="pref_fragment_about_title">About</string>
-<string name="pref_fragment_development_title">Development</string>
 <string name="pref_software_keyboard_preferences_portrait_title">پورٹریٹ وضع کیلئے سافٹ ویئر کی بورڈ کی ترجیحات</string>
 <string name="pref_software_keyboard_preferences_landscape_title">لینڈ اسکیپ وضع کیلئے سافٹ ویئر کی بورڈ کی ترجیحات</string>
 <string name="pref_keyboard_layout_title">کی بورڈ لے آؤٹ</string>
@@ -65,7 +58,6 @@
 <string name="pref_kana_modifier_insensitive_conversion_title">موڈیفائر کی غیر حساس تبدیلی</string>
 <string name="pref_typing_correction_title">ٹائپنگ کی اصلاح</string>
 <string name="pref_other_incognito_mode_title">پوشیدگی وضع</string>
-<string name="pref_emoji_provider_type_title">‏Emoji فراہم کنندہ منتخب کریں</string>
 <string name="pref_dictionry_category_title">لغت کی ترجیحات</string>
 <string name="pref_dictionary_personalization_title">ذاتی نوعیت کا بنانا</string>
 <string name="pref_dictionary_user_dictionary_tool_title">لغت ٹول</string>
@@ -73,8 +65,6 @@
 <string name="pref_clear_conversion_history_title">تبدیلی کی سرگزشت</string>
 <string name="pref_clear_symbol_history_title">علامت کی سرگزشت</string>
 <string name="pref_clear_user_dictionary_title">صارف کی لغت</string>
-<string name="pref_user_feedback_category_title">صارف کے تاثرات</string>
-<string name="pref_other_usage_stats_title">استعمال کے اعداد و شمار بھیجیں</string>
 <string name="pref_about_about_this_software_title">اس سافٹ ویئر کے بارے میں</string>
 <string name="pref_about_version_title">ورژن</string>
 <string name="pref_about_oss_credits_title">اوپن سورس سافٹ ویئر</string>
@@ -98,7 +88,6 @@
 <string name="pref_space_character_form_description">ہمیشہ نصف چوڑائی والی خالی جگہ استعمال کریں، ان پٹ وضع سے کوئی مطلب نہیں۔</string>
 <string name="pref_kana_modifier_insensitive_conversion_description">‏کانا موڈیفائر غیر حساس تبدیلی استعمال کریں۔ 12 کلیدوں والی اور Godan کی بورڈ پر لاگو کیا گیا۔ مثلاً かつこう→学校</string>
 <string name="pref_typing_correction_description">‏غلط املاء کا پتا لگائیں اور اصلاح کردہ امیدواروں کو دکھائیں۔ مثلاً すんかい→深海</string>
-<string name="pref_emoji_provider_type_description">‏emoji استعمال کرنے کیلئے Emoji فراہم کنندہ کو ٹھیک سے منتخب کریں۔</string>
 <string name="pref_skin_type_description">Select the keyboard theme to customize the software keyboard look.</string>
 <string name="pref_voice_input_description">Show voice input button on the software keyboard.</string>
 <string name="pref_hardware_keymap_description">ہارڈ ویئر کی بورڈز کیلئے کلید کی نقشہ سازی استعمال کریں۔</string>
@@ -109,7 +98,6 @@
 <string name="pref_clear_symbol_history_description">علامت ان پٹ کی سرگزشت صاف کریں۔</string>
 <string name="pref_clear_user_dictionary_description">صارف کی لغت کو صاف کریں۔</string>
 <string name="pref_other_incognito_mode_description">ذاتی نوعیت کا بنانے، تجاویز اور صارف کی لغت کو عارضی طور پر غیر فعال کریں۔</string>
-<string name="pref_other_usage_stats_description">استعمال کے اعداد و شمار %1$s کو بھیجیں۔ ان کا استعمال صرف %1$s پروڈکٹس اور سروسز کو بہتر بنانے کیلئے کیا جائے گا۔</string>
 <string name="pref_about_oss_credits_description">یہ سافٹ ویئر اوپن سورس سافٹ ویئر استعمال کرتا ہے: لائسنسز دیکھیں۔</string>
 <string name="pref_launcher_icon_visibility_description">ایپلیکیشن آئیکن کو لانچر میں ڈسپلے کریں</string>
 <string name="pref_input_style_setting_entry_toggle">ٹوگل</string>
@@ -117,10 +105,6 @@
 <string name="pref_input_style_setting_entry_toggle_and_flick">ٹوگل اور فِلک</string>
 <string name="pref_fullscreen_portrait">پورٹریٹ پر فعال کریں</string>
 <string name="pref_fullscreen_landscape">لینڈ اسکیپ پر فعال کریں</string>
-<string name="pref_emoji_provider_type_unicode">‏کیریئر Emoji کو غیر فعال کریں</string>
-<string name="pref_emoji_provider_type_docomo">NTT docomo</string>
-<string name="pref_emoji_provider_type_kddi">KDDI (au)‎</string>
-<string name="pref_emoji_provider_type_softbank">SoftBank</string>
 <string name="pref_skin_type_orange_lightgray">نارنجی/ہلکا گرے</string>
 <string name="pref_skin_type_blue_lightgray">نیلا/ہلکا گرے</string>
 <string name="pref_skin_type_blue_darkgray">نیلا/گہرا گرے</string>
@@ -128,7 +112,6 @@
 <string name="pref_skin_type_material_design_dark">مٹیریل ڈیزائن (گہرا)</string>
 <string name="pref_hardware_keymap_default">سسٹم ڈیفالٹ</string>
 <string name="pref_hardware_keymap_japanese109A">‏جاپانی 109A</string>
-<string name="pref_hardware_keymap_twelvekey">12 کلیدیں</string>
 <string name="pref_dictionary_personalization_entry_enabled">فعال کریں</string>
 <string name="pref_dictionary_personalization_entry_readonly">منجمد</string>
 <string name="pref_dictionary_personalization_entry_disabled">غیر فعال کریں</string>
@@ -168,7 +151,6 @@
 <string name="user_dictionary_tool_rename_dictionary_dialog_title">لغت کے نام میں ترمیم کریں</string>
 <string name="user_dictionary_tool_dictionary_name_dialog_dictionary_name_label">لغت کا نام</string>
 <string name="user_dictionary_tool_add_entry_dialog_title">ایک نیا لفظ شامل کریں</string>
-<string name="user_dictionary_tool_edit_entry_dialog_title">ایک لفظ میں ترمیم کریں</string>
 <string name="user_dictionary_tool_word_register_dialog_reading_label">ریڈنگ</string>
 <string name="user_dictionary_tool_word_register_dialog_word_label">لفظ</string>
 <string name="user_dictionary_tool_word_register_dialog_pos_label">زمرہ</string>
@@ -246,6 +228,4 @@
 <string name="japanese_pos_punctuation">رموز اوقاف</string>
 <string name="japanese_pos_free_standing_word">فری اسٹینڈنگ ورڈ</string>
 <string name="japanese_pos_suppression_word">سپریشن ورڈ</string>
-<string name="yes">ہاں</string>
-<string name="no">نہیں</string>
 </resources>
