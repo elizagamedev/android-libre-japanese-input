@@ -37,6 +37,7 @@ import android.graphics.Paint.FontMetrics;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.MotionEvent;
+import android.view.View;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.util.Locale;
@@ -199,7 +200,7 @@ public class FloatingCandidateLayoutRenderer {
   }
 
   /** Handle touch event and invoke some actions. */
-  public void onTouchEvent(MotionEvent event) {
+  public void onTouchEvent(View view, MotionEvent event) {
     if (!candidates.isPresent() || !viewEventListener.isPresent()) {
       return;
     }
@@ -227,7 +228,7 @@ public class FloatingCandidateLayoutRenderer {
     tappingCandidateIndex = Optional.absent();
 
     listener.onConversionCandidateSelected(
-        candidates.get().getCandidate(candidateIndex).getId(), Optional.absent());
+        view, candidates.get().getCandidate(candidateIndex).getId(), Optional.absent());
   }
 
   /** Sets the max width of this window. */

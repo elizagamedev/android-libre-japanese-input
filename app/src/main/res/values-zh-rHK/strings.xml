@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">鍵盤高度</string>
 <string name="pref_input_feedback_category_title">輸入法意見反映偏好設定</string>
 <string name="pref_haptic_feedback_title">觸動意見反映</string>
-<string name="pref_haptic_feedback_duration_title">觸動意見反映持續時間</string>
 <string name="pref_sound_feedback_title">音效檔案意見反映</string>
 <string name="pref_sound_feedback_volume_title">音效檔案意見反映音量</string>
 <string name="pref_popup_feedback_title">彈出式意見反映</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">低</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">中</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">高</string>
-<string name="pref_haptic_feedback_duration_low_text">短</string>
-<string name="pref_haptic_feedback_duration_high_text">長</string>
 <string name="pref_sound_feedback_volume_low_text">最小</string>
 <string name="pref_sound_feedback_volume_middle_text">中</string>
 <string name="pref_sound_feedback_volume_high_text">最大</string>

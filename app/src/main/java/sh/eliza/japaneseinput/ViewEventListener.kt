@@ -28,6 +28,7 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package sh.eliza.japaneseinput
 
+import android.view.View
 import com.google.common.base.Optional
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent
@@ -38,7 +39,7 @@ import sh.eliza.japaneseinput.hardwarekeyboard.HardwareKeyboard.CompositionSwitc
 import sh.eliza.japaneseinput.keyboard.Keyboard.KeyboardSpecification
 import sh.eliza.japaneseinput.model.SymbolMajorCategory
 
-/** Callback object for view evnets. */
+/** Callback object for view events. */
 interface ViewEventListener {
   /**
    * Called when KeyEvent is fired (by soft keyboard)
@@ -52,7 +53,7 @@ interface ViewEventListener {
     mozcKeyEvent: ProtoCommands.KeyEvent?,
     keyEvent: KeyEventInterface?,
     keyboardSpecification: KeyboardSpecification?,
-    touchEventList: List<ProtoCommands.Input.TouchEvent?>?
+    touchEventList: List<ProtoCommands.Input.TouchEvent>
   )
 
   /**
@@ -68,18 +69,19 @@ interface ViewEventListener {
    * @param candidateId the id which Candidate and CandidateWord has.
    * @param rowIndex index of row in which the candidate is. If absent no stats are sent.
    */
-  fun onConversionCandidateSelected(candidateId: Int, rowIndex: Optional<Int>)
+  fun onConversionCandidateSelected(view: View, candidateId: Int, rowIndex: Optional<Int>)
 
   /** Called when page down button is tapped. */
-  fun onPageUp()
+  fun onPageUp(view: View)
 
   /** Called when page down button is tapped. */
-  fun onPageDown()
+  fun onPageDown(view: View)
 
   /** Called when a candidate on symbol input view is selected. */
   fun onSymbolCandidateSelected(
-    majorCategory: SymbolMajorCategory?,
-    candidate: String?,
+    view: View,
+    majorCategory: SymbolMajorCategory,
+    candidate: String,
     updateHistory: Boolean
   )
 
@@ -88,7 +90,7 @@ interface ViewEventListener {
    *
    * @param event the event which makes feedback.
    */
-  fun onFireFeedbackEvent(event: FeedbackEvent?)
+  fun onFireFeedbackEvent(view: View, event: FeedbackEvent)
 
   /** Called when the preedit should be submitted. */
   fun onSubmitPreedit()
@@ -134,7 +136,7 @@ interface ViewEventListener {
    *
    * The visible keyboard will also be updated as the result through a callback object.
    */
-  fun onUpdateKeyboardLayoutAdjustment(layoutAdjustment: LayoutAdjustment?)
+  fun onUpdateKeyboardLayoutAdjustment(layoutAdjustment: LayoutAdjustment)
 
   /** Called when the mushroom selection dialog is shown. */
   fun onShowMushroomSelectionDialog()

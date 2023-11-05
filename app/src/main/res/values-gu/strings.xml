@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">કીબોર્ડ ઊંચાઇ</string>
 <string name="pref_input_feedback_category_title">ઇનપુટ પ્રતિસાદ પસંદગીઓ</string>
 <string name="pref_haptic_feedback_title">હેપ્ટિક્સ પ્રતિસાદ</string>
-<string name="pref_haptic_feedback_duration_title">હેપ્ટિક્સ પ્રતિસાદનો સમયગાળો</string>
 <string name="pref_sound_feedback_title">ઑડિઓ પ્રતિસાદ</string>
 <string name="pref_sound_feedback_volume_title">ઑડિઓ પ્રતિસાદ વૉલ્યુમ</string>
 <string name="pref_popup_feedback_title">પૉપઅપ પ્રતિસાદ</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">નીચું</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">મધ્યમ</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">ઊંચું</string>
-<string name="pref_haptic_feedback_duration_low_text">નાનો</string>
-<string name="pref_haptic_feedback_duration_high_text">લાંબો</string>
 <string name="pref_sound_feedback_volume_low_text">Min</string>
 <string name="pref_sound_feedback_volume_middle_text">મધ્યમ</string>
 <string name="pref_sound_feedback_volume_high_text">Max</string>

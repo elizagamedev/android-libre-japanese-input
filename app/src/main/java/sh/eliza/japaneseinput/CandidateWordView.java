@@ -232,7 +232,8 @@ abstract class CandidateWordView extends View implements MemoryManageable {
         case MotionEvent.ACTION_UP:
           if (pressedCandidate != null) {
             if (candidateRect.contains(scrolledX, scrolledY) && candidateSelectListener != null) {
-              candidateSelectListener.onCandidateSelected(pressedCandidate, pressedRowIndex);
+              candidateSelectListener.onCandidateSelected(
+                  CandidateWordView.this, pressedCandidate, pressedRowIndex);
             }
             reset();
             invalidate();

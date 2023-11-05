@@ -35,7 +35,6 @@ import androidx.preference.Preference
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.PreferenceGroup
 import androidx.preference.PreferenceManager
-import com.google.common.base.Preconditions
 import sh.eliza.japaneseinput.MozcLog
 import sh.eliza.japaneseinput.MozcUtil
 import sh.eliza.japaneseinput.R
@@ -43,7 +42,6 @@ import sh.eliza.japaneseinput.preference.ClientSidePreference.KeyboardLayout
 
 /** Utilities for Mozc preferences. */
 object PreferenceUtil {
-  @JvmStatic
   val defaultPreferenceManagerStatic by lazy {
     // As construction cost of defaultPrereferenceManagerStatic is cheap and it is invariant,
     // no lock mechanism is employed here.
@@ -85,7 +83,6 @@ object PreferenceUtil {
   const val PREF_HARDWARE_KEYMAP = "pref_hardware_keymap"
   const val PREF_VOICE_INPUT_KEY = "pref_voice_input_key"
   const val PREF_HAPTIC_FEEDBACK_KEY = "pref_haptic_feedback_key"
-  const val PREF_HAPTIC_FEEDBACK_DURATION_KEY = "pref_haptic_feedback_duration_key"
   const val PREF_SOUND_FEEDBACK_KEY = "pref_sound_feedback_key"
   const val PREF_SOUND_FEEDBACK_VOLUME_KEY = "pref_sound_feedback_volume_key"
   const val PREF_POPUP_FEEDBACK_KEY = "pref_popup_feedback_key"
@@ -97,7 +94,6 @@ object PreferenceUtil {
   const val PREF_DICTIONARY_PERSONALIZATION_KEY = "pref_dictionary_personalization_key"
   const val PREF_DICTIONARY_USER_DICTIONARY_TOOL_KEY = "pref_dictionary_user_dictionary_tool_key"
   const val PREF_OTHER_INCOGNITO_MODE_KEY = "pref_other_anonimous_mode_key"
-  const val PREF_OTHER_USAGE_STATS_KEY = "pref_other_usage_stats_key"
   const val PREF_ABOUT_VERSION = "pref_about_version"
   const val PREF_LAUNCHER_ICON_VISIBILITY_KEY = "pref_launcher_icon_visibility"
 
@@ -107,12 +103,10 @@ object PreferenceUtil {
   private val CURRENT_KEYBOARD_LAYOUT_PREFERENCE_CHANGE_LISTENER: OnPreferenceChangeListener =
     CurrentKeyboardLayoutPreferenceChangeListener()
 
-  @JvmStatic
   fun isLandscapeKeyboardSettingActive(
     sharedPreferences: SharedPreferences,
     deviceOrientation: Int
   ): Boolean {
-    Preconditions.checkNotNull<SharedPreferences>(sharedPreferences)
     return if (sharedPreferences.getBoolean(
         PREF_USE_PORTRAIT_KEYBOARD_SETTINGS_FOR_LANDSCAPE_KEY,
         true
@@ -131,8 +125,7 @@ object PreferenceUtil {
     initializeSpecialPreferencesInternal(PreferenceManagerInterfaceImpl(preferenceManager))
   }
 
-  @JvmStatic
-  fun initializeSpecialPreferencesInternal(preferenceManager: PreferenceManagerInterface) {
+  private fun initializeSpecialPreferencesInternal(preferenceManager: PreferenceManagerInterface) {
     initializeCurrentKeyboardLayoutPreference(
       preferenceManager.findPreference(PREF_CURRENT_KEYBOARD_LAYOUT_KEY)
     )
@@ -307,7 +300,7 @@ object PreferenceUtil {
       }
 
       // Write back to with the appropriate preference key.
-      val sharedPreferences = preference.getSharedPreferences()!!
+      val sharedPreferences = preference.sharedPreferences!!
       val isLandscapeKeyboardSettingActive =
         isLandscapeKeyboardSettingActive(
           sharedPreferences,

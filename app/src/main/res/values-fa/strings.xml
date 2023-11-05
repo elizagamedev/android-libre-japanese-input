@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">ارتفاع صفحه‌کلید</string>
 <string name="pref_input_feedback_category_title">تنظیمات برگزیده وارد کردن بازخورد</string>
 <string name="pref_haptic_feedback_title">بازخورد لمسی</string>
-<string name="pref_haptic_feedback_duration_title">مدت بازخورد لمسی</string>
 <string name="pref_sound_feedback_title">بازخورد صوتی</string>
 <string name="pref_sound_feedback_volume_title">بلندی صدای بازخورد صوتی</string>
 <string name="pref_popup_feedback_title">بازخورد کشویی</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">کم</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">متوسط</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">زیاد</string>
-<string name="pref_haptic_feedback_duration_low_text">کوتاه</string>
-<string name="pref_haptic_feedback_duration_high_text">طولانی</string>
 <string name="pref_sound_feedback_volume_low_text">حداقل</string>
 <string name="pref_sound_feedback_volume_middle_text">متوسط</string>
 <string name="pref_sound_feedback_volume_high_text">حداکثر</string>

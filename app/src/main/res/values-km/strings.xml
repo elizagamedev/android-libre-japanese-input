@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">កម្ពស់​ក្ដារចុច</string>
 <string name="pref_input_feedback_category_title">ចំណង់​ចំណូល​ចិត្ត​ក្នុង​ការ​បញ្ចូល​មតិ</string>
 <string name="pref_haptic_feedback_title">មតិ​ត្រឡប់​ប៉ះពាល់​អារម្មណ៍</string>
-<string name="pref_haptic_feedback_duration_title">មតិ​រយៈពេល Haptic</string>
 <string name="pref_sound_feedback_title">មតិ​ជា​សំឡេង</string>
 <string name="pref_sound_feedback_volume_title">បរិមាណ​មតិ​ជា​សំឡេង</string>
 <string name="pref_popup_feedback_title">មតិ​លេចឡើង</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">ទាប</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">ពាក់​កណ្តាល</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">ខ្ពស់</string>
-<string name="pref_haptic_feedback_duration_low_text">ខ្លី</string>
-<string name="pref_haptic_feedback_duration_high_text">វែង</string>
 <string name="pref_sound_feedback_volume_low_text">នាទី</string>
 <string name="pref_sound_feedback_volume_middle_text">ពាក់​កណ្តាល</string>
 <string name="pref_sound_feedback_volume_high_text">អតិបរមា</string>

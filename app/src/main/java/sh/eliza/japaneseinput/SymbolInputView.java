@@ -101,7 +101,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
   // TODO(hidehiko): make this class static.
   private class SymbolCandidateSelectListener implements CandidateSelectListener {
     @Override
-    public void onCandidateSelected(CandidateWord candidateWord, Optional<Integer> row) {
+    public void onCandidateSelected(View view, CandidateWord candidateWord, Optional<Integer> row) {
       Preconditions.checkNotNull(candidateWord);
       // When current major category is NUMBER, CandidateView.ConversionCandidateSelectListener
       // should handle candidate selection event.
@@ -111,7 +111,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
         viewEventListener
             .get()
             .onSymbolCandidateSelected(
-                currentMajorCategory, candidateWord.getValue(), !isPasswordField);
+                view, currentMajorCategory, candidateWord.getValue(), !isPasswordField);
       }
     }
   }
@@ -129,7 +129,9 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       if (viewEventListener.isPresent()) {
         viewEventListener
             .get()
-            .onFireFeedbackEvent(FeedbackEvent.SYMBOL_INPUTVIEW_MAJOR_CATEGORY_SELECTED);
+            .onFireFeedbackEvent(
+                majorCategorySelectorButton,
+                FeedbackEvent.SYMBOL_INPUTVIEW_MAJOR_CATEGORY_SELECTED);
       }
 
       setMajorCategory(majorCategory);
@@ -244,7 +246,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       if (feedbackEnabled && viewEventListener.isPresent()) {
         viewEventListener
             .get()
-            .onFireFeedbackEvent(FeedbackEvent.SYMBOL_INPUTVIEW_MINOR_CATEGORY_SELECTED);
+            .onFireFeedbackEvent(viewPager, FeedbackEvent.SYMBOL_INPUTVIEW_MINOR_CATEGORY_SELECTED);
       }
     }
 
@@ -549,12 +551,12 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
             Looper.getMainLooper(),
             new KeyboardActionListener() {
               @Override
-              public void onRelease(int keycode) {}
+              public void onRelease(View view, int keycode) {}
 
               @Override
-              public void onPress(int keycode) {
+              public void onPress(View view, int keycode) {
                 if (viewEventListener.isPresent()) {
-                  viewEventListener.get().onFireFeedbackEvent(FeedbackEvent.KEY_DOWN);
+                  viewEventListener.get().onFireFeedbackEvent(view, FeedbackEvent.KEY_DOWN);
                 }
               }
 

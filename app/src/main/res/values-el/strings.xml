@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Ύψος πληκτρολογίου</string>
 <string name="pref_input_feedback_category_title">Προτιμήσεις εισαγωγής σχολίων</string>
 <string name="pref_haptic_feedback_title">Απτικά σχόλια</string>
-<string name="pref_haptic_feedback_duration_title">Διάρκεια απτικών σχολίων</string>
 <string name="pref_sound_feedback_title">Ηχητικά σχόλια</string>
 <string name="pref_sound_feedback_volume_title">Ένταση ηχητικών σχολίων</string>
 <string name="pref_popup_feedback_title">Αναδυόμενα σχόλια</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Χαμηλό</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Μεσαίο</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Υψηλό</string>
-<string name="pref_haptic_feedback_duration_low_text">Σύντομο</string>
-<string name="pref_haptic_feedback_duration_high_text">Μεγάλο</string>
 <string name="pref_sound_feedback_volume_low_text">Ελάχιστο</string>
 <string name="pref_sound_feedback_volume_middle_text">Μεσαίο</string>
 <string name="pref_sound_feedback_volume_high_text">Μέγιστο</string>

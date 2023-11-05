@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">কীবোর্ডের উচ্চতা</string>
 <string name="pref_input_feedback_category_title">প্রতিক্রিয়া জানানোর পছন্দগুলি</string>
 <string name="pref_haptic_feedback_title">হ্যাপটিক প্রতিক্রিয়া</string>
-<string name="pref_haptic_feedback_duration_title">হ্যাপটিক প্রতিক্রিয়ার সময়কাল</string>
 <string name="pref_sound_feedback_title">অডিও প্রতিক্রিয়া</string>
 <string name="pref_sound_feedback_volume_title">অডিও প্রতিক্রিয়ার ভলিউম</string>
 <string name="pref_popup_feedback_title">পপআপ প্রতিক্রিয়া</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">কম</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">মাঝারি</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">বেশি</string>
-<string name="pref_haptic_feedback_duration_low_text">সংক্ষিপ্ত</string>
-<string name="pref_haptic_feedback_duration_high_text">দীর্ঘ</string>
 <string name="pref_sound_feedback_volume_low_text">সর্বনিম্ন</string>
 <string name="pref_sound_feedback_volume_middle_text">মাঝারি</string>
 <string name="pref_sound_feedback_volume_high_text">সর্বোচ্চ</string>

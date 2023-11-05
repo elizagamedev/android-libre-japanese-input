@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">​ຄວາມ​ສູງ​ແປ້ນ​ພິມ</string>
 <string name="pref_input_feedback_category_title">​ການ​ຕັ້ງ​ຄ່າ​​ຕອບ​ສະ​ໜອງ​ການ​ປ້ອນ​ຂໍ້​ມູນ</string>
 <string name="pref_haptic_feedback_title">​ການ​ຕອບ​ສະ​​ໜອງ​ຕໍ່​ສຳ​ຜັດ</string>
-<string name="pref_haptic_feedback_duration_title">​ໄລ​ຍະ​ເວ​ລາ​ການ​ຕອບ​ສະ​ໜອງຕໍ່​ສຳ​ຜັດ</string>
 <string name="pref_sound_feedback_title">​ການ​ຕອບ​ສະ​ໜອງ​ສຽງ</string>
 <string name="pref_sound_feedback_volume_title">​ລະ​ດັບ​ການ​ຕອບ​ສະ​ໜອງ​ສຽງ</string>
 <string name="pref_popup_feedback_title">​ການ​ຕອບ​ສະ​ໜອງ​ປັອບ​ອັບ</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">​ຕ່ຳ</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">​ປານ​ກາງ</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">​ສູງ</string>
-<string name="pref_haptic_feedback_duration_low_text">​ສັ້ນ</string>
-<string name="pref_haptic_feedback_duration_high_text">ຍາວ</string>
 <string name="pref_sound_feedback_volume_low_text">​ນ້ອຍ</string>
 <string name="pref_sound_feedback_volume_middle_text">​ປານ​ກາງ</string>
 <string name="pref_sound_feedback_volume_high_text">​ສູງ​ສຸດ</string>

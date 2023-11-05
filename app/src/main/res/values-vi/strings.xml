@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Chiều cao bàn phím</string>
 <string name="pref_input_feedback_category_title">Nhập tùy chọn phản hồi</string>
 <string name="pref_haptic_feedback_title">Phản hồi xúc giác</string>
-<string name="pref_haptic_feedback_duration_title">Thời gian phản hồi xúc giác</string>
 <string name="pref_sound_feedback_title">Phản hồi âm thanh</string>
 <string name="pref_sound_feedback_volume_title">Âm lượng phản hồi âm thanh</string>
 <string name="pref_popup_feedback_title">Phản hồi bật lên</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Thấp</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Trung bình</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Cao</string>
-<string name="pref_haptic_feedback_duration_low_text">Ngắn</string>
-<string name="pref_haptic_feedback_duration_high_text">Dài</string>
 <string name="pref_sound_feedback_volume_low_text">Tối thiểu</string>
 <string name="pref_sound_feedback_volume_middle_text">Trung bình</string>
 <string name="pref_sound_feedback_volume_high_text">Tối đa</string>

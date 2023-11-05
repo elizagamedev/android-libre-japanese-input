@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">የቁልፍ ሰሌዳ ቁመት</string>
 <string name="pref_input_feedback_category_title">የግቤት ግብረመልስ ምርጫዎች</string>
 <string name="pref_haptic_feedback_title">ሃፕቲክ ግብረመልስ</string>
-<string name="pref_haptic_feedback_duration_title">ሃፕቲክ ግብረመልስ የሚፈጀው ጊዜ</string>
 <string name="pref_sound_feedback_title">የድምጽ ግብረመልስ</string>
 <string name="pref_sound_feedback_volume_title">የድምጽ ግብረመልስ የድምጽ መጠን</string>
 <string name="pref_popup_feedback_title">ብቅ ባይ ግብረመልስ</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">ዝቅተኛ</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">መካከለኛ</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">ከፍተኛ</string>
-<string name="pref_haptic_feedback_duration_low_text">አጭር</string>
-<string name="pref_haptic_feedback_duration_high_text">ረጅም</string>
 <string name="pref_sound_feedback_volume_low_text">ደቂቃ</string>
 <string name="pref_sound_feedback_volume_middle_text">መካከለኛ</string>
 <string name="pref_sound_feedback_volume_high_text">ከፍተኛ</string>

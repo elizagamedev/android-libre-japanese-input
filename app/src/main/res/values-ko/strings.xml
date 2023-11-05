@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">키보드 높이</string>
 <string name="pref_input_feedback_category_title">입력 피드백 환경설정</string>
 <string name="pref_haptic_feedback_title">햅틱 반응</string>
-<string name="pref_haptic_feedback_duration_title">햅틱 반응 기간</string>
 <string name="pref_sound_feedback_title">오디오 피드백</string>
 <string name="pref_sound_feedback_volume_title">오디오 피드백 볼륨</string>
 <string name="pref_popup_feedback_title">팝업 피드백</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">낮음</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">중간</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">높음</string>
-<string name="pref_haptic_feedback_duration_low_text">짧음</string>
-<string name="pref_haptic_feedback_duration_high_text">긺</string>
 <string name="pref_sound_feedback_volume_low_text">최소</string>
 <string name="pref_sound_feedback_volume_middle_text">중간</string>
 <string name="pref_sound_feedback_volume_high_text">최대</string>

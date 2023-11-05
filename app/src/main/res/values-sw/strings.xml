@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Urefu wa kibodi</string>
 <string name="pref_input_feedback_category_title">Mapendeleo ya kuingiza maoni</string>
 <string name="pref_haptic_feedback_title">Majibu unayoweza kuhisi</string>
-<string name="pref_haptic_feedback_duration_title">Muda wa majibu unayoweza kuhisi</string>
 <string name="pref_sound_feedback_title">Majibu kwa sauti</string>
 <string name="pref_sound_feedback_volume_title">Kiwango cha sauti ya majibu kwa sauti</string>
 <string name="pref_popup_feedback_title">Majibu kwa dirisha ibukizi</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Chini</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Kati</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Juu</string>
-<string name="pref_haptic_feedback_duration_low_text">Fupi</string>
-<string name="pref_haptic_feedback_duration_high_text">Ndefu</string>
 <string name="pref_sound_feedback_volume_low_text">Dakika</string>
 <string name="pref_sound_feedback_volume_middle_text">Kati</string>
 <string name="pref_sound_feedback_volume_high_text">Upeo</string>

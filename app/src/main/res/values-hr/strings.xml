@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Visina tipkovnice</string>
 <string name="pref_input_feedback_category_title">Postavke povratnih informacija unosa</string>
 <string name="pref_haptic_feedback_title">Dodirna povratna informacija</string>
-<string name="pref_haptic_feedback_duration_title">Trajanje dodirne povratne informacije</string>
 <string name="pref_sound_feedback_title">Zvučne povratne informacije</string>
 <string name="pref_sound_feedback_volume_title">Glasnoća zvučnih povratnih informacija</string>
 <string name="pref_popup_feedback_title">Povratne informacije u skočnom prozoru</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Niska</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Srednja</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Visoka</string>
-<string name="pref_haptic_feedback_duration_low_text">Kratko</string>
-<string name="pref_haptic_feedback_duration_high_text">Dugo</string>
 <string name="pref_sound_feedback_volume_low_text">Min.</string>
 <string name="pref_sound_feedback_volume_middle_text">Srednja</string>
 <string name="pref_sound_feedback_volume_high_text">Maks.</string>

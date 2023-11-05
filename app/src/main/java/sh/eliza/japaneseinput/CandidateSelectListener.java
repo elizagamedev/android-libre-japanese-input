@@ -29,6 +29,7 @@
 
 package sh.eliza.japaneseinput;
 
+import android.view.View;
 import com.google.common.base.Optional;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates.CandidateWord;
 
@@ -41,5 +42,5 @@ public interface CandidateSelectListener {
    * @param candidateWord selected word
    * @param rowIndex index of row in which the selected word is. If absent no stats are sent.
    */
-  void onCandidateSelected(CandidateWord candidateWord, Optional<Integer> rowIndex);
+  void onCandidateSelected(View view, CandidateWord candidateWord, Optional<Integer> rowIndex);
 }

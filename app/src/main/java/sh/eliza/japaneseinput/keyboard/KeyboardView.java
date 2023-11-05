@@ -319,7 +319,7 @@ public class KeyboardView extends View implements MemoryManageable {
                 ? Arrays.asList(relativeTouchEvent.get(), keyEventContext.getTouchEvent().orNull())
                 : Collections.singletonList(keyEventContext.getTouchEvent().orNull());
         keyEventHandler.get().sendKey(keyCode, touchEventList);
-        keyEventHandler.get().sendRelease(pressedKeyCode);
+        keyEventHandler.get().sendRelease(this, pressedKeyCode);
       }
     }
   }
@@ -492,7 +492,7 @@ public class KeyboardView extends View implements MemoryManageable {
       }
       keyEventHandler.get().maybeStartDelayedKeyEvent(keyEventContext);
       // Finally we send a notification to listeners.
-      keyEventHandler.get().sendPress(keyEventContext.getPressedKeyCode());
+      keyEventHandler.get().sendPress(this, keyEventContext.getPressedKeyCode());
     }
   }
 
@@ -526,7 +526,7 @@ public class KeyboardView extends View implements MemoryManageable {
             .get()
             .sendKey(keyCode, Collections.singletonList(keyEventContext.getTouchEvent().orNull()));
       }
-      keyEventHandler.get().sendRelease(pressedKeyCode);
+      keyEventHandler.get().sendRelease(this, pressedKeyCode);
     }
 
     if (keyEventContext.isMetaStateToggleEvent()) {

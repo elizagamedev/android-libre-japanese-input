@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Ketinggian papan kekunci</string>
 <string name="pref_input_feedback_category_title">Keutamaan maklum balas input</string>
 <string name="pref_haptic_feedback_title">Maklum balas haptik</string>
-<string name="pref_haptic_feedback_duration_title">Tempoh maklum balas haptik</string>
 <string name="pref_sound_feedback_title">Maklum balas audio</string>
 <string name="pref_sound_feedback_volume_title">Kelantangan maklum balas audio</string>
 <string name="pref_popup_feedback_title">Maklum balas timbul</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Rendah</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Tengah</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Tinggi</string>
-<string name="pref_haptic_feedback_duration_low_text">Pendek</string>
-<string name="pref_haptic_feedback_duration_high_text">Lama</string>
 <string name="pref_sound_feedback_volume_low_text">Min</string>
 <string name="pref_sound_feedback_volume_middle_text">Sederhana</string>
 <string name="pref_sound_feedback_volume_high_text">Maks</string>

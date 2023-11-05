@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">कीबोर्ड ऊंचाई</string>
 <string name="pref_input_feedback_category_title">इनपुट फ़ीडबैक प्राथमिकताएं</string>
 <string name="pref_haptic_feedback_title">हैप्टिक फ़ीडबैक</string>
-<string name="pref_haptic_feedback_duration_title">हैप्टिक फ़ीडबैक अवधि</string>
 <string name="pref_sound_feedback_title">ऑडियो फ़़ीडबैक</string>
 <string name="pref_sound_feedback_volume_title">ऑडियो फ़़ीडबैक का वॉल्यूम</string>
 <string name="pref_popup_feedback_title">पॉपअप फ़ीडबैक</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">निम्न</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">मध्य</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">उच्च</string>
-<string name="pref_haptic_feedback_duration_low_text">छोटा</string>
-<string name="pref_haptic_feedback_duration_high_text">लंबा</string>
 <string name="pref_sound_feedback_volume_low_text">न्यूनतम</string>
 <string name="pref_sound_feedback_volume_middle_text">मध्य</string>
 <string name="pref_sound_feedback_volume_high_text">अधिकतम</string>

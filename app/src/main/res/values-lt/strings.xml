@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Klaviatūros aukštis</string>
 <string name="pref_input_feedback_category_title">Įvesties grįžtamojo ryšio nuostatos</string>
 <string name="pref_haptic_feedback_title">Grįžtamasis ryšys apie lytėjimą</string>
-<string name="pref_haptic_feedback_duration_title">Lytėjimo grįžtamojo ryšio trukmė</string>
 <string name="pref_sound_feedback_title">Garso grįžtamasis ryšys</string>
 <string name="pref_sound_feedback_volume_title">Garso grįžtamojo ryšio apimtis</string>
 <string name="pref_popup_feedback_title">Iššokantysis grįžtamasis ryšys</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Žemas</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Vid.</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Aukštas</string>
-<string name="pref_haptic_feedback_duration_low_text">Trumpas</string>
-<string name="pref_haptic_feedback_duration_high_text">Ilgas</string>
 <string name="pref_sound_feedback_volume_low_text">Min.</string>
 <string name="pref_sound_feedback_volume_middle_text">Vid.</string>
 <string name="pref_sound_feedback_volume_high_text">Maks.</string>

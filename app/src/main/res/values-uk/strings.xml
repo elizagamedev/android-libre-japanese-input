@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Висота клавіатури</string>
 <string name="pref_input_feedback_category_title">Параметри реакції під час введення</string>
 <string name="pref_haptic_feedback_title">Тактильна реакція</string>
-<string name="pref_haptic_feedback_duration_title">Тривалість тактильної реакції</string>
 <string name="pref_sound_feedback_title">Звукові підказки</string>
 <string name="pref_sound_feedback_volume_title">Гучність звукових підказок</string>
 <string name="pref_popup_feedback_title">Спливаючі підказки</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Низька</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Середня</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Висока</string>
-<string name="pref_haptic_feedback_duration_low_text">Коротка</string>
-<string name="pref_haptic_feedback_duration_high_text">Довга</string>
 <string name="pref_sound_feedback_volume_low_text">Мінімальна</string>
 <string name="pref_sound_feedback_volume_middle_text">Середня</string>
 <string name="pref_sound_feedback_volume_high_text">Максимальна</string>

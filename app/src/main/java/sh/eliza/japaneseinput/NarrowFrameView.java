@@ -136,7 +136,7 @@ public class NarrowFrameView extends LinearLayout {
               @Override
               public void onClick(View v) {
                 viewEventListener.onFireFeedbackEvent(
-                    FeedbackEvent.NARROW_FRAME_HARDWARE_COMPOSITION_BUTTON_DOWN);
+                    v, FeedbackEvent.NARROW_FRAME_HARDWARE_COMPOSITION_BUTTON_DOWN);
                 viewEventListener.onHardwareKeyboardCompositionModeChange(
                     CompositionSwitchMode.TOGGLE);
               }

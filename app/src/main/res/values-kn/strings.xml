@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">ಕೀಬೋರ್ಡ್ ಎತ್ತರ</string>
 <string name="pref_input_feedback_category_title">ಇನ್‌ಪುಟ್‌ ಪ್ರತಿಕ್ರಿಯೆ ಪ್ರಾಶಸ್ತ್ಯಗಳು</string>
 <string name="pref_haptic_feedback_title">ಸ್ಪರ್ಶ ಪ್ರತಿಕ್ರಿಯೆ</string>
-<string name="pref_haptic_feedback_duration_title">ಸ್ಪರ್ಶ ಪ್ರತಿಕ್ರಿಯೆ ಅವಧಿ</string>
 <string name="pref_sound_feedback_title">ಆಡಿಯೋ ಪ್ರತಿಕ್ರಿಯೆ</string>
 <string name="pref_sound_feedback_volume_title">ಆಡಿಯೋ ಪ್ರತಿಕ್ರಿಯೆ ವಾಲ್ಯೂಮ್‌</string>
 <string name="pref_popup_feedback_title">ಪಾಪ್ಅಪ್ ಪ್ರತಿಕ್ರಿಯೆ</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">ಕಡಿಮೆ</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">ಮಧ್ಯ</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">ಹೆಚ್ಚು</string>
-<string name="pref_haptic_feedback_duration_low_text">ಚಿಕ್ಕದು</string>
-<string name="pref_haptic_feedback_duration_high_text">ದೀರ್ಘ</string>
 <string name="pref_sound_feedback_volume_low_text">ಕನಿಷ್ಟ</string>
 <string name="pref_sound_feedback_volume_middle_text">ಮಧ್ಯ</string>
 <string name="pref_sound_feedback_volume_high_text">ಗರಿ</string>

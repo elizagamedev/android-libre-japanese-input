@@ -64,9 +64,10 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
     }
 
     @Override
-    public void onCandidateSelected(CandidateWord candidateWord, Optional<Integer> rowIndex) {
+    public void onCandidateSelected(
+        View view, CandidateWord candidateWord, Optional<Integer> rowIndex) {
       viewEventListener.onConversionCandidateSelected(
-          candidateWord.getId(), Preconditions.checkNotNull(rowIndex));
+          view, candidateWord.getId(), Preconditions.checkNotNull(rowIndex));
     }
   }
 

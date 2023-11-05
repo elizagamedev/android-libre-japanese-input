@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Гарын өндөр</string>
 <string name="pref_input_feedback_category_title">Хариу үйлдлийн тохиргоо</string>
 <string name="pref_haptic_feedback_title">Мэдрэгдэх хариу</string>
-<string name="pref_haptic_feedback_duration_title">Мэдрэгдэх хариу үйлдлийн үргэлжлэх хугацаа</string>
 <string name="pref_sound_feedback_title">Аудио хариу үйлдэл</string>
 <string name="pref_sound_feedback_volume_title">Аудио хариу үйлдлийн дууны хэмжээ</string>
 <string name="pref_popup_feedback_title">Попап хариу үйлдэл</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Бага</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Дунд</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Өндөр</string>
-<string name="pref_haptic_feedback_duration_low_text">Богино</string>
-<string name="pref_haptic_feedback_duration_high_text">Урт</string>
 <string name="pref_sound_feedback_volume_low_text">Багадаа</string>
 <string name="pref_sound_feedback_volume_middle_text">Дундаж</string>
 <string name="pref_sound_feedback_volume_high_text">Ихдээ</string>

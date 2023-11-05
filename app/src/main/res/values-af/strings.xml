@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Sleutelbordhoogte</string>
 <string name="pref_input_feedback_category_title">Invoerterugvoervoorkeure</string>
 <string name="pref_haptic_feedback_title">Fisiese terugvoer</string>
-<string name="pref_haptic_feedback_duration_title">Duur van fisiese terugvoer</string>
 <string name="pref_sound_feedback_title">Oudioterugvoer</string>
 <string name="pref_sound_feedback_volume_title">Volume van oudioterugvoer</string>
 <string name="pref_popup_feedback_title">Opspringterugvoer</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Laag</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Middel</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Hoog</string>
-<string name="pref_haptic_feedback_duration_low_text">Kort</string>
-<string name="pref_haptic_feedback_duration_high_text">Lank</string>
 <string name="pref_sound_feedback_volume_low_text">Minimum</string>
 <string name="pref_sound_feedback_volume_middle_text">Middel</string>
 <string name="pref_sound_feedback_volume_high_text">Maksimum</string>

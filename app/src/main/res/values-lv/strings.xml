@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Tastatūras augstums</string>
 <string name="pref_input_feedback_category_title">Ievades reakcijas preferences</string>
 <string name="pref_haptic_feedback_title">Vibrācija</string>
-<string name="pref_haptic_feedback_duration_title">Vibrācijas ilgums</string>
 <string name="pref_sound_feedback_title">Audio atbilde</string>
 <string name="pref_sound_feedback_volume_title">Audio atbildes skaļums</string>
 <string name="pref_popup_feedback_title">Uznirstošās atbildes</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Zems</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Vidējs</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Augsts</string>
-<string name="pref_haptic_feedback_duration_low_text">Īsa</string>
-<string name="pref_haptic_feedback_duration_high_text">Ilga</string>
 <string name="pref_sound_feedback_volume_low_text">Min.</string>
 <string name="pref_sound_feedback_volume_middle_text">Vidēja</string>
 <string name="pref_sound_feedback_volume_high_text">Maks.</string>

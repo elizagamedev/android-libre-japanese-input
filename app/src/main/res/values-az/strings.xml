@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Klaviatura hündürlüyü</string>
 <string name="pref_input_feedback_category_title">Daxiletmə geri əlaqə tərcihləri</string>
 <string name="pref_haptic_feedback_title">Taktil geri əlaqə</string>
-<string name="pref_haptic_feedback_duration_title">Taktil geri əlaqə müddəti</string>
 <string name="pref_sound_feedback_title">Audio geri əlaqə</string>
 <string name="pref_sound_feedback_volume_title">Audio geri əlaqə həcmi</string>
 <string name="pref_popup_feedback_title">Popup geri əlaqə</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Aşağı</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Orta</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Yüksək</string>
-<string name="pref_haptic_feedback_duration_low_text">Qısa</string>
-<string name="pref_haptic_feedback_duration_high_text">Uzun</string>
 <string name="pref_sound_feedback_volume_low_text">Min</string>
 <string name="pref_sound_feedback_volume_middle_text">Orta</string>
 <string name="pref_sound_feedback_volume_high_text">Maks</string>

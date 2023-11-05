@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">[Ķéýбöåŕð ĥéîĝĥţ one two]</string>
 <string name="pref_input_feedback_category_title">[Îñþûţ ƒééðбåçķ þŕéƒéŕéñçéš one two three]</string>
 <string name="pref_haptic_feedback_title">[Ĥåþţîç ƒééðбåçķ one two]</string>
-<string name="pref_haptic_feedback_duration_title">[Ĥåþţîç ƒééðбåçķ ðûŕåţîöñ one two three]</string>
 <string name="pref_sound_feedback_title">[Åûðîö ƒééðбåçķ one two]</string>
 <string name="pref_sound_feedback_volume_title">[Åûðîö ƒééðбåçķ vöļûmé one two three]</string>
 <string name="pref_popup_feedback_title">[Þöþûþ ƒééðбåçķ one two]</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">[Ļöŵ one]</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">[Mîð one]</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">[Ĥîĝĥ one]</string>
-<string name="pref_haptic_feedback_duration_low_text">[Šĥöŕţ one]</string>
-<string name="pref_haptic_feedback_duration_high_text">[Ļöñĝ one]</string>
 <string name="pref_sound_feedback_volume_low_text">[Mîñ one]</string>
 <string name="pref_sound_feedback_volume_middle_text">[Mîð one]</string>
 <string name="pref_sound_feedback_volume_high_text">[Måx one]</string>

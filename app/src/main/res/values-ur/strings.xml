@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">کی بورڈ کی اونچائی</string>
 <string name="pref_input_feedback_category_title">ان پٹ تاثرات کی ترجیحات</string>
 <string name="pref_haptic_feedback_title">تاثرات بذریعہ تھپتھپاہٹ</string>
-<string name="pref_haptic_feedback_duration_title">تاثرات بذریعہ تھپتھپاہٹ کا دورانیہ</string>
 <string name="pref_sound_feedback_title">آڈیو تاثرات</string>
 <string name="pref_sound_feedback_volume_title">آڈیو تاثرات کا والیوم</string>
 <string name="pref_popup_feedback_title">پاپ اپ تاثرات</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">کم</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">وسطی</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">زیادہ</string>
-<string name="pref_haptic_feedback_duration_low_text">مختصر</string>
-<string name="pref_haptic_feedback_duration_high_text">طویل</string>
 <string name="pref_sound_feedback_volume_low_text">کم از کم</string>
 <string name="pref_sound_feedback_volume_middle_text">وسطی</string>
 <string name="pref_sound_feedback_volume_high_text">زیادہ سے زیادہ</string>

@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Billentyűzetmagasság</string>
 <string name="pref_input_feedback_category_title">Beviteli visszajelzés beállításai</string>
 <string name="pref_haptic_feedback_title">Rezgő visszajelzés</string>
-<string name="pref_haptic_feedback_duration_title">Rezgő visszajelzés időtartama</string>
 <string name="pref_sound_feedback_title">Hangos visszajelzés</string>
 <string name="pref_sound_feedback_volume_title">Hangos visszajelzés hangereje</string>
 <string name="pref_popup_feedback_title">Felugró visszajelzés</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Alacsony</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Közepes</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Magas</string>
-<string name="pref_haptic_feedback_duration_low_text">Rövid</string>
-<string name="pref_haptic_feedback_duration_high_text">Hosszú</string>
 <string name="pref_sound_feedback_volume_low_text">Minimum</string>
 <string name="pref_sound_feedback_volume_middle_text">Közepes</string>
 <string name="pref_sound_feedback_volume_high_text">Maximum</string>

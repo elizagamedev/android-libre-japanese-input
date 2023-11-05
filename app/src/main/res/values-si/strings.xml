@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">යතුරු පුවරුව උස</string>
 <string name="pref_input_feedback_category_title">ආදාන ප්‍රතිපෝෂණ මනාප</string>
 <string name="pref_haptic_feedback_title">ස්පෘශ්‍ය ප්‍රතිපෝෂණය</string>
-<string name="pref_haptic_feedback_duration_title">ස්පෘශ්‍ය ප්‍රතිපෝෂණ කාලය</string>
 <string name="pref_sound_feedback_title">ශ්‍රව්‍ය ප්‍රතිපෝෂණ</string>
 <string name="pref_sound_feedback_volume_title">ශ්‍රව්‍ය ප්‍රතිපෝෂණ හඬ පරිමාව</string>
 <string name="pref_popup_feedback_title">උත්පතන ප්‍රතිපෝෂණ</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">පහළ</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">මධ්‍යම</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">ඉහළ</string>
-<string name="pref_haptic_feedback_duration_low_text">කොට</string>
-<string name="pref_haptic_feedback_duration_high_text">දීර්ඝ</string>
 <string name="pref_sound_feedback_volume_low_text">අවම</string>
 <string name="pref_sound_feedback_volume_middle_text">මධ්‍යම</string>
 <string name="pref_sound_feedback_volume_high_text">උපරිම</string>

@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Висина тастатуре</string>
 <string name="pref_input_feedback_category_title">Подешавања повратних информација при уносу</string>
 <string name="pref_haptic_feedback_title">Додирне повратне информације</string>
-<string name="pref_haptic_feedback_duration_title">Трајање додирних повратних информација</string>
 <string name="pref_sound_feedback_title">Звучне повратне информације</string>
 <string name="pref_sound_feedback_volume_title">Јачина звучних повратних информација</string>
 <string name="pref_popup_feedback_title">Искачуће повратне информације</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Мала</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Средња</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Велика</string>
-<string name="pref_haptic_feedback_duration_low_text">Кратко</string>
-<string name="pref_haptic_feedback_duration_high_text">Дугачко</string>
 <string name="pref_sound_feedback_volume_low_text">Минимална</string>
 <string name="pref_sound_feedback_volume_middle_text">Средња</string>
 <string name="pref_sound_feedback_volume_high_text">Максимална</string>

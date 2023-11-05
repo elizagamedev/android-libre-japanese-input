@@ -41,6 +41,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.Window
+import android.view.inputmethod.CursorAnchorInfo
 import android.view.inputmethod.EditorInfo
 import com.google.common.base.Optional
 import com.google.common.base.Preconditions
@@ -70,7 +71,6 @@ import sh.eliza.japaneseinput.preference.ClientSidePreference.InputStyle
 import sh.eliza.japaneseinput.preference.ClientSidePreference.KeyboardLayout
 import sh.eliza.japaneseinput.ui.MenuDialog
 import sh.eliza.japaneseinput.ui.MenuDialog.MenuDialogListener
-import sh.eliza.japaneseinput.util.CursorAnchorInfoWrapper
 import sh.eliza.japaneseinput.util.ImeSwitcherFactory.ImeSwitcher
 import sh.eliza.japaneseinput.view.Skin
 
@@ -81,7 +81,7 @@ private const val NEXUS_KEYBOARD_PRODUCT_ID = 0x160B
 class ViewManager
 private constructor(
   context: Context,
-  listener: ViewEventListener?,
+  listener: ViewEventListener,
   symbolHistoryStorage: SymbolHistoryStorage?,
   imeSwitcher: ImeSwitcher,
   menuDialogListener: MenuDialogListener?,
@@ -89,12 +89,16 @@ private constructor(
   hardwareKeyboard: HardwareKeyboard
 ) : ViewManagerInterface {
   /** An small wrapper to inject keyboard view resizing when a user selects a candidate. */
-  internal inner class ViewManagerEventListener(delegated: ViewEventListener?) :
+  internal inner class ViewManagerEventListener(delegated: ViewEventListener) :
     ViewEventDelegator(delegated) {
-    override fun onConversionCandidateSelected(candidateId: Int, rowIndex: Optional<Int>) {
+    override fun onConversionCandidateSelected(
+      view: View,
+      candidateId: Int,
+      rowIndex: Optional<Int>
+    ) {
       // Restore the keyboard frame if hidden.
       mozcView?.resetKeyboardFrameVisibility()
-      super.onConversionCandidateSelected(candidateId, rowIndex)
+      super.onConversionCandidateSelected(view, candidateId, rowIndex)
     }
   }
 
@@ -168,13 +172,22 @@ private constructor(
       this@ViewManager.onKey(primaryCode, touchEventList)
     }
 
-    override fun onPress(primaryCode: Int) {
-      if (primaryCode != KeyEntity.INVALID_KEY_CODE) {
-        eventListener.onFireFeedbackEvent(FeedbackEvent.KEY_DOWN)
-      }
+    override fun onPress(view: View, primaryCode: Int) {
+      when (primaryCode) {
+        KeyEntity.INVALID_KEY_CODE -> null
+        keycodeBackspace -> FeedbackEvent.KEY_DELETE_DOWN
+        keycodeEnter -> FeedbackEvent.KEY_RETURN_DOWN
+        keycodeSpace -> FeedbackEvent.KEY_SPACEBAR_DOWN
+        else ->
+          if (specialKeys.contains(primaryCode)) {
+            FeedbackEvent.KEY_SPECIAL_DOWN
+          } else {
+            FeedbackEvent.KEY_DOWN
+          }
+      }?.let { eventListener.onFireFeedbackEvent(view, it) }
     }
 
-    override fun onRelease(primaryCode: Int) {}
+    override fun onRelease(view: View, primaryCode: Int) {}
   }
 
   private inner class ViewLayerEventHandler {
@@ -364,6 +377,10 @@ private constructor(
   private val keycodeAlt: Int
   private val keycodeMenuDialog: Int
   private val keycodeImePickerDialog: Int
+  private val keycodeBackspace: Int
+  private val keycodeEnter: Int
+  private val keycodeSpace: Int
+  private val specialKeys: Set<Int>
 
   /** Handles software keyboard event and sends it to the service. */
   private val keyboardActionListener: KeyboardActionAdapter
@@ -371,10 +388,10 @@ private constructor(
 
   constructor(
     context: Context,
-    listener: ViewEventListener?,
+    listener: ViewEventListener,
     symbolHistoryStorage: SymbolHistoryStorage?,
     imeSwitcher: ImeSwitcher,
-    menuDialogListener: MenuDialogListener?
+    menuDialogListener: MenuDialogListener
   ) : this(
     context,
     listener,
@@ -386,10 +403,6 @@ private constructor(
   )
 
   init {
-    Preconditions.checkNotNull(context)
-    Preconditions.checkNotNull(listener)
-    Preconditions.checkNotNull(imeSwitcher)
-    Preconditions.checkNotNull(hardwareKeyboard)
     primaryKeyCodeConverter = PrimaryKeyCodeConverter(context, guesser)
     symbolNumberSoftwareKeyboardModel.keyboardMode = KeyboardMode.SYMBOL_NUMBER
 
@@ -406,6 +419,23 @@ private constructor(
     keycodeAlt = res.getInteger(R.integer.key_alt)
     keycodeMenuDialog = res.getInteger(R.integer.key_menu_dialog)
     keycodeImePickerDialog = res.getInteger(R.integer.key_ime_picker_dialog)
+    keycodeBackspace = res.getInteger(R.integer.key_backspace)
+    keycodeEnter = res.getInteger(R.integer.key_enter)
+    keycodeSpace = res.getInteger(R.integer.uchar_space)
+    specialKeys =
+      setOf(
+        res.getInteger(R.integer.key_up),
+        res.getInteger(R.integer.key_down),
+        res.getInteger(R.integer.key_left),
+        res.getInteger(R.integer.key_right),
+        keycodeChartypeToKana,
+        keycodeChartypeToAbc,
+        keycodeChartypeToAbc123,
+        keycodeGlobe,
+        keycodeSymbol,
+        keycodeSymbolEmoji,
+        keycodeUndo,
+      )
 
     // Inject some logics into the listener.
     eventListener = ViewManagerEventListener(listener)
@@ -451,7 +481,7 @@ private constructor(
         setCursorAnchorInfoEnabled(cursorAnchroInfoEnabled)
         val widenButtonClickListener =
           View.OnClickListener {
-            eventListener.onFireFeedbackEvent(FeedbackEvent.NARROW_FRAME_WIDEN_BUTTON_DOWN)
+            eventListener.onFireFeedbackEvent(it, FeedbackEvent.NARROW_FRAME_WIDEN_BUTTON_DOWN)
             setNarrowMode()
           }
         val leftAdjustButtonClickListener =
@@ -464,7 +494,7 @@ private constructor(
           }
         val microphoneButtonClickListener =
           View.OnClickListener {
-            eventListener.onFireFeedbackEvent(FeedbackEvent.MICROPHONE_BUTTON_DOWN)
+            eventListener.onFireFeedbackEvent(it, FeedbackEvent.MICROPHONE_BUTTON_DOWN)
             imeSwitcher.switchToVoiceIme("ja-jp")
           }
         setEventListener(
@@ -970,7 +1000,7 @@ private constructor(
     mozcView?.onStartInputView(editorInfo)
   }
 
-  override fun setCursorAnchorInfo(cursorAnchorInfo: CursorAnchorInfoWrapper) {
+  override fun setCursorAnchorInfo(cursorAnchorInfo: CursorAnchorInfo) {
     mozcView?.setCursorAnchorInfo(cursorAnchorInfo)
   }
 

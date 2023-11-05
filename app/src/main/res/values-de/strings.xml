@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Tastaturhöhe</string>
 <string name="pref_input_feedback_category_title">Einstellungen für Eingabefeedback</string>
 <string name="pref_haptic_feedback_title">Haptisches Feedback</string>
-<string name="pref_haptic_feedback_duration_title">Dauer des haptischen Feedbacks</string>
 <string name="pref_sound_feedback_title">Audiofeedback</string>
 <string name="pref_sound_feedback_volume_title">Lautstärke des Audiofeedbacks</string>
 <string name="pref_popup_feedback_title">Pop-up-Feedback</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Niedrig</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Mittel</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Hoch</string>
-<string name="pref_haptic_feedback_duration_low_text">Kurz</string>
-<string name="pref_haptic_feedback_duration_high_text">Lang</string>
 <string name="pref_sound_feedback_volume_low_text">Min.</string>
 <string name="pref_sound_feedback_volume_middle_text">Mittel</string>
 <string name="pref_sound_feedback_volume_high_text">Max.</string>

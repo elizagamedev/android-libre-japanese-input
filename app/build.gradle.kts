@@ -139,6 +139,15 @@ tasks.preBuild {
   dependsOn("generateSymbolData")
 }
 
+tasks {
+  withType<JavaCompile> {
+    options.compilerArgs.apply {
+      add("-Xlint:unchecked")
+      // add("-Xlint:deprecation")
+    }
+  }
+}
+
 android {
   namespace = "sh.eliza.japaneseinput"
   compileSdk = 34

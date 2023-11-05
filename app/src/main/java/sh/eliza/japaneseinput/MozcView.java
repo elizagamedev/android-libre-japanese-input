@@ -47,6 +47,7 @@ import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.CursorAnchorInfo;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
@@ -71,7 +72,6 @@ import sh.eliza.japaneseinput.keyboard.KeyboardView;
 import sh.eliza.japaneseinput.model.SymbolCandidateStorage;
 import sh.eliza.japaneseinput.model.SymbolMajorCategory;
 import sh.eliza.japaneseinput.ui.SideFrameStubProxy;
-import sh.eliza.japaneseinput.util.CursorAnchorInfoWrapper;
 import sh.eliza.japaneseinput.view.MozcImageView;
 import sh.eliza.japaneseinput.view.Skin;
 
@@ -150,7 +150,7 @@ public class MozcView extends FrameLayout implements MemoryManageable {
     public void onClick(View v) {
       if (keyboardView.getHeight() == originalHeight) {
         if (viewEventListener != null) {
-          viewEventListener.onFireFeedbackEvent(FeedbackEvent.INPUTVIEW_FOLD);
+          viewEventListener.onFireFeedbackEvent(v, FeedbackEvent.INPUTVIEW_FOLD);
         }
         layoutParamsAnimator.startAnimation(
             keyboardView,
@@ -161,7 +161,7 @@ public class MozcView extends FrameLayout implements MemoryManageable {
         ((CompoundButton) v).setChecked(true);
       } else {
         if (viewEventListener != null) {
-          viewEventListener.onFireFeedbackEvent(FeedbackEvent.INPUTVIEW_EXPAND);
+          viewEventListener.onFireFeedbackEvent(v, FeedbackEvent.INPUTVIEW_EXPAND);
         }
         layoutParamsAnimator.startAnimation(
             keyboardView,
@@ -307,7 +307,7 @@ public class MozcView extends FrameLayout implements MemoryManageable {
               @Override
               public void onClick(View v) {
                 if (viewEventListener != null) {
-                  viewEventListener.onFireFeedbackEvent(FeedbackEvent.SYMBOL_INPUTVIEW_CLOSED);
+                  viewEventListener.onFireFeedbackEvent(v, FeedbackEvent.SYMBOL_INPUTVIEW_CLOSED);
                 }
                 hideSymbolInputView();
               }
@@ -438,7 +438,7 @@ public class MozcView extends FrameLayout implements MemoryManageable {
     candidateViewManager.onStartInputView(editorInfo);
   }
 
-  public void setCursorAnchorInfo(CursorAnchorInfoWrapper info) {
+  public void setCursorAnchorInfo(CursorAnchorInfo info) {
     candidateViewManager.setCursorAnchorInfo(info);
   }
 

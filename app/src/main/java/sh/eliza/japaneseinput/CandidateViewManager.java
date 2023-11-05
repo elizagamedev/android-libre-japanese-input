@@ -36,13 +36,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.CursorAnchorInfo;
 import android.view.inputmethod.EditorInfo;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
 import sh.eliza.japaneseinput.InOutAnimatedFrameLayout.VisibilityChangeListener;
-import sh.eliza.japaneseinput.util.CursorAnchorInfoWrapper;
 import sh.eliza.japaneseinput.view.Skin;
 
 /** Manages candidate views (floating, on-keyboard). */
@@ -112,8 +112,8 @@ class CandidateViewManager implements MemoryManageable {
   private boolean allowFloatingMode = false;
   private boolean narrowMode = false;
 
-  /** Cache of {@link CursorAnchorInfoWrapper} instance to switch candidate views. */
-  private CursorAnchorInfoWrapper cursorAnchorInfo = new CursorAnchorInfoWrapper();
+  /** Cache of {@link CursorAnchorInfo} instance to switch candidate views. */
+  private CursorAnchorInfo cursorAnchorInfo = null;
 
   private Animation numberCandidateViewInAnimation = NO_ANIMATION;
   private Animation numberCandidateViewOutAnimation = NO_ANIMATION;
@@ -282,7 +282,7 @@ class CandidateViewManager implements MemoryManageable {
     }
   }
 
-  public void setCursorAnchorInfo(CursorAnchorInfoWrapper info) {
+  public void setCursorAnchorInfo(CursorAnchorInfo info) {
     this.cursorAnchorInfo = Preconditions.checkNotNull(info);
     if (candidateMode == CandidateMode.FLOATING) {
       floatingCandidateView.setCursorAnchorInfo(info);

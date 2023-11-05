@@ -41,7 +41,6 @@ import sh.eliza.japaneseinput.view.SkinType
  */
 class ClientSidePreference(
   @JvmField val isHapticFeedbackEnabled: Boolean,
-  @JvmField val hapticFeedbackDuration: Long,
   @JvmField val isSoundFeedbackEnabled: Boolean,
   @JvmField val soundFeedbackVolume: Int,
   @JvmField val isPopupFeedbackEnabled: Boolean,
@@ -50,8 +49,8 @@ class ClientSidePreference(
   val isQwertyLayoutForAlphabet: Boolean,
   val isFullscreenMode: Boolean,
   @JvmField val flickSensitivity: Int,
-  @JvmField val hardwareKeyMap: HardwareKeyMap,
-  @JvmField val skinType: SkinType?,
+  @JvmField val hardwareKeyMap: HardwareKeyMap?,
+  @JvmField val skinType: SkinType,
   @JvmField val isMicrophoneButtonEnabled: Boolean,
   @JvmField val layoutAdjustment: LayoutAdjustment,
   /** Percentage of keyboard height */
@@ -97,8 +96,6 @@ class ClientSidePreference(
     ): ClientSidePreference {
       val isHapticFeedbackEnabled =
         sharedPreferences.getBoolean(PreferenceUtil.PREF_HAPTIC_FEEDBACK_KEY, false)
-      val hapticFeedbackDuration =
-        sharedPreferences.getInt(PreferenceUtil.PREF_HAPTIC_FEEDBACK_DURATION_KEY, 30).toLong()
       val isSoundFeedbackEnabled =
         sharedPreferences.getBoolean(PreferenceUtil.PREF_SOUND_FEEDBACK_KEY, false)
       val soundFeedbackVolume =
@@ -180,7 +177,6 @@ class ClientSidePreference(
 
       return ClientSidePreference(
         isHapticFeedbackEnabled,
-        hapticFeedbackDuration,
         isSoundFeedbackEnabled,
         soundFeedbackVolume,
         isPopupFeedbackEnabled,

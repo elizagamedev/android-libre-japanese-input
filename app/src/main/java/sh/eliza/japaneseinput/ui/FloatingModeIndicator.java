@@ -44,6 +44,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
+import android.view.inputmethod.CursorAnchorInfo;
 import android.view.inputmethod.EditorInfo;
 import com.google.common.base.Preconditions;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
@@ -53,7 +54,6 @@ import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.SessionComma
 import sh.eliza.japaneseinput.MozcLog;
 import sh.eliza.japaneseinput.R;
 import sh.eliza.japaneseinput.model.FloatingModeIndicatorController;
-import sh.eliza.japaneseinput.util.CursorAnchorInfoWrapper;
 import sh.eliza.japaneseinput.view.MozcImageView;
 import sh.eliza.japaneseinput.view.Skin;
 
@@ -154,7 +154,7 @@ public class FloatingModeIndicator {
   private final Animation outAnimation;
   private final int displayTime;
 
-  private CursorAnchorInfoWrapper cursorAnchorInfo = new CursorAnchorInfoWrapper();
+  private CursorAnchorInfo cursorAnchorInfo = null;
 
   /** True if the mode indicator is shown and is not hiding. */
   private boolean isVisible = false;
@@ -188,7 +188,7 @@ public class FloatingModeIndicator {
     controller.onStartInputView(System.currentTimeMillis(), editorInfo);
   }
 
-  public void setCursorAnchorInfo(CursorAnchorInfoWrapper cursorAnchorInfo) {
+  public void setCursorAnchorInfo(CursorAnchorInfo cursorAnchorInfo) {
     this.cursorAnchorInfo = Preconditions.checkNotNull(cursorAnchorInfo);
     updateDrawRect();
     controller.onCursorAnchorInfoChanged(System.currentTimeMillis());

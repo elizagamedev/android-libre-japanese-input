@@ -151,7 +151,7 @@ public class KeyEventButtonTouchListener implements OnTouchListener {
       KeyEventContext newContext = createKeyEventContext(button, sourceId, keyCode, x, y);
       newContext.update(x, y, TouchAction.TOUCH_DOWN, 0);
       keyEventHandler.maybeStartDelayedKeyEvent(newContext);
-      keyEventHandler.sendPress(newContext.getPressedKeyCode());
+      keyEventHandler.sendPress(button, newContext.getPressedKeyCode());
       this.keyEventContext = newContext;
     }
   }
@@ -171,7 +171,7 @@ public class KeyEventButtonTouchListener implements OnTouchListener {
       keyEventHandler.sendKey(
           keyEventContext.getKeyCode(),
           Collections.singletonList(keyEventContext.getTouchEvent().orNull()));
-      keyEventHandler.sendRelease(keyEventContext.getPressedKeyCode());
+      keyEventHandler.sendRelease(button, keyEventContext.getPressedKeyCode());
     }
     this.keyEventContext = null;
   }

@@ -39,6 +39,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.CursorAnchorInfo;
 import android.view.inputmethod.EditorInfo;
 import android.widget.PopupWindow;
 import com.google.common.base.Optional;
@@ -50,7 +51,6 @@ import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Output;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Preedit.Segment;
 import sh.eliza.japaneseinput.ui.FloatingCandidateLayoutRenderer;
 import sh.eliza.japaneseinput.ui.FloatingModeIndicator;
-import sh.eliza.japaneseinput.util.CursorAnchorInfoWrapper;
 
 /** Floating candidate view for hardware keyboard. */
 public class FloatingCandidateView extends View {
@@ -62,7 +62,7 @@ public class FloatingCandidateView extends View {
 
     void onStartInputView(EditorInfo editorInfo);
 
-    void setCursorAnchorInfo(CursorAnchorInfoWrapper info);
+    void setCursorAnchorInfo(CursorAnchorInfo info);
 
     void setCandidates(Command outCommand);
 
@@ -112,7 +112,7 @@ public class FloatingCandidateView extends View {
 
     private int basePositionBottom;
     private int basePositionX;
-    private Optional<CursorAnchorInfoWrapper> cursorAnchorInfo = Optional.absent();
+    private Optional<CursorAnchorInfo> cursorAnchorInfo = Optional.absent();
     private Category candidatesCategory = Category.CONVERSION;
     private int highlightedCharacterStart;
     private int compositionCharacterEnd;
@@ -172,7 +172,7 @@ public class FloatingCandidateView extends View {
               MotionEvent copiedEvent = MotionEvent.obtain(event);
               try {
                 copiedEvent.offsetLocation(rect.get().left, rect.get().top);
-                layoutRenderer.onTouchEvent(copiedEvent);
+                layoutRenderer.onTouchEvent(this, copiedEvent);
                 // TODO(hsumita): Don't invalidate the view if not necessary.
                 parentView.invalidate();
               } finally {
@@ -209,9 +209,9 @@ public class FloatingCandidateView extends View {
       modeIndicator.onStartInputView(editorInfo);
     }
 
-    /** Sets {@link CursorAnchorInfoWrapper} to update the candidate window position. */
+    /** Sets {@link CursorAnchorInfo} to update the candidate window position. */
     @Override
-    public void setCursorAnchorInfo(CursorAnchorInfoWrapper info) {
+    public void setCursorAnchorInfo(CursorAnchorInfo info) {
       cursorAnchorInfo = Optional.of(info);
       modeIndicator.setCursorAnchorInfo(info);
       updateCandidateWindow();
@@ -357,7 +357,7 @@ public class FloatingCandidateView extends View {
         return;
       }
 
-      CursorAnchorInfoWrapper info = cursorAnchorInfo.get();
+      CursorAnchorInfo info = cursorAnchorInfo.get();
       int composingStartIndex = info.getComposingTextStart() + highlightedCharacterStart;
       int composingEndIndex = info.getComposingTextStart() + compositionCharacterEnd - 1;
       RectF firstCharacterBounds = info.getCharacterBounds(composingStartIndex);
@@ -507,8 +507,8 @@ public class FloatingCandidateView extends View {
     floatingCandidateViewProxy.onStartInputView(editorInfo);
   }
 
-  /** Sets {@link CursorAnchorInfoWrapper} to update the candidate window position. */
-  public void setCursorAnchorInfo(CursorAnchorInfoWrapper info) {
+  /** Sets {@link CursorAnchorInfo} to update the candidate window position. */
+  public void setCursorAnchorInfo(CursorAnchorInfo info) {
     floatingCandidateViewProxy.setCursorAnchorInfo(info);
   }
 

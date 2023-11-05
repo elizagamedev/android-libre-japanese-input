@@ -32,6 +32,7 @@ package sh.eliza.japaneseinput.keyboard;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.view.View;
 import com.google.common.base.Preconditions;
 import java.util.Collections;
 import java.util.List;
@@ -120,12 +121,12 @@ public class KeyEventHandler implements Handler.Callback {
     context.pastLongPressSentTimeout = true;
   }
 
-  public void sendPress(int keyCode) {
-    keyboardActionListener.onPress(keyCode);
+  public void sendPress(View view, int keyCode) {
+    keyboardActionListener.onPress(view, keyCode);
   }
 
-  public void sendRelease(int keyCode) {
-    keyboardActionListener.onRelease(keyCode);
+  public void sendRelease(View view, int keyCode) {
+    keyboardActionListener.onRelease(view, keyCode);
   }
 
   public void sendKey(int keyCode, List<TouchEvent> touchEventList) {

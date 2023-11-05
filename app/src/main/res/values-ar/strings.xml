@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">ارتفاع لوحة المفاتيح</string>
 <string name="pref_input_feedback_category_title">تفضيلات إدخال التعليقات</string>
 <string name="pref_haptic_feedback_title">ملاحظات ملموسة</string>
-<string name="pref_haptic_feedback_duration_title">مدة الملاحظات الملموسة</string>
 <string name="pref_sound_feedback_title">تعليقات صوتية</string>
 <string name="pref_sound_feedback_volume_title">مستوى صوت التعليقات الصوتية</string>
 <string name="pref_popup_feedback_title">تعليقات منبثقة</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">منخفضة</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">متوسطة</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">عالية</string>
-<string name="pref_haptic_feedback_duration_low_text">قصيرة</string>
-<string name="pref_haptic_feedback_duration_high_text">طويلة</string>
 <string name="pref_sound_feedback_volume_low_text">دقيقة</string>
 <string name="pref_sound_feedback_volume_middle_text">متوسطة</string>
 <string name="pref_sound_feedback_volume_high_text">الحد الأقصى</string>

@@ -29,6 +29,7 @@
 
 package sh.eliza.japaneseinput.keyboard;
 
+import android.view.View;
 import java.util.List;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent;
 
@@ -36,9 +37,9 @@ import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchE
 public interface KeyboardActionListener {
   void onCancel();
 
-  void onPress(int keycode);
+  void onPress(View view, int keycode);
 
-  void onRelease(int keycode);
+  void onRelease(View view, int keycode);
 
   void onKey(int primaryCode, List<TouchEvent> touchEventList);
 }

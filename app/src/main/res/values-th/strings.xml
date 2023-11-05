@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">ความสูงของแป้นพิมพ์</string>
 <string name="pref_input_feedback_category_title">ค่ากำหนดการตอบสนองต่อการป้อนข้อมูล</string>
 <string name="pref_haptic_feedback_title">การตอบสนองแบบรู้สึกได้</string>
-<string name="pref_haptic_feedback_duration_title">ระยะเวลาการตอบสนองแบบรู้สึกได้</string>
 <string name="pref_sound_feedback_title">การตอบสนองโดยใช้เสียง</string>
 <string name="pref_sound_feedback_volume_title">ระดับเสียงของการตอบสนองด้วยเสียง</string>
 <string name="pref_popup_feedback_title">การตอบสนองแบบป๊อปอัป</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">ต่ำ</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">ปานกลาง</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">สูง</string>
-<string name="pref_haptic_feedback_duration_low_text">สั้น</string>
-<string name="pref_haptic_feedback_duration_high_text">ยาว</string>
 <string name="pref_sound_feedback_volume_low_text">ต่ำสุด</string>
 <string name="pref_sound_feedback_volume_middle_text">ปานกลาง</string>
 <string name="pref_sound_feedback_volume_high_text">สูงสุด</string>

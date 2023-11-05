@@ -36,6 +36,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.CursorAnchorInfo;
 import android.view.inputmethod.EditorInfo;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
 import sh.eliza.japaneseinput.KeycodeConverter.KeyEventInterface;
@@ -44,7 +45,6 @@ import sh.eliza.japaneseinput.keyboard.Keyboard.KeyboardSpecification;
 import sh.eliza.japaneseinput.preference.ClientSidePreference.HardwareKeyMap;
 import sh.eliza.japaneseinput.preference.ClientSidePreference.InputStyle;
 import sh.eliza.japaneseinput.preference.ClientSidePreference.KeyboardLayout;
-import sh.eliza.japaneseinput.util.CursorAnchorInfoWrapper;
 import sh.eliza.japaneseinput.view.Skin;
 
 /** Interface for ViewManager which manages Input, Candidate and Extracted views. */
@@ -165,7 +165,7 @@ public interface ViewManagerInterface extends MemoryManageable {
 
   void onStartInputView(EditorInfo editorInfo);
 
-  void setCursorAnchorInfo(CursorAnchorInfoWrapper info);
+  void setCursorAnchorInfo(CursorAnchorInfo info);
 
   void setCursorAnchorInfoEnabled(boolean enabled);
 

@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Wysokość klawiatury</string>
 <string name="pref_input_feedback_category_title">Preferencje sygnałów wprowadzania</string>
 <string name="pref_haptic_feedback_title">Reakcja na dotyk</string>
-<string name="pref_haptic_feedback_duration_title">Czas trwania reakcji na dotyk</string>
 <string name="pref_sound_feedback_title">Sygnał dźwiękowy</string>
 <string name="pref_sound_feedback_volume_title">Głośność sygnału dźwiękowego</string>
 <string name="pref_popup_feedback_title">Informacja w wyskakującym okienku</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Niska</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Średnia</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Wysoka</string>
-<string name="pref_haptic_feedback_duration_low_text">Krótki</string>
-<string name="pref_haptic_feedback_duration_high_text">Długi</string>
 <string name="pref_sound_feedback_volume_low_text">Niska</string>
 <string name="pref_sound_feedback_volume_middle_text">Średnia</string>
 <string name="pref_sound_feedback_volume_high_text">Wysoka</string>

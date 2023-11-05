@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Výška klávesnice</string>
 <string name="pref_input_feedback_category_title">Predvoľby odozvy vstupu</string>
 <string name="pref_haptic_feedback_title">Hmatová odozva</string>
-<string name="pref_haptic_feedback_duration_title">Trvanie hmatovej odozvy</string>
 <string name="pref_sound_feedback_title">Zvuková odozva</string>
 <string name="pref_sound_feedback_volume_title">Hlasitosť zvukovej odozvy</string>
 <string name="pref_popup_feedback_title">Odozva kontextového okna</string>
@@ -127,8 +126,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Nízka</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Stredná</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Vysoká</string>
-<string name="pref_haptic_feedback_duration_low_text">Krátka</string>
-<string name="pref_haptic_feedback_duration_high_text">Dlhá</string>
 <string name="pref_sound_feedback_volume_low_text">Min.</string>
 <string name="pref_sound_feedback_volume_middle_text">Stredná</string>
 <string name="pref_sound_feedback_volume_high_text">Max.</string>

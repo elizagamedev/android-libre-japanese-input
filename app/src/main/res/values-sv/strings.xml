@@ -43,7 +43,6 @@
 <string name="pref_keyboard_height_ratio_title">Tangentbordshöjd</string>
 <string name="pref_input_feedback_category_title">Inställningar för inmatningsåterkoppling</string>
 <string name="pref_haptic_feedback_title">Haptisk återkoppling</string>
-<string name="pref_haptic_feedback_duration_title">Varaktighet för haptisk återkoppling</string>
 <string name="pref_sound_feedback_title">Ljudåterkoppling</string>
 <string name="pref_sound_feedback_volume_title">Volym för ljudåterkoppling</string>
 <string name="pref_popup_feedback_title">Popupåterkoppling</string>
@@ -126,8 +125,6 @@
 <string name="pref_flick_sensitivity_seekbar_low_text">Låg</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Mellan</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Hög</string>
-<string name="pref_haptic_feedback_duration_low_text">Kort</string>
-<string name="pref_haptic_feedback_duration_high_text">Lång</string>
 <string name="pref_sound_feedback_volume_low_text">Låg</string>
 <string name="pref_sound_feedback_volume_middle_text">Mellan</string>
 <string name="pref_sound_feedback_volume_high_text">Hög</string>
