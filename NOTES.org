@@ -1,14 +1,15 @@
-* Updating SDK/build tools version
+* Updating build/platform tools
+- app/build.gradle
+  - ~buildToolsVersion~
+- flake.nix
+  - ~buildToolsVersion~
+  - ~platformToolsVersion~
+* Updating Compile SDK + Target SDK
 - app/build.gradle
   - ~compileSdk~
-  - ~buildToolsVersion~
   - ~targetSdk~
-  - ~sourceCompatibility~
-  - ~targetCompatibility~
-  - ~jvmTarget~
-- app/src/main/AndroidManifest.xml
-  - ~targetApi~
 - flake.nix
+  - ~platformVersions~
 * Releasing a new version
 - app/build.gradle
   - ~versionCode~
