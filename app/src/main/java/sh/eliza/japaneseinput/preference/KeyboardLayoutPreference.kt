@@ -29,7 +29,6 @@
 package sh.eliza.japaneseinput.preference
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.res.Resources
 import android.content.res.TypedArray
@@ -119,7 +118,7 @@ constructor(
         // Update the value if necessary.
         val newValue = ITEM_LIST[position].keyboardLayout
         if (callChangeListener(newValue)) {
-          value = newValue
+          setValue(newValue, notifyChanged = true)
           @Suppress("NotifyDataSetChanged") notifyDataSetChanged()
         }
       }
@@ -157,22 +156,30 @@ constructor(
   }
 
   private val imageAdapter = ImageAdapter(context.resources)
-  private val sharedPreferenceChangeListener =
-    OnSharedPreferenceChangeListener { _: SharedPreferences, key: String? ->
-      when (key) {
-        context.resources.getString(R.string.pref_skin_type_key) -> updateSkin()
-        this.key -> onSetInitialValue(null)
+  private val sharedPreferenceChangeListener = OnSharedPreferenceChangeListener { _, key ->
+    when (key) {
+      context.resources.getString(R.string.pref_skin_type_key) -> updateSkin()
+      this.key -> {
+        // HACK: Reset the backing value and view pager if someone else changes it.
+        onSetInitialValue(null)
+        @Suppress("NotifyDataSetChanged") imageAdapter.notifyDataSetChanged()
+        viewPager?.setCurrentItem(getActiveIndex(), /*smoothScroll=*/ false)
       }
     }
+  }
+  private var viewPager: ViewPager2? = null
 
-  var value = KeyboardLayout.TWELVE_KEYS
-    set(value) {
-      if (field != value) {
-        field = value
-        persistString(value.name)
+  private var value = KeyboardLayout.TWELVE_KEYS
+
+  private fun setValue(value: KeyboardLayout, notifyChanged: Boolean) {
+    if (this.value != value) {
+      this.value = value
+      persistString(value.name)
+      if (notifyChanged) {
         notifyChanged()
       }
     }
+  }
 
   private fun getActiveIndex(): Int {
     for (i in ITEM_LIST.indices) {
@@ -189,7 +196,7 @@ constructor(
   }
 
   override protected fun onSetInitialValue(defaultValue: Any?) {
-    value = toKeyboardLayoutInternal(getPersistedString(null))
+    setValue(toKeyboardLayoutInternal(getPersistedString(null)), notifyChanged = false)
   }
 
   /**
@@ -215,11 +222,12 @@ constructor(
       (holder.findViewById(R.id.pref_inputstyle_description) as TextView).apply {
         movementMethod = LinkMovementMethod.getInstance()
       }
-    (holder.findViewById(R.id.pref_inputstyle_view_pager) as ViewPager2).run {
-      setAdapter(imageAdapter)
-      registerOnPageChangeCallback(GalleryEventListener(descriptionView))
-      setCurrentItem(getActiveIndex(), /*smoothScroll=*/ false)
-    }
+    viewPager =
+      (holder.findViewById(R.id.pref_inputstyle_view_pager) as ViewPager2).apply {
+        setAdapter(imageAdapter)
+        registerOnPageChangeCallback(GalleryEventListener(descriptionView))
+        setCurrentItem(getActiveIndex(), /*smoothScroll=*/ false)
+      }
     updateSkin()
   }
 
@@ -227,7 +235,7 @@ constructor(
     super.onAttachedToHierarchy(preferenceManager)
     updateSkin()
 
-    // Select between portrait and landscape as necessary.
+    // HACK: Select between portrait and landscape as necessary by changing our key.
     if (key == PREF_CURRENT_KEYBOARD_LAYOUT_KEY) {
       key =
         if (isLandscapeKeyboardSettingActive(
@@ -239,6 +247,7 @@ constructor(
         } else {
           PREF_PORTRAIT_KEYBOARD_LAYOUT_KEY
         }
+      onSetInitialValue(null)
     }
 
     sharedPreferences!!.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
