@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">Completo</string>
 <string name="pref_layout_adjustment_entry_right">Derecha</string>
 <string name="pref_layout_adjustment_entry_left">Izquierda</string>
-<string name="pref_ime_enable_alert_title">Configuración de ajustes de texto</string>
-<string name="pref_ime_enable_alert_message">Habilita %s.</string>
-<string name="pref_ime_switch_alert_title">Configuración de método de entrada</string>
-<string name="pref_ime_switch_alert_message">Cambia el método de entrada a %s.</string>
-<string name="pref_ime_alert_next">Siguiente</string>
-<string name="pref_ime_alert_cancel">Cancelar</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">Bajo</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Medio</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Alto</string>

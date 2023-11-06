@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">ملء</string>
 <string name="pref_layout_adjustment_entry_right">يمين</string>
 <string name="pref_layout_adjustment_entry_left">يسار</string>
-<string name="pref_ime_enable_alert_title">ضبط إعدادات النص</string>
-<string name="pref_ime_enable_alert_message">يُرجى تمكين %s.</string>
-<string name="pref_ime_switch_alert_title">إعداد أسلوب الإدخال</string>
-<string name="pref_ime_switch_alert_message">يُرجى تغيير أسلوب الإدخال إلى %s.</string>
-<string name="pref_ime_alert_next">التالي</string>
-<string name="pref_ime_alert_cancel">إلغاء</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">منخفضة</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">متوسطة</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">عالية</string>

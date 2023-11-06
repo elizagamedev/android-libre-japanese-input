@@ -37,6 +37,9 @@
     <string name="pref_skin_type_key">pref_skin_type_key</string>
 
     <!-- Preference titles -->
+    <string name="pref_permissions_category_title">Permissions</string>
+        <string name="pref_enable_keyboard_title">Enable keyboard</string>
+
     <string name="pref_software_keyboard_category_title">Software keyboard</string>
         <string name="pref_software_keyboard_advanced_settings_title">Software keyboard advanced settings</string>
 
@@ -138,14 +141,6 @@
     <string name="pref_layout_adjustment_entry_fill">Fill</string>
     <string name="pref_layout_adjustment_entry_right">Right</string>
     <string name="pref_layout_adjustment_entry_left">Left</string>
-
-    <!-- Alert messages -->
-    <string name="pref_ime_enable_alert_title">Setup for text settings</string>
-    <string name="pref_ime_enable_alert_message">Please enable %s.</string>
-    <string name="pref_ime_switch_alert_title">Setup for input method</string>
-    <string name="pref_ime_switch_alert_message">Please change the input method to %s.</string>
-    <string name="pref_ime_alert_next">Next</string>
-    <string name="pref_ime_alert_cancel">Cancel</string>
 
     <!-- Misc text for preferences -->
     <string name="pref_flick_sensitivity_seekbar_low_text">Low</string>

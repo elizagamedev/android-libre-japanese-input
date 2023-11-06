@@ -1,0 +1,4 @@
+<resources>
+  <!-- Apps cannot hide themselves in Android Q like this. -->
+  <bool name="pref_launcher_icon_visibility_visible">false</bool>
+</resources>

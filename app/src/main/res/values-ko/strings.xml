@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">입력</string>
 <string name="pref_layout_adjustment_entry_right">오른쪽</string>
 <string name="pref_layout_adjustment_entry_left">왼쪽</string>
-<string name="pref_ime_enable_alert_title">텍스트 설정 지정</string>
-<string name="pref_ime_enable_alert_message">%s을(를) 사용 설정해 주세요.</string>
-<string name="pref_ime_switch_alert_title">입력 방법 설정</string>
-<string name="pref_ime_switch_alert_message">입력 방법을 %s(으)로 변경해 주세요.</string>
-<string name="pref_ime_alert_next">다음</string>
-<string name="pref_ime_alert_cancel">취소</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">낮음</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">중간</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">높음</string>

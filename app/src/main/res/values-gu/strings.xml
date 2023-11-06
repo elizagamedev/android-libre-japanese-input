@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">ભરો</string>
 <string name="pref_layout_adjustment_entry_right">જમણે</string>
 <string name="pref_layout_adjustment_entry_left">ડાબું</string>
-<string name="pref_ime_enable_alert_title">ટેક્સ્ટ સેટિંગ્સ માટે સેટઅપ</string>
-<string name="pref_ime_enable_alert_message">કૃપા કરીને %s ને સક્ષમ કરો.</string>
-<string name="pref_ime_switch_alert_title">ઇનપુટ પદ્ધતિ માટે સેટઅપ</string>
-<string name="pref_ime_switch_alert_message">કૃપા કરીને ઇનપુટ પદ્ધતિ %s પર બદલાવો.</string>
-<string name="pref_ime_alert_next">આગલું</string>
-<string name="pref_ime_alert_cancel">રદ કરો</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">નીચું</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">મધ્યમ</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">ઊંચું</string>

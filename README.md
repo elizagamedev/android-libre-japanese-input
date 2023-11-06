@@ -17,12 +17,12 @@ This project is not affiliated with Google.
 
 ## What doesn't work/What still needs to be done?
 
-- Lots of visual glitches/layout issues. Keyboard key text sizes are either too
-  small or too big in some places. Occasional tofus rendered.
-- Included emoji/emoticon sets are outdated.
-- Some preferences cannot be set correctly.
-- Hardware keyboard input needs to be tested.
-- Not yet sure if personalization/user dictionaries work.
+- Lots of layout issues. Keyboard key text sizes are either too small or too big
+  in some places. Occasional tofus rendered.
+- Included emoji/emoticon sets are outdated. Emoji and symbol history are not
+  saved.
+- Cannot import or export user dictionaries.
+- Hardware keyboard input needs testing.
 
 ## Development
 

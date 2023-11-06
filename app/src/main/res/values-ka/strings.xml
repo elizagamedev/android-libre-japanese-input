@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">შევსება</string>
 <string name="pref_layout_adjustment_entry_right">მარჯვენა</string>
 <string name="pref_layout_adjustment_entry_left">მარცხენა</string>
-<string name="pref_ime_enable_alert_title">ტექსტის პარამეტრების დაყენება</string>
-<string name="pref_ime_enable_alert_message">გთხოვთ ჩართოთ %s.</string>
-<string name="pref_ime_switch_alert_title">შეყვანის მეთოდის დაყენება</string>
-<string name="pref_ime_switch_alert_message">გთხოვთ შეცვალოთ შეყვანის მეთოდი %s-ში.</string>
-<string name="pref_ime_alert_next">შემდეგი</string>
-<string name="pref_ime_alert_cancel">გაუქმება</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">დაბალი</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">საშუალო</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">მაღალი</string>

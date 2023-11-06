@@ -30,7 +30,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <resources>
-
-    <bool name="im_is_default">false</bool>
-
+  <bool name="im_is_default">false</bool>
+  <bool name="pref_launcher_icon_visibility_visible">true</bool>
 </resources>

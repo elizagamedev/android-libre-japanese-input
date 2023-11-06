@@ -34,6 +34,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <androidx.preference.PreferenceCategory
+      android:title="@string/pref_permissions_category_title">
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:persistent="false"
+        android:key="pref_enable_keyboard_key"
+        android:title="@string/pref_enable_keyboard_title" />
+  </androidx.preference.PreferenceCategory>
+
+  <androidx.preference.PreferenceCategory
       android:title="@string/pref_software_keyboard_category_title">
     <!-- Short cut to the current keyboard layout. The values will be stored to
          the keyboard layout to portrait or landscape appropriately.
@@ -164,7 +173,8 @@
         android:key="pref_dictionary_user_dictionary_tool_key"
         android:persistent="false"
         android:summary="@string/pref_dictionary_user_dictionary_tool_description"
-        android:title="@string/pref_dictionary_user_dictionary_tool_title">
+        android:title="@string/pref_dictionary_user_dictionary_tool_title"
+        android:enabled="false">
       <intent
           android:action="android.intent.action.MAIN"
           android:targetPackage="sh.eliza.japaneseinput"
@@ -214,7 +224,8 @@
         android:defaultValue="true"
         android:key="pref_launcher_icon_visibility"
         android:summary="@string/pref_launcher_icon_visibility_description"
-        android:title="@string/pref_launcher_icon_visibility_title" />
+        android:title="@string/pref_launcher_icon_visibility_title"
+        app:isPreferenceVisible="@bool/pref_launcher_icon_visibility_visible" />
   </androidx.preference.PreferenceCategory>
 
   <androidx.preference.PreferenceCategory

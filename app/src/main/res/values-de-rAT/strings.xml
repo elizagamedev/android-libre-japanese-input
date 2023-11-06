@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">Vollbild</string>
 <string name="pref_layout_adjustment_entry_right">Rechts</string>
 <string name="pref_layout_adjustment_entry_left">Links</string>
-<string name="pref_ime_enable_alert_title">Einrichtung für Texteinstellungen</string>
-<string name="pref_ime_enable_alert_message">Aktivieren Sie %s.</string>
-<string name="pref_ime_switch_alert_title">Einrichtung für Eingabemethode</string>
-<string name="pref_ime_switch_alert_message">Ändern Sie die Eingabemethode zu \"%s\".</string>
-<string name="pref_ime_alert_next">Weiter</string>
-<string name="pref_ime_alert_cancel">Abbrechen</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">Niedrig</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Mittel</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Hoch</string>

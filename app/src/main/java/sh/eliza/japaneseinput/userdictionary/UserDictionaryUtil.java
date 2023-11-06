@@ -389,7 +389,8 @@ class UserDictionaryUtil {
     map.put(PosType.FREE_STANDING_WORD, R.string.japanese_pos_free_standing_word);
     map.put(PosType.SUPPRESSION_WORD, R.string.japanese_pos_suppression_word);
 
-    if (map.size() != PosType.values().length) {
+    // Subtract one to account for NO_POS.
+    if (map.size() != PosType.values().length - 1) {
       // There seems something unknown POS.
       throw new AssertionError();
     }
@@ -457,7 +458,8 @@ class UserDictionaryUtil {
         PosType.FREE_STANDING_WORD, R.string.japanese_pos_for_dictionary_export_free_standing_word);
     map.put(PosType.SUPPRESSION_WORD, R.string.japanese_pos_for_dictionary_export_suppression_word);
 
-    if (map.size() != PosType.values().length) {
+    // Subtract one to account for NO_POS.
+    if (map.size() != PosType.values().length - 1) {
       // There seems something unknown POS.
       throw new AssertionError();
     }

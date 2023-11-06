@@ -17,7 +17,7 @@ val genEmoticonDataScript = "scripts/gen_emoticon_data.py"
 
 task<Copy>("copyCredits") {
   from("../third_party/mozc/src/data/installer/credits_en.html")
-  into("$generatedAssetsDir/credits_en.html")
+  into(generatedAssetsDir)
 }
 
 val svgImageTemplateDir = "scripts/images/template"

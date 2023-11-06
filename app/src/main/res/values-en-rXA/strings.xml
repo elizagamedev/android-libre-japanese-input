@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">[Fîļļ one]</string>
 <string name="pref_layout_adjustment_entry_right">[Ŕîĝĥţ one]</string>
 <string name="pref_layout_adjustment_entry_left">[Ļéƒţ one]</string>
-<string name="pref_ime_enable_alert_title">[Šéţûþ ƒöŕ ţéxţ šéţţîñĝš one two three four five]</string>
-<string name="pref_ime_enable_alert_message">[Þļéåšé éñåбļé ᐅ%sᐊ. one two three four]</string>
-<string name="pref_ime_switch_alert_title">[Šéţûþ ƒöŕ îñþûţ méţĥöð one two three four five]</string>
-<string name="pref_ime_switch_alert_message">[Þļéåšé çĥåñĝé ţĥé îñþûţ méţĥöð ţö ᐅ%sᐊ. one two three four five six seven eight]</string>
-<string name="pref_ime_alert_next">[Ñéxţ one]</string>
-<string name="pref_ime_alert_cancel">[Çåñçéļ one]</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">[Ļöŵ one]</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">[Mîð one]</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">[Ĥîĝĥ one]</string>

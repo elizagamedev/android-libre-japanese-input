@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">ሙላ</string>
 <string name="pref_layout_adjustment_entry_right">ቀኝ</string>
 <string name="pref_layout_adjustment_entry_left">ግራ</string>
-<string name="pref_ime_enable_alert_title">የጽሁፍ ቅንብሮች ዝግጅት</string>
-<string name="pref_ime_enable_alert_message">እባክዎ %sን ያንቁ።</string>
-<string name="pref_ime_switch_alert_title">የግቤት ዘዴ ቅንብር</string>
-<string name="pref_ime_switch_alert_message">እባክዎ የግቤት ዘዴውን ወደ %s ይለውጡ።</string>
-<string name="pref_ime_alert_next">ቀጣይ</string>
-<string name="pref_ime_alert_cancel">ይቅር</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">ዝቅተኛ</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">መካከለኛ</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">ከፍተኛ</string>

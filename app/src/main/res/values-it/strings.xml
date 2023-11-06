@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">Riempi</string>
 <string name="pref_layout_adjustment_entry_right">Destra</string>
 <string name="pref_layout_adjustment_entry_left">Sinistra</string>
-<string name="pref_ime_enable_alert_title">Configura per impostazioni di testo</string>
-<string name="pref_ime_enable_alert_message">Attiva %s.</string>
-<string name="pref_ime_switch_alert_title">Configura per metodo di immissione</string>
-<string name="pref_ime_switch_alert_message">Cambia il metodo di immissione in %s.</string>
-<string name="pref_ime_alert_next">Avanti</string>
-<string name="pref_ime_alert_cancel">Annulla</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">Bassa</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Media</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Alta</string>

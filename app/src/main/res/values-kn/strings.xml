@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">ತುಂಬುವಿಕೆ</string>
 <string name="pref_layout_adjustment_entry_right">ಬಲಕ್ಕೆ</string>
 <string name="pref_layout_adjustment_entry_left">ಎಡಕ್ಕೆ</string>
-<string name="pref_ime_enable_alert_title">ಪಠ್ಯ ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಗೆ ಹೊಂದಿಸಿ</string>
-<string name="pref_ime_enable_alert_message">ದಯವಿಟ್ಟು %s ಸಕ್ರಿಯಗೊಳಿಸಿ.</string>
-<string name="pref_ime_switch_alert_title">ಇನ್‌ಪುಟ್‌ ವಿಧಾನಕ್ಕಾಗಿ ಹೊಂದಿಸಿ</string>
-<string name="pref_ime_switch_alert_message">ದಯವಿಟ್ಟು ಇನ್‌ಪುಟ್‌ ವಿಧಾನವನ್ನು%s ಗೆ ಬದಲಾಯಿಸಿ.</string>
-<string name="pref_ime_alert_next">ಮುಂದೆ</string>
-<string name="pref_ime_alert_cancel">ರದ್ದುಮಾಡು</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">ಕಡಿಮೆ</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">ಮಧ್ಯ</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">ಹೆಚ್ಚು</string>

@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">Попуни</string>
 <string name="pref_layout_adjustment_entry_right">Десно</string>
 <string name="pref_layout_adjustment_entry_left">Лево</string>
-<string name="pref_ime_enable_alert_title">Припрема за подешавања текста</string>
-<string name="pref_ime_enable_alert_message">Омогућите %s.</string>
-<string name="pref_ime_switch_alert_title">Подешавање за метод уноса</string>
-<string name="pref_ime_switch_alert_message">Промените метод уноса у %s.</string>
-<string name="pref_ime_alert_next">Даље</string>
-<string name="pref_ime_alert_cancel">Откажи</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">Мала</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Средња</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Велика</string>

@@ -32,23 +32,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-import com.google.common.base.Optional
-import com.google.common.base.Preconditions
 import java.util.regex.Pattern
 import sh.eliza.japaneseinput.R
-
-private fun PackageManager.queryIntentActivitiesCompat(intent: Intent) =
-  if (Build.VERSION.SDK_INT >= 33) {
-    queryIntentActivities(intent, PackageManager.ResolveInfoFlags.of(0))
-  } else {
-    @Suppress("deprecation") queryIntentActivities(intent, 0)
-  }
 
 /**
  * Mini browser to show licenses.
@@ -59,8 +49,6 @@ private fun PackageManager.queryIntentActivitiesCompat(intent: Intent) =
  * data) like as a browser.
  */
 class MiniBrowserActivity : AppCompatActivity() {
-  // TODO(matsuzakit): "print" link is meaningless. Should be invisible.
-  // TODO(matsuzakit): CSS needs to be improved.
   private class MiniBrowserClient(
     private val restrictionPattern: String,
     private val packageManager: PackageManager,
@@ -74,7 +62,7 @@ class MiniBrowserActivity : AppCompatActivity() {
           // If the URL's doesn't match restriction pattern,
           // delegate the operation to the default browser.
           val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-          if (!packageManager.queryIntentActivitiesCompat(browserIntent).isEmpty()) {
+          if (browserIntent.resolveActivity(packageManager) != null) {
             context.startActivity(browserIntent)
           }
           // If no default browser is available, do nothing.
@@ -93,36 +81,34 @@ class MiniBrowserActivity : AppCompatActivity() {
       }
   }
 
-  private var webView = Optional.absent<WebView>()
+  private lateinit var webView: WebView
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    val webView = WebView(this)
-    this.webView = Optional.of(webView)
-    webView.webViewClient =
-      MiniBrowserClient(
-        resources.getString(R.string.pref_url_restriction_regex),
-        packageManager,
-        this
-      )
-    webView.loadUrl(intent.data.toString())
+    webView =
+      WebView(this).apply {
+        webViewClient =
+          MiniBrowserClient(
+            resources.getString(R.string.pref_url_restriction_regex),
+            packageManager,
+            this@MiniBrowserActivity
+          )
+        loadUrl(intent.data.toString())
+      }
     setContentView(webView)
   }
 
   override fun onPause() {
     // Clear cache in order to show appropriate website even if system locale is changed.
-    if (webView.isPresent) {
-      webView.get().clearCache(true)
-    }
+    webView.clearCache(true)
     super.onPause()
   }
 
   override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-    Preconditions.checkNotNull(event)
-
     // Enable back-key inside the webview.
     // If no history exists, default behavior is executed (finish the activity).
-    if (keyCode == KeyEvent.KEYCODE_BACK && webView.isPresent && webView.get().canGoBack()) {
-      webView.get().goBack()
+    if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
+      webView.goBack()
       return true
     }
     return super.onKeyDown(keyCode, event)

@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">පුරවන්න</string>
 <string name="pref_layout_adjustment_entry_right">දකුණ</string>
 <string name="pref_layout_adjustment_entry_left">වම</string>
-<string name="pref_ime_enable_alert_title">පෙළ සැකසුම් සඳහා පිහිටුම</string>
-<string name="pref_ime_enable_alert_message">කරුනාකර %s සබල කරන්න.</string>
-<string name="pref_ime_switch_alert_title">ආදාන ක්‍රමය සඳහා පිහිටුවීම</string>
-<string name="pref_ime_switch_alert_message">කරුනාකර ආදාන ක්‍රමය %s වෙත වෙනස් කරන්න.</string>
-<string name="pref_ime_alert_next">ඊළඟ</string>
-<string name="pref_ime_alert_cancel">අවලංගු කරන්න</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">පහළ</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">මධ්‍යම</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">ඉහළ</string>

@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">Gcwalisa</string>
 <string name="pref_layout_adjustment_entry_right">Kwesokudla</string>
 <string name="pref_layout_adjustment_entry_left">Kwesobunxele</string>
-<string name="pref_ime_enable_alert_title">Ukusetha kwezilungiselelo zombhalo</string>
-<string name="pref_ime_enable_alert_message">Sicela unike amandla i-%s.</string>
-<string name="pref_ime_switch_alert_title">Ukusetha kwendlela yokufaka</string>
-<string name="pref_ime_switch_alert_message">Sicela ushintshele indlela yokufaka ku-%s.</string>
-<string name="pref_ime_alert_next">Okulandelayo</string>
-<string name="pref_ime_alert_cancel">Khansela</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">Phansi</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Maphakathi</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Phezulu</string>

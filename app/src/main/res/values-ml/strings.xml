@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">പൂരിപ്പിക്കുക</string>
 <string name="pref_layout_adjustment_entry_right">വലത്തേക്ക്</string>
 <string name="pref_layout_adjustment_entry_left">ഇടത്തേയ്‌ക്ക്</string>
-<string name="pref_ime_enable_alert_title">ടെക്‌സ്റ്റ് ക്രമീകരണങ്ങൾക്കുള്ള സജ്ജീകരണങ്ങൾ</string>
-<string name="pref_ime_enable_alert_message">%s എന്നത് പ്രവർത്തനക്ഷമമാക്കുക.</string>
-<string name="pref_ime_switch_alert_title">ടൈപ്പുചെയ്യൽ രീതിയ്‌ക്കുള്ള സജ്ജീകരണം</string>
-<string name="pref_ime_switch_alert_message">%s എന്നതിലേക്ക് ടൈപ്പുചെയ്യൽ രീതി മാറ്റുക.</string>
-<string name="pref_ime_alert_next">അടുത്തത്</string>
-<string name="pref_ime_alert_cancel">റദ്ദാക്കുക</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">കുറഞ്ഞത്</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">ഇടത്തരം</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">ഉയർന്ന</string>

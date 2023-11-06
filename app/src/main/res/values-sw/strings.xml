@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">Jaza</string>
 <string name="pref_layout_adjustment_entry_right">Kulia</string>
 <string name="pref_layout_adjustment_entry_left">Kushoto</string>
-<string name="pref_ime_enable_alert_title">Usanidi kwa ajili ya mipangilio ya maandishi</string>
-<string name="pref_ime_enable_alert_message">Tafadhali washa %s.</string>
-<string name="pref_ime_switch_alert_title">Usanidi kwa ajili ya mbinu ya kuingiza data</string>
-<string name="pref_ime_switch_alert_message">Tafadhali badilisha mbinu ya kuingiza data kuwa %s.</string>
-<string name="pref_ime_alert_next">Inayofuata</string>
-<string name="pref_ime_alert_cancel">Ghairi</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">Chini</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Kati</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Juu</string>

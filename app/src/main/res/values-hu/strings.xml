@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">Kitöltés</string>
 <string name="pref_layout_adjustment_entry_right">Jobbra</string>
 <string name="pref_layout_adjustment_entry_left">Balra</string>
-<string name="pref_ime_enable_alert_title">Szövegbeállítások megadása</string>
-<string name="pref_ime_enable_alert_message">Engedélyezze a következőt: %s.</string>
-<string name="pref_ime_switch_alert_title">Beviteli mód beállításai</string>
-<string name="pref_ime_switch_alert_message">Változtassa meg a beviteli módot a következőre: %s.</string>
-<string name="pref_ime_alert_next">Tovább</string>
-<string name="pref_ime_alert_cancel">Mégse</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">Alacsony</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Közepes</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Magas</string>

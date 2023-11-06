@@ -141,12 +141,6 @@
 <!-- First time launch activity -->
 
 <!-- Alert messages -->
-<string name="pref_ime_enable_alert_title">インストール後の設定</string>
-<string name="pref_ime_enable_alert_message">%sを有効にしてください。</string>
-<string name="pref_ime_switch_alert_title">入力方法の設定</string>
-<string name="pref_ime_switch_alert_message">入力方法を%sに変更してください。</string>
-<string name="pref_ime_alert_next">次へ</string>
-<string name="pref_ime_alert_cancel">キャンセル</string>
 
 <!-- Misc text for preferences -->
 <string name="pref_flick_sensitivity_seekbar_low_text">低い</string>

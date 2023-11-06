@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">भरें</string>
 <string name="pref_layout_adjustment_entry_right">दाएं</string>
 <string name="pref_layout_adjustment_entry_left">बाएं</string>
-<string name="pref_ime_enable_alert_title">लेख सेटिंग के लिए सेटअप</string>
-<string name="pref_ime_enable_alert_message">कृपया %s सक्षम करें.</string>
-<string name="pref_ime_switch_alert_title">इनपुट विधि के लिए सेटअप</string>
-<string name="pref_ime_switch_alert_message">कृपया इनपुट विधि बदलकर %s करें.</string>
-<string name="pref_ime_alert_next">अगला</string>
-<string name="pref_ime_alert_cancel">रहने दें</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">निम्न</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">मध्य</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">उच्च</string>

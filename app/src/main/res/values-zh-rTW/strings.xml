@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">填滿</string>
 <string name="pref_layout_adjustment_entry_right">右側</string>
 <string name="pref_layout_adjustment_entry_left">左側</string>
-<string name="pref_ime_enable_alert_title">文字設定</string>
-<string name="pref_ime_enable_alert_message">請啟用 [%s]。</string>
-<string name="pref_ime_switch_alert_title">輸入法設定</string>
-<string name="pref_ime_switch_alert_message">請將輸入法變更為 %s。</string>
-<string name="pref_ime_alert_next">繼續</string>
-<string name="pref_ime_alert_cancel">取消</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">低</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">中</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">高</string>

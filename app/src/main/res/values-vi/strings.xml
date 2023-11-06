@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">Điền</string>
 <string name="pref_layout_adjustment_entry_right">Bên phải</string>
 <string name="pref_layout_adjustment_entry_left">Bên trái</string>
-<string name="pref_ime_enable_alert_title">Thiết lập cho cài đặt văn bản</string>
-<string name="pref_ime_enable_alert_message">Hãy bật %s.</string>
-<string name="pref_ime_switch_alert_title">Thiết lập cho phương thức nhập</string>
-<string name="pref_ime_switch_alert_message">Hãy thay đổi phương thức nhập thành %s.</string>
-<string name="pref_ime_alert_next">Tiếp theo</string>
-<string name="pref_ime_alert_cancel">Hủy</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">Thấp</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Trung bình</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Cao</string>

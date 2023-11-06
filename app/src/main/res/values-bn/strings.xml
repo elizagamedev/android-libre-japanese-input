@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">পূরণ করুন</string>
 <string name="pref_layout_adjustment_entry_right">ডান</string>
 <string name="pref_layout_adjustment_entry_left">বাম</string>
-<string name="pref_ime_enable_alert_title">পাঠ্য সেটিংসের জন্য সেটআপ</string>
-<string name="pref_ime_enable_alert_message">দয়া করে %s সক্ষম করুন৷</string>
-<string name="pref_ime_switch_alert_title">ইনপুট পদ্ধতির জন্য সেটআপ</string>
-<string name="pref_ime_switch_alert_message">দয়া করে ইনপুট পদ্ধতির পরিবর্তন করে %s করুন৷</string>
-<string name="pref_ime_alert_next">পরবর্তী</string>
-<string name="pref_ime_alert_cancel">বাতিল করুন</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">কম</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">মাঝারি</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">বেশি</string>

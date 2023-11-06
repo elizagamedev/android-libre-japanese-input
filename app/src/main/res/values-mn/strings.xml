@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">Бөглөх</string>
 <string name="pref_layout_adjustment_entry_right">Баруун</string>
 <string name="pref_layout_adjustment_entry_left">Зүүн</string>
-<string name="pref_ime_enable_alert_title">Текст тохиргооны суулгац</string>
-<string name="pref_ime_enable_alert_message">%s-г идэвхжүүлнэ үү.</string>
-<string name="pref_ime_switch_alert_title">Оролтын тохиргоо</string>
-<string name="pref_ime_switch_alert_message">Оролтыг %s болгож өөрчлөнө үү.</string>
-<string name="pref_ime_alert_next">Дараах</string>
-<string name="pref_ime_alert_cancel">Цуцлах</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">Бага</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Дунд</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Өндөр</string>

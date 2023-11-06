@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">Заповнення</string>
 <string name="pref_layout_adjustment_entry_right">За правим краєм</string>
 <string name="pref_layout_adjustment_entry_left">За лівим краєм</string>
-<string name="pref_ime_enable_alert_title">Налаштування параметрів тексту</string>
-<string name="pref_ime_enable_alert_message">Увімкніть %s.</string>
-<string name="pref_ime_switch_alert_title">Налаштування способу введення</string>
-<string name="pref_ime_switch_alert_message">Змініть метод введення на %s.</string>
-<string name="pref_ime_alert_next">Далі</string>
-<string name="pref_ime_alert_cancel">Скасувати</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">Низька</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Середня</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Висока</string>

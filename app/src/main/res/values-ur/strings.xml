@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">بھریں</string>
 <string name="pref_layout_adjustment_entry_right">دائیں</string>
 <string name="pref_layout_adjustment_entry_left">بائیں</string>
-<string name="pref_ime_enable_alert_title">متنی ترتیبات کیلئے سیٹ اپ</string>
-<string name="pref_ime_enable_alert_message">براہ کرم %s کو فعال کریں۔</string>
-<string name="pref_ime_switch_alert_title">ان پٹ طریقہ کیلئے سیٹ اپ</string>
-<string name="pref_ime_switch_alert_message">براہ کرم ان پٹ طریقہ کو تبدیل کر کے %s کریں۔</string>
-<string name="pref_ime_alert_next">اگلا</string>
-<string name="pref_ime_alert_cancel">منسوخ کریں</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">کم</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">وسطی</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">زیادہ</string>

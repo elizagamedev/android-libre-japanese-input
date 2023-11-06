@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">Vyplniť</string>
 <string name="pref_layout_adjustment_entry_right">Vpravo</string>
 <string name="pref_layout_adjustment_entry_left">Vľavo</string>
-<string name="pref_ime_enable_alert_title">Nastavenie pre textové nastavenia</string>
-<string name="pref_ime_enable_alert_message">Povoľte %s.</string>
-<string name="pref_ime_switch_alert_title">Nastavenie pre metódu vstupu</string>
-<string name="pref_ime_switch_alert_message">Zmeňte metódu vstupu na %s.</string>
-<string name="pref_ime_alert_next">Ďalej</string>
-<string name="pref_ime_alert_cancel">Zrušiť</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">Nízka</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Stredná</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Vysoká</string>

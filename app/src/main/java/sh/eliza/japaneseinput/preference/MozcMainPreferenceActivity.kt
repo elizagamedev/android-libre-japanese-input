@@ -1,43 +1,27 @@
 package sh.eliza.japaneseinput.preference
 
 import android.content.Context
-import android.content.DialogInterface
-import android.content.DialogInterface.OnCancelListener
-import android.content.DialogInterface.OnClickListener
-import android.content.DialogInterface.OnDismissListener
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
 import android.provider.Settings
-import androidx.appcompat.app.AlertDialog
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.Preference
+import androidx.preference.Preference.OnPreferenceChangeListener
+import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import sh.eliza.japaneseinput.ApplicationInitializerFactory
-import sh.eliza.japaneseinput.ApplicationInitializerFactory.ApplicationInitializer
 import sh.eliza.japaneseinput.MozcUtil
 import sh.eliza.japaneseinput.R
 import sh.eliza.japaneseinput.hardwarekeyboard.HardwareKeyboardSpecification
 import sh.eliza.japaneseinput.preference.KeyboardPreviewDrawable.BitmapCache
 import sh.eliza.japaneseinput.preference.KeyboardPreviewDrawable.CacheReferenceKey
 import sh.eliza.japaneseinput.util.LauncherIconManagerFactory
-
-private fun createAlertDialog(
-  context: Context,
-  titleResourceId: Int,
-  message: String,
-  clickListener: DialogInterface.OnClickListener
-) =
-  MaterialAlertDialogBuilder(context).run {
-    setTitle(titleResourceId)
-    setMessage(message)
-    setPositiveButton(R.string.pref_ime_alert_next, clickListener)
-    setNegativeButton(R.string.pref_ime_alert_cancel, clickListener)
-    create()
-  }
 
 class MozcMainPreferenceActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,78 +40,39 @@ class MozcMainPreferenceActivity : AppCompatActivity() {
 }
 
 class MozcMainPreferenceFragment() : PreferenceFragmentCompat() {
-
-  private class ImeEnableDialogClickListener
-  internal constructor(
-    private val context: Context,
-  ) : DialogInterface.OnClickListener {
-    override fun onClick(dialog: DialogInterface, which: Int) {
-      if (which == DialogInterface.BUTTON_POSITIVE) {
-        // Open the keyboard & language setting page.
-        val intent = Intent()
-        intent.setAction(Settings.ACTION_INPUT_METHOD_SETTINGS)
-        intent.addCategory(Intent.CATEGORY_DEFAULT)
-        context.startActivity(intent)
-      }
+  private val sharedPreferenceChangeListener = OnSharedPreferenceChangeListener { _, key ->
+    if (PreferenceUtil.PREF_LAUNCHER_ICON_VISIBILITY_KEY == key) {
+      LauncherIconManagerFactory.getDefaultInstance().updateLauncherIconVisibility(context)
     }
   }
-
-  private class ImeSwitchDialogListener
-  internal constructor(
-    private val context: Context,
-  ) :
-    DialogInterface.OnClickListener,
-    DialogInterface.OnDismissListener,
-    DialogInterface.OnCancelListener {
-
-    // This variable should be reset every dialog shown timing, but it is not supported
-    // on API level 7. So, instead, we check all possible finishing pass.
-    // TODO(hidehiko): use OnShownListener after we upgrade the API level.
-    private var showInputMethodPicker = false
-
-    override fun onClick(dialog: DialogInterface, which: Int) {
-      showInputMethodPicker = which == DialogInterface.BUTTON_POSITIVE
-    }
-
-    override fun onCancel(arg0: DialogInterface) {
-      showInputMethodPicker = false
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-      if (showInputMethodPicker) {
-        // Send an input method picker shown event after the dismissing of this dialog is
-        // completed. Otherwise, the new dialog will be dismissed, too.
-        showInputMethodPicker = false
-        MozcUtil.requestShowInputMethodPicker(context)
-      }
-    }
-  }
-
-  private lateinit var imeEnableDialog: AlertDialog
-  private lateinit var imeSwitchDialog: AlertDialog
-
-  private val sharedPreferenceChangeListener =
-    object : OnSharedPreferenceChangeListener {
-      override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
-        if (PreferenceUtil.PREF_LAUNCHER_ICON_VISIBILITY_KEY == key) {
-          LauncherIconManagerFactory.getDefaultInstance().updateLauncherIconVisibility(context)
-        }
-      }
-    }
 
   // Cache the SharedPreferences instance, otherwise PreferenceManager.getDefaultSharedPreferences
   // would try to read it from the storage every time.
   private lateinit var sharedPreferences: SharedPreferences
+  private lateinit var enableKeyboardPreference: SwitchPreferenceCompat
+  private lateinit var inputMethodManager: InputMethodManager
   private val cacheKey = CacheReferenceKey()
 
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
     setPreferencesFromResource(R.xml.pref_main, rootKey)
+
+    enableKeyboardPreference =
+      findPreference<SwitchPreferenceCompat>("pref_enable_keyboard_key")!!.apply {
+        onPreferenceClickListener = OnPreferenceClickListener {
+          context.startActivity(Intent(Settings.ACTION_INPUT_METHOD_SETTINGS))
+          true
+        }
+        onPreferenceChangeListener = OnPreferenceChangeListener { _, _ -> false }
+      }
+
+    findPreference<Preference>("pref_about_version")!!.setSummary(MozcUtil.getVersionName(context))
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
     sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    initializeAlertDialog(context)
+    inputMethodManager =
+      context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
   }
 
   override fun onResume() {
@@ -140,16 +85,15 @@ class MozcMainPreferenceFragment() : PreferenceFragmentCompat() {
       false
     )
 
-    onPostResumeInternal(ApplicationInitializerFactory.createInstance(requireContext()))
-  }
-
-  private fun onPostResumeInternal(initializer: ApplicationInitializer) {
     val context = requireContext()
-    initializer.initialize(
-      MozcUtil.getAbiIndependentVersionCode(context),
-      LauncherIconManagerFactory.getDefaultInstance(),
-      PreferenceUtil.defaultPreferenceManagerStatic
-    )
+    ApplicationInitializerFactory.createInstance(requireContext())
+      .initialize(
+        MozcUtil.getAbiIndependentVersionCode(context),
+        LauncherIconManagerFactory.getDefaultInstance(),
+        PreferenceUtil.defaultPreferenceManagerStatic
+      )
+
+    enableKeyboardPreference.setChecked(isInputMethodEnabled())
   }
 
   override fun onPause() {
@@ -179,33 +123,8 @@ class MozcMainPreferenceFragment() : PreferenceFragmentCompat() {
     super.onStop()
   }
 
-  private fun initializeAlertDialog(context: Context) {
-    val resource = getResources()
-    imeEnableDialog =
-      createAlertDialog(
-        context,
-        R.string.pref_ime_enable_alert_title,
-        resource.getString(
-          R.string.pref_ime_enable_alert_message,
-          resource.getString(R.string.app_name)
-        ),
-        ImeEnableDialogClickListener(context)
-      )
-
-    val listener = ImeSwitchDialogListener(context)
-    imeSwitchDialog =
-      createAlertDialog(
-          context,
-          R.string.pref_ime_switch_alert_title,
-          resource.getString(
-            R.string.pref_ime_switch_alert_message,
-            resource.getString(R.string.app_name)
-          ),
-          listener
-        )
-        .apply {
-          setOnCancelListener(listener)
-          setOnDismissListener(listener)
-        }
+  private fun isInputMethodEnabled(): Boolean {
+    val packageName = context?.packageName ?: return false
+    return inputMethodManager.enabledInputMethodList.any { it.serviceName.startsWith(packageName) }
   }
 }

@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">Preencher</string>
 <string name="pref_layout_adjustment_entry_right">Direita</string>
 <string name="pref_layout_adjustment_entry_left">Esquerda</string>
-<string name="pref_ime_enable_alert_title">Configuração de definições de texto</string>
-<string name="pref_ime_enable_alert_message">Ative %s.</string>
-<string name="pref_ime_switch_alert_title">Configuração do método de introdução</string>
-<string name="pref_ime_switch_alert_message">Altere o método de introdução para %s.</string>
-<string name="pref_ime_alert_next">Seguinte</string>
-<string name="pref_ime_alert_cancel">Cancelar</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">Baixo</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Médio</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Elevado</string>

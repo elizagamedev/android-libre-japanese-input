@@ -116,12 +116,6 @@
 <string name="pref_layout_adjustment_entry_fill">Užpildas</string>
 <string name="pref_layout_adjustment_entry_right">Dešinėje</string>
 <string name="pref_layout_adjustment_entry_left">Kairėje</string>
-<string name="pref_ime_enable_alert_title">Teksto nustatymų sąranka</string>
-<string name="pref_ime_enable_alert_message">Įgalinkite %s.</string>
-<string name="pref_ime_switch_alert_title">Įvesties metodo sąranka</string>
-<string name="pref_ime_switch_alert_message">Pakeiskite įvesties metodą į %s.</string>
-<string name="pref_ime_alert_next">Kitas</string>
-<string name="pref_ime_alert_cancel">Atšaukti</string>
 <string name="pref_flick_sensitivity_seekbar_low_text">Žemas</string>
 <string name="pref_flick_sensitivity_seekbar_middle_text">Vid.</string>
 <string name="pref_flick_sensitivity_seekbar_high_text">Aukštas</string>
