@@ -1,5 +1,7 @@
 # Libre Japanese Input for Android
 
+![Screenshot](screenshot.png)
+
 ## What is this?
 
 Libre Japanese Input is a WIP restoration and continuation of the standalone
