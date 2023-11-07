@@ -246,10 +246,10 @@ def ParseOptions():
 
 def main():
   options = ParseOptions()
-  with open(options.emoji_data) as stream:
+  with open(options.emoji_data, encoding='utf8') as stream:
     emoji_data = ReadData(stream)
 
-  with open(options.output, 'w') as stream:
+  with open(options.output, 'w', encoding='utf8') as stream:
     OutputData(emoji_data, stream)
 
 

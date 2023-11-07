@@ -475,7 +475,7 @@ def ExpandAndWriteSupportKeys(template_file, output_file_basename, output_dir,
   for key_definition in key_definition_list:
     assert len(key_definition['chars']) == len(_REPLACE_CHARS)
 
-    with open(template_file) as template_f:
+    with open(template_file, encoding='utf8') as template_f:
       template = template_f.read()
 
     for i, pattern in enumerate(_REPLACE_CHARS):
@@ -497,7 +497,7 @@ def ExpandAndWriteSupportKeys(template_file, output_file_basename, output_dir,
       file_name = '%s__%s_%s.svg' % (output_file_basename,
                                      key_definition['name'],
                                      name_suffix)
-      with open(os.path.join(output_dir, file_name), 'w') as write_f:
+      with open(os.path.join(output_dir, file_name), 'w', encoding='utf8') as write_f:
         write_f.write(keytop)
 
 
@@ -516,14 +516,14 @@ def WriteSupportPopupKeys(
   for key_definition in key_definition_list:
     assert len(key_definition['chars']) == len(_REPLACE_CHARS)
 
-    with open(template_file) as template_f:
+    with open(template_file, encoding='utf8') as template_f:
       keytop = template_f.read()
     for i, pattern in enumerate(_REPLACE_CHARS):
       keytop = keytop.replace(pattern, key_definition['chars'][i])
 
     file_name = '%s__%s.svg' % (output_file_basename,
                                 key_definition['name'])
-    with open(os.path.join(output_dir, file_name), 'w') as write_f:
+    with open(os.path.join(output_dir, file_name), 'w', encoding='utf8') as write_f:
       write_f.write(keytop)
 
 
@@ -542,7 +542,7 @@ def WriteKeys(
   for key_definition in key_definition_list:
     assert key_definition['char']
 
-    with open(template_file) as template_f:
+    with open(template_file, encoding='utf8') as template_f:
       keytop = template_f.read()
     keytop = keytop.replace(_REPLACE_CHAR, key_definition['char'])
     keytop = keytop.replace(_REPLACE_CHAR_QWERTY_SUPPORT,
@@ -550,7 +550,7 @@ def WriteKeys(
 
     file_name = '%s__%s.svg' % (output_file_basename,
                                 key_definition['name'])
-    with open(os.path.join(output_dir, file_name), 'w') as write_f:
+    with open(os.path.join(output_dir, file_name), 'w', encoding='utf8') as write_f:
       write_f.write(keytop)
 
 
