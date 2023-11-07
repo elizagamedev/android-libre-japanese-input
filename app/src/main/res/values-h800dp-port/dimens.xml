@@ -30,9 +30,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <!-- This is intended to be used for:
-     - Nexus7 (2012) (961 x 600 dp, screenHeightDp: 880 dp)
-     - Nexus7 (2013) (960 x 600 dp, screenHeightDp: ? dp)
-     From this size the devices are recognized as a kind of tables.
+- Nexus7 (2012) (961 x 600 dp, screenHeightDp: 880 dp)
+- Nexus7 (2013) (960 x 600 dp, screenHeightDp: ? dp)
+From this size the devices are recognized as a kind of tables.
 -->
 <resources>
 
@@ -53,9 +53,9 @@
   <dimen name="symbol_view_major_category_height">75.6dip</dimen>
 
   <!--
-       ime_window_height = input_frame_height + (candidate_text_size + candidate_vertical_padding_size * 2) * n
-       n = 2 for portrait. Otherwise n = 1.
-    -->
+      ime_window_height = input_frame_height + (candidate_text_size + candidate_vertical_padding_size * 2) * n
+      n = 2 for portrait. Otherwise n = 1.
+  -->
   <dimen name="ime_window_height">402.4dip</dimen>
   <dimen name="input_frame_height">302.4dip</dimen>
   <!-- partial_width >= 7 * (candidate_text_size + candidate_vertical_padding_size * 2) -->

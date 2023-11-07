@@ -37,18 +37,18 @@
     android:gravity="end"
     android:orientation="horizontal" >
 
-    <sh.eliza.japaneseinput.view.MozcImageView
-        android:id="@+id/microphone_button"
-        android:layout_width="@dimen/button_frame_button_width"
-        android:layout_height="@dimen/button_frame_button_height"
-        android:layout_marginEnd="2dip"
-        android:layout_gravity="center_vertical"
-        android:contentDescription="@string/cd_voice_input"
-        android:paddingEnd="5dip"
-        android:paddingStart="5dip"
-        android:soundEffectsEnabled="false"
-        mozc:rawSrc="@raw/microphone"
-        mozc:maxImageHeight="@dimen/button_frame_microphone_height"
-        android:visibility="gone" />
+  <sh.eliza.japaneseinput.view.MozcImageView
+      android:id="@+id/microphone_button"
+      android:layout_width="@dimen/button_frame_button_width"
+      android:layout_height="@dimen/button_frame_button_height"
+      android:layout_marginEnd="2dip"
+      android:layout_gravity="center_vertical"
+      android:contentDescription="@string/cd_voice_input"
+      android:paddingEnd="5dip"
+      android:paddingStart="5dip"
+      android:soundEffectsEnabled="false"
+      mozc:rawSrc="@raw/microphone"
+      mozc:maxImageHeight="@dimen/button_frame_microphone_height"
+      android:visibility="gone" />
 
 </LinearLayout>

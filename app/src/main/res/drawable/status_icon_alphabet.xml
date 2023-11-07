@@ -30,4 +30,4 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
-    android:src="@drawable/status_icon_image_alphabet" />
+        android:src="@drawable/status_icon_image_alphabet" />

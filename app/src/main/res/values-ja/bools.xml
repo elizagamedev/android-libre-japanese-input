@@ -31,7 +31,7 @@
 -->
 <resources>
 
-    <!-- If the system's locale is JA, the IME becomes default IME. -->
-    <bool name="im_is_default">true</bool>
+  <!-- If the system's locale is JA, the IME becomes default IME. -->
+  <bool name="im_is_default">true</bool>
 
 </resources>

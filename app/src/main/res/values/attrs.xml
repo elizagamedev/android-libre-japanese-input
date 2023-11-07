@@ -99,11 +99,11 @@
     <attr name="contentDescription" format="string" />
     <!-- We now support four meta states here; shift, caps_lock, alt and unmodified.
          Please also see KeyState.MetaState for more details.
-      -->
+    -->
     <attr name="metaState">
       <!-- It is allowed to set multiple state here (by concatenating '|' separator).
            If we don't specify this attribute it means unmodified state.
-        -->
+      -->
       <flag name="shift" value="1" />
       <flag name="capsLock" value="2" />
       <flag name="alt" value="4" />
@@ -172,14 +172,14 @@
          1. The region is initially given by keyboard parser (Size: Key width x Row height).
          2. The region is shrinked by horizontal/verticalPadding.
          3. If (iconWidth > region_width OR iconHeight > region_height),
-            the icon is drawn in the region (iconWidth/Height is not used).
-            If not, the icon is shown in the size (iconHeight, iconWidth).
+         the icon is drawn in the region (iconWidth/Height is not used).
+         If not, the icon is shown in the size (iconHeight, iconWidth).
          4. Aspect ratio is always kept.
          The default values are too large so
          if not provided the icon is drawn as large as possible. -->
     <attr name="iconHeight" format="fraction|dimension" />
     <attr name="iconWidth" format="fraction|dimension" />
-    </declare-styleable>
+  </declare-styleable>
 
   <declare-styleable name="PopUp">
     <attr name="popUpIcon" format="reference" />

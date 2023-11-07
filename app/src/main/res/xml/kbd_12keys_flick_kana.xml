@@ -29,29 +29,29 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-  <!--
-    The current keycode mapping to flick direction and tapping action is as follows;
-     +===========+===========+===========+
-     |    ';'    |    'b'    |    'e'    |
-     |'_' '1' ':'|'a' '2' 'c'|'d' '3' 'f'|
-     |    '@'    |    '|'    |    '~'    |
-     +===========+===========+===========+
-     |    'h'    |    'k'    |    'n'    |
-     |'g' '4' 'i'|'j' '5' 'l'|'m' '6' 'o'|
-     |    '$'    |    '%'    |    '&'    |
-     +===========+===========+===========+
-     |    'q'    |    'u'    |    'x'    |
-     |'p' '7' 'r'|'t' '8' 'v'|'w' '9' 'y'|
-     |    's'    |    '^'    |    'z'    |
-     +===========+===========+===========+
-     |           |    '/'    |    '?'    |
-     |    '*'    |'+' '0' '-'|',' '#' '!'|
-     |           |    '<'    |    '>'    |
-     +===========+===========+===========+
+<!--
+The current keycode mapping to flick direction and tapping action is as follows;
++===========+===========+===========+
+|    ';'    |    'b'    |    'e'    |
+|'_' '1' ':'|'a' '2' 'c'|'d' '3' 'f'|
+|    '@'    |    '|'    |    '~'    |
++===========+===========+===========+
+|    'h'    |    'k'    |    'n'    |
+|'g' '4' 'i'|'j' '5' 'l'|'m' '6' 'o'|
+|    '$'    |    '%'    |    '&'    |
++===========+===========+===========+
+|    'q'    |    'u'    |    'x'    |
+|'p' '7' 'r'|'t' '8' 'v'|'w' '9' 'y'|
+|    's'    |    '^'    |    'z'    |
++===========+===========+===========+
+|           |    '/'    |    '?'    |
+|    '*'    |'+' '0' '-'|',' '#' '!'|
+|           |    '<'    |    '>'    |
++===========+===========+===========+
 
-     TODO(hidehiko): Now the key id is inconsistent between keyIcon and flick popup due to
-     historical reason. Standardize them.
-     -->
+TODO(hidehiko): Now the key id is inconsistent between keyIcon and flick popup due to
+historical reason. Standardize them.
+-->
 <Keyboard
     xmlns:mozc="http://schemas.android.com/apk/res-auto"
     mozc:keyboardContentDescription="@string/cd_keyboard_kana"

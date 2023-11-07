@@ -32,20 +32,20 @@
 
 <resources>
 
-    <!-- TODO(matsuzakit): Create new arrays_skin.xml into values-v20?v21? and remove material design from this file. -->
-    <string-array name="pref_skin_type_entries">
-        <item>@string/pref_skin_type_blue_lightgray</item>
-        <item>@string/pref_skin_type_orange_lightgray</item>
-        <item>@string/pref_skin_type_blue_darkgray</item>
-        <item>@string/pref_skin_type_material_design_light</item>
-        <item>@string/pref_skin_type_material_design_dark</item>
-    </string-array>
-    <string-array name="pref_skin_type_values">
-        <item>BLUE_LIGHTGRAY</item>
-        <item>ORANGE_LIGHTGRAY</item>
-        <item>BLUE_DARKGRAY</item>
-        <item>MATERIAL_DESIGN_LIGHT</item>
-        <item>MATERIAL_DESIGN_DARK</item>
-    </string-array>
+  <!-- TODO(matsuzakit): Create new arrays_skin.xml into values-v20?v21? and remove material design from this file. -->
+  <string-array name="pref_skin_type_entries">
+    <item>@string/pref_skin_type_blue_lightgray</item>
+    <item>@string/pref_skin_type_orange_lightgray</item>
+    <item>@string/pref_skin_type_blue_darkgray</item>
+    <item>@string/pref_skin_type_material_design_light</item>
+    <item>@string/pref_skin_type_material_design_dark</item>
+  </string-array>
+  <string-array name="pref_skin_type_values">
+    <item>BLUE_LIGHTGRAY</item>
+    <item>ORANGE_LIGHTGRAY</item>
+    <item>BLUE_DARKGRAY</item>
+    <item>MATERIAL_DESIGN_LIGHT</item>
+    <item>MATERIAL_DESIGN_DARK</item>
+  </string-array>
 
 </resources>

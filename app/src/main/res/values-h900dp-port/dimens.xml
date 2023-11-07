@@ -30,9 +30,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <!-- This is intended to be used for:
-     - Volantis (1024 x 768 dp, screenHeightDp: 951 dp)
-     - Nexus10 (1280 x 800 dp, screenHeightDp: 1207 dp)
-     And larger ones than above.
+- Volantis (1024 x 768 dp, screenHeightDp: 951 dp)
+- Nexus10 (1280 x 800 dp, screenHeightDp: 1207 dp)
+And larger ones than above.
 -->
 <resources>
 
@@ -40,9 +40,9 @@
   <dimen name="symbol_view_major_category_height">75.75dip</dimen>
 
   <!--
-       ime_window_height = input_frame_height + (candidate_text_size + candidate_vertical_padding_size * 2) * n
-       n = 2 for portrait. Otherwise n = 1.
-    -->
+      ime_window_height = input_frame_height + (candidate_text_size + candidate_vertical_padding_size * 2) * n
+      n = 2 for portrait. Otherwise n = 1.
+  -->
   <dimen name="ime_window_height">403dip</dimen>
   <dimen name="input_frame_height">303dip</dimen>
 

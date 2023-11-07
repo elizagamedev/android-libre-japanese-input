@@ -29,27 +29,27 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-  <!--
-    The current keycode mapping to flick direction and tapping action is as follows;
-     +===========+===========+===========+
-     |    '_'    |    'c'    |    'f'    |
-     |'-' '1' '/'|'b' '2'    |'e' '3'    |
-     |    '@'    |    '|'    |    '~'    |
-     +===========+===========+===========+
-     |    'i'    |    'l'    |    'o'    |
-     |'h' '4'    |'k' '5'    |'n' '6'    |
-     |    '$'    |    '%'    |    '&'    |
-     +===========+===========+===========+
-     |    'r'    |    'v'    |    'y'    |
-     |'q' '7' 's'|'u' '8'    |'x' '9' 'z'|
-     |    '<'    |    '^'    |    '>'    |
-     +===========+===========+===========+
-     |           |    ':'    |    '?'    |
-     |    '*'    |'"' '0' ';'|',' '.' '!'|
-     |           |    '#'    |           |
-     +===========+===========+===========+
-   -->
-   <!-- TODO(matsuzakit): Use icons for flick mode. Currently toggle mode's are used. -->
+<!--
+The current keycode mapping to flick direction and tapping action is as follows;
++===========+===========+===========+
+|    '_'    |    'c'    |    'f'    |
+|'-' '1' '/'|'b' '2'    |'e' '3'    |
+|    '@'    |    '|'    |    '~'    |
++===========+===========+===========+
+|    'i'    |    'l'    |    'o'    |
+|'h' '4'    |'k' '5'    |'n' '6'    |
+|    '$'    |    '%'    |    '&'    |
++===========+===========+===========+
+|    'r'    |    'v'    |    'y'    |
+|'q' '7' 's'|'u' '8'    |'x' '9' 'z'|
+|    '<'    |    '^'    |    '>'    |
++===========+===========+===========+
+|           |    ':'    |    '?'    |
+|    '*'    |'"' '0' ';'|',' '.' '!'|
+|           |    '#'    |           |
++===========+===========+===========+
+-->
+<!-- TODO(matsuzakit): Use icons for flick mode. Currently toggle mode's are used. -->
 <Keyboard
     xmlns:mozc="http://schemas.android.com/apk/res-auto"
     mozc:keyboardContentDescription="@string/cd_keyboard_alphabet"

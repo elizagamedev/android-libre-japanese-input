@@ -31,11 +31,11 @@
     android:paddingTop="4dp"
     android:paddingBottom="4dp">
 
-    <androidx.preference.internal.PreferenceImageView
-        android:id="@android:id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:maxWidth="48dp"
-        app:maxHeight="48dp"/>
+  <androidx.preference.internal.PreferenceImageView
+      android:id="@android:id/icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:maxWidth="48dp"
+      app:maxHeight="48dp"/>
 
 </LinearLayout>

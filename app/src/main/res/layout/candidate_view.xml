@@ -32,54 +32,54 @@
 <!-- This file is a part of CandidateView so please maintain in parallel. -->
 <sh.eliza.japaneseinput.CandidateView xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <LinearLayout
-        android:id="@+id/candidate_word_frame"
-        android:layout_width="fill_parent"
+  <LinearLayout
+      android:id="@+id/candidate_word_frame"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:orientation="horizontal" >
+
+    <!--
+        By the layout_weight parameter, ConversionCandidateWordView will fill
+        the parent view except ScrollGuideView declared below.
+    -->
+
+    <view
+        android:id="@+id/conversion_candidate_word_container_view"
+        android:layout_width="0dip"
         android:layout_height="fill_parent"
-        android:orientation="horizontal" >
+        android:layout_weight="1"
+        class="sh.eliza.japaneseinput.ConversionCandidateWordContainerView" >
 
-        <!--
-             By the layout_weight parameter, ConversionCandidateWordView will fill
-             the parent view except ScrollGuideView declared below.
-        -->
+      <!--
+          layout_width/height attributes, which are mandatory, of the children are ignored.
+          Layout process is done by ConversionCandidateWordViewContainerView without
+          layout parameters.
+      -->
 
-        <view
-            android:id="@+id/conversion_candidate_word_container_view"
-            android:layout_width="0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            class="sh.eliza.japaneseinput.ConversionCandidateWordContainerView" >
+      <view
+          android:id="@+id/candidate_word_view"
+          android:layout_width="0dip"
+          android:layout_height="0dip"
+          class="sh.eliza.japaneseinput.CandidateView$ConversionCandidateWordView" />
 
-            <!--
-                layout_width/height attributes, which are mandatory, of the children are ignored.
-                Layout process is done by ConversionCandidateWordViewContainerView without
-                layout parameters.
-            -->
+      <sh.eliza.japaneseinput.ui.InputFrameFoldButtonView
+          android:id="@+id/input_frame_fold_button"
+          android:layout_width="0dip"
+          android:layout_height="0dip"
+          android:disabledAlpha="0"
+          android:minHeight="0dip"
+          android:minWidth="0dip"
+          android:textOff=""
+          android:textOn=""
+          android:soundEffectsEnabled="false"
+          android:contentDescription="@string/cd_keyboard_fold_button" />
+    </view>
 
-            <view
-                android:id="@+id/candidate_word_view"
-                android:layout_width="0dip"
-                android:layout_height="0dip"
-                class="sh.eliza.japaneseinput.CandidateView$ConversionCandidateWordView" />
-
-            <sh.eliza.japaneseinput.ui.InputFrameFoldButtonView
-                android:id="@+id/input_frame_fold_button"
-                android:layout_width="0dip"
-                android:layout_height="0dip"
-                android:disabledAlpha="0"
-                android:minHeight="0dip"
-                android:minWidth="0dip"
-                android:textOff=""
-                android:textOn=""
-                android:soundEffectsEnabled="false"
-                android:contentDescription="@string/cd_keyboard_fold_button" />
-        </view>
-
-        <sh.eliza.japaneseinput.ui.ScrollGuideView
-            android:id="@+id/candidate_scroll_guide_view"
-            android:layout_width="@dimen/candidate_scrollbar_width"
-            android:layout_height="fill_parent"
-            android:layout_weight="0" />
-    </LinearLayout>
+    <sh.eliza.japaneseinput.ui.ScrollGuideView
+        android:id="@+id/candidate_scroll_guide_view"
+        android:layout_width="@dimen/candidate_scrollbar_width"
+        android:layout_height="fill_parent"
+        android:layout_weight="0" />
+  </LinearLayout>
 
 </sh.eliza.japaneseinput.CandidateView>
