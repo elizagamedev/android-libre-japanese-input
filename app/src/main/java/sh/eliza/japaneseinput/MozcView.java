@@ -395,10 +395,10 @@ public class MozcView extends FrameLayout implements MemoryManageable {
     leftFrameStubProxy.setSkin(skin);
     rightFrameStubProxy.setSkin(skin);
     getButtonFrame()
-        .setBackgroundDrawable(skin.buttonFrameBackgroundDrawable.getConstantState().newDrawable());
+        .setBackground(skin.buttonFrameBackgroundDrawable.getConstantState().newDrawable());
     getNarrowFrame().setSkin(skin);
     getKeyboardFrameSeparator()
-        .setBackgroundDrawable(
+        .setBackground(
             skin.keyboardFrameSeparatorBackgroundDrawable.getConstantState().newDrawable());
   }
 

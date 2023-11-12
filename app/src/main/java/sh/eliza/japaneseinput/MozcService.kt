@@ -37,6 +37,7 @@ import android.media.AudioManager
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.os.SystemClock
 import android.text.InputType
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -89,7 +90,7 @@ import sh.eliza.japaneseinput.preference.PreferenceUtil.isLandscapeKeyboardSetti
 import sh.eliza.japaneseinput.session.SessionExecutor
 import sh.eliza.japaneseinput.session.SessionExecutor.EvaluationCallback
 import sh.eliza.japaneseinput.session.SessionHandlerFactory
-import sh.eliza.japaneseinput.util.ImeSwitcherFactory
+import sh.eliza.japaneseinput.util.ImeSwitcher
 import sh.eliza.japaneseinput.util.LauncherIconManagerFactory
 
 /**
@@ -504,16 +505,11 @@ open class MozcService : InputMethodService() {
       )
     symbolHistoryStorage = SymbolHistoryStorageImpl(sessionExecutor)
 
-    val context = applicationContext
-    ApplicationInitializerFactory.createInstance(this)
-      .initialize(
-        MozcUtil.getAbiIndependentVersionCode(context),
-        LauncherIconManagerFactory.getDefaultInstance(),
-        defaultPreferenceManagerStatic
-      )
+    ApplicationInitializer(this)
+      .initialize(LauncherIconManagerFactory.getDefaultInstance(), defaultPreferenceManagerStatic)
 
     // Create a ViewManager.
-    val imeSwitcher = ImeSwitcherFactory.getImeSwitcher(this)
+    val imeSwitcher = ImeSwitcher(this)
     viewManager =
       ViewManager(
         applicationContext,
@@ -1070,7 +1066,7 @@ open class MozcService : InputMethodService() {
         inputConnection.sendKeyEvent(
           createKeyEvent(
             nativeKeyEvent.get(),
-            MozcUtil.getUptimeMillis(),
+            SystemClock.uptimeMillis(),
             nativeKeyEvent.get().action,
             nativeKeyEvent.get().repeatCount
           )
@@ -1080,10 +1076,10 @@ open class MozcService : InputMethodService() {
 
       // Other keys are from this.onKeyDown so create dummy Down/Up events.
       inputConnection.sendKeyEvent(
-        createKeyEvent(nativeKeyEvent.get(), MozcUtil.getUptimeMillis(), KeyEvent.ACTION_DOWN, 0)
+        createKeyEvent(nativeKeyEvent.get(), SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, 0)
       )
       inputConnection.sendKeyEvent(
-        createKeyEvent(nativeKeyEvent.get(), MozcUtil.getUptimeMillis(), KeyEvent.ACTION_UP, 0)
+        createKeyEvent(nativeKeyEvent.get(), SystemClock.uptimeMillis(), KeyEvent.ACTION_UP, 0)
       )
       return
     }

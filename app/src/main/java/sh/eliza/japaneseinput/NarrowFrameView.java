@@ -118,9 +118,9 @@ public class NarrowFrameView extends LinearLayout {
 
   public void setSkin(Skin skin) {
     this.skin = Preconditions.checkNotNull(skin);
-    setBackgroundDrawable(skin.narrowFrameBackgroundDrawable);
+    setBackground(skin.narrowFrameBackgroundDrawable);
     getNarrowFrameSeparator()
-        .setBackgroundDrawable(
+        .setBackground(
             skin.keyboardFrameSeparatorBackgroundDrawable.getConstantState().newDrawable());
     updateImageButton();
   }

@@ -70,6 +70,8 @@ public class KeyboardSpecificationName {
   }
 
   /** Returns *Canonical* orientation string, which is used as a part of keyboard name. */
+  // SQUARE orientation is deprecated, but we should still handle the case here.
+  @SuppressWarnings("deprecation")
   public static String getDeviceOrientationString(Configuration configuration) {
     Preconditions.checkNotNull(configuration);
     switch (configuration.orientation) {

@@ -76,6 +76,7 @@ abstract class BaseBackgroundDrawable extends Drawable {
   }
 
   /** Supporting alpha channel. */
+  @SuppressWarnings("deprecation")
   @Override
   public int getOpacity() {
     return PixelFormat.TRANSLUCENT;

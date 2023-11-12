@@ -90,7 +90,7 @@ public class ScrollGuideView extends View {
     }
     this.skin = skin;
     scrollBarDrawable = createScrollBarDrawable(skin);
-    setBackgroundDrawable(skin.scrollBarBackgroundDrawable.getConstantState().newDrawable());
+    setBackground(skin.scrollBarBackgroundDrawable.getConstantState().newDrawable());
     invalidate();
   }
 

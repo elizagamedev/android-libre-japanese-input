@@ -522,6 +522,7 @@ public class BufferedDrawable extends Drawable {
     return baseDrawable.getChangingConfigurations();
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public void setDither(boolean dither) {
     baseDrawable.setDither(dither);
@@ -577,6 +578,7 @@ public class BufferedDrawable extends Drawable {
     baseDrawable.setColorFilter(cf);
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public void setColorFilter(int color, Mode mode) {
     baseDrawable.setColorFilter(color, mode);
@@ -667,6 +669,7 @@ public class BufferedDrawable extends Drawable {
     return baseDrawable.canApplyTheme();
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public int getOpacity() {
     return baseDrawable.getOpacity();

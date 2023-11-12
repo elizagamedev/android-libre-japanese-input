@@ -151,12 +151,11 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
   private static final int IMPORT_DICTIONARY_SELECTION_DIALOG_ID = 5;
 
   private UserDictionaryToolModel model;
-  private ToastManager toastManager;
+  private SnackbarManager snackbarManager;
 
   @Override
   protected void onCreate(Bundle savedInstance) {
     super.onCreate(savedInstance);
-    toastManager = new ToastManager(this);
 
     // Initialize model.
     Context applicationContext = getApplicationContext();
@@ -168,6 +167,9 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
 
     // Initialize views.
     setContentView(R.layout.user_dictionary_tool_view);
+
+    snackbarManager = new SnackbarManager(findViewById(R.id.coordinator_layout));
+
     initializeDictionaryNameSpinner();
     initializeEntryListView();
 
@@ -221,7 +223,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
     super.onResume();
     String defaultDictionaryName =
         getResources().getText(R.string.user_dictionary_tool_default_dictionary_name).toString();
-    toastManager.maybeShowMessageShortly(model.resumeSession(defaultDictionaryName));
+    snackbarManager.maybeShowMessageShortly(model.resumeSession(defaultDictionaryName));
     updateDictionaryNameSpinner();
     updateEntryList();
   }
@@ -250,7 +252,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
 
     if (!"file".equals(importUri.getScheme())) {
       // Not a file.
-      toastManager.showMessageShortly(
+      snackbarManager.showMessageShortly(
           R.string.user_dictionary_tool_error_import_source_invalid_scheme);
       return;
     }
@@ -269,7 +271,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
     } catch (IOException e) {
       // Failed to read the file, or failed to detect the encoding.
       MozcLog.e("Failed to read data.", e);
-      toastManager.showMessageShortly(
+      snackbarManager.showMessageShortly(
           R.string.user_dictionary_tool_error_import_cannot_read_import_source);
       model.resetImportState();
     }
@@ -282,7 +284,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
       int size = zipFile.size();
       if (size == 0) {
         // Empty zip file.
-        toastManager.showMessageShortly(R.string.user_dictionary_tool_error_import_no_zip_entry);
+        snackbarManager.showMessageShortly(R.string.user_dictionary_tool_error_import_no_zip_entry);
         model.resetImportState();
         return;
       }
@@ -306,12 +308,12 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
     } catch (IOException e) {
       // Failed to open or manipulate the zip file.
       MozcLog.e("Failed to read zip", e);
-      toastManager.showMessageShortly(
+      snackbarManager.showMessageShortly(
           R.string.user_dictionary_tool_error_import_cannot_read_import_source);
       model.resetImportState();
     } catch (OutOfMemoryError e) {
       // The zip file being imported is too large. Recovering (if possible).
-      toastManager.showMessageShortly(
+      snackbarManager.showMessageShortly(
           R.string.user_dictionary_tool_error_import_too_large_zip_entry);
       model.resetImportState();
     } finally {
@@ -329,13 +331,15 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
   }
 
   // Just redirect to the showDialog in order to suppress warnings.
+  // TODO(exv): refactor this entire file
+  @SuppressWarnings("deprecation")
   private void showDialogInternal(int id) {
     super.showDialog(id);
   }
 
   @Override
   protected void onPause() {
-    toastManager.maybeShowMessageShortly(model.pauseSession());
+    snackbarManager.maybeShowMessageShortly(model.pauseSession());
     super.onPause();
   }
 
@@ -392,7 +396,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
 
   private void maybeShowAddEntryDialog() {
     Status status = model.checkNewEntryAvailability();
-    toastManager.maybeShowMessageShortly(status);
+    snackbarManager.maybeShowMessageShortly(status);
     if (status != Status.USER_DICTIONARY_COMMAND_SUCCESS) {
       return;
     }
@@ -411,16 +415,16 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
 
     if (indexList.isEmpty()) {
       // Show the delete confirmation dialog iff at least one entry is selected.
-      toastManager.showMessageShortly(
+      snackbarManager.showMessageShortly(
           R.string.user_dictionary_tool_error_delete_entries_without_check);
       selectedItemList.clear();
       return;
     }
 
     Status status = model.deleteEntry(indexList);
-    toastManager.maybeShowMessageShortly(status);
+    snackbarManager.maybeShowMessageShortly(status);
     if (status == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
-      toastManager.showMessageShortly(R.string.user_dictionary_tool_delete_done_message);
+      snackbarManager.showMessageShortly(R.string.user_dictionary_tool_delete_done_message);
       selectedItemList.clear();
       updateEntryList();
     }
@@ -428,9 +432,9 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
 
   private void runUndo() {
     Status status = model.undo();
-    toastManager.maybeShowMessageShortly(status);
+    snackbarManager.maybeShowMessageShortly(status);
     if (status == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
-      toastManager.showMessageShortly(R.string.user_dictionary_tool_undo_done_message);
+      snackbarManager.showMessageShortly(R.string.user_dictionary_tool_undo_done_message);
       // The update by undo may change the list of entries in the current dictionary.
       // So invalidate checked items.
       getEntryList().getCheckedItemPositions().clear();
@@ -441,7 +445,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
 
   private void maybeShowCreateDictionaryDialog() {
     Status status = model.checkNewDictionaryAvailability();
-    toastManager.maybeShowMessageShortly(status);
+    snackbarManager.maybeShowMessageShortly(status);
     if (status != Status.USER_DICTIONARY_COMMAND_SUCCESS) {
       // If we cannot add a new dictionary now, we shouldn't show the dialog.
       return;
@@ -452,9 +456,9 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
 
   private void deleteDictionary() {
     Status status = model.deleteSelectedDictionary();
-    toastManager.maybeShowMessageShortly(status);
+    snackbarManager.maybeShowMessageShortly(status);
     if (status == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
-      toastManager.showMessageShortly(R.string.user_dictionary_tool_delete_done_message);
+      snackbarManager.showMessageShortly(R.string.user_dictionary_tool_delete_done_message);
     }
     updateDictionaryNameSpinner();
     updateEntryList();
@@ -471,7 +475,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
     if (getPackageManager()
         .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
         .isEmpty()) {
-      toastManager.showMessageShortly(
+      snackbarManager.showMessageShortly(
           R.string.user_dictionary_tool_error_export_no_exportable_applications);
       return;
     }
@@ -487,7 +491,8 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
             "export",
             MozcUtil.getUserDictionaryExportTempDirectory(context));
     if (!exportFile.isPresent()) {
-      toastManager.showMessageShortly(R.string.user_dictionary_tool_error_export_failed_to_export);
+      snackbarManager.showMessageShortly(
+          R.string.user_dictionary_tool_error_export_failed_to_export);
       return;
     }
 
@@ -504,6 +509,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
     startActivity(intent);
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   protected Dialog onCreateDialog(int id) {
     switch (id) {
@@ -521,7 +527,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
                 return status;
               }
             },
-            toastManager);
+            snackbarManager);
 
       case EDIT_ENTRY_DIALOG_ID:
         return UserDictionaryUtil.createWordRegisterDialog(
@@ -537,7 +543,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
                 return status;
               }
             },
-            toastManager);
+            snackbarManager);
 
       case CREATE_DICTIONARY_DIALOG_ID:
         return UserDictionaryUtil.createDictionaryNameDialog(
@@ -554,7 +560,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
                 return status;
               }
             },
-            toastManager);
+            snackbarManager);
 
       case RENAME_DICTIONARY_DIALOG_ID:
         return UserDictionaryUtil.createDictionaryNameDialog(
@@ -570,7 +576,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
                 return status;
               }
             },
-            toastManager);
+            snackbarManager);
 
       case ZIP_FILE_SELECTION_DIALOG_ID:
         return UserDictionaryUtil.createZipFileSelectionDialog(
@@ -590,12 +596,12 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
                       UserDictionaryUtil.toStringWithEncodingDetection(
                           ZipFileUtil.getBuffer(zipFile, spinner.getSelectedItem().toString())));
                 } catch (IOException e) {
-                  toastManager.showMessageShortly(
+                  snackbarManager.showMessageShortly(
                       R.string.user_dictionary_tool_error_import_cannot_read_import_source);
                   model.resetImportState();
                   return;
                 } catch (OutOfMemoryError e) {
-                  toastManager.showMessageShortly(
+                  snackbarManager.showMessageShortly(
                       R.string.user_dictionary_tool_error_import_too_large_zip_entry);
                   model.resetImportState();
                   return;
@@ -635,7 +641,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
                 // So, the actual dictionary index is the position - 1.
                 // Note that the way to tell importData to create new dictionary is setting
                 // -1 to the argument.
-                toastManager.maybeShowMessageShortly(
+                snackbarManager.maybeShowMessageShortly(
                     model.importData(spinner.getSelectedItemPosition() - 1));
                 updateDictionaryNameSpinner();
                 updateEntryList();
@@ -659,6 +665,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
     return null;
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   protected void onPrepareDialog(int id, Dialog dialog) {
     super.onPrepareDialog(id, dialog);

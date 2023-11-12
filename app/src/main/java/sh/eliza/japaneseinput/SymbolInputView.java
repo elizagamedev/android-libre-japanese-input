@@ -644,7 +644,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
   private void updateMajorCategoryBackgroundSkin() {
     View view = getMajorCategoryFrame();
     if (view != null) {
-      view.setBackgroundDrawable(
+      view.setBackground(
           skin.symbolMajorCategoryBackgroundDrawable.getConstantState().newDrawable());
     }
   }
@@ -652,17 +652,16 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
   private void updateMinorCategoryBackgroundSkin() {
     View view = getMinorCategoryFrame();
     if (view != null) {
-      view.setBackgroundDrawable(
-          skin.buttonFrameBackgroundDrawable.getConstantState().newDrawable());
+      view.setBackground(skin.buttonFrameBackgroundDrawable.getConstantState().newDrawable());
     }
   }
 
   private void updateNumberKeyboardSkin() {
     getNumberKeyboardView().setSkin(skin);
     findViewById(R.id.number_frame)
-        .setBackgroundDrawable(skin.windowBackgroundDrawable.getConstantState().newDrawable());
+        .setBackground(skin.windowBackgroundDrawable.getConstantState().newDrawable());
     findViewById(R.id.button_frame_in_symbol_view)
-        .setBackgroundDrawable(skin.buttonFrameBackgroundDrawable.getConstantState().newDrawable());
+        .setBackground(skin.buttonFrameBackgroundDrawable.getConstantState().newDrawable());
   }
 
   /**
@@ -759,16 +758,14 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     if (!isInflated()) {
       return;
     }
-    getTabHost()
-        .setBackgroundDrawable(skin.windowBackgroundDrawable.getConstantState().newDrawable());
+    getTabHost().setBackground(skin.windowBackgroundDrawable.getConstantState().newDrawable());
     TabWidget tabWidget = getTabWidget();
     // Explicitly set non-transparent drawable to avoid strange background on
     // some devices.
-    tabWidget.setBackgroundDrawable(
-        skin.buttonFrameBackgroundDrawable.getConstantState().newDrawable());
+    tabWidget.setBackground(skin.buttonFrameBackgroundDrawable.getConstantState().newDrawable());
     for (int i = 0; i < tabWidget.getTabCount(); ++i) {
       View view = tabWidget.getChildTabViewAt(i);
-      view.setBackgroundDrawable(createTabBackgroundDrawable(skin));
+      view.setBackground(createTabBackgroundDrawable(skin));
     }
   }
 
@@ -895,7 +892,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
                 resources.getDimensionPixelSize(R.dimen.button_frame_height),
                 0);
     findViewById(R.id.symbol_view_backspace_separator)
-        .setBackgroundDrawable(
+        .setBackground(
             new InsetDrawable(
                 new ColorDrawable(skin.symbolSeparatorColor),
                 0,
@@ -915,16 +912,16 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
         new int[] {
           R.id.symbol_view_close_button_separator, R.id.symbol_view_enter_button_separator
         }) {
-      findViewById(id).setBackgroundDrawable(separator.getConstantState().newDrawable());
+      findViewById(id).setBackground(separator.getConstantState().newDrawable());
     }
 
     for (int id : new int[] {R.id.symbol_separator_1, R.id.symbol_separator_3}) {
       findViewById(id)
-          .setBackgroundDrawable(
+          .setBackground(
               skin.keyboardFrameSeparatorBackgroundDrawable.getConstantState().newDrawable());
     }
     findViewById(R.id.symbol_separator_2)
-        .setBackgroundDrawable(
+        .setBackground(
             skin.symbolSeparatorAboveMajorCategoryBackgroundDrawable
                 .getConstantState()
                 .newDrawable());

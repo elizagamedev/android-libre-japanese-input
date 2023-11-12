@@ -15,7 +15,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.appbar.MaterialToolbar
-import sh.eliza.japaneseinput.ApplicationInitializerFactory
+import sh.eliza.japaneseinput.ApplicationInitializer
 import sh.eliza.japaneseinput.MozcUtil
 import sh.eliza.japaneseinput.R
 import sh.eliza.japaneseinput.hardwarekeyboard.HardwareKeyboardSpecification
@@ -65,7 +65,9 @@ class MozcMainPreferenceFragment() : PreferenceFragmentCompat() {
         onPreferenceChangeListener = OnPreferenceChangeListener { _, _ -> false }
       }
 
-    findPreference<Preference>("pref_about_version")!!.setSummary(MozcUtil.getVersionName(context))
+    findPreference<Preference>("pref_about_version")!!.setSummary(
+      MozcUtil.getVersionName(requireContext())
+    )
   }
 
   override fun onAttach(context: Context) {
@@ -85,10 +87,8 @@ class MozcMainPreferenceFragment() : PreferenceFragmentCompat() {
       false
     )
 
-    val context = requireContext()
-    ApplicationInitializerFactory.createInstance(requireContext())
+    ApplicationInitializer(requireContext())
       .initialize(
-        MozcUtil.getAbiIndependentVersionCode(context),
         LauncherIconManagerFactory.getDefaultInstance(),
         PreferenceUtil.defaultPreferenceManagerStatic
       )

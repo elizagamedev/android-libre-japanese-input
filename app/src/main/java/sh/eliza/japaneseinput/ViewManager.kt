@@ -45,6 +45,7 @@ import android.view.inputmethod.CursorAnchorInfo
 import android.view.inputmethod.EditorInfo
 import com.google.common.base.Optional
 import com.google.common.base.Preconditions
+import java.util.Locale
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode
@@ -71,7 +72,7 @@ import sh.eliza.japaneseinput.preference.ClientSidePreference.InputStyle
 import sh.eliza.japaneseinput.preference.ClientSidePreference.KeyboardLayout
 import sh.eliza.japaneseinput.ui.MenuDialog
 import sh.eliza.japaneseinput.ui.MenuDialog.MenuDialogListener
-import sh.eliza.japaneseinput.util.ImeSwitcherFactory.ImeSwitcher
+import sh.eliza.japaneseinput.util.ImeSwitcher
 import sh.eliza.japaneseinput.view.Skin
 
 private const val NEXUS_KEYBOARD_VENDOR_ID = 0x0D62
@@ -495,7 +496,7 @@ private constructor(
         val microphoneButtonClickListener =
           View.OnClickListener {
             eventListener.onFireFeedbackEvent(it, FeedbackEvent.MICROPHONE_BUTTON_DOWN)
-            imeSwitcher.switchToVoiceIme("ja-jp")
+            imeSwitcher.switchToVoiceIme(Locale.JAPANESE)
           }
         setEventListener(
           eventListener,

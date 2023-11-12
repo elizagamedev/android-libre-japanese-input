@@ -29,6 +29,7 @@
 
 package sh.eliza.japaneseinput.ui;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -38,6 +39,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 import android.view.View;
+import androidx.core.content.ContextCompat;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.util.Locale;
@@ -119,48 +121,56 @@ public class FloatingCandidateLayoutRenderer {
   private int maxCandidateWidth;
   private int maxDescriptionWidth;
 
-  public FloatingCandidateLayoutRenderer(Resources res) {
-    Preconditions.checkNotNull(res);
+  public FloatingCandidateLayoutRenderer(Context context) {
+    Preconditions.checkNotNull(context);
+    Resources res = context.getResources();
 
     candidatePaint = new Paint();
-    candidatePaint.setColor(res.getColor(R.color.floating_candidate_text));
+    candidatePaint.setColor(ContextCompat.getColor(context, R.color.floating_candidate_text));
     candidatePaint.setTextSize(res.getDimension(R.dimen.floating_candidate_text_size));
     candidatePaint.setAntiAlias(true);
     candidatePaint.setTextLocale(Locale.JAPAN);
 
     focusedCandidatePaint = new Paint(candidatePaint);
-    focusedCandidatePaint.setColor(res.getColor(R.color.floating_candidate_focused_text));
+    focusedCandidatePaint.setColor(
+        ContextCompat.getColor(context, R.color.floating_candidate_focused_text));
 
     descriptionPaint = new Paint(candidatePaint);
     descriptionPaint.setTextSize(
         res.getDimension(R.dimen.floating_candidate_description_text_size));
-    descriptionPaint.setColor(res.getColor(R.color.floating_candidate_description_text));
+    descriptionPaint.setColor(
+        ContextCompat.getColor(context, R.color.floating_candidate_description_text));
 
     shortcutPaint = new Paint(candidatePaint);
     shortcutPaint.setTextSize(res.getDimension(R.dimen.floating_candidate_shortcut_text_size));
-    shortcutPaint.setColor(res.getColor(R.color.floating_candidate_shortcut_text));
+    shortcutPaint.setColor(
+        ContextCompat.getColor(context, R.color.floating_candidate_shortcut_text));
 
     scrollIndicatorPaint = new Paint();
-    scrollIndicatorPaint.setColor(res.getColor(R.color.floating_candidate_scroll_indicator));
+    scrollIndicatorPaint.setColor(
+        ContextCompat.getColor(context, R.color.floating_candidate_scroll_indicator));
 
     footerPaint = new Paint(candidatePaint);
     footerPaint.setTextSize(res.getDimension(R.dimen.floating_candidate_footer_text_size));
-    footerPaint.setColor(res.getColor(R.color.floating_candidate_footer_text));
+    footerPaint.setColor(ContextCompat.getColor(context, R.color.floating_candidate_footer_text));
 
     separatorPaint = new Paint();
     separatorPaint.setStrokeWidth(res.getDimension(R.dimen.floating_candidate_separator_width));
-    separatorPaint.setColor(res.getColor(R.color.floating_candidate_footer_separator));
+    separatorPaint.setColor(
+        ContextCompat.getColor(context, R.color.floating_candidate_footer_separator));
 
     windowBackgroundPaint = new Paint();
-    windowBackgroundPaint.setColor(res.getColor(R.color.floating_candidate_window_background));
+    windowBackgroundPaint.setColor(
+        ContextCompat.getColor(context, R.color.floating_candidate_window_background));
     windowBackgroundPaint.setShadowLayer(
         res.getDimension(R.dimen.floating_candidate_window_shadow_radius),
         0,
         res.getDimension(R.dimen.floating_candidate_window_shadow_offset_y),
-        res.getColor(R.color.floating_candidate_shadow));
+        ContextCompat.getColor(context, R.color.floating_candidate_shadow));
 
     focuseBackgroundPaint = new Paint();
-    focuseBackgroundPaint.setColor(res.getColor(R.color.floating_candidate_focus_background));
+    focuseBackgroundPaint.setColor(
+        ContextCompat.getColor(context, R.color.floating_candidate_focus_background));
 
     float candidateVerticalPadding =
         res.getDimension(R.dimen.floating_candidate_candidate_vertical_padding);

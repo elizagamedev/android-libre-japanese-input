@@ -208,12 +208,21 @@ public class KeyboardView extends View implements MemoryManageable {
     super(context, attrs, defStyle);
   }
 
+  // scaledDensity is used here for flick sensitivity, not text rendering, so don't heed the
+  // deprecation warning.
+  @SuppressWarnings("deprecation")
+  private float getScaledDensity() {
+    return getContext().getResources().getDisplayMetrics().scaledDensity;
+  }
+
   // Initializer shared by constructors.
   {
     Context context = getContext();
     Resources res = context.getResources();
     popupDismissDelay = res.getInteger(R.integer.config_popup_dismiss_delay);
-    scaledDensity = res.getDisplayMetrics().scaledDensity;
+
+    scaledDensity = getScaledDensity();
+
     accessibilityDelegate =
         new KeyboardAccessibilityDelegate(
             this,
@@ -363,7 +372,7 @@ public class KeyboardView extends View implements MemoryManageable {
     if (keyboard.isPresent()) {
       backgroundSurface.reset(this.keyboard, Collections.emptySet());
     }
-    setBackgroundDrawable(skin.windowBackgroundDrawable.getConstantState().newDrawable());
+    setBackground(skin.windowBackgroundDrawable.getConstantState().newDrawable());
   }
 
   public void setKeyEventHandler(KeyEventHandler keyEventHandler) {

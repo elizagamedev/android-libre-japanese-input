@@ -702,7 +702,7 @@ abstract class CandidateWordView extends View implements MemoryManageable {
     backgroundDrawableFactory.setSkin(Preconditions.checkNotNull(skin));
     resetSpanBackground();
     candidateLayoutRenderer.setSkin(skin);
-    setBackgroundDrawable(getViewBackgroundDrawable(skin).getConstantState().newDrawable());
+    setBackground(getViewBackgroundDrawable(skin).getConstantState().newDrawable());
   }
 
   @Override

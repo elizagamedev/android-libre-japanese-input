@@ -133,7 +133,7 @@ public class FloatingCandidateView extends View {
     public FloatingCandidateViewImpl(View parentView) {
       Context context = Preconditions.checkNotNull(parentView).getContext();
       this.parentView = parentView;
-      this.layoutRenderer = new FloatingCandidateLayoutRenderer(context.getResources());
+      this.layoutRenderer = new FloatingCandidateLayoutRenderer(context);
       this.modeIndicator = new FloatingModeIndicator(parentView);
       this.touchEventReceiverWindow = createPopupWindow(context);
       Resources resources = context.getResources();
@@ -467,7 +467,7 @@ public class FloatingCandidateView extends View {
         new FloatingCandidateViewImpl(
             this,
             popupWindowMock,
-            new FloatingCandidateLayoutRenderer(context.getResources()),
+            new FloatingCandidateLayoutRenderer(context),
             new FloatingModeIndicator(this));
   }
 
