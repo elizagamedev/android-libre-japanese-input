@@ -67,7 +67,7 @@ public class SideFrameStubProxy {
   public void initialize(
       View view, int stubId, final int adjustButtonId, int adjustButtonResourceId) {
     this.resources = Preconditions.checkNotNull(view).getResources();
-    ViewStub viewStub = (ViewStub) view.findViewById(stubId);
+    ViewStub viewStub = view.findViewById(stubId);
     currentView = Optional.of(viewStub);
     this.adjustButtonResourceId = adjustButtonResourceId;
 
@@ -80,7 +80,7 @@ public class SideFrameStubProxy {
 
             currentView = Optional.of(view);
             currentView.get().setVisibility(View.VISIBLE);
-            adjustButton = Optional.of((ImageView) view.findViewById(adjustButtonId));
+            adjustButton = Optional.of(view.findViewById(adjustButtonId));
             adjustButton.get().setOnClickListener(buttonOnClickListener.orNull());
             updateAdjustButtonImage();
             resetAdjustButtonBottomMarginInternal(inputFrameHeight);

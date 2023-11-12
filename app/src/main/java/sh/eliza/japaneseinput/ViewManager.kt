@@ -44,9 +44,8 @@ import android.view.Window
 import android.view.inputmethod.CursorAnchorInfo
 import android.view.inputmethod.EditorInfo
 import com.google.common.base.Optional
-import com.google.common.base.Preconditions
 import java.util.Locale
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands
+import kotlin.math.max
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Input.TouchEvent
@@ -66,7 +65,6 @@ import sh.eliza.japaneseinput.model.JapaneseSoftwareKeyboardModel.KeyboardMode
 import sh.eliza.japaneseinput.model.SymbolCandidateStorage
 import sh.eliza.japaneseinput.model.SymbolCandidateStorage.SymbolHistoryStorage
 import sh.eliza.japaneseinput.model.SymbolMajorCategory
-import sh.eliza.japaneseinput.preference.ClientSidePreference
 import sh.eliza.japaneseinput.preference.ClientSidePreference.HardwareKeyMap
 import sh.eliza.japaneseinput.preference.ClientSidePreference.InputStyle
 import sh.eliza.japaneseinput.preference.ClientSidePreference.KeyboardLayout
@@ -104,7 +102,7 @@ private constructor(
   }
 
   /** Converts S/W Keyboard's keycode to KeyEvent instance. */
-  fun onKey(primaryCode: Int, touchEventList: List<ProtoCommands.Input.TouchEvent>) {
+  fun onKey(primaryCode: Int, touchEventList: List<TouchEvent>) {
     if (primaryCode == keycodeCapslock || primaryCode == keycodeAlt) {
       // Ignore those key events because they are handled by KeyboardView,
       // but send touchEventList for logging usage stats.
@@ -121,7 +119,7 @@ private constructor(
         japaneseSoftwareKeyboardModel.keyboardMode = KeyboardMode.KANA
       } else if (primaryCode == keycodeChartypeToAbc) {
         japaneseSoftwareKeyboardModel.keyboardMode = KeyboardMode.ALPHABET
-      } else if (primaryCode == keycodeChartypeToAbc123) {
+      } else {
         japaneseSoftwareKeyboardModel.keyboardMode = KeyboardMode.ALPHABET_NUMBER
       }
       propagateSoftwareKeyboardChange(touchEventList)
@@ -137,7 +135,7 @@ private constructor(
       eventListener.onShowMenuDialog(touchEventList)
       if (primaryCode == keycodeMenuDialog) {
         showMenuDialog()
-      } else if (primaryCode == keycodeImePickerDialog) {
+      } else {
         showImePickerDialog()
       }
       return
@@ -169,7 +167,7 @@ private constructor(
    */
   internal inner class KeyboardActionAdapter : KeyboardActionListener {
     override fun onCancel() {}
-    override fun onKey(primaryCode: Int, touchEventList: List<ProtoCommands.Input.TouchEvent>) {
+    override fun onKey(primaryCode: Int, touchEventList: List<TouchEvent>) {
       this@ViewManager.onKey(primaryCode, touchEventList)
     }
 
@@ -221,11 +219,10 @@ private constructor(
     }
 
     fun evaluateKeyEvent(event: KeyEvent): Boolean {
-      Preconditions.checkNotNull(event)
       if (event.action == KeyEvent.ACTION_DOWN) {
         ++pressedKeyNum
       } else if (event.action == KeyEvent.ACTION_UP) {
-        pressedKeyNum = Math.max(0, pressedKeyNum - 1)
+        pressedKeyNum = max(0, pressedKeyNum - 1)
       } else {
         return false
       }
@@ -480,24 +477,20 @@ private constructor(
         visibility = View.GONE
         setKeyboardHeightRatio(keyboardHeightRatio)
         setCursorAnchorInfoEnabled(cursorAnchroInfoEnabled)
-        val widenButtonClickListener =
-          View.OnClickListener {
-            eventListener.onFireFeedbackEvent(it, FeedbackEvent.NARROW_FRAME_WIDEN_BUTTON_DOWN)
-            setNarrowMode()
-          }
-        val leftAdjustButtonClickListener =
-          View.OnClickListener {
-            eventListener.onUpdateKeyboardLayoutAdjustment(LayoutAdjustment.LEFT)
-          }
-        val rightAdjustButtonClickListener =
-          View.OnClickListener {
-            eventListener.onUpdateKeyboardLayoutAdjustment(LayoutAdjustment.RIGHT)
-          }
-        val microphoneButtonClickListener =
-          View.OnClickListener {
-            eventListener.onFireFeedbackEvent(it, FeedbackEvent.MICROPHONE_BUTTON_DOWN)
-            imeSwitcher.switchToVoiceIme(Locale.JAPANESE)
-          }
+        val widenButtonClickListener = OnClickListener {
+          eventListener.onFireFeedbackEvent(it, FeedbackEvent.NARROW_FRAME_WIDEN_BUTTON_DOWN)
+          setNarrowMode()
+        }
+        val leftAdjustButtonClickListener = OnClickListener {
+          eventListener.onUpdateKeyboardLayoutAdjustment(LayoutAdjustment.LEFT)
+        }
+        val rightAdjustButtonClickListener = OnClickListener {
+          eventListener.onUpdateKeyboardLayoutAdjustment(LayoutAdjustment.RIGHT)
+        }
+        val microphoneButtonClickListener = OnClickListener {
+          eventListener.onFireFeedbackEvent(it, FeedbackEvent.MICROPHONE_BUTTON_DOWN)
+          imeSwitcher.switchToVoiceIme(Locale.JAPANESE)
+        }
         setEventListener(
           eventListener,
           widenButtonClickListener,
@@ -516,9 +509,9 @@ private constructor(
         // provider type.
         // TODO(hidehiko): Remove the restriction.
         setSymbolCandidateStorage(symbolCandidateStorage)
-        isPopupEnabled = popupEnabled
+        setPopupEnabled(popupEnabled)
         setFlickSensitivity(flickSensitivity)
-        skin = this@ViewManager.skin
+        setSkin(skin)
       }
     // Clear the menu dialog.
     menuDialog = null
@@ -566,14 +559,11 @@ private constructor(
    *
    * Note that showing/hiding views is Service's responsibility.
    */
-  override fun render(outCommand: ProtoCommands.Command?) {
+  override fun render(outCommand: Command?) {
     if (outCommand == null) {
       return
     }
-    val mozcView = mozcView
-    if (mozcView == null) {
-      return
-    }
+    val mozcView = mozcView ?: return
     if (outCommand.output.allCandidateWords.candidatesCount == 0 &&
         !outCommand.input.requestSuggestion
     ) {
@@ -625,9 +615,7 @@ private constructor(
   override fun hideSubInputView(): Boolean {
     // Try to hide a sub view from front to back.
     val mozcView = mozcView
-    return if (mozcView == null) {
-      false
-    } else mozcView.hideSymbolInputView()
+    return mozcView?.hideSymbolInputView() ?: false
   }
 
   /**
@@ -637,10 +625,7 @@ private constructor(
    * JapaneseKeyboardView.
    */
   private fun updateKeyboardView() {
-    val mozcView = mozcView
-    if (mozcView == null) {
-      return
-    }
+    val mozcView = mozcView ?: return
     val size = mozcView.keyboardSize
     val keyboard =
       keyboardFactory[
@@ -648,14 +633,12 @@ private constructor(
         japaneseSoftwareKeyboardModel.keyboardSpecification,
         size.width(),
         size.height()]
-    mozcView.keyboard = keyboard
+    mozcView.setKeyboard(keyboard)
     primaryKeyCodeConverter.setKeyboard(keyboard)
   }
 
   /** Propagates the change of S/W keyboard to the view layer and the H/W keyboard configuration. */
-  private fun propagateSoftwareKeyboardChange(
-    touchEventList: List<ProtoCommands.Input.TouchEvent>
-  ) {
+  private fun propagateSoftwareKeyboardChange(touchEventList: List<TouchEvent>) {
     val specification = japaneseSoftwareKeyboardModel.keyboardSpecification
 
     // TODO(team): The purpose of the following call of onKeyEvent() is to tell the change of
@@ -665,8 +648,7 @@ private constructor(
 
     // Update H/W keyboard specification to keep a consistency with S/W keyboard.
     hardwareKeyboard.setCompositionMode(
-      if (specification.compositionMode == ProtoCommands.CompositionMode.HIRAGANA)
-        CompositionSwitchMode.KANA
+      if (specification.compositionMode == CompositionMode.HIRAGANA) CompositionSwitchMode.KANA
       else CompositionSwitchMode.ALPHABET
     )
     updateKeyboardView()
@@ -695,7 +677,7 @@ private constructor(
 
     // Update S/W keyboard specification to keep a consistency with H/W keyboard.
     japaneseSoftwareKeyboardModel.keyboardMode =
-      if (specification.compositionMode == ProtoCommands.CompositionMode.HIRAGANA) KeyboardMode.KANA
+      if (specification.compositionMode == CompositionMode.HIRAGANA) KeyboardMode.KANA
       else KeyboardMode.ALPHABET
     updateKeyboardView()
   }
@@ -707,7 +689,6 @@ private constructor(
    * @throws NullPointerException If `keyboardLayout` is `null`.
    */
   override fun setKeyboardLayout(keyboardLayout: KeyboardLayout) {
-    Preconditions.checkNotNull(keyboardLayout)
     if (japaneseSoftwareKeyboardModel.keyboardLayout !== keyboardLayout) {
       // If changed, clear the keyboard cache.
       keyboardFactory.clear()
@@ -723,8 +704,7 @@ private constructor(
    * @throws NullPointerException If `inputStyle` is `null`. TODO(hidehiko): Refactor out following
    * keyboard switching logic into another class.
    */
-  override fun setInputStyle(inputStyle: ClientSidePreference.InputStyle) {
-    Preconditions.checkNotNull(inputStyle)
+  override fun setInputStyle(inputStyle: InputStyle) {
     if (japaneseSoftwareKeyboardModel.inputStyle !== inputStyle) {
       // If changed, clear the keyboard cache.
       keyboardFactory.clear()
@@ -744,7 +724,7 @@ private constructor(
 
   override fun setFullscreenMode(fullscreenMode: Boolean) {
     this.fullscreenMode = fullscreenMode
-    mozcView?.isFullscreenMode = fullscreenMode
+    mozcView?.setFullscreenMode(fullscreenMode)
   }
 
   override fun isFullscreenMode(): Boolean {
@@ -806,10 +786,7 @@ private constructor(
    * * The key event is from h/w keyboard.
    * * The key event has printable character without modifier.
    */
-  override fun maybeTransitToNarrowMode(
-    command: ProtoCommands.Command,
-    keyEventInterface: KeyEventInterface?
-  ) {
+  override fun maybeTransitToNarrowMode(command: Command, keyEventInterface: KeyEventInterface?) {
     // Surely we don't anything when on narrow mode already.
     if (narrowMode) {
       return
@@ -833,7 +810,7 @@ private constructor(
 
   override fun setPopupEnabled(popupEnabled: Boolean) {
     this.popupEnabled = popupEnabled
-    mozcView?.isPopupEnabled = popupEnabled
+    mozcView?.setPopupEnabled(popupEnabled)
   }
 
   override fun switchHardwareKeyboardCompositionMode(mode: CompositionSwitchMode) {
@@ -846,12 +823,12 @@ private constructor(
   }
 
   override fun setHardwareKeyMap(hardwareKeyMap: HardwareKeyMap) {
-    hardwareKeyboard.hardwareKeyMap = Preconditions.checkNotNull(hardwareKeyMap)
+    hardwareKeyboard.setHardwareKeyMap(hardwareKeyMap)
   }
 
   override fun setSkin(skin: Skin) {
-    this.skin = Preconditions.checkNotNull(skin)
-    mozcView?.skin = skin
+    this.skin = skin
+    mozcView?.setSkin(skin)
   }
 
   override fun setMicrophoneButtonEnabledByPreference(microphoneButtonEnabled: Boolean) {
@@ -948,7 +925,7 @@ private constructor(
   }
 
   override fun isKeyConsumedOnViewAsynchronously(event: KeyEvent): Boolean {
-    return viewLayerKeyEventHandler.evaluateKeyEvent(Preconditions.checkNotNull(event))
+    return viewLayerKeyEventHandler.evaluateKeyEvent(event)
   }
 
   override fun consumeKeyOnViewSynchronously(event: KeyEvent) {

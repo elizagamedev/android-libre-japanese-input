@@ -287,47 +287,6 @@ abstract class CandidateWordView extends View implements MemoryManageable {
   }
 
   enum Orientation implements OrientationTrait {
-    HORIZONTAL {
-      @Override
-      public int getScrollPosition(View view) {
-        return view.getScrollX();
-      }
-
-      @Override
-      public void scrollTo(View view, int position) {
-        view.scrollTo(position, 0);
-      }
-
-      @Override
-      public float getCandidatePosition(Row row, Span span) {
-        return span.getLeft();
-      }
-
-      @Override
-      public float getCandidateLength(Row row, Span span) {
-        return span.getWidth();
-      }
-
-      @Override
-      public int getViewLength(View view) {
-        return view.getWidth();
-      }
-
-      @Override
-      public float projectVector(float x, float y) {
-        return x;
-      }
-
-      @Override
-      public int getPageSize(CandidateLayouter layouter) {
-        return Preconditions.checkNotNull(layouter).getPageWidth();
-      }
-
-      @Override
-      public float getContentSize(Optional<CandidateLayout> layout) {
-        return layout.isPresent() ? layout.get().getContentWidth() : 0;
-      }
-    },
     VERTICAL {
       @Override
       public int getScrollPosition(View view) {
@@ -390,15 +349,10 @@ abstract class CandidateWordView extends View implements MemoryManageable {
   protected CandidateLayout calculatedLayout;
   // The CandidateList which is currently shown on the view.
   protected CandidateList currentCandidateList;
-  // The Y position where the last touch event occurs.
-  float lastEventPosition;
-
-  // No padding by default.
-  private int horizontalPadding = 0;
 
   protected final CandidateLayoutRenderer candidateLayoutRenderer = new CandidateLayoutRenderer();
 
-  CandidateWordGestureDetector candidateWordGestureDetector =
+  final CandidateWordGestureDetector candidateWordGestureDetector =
       new CandidateWordGestureDetector(getContext());
 
   // Scroll orientation.
@@ -455,15 +409,10 @@ abstract class CandidateWordView extends View implements MemoryManageable {
     return layouter;
   }
 
-  protected void setHorizontalPadding(int horizontalPadding) {
-    this.horizontalPadding = horizontalPadding;
-    updateLayouter();
-  }
-
   @Override
   protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
     super.onLayout(changed, left, top, right, bottom);
-    int width = Math.max(right - left - horizontalPadding * 2, 0);
+    int width = Math.max(right - left, 0);
     int height = bottom - top;
     if (layouter != null && layouter.setViewSize(width, height)) {
       updateCalculatedLayout();
@@ -527,7 +476,7 @@ abstract class CandidateWordView extends View implements MemoryManageable {
     // Paint the candidates.
     int saveCount = canvas.save();
     try {
-      canvas.translate(horizontalPadding, 0);
+      canvas.translate(0, 0);
       CandidateWord pressedCandidate = candidateWordGestureDetector.getPressedCandidate();
       int pressedCandidateIndex =
           (pressedCandidate != null && pressedCandidate.hasIndex())
@@ -546,16 +495,16 @@ abstract class CandidateWordView extends View implements MemoryManageable {
       Optional<Float> optionalVelocity = scroller.computeScrollOffset();
       orientationTrait.scrollTo(this, scroller.getScrollPosition());
       if (optionalVelocity.isPresent()) {
-        Float velocity = optionalVelocity.get();
+        float velocity = optionalVelocity.get();
         // The end of scrolling. Check edge effect.
         if (velocity < 0) {
-          topEdgeEffect.onAbsorb(velocity.intValue());
+          topEdgeEffect.onAbsorb((int) velocity);
           if (!bottomEdgeEffect.isFinished()) {
             bottomEdgeEffect.onRelease();
             invalidate();
           }
         } else if (velocity > 0) {
-          bottomEdgeEffect.onAbsorb(velocity.intValue());
+          bottomEdgeEffect.onAbsorb((int) velocity);
           if (!topEdgeEffect.isFinished()) {
             topEdgeEffect.onRelease();
             invalidate();
@@ -676,10 +625,6 @@ abstract class CandidateWordView extends View implements MemoryManageable {
       scroller.setContentSize(contentSize);
     }
     scroller.setViewSize(orientationTrait.getViewLength(this));
-  }
-
-  public CandidateList getCandidateList() {
-    return currentCandidateList;
   }
 
   protected void setSpanBackgroundDrawableType(DrawableType drawableType) {

@@ -216,13 +216,10 @@ public class SkinParser {
       }
       parser.next();
       ParserUtil.assertEndDocument(parser);
-    } catch (IllegalAccessException e) {
-      throw new SkinParserException(parser, e);
-    } catch (IllegalArgumentException e) {
-      throw new SkinParserException(parser, e);
-    } catch (XmlPullParserException e) {
-      throw new SkinParserException(parser, e);
-    } catch (IOException e) {
+    } catch (IllegalAccessException
+        | IOException
+        | XmlPullParserException
+        | IllegalArgumentException e) {
       throw new SkinParserException(parser, e);
     }
     return skin;

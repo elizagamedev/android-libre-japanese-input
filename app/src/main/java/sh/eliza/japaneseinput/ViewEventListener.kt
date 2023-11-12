@@ -53,7 +53,7 @@ interface ViewEventListener {
     mozcKeyEvent: ProtoCommands.KeyEvent?,
     keyEvent: KeyEventInterface?,
     keyboardSpecification: KeyboardSpecification?,
-    touchEventList: List<ProtoCommands.Input.TouchEvent>
+    touchEventList: List<TouchEvent>
   )
 
   /**
@@ -61,7 +61,7 @@ interface ViewEventListener {
    *
    * @param touchEventList `TouchEvent` instances related to this undo for logging usage stats.
    */
-  fun onUndo(touchEventList: List<ProtoCommands.Input.TouchEvent>)
+  fun onUndo(touchEventList: List<TouchEvent>)
 
   /**
    * Called when a conversion candidate is selected.
@@ -105,7 +105,7 @@ interface ViewEventListener {
    * stats.
    */
   // TODO(matsuzakit): Rename. onFlushTouchEventStats ?
-  fun onShowMenuDialog(touchEventList: List<ProtoCommands.Input.TouchEvent?>?)
+  fun onShowMenuDialog(touchEventList: List<TouchEvent?>?)
 
   /**
    * Called when the symbol input view is shown.
@@ -113,7 +113,7 @@ interface ViewEventListener {
    * @param touchEventList `TouchEvent` instances which is related to this event for logging usage
    * stats.
    */
-  fun onShowSymbolInputView(touchEventList: List<ProtoCommands.Input.TouchEvent?>?)
+  fun onShowSymbolInputView(touchEventList: List<TouchEvent?>?)
 
   /** Called when the symbol input view is closed. */
   fun onCloseSymbolInputView()

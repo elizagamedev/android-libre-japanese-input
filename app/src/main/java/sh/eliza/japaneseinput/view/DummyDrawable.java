@@ -52,7 +52,7 @@ public class DummyDrawable extends Drawable {
   @Override
   public void draw(Canvas canvas) {}
 
-  @SuppressWarnings("deprecation")
+  @SuppressWarnings({"deprecation", "RedundantSuppression"})
   @Override
   public int getOpacity() {
     return PixelFormat.UNKNOWN;

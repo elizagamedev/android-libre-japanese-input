@@ -70,7 +70,6 @@ import sh.eliza.japaneseinput.MozcLog;
 import sh.eliza.japaneseinput.MozcUtil;
 import sh.eliza.japaneseinput.R;
 import sh.eliza.japaneseinput.session.SessionExecutor;
-import sh.eliza.japaneseinput.session.SessionHandlerFactory;
 import sh.eliza.japaneseinput.userdictionary.UserDictionaryUtil.DictionaryNameDialog;
 import sh.eliza.japaneseinput.userdictionary.UserDictionaryUtil.DictionaryNameDialogListener;
 import sh.eliza.japaneseinput.userdictionary.UserDictionaryUtil.WordRegisterDialog;
@@ -111,8 +110,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
           .setText(entry.getValue());
       ((TextView) convertView.findViewById(R.id.user_dictionary_tool_entry_list_pos))
           .setText(UserDictionaryUtil.getPosStringResourceId(entry.getPos()));
-      CheckBox checkBox =
-          (CheckBox) convertView.findViewById(R.id.user_dictionary_tool_entry_list_check);
+      CheckBox checkBox = convertView.findViewById(R.id.user_dictionary_tool_entry_list_check);
 
       // Before set the "checked" state, we need to remove OnCheckedChangeListener,
       // because convertView *may* be an instance, which is previously used, i.e. which is
@@ -161,8 +159,7 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
     Context applicationContext = getApplicationContext();
     model =
         new UserDictionaryToolModel(
-            SessionExecutor.getInstanceInitializedIfNecessary(
-                new SessionHandlerFactory(applicationContext), applicationContext));
+            SessionExecutor.getInstanceInitializedIfNecessary(applicationContext));
     model.createSession();
 
     // Initialize views.
@@ -586,9 +583,8 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
               @Override
               public void onClick(DialogInterface dialog, int which) {
                 Spinner spinner =
-                    (Spinner)
-                        ((Dialog) dialog)
-                            .findViewById(R.id.user_dictionary_tool_simple_spinner_dialog_spinner);
+                    ((Dialog) dialog)
+                        .findViewById(R.id.user_dictionary_tool_simple_spinner_dialog_spinner);
 
                 ZipFile zipFile = model.releaseZipFile();
                 try {
@@ -632,9 +628,8 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
               @Override
               public void onClick(DialogInterface dialog, int which) {
                 Spinner spinner =
-                    (Spinner)
-                        ((Dialog) dialog)
-                            .findViewById(R.id.user_dictionary_tool_simple_spinner_dialog_spinner);
+                    ((Dialog) dialog)
+                        .findViewById(R.id.user_dictionary_tool_simple_spinner_dialog_spinner);
                 // This is the trick to specify dictionary index.
                 // The entry list of the spinner has "new dictionary" followed by
                 // a list of dictionary names.
@@ -738,20 +733,20 @@ public class UserDictionaryToolActivity extends AppCompatActivity {
   private void updateDictionaryNameSpinner() {
     Spinner dictionaryNameSpinner = getDictionaryNameSpinner();
     dictionaryNameSpinner.setSelection(model.getSelectedDictionaryIndex());
-    ((ArrayAdapter) dictionaryNameSpinner.getAdapter()).notifyDataSetChanged();
+    ((ArrayAdapter<?>) dictionaryNameSpinner.getAdapter()).notifyDataSetChanged();
   }
 
   /** Updates the contents in the entry list view. */
   private void updateEntryList() {
     ListView entryList = getEntryList();
-    ((ArrayAdapter) entryList.getAdapter()).notifyDataSetChanged();
+    ((ArrayAdapter<?>) entryList.getAdapter()).notifyDataSetChanged();
   }
 
   private Spinner getDictionaryNameSpinner() {
-    return (Spinner) findViewById(R.id.user_dictionary_tool_dictionary_name_spinner);
+    return findViewById(R.id.user_dictionary_tool_dictionary_name_spinner);
   }
 
   private ListView getEntryList() {
-    return (ListView) findViewById(R.id.user_dictionary_tool_entry_list);
+    return findViewById(R.id.user_dictionary_tool_entry_list);
   }
 }

@@ -56,7 +56,6 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.util.Collections;
 import java.util.EnumSet;
-import javax.annotation.Nullable;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Output;
@@ -207,19 +206,15 @@ public class MozcView extends FrameLayout implements MemoryManageable {
   private boolean fullscreenMode = false;
   private boolean narrowMode = false;
   private boolean buttonFrameVisible = true;
-  private Skin skin = Skin.getFallbackInstance();
   private LayoutAdjustment layoutAdjustment = LayoutAdjustment.FILL;
   private int inputFrameHeight = 0;
   private int imeWindowHeight = 0;
   private int symbolInputViewHeight = 0;
-  private Animation symbolInputViewInAnimation;
-  private Animation symbolInputViewOutAnimation;
 
-  private SoftwareKeyboardHeightListener softwareKeyboardHeightListener =
+  private final SoftwareKeyboardHeightListener softwareKeyboardHeightListener =
       new SoftwareKeyboardHeightListener();
 
   private CandidateViewManager candidateViewManager;
-  private boolean allowFloatingCandidateMode;
 
   public MozcView(Context context) {
     super(context);
@@ -247,8 +242,7 @@ public class MozcView extends FrameLayout implements MemoryManageable {
 
     candidateViewManager =
         new CandidateViewManager(
-            getKeyboardCandidateView(),
-            (FloatingCandidateView) findViewById(R.id.floating_candidate_view));
+            getKeyboardCandidateView(), findViewById(R.id.floating_candidate_view));
   }
 
   private InputFrameFoldButtonClickListener createFoldButtonListener(View view, int height) {
@@ -302,7 +296,6 @@ public class MozcView extends FrameLayout implements MemoryManageable {
     getSymbolInputView()
         .setEventListener(
             viewEventListener,
-            /** Click handler of the close button. */
             new OnClickListener() {
               @Override
               public void onClick(View v) {
@@ -326,13 +319,6 @@ public class MozcView extends FrameLayout implements MemoryManageable {
     // Propagate the given keyEventHandler to the child views.
     getKeyboardView().setKeyEventHandler(keyEventHandler);
     getSymbolInputView().setKeyEventHandler(keyEventHandler);
-  }
-
-  // TODO(hidehiko): Probably we'd like to remove this method when we decide to move MVC model.
-  @Nullable
-  public Keyboard getKeyboard() {
-    checkInflated();
-    return getKeyboardView().getKeyboard().orNull();
   }
 
   public void setKeyboard(Keyboard keyboard) {
@@ -375,22 +361,16 @@ public class MozcView extends FrameLayout implements MemoryManageable {
     getSymbolInputView().setPopupEnabled(popupEnabled);
   }
 
-  public boolean isPopupEnabled() {
-    checkInflated();
-    return getKeyboardView().isPopupEnabled();
-  }
-
   public void setSkin(Skin skin) {
     Preconditions.checkNotNull(skin);
     checkInflated();
-    this.skin = skin;
     getKeyboardView().setSkin(skin);
     getSymbolInputView().setSkin(skin);
     candidateViewManager.setSkin(skin);
     getMicrophoneButton()
         .setBackgroundDrawable(
             BackgroundDrawableFactory.createPressableDrawable(
-                new ColorDrawable(skin.buttonFrameButtonPressedColor), Optional.absent()));
+                new ColorDrawable(skin.buttonFrameButtonPressedColor), java.util.Optional.empty()));
     getMicrophoneButton().setSkin(skin);
     leftFrameStubProxy.setSkin(skin);
     rightFrameStubProxy.setSkin(skin);
@@ -400,10 +380,6 @@ public class MozcView extends FrameLayout implements MemoryManageable {
     getKeyboardFrameSeparator()
         .setBackground(
             skin.keyboardFrameSeparatorBackgroundDrawable.getConstantState().newDrawable());
-  }
-
-  public Skin getSkin() {
-    return skin;
   }
 
   /**
@@ -443,7 +419,6 @@ public class MozcView extends FrameLayout implements MemoryManageable {
   }
 
   public void setCursorAnchorInfoEnabled(boolean enabled) {
-    allowFloatingCandidateMode = enabled;
     candidateViewManager.setAllowFloatingMode(enabled);
   }
 
@@ -521,8 +496,7 @@ public class MozcView extends FrameLayout implements MemoryManageable {
 
     if (!view.isInflated()) {
       view.inflateSelf();
-      CandidateView numberCandidateView =
-          (CandidateView) view.findViewById(R.id.candidate_view_in_symbol_view);
+      CandidateView numberCandidateView = view.findViewById(R.id.candidate_view_in_symbol_view);
       numberCandidateView.setInputFrameFoldButtonOnClickListener(
           createFoldButtonListener(getNumberKeyboardFrame(), view.getNumberKeyboardHeight()));
       candidateViewManager.setNumberCandidateView(numberCandidateView);
@@ -605,10 +579,6 @@ public class MozcView extends FrameLayout implements MemoryManageable {
     this.fullscreenMode = fullscreenMode;
   }
 
-  public boolean isFullscreenMode() {
-    return fullscreenMode;
-  }
-
   private void resetFullscreenMode() {
     if (fullscreenMode) {
       // In fullscreen mode, InputMethodService shows extract view which height is 0 and
@@ -673,7 +643,7 @@ public class MozcView extends FrameLayout implements MemoryManageable {
     LayoutAdjustment temporaryAdjustment = narrowMode ? LayoutAdjustment.FILL : layoutAdjustment;
 
     View view = getForegroundFrame();
-    FrameLayout.LayoutParams layoutParams = (LayoutParams) view.getLayoutParams();
+    LayoutParams layoutParams = (LayoutParams) view.getLayoutParams();
     Resources resources = getResources();
     layoutParams.width =
         temporaryAdjustment == LayoutAdjustment.FILL
@@ -820,15 +790,15 @@ public class MozcView extends FrameLayout implements MemoryManageable {
       float fromAlpha = 0.3f;
       float toAlpha = 1.0f;
 
-      symbolInputViewInAnimation = createAlphaAnimation(fromAlpha, toAlpha, duration);
+      Animation symbolInputViewInAnimation = createAlphaAnimation(fromAlpha, toAlpha, duration);
       symbolInputView.setInAnimation(symbolInputViewInAnimation);
-      symbolInputViewOutAnimation = createAlphaAnimation(toAlpha, fromAlpha, duration);
+      Animation symbolInputViewOutAnimation = createAlphaAnimation(toAlpha, fromAlpha, duration);
       symbolInputView.setOutAnimation(symbolInputViewOutAnimation);
     }
 
     if (symbolInputView.isInflated()) {
       CandidateView numberCandidateView =
-          (CandidateView) symbolInputView.findViewById(R.id.candidate_view_in_symbol_view);
+          symbolInputView.findViewById(R.id.candidate_view_in_symbol_view);
       numberCandidateView.setInputFrameFoldButtonOnClickListener(
           createFoldButtonListener(
               getNumberKeyboardFrame(), symbolInputView.getNumberKeyboardHeight()));
@@ -879,15 +849,15 @@ public class MozcView extends FrameLayout implements MemoryManageable {
   }
 
   private KeyboardView getKeyboardView() {
-    return (KeyboardView) findViewById(R.id.keyboard_view);
+    return findViewById(R.id.keyboard_view);
   }
 
   private CandidateView getKeyboardCandidateView() {
-    return (CandidateView) findViewById(R.id.candidate_view);
+    return findViewById(R.id.candidate_view);
   }
 
   private SymbolInputView getSymbolInputView() {
-    return (SymbolInputView) findViewById(R.id.symbol_input_view);
+    return findViewById(R.id.symbol_input_view);
   }
 
   private View getOverlayView() {
@@ -895,11 +865,11 @@ public class MozcView extends FrameLayout implements MemoryManageable {
   }
 
   private LinearLayout getTextInputFrame() {
-    return (LinearLayout) findViewById(R.id.textinput_frame);
+    return findViewById(R.id.textinput_frame);
   }
 
   private NarrowFrameView getNarrowFrame() {
-    return (NarrowFrameView) findViewById(R.id.narrow_frame);
+    return findViewById(R.id.narrow_frame);
   }
 
   private View getForegroundFrame() {
@@ -919,7 +889,7 @@ public class MozcView extends FrameLayout implements MemoryManageable {
   }
 
   private MozcImageView getMicrophoneButton() {
-    return (MozcImageView) findViewById(R.id.microphone_button);
+    return findViewById(R.id.microphone_button);
   }
 
   private static int getNarrowFrameHeight(Resources resources) {

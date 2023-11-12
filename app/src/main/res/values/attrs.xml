@@ -30,8 +30,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <resources>
-  <declare-styleable name="SeekBarPreference">
+  <declare-styleable name="MozcSeekBarPreference">
     <attr name="min" format="integer" />
+    <attr name="max" format="integer" />
     <attr name="unit" format="string" />
     <attr name="low_text" format="string" />
     <attr name="middle_text" format="string" />

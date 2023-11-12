@@ -40,7 +40,6 @@ import androidx.core.view.accessibility.AccessibilityEventCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.accessibility.AccessibilityNodeProviderCompat
 import sh.eliza.japaneseinput.MozcLog
-import sh.eliza.japaneseinput.R
 import sh.eliza.japaneseinput.accessibility.AccessibilityEventUtil.createAccessibilityEvent
 import sh.eliza.japaneseinput.keyboard.Flick
 import sh.eliza.japaneseinput.keyboard.Key
@@ -87,10 +86,7 @@ internal class KeyboardAccessibilityNodeProvider(
     if (keys != null) {
       return keys
     }
-    val keyboard = keyboard
-    if (keyboard == null) {
-      return emptyList()
-    }
+    val keyboard = keyboard ?: return emptyList()
     // Initial size is estimated roughly.
     val tempKeys = ArrayList<Key>(keyboard.rowList.size * 10)
     for (row in keyboard.rowList) {
@@ -186,16 +182,9 @@ internal class KeyboardAccessibilityNodeProvider(
       UNDEFINED
     } else getKeyState(key, metaState).getFlick(Flick.Direction.CENTER).get().keyEntity.sourceId
 
-  private fun getKeyCode(key: Key) =
-    if (key.isSpacer) null
-    else getKeyState(key, metaState).getFlick(Flick.Direction.CENTER).get().keyEntity.keyCode
-
   /** Returns `Key` from source Id. */
   private fun getKeyFromSouceId(sourceId: Int): Key? {
-    val keyboard = keyboard
-    if (keyboard == null) {
-      return null
-    }
+    val keyboard = keyboard ?: return null
     for (row in keyboard.rowList) {
       for (key in row.keyList) {
         if (sourceId == getSourceId(key)) {
@@ -229,7 +218,7 @@ internal class KeyboardAccessibilityNodeProvider(
   }
 
   /** Processes accessibility action for key on virtual view structure. */
-  fun performActionForKeyInternal(key: Key, virtualViewId: Int, action: Int): Boolean {
+  private fun performActionForKeyInternal(key: Key, virtualViewId: Int, action: Int): Boolean {
     return when (action) {
       AccessibilityNodeInfoCompat.ACTION_ACCESSIBILITY_FOCUS -> {
         if (virtualFocusedViewId == virtualViewId) {
@@ -239,7 +228,7 @@ internal class KeyboardAccessibilityNodeProvider(
         // Framework requires the keyboard to have focus.
         // Return FOCUSED event to the framework as response.
         virtualFocusedViewId = virtualViewId
-        if (accessibilityManager.isEnabled()) {
+        if (accessibilityManager.isEnabled) {
           accessibilityManager.sendAccessibilityEvent(
             createAccessibilityEvent(key, AccessibilityEventCompat.TYPE_VIEW_ACCESSIBILITY_FOCUSED)
           )
@@ -253,7 +242,7 @@ internal class KeyboardAccessibilityNodeProvider(
           return false
         }
         virtualFocusedViewId = UNDEFINED
-        if (accessibilityManager.isEnabled()) {
+        if (accessibilityManager.isEnabled) {
           accessibilityManager.sendAccessibilityEvent(
             createAccessibilityEvent(
               key,
@@ -268,7 +257,7 @@ internal class KeyboardAccessibilityNodeProvider(
   }
 
   fun sendAccessibilityEventForKeyIfAccessibilityEnabled(key: Key, eventType: Int) {
-    if (accessibilityManager.isEnabled()) {
+    if (accessibilityManager.isEnabled) {
       val event = createAccessibilityEvent(key, eventType)
       accessibilityManager.sendAccessibilityEvent(event)
     }
@@ -286,7 +275,7 @@ internal class KeyboardAccessibilityNodeProvider(
 
   private fun resetVirtualStructure() {
     keys = null
-    if (accessibilityManager.isEnabled()) {
+    if (accessibilityManager.isEnabled) {
       val event = createAccessibilityEvent()
       view.onInitializeAccessibilityEvent(event)
       event.eventType = AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED
@@ -300,7 +289,6 @@ internal class KeyboardAccessibilityNodeProvider(
 }
 
 private const val UNDEFINED = Int.MIN_VALUE
-private val PASSWORD_RESOURCE_ID = R.string.cd_key_uchar_katakana_middle_dot
 
 private fun getKeyState(key: Key, metaState: Set<MetaState>): KeyState {
   require(!key.isSpacer)

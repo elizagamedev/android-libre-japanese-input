@@ -38,21 +38,17 @@ import sh.eliza.japaneseinput.hardwarekeyboard.KeyEventMapperFactory.KeyEventMap
 class CompactKeyEvent {
 
   private int keyCode;
-  private int metaState;
+  private final int metaState;
   private int unicodeCharacter;
-  private final int combiningAccent;
-  private int scanCode;
 
   public CompactKeyEvent(KeyEvent keyEvent) {
     Preconditions.checkNotNull(keyEvent);
     keyCode = keyEvent.getKeyCode();
     metaState = keyEvent.getMetaState();
-    int flagedCodepoint = keyEvent.getUnicodeChar();
+    int flaggedCodepoint = keyEvent.getUnicodeChar();
     // TODO(team): Come up with a better definition of the "character" when
     // KeyCharacterMap.COMBINING_ACCENT bit is set.
-    unicodeCharacter = flagedCodepoint & KeyCharacterMap.COMBINING_ACCENT_MASK;
-    combiningAccent = flagedCodepoint & KeyCharacterMap.COMBINING_ACCENT_MASK;
-    scanCode = keyEvent.getScanCode();
+    unicodeCharacter = flaggedCodepoint & KeyCharacterMap.COMBINING_ACCENT_MASK;
   }
 
   /** Construct an instance and apply overlay mapping. */
@@ -73,31 +69,11 @@ class CompactKeyEvent {
     return metaState;
   }
 
-  void setMetaState(int metaState) {
-    this.metaState = metaState;
-  }
-
-  public int getCombiningAccent() {
-    return combiningAccent;
-  }
-
-  public int getDeadChar(int character) {
-    return KeyCharacterMap.getDeadChar(combiningAccent, character);
-  }
-
   public int getUnicodeCharacter() {
     return unicodeCharacter;
   }
 
   void setUnicodeCharacter(int unicodeCharacter) {
     this.unicodeCharacter = unicodeCharacter;
-  }
-
-  public int getScanCode() {
-    return scanCode;
-  }
-
-  void setScanCode(int scanCode) {
-    this.scanCode = scanCode;
   }
 }

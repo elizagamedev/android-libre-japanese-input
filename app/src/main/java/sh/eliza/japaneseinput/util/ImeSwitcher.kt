@@ -79,12 +79,12 @@ class ImeSwitcher(
   fun switchToVoiceIme(locale: Locale?): Boolean {
     val inputMethod = getVoiceInputMethod(locale) ?: return false
     if (Build.VERSION.SDK_INT >= 28) {
-      inputMethodService.switchInputMethod(inputMethod.inputMethodInfo.getId(), inputMethod.subtype)
+      inputMethodService.switchInputMethod(inputMethod.inputMethodInfo.id, inputMethod.subtype)
     } else {
       @Suppress("deprecation")
       inputMethodManager.setInputMethodAndSubtype(
         token,
-        inputMethod.inputMethodInfo.getId(),
+        inputMethod.inputMethodInfo.id,
         inputMethod.subtype
       )
     }

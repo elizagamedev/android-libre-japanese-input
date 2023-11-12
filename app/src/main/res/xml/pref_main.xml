@@ -86,8 +86,8 @@
         android:key="pref_sound_feedback_volume_key"
         android:title="@string/pref_sound_feedback_volume_title"
         android:dependency="pref_sound_feedback_key"
-        android:max="100"
         app:min="1"
+        app:max="100"
         app:low_text="@string/pref_sound_feedback_volume_low_text"
         app:middle_text="@string/pref_sound_feedback_volume_middle_text"
         app:high_text="@string/pref_sound_feedback_volume_high_text" />

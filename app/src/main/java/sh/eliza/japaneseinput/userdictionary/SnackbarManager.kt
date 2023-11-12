@@ -30,7 +30,6 @@ package sh.eliza.japaneseinput.userdictionary
 
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommandStatus
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommandStatus.Status
 import sh.eliza.japaneseinput.R
 
@@ -44,8 +43,8 @@ class SnackbarManager(
   }
 
   /** Displays the message for the `status` with short duration. */
-  fun maybeShowMessageShortly(status: UserDictionaryCommandStatus.Status) {
-    if (status == UserDictionaryCommandStatus.Status.USER_DICTIONARY_COMMAND_SUCCESS) {
+  fun maybeShowMessageShortly(status: Status) {
+    if (status == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
       return
     }
     val value = ERROR_MESSAGE_MAP[status] ?: R.string.user_dictionary_tool_status_error_general
@@ -60,40 +59,33 @@ class SnackbarManager(
 /** Mapping from Status to the resource id. */
 private val ERROR_MESSAGE_MAP =
   mapOf(
-    UserDictionaryCommandStatus.Status.FILE_NOT_FOUND to
-      R.string.user_dictionary_tool_status_error_file_not_found,
-    UserDictionaryCommandStatus.Status.INVALID_FILE_FORMAT to
-      R.string.user_dictionary_tool_status_error_invalid_file_format,
-    UserDictionaryCommandStatus.Status.FILE_SIZE_LIMIT_EXCEEDED to
+    Status.FILE_NOT_FOUND to R.string.user_dictionary_tool_status_error_file_not_found,
+    Status.INVALID_FILE_FORMAT to R.string.user_dictionary_tool_status_error_invalid_file_format,
+    Status.FILE_SIZE_LIMIT_EXCEEDED to
       R.string.user_dictionary_tool_status_error_file_size_limit_exceeded,
-    UserDictionaryCommandStatus.Status.DICTIONARY_SIZE_LIMIT_EXCEEDED to
+    Status.DICTIONARY_SIZE_LIMIT_EXCEEDED to
       R.string.user_dictionary_tool_status_error_dictionary_size_limit_exceeded,
-    UserDictionaryCommandStatus.Status.ENTRY_SIZE_LIMIT_EXCEEDED to
+    Status.ENTRY_SIZE_LIMIT_EXCEEDED to
       R.string.user_dictionary_tool_status_error_entry_size_limit_exceeded,
-    UserDictionaryCommandStatus.Status.DICTIONARY_NAME_EMPTY to
+    Status.DICTIONARY_NAME_EMPTY to
       R.string.user_dictionary_tool_status_error_dictionary_name_empty,
-    UserDictionaryCommandStatus.Status.DICTIONARY_NAME_TOO_LONG to
+    Status.DICTIONARY_NAME_TOO_LONG to
       R.string.user_dictionary_tool_status_error_dictionary_name_too_long,
-    UserDictionaryCommandStatus.Status.DICTIONARY_NAME_CONTAINS_INVALID_CHARACTER to
+    Status.DICTIONARY_NAME_CONTAINS_INVALID_CHARACTER to
       R.string.user_dictionary_tool_status_error_dictionary_name_contains_invalid_character,
-    UserDictionaryCommandStatus.Status.DICTIONARY_NAME_DUPLICATED to
+    Status.DICTIONARY_NAME_DUPLICATED to
       R.string.user_dictionary_tool_status_error_dictionary_name_duplicated,
-    UserDictionaryCommandStatus.Status.READING_EMPTY to
-      R.string.user_dictionary_tool_status_error_reading_empty,
-    UserDictionaryCommandStatus.Status.READING_TOO_LONG to
-      R.string.user_dictionary_tool_status_error_reading_too_long,
-    UserDictionaryCommandStatus.Status.READING_CONTAINS_INVALID_CHARACTER to
+    Status.READING_EMPTY to R.string.user_dictionary_tool_status_error_reading_empty,
+    Status.READING_TOO_LONG to R.string.user_dictionary_tool_status_error_reading_too_long,
+    Status.READING_CONTAINS_INVALID_CHARACTER to
       R.string.user_dictionary_tool_status_error_reading_contains_invalid_character,
-    UserDictionaryCommandStatus.Status.WORD_EMPTY to
-      R.string.user_dictionary_tool_status_error_word_empty,
-    UserDictionaryCommandStatus.Status.WORD_TOO_LONG to
-      R.string.user_dictionary_tool_status_error_word_too_long,
-    UserDictionaryCommandStatus.Status.WORD_CONTAINS_INVALID_CHARACTER to
+    Status.WORD_EMPTY to R.string.user_dictionary_tool_status_error_word_empty,
+    Status.WORD_TOO_LONG to R.string.user_dictionary_tool_status_error_word_too_long,
+    Status.WORD_CONTAINS_INVALID_CHARACTER to
       R.string.user_dictionary_tool_status_error_word_contains_invalid_character,
-    UserDictionaryCommandStatus.Status.IMPORT_TOO_MANY_WORDS to
+    Status.IMPORT_TOO_MANY_WORDS to
       R.string.user_dictionary_tool_status_error_import_too_many_words,
-    UserDictionaryCommandStatus.Status.IMPORT_INVALID_ENTRIES to
+    Status.IMPORT_INVALID_ENTRIES to
       R.string.user_dictionary_tool_status_error_import_invalid_entries,
-    UserDictionaryCommandStatus.Status.NO_UNDO_HISTORY to
-      R.string.user_dictionary_tool_status_error_no_undo_history,
+    Status.NO_UNDO_HISTORY to R.string.user_dictionary_tool_status_error_no_undo_history,
   )

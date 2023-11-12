@@ -56,20 +56,8 @@ public class PrimaryKeyCodeConverter {
   public final int keyCodeDown;
   public final int keyCodeBackspace;
   public final int keyCodeEnter;
-  public final int keyCodeChartypeToKana;
-  public final int keyCodeChartypeToAbc;
-  public final int keyCodeSymbol;
-  public final int keyCodeUndo;
-  public final int keyCodeCapslock;
-  public final int keyCodeAlt;
-  public final int keyCodeMenuDialog;
 
   private final ProbableKeyEventGuesser guesser;
-
-  /** Constructs with default guesser. */
-  public PrimaryKeyCodeConverter(Context context) {
-    this(context, new ProbableKeyEventGuesser(context.getAssets()));
-  }
 
   public PrimaryKeyCodeConverter(Context context, ProbableKeyEventGuesser guesser) {
     // Prefetch keycodes from resource
@@ -81,13 +69,6 @@ public class PrimaryKeyCodeConverter {
     keyCodeDown = res.getInteger(R.integer.key_down);
     keyCodeBackspace = res.getInteger(R.integer.key_backspace);
     keyCodeEnter = res.getInteger(R.integer.key_enter);
-    keyCodeChartypeToKana = res.getInteger(R.integer.key_chartype_to_kana);
-    keyCodeChartypeToAbc = res.getInteger(R.integer.key_chartype_to_abc);
-    keyCodeSymbol = res.getInteger(R.integer.key_symbol);
-    keyCodeUndo = res.getInteger(R.integer.key_undo);
-    keyCodeCapslock = res.getInteger(R.integer.key_capslock);
-    keyCodeAlt = res.getInteger(R.integer.key_alt);
-    keyCodeMenuDialog = res.getInteger(R.integer.key_menu_dialog);
 
     this.guesser = Preconditions.checkNotNull(guesser);
   }

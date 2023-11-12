@@ -486,19 +486,6 @@ public class KeyboardParser {
         "The type dimension or fraction is required." + "  value = " + value);
   }
 
-  private static int getFraction(Optional<TypedValue> optionalValue, int base, int defaultValue) {
-    if (!optionalValue.isPresent()) {
-      return defaultValue;
-    }
-    TypedValue value = optionalValue.get();
-
-    if (value.type == TypedValue.TYPE_FRACTION) {
-      return Math.round(TypedValue.complexToFraction(value.data, base, base));
-    }
-
-    throw new IllegalArgumentException("The type fraction is required.  value = " + value);
-  }
-
   /**
    * @return "codes" assigned to {@code value}
    */

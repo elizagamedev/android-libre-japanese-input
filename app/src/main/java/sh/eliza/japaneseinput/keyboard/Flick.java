@@ -29,6 +29,7 @@
 
 package sh.eliza.japaneseinput.keyboard;
 
+import androidx.annotation.NonNull;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
 
@@ -78,6 +79,7 @@ public class Flick {
     return keyEntity;
   }
 
+  @NonNull
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(this)

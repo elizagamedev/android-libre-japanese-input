@@ -29,11 +29,9 @@
 package sh.eliza.japaneseinput.accessibility
 
 import android.content.Context
-import android.media.AudioManager
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
-import android.os.SystemClock
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +40,6 @@ import android.view.accessibility.AccessibilityManager
 import android.view.accessibility.AccessibilityNodeInfo
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.accessibility.AccessibilityNodeProviderCompat
-import com.google.common.base.Preconditions
 import sh.eliza.japaneseinput.R
 import sh.eliza.japaneseinput.accessibility.AccessibilityEventUtil.createAccessibilityEvent
 import sh.eliza.japaneseinput.keyboard.Flick
@@ -58,7 +55,6 @@ class KeyboardAccessibilityDelegate(
 ) : AccessibilityDelegateCompat() {
   private val accessibilityManager =
     view.context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
-  private val audioManager = view.context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
   private var lastHoverKey: Key? = null
   private val nodeProvider = KeyboardAccessibilityNodeProvider(view)
@@ -113,7 +109,6 @@ class KeyboardAccessibilityDelegate(
    * @return `true` if the event was handled by the view, false otherwise
    */
   fun dispatchHoverEvent(event: MotionEvent): Boolean {
-    Preconditions.checkNotNull(event)
     val key = nodeProvider.getKey(event.x.toInt(), event.y.toInt())
     val lastHoverKey = lastHoverKey
     when (event.action) {
@@ -217,7 +212,7 @@ class KeyboardAccessibilityDelegate(
     consumedByLongpress = true
   }
 
-  override fun getAccessibilityNodeProvider(host: View): AccessibilityNodeProviderCompat? {
+  override fun getAccessibilityNodeProvider(host: View): AccessibilityNodeProviderCompat {
     return nodeProvider
   }
 
@@ -227,7 +222,7 @@ class KeyboardAccessibilityDelegate(
    * Node provider's internal state is reset here.
    */
   fun setMetaState(metaState: Set<MetaState>) {
-    nodeProvider.setMetaState(Preconditions.checkNotNull(metaState))
+    nodeProvider.setMetaState(metaState)
   }
 
   /**
@@ -237,23 +232,10 @@ class KeyboardAccessibilityDelegate(
    */
   fun setKeyboard(keyboard: Keyboard?) {
     nodeProvider.setKeyboard(keyboard)
-    if (accessibilityManager.isEnabled()) {
-      val contentDescription = if (keyboard != null) keyboard.contentDescription.orNull() else null
+    if (accessibilityManager.isEnabled) {
+      val contentDescription = keyboard?.contentDescription?.orNull()
       sendWindowStateChanged(contentDescription)
     }
-  }
-
-  private fun announceForAccessibility(text: String) {
-    val event =
-      createAccessibilityEvent().apply {
-        packageName = javaClass.getPackage()!!.name
-        className = javaClass.name
-        eventTime = SystemClock.uptimeMillis()
-        isEnabled = true
-        this.text.add(text)
-        eventType = AccessibilityEvent.TYPE_ANNOUNCEMENT
-      }
-    requestSendAccessibilityEventIfPossible(event)
   }
 
   /**

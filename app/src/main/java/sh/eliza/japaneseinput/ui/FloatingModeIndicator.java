@@ -139,8 +139,6 @@ public class FloatingModeIndicator {
   private final Handler handler;
   private final PopUpLayouter<MozcImageView> popup;
 
-  private final ModeIndicatorMessageCallback messageCallback = new ModeIndicatorMessageCallback();
-
   private final FloatingModeIndicatorController controller =
       new FloatingModeIndicatorController(new ControllerListenerImpl());
   private final View parentView;
@@ -161,6 +159,7 @@ public class FloatingModeIndicator {
 
   public FloatingModeIndicator(View parent) {
     parentView = Preconditions.checkNotNull(parent);
+    ModeIndicatorMessageCallback messageCallback = new ModeIndicatorMessageCallback();
     handler = new Handler(Looper.getMainLooper(), messageCallback);
 
     Context context = parent.getContext();
@@ -203,7 +202,7 @@ public class FloatingModeIndicator {
     cursorAnchorInfo.getMatrix().mapPoints(cursorPosition);
     int[] location = new int[2];
     parentView.getLocationOnScreen(location);
-    int left = Math.round(cursorPosition[0] - indicatorSize / 2) - location[0];
+    int left = Math.round(cursorPosition[0] - (float) indicatorSize / 2) - location[0];
     int top = Math.round(cursorPosition[1] + verticalMargin) - location[1];
     // TODO(hsumita): Put the indicator over the cursor if there is no enough space below.
     // Note: We always have enough space below thanks to the narrow frame at this time.
@@ -310,9 +309,5 @@ public class FloatingModeIndicator {
     popup.getContentView().clearAnimation();
     handler.removeMessages(HIDE_MODE_INDICATOR);
     handler.removeMessages(SHOW_MODE_INDICATOR);
-  }
-
-  private boolean isVisible() {
-    return isVisible;
   }
 }

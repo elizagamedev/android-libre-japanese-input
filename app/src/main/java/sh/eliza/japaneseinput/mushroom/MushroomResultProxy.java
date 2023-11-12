@@ -57,8 +57,8 @@ public class MushroomResultProxy {
   }
 
   /**
-   * Registers the {@code replaceKey} which should be filled into the field with the given
-   * {@fieldId}.
+   * Registers the {@code replaceKey} which should be filled into the field with the given {@code
+   * fieldId}.
    */
   public void addReplaceKey(int fieldId, String replaceKey) {
     replaceKeyMap.put(fieldId, replaceKey);

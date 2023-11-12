@@ -273,9 +273,6 @@ public class Keyboard {
   private final float flickThreshold;
   private final List<Row> rowList;
 
-  public final int contentLeft;
-  public final int contentRight;
-  public final int contentTop;
   public final int contentBottom;
   protected final KeyboardSpecification specification;
   private Optional<SparseIntArray> sourceIdToKeyCode = Optional.absent();
@@ -289,21 +286,12 @@ public class Keyboard {
     this.flickThreshold = flickThreshold;
     this.rowList = Collections.unmodifiableList(rowList);
 
-    int left = Integer.MAX_VALUE,
-        right = Integer.MIN_VALUE,
-        top = Integer.MAX_VALUE,
-        bottom = Integer.MIN_VALUE;
+    int bottom = Integer.MIN_VALUE;
     for (Row row : this.rowList) {
       for (Key key : row.getKeyList()) {
-        left = Math.min(left, key.getX());
-        right = Math.max(right, key.getX() + key.getWidth());
-        top = Math.min(top, key.getY());
         bottom = Math.max(bottom, key.getY() + key.getHeight());
       }
     }
-    this.contentLeft = left;
-    this.contentRight = right;
-    this.contentTop = top;
     this.contentBottom = bottom;
     this.specification = Preconditions.checkNotNull(specification);
   }

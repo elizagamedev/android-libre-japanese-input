@@ -78,10 +78,7 @@ internal class CandidateWindowAccessibilityNodeProvider(
    */
   private fun getRowByVirtualViewId(virtualViewId: Int): CandidateLayout.Row? {
     if (virtualViewIdToRow == null) {
-      val layout = layout
-      if (layout == null) {
-        return null
-      }
+      val layout = layout ?: return null
       val virtualViewIdToRow = SparseArray<CandidateLayout.Row>()
       for (row in layout.rowList) {
         for (span in row.spanList) {
@@ -102,10 +99,7 @@ internal class CandidateWindowAccessibilityNodeProvider(
 
   private fun createNodeInfoForVirtualViewId(virtualViewId: Int): AccessibilityNodeInfoCompat? {
     Preconditions.checkArgument(virtualViewId >= 0)
-    val row = getRowByVirtualViewId(virtualViewId)
-    if (row == null) {
-      return null
-    }
+    val row = getRowByVirtualViewId(virtualViewId) ?: return null
     val candidateId = virtualViewIdToCandidateId(virtualViewId)
     for (span in row.spanList) {
       val candidateWord = span.candidateWord.orNull()
@@ -156,10 +150,7 @@ internal class CandidateWindowAccessibilityNodeProvider(
       // Required to return the information about entire view.
       val info = AccessibilityNodeInfoCompat.obtain(view)
       ViewCompat.onInitializeAccessibilityNodeInfo(view, info)
-      val layout = layout
-      if (layout == null) {
-        return info
-      }
+      val layout = layout ?: return info
       for (row in layout.rowList) {
         for (span in row.spanList) {
           val candidateWord = span.candidateWord.orNull()
@@ -196,10 +187,7 @@ internal class CandidateWindowAccessibilityNodeProvider(
    * @param y vertical location in screen coordinate (pixel)
    */
   fun getCandidateWord(x: Int, y: Int): CandidateWord? {
-    val layout = layout
-    if (layout == null) {
-      return null
-    }
+    val layout = layout ?: return null
     for (row in layout.rowList) {
       if (y < row.top || y >= row.top + row.height) {
         continue
@@ -248,10 +236,7 @@ internal class CandidateWindowAccessibilityNodeProvider(
   }
 
   private fun getCandidateWordFromVirtualViewId(virtualViewId: Int): CandidateWord? {
-    val row = getRowByVirtualViewId(virtualViewId)
-    if (row == null) {
-      return null
-    }
+    val row = getRowByVirtualViewId(virtualViewId) ?: return null
     val candidateId = virtualViewIdToCandidateId(virtualViewId)
     for (span in row.spanList) {
       val candidateWord = span.candidateWord.orNull()

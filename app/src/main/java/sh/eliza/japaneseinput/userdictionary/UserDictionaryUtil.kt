@@ -53,14 +53,11 @@ import java.io.IOException
 import java.io.RandomAccessFile
 import java.io.UnsupportedEncodingException
 import java.nio.ByteBuffer
-import java.nio.channels.FileChannel
 import java.nio.channels.FileChannel.MapMode
 import java.nio.charset.Charset
 import java.nio.charset.CodingErrorAction
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionary.Entry
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionary.PosType
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommandStatus
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommandStatus.Status
 import sh.eliza.japaneseinput.MozcUtil
 import sh.eliza.japaneseinput.R
@@ -74,7 +71,7 @@ internal object UserDictionaryUtil {
      * @param dictionaryName the text which is filled in EditText on the dialog.
      * @return result status of the executed command.
      */
-    fun onPositiveButtonClicked(dictionaryName: String?): UserDictionaryCommandStatus.Status
+    fun onPositiveButtonClicked(dictionaryName: String?): Status
   }
 
   interface WordRegisterDialogListener {
@@ -83,11 +80,7 @@ internal object UserDictionaryUtil {
      *
      * @return result status of the executed command.
      */
-    fun onPositiveButtonClicked(
-      word: String?,
-      reading: String?,
-      pos: PosType?
-    ): UserDictionaryCommandStatus.Status
+    fun onPositiveButtonClicked(word: String?, reading: String?, pos: PosType?): Status
   }
 
   /**
@@ -110,7 +103,7 @@ internal object UserDictionaryUtil {
       titleResourceId,
       R.layout.user_dictionary_tool_word_register_dialog_view,
       object : UserDictionaryBaseDialogListener {
-        override fun onPositiveButtonClicked(view: View): UserDictionaryCommandStatus.Status {
+        override fun onPositiveButtonClicked(view: View): Status {
           return listener.onPositiveButtonClicked(
             getText(view, R.id.user_dictionary_tool_word_register_dialog_word),
             getText(view, R.id.user_dictionary_tool_word_register_dialog_reading),
@@ -124,7 +117,7 @@ internal object UserDictionaryUtil {
      * Sets the entry so that users can see it when the dialog is shown. To make editing convenient,
      * select all region.
      */
-    fun setEntry(entry: ProtoUserDictionaryStorage.UserDictionary.Entry) {
+    fun setEntry(entry: Entry) {
       val wordEditText =
         findViewById<EditText>(R.id.user_dictionary_tool_word_register_dialog_word)!!
       wordEditText.setText(entry.value)
@@ -159,7 +152,7 @@ internal object UserDictionaryUtil {
       titleResourceId,
       R.layout.user_dictionary_tool_dictionary_name_dialog_view,
       object : UserDictionaryBaseDialogListener {
-        override fun onPositiveButtonClicked(view: View): UserDictionaryCommandStatus.Status {
+        override fun onPositiveButtonClicked(view: View): Status {
           return listener.onPositiveButtonClicked(
             getText(view, R.id.user_dictionary_tool_dictionary_name_dialog_name)
           )
@@ -195,12 +188,15 @@ internal object UserDictionaryUtil {
    */
   sealed class UserDictionaryBaseDialog(
     context: Context,
-    titleResourceId: Int,
-    viewResourceId: Int,
+    private val titleResourceId: Int,
+    private val viewResourceId: Int,
     private val listener: UserDictionaryBaseDialogListener,
     private val snackbarManager: SnackbarManager
   ) : AlertDialog(context) {
-    init {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+      super.onCreate(savedInstanceState)
+
       // Initialize the view. Set the title, the content view and ok, cancel buttons.
       setTitle(titleResourceId)
       setView(LayoutInflater.from(context).inflate(viewResourceId, null))
@@ -216,10 +212,6 @@ internal object UserDictionaryUtil {
         null as DialogInterface.OnClickListener?
       )
       setCancelable(true)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-      super.onCreate(savedInstanceState)
 
       // To override the default behavior that the dialog is dismissed after user's clicking
       // a button regardless of any action inside listener, we set the callback directly
@@ -230,7 +222,7 @@ internal object UserDictionaryUtil {
       getButton(BUTTON_POSITIVE).setOnClickListener { view ->
         val status = listener.onPositiveButtonClicked(view)
         snackbarManager.maybeShowMessageShortly(status)
-        if (status == UserDictionaryCommandStatus.Status.USER_DICTIONARY_COMMAND_SUCCESS) {
+        if (status == Status.USER_DICTIONARY_COMMAND_SUCCESS) {
           // Dismiss the dialog, iff the operation is successfully done.
           dismiss()
         }
@@ -362,7 +354,7 @@ internal object UserDictionaryUtil {
             .onMalformedInput(CodingErrorAction.REPORT)
             .onUnmappableCharacter(CodingErrorAction.REPORT)
             .decode(buffer)
-        if (result.length > 0 && result[0].code == 0xFEFF) {
+        if (result.isNotEmpty() && result[0].code == 0xFEFF) {
           result.position(result.position() + 1) // Skip BOM
         }
         return result.toString()
@@ -555,7 +547,7 @@ private fun readFromFileInternal(file: RandomAccessFile): String {
   return try {
     val result =
       UserDictionaryUtil.toStringWithEncodingDetection(
-        channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size())
+        channel.map(MapMode.READ_ONLY, 0, channel.size())
       )
     succeeded = true
     result
@@ -566,7 +558,7 @@ private fun readFromFileInternal(file: RandomAccessFile): String {
 
 /** Callback which is called when the "positive button" on a dialog is clicked. */
 private interface UserDictionaryBaseDialogListener {
-  fun onPositiveButtonClicked(view: View): UserDictionaryCommandStatus.Status
+  fun onPositiveButtonClicked(view: View): Status
 }
 
 /** Simple class to show the internationalized POS names on a spinner. */

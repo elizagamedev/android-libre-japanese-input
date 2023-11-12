@@ -68,7 +68,7 @@ public class SnapScroller {
         }
       };
 
-  private static final Optional<Float> OPTIONAL_ZERO = Optional.of(Float.valueOf(0));
+  private static final Optional<Float> OPTIONAL_ZERO = Optional.of(0f);
 
   /** The time stamp calculator. */
   private final TimestampCalculator timestampCalculator;
@@ -130,10 +130,6 @@ public class SnapScroller {
     this.pageSize = pageSize;
   }
 
-  public int getPageSize() {
-    return pageSize;
-  }
-
   public void setContentSize(int contentSize) {
     Preconditions.checkArgument(
         contentSize >= 0, "contentSize must be non-negative: ", contentSize);
@@ -172,18 +168,6 @@ public class SnapScroller {
 
   public int getScrollPosition() {
     return scrollPosition;
-  }
-
-  public int getStartScrollPosition() {
-    return startScrollPosition;
-  }
-
-  public int getEndScrollPosition() {
-    return endScrollPosition;
-  }
-
-  public long getStartScrollTime() {
-    return startScrollTime;
   }
 
   public void stopScrolling() {
@@ -301,7 +285,7 @@ public class SnapScroller {
       fling((int) (velocity * decayRate));
       if (velocity == 0) {
         if (scrollPosition == 0 || scrollPosition == getMaxScrollPosition()) {
-          return Optional.of(Float.valueOf(oldVelocity));
+          return Optional.of(oldVelocity);
         } else {
           return OPTIONAL_ZERO;
         }

@@ -79,16 +79,8 @@ public abstract class InOutAnimatedFrameLayout extends FrameLayout {
     super(context, attrs, defStyle);
   }
 
-  public void setInAnimation(int resourceId) {
-    setInAnimation(loadAnimation(getContext(), resourceId));
-  }
-
   public void setInAnimation(Animation inAnimation) {
     this.inAnimation = inAnimation;
-  }
-
-  public void setOutAnimation(int resourceId) {
-    setOutAnimation(loadAnimation(getContext(), resourceId));
   }
 
   public void setOutAnimation(Animation outAnimation) {

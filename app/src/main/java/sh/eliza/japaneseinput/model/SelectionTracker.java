@@ -282,18 +282,18 @@ public class SelectionTracker {
       if (record != null
           && (record.selectionStart != record.selectionEnd
               || record.selectionStart != record.candidatesEnd)) {
+        int dummyCaretPosition;
         if (record.candidatesStart == -1) {
           // If no candidates are available, the right position of selection{Start,End} is
           // considered as the dummy caret position.
-          int dummyCaretPosition = Math.max(record.selectionStart, record.selectionEnd);
-          offerInternal(-1, -1, dummyCaretPosition, dummyCaretPosition);
+          dummyCaretPosition = Math.max(record.selectionStart, record.selectionEnd);
         } else {
           // Otherwise set the dummy caret position to the begin or end of the candidate
           // based on the cursor position.
-          int dummyCaretPosition =
+          dummyCaretPosition =
               (preedit.getCursor() <= 0) ? record.candidatesStart : record.candidatesEnd;
-          offerInternal(-1, -1, dummyCaretPosition, dummyCaretPosition);
         }
+        offerInternal(-1, -1, dummyCaretPosition, dummyCaretPosition);
       }
     }
 

@@ -46,21 +46,18 @@ constructor(
       .apply {
         setTitle(context.getString(R.string.pref_clear_symbol_history_title))
         setMessage(context.getString(R.string.pref_clear_symbol_history_description))
-        setPositiveButton(
-            R.string.yes,
-            { _, _ ->
-              // TODO(exv): replace this
-              // val sessionExecutor =
-              //   SessionExecutor.getInstanceInitializedIfNecessary(
-              //     SessionHandlerFactory(getContext()),
-              //     getContext()
-              //   )
-              // sessionExecutor.clearStorage(StorageType.EMOJI_HISTORY)
-              // sessionExecutor.clearStorage(StorageType.EMOTICON_HISTORY)
-              // sessionExecutor.clearStorage(StorageType.SYMBOL_HISTORY)
-            }
-          )
-          .setNegativeButton(R.string.no, { _, _ -> })
+        setPositiveButton(R.string.yes) { _, _ ->
+          // TODO(exv): replace this
+          // val sessionExecutor =
+          //   SessionExecutor.getInstanceInitializedIfNecessary(
+          //     SessionHandlerFactory(getContext()),
+          //     getContext()
+          //   )
+          // sessionExecutor.clearStorage(StorageType.EMOJI_HISTORY)
+          // sessionExecutor.clearStorage(StorageType.EMOTICON_HISTORY)
+          // sessionExecutor.clearStorage(StorageType.SYMBOL_HISTORY)
+        }
+          .setNegativeButton(R.string.no) { _, _ -> }
       }
       .create()
       .show()

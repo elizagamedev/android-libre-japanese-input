@@ -101,10 +101,10 @@ class SequentialInterpolator implements Interpolator {
       List<Float> durations,
       float totalDuration,
       List<Float> targets) {
-    this.interpolators = interpolators.toArray(new Interpolator[interpolators.size()]);
-    this.durations = durations.toArray(new Float[durations.size()]);
+    this.interpolators = interpolators.toArray(new Interpolator[0]);
+    this.durations = durations.toArray(new Float[0]);
     this.totalDuration = totalDuration;
-    this.targets = targets.toArray(new Float[targets.size()]);
+    this.targets = targets.toArray(new Float[0]);
   }
 
   @Override

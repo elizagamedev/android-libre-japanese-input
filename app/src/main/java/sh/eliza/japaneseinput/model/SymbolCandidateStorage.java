@@ -53,35 +53,6 @@ public class SymbolCandidateStorage {
     void addHistory(SymbolMajorCategory majorCategory, String value);
   }
 
-  /** Set of names of Emoji based on carriers. */
-  private static class EmojiDescriptionSet {
-    static final EmojiDescriptionSet NULL_INSTANCE;
-
-    static {
-      String[] empty = new String[0];
-      NULL_INSTANCE = new EmojiDescriptionSet(empty, empty, empty, empty, empty);
-    }
-
-    final String[] faceDescription;
-    final String[] foodDescription;
-    final String[] activityDescription;
-    final String[] cityDescription;
-    final String[] natureDescription;
-
-    EmojiDescriptionSet(
-        String[] faceDescription,
-        String[] foodDescription,
-        String[] activityDescription,
-        String[] cityDescription,
-        String[] natureDescription) {
-      this.faceDescription = Preconditions.checkNotNull(faceDescription);
-      this.foodDescription = Preconditions.checkNotNull(foodDescription);
-      this.activityDescription = Preconditions.checkNotNull(activityDescription);
-      this.cityDescription = Preconditions.checkNotNull(cityDescription);
-      this.natureDescription = Preconditions.checkNotNull(natureDescription);
-    }
-  }
-
   /** Annotation for a Half-width one character candidate. */
   private static final String HALFWIDTH_DESCRIPTION = "[半]";
 
@@ -108,10 +79,8 @@ public class SymbolCandidateStorage {
   }
 
   private final SymbolHistoryStorage symbolHistoryStorage;
-  private final Map<String, Boolean> isRenderableCache = new HashMap<String, Boolean>();
   private boolean isUnicodeEmojiEnabled = false;
-  private boolean isCarrierEmojiEnabled = false;
-  private Map<String, String> emojiDescriptionMap = Collections.emptyMap();
+  private final Map<String, String> emojiDescriptionMap = Collections.emptyMap();
 
   public SymbolCandidateStorage(SymbolHistoryStorage symbolHistoryStorage) {
     this.symbolHistoryStorage = Preconditions.checkNotNull(symbolHistoryStorage);
@@ -119,36 +88,6 @@ public class SymbolCandidateStorage {
 
   public void setEmojiEnabled(boolean isUnicodeEmojiEnabled) {
     this.isUnicodeEmojiEnabled = isUnicodeEmojiEnabled;
-  }
-
-  private static Map<String, String> createEmojiDescriptionMap(
-      Optional<EmojiDescriptionSet> carrierEmojiDescriptionSet) {
-    Preconditions.checkNotNull(carrierEmojiDescriptionSet);
-
-    Map<String, String> map = new HashMap<String, String>();
-
-    createEmojiDescriptionMapInternal(EmojiData.FACE_VALUES, EmojiData.UNICODE_FACE_NAME, map);
-    createEmojiDescriptionMapInternal(EmojiData.FOOD_VALUES, EmojiData.UNICODE_FOOD_NAME, map);
-    createEmojiDescriptionMapInternal(
-        EmojiData.ACTIVITY_VALUES, EmojiData.UNICODE_ACTIVITY_NAME, map);
-    createEmojiDescriptionMapInternal(EmojiData.CITY_VALUES, EmojiData.UNICODE_CITY_NAME, map);
-    createEmojiDescriptionMapInternal(EmojiData.NATURE_VALUES, EmojiData.UNICODE_NATURE_NAME, map);
-
-    if (carrierEmojiDescriptionSet.isPresent()) {
-      EmojiDescriptionSet descriptionSet = carrierEmojiDescriptionSet.get();
-      createEmojiDescriptionMapInternal(
-          EmojiData.FACE_PUA_VALUES, descriptionSet.faceDescription, map);
-      createEmojiDescriptionMapInternal(
-          EmojiData.FOOD_PUA_VALUES, descriptionSet.foodDescription, map);
-      createEmojiDescriptionMapInternal(
-          EmojiData.ACTIVITY_PUA_VALUES, descriptionSet.activityDescription, map);
-      createEmojiDescriptionMapInternal(
-          EmojiData.CITY_PUA_VALUES, descriptionSet.cityDescription, map);
-      createEmojiDescriptionMapInternal(
-          EmojiData.NATURE_PUA_VALUES, descriptionSet.natureDescription, map);
-    }
-
-    return Collections.unmodifiableMap(map);
   }
 
   private static void createEmojiDescriptionMapInternal(

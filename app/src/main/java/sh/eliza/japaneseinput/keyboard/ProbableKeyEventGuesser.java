@@ -34,7 +34,6 @@ import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.SparseArray;
-import android.util.SparseIntArray;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.io.DataInputStream;
@@ -115,7 +114,7 @@ public class ProbableKeyEventGuesser {
       String orientation = KeyboardSpecificationName.getDeviceOrientationString(configuration);
       String fileName = String.format("%s_%s.touch_stats", baseName, orientation);
       Preconditions.checkArgument(
-          fileName.indexOf(File.separator) == -1, "fileName shouldn't include separator.");
+          !fileName.contains(File.separator), "fileName shouldn't include separator.");
       for (String file : assetFileNames) {
         if (file.equals(fileName)) {
           return assetManager.open(fileName);
@@ -332,11 +331,6 @@ public class ProbableKeyEventGuesser {
   private final Map<String, SparseArray<float[]>> formattedKeyboardNameToStats =
       new LeastRecentlyUsedCacheMap<String, SparseArray<float[]>>(MAX_LRU_CACHE_CAPACITY);
 
-  // LRU cache of mapping table.
-  // formattedKeyboardName -> souce_id -> keyCode.
-  private final Map<String, SparseIntArray> formattedKeyboardNameToKeycodeMapper =
-      new LeastRecentlyUsedCacheMap<String, SparseIntArray>(MAX_LRU_CACHE_CAPACITY);
-
   // StatsFileAccessor to access the files under assets/ directory.
   private final StatsFileAccessor statsFileAccessor;
 
@@ -392,19 +386,6 @@ public class ProbableKeyEventGuesser {
         };
 
     this.likelihoodCalculator = new LikelihoodCalculatorImpl();
-  }
-
-  private ProbableKeyEventGuesser(
-      StatsFileAccessor statsFileAccessor,
-      double likelyhoodThreshold,
-      ThreadPoolExecutor dataLoadExecutor,
-      Executor dataPropagationExecutor,
-      LikelihoodCalculator likelihoodCalculator) {
-    this.statsFileAccessor = Preconditions.checkNotNull(statsFileAccessor);
-    this.likelihoodThreshold = likelyhoodThreshold;
-    this.dataLoadExecutor = Preconditions.checkNotNull(dataLoadExecutor);
-    this.dataPropagationExecutor = Preconditions.checkNotNull(dataPropagationExecutor);
-    this.likelihoodCalculator = Preconditions.checkNotNull(likelihoodCalculator);
   }
 
   /**

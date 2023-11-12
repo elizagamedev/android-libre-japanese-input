@@ -146,14 +146,4 @@ public enum SymbolMajorCategory {
     int newIndex = (index + relativeIndex + minorCategories.size()) % minorCategories.size();
     return minorCategories.get(newIndex);
   }
-
-  static SymbolMajorCategory findMajorCategory(SymbolMinorCategory minorCategory) {
-    Preconditions.checkNotNull(minorCategory);
-    for (SymbolMajorCategory majorCategory : SymbolMajorCategory.values()) {
-      if (majorCategory.minorCategories.contains(minorCategory)) {
-        return majorCategory;
-      }
-    }
-    throw new IllegalArgumentException("Invalid minor category.");
-  }
 }

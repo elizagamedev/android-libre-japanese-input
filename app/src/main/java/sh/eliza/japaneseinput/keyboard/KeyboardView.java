@@ -93,9 +93,6 @@ public class KeyboardView extends View implements MemoryManageable {
   private final AccessibilityManager accessibilityManager =
       (AccessibilityManager) getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);
 
-  /** Just for testing purpose. If true, HANDLING_TOUCH_EVENET metastate is removed directly. */
-  private boolean enableDelayForHandlingTouchEvent = true;
-
   /**
    * Decorator class for {@code Map} for {@code KeyEventContextMap}.
    *
@@ -167,6 +164,10 @@ public class KeyboardView extends View implements MemoryManageable {
       // Clear the handler to guarantee that the handler has zero or one message.
       delayedHandlingTouchEventHandler.removeCallbacks(metastateUnsetter);
       if (keyEventContextMap.isEmpty()) {
+        /**
+         * Just for testing purpose. If true, HANDLING_TOUCH_EVENET metastate is removed directly.
+         */
+        boolean enableDelayForHandlingTouchEvent = true;
         if (delayForUnset && enableDelayForHandlingTouchEvent) {
           // After DELAY milliseconds, HANDLING_TOUCH_EVENT will be unset.
           delayedHandlingTouchEventHandler.postDelayed(metastateUnsetter, DELAY);
@@ -210,7 +211,7 @@ public class KeyboardView extends View implements MemoryManageable {
 
   // scaledDensity is used here for flick sensitivity, not text rendering, so don't heed the
   // deprecation warning.
-  @SuppressWarnings("deprecation")
+  @SuppressWarnings({"deprecation", "RedundantSuppression"})
   private float getScaledDensity() {
     return getContext().getResources().getDisplayMetrics().scaledDensity;
   }
@@ -266,10 +267,6 @@ public class KeyboardView extends View implements MemoryManageable {
     this.flickSensitivity = flickSensitivity;
   }
 
-  public int getFlickSensitivity() {
-    return flickSensitivity;
-  }
-
   private float getFlickSensitivityInDip() {
     // To adapt the flickSensitiy Level to actual length, we scale 1.5f heuristically.
     return -flickSensitivity * 1.5f * scaledDensity;
@@ -313,7 +310,7 @@ public class KeyboardView extends View implements MemoryManageable {
     // TODO(hidehiko): Refactor around keyEventHandler and keyEventContext. Also we should be
     //   able to refactor this method with resetState.
     KeyEventContext[] keyEventContextArray =
-        keyEventContextMap.values().toArray(new KeyEventContext[keyEventContextMap.size()]);
+        keyEventContextMap.values().toArray(new KeyEventContext[0]);
     keyEventContextMap.clear();
 
     for (KeyEventContext keyEventContext : keyEventContextArray) {
@@ -683,7 +680,7 @@ public class KeyboardView extends View implements MemoryManageable {
               break;
             case EVEN:
               // Split the spacer evenly, assuming we don't have any consecutive spacers.
-              if (x < key.getX() + key.getWidth() / 2 && prevKey != null) {
+              if (x < key.getX() + (float) key.getWidth() / 2 && prevKey != null) {
                 return Optional.of(prevKey);
               }
               break;

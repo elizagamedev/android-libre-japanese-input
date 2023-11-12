@@ -84,16 +84,4 @@ public class WeakDrawableCache {
     // entry.get() may return null.
     return Optional.fromNullable(entry == null ? null : entry.get());
   }
-
-  /** Clears the cache content. */
-  public void clear() {
-    map.clear();
-
-    // Clear the queue.
-    while (true) {
-      if (queue.poll() == null) {
-        break;
-      }
-    }
-  }
 }

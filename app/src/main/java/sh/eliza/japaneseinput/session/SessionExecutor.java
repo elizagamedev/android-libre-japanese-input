@@ -86,17 +86,14 @@ public class SessionExecutor {
   // so that we can inject instances via reflections for testing purposes.
   private static volatile Optional<SessionExecutor> instance = Optional.absent();
 
-  private static SessionExecutor getInstanceInternal(
-      Optional<SessionHandlerFactory> factory, Context applicationContext) {
+  private static SessionExecutor getInstanceInternal(Context applicationContext) {
     Optional<SessionExecutor> result = instance;
     if (!result.isPresent()) {
       synchronized (SessionExecutor.class) {
         result = instance;
         if (!result.isPresent()) {
           result = instance = Optional.of(new SessionExecutor());
-          if (factory.isPresent()) {
-            result.get().reset(factory.get(), applicationContext);
-          }
+          result.get().reset(applicationContext);
         }
       }
     }
@@ -108,17 +105,15 @@ public class SessionExecutor {
    * initialization, assuming it will be initialized by client in appropriate timing.
    */
   public static SessionExecutor getInstance(Context applicationContext) {
-    return getInstanceInternal(Optional.absent(), Preconditions.checkNotNull(applicationContext));
+    return getInstanceInternal(Preconditions.checkNotNull(applicationContext));
   }
 
   /**
    * Returns an instance of {@link SessionExecutor}. At first invocation, the instance will be
    * initialized by using given {@code factory}. Otherwise, the {@code factory} is simply ignored.
    */
-  public static SessionExecutor getInstanceInitializedIfNecessary(
-      SessionHandlerFactory factory, Context applicationContext) {
-    return getInstanceInternal(
-        Optional.of(factory), Preconditions.checkNotNull(applicationContext));
+  public static SessionExecutor getInstanceInitializedIfNecessary(Context applicationContext) {
+    return getInstanceInternal(Preconditions.checkNotNull(applicationContext));
   }
 
   private static volatile Optional<HandlerThread> sessionHandlerThread = Optional.absent();
@@ -541,11 +536,10 @@ public class SessionExecutor {
   }
 
   /** Resets the instance by setting {@code SessionHandler} created by the given {@code factory}. */
-  public void reset(SessionHandlerFactory factory, Context applicationContext) {
-    Preconditions.checkNotNull(factory);
+  public void reset(Context applicationContext) {
     Preconditions.checkNotNull(applicationContext);
     HandlerThread thread = getHandlerThread();
-    mainCallback = Optional.of(new ExecutorMainCallback(factory.create()));
+    mainCallback = Optional.of(new ExecutorMainCallback(new LocalSessionHandler()));
     handler = Optional.of(new Handler(thread.getLooper(), mainCallback.get()));
     handler
         .get()

@@ -241,10 +241,6 @@ public enum HardwareKeyboardSpecification {
         .apply();
   }
 
-  public HardwareKeyMap getHardwareKeyMap() {
-    return hardwareKeyMap;
-  }
-
   public ProtoCommands.KeyEvent getMozcKeyEvent(android.view.KeyEvent keyEvent) {
     Preconditions.checkNotNull(keyEvent);
     CompactKeyEvent compactKeyEvent = new CompactKeyEvent(keyEvent, keyEventMapper);

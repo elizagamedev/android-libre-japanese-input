@@ -87,7 +87,7 @@ internal constructor(
    *
    * Assuming that the size of each bitmap preview is same, and skin type is globally unique, we can
    * use global bitmap cache to keep the memory usage low. This cache also manages the referencing
-   * Activities. See [MozcBasePreferenceActivity] for the details.
+   * Activities. See [sh.eliza.japaneseinput.preference.MozcMainPreferenceActivity] for the details.
    */
   internal class BitmapCache private constructor() {
     private val map: MutableMap<KeyboardLayout, Bitmap> = EnumMap(KeyboardLayout::class.java)

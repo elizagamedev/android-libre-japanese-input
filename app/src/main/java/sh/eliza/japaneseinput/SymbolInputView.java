@@ -30,7 +30,6 @@
 package sh.eliza.japaneseinput;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.drawable.ColorDrawable;
@@ -40,6 +39,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -50,7 +50,6 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TabWidget;
 import android.widget.TextView;
-import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
@@ -265,8 +264,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       View view =
           LayoutInflater.from(context)
               .inflate(R.layout.symbol_candidate_view, container, /* attachToRoot= */ false);
-      SymbolCandidateView symbolCandidateView =
-          (SymbolCandidateView) view.findViewById(R.id.symbol_input_candidate_view);
+      SymbolCandidateView symbolCandidateView = view.findViewById(R.id.symbol_input_candidate_view);
       symbolCandidateView.setCandidateSelectListener(candidateSelectListener);
       symbolCandidateView.setMinColumnWidth(
           context.getResources().getDimension(majorCategory.minColumnWidthResourceId));
@@ -291,8 +289,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
         symbolCandidateView.updateScrollPositionBasedOnFocusedIndex();
       }
 
-      ScrollGuideView scrollGuideView =
-          (ScrollGuideView) view.findViewById(R.id.symbol_input_scroll_guide_view);
+      ScrollGuideView scrollGuideView = view.findViewById(R.id.symbol_input_scroll_guide_view);
       scrollGuideView.setSkin(skin);
 
       // Connect guide and candidate view.
@@ -436,8 +433,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
   private boolean emojiEnabled;
   private boolean isPasswordField;
 
-  private SharedPreferences sharedPreferences;
-
   private Optional<ViewEventListener> viewEventListener = Optional.absent();
   private final KeyEventButtonTouchListener deleteKeyEventButtonTouchListener =
       createDeleteKeyEventButtonTouchListener(getResources());
@@ -469,11 +464,6 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
 
   public SymbolInputView(Context context, AttributeSet attrs) {
     super(context, attrs);
-  }
-
-  {
-    sharedPreferences =
-        Preconditions.checkNotNull(PreferenceManager.getDefaultSharedPreferences(getContext()));
   }
 
   private static KeyEventButtonTouchListener createDeleteKeyEventButtonTouchListener(
@@ -527,7 +517,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     OnTouchListener doNothingOnTouchListener =
         new OnTouchListener() {
           @Override
-          public boolean onTouch(View button, android.view.MotionEvent event) {
+          public boolean onTouch(View button, MotionEvent event) {
             return true;
           }
         };
@@ -545,7 +535,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       findViewById(id).setOnTouchListener(doNothingOnTouchListener);
     }
 
-    KeyboardView keyboardView = (KeyboardView) findViewById(R.id.number_keyboard);
+    KeyboardView keyboardView = findViewById(R.id.number_keyboard);
     keyboardView.setPopupEnabled(popupEnabled);
     keyboardView.setKeyEventHandler(
         new KeyEventHandler(
@@ -691,7 +681,8 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
       view.setImageDrawable(
           BackgroundDrawableFactory.createSelectableDrawable(
               skin.getDrawable(resources, majorCategory.buttonSelectedImageResourceId),
-              Optional.of(skin.getDrawable(resources, majorCategory.buttonImageResourceId))));
+              java.util.Optional.of(
+                  skin.getDrawable(resources, majorCategory.buttonImageResourceId))));
       // Update the padding since setBackgroundDrawable() overwrites it.
       view.setMaxImageHeight(
           resources.getDimensionPixelSize(majorCategory.maxImageHeightResourceId));
@@ -777,7 +768,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
               new TabSelectedBackgroundDrawable(
                   Math.round(skin.symbolMinorIndicatorHeightDimension),
                   skin.symbolMinorCategoryTabSelectedColor),
-              Optional.absent()),
+              java.util.Optional.empty()),
           createMinorButtonBackgroundDrawable(skin)
         });
   }
@@ -807,7 +798,8 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
         view.setImageDrawable(
             BackgroundDrawableFactory.createSelectableDrawable(
                 skin.getDrawable(resources, symbolMinorCategory.selectedDrawableResourceId),
-                Optional.of(skin.getDrawable(resources, symbolMinorCategory.drawableResourceId))));
+                java.util.Optional.of(
+                    skin.getDrawable(resources, symbolMinorCategory.drawableResourceId))));
       }
       if (symbolMinorCategory.maxImageHeightResourceId != SymbolMinorCategory.INVALID_RESOURCE_ID) {
         view.setMaxImageHeight(
@@ -835,7 +827,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
             skin.symbolPressedFunctionKeyBottomColor,
             skin.symbolPressedFunctionKeyHighlightColor,
             skin.symbolPressedFunctionKeyShadowColor),
-        Optional.of(
+        java.util.Optional.of(
             new RoundRectKeyDrawable(
                 padding,
                 padding,
@@ -850,11 +842,11 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
 
   private static Drawable createMinorButtonBackgroundDrawable(Skin skin) {
     return BackgroundDrawableFactory.createPressableDrawable(
-        new ColorDrawable(skin.symbolMinorCategoryTabPressedColor), Optional.absent());
+        new ColorDrawable(skin.symbolMinorCategoryTabPressedColor), java.util.Optional.empty());
   }
 
   private void initializeCloseButton() {
-    ImageView closeButton = (ImageView) findViewById(R.id.symbol_view_close_button);
+    ImageView closeButton = findViewById(R.id.symbol_view_close_button);
     if (closeButtonClickListener.isPresent()) {
       closeButton.setOnClickListener(closeButtonClickListener.get());
     }
@@ -865,13 +857,13 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
    * done before this method invocation.
    */
   private void initializeDeleteButton() {
-    MozcImageView deleteButton = (MozcImageView) findViewById(R.id.symbol_view_delete_button);
+    MozcImageView deleteButton = findViewById(R.id.symbol_view_delete_button);
     deleteButton.setOnTouchListener(deleteKeyEventButtonTouchListener);
   }
 
   /** c.f., {@code initializeDeleteButton}. */
   private void initializeEnterButton() {
-    ImageView enterButton = (ImageView) findViewById(R.id.symbol_view_enter_button);
+    ImageView enterButton = findViewById(R.id.symbol_view_enter_button);
     enterButton.setOnTouchListener(enterKeyEventButtonTouchListener);
   }
 
@@ -928,16 +920,16 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
   }
 
   private TabHost getTabHost() {
-    return (TabHost) findViewById(android.R.id.tabhost);
+    return findViewById(android.R.id.tabhost);
   }
 
   private ViewPager getCandidateViewPager() {
-    return (ViewPager) findViewById(R.id.symbol_input_candidate_view_pager);
+    return findViewById(R.id.symbol_input_candidate_view_pager);
   }
 
   private MozcImageButton getMajorCategoryButton(SymbolMajorCategory majorCategory) {
     Preconditions.checkNotNull(majorCategory);
-    return (MozcImageButton) findViewById(majorCategory.buttonResourceId);
+    return findViewById(majorCategory.buttonResourceId);
   }
 
   private View getEmojiDisabledMessageView() {
@@ -1053,8 +1045,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     Preconditions.checkNotNull(newCategory);
 
     {
-      SymbolCandidateView symbolCandidateView =
-          (SymbolCandidateView) findViewById(R.id.symbol_input_candidate_view);
+      SymbolCandidateView symbolCandidateView = findViewById(R.id.symbol_input_candidate_view);
       if (symbolCandidateView != null) {
         symbolCandidateView.reset();
       }
@@ -1065,8 +1056,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     }
 
     if (newCategory == SymbolMajorCategory.NUMBER) {
-      CandidateView candidateView =
-          (CandidateView) findViewById(R.id.candidate_view_in_symbol_view);
+      CandidateView candidateView = findViewById(R.id.candidate_view_in_symbol_view);
       candidateView.clearAnimation();
       candidateView.setVisibility(View.GONE);
       candidateView.reset();
@@ -1187,7 +1177,7 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     updateSeparatorsSkin();
     getMicrophoneButton().setSkin(skin);
 
-    TabWidget tabWidget = (TabWidget) findViewById(android.R.id.tabs);
+    TabWidget tabWidget = findViewById(android.R.id.tabs);
     for (int i = 0; i < tabWidget.getChildCount(); ++i) {
       ((MozcImageView) tabWidget.getChildTabViewAt(i)).setSkin(skin);
     }
@@ -1195,37 +1185,37 @@ public class SymbolInputView extends InOutAnimatedFrameLayout implements MemoryM
     // Note delete button shouldn't be applied createMajorButtonBackgroundDrawable as background
     // as it should show different background (same as minor categories).
     for (int id : new int[] {R.id.symbol_view_close_button, R.id.symbol_view_enter_button}) {
-      MozcImageView view = (MozcImageView) findViewById(id);
+      MozcImageView view = findViewById(id);
       view.setSkin(skin);
       view.setBackgroundDrawable(createMajorButtonBackgroundDrawable(skin));
     }
-    MozcImageView deleteKeyView = (MozcImageView) findViewById(R.id.symbol_view_delete_button);
+    MozcImageView deleteKeyView = findViewById(R.id.symbol_view_delete_button);
     deleteKeyView.setSkin(skin);
     deleteKeyView.setBackgroundDrawable(createMinorButtonBackgroundDrawable(skin));
   }
 
   private KeyboardView getNumberKeyboardView() {
-    return (KeyboardView) findViewById(R.id.number_keyboard);
+    return findViewById(R.id.number_keyboard);
   }
 
   private FrameLayout getNumberKeyboardFrame() {
-    return (FrameLayout) findViewById(R.id.number_keyboard_frame);
+    return findViewById(R.id.number_keyboard_frame);
   }
 
   private LinearLayout getMajorCategoryFrame() {
-    return (LinearLayout) findViewById(R.id.symbol_major_category);
+    return findViewById(R.id.symbol_major_category);
   }
 
   private LinearLayout getMinorCategoryFrame() {
-    return (LinearLayout) findViewById(R.id.symbol_minor_category);
+    return findViewById(R.id.symbol_minor_category);
   }
 
   private TabWidget getTabWidget() {
-    return (TabWidget) findViewById(android.R.id.tabs);
+    return findViewById(android.R.id.tabs);
   }
 
   private MozcImageView getMicrophoneButton() {
-    return (MozcImageView) findViewById(R.id.microphone_button);
+    return findViewById(R.id.microphone_button);
   }
 
   @Override

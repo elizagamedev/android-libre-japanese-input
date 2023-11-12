@@ -32,7 +32,6 @@ package sh.eliza.japaneseinput;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands;
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.KeyEvent.ModifierKey;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.KeyEvent.SpecialKey;
 
 /**
@@ -78,38 +77,12 @@ public class KeycodeConverter {
       ProtoCommands.KeyEvent.newBuilder().setSpecialKey(SpecialKey.DOWN).build();
   public static final ProtoCommands.KeyEvent SPECIALKEY_BACKSPACE =
       ProtoCommands.KeyEvent.newBuilder().setSpecialKey(SpecialKey.BACKSPACE).build();
-  public static final ProtoCommands.KeyEvent SPECIALKEY_ESCAPE =
-      ProtoCommands.KeyEvent.newBuilder().setSpecialKey(SpecialKey.ESCAPE).build();
-  public static final ProtoCommands.KeyEvent SPECIALKEY_SHIFT_LEFT =
-      ProtoCommands.KeyEvent.newBuilder()
-          .setSpecialKey(SpecialKey.LEFT)
-          .addModifierKeys(ModifierKey.SHIFT)
-          .build();
-  public static final ProtoCommands.KeyEvent SPECIALKEY_SHIFT_RIGHT =
-      ProtoCommands.KeyEvent.newBuilder()
-          .setSpecialKey(SpecialKey.RIGHT)
-          .addModifierKeys(ModifierKey.SHIFT)
-          .build();
-  public static final ProtoCommands.KeyEvent SPECIALKEY_CTRL_BACKSPACE =
-      ProtoCommands.KeyEvent.newBuilder()
-          .setSpecialKey(SpecialKey.BACKSPACE)
-          .addModifierKeys(ModifierKey.CTRL)
-          .build();
 
   static {
     for (int i = ASCII_MIN; i <= ASCII_MAX; ++i) {
       keyCodeToMozcKeyCodeEvent[i - ASCII_MIN] =
           ProtoCommands.KeyEvent.newBuilder().setKeyCode(i).build();
     }
-  }
-
-  public static ProtoCommands.KeyEvent getMozcKeyEvent(int keyCode) {
-    int offsetKeyCode = keyCode - ASCII_MIN;
-    if (offsetKeyCode >= 0 && offsetKeyCode < NUM_ASCII) {
-      return keyCodeToMozcKeyCodeEvent[offsetKeyCode];
-    }
-    // FallBack.
-    return ProtoCommands.KeyEvent.newBuilder().setKeyCode(keyCode).build();
   }
 
   public static KeyEventInterface getKeyEventInterface(final android.view.KeyEvent keyEvent) {
@@ -124,21 +97,6 @@ public class KeycodeConverter {
       @Override
       public Optional<android.view.KeyEvent> getNativeEvent() {
         return Optional.of(keyEvent);
-      }
-    };
-  }
-
-  public static KeyEventInterface getKeyEventInterface(final int keyCode) {
-    return new KeyEventInterface() {
-
-      @Override
-      public int getKeyCode() {
-        return keyCode;
-      }
-
-      @Override
-      public Optional<android.view.KeyEvent> getNativeEvent() {
-        return Optional.absent();
       }
     };
   }

@@ -34,7 +34,6 @@ import com.google.common.base.Preconditions
 import com.google.protobuf.InvalidProtocolBufferException
 import java.io.File
 import java.io.FileOutputStream
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Command
 import sh.eliza.japaneseinput.MozcLog
 
@@ -68,18 +67,18 @@ internal class LocalSessionHandler : SessionHandler {
     MozcJNI.load(userProfileDirectory.absolutePath, dataFile.absolutePath)
   }
 
-  override fun evalCommand(command: ProtoCommands.Command): ProtoCommands.Command {
+  override fun evalCommand(command: Command): Command {
     val inBytes = Preconditions.checkNotNull(command).toByteArray()
-    var outBytes = MozcJNI.evalCommand(inBytes)
+    val outBytes = MozcJNI.evalCommand(inBytes)
     return try {
-      ProtoCommands.Command.parseFrom(outBytes)
+      Command.parseFrom(outBytes)
     } catch (e: InvalidProtocolBufferException) {
       MozcLog.w(
         "InvalidProtocolBufferException is thrown." +
           "We can do nothing so just return default instance."
       )
       MozcLog.w(e.toString())
-      ProtoCommands.Command.getDefaultInstance()
+      Command.getDefaultInstance()
     }
   }
 }

@@ -35,8 +35,8 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.AbstractList;
 import java.util.EnumMap;
 import java.util.List;
@@ -96,11 +96,6 @@ public class UserDictionaryToolModel {
     this.sessionExecutor = sessionExecutor;
   }
 
-  /** Returns {@code true} if the storage is edited after loading. */
-  public boolean isDirty() {
-    return dirty;
-  }
-
   /**
    * Creates a session to communicate with the native server about user dictionary editing. This
    * method should be called before any other methods.
@@ -133,7 +128,7 @@ public class UserDictionaryToolModel {
    * Resumes the current session by loading the data from storage, and updates storage and selected
    * id.
    *
-   * @params defautlDictionaryName the name of the default dictionary, which is created when, e.g.,
+   * @param defaultDictionaryName the name of the default dictionary, which is created when, e.g.,
    *     LOAD operation is failing, or the storage gets empty because of the deletion of the last
    *     dictionary.
    */
@@ -417,7 +412,8 @@ public class UserDictionaryToolModel {
     try {
       exportFile = File.createTempFile("export_temp_", ".zip", tempDirectory);
       exportFile.deleteOnExit();
-      zipStream = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(exportFile)));
+      zipStream =
+          new ZipOutputStream(new BufferedOutputStream(Files.newOutputStream(exportFile.toPath())));
       zipStream.putNextEntry(new ZipEntry(dictionaryName + ".txt"));
 
       int entrySize = getEntrySize();
@@ -509,10 +505,6 @@ public class UserDictionaryToolModel {
 
   public void setEditTargetIndex(int editTargetIndex) {
     this.editTargetIndex = editTargetIndex;
-  }
-
-  public int getEditTargetIndex() {
-    return this.editTargetIndex;
   }
 
   /** Returns the entry at current editTargetIndex in the selected dictionary. */

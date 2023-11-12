@@ -73,7 +73,7 @@ import sh.eliza.japaneseinput.vectorgraphic.BufferedDrawable;
 class MozcDrawableFactory {
 
   private static class MozcStyle {
-    Paint paint = new Paint();
+    final Paint paint = new Paint();
     int dominantBaseline = COMMAND_PICTURE_PAINT_DOMINANTE_BASELINE_AUTO;
   }
 
@@ -153,7 +153,7 @@ class MozcDrawableFactory {
           ResourcesCompat.getDrawable(resources, resourceId, /* theme= */ null));
     }
 
-    Integer key = Integer.valueOf(resourceId);
+    Integer key = resourceId;
     Optional<Drawable> drawable = cacheMap.get(key);
     if (!drawable.isPresent()) {
       InputStream stream = resources.openRawResource(resourceId);

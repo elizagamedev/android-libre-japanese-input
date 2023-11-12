@@ -92,10 +92,6 @@ public class KeyEventContext {
     this.keyboardHeight = keyboardHeight;
   }
 
-  float getFlickThresholdSquared() {
-    return flickThresholdSquared;
-  }
-
   /** Returns true iff the point ({@code x}, {@code y}) is contained by the {@code key}'s region. */
   private static boolean isContained(float x, float y, Key key) {
     float relativeX = x - key.getX();
@@ -204,8 +200,8 @@ public class KeyEventContext {
   }
 
   /**
-   * Returns the key code to be send via {@link KeyboardActionListener#onPress(int)} and {@link
-   * KeyboardActionListener#onRelease(int)}.
+   * Returns the key code to be send via {@link KeyboardActionListener#onPress} and {@link
+   * KeyboardActionListener#onRelease}.
    */
   public int getPressedKeyCode() {
     Optional<KeyEntity> keyEntity = getKeyEntity(Flick.Direction.CENTER);

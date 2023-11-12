@@ -106,10 +106,6 @@ public class KeyEntity {
     return keyIconResourceId;
   }
 
-  public Optional<String> getKeyCharacter() {
-    return keyCharacter;
-  }
-
   public boolean isFlickHighlightEnabled() {
     return flickHighlightEnabled;
   }

@@ -31,14 +31,8 @@ package sh.eliza.japaneseinput.preference
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
-import androidx.preference.Preference
-import androidx.preference.Preference.OnPreferenceChangeListener
-import androidx.preference.PreferenceGroup
 import androidx.preference.PreferenceManager
-import sh.eliza.japaneseinput.MozcLog
-import sh.eliza.japaneseinput.MozcUtil
 import sh.eliza.japaneseinput.R
-import sh.eliza.japaneseinput.preference.ClientSidePreference.KeyboardLayout
 
 /** Utilities for Mozc preferences. */
 object PreferenceUtil {
@@ -54,8 +48,6 @@ object PreferenceUtil {
 
   // Keys for Keyboard Layout.
   const val PREF_CURRENT_KEYBOARD_LAYOUT_KEY = "pref_current_keyboard_layout_key"
-  const val PREF_SOFTWARE_KEYBOARD_ADVANED_PORTRAIT_KEY =
-    "pref_software_keyboard_advanced_portrait_key"
   const val PREF_PORTRAIT_KEYBOARD_LAYOUT_KEY = "pref_portrait_keyboard_layout_key"
   const val PREF_PORTRAIT_INPUT_STYLE_KEY = "pref_portrait_input_style_key"
   const val PREF_PORTRAIT_QWERTY_LAYOUT_FOR_ALPHABET_KEY =
@@ -63,8 +55,6 @@ object PreferenceUtil {
   const val PREF_PORTRAIT_FLICK_SENSITIVITY_KEY = "pref_portrait_flick_sensitivity_key"
   const val PREF_PORTRAIT_LAYOUT_ADJUSTMENT_KEY = "pref_portrait_layout_adjustment_key"
   const val PREF_PORTRAIT_KEYBOARD_HEIGHT_RATIO_KEY = "pref_portrait_keyboard_height_ratio_key"
-  const val PREF_SOFTWARE_KEYBOARD_ADVANED_LANDSCAPE_KEY =
-    "pref_software_keyboard_advanced_landscape_key"
   const val PREF_LANDSCAPE_KEYBOARD_LAYOUT_KEY = "pref_landscape_keyboard_layout_key"
   const val PREF_LANDSCAPE_INPUT_STYLE_KEY = "pref_landscape_input_style_key"
   const val PREF_LANDSCAPE_QWERTY_LAYOUT_FOR_ALPHABET_KEY =
@@ -72,7 +62,7 @@ object PreferenceUtil {
   const val PREF_LANDSCAPE_FLICK_SENSITIVITY_KEY = "pref_landscape_flick_sensitivity_key"
   const val PREF_LANDSCAPE_LAYOUT_ADJUSTMENT_KEY = "pref_landscape_layout_adjustment_key"
   const val PREF_LANDSCAPE_KEYBOARD_HEIGHT_RATIO_KEY = "pref_landscape_keyboard_height_ratio_key"
-  const val PREF_USE_PORTRAIT_KEYBOARD_SETTINGS_FOR_LANDSCAPE_KEY =
+  private const val PREF_USE_PORTRAIT_KEYBOARD_SETTINGS_FOR_LANDSCAPE_KEY =
     "pref_use_portrait_keyboard_settings_for_landscape_key"
 
   // Full screen keys.
@@ -90,18 +80,13 @@ object PreferenceUtil {
   const val PREF_KANA_MODIFIER_INSENSITIVE_CONVERSION_KEY =
     "pref_kana_modifier_insensitive_conversion"
   const val PREF_TYPING_CORRECTION_KEY = "pref_typing_correction"
-  const val PREF_EMOJI_PROVIDER_TYPE = "pref_emoji_provider_type"
   const val PREF_DICTIONARY_PERSONALIZATION_KEY = "pref_dictionary_personalization_key"
-  const val PREF_DICTIONARY_USER_DICTIONARY_TOOL_KEY = "pref_dictionary_user_dictionary_tool_key"
   const val PREF_OTHER_INCOGNITO_MODE_KEY = "pref_other_anonimous_mode_key"
-  const val PREF_ABOUT_VERSION = "pref_about_version"
   const val PREF_LAUNCHER_ICON_VISIBILITY_KEY = "pref_launcher_icon_visibility"
 
   // Application lifecycle
   const val PREF_LAST_LAUNCH_ABI_INDEPENDENT_VERSION_CODE =
     "pref_last_launch_abi_independent_version_code"
-  private val CURRENT_KEYBOARD_LAYOUT_PREFERENCE_CHANGE_LISTENER: OnPreferenceChangeListener =
-    CurrentKeyboardLayoutPreferenceChangeListener()
 
   fun isLandscapeKeyboardSettingActive(
     sharedPreferences: SharedPreferences,
@@ -115,67 +100,6 @@ object PreferenceUtil {
       // Always use portrait configuration.
       false
     } else deviceOrientation == Configuration.ORIENTATION_LANDSCAPE
-  }
-
-  /** Returns parsed [KeyboardLayout] instance, or TWELVE_KEYS if any error is found. */
-  private fun getKeyboardLayout(
-    sharedPreferences: SharedPreferences?,
-    key: String?
-  ): KeyboardLayout {
-    if (sharedPreferences == null || key == null) {
-      return KeyboardLayout.TWELVE_KEYS
-    }
-    val value: String = sharedPreferences.getString(key, null) ?: return KeyboardLayout.TWELVE_KEYS
-    try {
-      return ClientSidePreference.KeyboardLayout.valueOf(value)
-    } catch (e: IllegalArgumentException) {
-      MozcLog.e("Invalid KeyboardLayout: $value")
-    }
-    return KeyboardLayout.TWELVE_KEYS
-  }
-
-  private fun initializeVersionPreference(preference: Preference?) {
-    if (preference == null) {
-      return
-    }
-    preference.setSummary(MozcUtil.getVersionName(preference.getContext()))
-  }
-
-  fun shouldRemoveLayoutAdjustmentPreferences(
-    preferenceManager: PreferenceManagerInterface
-  ): Boolean {
-    val preference =
-      preferenceManager.findPreference(PREF_SOFTWARE_KEYBOARD_ADVANED_PORTRAIT_KEY) ?: return false
-    val resouces = preference.getContext().getResources()
-    val smallestWidth =
-      (resouces.getDimensionPixelSize(R.dimen.ime_window_partial_width) +
-        resouces.getDimensionPixelSize(R.dimen.side_frame_width))
-    val displayMetrics = resouces.displayMetrics
-    return (displayMetrics.widthPixels < smallestWidth ||
-      displayMetrics.heightPixels < smallestWidth)
-  }
-
-  fun removePreference(preferenceManager: PreferenceManagerInterface, key: CharSequence) {
-    val parentKey =
-      when (key) {
-        PREF_PORTRAIT_LAYOUT_ADJUSTMENT_KEY -> PREF_SOFTWARE_KEYBOARD_ADVANED_PORTRAIT_KEY
-        PREF_LANDSCAPE_LAYOUT_ADJUSTMENT_KEY -> PREF_SOFTWARE_KEYBOARD_ADVANED_LANDSCAPE_KEY
-        else -> return
-      }
-    val preference = preferenceManager.findPreference(key)
-    val parentPreference = preferenceManager.findPreference(parentKey) as? PreferenceGroup
-    if (preference == null || parentPreference == null) {
-      return
-    }
-    parentPreference.removePreference(preference)
-  }
-
-  @JvmStatic
-  fun initializeLayoutAdjustmentPreference(preferenceManager: PreferenceManagerInterface) {
-    if (shouldRemoveLayoutAdjustmentPreferences(preferenceManager)) {
-      removePreference(preferenceManager, PREF_PORTRAIT_LAYOUT_ADJUSTMENT_KEY)
-      removePreference(preferenceManager, PREF_LANDSCAPE_LAYOUT_ADJUSTMENT_KEY)
-    }
   }
 
   /**
@@ -194,7 +118,7 @@ object PreferenceUtil {
     type: Class<T>,
     defaultValue: T,
     conversionRecoveryValue: T
-  ) =
+  ): T =
     if (sharedPreference == null) {
       defaultValue
     } else {
@@ -220,7 +144,7 @@ object PreferenceUtil {
     key: String,
     type: Class<T>,
     defaultValue: T
-  ) = getEnum(sharedPreference, key, type, defaultValue, defaultValue)
+  ): T = getEnum(sharedPreference, key, type, defaultValue, defaultValue)
 
   @JvmStatic
   fun setDefaultValues(
@@ -235,49 +159,11 @@ object PreferenceUtil {
     preferenceManager.setDefaultValues(context, R.xml.pref_software_keyboard_advanced, true)
   }
 
-  /** Simple `PreferenceManager` wrapper for testing purpose. */
-  interface PreferenceManagerInterface {
-    fun findPreference(key: CharSequence): Preference?
-  }
-
   /**
    * Simple `PreferenceManager` wrapper for testing purpose. This interface wraps static method so
    * no constructor is required.
    */
   interface PreferenceManagerStaticInterface {
     fun setDefaultValues(context: Context, id: Int, readAgain: Boolean)
-  }
-
-  private class PreferenceManagerInterfaceImpl(
-    private val preferenceManager: PreferenceManager,
-  ) : PreferenceManagerInterface {
-    override fun findPreference(key: CharSequence): Preference? {
-      return preferenceManager.findPreference(key)
-    }
-  }
-
-  private class CurrentKeyboardLayoutPreferenceChangeListener : OnPreferenceChangeListener {
-    override fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {
-      if (newValue !is KeyboardLayout) {
-        return false
-      }
-
-      // Write back to with the appropriate preference key.
-      val sharedPreferences = preference.sharedPreferences!!
-      val isLandscapeKeyboardSettingActive =
-        isLandscapeKeyboardSettingActive(
-          sharedPreferences,
-          preference.getContext().getResources().getConfiguration().orientation
-        )
-      sharedPreferences
-        .edit()
-        .putString(
-          if (isLandscapeKeyboardSettingActive) PREF_LANDSCAPE_KEYBOARD_LAYOUT_KEY
-          else PREF_PORTRAIT_KEYBOARD_LAYOUT_KEY,
-          newValue.name
-        )
-        .apply()
-      return true
-    }
   }
 }

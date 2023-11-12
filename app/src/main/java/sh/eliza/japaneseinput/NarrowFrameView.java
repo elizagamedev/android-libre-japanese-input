@@ -34,8 +34,8 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
-import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import java.util.Optional;
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.CompositionMode;
 import sh.eliza.japaneseinput.FeedbackManager.FeedbackEvent;
 import sh.eliza.japaneseinput.hardwarekeyboard.HardwareKeyboard.CompositionSwitchMode;
@@ -150,11 +150,11 @@ public class NarrowFrameView extends LinearLayout {
   }
 
   private MozcImageView getHardwareCompositionButton() {
-    return (MozcImageView) findViewById(R.id.hardware_composition_button);
+    return findViewById(R.id.hardware_composition_button);
   }
 
   private MozcImageView getWidenButton() {
-    return (MozcImageView) findViewById(R.id.widen_button);
+    return findViewById(R.id.widen_button);
   }
 
   private View getNarrowFrameSeparator() {

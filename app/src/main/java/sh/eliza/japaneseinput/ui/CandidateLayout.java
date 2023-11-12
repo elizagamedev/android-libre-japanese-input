@@ -135,7 +135,6 @@ public class CandidateLayout {
 
     private float top;
     private float height;
-    private float width;
 
     public float getTop() {
       return top;
@@ -153,13 +152,7 @@ public class CandidateLayout {
       this.height = height;
     }
 
-    public float getWidth() {
-      return width;
-    }
-
-    public void setWidth(float width) {
-      this.width = width;
-    }
+    public void setWidth(float width) {}
 
     public List<Span> getSpanList() {
       return Collections.unmodifiableList(spans);

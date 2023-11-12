@@ -55,7 +55,6 @@ constructor(
   attrs: AttributeSet? = null,
 ) : Preference(context, attrs) {
   private var seekBarValue = 0
-  private var seekBarIncrement = 0
   private var seekBar: SeekBar? = null
   private var seekBarValueTextView: TextView? = null
   private var min = 0
@@ -107,37 +106,36 @@ constructor(
     }
 
   init {
-    context.theme.obtainStyledAttributes(attrs, R.styleable.SeekBarPreference, 0, 0).run {
+    context.theme.obtainStyledAttributes(attrs, R.styleable.MozcSeekBarPreference, 0, 0).run {
       try {
-        min = getInteger(R.styleable.SeekBarPreference_min, 0)
-        max = getInteger(R.styleable.SeekBarPreference_android_max, 1)
-        seekBarIncrement = getInteger(R.styleable.SeekBarPreference_seekBarIncrement, 0)
-        unit = getString(R.styleable.SeekBarPreference_unit)
-        lowText = getString(R.styleable.SeekBarPreference_low_text)
-        middleText = getString(R.styleable.SeekBarPreference_middle_text)
-        highText = getString(R.styleable.SeekBarPreference_high_text)
+        min = getInteger(R.styleable.MozcSeekBarPreference_min, 0)
+        max = getInteger(R.styleable.MozcSeekBarPreference_max, 1)
+        unit = getString(R.styleable.MozcSeekBarPreference_unit)
+        lowText = getString(R.styleable.MozcSeekBarPreference_low_text)
+        middleText = getString(R.styleable.MozcSeekBarPreference_middle_text)
+        highText = getString(R.styleable.MozcSeekBarPreference_high_text)
       } finally {
         recycle()
       }
     }
 
-    setIconSpaceReserved(true)
-    setLayoutResource(R.layout.pref_seekbar)
+    isIconSpaceReserved = true
+    layoutResource = R.layout.pref_seekbar
   }
 
-  override protected fun onSetInitialValue(defaultValue: Any?) {
+  override fun onSetInitialValue(defaultValue: Any?) {
     setValue(getPersistedInt(defaultValue as? Int ?: 0), notifyChanged = false)
   }
 
-  override protected fun onGetDefaultValue(a: TypedArray, index: Int): Any? {
+  override fun onGetDefaultValue(a: TypedArray, index: Int): Any {
     return a.getInt(index, 0)
   }
 
   override fun onBindViewHolder(holder: PreferenceViewHolder) {
     super.onBindViewHolder(holder)
 
-    holder.setDividerAllowedAbove(false)
-    holder.setDividerAllowedBelow(true)
+    holder.isDividerAllowedAbove = false
+    holder.isDividerAllowedBelow = true
 
     holder.itemView.setOnKeyListener(seekBarKeyListener)
 
@@ -197,7 +195,7 @@ constructor(
     seekBarValueTextView?.let {
       it.text =
         if (unit !== null) {
-          value.toString() + " " + unit
+          "$value $unit"
         } else {
           value.toString()
         }

@@ -64,7 +64,6 @@ public interface ViewManagerInterface extends MemoryManageable {
    *
    * <p>Previously created input view is not accessed any more after calling this method.
    *
-   * @param context
    * @return newly created view.
    */
   View createMozcView(Context context);

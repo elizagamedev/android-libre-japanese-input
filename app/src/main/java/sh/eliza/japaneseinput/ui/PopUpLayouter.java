@@ -64,7 +64,7 @@ public class PopUpLayouter<T extends View> {
 
     View rootView = parent.getRootView();
     if (rootView != null) {
-      FrameLayout screenContent = (FrameLayout) rootView.findViewById(android.R.id.content);
+      FrameLayout screenContent = rootView.findViewById(android.R.id.content);
       if (screenContent != null) {
         screenContent.addView(
             contentView, new FrameLayout.LayoutParams(0, 0, Gravity.LEFT | Gravity.TOP));

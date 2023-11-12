@@ -61,7 +61,7 @@ class CandidateWindowAccessibilityDelegate(
   // Size of view in pixel.
   private var viewSize = 0
 
-  override fun getAccessibilityNodeProvider(view: View): AccessibilityNodeProviderCompat? {
+  override fun getAccessibilityNodeProvider(view: View): AccessibilityNodeProviderCompat {
     return nodeProvider
   }
 

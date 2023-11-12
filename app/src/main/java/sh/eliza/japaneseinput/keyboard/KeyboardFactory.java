@@ -128,11 +128,7 @@ public class KeyboardFactory {
         new KeyboardParser(resources, keyboardWidth, keyboardHeight, specification);
     try {
       return parser.parseKeyboard();
-    } catch (NotFoundException e) {
-      MozcLog.e(e.getMessage());
-    } catch (XmlPullParserException e) {
-      MozcLog.e(e.getMessage());
-    } catch (IOException e) {
+    } catch (NotFoundException | IOException | XmlPullParserException e) {
       MozcLog.e(e.getMessage());
     }
     // Returns dummy keyboard to avoid crash.

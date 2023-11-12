@@ -30,7 +30,6 @@ package sh.eliza.japaneseinput
 
 import android.app.Dialog
 import android.content.Context
-import android.content.pm.PackageManager
 import android.content.pm.PackageManager.NameNotFoundException
 import android.content.res.Configuration
 import android.content.res.Resources
@@ -39,7 +38,6 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.os.Message
-import android.provider.Settings
 import android.text.InputType
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
@@ -47,15 +45,12 @@ import android.view.inputmethod.InputMethodInfo
 import android.view.inputmethod.InputMethodManager
 import com.google.common.base.Preconditions
 import com.google.common.base.Strings
-import com.google.protobuf.ByteString
 import java.io.Closeable
 import java.io.File
 import java.io.IOException
-import java.nio.charset.StandardCharsets
 import java.util.zip.ZipFile
 import kotlin.math.max
 import kotlin.math.min
-import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCommands.Request
 import sh.eliza.japaneseinput.keyboard.Keyboard.KeyboardSpecification
 
@@ -72,7 +67,6 @@ object MozcUtil {
   // If you want to change the tag name, see also kProductPrefix in base/const.h.
   const val LOGTAG = "Mozc"
 
-  private var uptimeMillis: Long? = null
   private const val SHOW_INPUT_METHOD_PICKER_WHAT = 0
 
   /**
@@ -85,20 +79,10 @@ object MozcUtil {
     Handler(Looper.getMainLooper(), InputMethodPickerShowingCallback())
   }
 
-  const val IME_OPTION_NO_MICROPHONE_COMPAT = "nm"
-  const val IME_OPTION_NO_MICROPHONE = "com.google.android.inputmethod.latin.noMicrophoneKey"
+  private const val IME_OPTION_NO_MICROPHONE_COMPAT = "nm"
+  private const val IME_OPTION_NO_MICROPHONE =
+    "com.google.android.inputmethod.latin.noMicrophoneKey"
   private const val USER_DICTIONARY_EXPORT_DIR = "user_dictionary_export"
-
-  private fun checkApplicationFlag(context: Context, flag: Int): Boolean {
-    val manager = context.packageManager
-    return try {
-      val appInfo = manager.getApplicationInfo(context.packageName, 0)
-      appInfo.flags and flag != 0
-    } catch (e: PackageManager.NameNotFoundException) {
-      MozcLog.w("PackageManager#getApplicationInfo cannot find this application.")
-      false
-    }
-  }
 
   /**
    * Gets version name.
@@ -110,7 +94,7 @@ object MozcUtil {
     try {
       val packageInfo = manager.getPackageInfo(context.packageName, 0)
       return Strings.nullToEmpty(packageInfo.versionName)
-    } catch (e: PackageManager.NameNotFoundException) {
+    } catch (e: NameNotFoundException) {
       MozcLog.e("Package info error", e)
     }
     return ""
@@ -130,7 +114,7 @@ object MozcUtil {
       } else {
         @Suppress("deprecation") packageInfo.versionCode.toLong()
       }
-    } catch (e: PackageManager.NameNotFoundException) {
+    } catch (e: NameNotFoundException) {
       MozcLog.e("Package info error", e)
     }
     return 0
@@ -157,37 +141,6 @@ object MozcUtil {
   //   } else rawVersionCode
   // }
 
-  /**
-   * @param context an application context. Shouldn't be `null`.
-   * @return `true` if Mozc is enabled. Otherwise `false`.
-   */
-  fun isMozcEnabled(context: Context): Boolean {
-    val inputMethodManager =
-      context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    val packageName = context.packageName
-    for (inputMethodInfo in inputMethodManager.enabledInputMethodList) {
-      if (inputMethodInfo.serviceName.startsWith(packageName)) {
-        return true
-      }
-    }
-    return false
-  }
-
-  /**
-   * @param context an application context. Shouldn't be `null`.
-   * @return `true` if the default IME is Mozc. Otherwise `false`.
-   */
-  fun isMozcDefaultIme(context: Context): Boolean {
-    val mozcInputMethodInfo = getMozcInputMethodInfo(context)
-    if (mozcInputMethodInfo == null) {
-      MozcLog.w("Mozc's InputMethodInfo is not found.")
-      return false
-    }
-    val currentIme =
-      Settings.Secure.getString(context.contentResolver, Settings.Secure.DEFAULT_INPUT_METHOD)
-    return mozcInputMethodInfo.id == currentIme
-  }
-
   private fun getMozcInputMethodInfo(context: Context): InputMethodInfo? {
     val inputMethodManager =
       context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -202,23 +155,11 @@ object MozcUtil {
     return null
   }
 
-  /** Returns true is touch UI should be shown. */
-  fun isTouchUI(context: Context) =
-    context.resources.configuration.touchscreen != Configuration.TOUCHSCREEN_NOTOUCH
-
   @JvmStatic
   fun requestShowInputMethodPicker(context: Context): Boolean {
     return showInputMethodPickerHandler.sendMessage(
       showInputMethodPickerHandler.obtainMessage(SHOW_INPUT_METHOD_PICKER_WHAT, context)
     )
-  }
-
-  fun cancelShowInputMethodPicker(context: Context) {
-    showInputMethodPickerHandler.removeMessages(SHOW_INPUT_METHOD_PICKER_WHAT, context)
-  }
-
-  fun hasShowInputMethodPickerRequest(context: Context): Boolean {
-    return showInputMethodPickerHandler.hasMessages(SHOW_INPUT_METHOD_PICKER_WHAT, context)
   }
 
   /**
@@ -239,8 +180,8 @@ object MozcUtil {
   private fun getRequestBuilderInternal(
     specification: KeyboardSpecification,
     configuration: Configuration
-  ): ProtoCommands.Request.Builder {
-    return ProtoCommands.Request.newBuilder()
+  ): Request.Builder {
+    return Request.newBuilder()
       .setKeyboardName(specification.keyboardSpecificationName.formattedKeyboardName(configuration))
       .setSpecialRomanjiTable(specification.specialRomanjiTable)
       .setSpaceOnAlphanumeric(specification.spaceOnAlphanumeric)
@@ -248,10 +189,7 @@ object MozcUtil {
       .setCrossingEdgeBehavior(specification.crossingEdgeBehavior)
   }
 
-  private fun setHardwareKeyboardRequest(
-    builder: ProtoCommands.Request.Builder,
-    resources: Resources
-  ) {
+  private fun setHardwareKeyboardRequest(builder: Request.Builder, resources: Resources) {
     builder
       .setMixedConversion(false)
       .setZeroQuerySuggestion(false)
@@ -261,7 +199,7 @@ object MozcUtil {
   }
 
   @JvmStatic
-  fun setSoftwareKeyboardRequest(builder: ProtoCommands.Request.Builder) {
+  fun setSoftwareKeyboardRequest(builder: Request.Builder) {
     builder
       .setMixedConversion(true)
       .setZeroQuerySuggestion(true)
@@ -273,7 +211,7 @@ object MozcUtil {
     resources: Resources,
     specification: KeyboardSpecification,
     configuration: Configuration,
-  ): ProtoCommands.Request.Builder {
+  ): Request.Builder {
     val builder = getRequestBuilderInternal(specification, configuration)
     if (specification.isHardwareKeyboard) {
       setHardwareKeyboardRequest(builder, resources)
@@ -335,18 +273,6 @@ object MozcUtil {
     return typeClass == InputType.TYPE_CLASS_DATETIME ||
       typeClass == InputType.TYPE_CLASS_NUMBER ||
       typeClass == InputType.TYPE_CLASS_PHONE
-  }
-
-  fun utf8CStyleByteStringToString(value: ByteString): String {
-    // Find '\0' terminator. (if value doesn't contain '\0', the size should be as same as
-    // value's.)
-    var index = 0
-    while (index < value.size() && value.byteAt(index).toInt() != 0) {
-      ++index
-    }
-    val bytes = ByteArray(index)
-    value.substring(0, bytes.size).copyTo(bytes, 0)
-    return String(bytes, StandardCharsets.UTF_8)
   }
 
   /**

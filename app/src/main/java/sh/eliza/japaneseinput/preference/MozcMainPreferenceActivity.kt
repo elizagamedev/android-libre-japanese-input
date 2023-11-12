@@ -39,7 +39,7 @@ class MozcMainPreferenceActivity : AppCompatActivity() {
   }
 }
 
-class MozcMainPreferenceFragment() : PreferenceFragmentCompat() {
+class MozcMainPreferenceFragment : PreferenceFragmentCompat() {
   private val sharedPreferenceChangeListener = OnSharedPreferenceChangeListener { _, key ->
     if (PreferenceUtil.PREF_LAUNCHER_ICON_VISIBILITY_KEY == key) {
       LauncherIconManagerFactory.getDefaultInstance().updateLauncherIconVisibility(context)
@@ -65,9 +65,8 @@ class MozcMainPreferenceFragment() : PreferenceFragmentCompat() {
         onPreferenceChangeListener = OnPreferenceChangeListener { _, _ -> false }
       }
 
-    findPreference<Preference>("pref_about_version")!!.setSummary(
+    findPreference<Preference>("pref_about_version")!!.summary =
       MozcUtil.getVersionName(requireContext())
-    )
   }
 
   override fun onAttach(context: Context) {
@@ -83,7 +82,7 @@ class MozcMainPreferenceFragment() : PreferenceFragmentCompat() {
 
     HardwareKeyboardSpecification.maybeSetDetectedHardwareKeyMap(
       sharedPreferences,
-      getResources().getConfiguration(),
+      resources.configuration,
       false
     )
 
@@ -93,7 +92,7 @@ class MozcMainPreferenceFragment() : PreferenceFragmentCompat() {
         PreferenceUtil.defaultPreferenceManagerStatic
       )
 
-    enableKeyboardPreference.setChecked(isInputMethodEnabled())
+    enableKeyboardPreference.isChecked = isInputMethodEnabled()
   }
 
   override fun onPause() {

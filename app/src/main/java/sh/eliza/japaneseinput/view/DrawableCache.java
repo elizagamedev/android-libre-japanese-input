@@ -67,7 +67,7 @@ public class DrawableCache {
       return Optional.absent();
     }
 
-    Integer key = Integer.valueOf(resourceId);
+    Integer key = resourceId;
     Optional<Drawable> drawable = Optional.fromNullable(cacheMap.get(key));
     if (!drawable.isPresent()) {
       drawable =

@@ -61,9 +61,9 @@
         android:key="pref_portrait_flick_sensitivity_key"
         android:summary="@string/pref_flick_sensitivity_description"
         android:title="@string/pref_flick_sensitivity_title"
-        android:max="10"
         android:defaultValue="0"
         app:min="-10"
+        app:max="10"
         app:low_text="@string/pref_flick_sensitivity_seekbar_low_text"
         app:middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
         app:high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
@@ -80,9 +80,9 @@
         android:key="pref_portrait_keyboard_height_ratio_key"
         android:summary="@string/pref_keyboard_height_ratio_description"
         android:title="@string/pref_keyboard_height_ratio_title"
-        android:max="130"
         android:defaultValue="100"
         app:min="70"
+        app:max="130"
         app:low_text="@string/pref_flick_sensitivity_seekbar_low_text"
         app:middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
         app:high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
@@ -127,9 +127,9 @@
         android:summary="@string/pref_flick_sensitivity_description"
         android:title="@string/pref_flick_sensitivity_title"
         android:dependency="pref_use_portrait_keyboard_settings_for_landscape_key"
-        android:max="10"
         android:defaultValue="0"
         app:min="-10"
+        app:max="10"
         app:low_text="@string/pref_flick_sensitivity_seekbar_low_text"
         app:middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
         app:high_text="@string/pref_flick_sensitivity_seekbar_high_text" />
@@ -147,9 +147,9 @@
         android:summary="@string/pref_keyboard_height_ratio_description"
         android:title="@string/pref_keyboard_height_ratio_title"
         android:dependency="pref_use_portrait_keyboard_settings_for_landscape_key"
-        android:max="130"
         android:defaultValue="100"
         app:min="70"
+        app:max="130"
         app:low_text="@string/pref_flick_sensitivity_seekbar_low_text"
         app:middle_text="@string/pref_flick_sensitivity_seekbar_middle_text"
         app:high_text="@string/pref_flick_sensitivity_seekbar_high_text" />

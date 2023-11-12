@@ -81,7 +81,6 @@ public class Key {
   private final int width;
   private final int height;
   private final int horizontalGap;
-  private final int edgeFlags;
   private final boolean isRepeatable;
   private final boolean isModifier;
   private final Stick stick;
@@ -115,7 +114,6 @@ public class Key {
     this.width = width;
     this.height = height;
     this.horizontalGap = horizontalGap;
-    this.edgeFlags = edgeFlags;
     this.isRepeatable = isRepeatable;
     this.isModifier = isModifier;
     this.stick = stick;
@@ -167,10 +165,6 @@ public class Key {
 
   public int getHorizontalGap() {
     return horizontalGap;
-  }
-
-  public int getEdgeFlags() {
-    return edgeFlags;
   }
 
   public boolean isRepeatable() {

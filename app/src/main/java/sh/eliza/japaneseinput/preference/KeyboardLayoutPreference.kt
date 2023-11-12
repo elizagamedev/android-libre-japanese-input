@@ -75,9 +75,9 @@ constructor(
   )
 
   internal class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val root = view.findViewById<View>(R.id.pref_inputstyle_item_root)
-    val image = view.findViewById<ImageView>(R.id.pref_inputstyle_item_image)
-    val title = view.findViewById<TextView>(R.id.pref_inputstyle_item_title)
+    val root: View = view.findViewById<View>(R.id.pref_inputstyle_item_root)
+    val image: ImageView = view.findViewById<ImageView>(R.id.pref_inputstyle_item_image)
+    val title: TextView = view.findViewById<TextView>(R.id.pref_inputstyle_item_title)
   }
 
   internal inner class ImageAdapter(resources: Resources) : RecyclerView.Adapter<ViewHolder>() {
@@ -98,7 +98,7 @@ constructor(
       )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-      val isEnabled = this@KeyboardLayoutPreference.isEnabled()
+      val isEnabled = this@KeyboardLayoutPreference.isEnabled
 
       // Needs to set the properties to the view even if a cached view is available,
       // because the cached view might use to be used for another item.
@@ -191,11 +191,11 @@ constructor(
     return 0
   }
 
-  override protected fun onGetDefaultValue(a: TypedArray, index: Int): Any {
+  override fun onGetDefaultValue(a: TypedArray, index: Int): Any {
     return toKeyboardLayoutInternal(a.getString(index))
   }
 
-  override protected fun onSetInitialValue(defaultValue: Any?) {
+  override fun onSetInitialValue(defaultValue: Any?) {
     setValue(toKeyboardLayoutInternal(getPersistedString(null)), notifyChanged = false)
   }
 
@@ -224,14 +224,14 @@ constructor(
       }
     viewPager =
       (holder.findViewById(R.id.pref_inputstyle_view_pager) as ViewPager2).apply {
-        setAdapter(imageAdapter)
+        adapter = imageAdapter
         registerOnPageChangeCallback(GalleryEventListener(descriptionView))
         setCurrentItem(getActiveIndex(), /*smoothScroll=*/ false)
       }
     updateSkin()
   }
 
-  override protected fun onAttachedToHierarchy(preferenceManager: PreferenceManager) {
+  override fun onAttachedToHierarchy(preferenceManager: PreferenceManager) {
     super.onAttachedToHierarchy(preferenceManager)
     updateSkin()
 
@@ -253,12 +253,12 @@ constructor(
     sharedPreferences!!.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
   }
 
-  override protected fun onPrepareForRemoval() {
+  override fun onPrepareForRemoval() {
     sharedPreferences!!.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
     super.onPrepareForRemoval()
   }
 
-  fun updateSkin() {
+  private fun updateSkin() {
     val resources = context.resources
     val skinType =
       PreferenceUtil.getEnum(
@@ -297,6 +297,6 @@ private fun updateBackground(view: View, position: Int, activePosition: Int) {
   if (position == activePosition) {
     view.setBackgroundResource(android.R.drawable.dialog_frame)
   } else {
-    view.setBackground(null)
+    view.background = null
   }
 }

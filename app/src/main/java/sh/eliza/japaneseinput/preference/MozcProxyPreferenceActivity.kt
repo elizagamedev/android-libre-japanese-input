@@ -30,10 +30,6 @@ package sh.eliza.japaneseinput.preference
 
 import android.content.Intent
 
-/**
- * Proxy activity forwarding to preference screen based on
- * [sh.eliza.japaneseinput.DependencyFactory.Dependency].
- */
 class MozcProxyPreferenceActivity : MozcProxyActivity() {
   override val forwardIntent: Intent
     get() = Intent(this, MozcMainPreferenceActivity::class.java)

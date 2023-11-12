@@ -44,9 +44,6 @@ import sh.eliza.japaneseinput.view.Skin;
 /** View class for the button to expand/fold conversion candidate view. */
 public class InputFrameFoldButtonView extends AppCompatToggleButton {
 
-  private static final int[] STATE_EMPTY = {};
-  private static final int[] STATE_CHECKED = {android.R.attr.state_checked};
-
   private Drawable arrowDownDrawable = DummyDrawable.getInstance();
   private Drawable arrowUpDrawable = DummyDrawable.getInstance();
   private Drawable backgroundDefaultDrawable = DummyDrawable.getInstance();

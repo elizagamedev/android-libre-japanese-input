@@ -30,7 +30,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <!-- This file is a part of CandidateView so please maintain in parallel. -->
-<sh.eliza.japaneseinput.CandidateView xmlns:android="http://schemas.android.com/apk/res/android" >
+<sh.eliza.japaneseinput.CandidateView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
   <LinearLayout
       android:id="@+id/candidate_word_frame"

@@ -23,7 +23,7 @@ class MozcSoftwareKeyboardAdvancedPreferenceActivity : AppCompatActivity() {
   }
 }
 
-class MozcSoftwareKeyboardAdvancedPreferenceFragment() : PreferenceFragmentCompat() {
+class MozcSoftwareKeyboardAdvancedPreferenceFragment : PreferenceFragmentCompat() {
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
     setPreferencesFromResource(R.xml.pref_software_keyboard_advanced, rootKey)
   }

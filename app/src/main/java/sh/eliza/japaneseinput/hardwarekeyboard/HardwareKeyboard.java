@@ -120,8 +120,4 @@ public class HardwareKeyboard {
     hardwareKeyboardSpecification = nextSpecification.get();
     setCompositionMode(CompositionSwitchMode.KANA);
   }
-
-  public HardwareKeyMap getHardwareKeyMap() {
-    return hardwareKeyboardSpecification.getHardwareKeyMap();
-  }
 }

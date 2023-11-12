@@ -90,7 +90,7 @@ public class ThreeDotsIconDrawable extends Drawable {
     }
   }
 
-  @SuppressWarnings("deprecation")
+  @SuppressWarnings({"deprecation", "RedundantSuppression"})
   @Override
   public int getOpacity() {
     return PixelFormat.TRANSLUCENT;

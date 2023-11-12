@@ -34,7 +34,6 @@ import android.graphics.Paint
 import android.graphics.Paint.Align
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import android.text.Layout
 import android.text.Layout.Alignment
 import android.text.StaticLayout
 import android.text.TextPaint
@@ -242,8 +241,8 @@ class CandidateLayoutRenderer {
 
   private fun drawSpan(
     canvas: Canvas,
-    row: CandidateLayout.Row,
-    span: CandidateLayout.Span,
+    row: Row,
+    span: Span,
     isFocused: Boolean,
   ) {
     drawSpanBackground(canvas, row, span, isFocused)
@@ -254,12 +253,7 @@ class CandidateLayoutRenderer {
     drawDescription(canvas, row, span)
   }
 
-  private fun drawSpanBackground(
-    canvas: Canvas,
-    row: CandidateLayout.Row,
-    span: CandidateLayout.Span,
-    isFocused: Boolean
-  ) {
+  private fun drawSpanBackground(canvas: Canvas, row: Row, span: Span, isFocused: Boolean) {
     if (!spanBackgroundDrawable.isPresent) {
       // No background available.
       return
@@ -275,15 +269,10 @@ class CandidateLayoutRenderer {
     spanBackgroundDrawable.draw(canvas)
   }
 
-  private fun drawText(
-    canvas: Canvas,
-    row: CandidateLayout.Row,
-    span: CandidateLayout.Span,
-    isFocused: Boolean
-  ) {
+  private fun drawText(canvas: Canvas, row: Row, span: Span, isFocused: Boolean) {
     Preconditions.checkState(span.candidateWord.isPresent)
     val valueText = span.candidateWord.get().value
-    if (valueText == null || valueText.length == 0) {
+    if (valueText == null || valueText.isEmpty()) {
       // No value is available.
       return
     }
@@ -320,7 +309,8 @@ class CandidateLayoutRenderer {
         // However because of the spec of Paint#setTextScaleX() and Paint#setTextSize(),
         // Paint#measureText() might return larger width than what both above methods expect it to
         // be.
-        // As a workaround, if theoretical width is smaller than the result of Paint#measureText(),
+        // As a workaround, if theoretical width is smaller than the result of
+        // Paint#measureText(),
         // employ the width returned by Paint#measureText().
         // This workaround is to avoid from unexpected line-break.
         // NOTE: Canvas#scale() cannot be used here because we have to use StaticLayout to draw
@@ -335,8 +325,8 @@ class CandidateLayoutRenderer {
                 .toInt(),
             )
             .run {
-              setAlignment(Layout.Alignment.ALIGN_CENTER)
-              setLineSpacing(/*add=*/ 0f, /*mult=*/ 1f)
+              setAlignment(Alignment.ALIGN_CENTER)
+              setLineSpacing(/* spacingAdd = */ 0f, /* spacingMult = */ 1f)
               setIncludePad(false)
               build()
             }
@@ -356,11 +346,7 @@ class CandidateLayoutRenderer {
     }
   }
 
-  private fun drawDescription(
-    canvas: Canvas,
-    row: CandidateLayout.Row,
-    span: CandidateLayout.Span
-  ) {
+  private fun drawDescription(canvas: Canvas, row: Row, span: Span) {
     val descriptionList = span.splitDescriptionList
     if (span.descriptionWidth <= 0 ||
         descriptionList.isEmpty() ||

@@ -218,11 +218,6 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
       updateScrollGuide();
     }
 
-    void updateForExpandSuggestion(CandidateList candidateList) {
-      super.update(candidateList);
-      updateScrollGuide();
-    }
-
     @Override
     protected Drawable getViewBackgroundDrawable(Skin skin) {
       return skin.conversionCandidateViewBackgroundDrawable;
@@ -267,24 +262,23 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
   }
 
   private InputFrameFoldButtonView getInputFrameFoldButton() {
-    return (InputFrameFoldButtonView) findViewById(R.id.input_frame_fold_button);
+    return findViewById(R.id.input_frame_fold_button);
   }
 
   private ConversionCandidateWordView getConversionCandidateWordView() {
-    return (ConversionCandidateWordView) findViewById(R.id.candidate_word_view);
+    return findViewById(R.id.candidate_word_view);
   }
 
   private ConversionCandidateWordContainerView getConversionCandidateWordContainerView() {
-    return (ConversionCandidateWordContainerView)
-        findViewById(R.id.conversion_candidate_word_container_view);
+    return findViewById(R.id.conversion_candidate_word_container_view);
   }
 
   private ScrollGuideView getScrollGuideView() {
-    return (ScrollGuideView) findViewById(R.id.candidate_scroll_guide_view);
+    return findViewById(R.id.candidate_scroll_guide_view);
   }
 
   private LinearLayout getCandidateWordFrame() {
-    return (LinearLayout) findViewById(R.id.candidate_word_frame);
+    return findViewById(R.id.candidate_word_frame);
   }
 
   /** Updates the view based on {@code Command}. */
@@ -307,11 +301,7 @@ public class CandidateView extends InOutAnimatedFrameLayout implements MemoryMan
     getConversionCandidateWordView().update(allCandidateWords);
   }
 
-  /**
-   * Register callback object.
-   *
-   * @param listener
-   */
+  /** Register callback object. */
   void setViewEventListener(ViewEventListener listener) {
     Preconditions.checkNotNull(listener);
     ConversionCandidateWordView conversionCandidateWordView = getConversionCandidateWordView();

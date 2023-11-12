@@ -205,26 +205,6 @@ public class BufferedDrawable extends Drawable {
   private final Map<DecomposedBitmapMetadata, Collection<DecomposedBitmap>>
       metadataToBitmapCollection = Maps.newHashMap();
 
-  public Drawable getBaseDrawable() {
-    return baseDrawable;
-  }
-
-  /**
-   * Clears the buffer and its internal resources.
-   *
-   * <p>The buffer is never freed automatically so you have to call this method if you want to clear
-   * the buffer. For example when you call setter method which affects rendering result, you have to
-   * call this.
-   */
-  public void clearBuffer() {
-    for (Collection<DecomposedBitmap> bitmaps : metadataToBitmapCollection.values()) {
-      for (DecomposedBitmap bitmap : bitmaps) {
-        bitmap.bitmap.recycle();
-      }
-    }
-    metadataToBitmapCollection.clear();
-  }
-
   private DecomposedBitmapMetadata createDecomposedBitmapMetadata(
       int width, int height, float[] matrixValues) {
     Preconditions.checkArgument(width >= 0);
@@ -578,7 +558,7 @@ public class BufferedDrawable extends Drawable {
     baseDrawable.setColorFilter(cf);
   }
 
-  @SuppressWarnings("deprecation")
+  @SuppressWarnings({"deprecation", "RedundantSuppression"})
   @Override
   public void setColorFilter(int color, Mode mode) {
     baseDrawable.setColorFilter(color, mode);
@@ -669,7 +649,7 @@ public class BufferedDrawable extends Drawable {
     return baseDrawable.canApplyTheme();
   }
 
-  @SuppressWarnings("deprecation")
+  @SuppressWarnings({"deprecation", "RedundantSuppression"})
   @Override
   public int getOpacity() {
     return baseDrawable.getOpacity();

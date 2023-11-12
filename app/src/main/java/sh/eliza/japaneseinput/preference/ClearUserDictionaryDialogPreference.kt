@@ -35,7 +35,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoUserDictionaryStorage.UserDictionaryCommand
 import sh.eliza.japaneseinput.R
 import sh.eliza.japaneseinput.session.SessionExecutor
-import sh.eliza.japaneseinput.session.SessionHandlerFactory
 
 /** A DialogPreference to clear user dictionary. */
 class ClearUserDictionaryDialogPreference
@@ -49,22 +48,15 @@ constructor(
       .apply {
         setTitle(context.getString(R.string.pref_clear_user_dictionary_title))
         setMessage(context.getString(R.string.pref_clear_user_dictionary_description))
-        setPositiveButton(
-            R.string.yes,
-            { _, _ ->
-              val sessionExecutor =
-                SessionExecutor.getInstanceInitializedIfNecessary(
-                  SessionHandlerFactory(getContext()),
-                  getContext()
-                )
-              sessionExecutor.sendUserDictionaryCommand(
-                UserDictionaryCommand.newBuilder()
-                  .setType(UserDictionaryCommand.CommandType.CLEAR_STORAGE)
-                  .build()
-              )
-            }
+        setPositiveButton(R.string.yes) { _, _ ->
+          val sessionExecutor = SessionExecutor.getInstanceInitializedIfNecessary(context)
+          sessionExecutor.sendUserDictionaryCommand(
+            UserDictionaryCommand.newBuilder()
+              .setType(UserDictionaryCommand.CommandType.CLEAR_STORAGE)
+              .build()
           )
-          .setNegativeButton(R.string.no, { _, _ -> })
+        }
+          .setNegativeButton(R.string.no) { _, _ -> }
       }
       .create()
       .show()

@@ -64,12 +64,6 @@ public class MozcLog {
     }
   }
 
-  public static void v(String msg, Throwable e) {
-    if (Log.isLoggable(MozcUtil.LOGTAG, Log.VERBOSE)) {
-      Log.v(MozcUtil.LOGTAG, msg, e);
-    }
-  }
-
   public static void d(String msg) {
     if (Log.isLoggable(MozcUtil.LOGTAG, Log.DEBUG)) {
       Log.d(MozcUtil.LOGTAG, msg);
@@ -85,12 +79,6 @@ public class MozcLog {
   public static void i(String msg) {
     if (Log.isLoggable(MozcUtil.LOGTAG, Log.INFO)) {
       Log.i(MozcUtil.LOGTAG, msg);
-    }
-  }
-
-  public static void i(String msg, Throwable e) {
-    if (Log.isLoggable(MozcUtil.LOGTAG, Log.INFO)) {
-      Log.i(MozcUtil.LOGTAG, msg, e);
     }
   }
 

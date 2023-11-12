@@ -215,7 +215,6 @@ public class ZipFileUtil {
    * @param zipFile the ZipFile to use
    * @param fileName the file name to access
    * @return the ByteBuffer
-   * @throws IOException
    */
   public static ByteBuffer getBuffer(ZipFile zipFile, String fileName) throws IOException {
     ZipEntry zipEntry = zipFile.getEntry(fileName);

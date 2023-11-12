@@ -427,7 +427,7 @@ public class FloatingCandidateView extends View {
     /**
      * Dismisses the candidate window.
      *
-     * <p>Does the very similar things as {@showCandidateWindow}.
+     * <p>Does the very similar things as {@link #showCandidateWindow}.
      */
     private void dismissCandidateWindow() {
       if (isCandidateWindowShowing) {
@@ -529,9 +529,5 @@ public class FloatingCandidateView extends View {
   /** Set view event listener to handle events invoked by the candidate window. */
   public void setViewEventListener(ViewEventListener listener) {
     floatingCandidateViewProxy.setViewEventListener(listener);
-  }
-
-  private Optional<Rect> getVisibleRect() {
-    return floatingCandidateViewProxy.getVisibleRect();
   }
 }

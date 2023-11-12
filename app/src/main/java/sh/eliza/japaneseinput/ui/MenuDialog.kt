@@ -71,7 +71,7 @@ class MenuDialog(context: Context, listener: Optional<MenuDialogListener>) {
     /** Table to convert from a menu item index to a string resource id. */
     private val indexToIdTable: IntArray,
     private val listener: Optional<MenuDialogListener>
-  ) : DialogInterface.OnClickListener, DialogInterface.OnDismissListener, OnShowListener {
+  ) : OnClickListener, OnDismissListener, OnShowListener {
     override fun onShow(dialog: DialogInterface) {
       if (!listener.isPresent) {
         return
@@ -154,7 +154,7 @@ class MenuDialog(context: Context, listener: Optional<MenuDialogListener>) {
     private fun getEnabledMenuIds(context: Context): List<Int> {
       // "Mushroom" item is enabled only when Mushroom-aware applications are available.
       val packageManager = context.packageManager
-      val isMushroomEnabled = !MushroomUtil.getMushroomApplicationList(packageManager).isEmpty()
+      val isMushroomEnabled = MushroomUtil.getMushroomApplicationList(packageManager).isNotEmpty()
       val menuItemIds =
         mutableListOf(
           R.string.menu_item_input_method,

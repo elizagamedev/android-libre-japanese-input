@@ -70,15 +70,13 @@ public class ConfigUtil {
     if (kanaModifierInsensitiveConversion != null) {
       builder =
           maybeCreateConfigBuilder(builder)
-              .setUseKanaModifierInsensitiveConversion(
-                  kanaModifierInsensitiveConversion.booleanValue());
+              .setUseKanaModifierInsensitiveConversion(kanaModifierInsensitiveConversion);
     }
 
     Boolean typingCorrection =
         getBoolean(sharedPreferences, PreferenceUtil.PREF_TYPING_CORRECTION_KEY);
     if (typingCorrection != null) {
-      builder =
-          maybeCreateConfigBuilder(builder).setUseTypingCorrection(typingCorrection.booleanValue());
+      builder = maybeCreateConfigBuilder(builder).setUseTypingCorrection(typingCorrection);
     }
 
     HistoryLearningLevel historyLearningLevel =
@@ -91,7 +89,7 @@ public class ConfigUtil {
     Boolean incognitoMode =
         getBoolean(sharedPreferences, PreferenceUtil.PREF_OTHER_INCOGNITO_MODE_KEY);
     if (incognitoMode != null) {
-      builder = maybeCreateConfigBuilder(builder).setIncognitoMode(incognitoMode.booleanValue());
+      builder = maybeCreateConfigBuilder(builder).setIncognitoMode(incognitoMode);
     }
 
     GeneralConfig generalConfig = toGeneralConfig(sharedPreferences);
@@ -127,7 +125,7 @@ public class ConfigUtil {
     }
 
     // Default value wouldn't be used in actual case, but it is required.
-    return Boolean.valueOf(sharedPreferences.getBoolean(key, false));
+    return sharedPreferences.getBoolean(key, false);
   }
 
   /**
@@ -184,13 +182,5 @@ public class ConfigUtil {
       return builder;
     }
     return Config.newBuilder();
-  }
-
-  private static GeneralConfig.Builder maybeCreateGeneralConfigBuilder(
-      GeneralConfig.Builder builder) {
-    if (builder != null) {
-      return builder;
-    }
-    return GeneralConfig.newBuilder();
   }
 }

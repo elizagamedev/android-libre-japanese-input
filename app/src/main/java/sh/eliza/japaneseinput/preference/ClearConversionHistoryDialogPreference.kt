@@ -34,7 +34,6 @@ import androidx.preference.Preference
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import sh.eliza.japaneseinput.R
 import sh.eliza.japaneseinput.session.SessionExecutor
-import sh.eliza.japaneseinput.session.SessionHandlerFactory
 
 /**
  * A DialogPreference to clear entire history of conversions. This preference command clears all the
@@ -51,19 +50,12 @@ constructor(
       .apply {
         setTitle(context.getString(R.string.pref_clear_symbol_history_title))
         setMessage(context.getString(R.string.pref_clear_symbol_history_description))
-        setPositiveButton(
-            R.string.yes,
-            { _, _ ->
-              val sessionExecutor =
-                SessionExecutor.getInstanceInitializedIfNecessary(
-                  SessionHandlerFactory(getContext()),
-                  getContext()
-                )
-              sessionExecutor.clearUserHistory()
-              sessionExecutor.clearUserPrediction()
-            }
-          )
-          .setNegativeButton(R.string.no, { _, _ -> })
+        setPositiveButton(R.string.yes) { _, _ ->
+          val sessionExecutor = SessionExecutor.getInstanceInitializedIfNecessary(context)
+          sessionExecutor.clearUserHistory()
+          sessionExecutor.clearUserPrediction()
+        }
+          .setNegativeButton(R.string.no) { _, _ -> }
       }
       .create()
       .show()
