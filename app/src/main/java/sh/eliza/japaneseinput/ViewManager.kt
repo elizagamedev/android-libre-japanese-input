@@ -608,7 +608,7 @@ private constructor(
       imeSwitcher.isVoiceImeAvailable)
   }
 
-  override fun setTextForActionButton(text: CharSequence) {
+  override fun setTextForActionButton(text: CharSequence?) {
     // TODO(mozc-team): Implement action button handling.
   }
 
