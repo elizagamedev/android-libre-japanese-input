@@ -39,19 +39,16 @@ import sh.eliza.japaneseinput.preference.PreferenceUtil.PreferenceManagerStaticI
 import sh.eliza.japaneseinput.util.LauncherIconManagerFactory.LauncherIconManager
 
 /** The entry point of the application. */
-class ApplicationInitializer(
-  val context: Context,
-) {
+class ApplicationInitializer(val context: Context) {
   val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
   /**
    * Initializes the application.
    *
    * Updates some preferences. Here we use three preference items.
-   *
    * * pref_welcome_activity_shown: True if the "Welcome" activity has shown at least once.
    * * pref_last_launch_abi_independent_version_code: The latest version number which has launched
-   * at least once.
+   *   at least once.
    * * pref_launched_at_least_once: Deprecated. True if the the IME has launched at least once.
    *
    * Some preferences should be set at the first time launch. If the IME is a system application
@@ -65,18 +62,17 @@ class ApplicationInitializer(
    * removed.
    *
    * @param abiIndependentVersionCode ABI independent version code, typically obtained from [ ]
-   * [MozcUtil.getAbiIndependentVersionCode]
+   *   [MozcUtil.getAbiIndependentVersionCode]
    */
   fun initialize(
     launcherIconManager: LauncherIconManager,
     preferenceManager: PreferenceManagerStaticInterface,
   ) {
     val lastVersionCode =
-      if (sharedPreferences.contains(PreferenceUtil.PREF_LAST_LAUNCH_ABI_INDEPENDENT_VERSION_CODE)
+      if (
+        sharedPreferences.contains(PreferenceUtil.PREF_LAST_LAUNCH_ABI_INDEPENDENT_VERSION_CODE)
       ) {
-        sharedPreferences
-          .getInt(PreferenceUtil.PREF_LAST_LAUNCH_ABI_INDEPENDENT_VERSION_CODE, 0)
-          .toLong()
+        sharedPreferences.getInt(PreferenceUtil.PREF_LAST_LAUNCH_ABI_INDEPENDENT_VERSION_CODE, 0)
       } else {
         null
       }
@@ -89,7 +85,7 @@ class ApplicationInitializer(
       }
 
       // Preferences: Update if this is the first launch
-      if (lastVersionCode != null) {
+      if (lastVersionCode == null) {
         // Store full-screen relating preferences.
         val resources = context.resources
         val portraitMetrics =
@@ -102,21 +98,21 @@ class ApplicationInitializer(
               MozcUtil.getDimensionForOrientation(
                 context,
                 R.dimen.input_frame_height,
-                Configuration.ORIENTATION_PORTRAIT
+                Configuration.ORIENTATION_PORTRAIT,
               )
               // .toDouble()
-              )
+            )
             .toInt(),
           ceil(
               MozcUtil.getDimensionForOrientation(
                 context,
                 R.dimen.input_frame_height,
-                Configuration.ORIENTATION_LANDSCAPE
+                Configuration.ORIENTATION_LANDSCAPE,
               )
               // .toDouble()
-              )
+            )
             .toInt(),
-          resources.getDimensionPixelOffset(R.dimen.fullscreen_threshold)
+          resources.getDimensionPixelOffset(R.dimen.fullscreen_threshold),
         )
       }
       // Update launcher icon visibility and relating preference.
@@ -129,9 +125,9 @@ class ApplicationInitializer(
     } finally {
       editor.putInt(
         PreferenceUtil.PREF_LAST_LAUNCH_ABI_INDEPENDENT_VERSION_CODE,
-        MozcUtil.getVersionCode(context).toInt()
+        MozcUtil.getVersionCode(context).toInt(),
       )
-      editor.apply()
+      editor.commit()
     }
   }
 }
@@ -144,7 +140,7 @@ class ApplicationInitializer(
  */
 private fun getPortraitDisplayMetrics(
   currentMetrics: DisplayMetrics,
-  currentOrientation: Int
+  currentOrientation: Int,
 ): DisplayMetrics {
   val result = DisplayMetrics()
   result.setTo(currentMetrics)
@@ -162,14 +158,14 @@ private fun storeDefaultFullscreenMode(
   landscapeDisplayHeight: Int,
   portraitInputFrameHeight: Int,
   landscapeInputFrameHeight: Int,
-  fullscreenThreshold: Int
+  fullscreenThreshold: Int,
 ) {
-  editor.putBoolean(
-    "pref_portrait_fullscreen_key",
-    portraitDisplayHeight - portraitInputFrameHeight < fullscreenThreshold
-  )
-  editor.putBoolean(
-    "pref_landscape_fullscreen_key",
-    landscapeDisplayHeight - landscapeInputFrameHeight < fullscreenThreshold
-  )
+  val settings = mutableSetOf<String>()
+  if (portraitDisplayHeight - portraitInputFrameHeight < fullscreenThreshold) {
+    settings.add(PreferenceUtil.PREF_PORTRAIT_FULLSCREEN_KEY)
+  }
+  if (landscapeDisplayHeight - landscapeInputFrameHeight < fullscreenThreshold) {
+    settings.add(PreferenceUtil.PREF_LANDSCAPE_FULLSCREEN_KEY)
+  }
+  editor.putStringSet(PreferenceUtil.PREF_FULLSCREEN_KEY, settings)
 }

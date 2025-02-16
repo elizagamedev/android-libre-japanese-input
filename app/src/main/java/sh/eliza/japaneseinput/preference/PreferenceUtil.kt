@@ -66,6 +66,7 @@ object PreferenceUtil {
     "pref_use_portrait_keyboard_settings_for_landscape_key"
 
   // Full screen keys.
+  const val PREF_FULLSCREEN_KEY = "pref_fullscreen"
   const val PREF_PORTRAIT_FULLSCREEN_KEY = "pref_portrait_fullscreen_key"
   const val PREF_LANDSCAPE_FULLSCREEN_KEY = "pref_landscape_fullscreen_key"
 
@@ -90,12 +91,10 @@ object PreferenceUtil {
 
   fun isLandscapeKeyboardSettingActive(
     sharedPreferences: SharedPreferences,
-    deviceOrientation: Int
+    deviceOrientation: Int,
   ): Boolean {
-    return if (sharedPreferences.getBoolean(
-        PREF_USE_PORTRAIT_KEYBOARD_SETTINGS_FOR_LANDSCAPE_KEY,
-        true
-      )
+    return if (
+      sharedPreferences.getBoolean(PREF_USE_PORTRAIT_KEYBOARD_SETTINGS_FOR_LANDSCAPE_KEY, true)
     ) {
       // Always use portrait configuration.
       false
@@ -110,14 +109,14 @@ object PreferenceUtil {
    * @param type a class of enum value
    * @param defaultValue default value if the [SharedPreferences] doesn't have corresponding entry.
    * @param conversionRecoveryValue default value if unknown value is stored. For example, if the
-   * value is "ALPHA" and `type` doesn't have "ALPHA" entry, this argument is returned.
+   *   value is "ALPHA" and `type` doesn't have "ALPHA" entry, this argument is returned.
    */
   fun <T : Enum<T>> getEnum(
     sharedPreference: SharedPreferences?,
     key: String,
     type: Class<T>,
     defaultValue: T,
-    conversionRecoveryValue: T
+    conversionRecoveryValue: T,
   ): T =
     if (sharedPreference == null) {
       defaultValue
@@ -143,14 +142,11 @@ object PreferenceUtil {
     sharedPreference: SharedPreferences?,
     key: String,
     type: Class<T>,
-    defaultValue: T
+    defaultValue: T,
   ): T = getEnum(sharedPreference, key, type, defaultValue, defaultValue)
 
   @JvmStatic
-  fun setDefaultValues(
-    preferenceManager: PreferenceManagerStaticInterface,
-    context: Context,
-  ) {
+  fun setDefaultValues(preferenceManager: PreferenceManagerStaticInterface, context: Context) {
     // 'true' here means the preferences which have not set yet are *always* set here.
     // This doesn't mean *Reset all the preferences*.
     // (if 'false' the process will be done once on the first launch

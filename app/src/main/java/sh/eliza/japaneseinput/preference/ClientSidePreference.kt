@@ -31,6 +31,7 @@ package sh.eliza.japaneseinput.preference
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
+import sh.eliza.japaneseinput.MozcLog
 import sh.eliza.japaneseinput.R
 import sh.eliza.japaneseinput.ViewManagerInterface.LayoutAdjustment
 import sh.eliza.japaneseinput.view.SkinType
@@ -54,7 +55,7 @@ class ClientSidePreference(
   @JvmField val isMicrophoneButtonEnabled: Boolean,
   @JvmField val layoutAdjustment: LayoutAdjustment,
   /** Percentage of keyboard height */
-  @JvmField val keyboardHeightRatio: Int
+  @JvmField val keyboardHeightRatio: Int,
 ) {
   /**
    * Keyboard layout. A user can choose one of the layouts, and then the keyboard (sub)layouts are
@@ -137,41 +138,45 @@ class ClientSidePreference(
           keyboardLayoutKey,
           KeyboardLayout::class.java,
           KeyboardLayout.TWELVE_KEYS,
-          KeyboardLayout.GODAN
+          KeyboardLayout.GODAN,
         )
       val inputStyle =
         PreferenceUtil.getEnum(
           sharedPreferences,
           inputStyleKey,
           InputStyle::class.java,
-          InputStyle.TOGGLE_FLICK
+          InputStyle.TOGGLE_FLICK,
         )
       val isQwertyLayoutForAlphabet =
         sharedPreferences.getBoolean(qwertyLayoutForAlphabetKey, false)
       // On large screen device, pref_portrait_fullscreen_key and pref_landscape_fullscreen_key are
       // omitted so below default value "false" is applied.
-      val isFullscreenMode = sharedPreferences.getBoolean(fullscreenKey, false)
+      val isFullscreenMode =
+        sharedPreferences
+          .getStringSet(PreferenceUtil.PREF_FULLSCREEN_KEY, setOf())
+          ?.contains(fullscreenKey) ?: false
+      MozcLog.e("isFullscreenMode: ${isFullscreenMode}, $fullscreenKey")
       val flickSensitivity = sharedPreferences.getInt(flickSensitivityKey, 0)
       val hardwareKeyMap =
         PreferenceUtil.getEnum(
           sharedPreferences,
           PreferenceUtil.PREF_HARDWARE_KEYMAP,
           HardwareKeyMap::class.java,
-          HardwareKeyMap.DEFAULT
+          HardwareKeyMap.DEFAULT,
         )
       val skinType =
         PreferenceUtil.getEnum(
           sharedPreferences,
           resources.getString(R.string.pref_skin_type_key),
           SkinType::class.java,
-          SkinType.valueOf(resources.getString(R.string.pref_skin_type_default))
+          SkinType.valueOf(resources.getString(R.string.pref_skin_type_default)),
         )
       val layoutAdjustment =
         PreferenceUtil.getEnum(
           sharedPreferences,
           layoutAdjustmentKey,
           LayoutAdjustment::class.java,
-          LayoutAdjustment.FILL
+          LayoutAdjustment.FILL,
         )
       val keyboardHeightRatio = sharedPreferences.getInt(keyboardHeightRatioKey, 100)
 

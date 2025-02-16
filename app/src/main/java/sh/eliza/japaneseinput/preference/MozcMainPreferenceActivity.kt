@@ -28,6 +28,12 @@ class MozcMainPreferenceActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main_preferences_activity)
 
+    ApplicationInitializer(applicationContext)
+      .initialize(
+        LauncherIconManagerFactory.getDefaultInstance(),
+        PreferenceUtil.defaultPreferenceManagerStatic,
+      )
+
     findViewById<MaterialToolbar>(R.id.topAppBar).setNavigationOnClickListener { finish() }
 
     if (savedInstanceState == null) {
@@ -83,14 +89,8 @@ class MozcMainPreferenceFragment : PreferenceFragmentCompat() {
     HardwareKeyboardSpecification.maybeSetDetectedHardwareKeyMap(
       sharedPreferences,
       resources.configuration,
-      false
+      false,
     )
-
-    ApplicationInitializer(requireContext())
-      .initialize(
-        LauncherIconManagerFactory.getDefaultInstance(),
-        PreferenceUtil.defaultPreferenceManagerStatic
-      )
 
     enableKeyboardPreference.isChecked = isInputMethodEnabled()
   }

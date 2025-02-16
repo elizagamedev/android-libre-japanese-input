@@ -53,7 +53,6 @@ import android.view.inputmethod.InputBinding
 import android.view.inputmethod.InputConnection
 import androidx.preference.PreferenceManager
 import com.google.common.base.Optional
-import com.google.common.base.Preconditions
 import java.util.Locale
 import java.util.Objects
 import org.mozc.android.inputmethod.japanese.protobuf.ProtoCandidates
@@ -107,7 +106,7 @@ open class MozcService : InputMethodService() {
           ComposingTextTrackingInputConnection.newInstance(binding.connection),
           binding.connectionToken,
           binding.uid,
-          binding.pid
+          binding.pid,
         )
       )
     }
@@ -119,7 +118,7 @@ open class MozcService : InputMethodService() {
     override fun restartInput(inputConnection: InputConnection?, attribute: EditorInfo) {
       super.restartInput(
         ComposingTextTrackingInputConnection.newInstance(inputConnection),
-        attribute
+        attribute,
       )
     }
   }
@@ -159,8 +158,8 @@ open class MozcService : InputMethodService() {
     }
 
     override fun addHistory(majorCategory: SymbolMajorCategory, value: String) {
-      Preconditions.checkNotNull(majorCategory)
-      Preconditions.checkNotNull(value)
+      checkNotNull(majorCategory)
+      checkNotNull(value)
       // TODO(exv): replace this
       // sessionExecutor.insertToStorage(
       //     STORAGE_TYPE_MAP.get(majorCategory),
@@ -174,7 +173,7 @@ open class MozcService : InputMethodService() {
     override fun onConversionCandidateSelected(
       view: View,
       candidateId: Int,
-      rowIndex: Optional<Int>
+      rowIndex: Optional<Int>,
     ) {
       sessionExecutor.submitCandidate(candidateId, rowIndex, renderResultCallback)
       feedbackManager.fireFeedback(view, FeedbackEvent.CANDIDATE_SELECTED)
@@ -194,7 +193,7 @@ open class MozcService : InputMethodService() {
       view: View,
       majorCategory: SymbolMajorCategory,
       candidate: String,
-      updateHistory: Boolean
+      updateHistory: Boolean,
     ) {
       // Directly commit the text.
       commitText(candidate)
@@ -218,7 +217,7 @@ open class MozcService : InputMethodService() {
       mozcKeyEvent: ProtoCommands.KeyEvent?,
       keyEvent: KeyEventInterface?,
       keyboardSpecification: KeyboardSpecification?,
-      touchEventList: List<TouchEvent>
+      touchEventList: List<TouchEvent>,
     ) {
       if (mozcKeyEvent == null && keyboardSpecification == null) {
         // We don't send a key event to Mozc native layer since {@code mozcKeyEvent} is null, and we
@@ -239,7 +238,7 @@ open class MozcService : InputMethodService() {
         keyEvent,
         keyboardSpecification,
         resources.configuration,
-        touchEventList
+        touchEventList,
       )
     }
 
@@ -275,7 +274,7 @@ open class MozcService : InputMethodService() {
         null,
         KeyboardSpecification.SYMBOL_NUMBER,
         resources.configuration,
-        emptyList<TouchEvent>()
+        emptyList<TouchEvent>(),
       )
       viewManager.onShowSymbolInputView()
     }
@@ -293,7 +292,7 @@ open class MozcService : InputMethodService() {
           null,
           viewManager.keyboardSpecification,
           resources.configuration,
-          emptyList<TouchEvent>()
+          emptyList<TouchEvent>(),
         )
       }
     }
@@ -337,10 +336,10 @@ open class MozcService : InputMethodService() {
   private inner class RenderResultCallback : EvaluationCallback {
     override fun onCompleted(
       command: Optional<Command>,
-      triggeringKeyEvent: Optional<KeyEventInterface>
+      triggeringKeyEvent: Optional<KeyEventInterface>,
     ) {
-      require(Preconditions.checkNotNull(command).isPresent)
-      Preconditions.checkNotNull(triggeringKeyEvent)
+      require(checkNotNull(command).isPresent)
+      checkNotNull(triggeringKeyEvent)
       // TODO(exv): fix this expand suggestion usage
       // if (command.get().getInput().getCommand().getType()
       //     != SessionCommand.CommandType.EXPAND_SUGGESTION) {
@@ -357,9 +356,9 @@ open class MozcService : InputMethodService() {
   private inner class SendKeyToApplicationCallback : EvaluationCallback {
     override fun onCompleted(
       command: Optional<Command>,
-      triggeringKeyEvent: Optional<KeyEventInterface>
+      triggeringKeyEvent: Optional<KeyEventInterface>,
     ) {
-      require(!Preconditions.checkNotNull(command).isPresent)
+      require(!checkNotNull(command).isPresent)
       sendKeyEvent(triggeringKeyEvent.orNull())
     }
   }
@@ -368,10 +367,10 @@ open class MozcService : InputMethodService() {
   private inner class SendKeyToViewCallback : EvaluationCallback {
     override fun onCompleted(
       command: Optional<Command>,
-      triggeringKeyEvent: Optional<KeyEventInterface>
+      triggeringKeyEvent: Optional<KeyEventInterface>,
     ) {
-      require(!Preconditions.checkNotNull(command).isPresent)
-      require(Preconditions.checkNotNull(triggeringKeyEvent).isPresent)
+      require(!checkNotNull(command).isPresent)
+      require(checkNotNull(triggeringKeyEvent).isPresent)
       viewManager.consumeKeyOnViewSynchronously(triggeringKeyEvent.get().nativeEvent.orNull())
     }
   }
@@ -506,7 +505,7 @@ open class MozcService : InputMethodService() {
         viewEventListener,
         symbolHistoryStorage,
         imeSwitcher,
-        MozcMenuDialogListenerImpl(this, viewEventListener)
+        MozcMenuDialogListenerImpl(this, viewEventListener),
       )
 
     // Setup FeedbackManager.
@@ -523,7 +522,7 @@ open class MozcService : InputMethodService() {
       HardwareKeyboardSpecification.maybeSetDetectedHardwareKeyMap(
         sharedPreferences,
         resources.configuration,
-        false
+        false,
       )
     }
 
@@ -551,7 +550,7 @@ open class MozcService : InputMethodService() {
   /** Prepares something which should be done every time when the session is newly created. */
   private fun prepareEveryTime(
     sharedPreferences: SharedPreferences?,
-    deviceConfiguration: Configuration
+    deviceConfiguration: Configuration,
   ) {
     val isLogging =
       (sharedPreferences != null &&
@@ -568,7 +567,7 @@ open class MozcService : InputMethodService() {
       null,
       currentKeyboardSpecification,
       deviceConfiguration,
-      emptyList<TouchEvent>()
+      emptyList<TouchEvent>(),
     )
     if (sharedPreferences != null) {
       propagateClientSidePreference(
@@ -659,7 +658,7 @@ open class MozcService : InputMethodService() {
     selectionTracker.onStartInput(
       attribute.initialSelStart,
       attribute.initialSelEnd,
-      isWebEditText(attribute)
+      isWebEditText(attribute),
     )
   }
 
@@ -737,7 +736,7 @@ open class MozcService : InputMethodService() {
   private fun onKeyDownInternal(
     keyCode: Int,
     event: KeyEvent,
-    configuration: Configuration
+    configuration: Configuration,
   ): Boolean {
     if (MozcLog.isLoggable(Log.DEBUG)) {
       MozcLog.d(
@@ -748,7 +747,7 @@ open class MozcService : InputMethodService() {
           event.metaState,
           event.scanCode,
           event.unicodeChar,
-          event.deviceId
+          event.deviceId,
         )
       )
     }
@@ -774,7 +773,7 @@ open class MozcService : InputMethodService() {
     if (viewManager.isKeyConsumedOnViewAsynchronously(event)) {
       sessionExecutor.sendKeyEvent(
         KeycodeConverter.getKeyEventInterface(event),
-        sendKeyToViewCallback
+        sendKeyToViewCallback,
       )
       return true
     }
@@ -787,7 +786,7 @@ open class MozcService : InputMethodService() {
       HardwareKeyboardSpecification.maybeSetDetectedHardwareKeyMap(
         sharedPreferences,
         configuration,
-        true
+        true,
       )
     }
 
@@ -804,7 +803,7 @@ open class MozcService : InputMethodService() {
         if (event.keyCode == KeyEvent.KEYCODE_BACK) {
           sessionExecutor.sendKeyEvent(
             KeycodeConverter.getKeyEventInterface(event),
-            sendKeyToApplicationCallback
+            sendKeyToApplicationCallback,
           )
           return true
         }
@@ -812,7 +811,7 @@ open class MozcService : InputMethodService() {
         if (viewManager.isKeyConsumedOnViewAsynchronously(event)) {
           sessionExecutor.sendKeyEvent(
             KeycodeConverter.getKeyEventInterface(event),
-            sendKeyToViewCallback
+            sendKeyToViewCallback,
           )
           return true
         }
@@ -824,7 +823,7 @@ open class MozcService : InputMethodService() {
         if (KeycodeConverter.isMetaKey(event)) {
           sessionExecutor.sendKeyEvent(
             KeycodeConverter.getKeyEventInterface(event),
-            sendKeyToApplicationCallback
+            sendKeyToApplicationCallback,
           )
         }
         return true
@@ -850,13 +849,14 @@ open class MozcService : InputMethodService() {
     event: KeyEventInterface?,
     keyboardSpecification: KeyboardSpecification?,
     configuration: Configuration,
-    touchEventList: List<TouchEvent?>?
+    touchEventList: List<TouchEvent?>?,
   ) {
     if (keyboardSpecification != null && currentKeyboardSpecification != keyboardSpecification) {
       // Submit composition on the transition from software KB to hardware KB by key event.
       // This is done only when mozcKeyEvent is non-null (== the key event is a printable
       // character) in order to avoid clearing pre-selected characters by meta keys.
-      if (!currentKeyboardSpecification.isHardwareKeyboard &&
+      if (
+        !currentKeyboardSpecification.isHardwareKeyboard &&
           keyboardSpecification.isHardwareKeyboard &&
           mozcKeyEvent != null
       ) {
@@ -867,7 +867,7 @@ open class MozcService : InputMethodService() {
         event,
         keyboardSpecification,
         configuration,
-        touchEventList
+        touchEventList,
       )
       updateStatusIcon()
     } else if (mozcKeyEvent != null) {
@@ -886,19 +886,19 @@ open class MozcService : InputMethodService() {
     event: KeyEventInterface?,
     keyboardSpecification: KeyboardSpecification,
     configuration: Configuration,
-    touchEventList: List<TouchEvent?>?
+    touchEventList: List<TouchEvent?>?,
   ) {
     // Send Request to change composition table.
     sessionExecutor.updateRequest(
       MozcUtil.getRequestBuilder(resources, keyboardSpecification, configuration).build(),
-      touchEventList
+      touchEventList,
     )
     if (mozcKeyEvent == null) {
       // Change composition mode.
       sessionExecutor.switchInputMode(
         Optional.fromNullable(event),
         keyboardSpecification.compositionMode,
-        renderResultCallback
+        renderResultCallback,
       )
     } else {
       // Send key with composition mode change.
@@ -908,7 +908,7 @@ open class MozcService : InputMethodService() {
           .build(),
         event,
         touchEventList,
-        renderResultCallback
+        renderResultCallback,
       )
     }
     currentKeyboardSpecification = keyboardSpecification
@@ -925,7 +925,8 @@ open class MozcService : InputMethodService() {
 
   /** Shows the status icon basing on the current keyboard spec. */
   private fun showStatusIcon() {
-    if (Objects.requireNonNull(currentKeyboardSpecification.compositionMode) ==
+    if (
+      Objects.requireNonNull(currentKeyboardSpecification.compositionMode) ==
         ProtoCommands.CompositionMode.HIRAGANA
     ) {
       showStatusIcon(R.drawable.status_icon_hiragana)
@@ -962,7 +963,7 @@ open class MozcService : InputMethodService() {
       null,
       currentKeyboardSpecification,
       resources.configuration,
-      emptyList<TouchEvent>()
+      emptyList<TouchEvent>(),
     )
   }
 
@@ -991,10 +992,10 @@ open class MozcService : InputMethodService() {
    *
    * @param command Output message. Rendering is based on this parameter.
    * @param keyEvent Trigger event for this calling. When direct input is needed, this event is sent
-   * to InputConnection.
+   *   to InputConnection.
    */
   private fun renderInputConnection(command: Command, keyEvent: KeyEventInterface?) {
-    Preconditions.checkNotNull(command)
+    checkNotNull(command)
     val inputConnection = currentInputConnection ?: return
     val output = command.output
     if (!output.hasConsumed() || !output.consumed) {
@@ -1007,7 +1008,8 @@ open class MozcService : InputMethodService() {
     // case, the command is consumed by Mozc server and the application cannot get the key event.
     // To avoid such situation, we should send the key event back to application. b/13238551
     // The command itself is consumed by Mozc server, so we should NOT put a return statement here.
-    if (keyEvent != null &&
+    if (
+      keyEvent != null &&
         keyEvent.nativeEvent.isPresent &&
         KeycodeConverter.isMetaKey(keyEvent.nativeEvent.get())
     ) {
@@ -1024,7 +1026,7 @@ open class MozcService : InputMethodService() {
       selectionTracker.onRender(
         if (output.hasDeletionRange()) output.deletionRange else null,
         if (output.hasResult()) output.result.value else null,
-        if (output.hasPreedit()) output.preedit else null
+        if (output.hasPreedit()) output.preedit else null,
       )
     } finally {
       inputConnection.endBatchEdit()
@@ -1054,7 +1056,7 @@ open class MozcService : InputMethodService() {
             nativeKeyEvent.get(),
             SystemClock.uptimeMillis(),
             nativeKeyEvent.get().action,
-            nativeKeyEvent.get().repeatCount
+            nativeKeyEvent.get().repeatCount,
           )
         )
         return
@@ -1112,7 +1114,8 @@ open class MozcService : InputMethodService() {
     // If custom action label is specified (=non-null), special action id is also specified.
     // If there is no IME_FLAG_NO_ENTER_ACTION option, we should send the id to the InputConnection.
     val editorInfo = currentInputEditorInfo
-    if (editorInfo != null &&
+    if (
+      editorInfo != null &&
         editorInfo.imeOptions and EditorInfo.IME_FLAG_NO_ENTER_ACTION == 0 &&
         editorInfo.actionLabel != null
     ) {
@@ -1127,8 +1130,8 @@ open class MozcService : InputMethodService() {
   }
 
   private fun setComposingText(command: Command, inputConnection: InputConnection) {
-    Preconditions.checkNotNull(command)
-    Preconditions.checkNotNull(inputConnection)
+    checkNotNull(command)
+    checkNotNull(inputConnection)
     val output = command.output
     if (!output.hasPreedit()) {
       // If preedit field is empty, we should clear composing text in the InputConnection
@@ -1141,7 +1144,8 @@ open class MozcService : InputMethodService() {
       // To avoid from this issue, we don't clear the composing text if the input
       // is SWITCH_INPUT_MODE.
       val input = command.input
-      if (input.type != ProtoCommands.Input.CommandType.SEND_COMMAND ||
+      if (
+        input.type != ProtoCommands.Input.CommandType.SEND_COMMAND ||
           input.command.type != SessionCommand.CommandType.SWITCH_INPUT_MODE
       ) {
         if (!inputConnection.setComposingText("", 0)) {
@@ -1164,7 +1168,8 @@ open class MozcService : InputMethodService() {
     // Draw cursor if in composition mode.
     val cursor = preedit.cursor
     val spanFlags = Spanned.SPAN_EXCLUSIVE_EXCLUSIVE or Spanned.SPAN_COMPOSING
-    if (output.hasAllCandidateWords() &&
+    if (
+      output.hasAllCandidateWords() &&
         output.allCandidateWords.hasCategory() &&
         output.allCandidateWords.category == ProtoCandidates.Category.CONVERSION
     ) {
@@ -1177,7 +1182,7 @@ open class MozcService : InputMethodService() {
           else BackgroundColorSpan(CONVERT_NORMAL_COLOR),
           offsetInString,
           offsetInString + length,
-          spanFlags
+          spanFlags,
         )
         offsetInString += length
       }
@@ -1190,7 +1195,7 @@ open class MozcService : InputMethodService() {
           SPAN_PARTIAL_SUGGESTION_COLOR,
           cursorOffsetInString,
           builder.length,
-          spanFlags
+          spanFlags,
         )
       }
       if (cursor > 0) {
@@ -1244,24 +1249,28 @@ open class MozcService : InputMethodService() {
    */
   private fun propagateClientSidePreference(newPreference: ClientSidePreference) {
     val oldPreference = propagatedClientSidePreference
-    if (oldPreference == null ||
+    if (
+      oldPreference == null ||
         oldPreference.isHapticFeedbackEnabled != newPreference.isHapticFeedbackEnabled
     ) {
       feedbackManager.isHapticFeedbackEnabled = newPreference.isHapticFeedbackEnabled
     }
-    if (oldPreference == null ||
+    if (
+      oldPreference == null ||
         oldPreference.isSoundFeedbackEnabled != newPreference.isSoundFeedbackEnabled
     ) {
       feedbackManager.isSoundFeedbackEnabled = newPreference.isSoundFeedbackEnabled
     }
-    if (oldPreference == null ||
+    if (
+      oldPreference == null ||
         oldPreference.soundFeedbackVolume != newPreference.soundFeedbackVolume
     ) {
       // The default value is 0.4f. In order to set the 50 to the default value, divide the
       // preference value by 125f heuristically.
       feedbackManager.soundFeedbackVolume = newPreference.soundFeedbackVolume / 125f
     }
-    if (oldPreference == null ||
+    if (
+      oldPreference == null ||
         oldPreference.isPopupFeedbackEnabled != newPreference.isPopupFeedbackEnabled
     ) {
       viewManager.setPopupEnabled(newPreference.isPopupFeedbackEnabled)
@@ -1272,7 +1281,8 @@ open class MozcService : InputMethodService() {
     if (oldPreference == null || oldPreference.inputStyle !== newPreference.inputStyle) {
       viewManager.setInputStyle(newPreference.inputStyle)
     }
-    if (oldPreference == null ||
+    if (
+      oldPreference == null ||
         oldPreference.isQwertyLayoutForAlphabet != newPreference.isQwertyLayoutForAlphabet
     ) {
       viewManager.setQwertyLayoutForAlphabet(newPreference.isQwertyLayoutForAlphabet)
@@ -1290,7 +1300,8 @@ open class MozcService : InputMethodService() {
     if (oldPreference == null || oldPreference.skinType != newPreference.skinType) {
       viewManager.setSkin(newPreference.skinType.getSkin(resources))
     }
-    if (oldPreference == null ||
+    if (
+      oldPreference == null ||
         oldPreference.isMicrophoneButtonEnabled != newPreference.isMicrophoneButtonEnabled
     ) {
       viewManager.setMicrophoneButtonEnabledByPreference(newPreference.isMicrophoneButtonEnabled)
@@ -1298,7 +1309,8 @@ open class MozcService : InputMethodService() {
     if (oldPreference == null || oldPreference.layoutAdjustment != newPreference.layoutAdjustment) {
       viewManager.setLayoutAdjustment(newPreference.layoutAdjustment)
     }
-    if (oldPreference == null ||
+    if (
+      oldPreference == null ||
         oldPreference.keyboardHeightRatio != newPreference.keyboardHeightRatio
     ) {
       viewManager.setKeyboardHeightRatio(newPreference.keyboardHeightRatio)
@@ -1340,7 +1352,7 @@ open class MozcService : InputMethodService() {
         createFromSharedPreferences(
           sharedPreferences,
           resources,
-          resources.configuration.orientation
+          resources.configuration.orientation,
         )
       )
       sessionExecutor.config = ConfigUtil.toConfig(sharedPreferences)
@@ -1376,7 +1388,7 @@ open class MozcService : InputMethodService() {
     selectionTracker.onConfigurationChanged()
     sessionExecutor.updateRequest(
       MozcUtil.getRequestBuilder(resources, currentKeyboardSpecification, newConfig).build(),
-      emptyList()
+      emptyList(),
     )
 
     // NOTE : This method is not called at the time when the service is started.
@@ -1384,9 +1396,9 @@ open class MozcService : InputMethodService() {
     // because they change based on device config.
     propagateClientSidePreference(
       createFromSharedPreferences(
-        Preconditions.checkNotNull(PreferenceManager.getDefaultSharedPreferences(this)),
+        checkNotNull(PreferenceManager.getDefaultSharedPreferences(this)),
         resources,
-        newConfig.orientation
+        newConfig.orientation,
       )
     )
     viewManager.onConfigurationChanged(newConfig)
@@ -1405,7 +1417,7 @@ open class MozcService : InputMethodService() {
     newSelStart: Int,
     newSelEnd: Int,
     candidatesStart: Int,
-    candidatesEnd: Int
+    candidatesEnd: Int,
   ) {
     MozcLog.d("start MozcService#onUpdateSelectionInternal " + System.nanoTime())
     val updateStatus =
@@ -1416,7 +1428,7 @@ open class MozcService : InputMethodService() {
         newSelEnd,
         candidatesStart,
         candidatesEnd,
-        applicationCompatibility.isIgnoringMoveToTail
+        applicationCompatibility.isIgnoringMoveToTail,
       )
     when (updateStatus) {
       SelectionTracker.DO_NOTHING -> {}
@@ -1454,7 +1466,7 @@ open class MozcService : InputMethodService() {
     newSelStart: Int,
     newSelEnd: Int,
     candidatesStart: Int,
-    candidatesEnd: Int
+    candidatesEnd: Int,
   ) {
     onUpdateSelectionInternal(
       oldSelStart,
@@ -1462,7 +1474,7 @@ open class MozcService : InputMethodService() {
       newSelStart,
       newSelEnd,
       candidatesStart,
-      candidatesEnd
+      candidatesEnd,
     )
     super.onUpdateSelection(
       oldSelStart,
@@ -1470,7 +1482,7 @@ open class MozcService : InputMethodService() {
       newSelStart,
       newSelEnd,
       candidatesStart,
-      candidatesEnd
+      candidatesEnd,
     )
   }
 
@@ -1550,7 +1562,7 @@ private fun maybeCommitMushroomResult(attribute: EditorInfo, connection: InputCo
 }
 
 private fun enableCursorAnchorInfo(connection: InputConnection): Boolean {
-  Preconditions.checkNotNull(connection)
+  checkNotNull(connection)
   return connection.requestCursorUpdates(
     InputConnection.CURSOR_UPDATE_IMMEDIATE or InputConnection.CURSOR_UPDATE_MONITOR
   )
@@ -1574,7 +1586,7 @@ private fun createKeyEvent(
   original: KeyEvent,
   eventTime: Long,
   action: Int,
-  repeatCount: Int
+  repeatCount: Int,
 ): KeyEvent {
   return KeyEvent(
     original.downTime,
@@ -1585,7 +1597,7 @@ private fun createKeyEvent(
     original.metaState,
     original.deviceId,
     original.scanCode,
-    original.flags
+    original.flags,
   )
 }
 
