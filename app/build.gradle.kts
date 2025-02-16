@@ -32,7 +32,7 @@ task<Exec>("generateSvgTemplateZip") {
     "python",
     svgImageTransformScript,
     "--input_dir=$svgImageTemplateDir",
-    "--output_zip=$svgImageTemplateOutput"
+    "--output_zip=$svgImageTemplateOutput",
   )
 }
 
@@ -43,15 +43,7 @@ task<Exec>("generateSvgAsIsZip") {
   inputs.files(svgImageAsIsDir)
   outputs.files(svgImageAsIsOutput)
 
-  commandLine(
-    "zip",
-    "-q",
-    "-1",
-    "-j",
-    "-r",
-    svgImageAsIsOutput,
-    svgImageAsIsDir,
-  )
+  commandLine("zip", "-q", "-1", "-j", "-r", svgImageAsIsOutput, svgImageAsIsDir)
 }
 
 val genMozcDrawableScript = "scripts/gen_mozc_drawable.py"
@@ -70,7 +62,7 @@ task<Exec>("generateMozcDrawable") {
     genMozcDrawableScript,
     "--svg_paths=$svgImageAsIsOutput,$svgImageTemplateOutput",
     "--output_dir=$generatedResDir/raw",
-    "--build_log=$genMozcDrawableLog"
+    "--build_log=$genMozcDrawableLog",
   )
 }
 
@@ -87,7 +79,7 @@ task<Exec>("generateEmojiData") {
     "python",
     genEmojiDataScript,
     "--emoji_data=$emojiData",
-    "--output=$generatedEmojiDataFile"
+    "--output=$generatedEmojiDataFile",
   )
 }
 
@@ -157,8 +149,8 @@ android {
     applicationId = "sh.eliza.japaneseinput"
     minSdk = 26
     targetSdk = 34
-    versionCode = 101
-    versionName = "0.1.1"
+    versionCode = 102
+    versionName = "0.1.2"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
